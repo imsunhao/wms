@@ -1,8 +1,8 @@
-// TODO next 用户登录测试
+// TODO 用户登录 测试成功
 
 var express = require('express');
 var router = express.Router();
-var http = require('http');
+var request = require('request');
 
 
 router.param('_id', function (req, res, next, id) {
@@ -28,42 +28,57 @@ router.post('/login', function (req, res, next) {
     //TODO      图片验证
 
     // TODO  now   请求服务器
-
     /*<debug>*/
     console.log("请求字符串为:");
     console.log(req.body);
     /*</debug>*/
-    var server=require('../serverConfig/server/wmsServerHost.json');
-    var request=http.request({},function (serverFeedback) {
-        if(serverFeedback.statusCode==200){
+    var server = require('../serverConfig/server/wmsServerHost.json');
+    var data = req.body.username + '/' + req.body.password;
 
+    /*<debug>*/
+    console.log("url:\t"+server.url + data);
+    /*</debug>*/
+    request({
+        method: "GET",
+        json: true,
+        url: server.url + data,                         //ceshi/123456
+        headers: {"Content-Type": 'application/json'}
+    },function (error,response,json) {
+        if (!error && response.statusCode == 200) {
+            /*<debug>*/
+            console.log('------接口数据------\n', json);
+            /*</debug>*/
+            var status = require('../serverConfig/statusConfig.js');
+            var message = status[json.status];
+            switch (json.status) {
+                case 1:
+                    var User = json.rmsUser;
+                    //不能发布的数据定义
+                    User.loginPassword = null;
+                    delete User.loginPassword;
+
+                    //注册 session
+                    req.session.user = User;
+
+                    console.log("用户:\t" + User.name + "\t登录成功");
+
+                    if (typeof (req.body.originalUrl) !== 'undefined') {
+                        return res.send({url: req.body.originalUrl});
+                    } else return res.send({url: "/"});
+                case 0:
+                case 2:
+                case 3:
+                    return res.send({
+                        status: status,
+                        message: mgessage
+                    });
+                default:
+                    next(10086);
+            }
         }
     });
 
-    var state = 200;
-    var json = userInfo;
 
-    switch (json.auth) {
-        case 200:
-            var User = json.user;
-            //不能发布的数据定义
-            User.password = null;
-            delete User.password;
-
-            //注册 session
-            req.session.user = User;
-
-            console.log("用户:\t" + User.name + "\t登录成功");
-
-            if (typeof (req.body.originalUrl) !== 'undefined') {
-                return res.send({url: req.body.originalUrl});
-            } else return res.send({url: "/"});
-            break;
-        case 400:
-            break;
-        default:
-            res.next(10086);
-    }
 });
 
 // TODO   登出测试

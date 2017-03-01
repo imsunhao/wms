@@ -1,0 +1,273 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+html {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+
+q {
+  &:before, &:after {
+    content: "";
+    content: none;
+  }
+}
+
+blockquote {
+  &:before, &:after {
+    content: "";
+    content: none;
+  }
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  background-color: #001723;
+  font-family: "微软雅黑";
+}
+
+input, button {
+  font-family: "微软雅黑";
+  color: #444;
+}
+
+a {
+  font-family: "微软雅黑";
+  cursor: pointer;
+}
+
+button, input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.box-1, .box-2, .box-3, .box-4, .box-5, .box-6 {
+  background-image: url("images/box-sa5e333d0b0.png");
+  background-repeat: no-repeat;
+}
+
+.box-1 {
+  background-position: 0 0;
+}
+
+.box-2 {
+  background-position: 0 -114px;
+}
+
+.box-3 {
+  background-position: 0 -228px;
+}
+
+.box-4 {
+  background-position: 0 -342px;
+}
+
+.box-5 {
+  background-position: 0 -456px;
+}
+
+.box-6 {
+  background-position: 0 -570px;
+}
+
+.center {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  margin-top: 15%;
+  width: 600px;
+  height: 324px;
+  background-color: #e9eaea;
+  box-shadow: 0 0 5px 0 #000a0e, 0 5px 7px 0 #000a0e;
+  overflow: hidden;
+  *zoom: 1;
+  .left, .right {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    float: left;
+  }
+  .left {
+    text-align: center;
+    .box {
+      position: absolute;
+      width: 114px;
+      height: 114px;
+      top: 66px;
+      left: 96px;
+      transform-style: preserve-3d;
+      li {
+        height: 114px;
+        width: 114px;
+        position: absolute;
+        &:nth-child(1) {
+          transform: rotateX(90deg) translateZ(57px);
+        }
+        &:nth-child(2) {
+          transform: rotateX(90deg) rotateY(180deg) translateZ(57px);
+        }
+        &:nth-child(3) {
+          transform: rotateY(90deg) translateZ(-57px);
+        }
+        &:nth-child(4) {
+          transform: rotateY(90deg) translateZ(57px);
+        }
+        &:nth-child(5) {
+          transform: translateZ(57px);
+        }
+        &:nth-child(6) {
+          transform: translateZ(-57px) rotateX(180deg);
+        }
+      }
+    }
+    h3 {
+      padding-top: 247px;
+      line-height: 16px;
+      font-size: 14px;
+      color: #555;
+    }
+    p {
+      padding-top: 5px;
+      line-height: 13px;
+      font-size: 11px;
+      color: #bbb;
+    }
+  }
+  .right {
+    &:before {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 43px;
+      display: block;
+      width: 44px;
+      height: 18px;
+      background-color: #f0d748;
+    }
+    &:after {
+      content: "";
+      width: 1px;
+      height: 100%;
+      background-color: #ddd;
+      position: absolute;
+      display: block;
+      left: -1px;
+      top: 0;
+    }
+    .inner {
+      margin: 0 60px;
+      h3 {
+        color: #4b89b4;
+        margin-top: 40px;
+        line-height: 20px;
+        font-size: 18px;
+      }
+      p {
+        padding-top: 5px;
+        font-size: 14px;
+        color: #aaa;
+        a {
+          float: right;
+          font-size: 11px;
+          color: #bbb;
+        }
+      }
+      form {
+        padding-top: 15px;
+        > div {
+          margin-top: 24px;
+          font-size: 14px;
+          color: #ccc;
+          height: 32px;
+          overflow: hidden;
+          *zoom: 1;
+          border-bottom: 2px solid #4b89b4;
+          label {
+            display: block;
+            padding-right: 5px;
+            line-height: 32px;
+            float: left;
+          }
+          input {
+            width: 125px;
+            line-height: 32px;
+            display: block;
+            font-size: 14px;
+            border: none;
+            outline: none;
+            float: left;
+            background-color: #e9eaea;
+          }
+        }
+        input[type="submit"] {
+          border: none;
+          outline: none;
+          margin-top: 28px;
+          line-height: 32px;
+          height: 32px;
+          display: block;
+          width: 100%;
+          background-color: #4b89b4;
+          color: #fff;
+          font-size: 14px;
+        }
+        .ac {
+          color: #4b89b4;
+          input {
+            color: #4b89b4;
+            &:-moz-placeholder, &::-moz-placeholder, &:-ms-input-placeholder, &::-webkit-input-placeholder {
+              color: #4b89b4;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes box3d {
+  form {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+
+  to {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}

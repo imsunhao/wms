@@ -129,7 +129,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 
-var mongoDBConfig=require('./serverConfig/mongoBDConfig.json');       //网络数据库 配置
+var mongoDBConfig=require('./serverConfig/server/mongoBDConfig.json');       //网络数据库 配置
 var MongoStore = require('connect-mongo')(session);                      //提供 session  数据库依赖
 
 mongoose.Promise = global.Promise;
@@ -218,8 +218,14 @@ app.use(session({
  /*     功能           见注释
  /*
  */
-app.use('/', function(req, res, next) {
+app.use(function(req, res, next) {
     //demo req.originalUrl.match(/\/article\/read\/.*/)
+    /*<debug>*/
+    console.log("---------启用验证！------------------");
+    console.log(req.session.user);
+    console.log(req.originalUrl);
+    console.log("--------------------------------------");
+    /*</debug>*/
     if(req.session.user||req.originalUrl=='/users/login'){
         next();
     }else{

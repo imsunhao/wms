@@ -455,5 +455,7 @@ window.onload = function () {
             /*</prod>*/
         }
     }
+    document.getElementById('username').onclick=function () {document.getElementById('usernameDiv').className="ac";document.getElementById('passwordDiv').className="";};
+    document.getElementById('password').onclick=function () {document.getElementById('passwordDiv').className="ac";document.getElementById('usernameDiv').className="";}
 };
 
