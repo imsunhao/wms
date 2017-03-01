@@ -1,0 +1,25 @@
+body{
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.header{
+  max-height: 60px;
+}
+
+.header{
+  .user{
+    .el-submenu.is-active {
+      .el-submenu__title{
+        border-bottom: none !important;
+      }
+    }
+  }
+}
+
+.content{
+  #showing{
+    width: 600px;
+    margin: 20px auto;
+  }
+}

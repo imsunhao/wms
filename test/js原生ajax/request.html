@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+  </body>
+  <script type="text/javascript" src="ajax.js"></script>
+  <script type="text/javascript">
+    Ajax({
+      url:"../jsonp1.php",
+      dataType:"jsonp",
+      success:function (data) {
+        console.log(data);
+      }
+    });
+
+    Ajax({
+      url:"../jsonp1.php",
+      dataType:"jsonp",
+      success:function (data) {
+        console.log(data);
+      }
+    });
+
+    Ajax({
+      url:"../jsonp1.php",
+      dataType:"jsonp",
+      success:function (data) {
+        console.log(data);
+      }
+    });
+  </script>
+
+  <!-- 跨域请求的实现 -->
+   <script type="text/javascript">
+    function callBack(data) {
+      console.log(data);
+    }
+  </script>
+  <!--<script type="text/javascript" src="http://172.18.13.150/jsonp1.php?cb=callBack"></script> -->
+
+</html>
