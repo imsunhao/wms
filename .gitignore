@@ -6,7 +6,7 @@
 *.tmp
 *.temp
 
-node_modules
+node_modules/
 npm-debug.log
 
 temp/
@@ -16,6 +16,4 @@ UI/
 
 log/
 
-server/public/
-server/views/
-server/serverConfig/server/
+server/

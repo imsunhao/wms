@@ -25,7 +25,7 @@ $(function () {
         unbind: function () {
             console.log('unbind');
         }
-    });
+    });                 //Vue与ECharts的接口
     app = new Vue({
         el: '#app',
         prop: {},
@@ -57,9 +57,14 @@ $(function () {
                 console.log('userSelect!');
             },
             handleNodeClick: function (data) {      //nav-slider 点击事件
+                /*<debug>*/
                 console.log(this.breadcrumb);
+                console.log(data);
+                /*</debug>*/
                 if (this.breadcrumb.length == 2) this.breadcrumb.pop();
                 this.breadcrumb.push(data.label);
+                // TODO 切换 content
+
             },
             filterNode: function (value, data) {    //nav-slider 过滤文字
                 if (!value) return true;
@@ -149,7 +154,7 @@ $(function () {
 
                         //加载 首页
                         // $("#showing").load("/static/page/inputSelect/inputSelect.html", function() {     //加载 入库查询
-                        $("#showing").load("/static/page/home/home.html", function() {        //加载 首页
+                        $("#showing").load("/home/home.html", function() {        //加载 首页
                             /*<debug>*/
                             console.log("Load was performed.");
                             /*</debug>*/

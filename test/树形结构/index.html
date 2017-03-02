@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+</head>
+
+<body>
+<script>
+    var jsonStr = {
+        "status": 1,
+        "rmsUser": {
+            "userId": 1,
+            "userName": "超级管理员",
+            "loginName": "admin",
+            "loginPassword": "d135f41faa533e92dcff73f9179670bc",
+            "phone": "15098879708",
+            "zoneNo": null,
+            "telephone": "1234567",
+            "email": "infchd@hotmail.com",
+            "sex": true,
+            "birthday": null,
+            "homeaddress": null,
+            "qicq": null,
+            "createTime": 1474165944000,
+            "lastModifiedTime": 1474301742000,
+            "status": 1,
+            "salt": "HKJID",
+            "userType": 1,
+            "userZyq": "A,B",
+            "remarks": null,
+            "ispda": true
+        },
+        "baseMenus": [{
+            "menuId": 39,
+            "menuCode": "0121",
+            "menuType": "widget2",
+            "menuIcon": "icon fa fa-meh-o",
+            "parentMenuId": 35,
+            "menuName": "入库日报",
+            "orderNumber": 1,
+            "menuLevel": 3,
+            "url": "main/rkrbmanager",
+            "createTime": 1484720665000,
+            "modifyTime": 1484720762000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 19,
+            "menuCode": "0311",
+            "menuType": "widget2",
+            "menuIcon": "menu-icon",
+            "parentMenuId": 16,
+            "menuName": "系统用户管理",
+            "orderNumber": 1,
+            "menuLevel": 3,
+            "url": "configsys/authority/usermanager",
+            "createTime": 1480993204000,
+            "modifyTime": 1481011973000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 34,
+            "menuCode": "011",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon glyphicon glyphicon-save",
+            "parentMenuId": 1,
+            "menuName": "入库单据查询",
+            "orderNumber": 1,
+            "menuLevel": 2,
+            "url": "main/rkdjcx",
+            "createTime": 1481091237000,
+            "modifyTime": 1481091240000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 21,
+            "menuCode": "041",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon glyphicon glyphicon-thumbs-up",
+            "parentMenuId": 4,
+            "menuName": "客户配置管理",
+            "orderNumber": 1,
+            "menuLevel": 2,
+            "url": "configmfun/clientmanager",
+            "createTime": 1480993315000,
+            "modifyTime": 1481011979000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 30,
+            "menuCode": "061",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon glyphicon glyphicon-copyright-mark",
+            "parentMenuId": 6,
+            "menuName": "公司信息及开发组",
+            "orderNumber": 1,
+            "menuLevel": 2,
+            "url": "aboutus/company",
+            "createTime": 1480994007000,
+            "modifyTime": 1481012011000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 43,
+            "menuCode": null,
+            "menuType": null,
+            "menuIcon": "menu-icon glyphicon glyphicon-book",
+            "parentMenuId": 38,
+            "menuName": "仓库列表",
+            "orderNumber": 1,
+            "menuLevel": null,
+            "url": null,
+            "createTime": 1486200028000,
+            "modifyTime": 1487838404000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 16,
+            "menuCode": "031",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon glyphicon glyphicon-user",
+            "parentMenuId": 3,
+            "menuName": "系统权限配置",
+            "orderNumber": 1,
+            "menuLevel": 2,
+            "url": "configsys/authority",
+            "createTime": 1480992929000,
+            "modifyTime": 1481011964000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 1,
+            "menuCode": "01",
+            "menuType": "header",
+            "menuIcon": "icon fa fa-cog",
+            "parentMenuId": 0,
+            "menuName": "业务查询",
+            "orderNumber": 1,
+            "menuLevel": 1,
+            "url": "/main",
+            "createTime": 1480992095000,
+            "modifyTime": 1480992101000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 28,
+            "menuCode": "051",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon glyphicon glyphicon-exclamation-sign",
+            "parentMenuId": 5,
+            "menuName": "debug/5error/info",
+            "orderNumber": 1,
+            "menuLevel": 2,
+            "url": "syslog/debuginfoerror",
+            "createTime": 1480993916000,
+            "modifyTime": 1481012008000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 20,
+            "menuCode": "0312",
+            "menuType": "widget2",
+            "menuIcon": "menu-icon",
+            "parentMenuId": 16,
+            "menuName": "系统角色管理",
+            "orderNumber": 2,
+            "menuLevel": 3,
+            "url": "configsys/authority/rolemanager",
+            "createTime": 1480993262000,
+            "modifyTime": 1481011976000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 33,
+            "menuCode": "011",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon glyphicon glyphicon-open",
+            "parentMenuId": 1,
+            "menuName": "出库单据查询",
+            "orderNumber": 2,
+            "menuLevel": 2,
+            "url": "main/ckdjcx",
+            "createTime": 1481091107000,
+            "modifyTime": 1481091146000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 22,
+            "menuCode": "042",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon glyphicon glyphicon-home",
+            "parentMenuId": 4,
+            "menuName": "仓库配置管理",
+            "orderNumber": 2,
+            "menuLevel": 2,
+            "url": "configmfun/arehousemanager",
+            "createTime": 1480993366000,
+            "modifyTime": 1481011982000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 31,
+            "menuCode": "062",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon glyphicon glyphicon-registration-mark",
+            "parentMenuId": 6,
+            "menuName": "联系方式及系统授权",
+            "orderNumber": 2,
+            "menuLevel": 2,
+            "url": "aboutus/phone",
+            "createTime": 1480994052000,
+            "modifyTime": 1481013730000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 44,
+            "menuCode": null,
+            "menuType": null,
+            "menuIcon": "menu-icon glyphicon glyphicon-book",
+            "parentMenuId": 38,
+            "menuName": "账户管理",
+            "orderNumber": 2,
+            "menuLevel": null,
+            "url": null,
+            "createTime": 1486200049000,
+            "modifyTime": 1487924808000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 29,
+            "menuCode": "052",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon glyphicon glyphicon-send",
+            "parentMenuId": 5,
+            "menuName": "用户登录统计",
+            "orderNumber": 2,
+            "menuLevel": 2,
+            "url": "syslog/userlogininfo",
+            "createTime": 1480993957000,
+            "modifyTime": 1481012010000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 17,
+            "menuCode": "032",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon \r\nglyphicon glyphicon-th-list",
+            "parentMenuId": 3,
+            "menuName": "系统菜单配置",
+            "orderNumber": 2,
+            "menuLevel": 2,
+            "url": "configsys/menu",
+            "createTime": 1480993007000,
+            "modifyTime": 1481011967000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 40,
+            "menuCode": "0122",
+            "menuType": "widget2",
+            "menuIcon": null,
+            "parentMenuId": 35,
+            "menuName": "出库日报",
+            "orderNumber": 2,
+            "menuLevel": 3,
+            "url": "main/ckrbmanager",
+            "createTime": 1484723490000,
+            "modifyTime": 1484724509000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 3,
+            "menuCode": "03",
+            "menuType": "header",
+            "menuIcon": "icon fa fa-cog",
+            "parentMenuId": 0,
+            "menuName": "系统设置",
+            "orderNumber": 3,
+            "menuLevel": 1,
+            "url": "/configsys",
+            "createTime": 1480992249000,
+            "modifyTime": 1480992252000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 18,
+            "menuCode": "033",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon glyphicon glyphicon-book",
+            "parentMenuId": 3,
+            "menuName": "字典配置",
+            "orderNumber": 3,
+            "menuLevel": 2,
+            "url": "configsys/item",
+            "createTime": 1480993078000,
+            "modifyTime": 1481011970000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 41,
+            "menuCode": "0123",
+            "menuType": "widget2",
+            "menuIcon": null,
+            "parentMenuId": 35,
+            "menuName": "仓库查询",
+            "orderNumber": 3,
+            "menuLevel": 3,
+            "url": "main/ckmanager",
+            "createTime": 1484724505000,
+            "modifyTime": 1484724507000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 35,
+            "menuCode": "012",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon glyphicon glyphicon-home",
+            "parentMenuId": 1,
+            "menuName": "库存信息查询",
+            "orderNumber": 3,
+            "menuLevel": 2,
+            "url": "main",
+            "createTime": 1481094983000,
+            "modifyTime": 1481094986000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 23,
+            "menuCode": "043",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon glyphicon glyphicon-picture",
+            "parentMenuId": 4,
+            "menuName": "仓库平面图配置",
+            "orderNumber": 3,
+            "menuLevel": 2,
+            "url": "configmfun/arehouseplanmanager",
+            "createTime": 1480993411000,
+            "modifyTime": 1481011986000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 32,
+            "menuCode": "063",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon glyphicon glyphicon-subtitles",
+            "parentMenuId": 6,
+            "menuName": "版权信息",
+            "orderNumber": 3,
+            "menuLevel": 2,
+            "url": "aboutus/atinfo",
+            "createTime": 1480994103000,
+            "modifyTime": 1481013733000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 24,
+            "menuCode": "044",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon glyphicon glyphicon-calendar",
+            "parentMenuId": 4,
+            "menuName": "储位组配置管理",
+            "orderNumber": 4,
+            "menuLevel": 2,
+            "url": "configmfun/groupmanager",
+            "createTime": 1480993720000,
+            "modifyTime": 1481011995000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 4,
+            "menuCode": "04",
+            "menuType": "header",
+            "menuIcon": "icon fa fa-bookmark",
+            "parentMenuId": 0,
+            "menuName": "业务字典",
+            "orderNumber": 4,
+            "menuLevel": 1,
+            "url": "/configmfun",
+            "createTime": 1480992297000,
+            "modifyTime": 1480992311000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 25,
+            "menuCode": "045",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon \r\nglyphicon glyphicon-tree-deciduous",
+            "parentMenuId": 4,
+            "menuName": "货品配置",
+            "orderNumber": 5,
+            "menuLevel": 2,
+            "url": "configmfun/goodsmanager",
+            "createTime": 1480993766000,
+            "modifyTime": 1481011997000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 5,
+            "menuCode": "05",
+            "menuType": "header",
+            "menuIcon": "icon fa fa-stack-exchange",
+            "parentMenuId": 0,
+            "menuName": "系统维护",
+            "orderNumber": 5,
+            "menuLevel": 1,
+            "url": "/syslog",
+            "createTime": 1480992329000,
+            "modifyTime": 1487751999000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 38,
+            "menuCode": "07",
+            "menuType": "header",
+            "menuIcon": "icon fa fa-meh-o",
+            "parentMenuId": 0,
+            "menuName": "找仓库",
+            "orderNumber": 6,
+            "menuLevel": 1,
+            "url": "/findarehouse",
+            "createTime": 1483597498000,
+            "modifyTime": 1483597696000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 26,
+            "menuCode": "046",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon glyphicon glyphicon-cutlery",
+            "parentMenuId": 4,
+            "menuName": "切箱规格配置",
+            "orderNumber": 6,
+            "menuLevel": 2,
+            "url": "configmfun/boxmanager",
+            "createTime": 1480993833000,
+            "modifyTime": 1481012002000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 6,
+            "menuCode": "06",
+            "menuType": "header",
+            "menuIcon": "icon fa fa-meh-o",
+            "parentMenuId": 0,
+            "menuName": "关于我们",
+            "orderNumber": 7,
+            "menuLevel": 1,
+            "url": "/aboutus",
+            "createTime": 1480992397000,
+            "modifyTime": 1480992428000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 27,
+            "menuCode": "047",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon glyphicon glyphicon-flag",
+            "parentMenuId": 4,
+            "menuName": "收货方客户配置管理",
+            "orderNumber": 7,
+            "menuLevel": 2,
+            "url": "configmfun/toclientmanager",
+            "createTime": 1480993860000,
+            "modifyTime": 1481012005000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 36,
+            "menuCode": "048",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon glyphicon glyphicon-tower",
+            "parentMenuId": 4,
+            "menuName": "整箱单位管理",
+            "orderNumber": 8,
+            "menuLevel": 2,
+            "url": "configmfun/containermanager",
+            "createTime": 1482818058000,
+            "modifyTime": 1482818060000,
+            "status": 1,
+            "remark": null
+        }, {
+            "menuId": 37,
+            "menuCode": "049",
+            "menuType": "widget1",
+            "menuIcon": "menu-icon glyphicon glyphicon-pushpin",
+            "parentMenuId": 4,
+            "menuName": "散支单位管理",
+            "orderNumber": 9,
+            "menuLevel": 2,
+            "url": "configmfun/bulkmanager",
+            "createTime": 1482818160000,
+            "modifyTime": 1482818233000,
+            "status": 1,
+            "remark": null
+        }],
+        "baseArehouses": [{
+            "arehouseId": 1,
+            "name": "测试仓",
+            "addr": "11111",
+            "scity": "11111",
+            "scontacts": "1111",
+            "phone": "11111",
+            "acreage": "1111",
+            "ctype": "1",
+            "humidity": "111",
+            "fax": "11111",
+            "postoffice": "11111",
+            "isti": 1,
+            "status": 1,
+            "clientId": 1,
+            "remarks": "11111",
+            "createtime": 1488092935000,
+            "pgroupinfo": "11111"
+        }, {
+            "arehouseId": 2,
+            "name": "九阳济南仓A01",
+            "addr": "济南市济阳278号",
+            "scity": "齐河",
+            "scontacts": "联系人1",
+            "phone": "13312345678",
+            "acreage": "111",
+            "ctype": "1",
+            "humidity": "111",
+            "fax": "2222",
+            "postoffice": "test",
+            "isti": 2,
+            "status": 1,
+            "clientId": 2,
+            "remarks": "remarks",
+            "createtime": 1488170376000,
+            "pgroupinfo": "eeeeee"
+        }, {
+            "arehouseId": 3,
+            "name": "name",
+            "addr": "addr",
+            "scity": "sity",
+            "scontacts": "test",
+            "phone": "1234567890",
+            "acreage": "222",
+            "ctype": "111",
+            "humidity": "222",
+            "fax": "2222",
+            "postoffice": "test",
+            "isti": 1,
+            "status": 0,
+            "clientId": 1,
+            "remarks": "test",
+            "createtime": 1488097292000,
+            "pgroupinfo": "eeeeeeeeeeeee"
+        }, {
+            "arehouseId": 4,
+            "name": "无限极济阳仓A91",
+            "addr": "济南市济阳县",
+            "scity": "齐河",
+            "scontacts": "联系人1",
+            "phone": "13112345678",
+            "acreage": "222",
+            "ctype": "22",
+            "humidity": "222",
+            "fax": "2222",
+            "postoffice": "test",
+            "isti": 1,
+            "status": 1,
+            "clientId": 3,
+            "remarks": "test",
+            "createtime": 1487233193000,
+            "pgroupinfo": "eeeeeeeeeeeee"
+        }, {
+            "arehouseId": 5,
+            "name": "九阳济南仓A02",
+            "addr": "济南市济阳278号",
+            "scity": "齐河",
+            "scontacts": "联系人1",
+            "phone": "13012345678",
+            "acreage": "222",
+            "ctype": "111",
+            "humidity": "222",
+            "fax": "2222",
+            "postoffice": "test",
+            "isti": 2,
+            "status": 1,
+            "clientId": 1,
+            "remarks": "test",
+            "createtime": 1487838047000,
+            "pgroupinfo": "eeeeeeeeeeeee"
+        }],
+        "baseClients": [{
+            "clientId": 1,
+            "cname": "客户1",
+            "caddr": "天桥区",
+            "ctel": "13312345678",
+            "status": 1,
+            "cjsj": 1486537999000
+        }]
+    };
+    var tree = jsonStr.baseMenus;
+
+    (function generateNode(tree) {
+        var formatTree = formatTreeData(tree);
+        var json={
+            data:combinationNode(formatTree)
+        };
+        console.log(json);
+        function formatTreeData(tree) {
+            if (!tree)return;
+            var formatTree = {};
+            for (var i = 0; i < tree.length; i++) {
+                if (formatTree[tree[i].parentMenuId]) {
+                    tree[i].label=tree[i].menuName;
+                    formatTree[tree[i].parentMenuId].children.push(tree[i]);
+                }
+                else {
+                    formatTree[tree[i].parentMenuId] = {};
+                    formatTree[tree[i].parentMenuId].children = [];
+                    tree[i].label=tree[i].menuName;
+                    formatTree[tree[i].parentMenuId].children.push(tree[i]);
+                }
+            }
+            return formatTree;
+        }
+        function combinationNode(tree) {
+            var data=[];
+            for(var i=0;i<tree[0].children.length;i++){
+                tree[tree[0].children[i].menuId].head=tree[0].children[i].menuName;
+                data.push(tree[tree[0].children[i].menuId]);
+            }
+            return data;
+        }
+    })(tree);
+</script>
+</body>
+</html>

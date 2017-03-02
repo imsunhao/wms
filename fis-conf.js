@@ -11,13 +11,13 @@ fis.set('project.ignore', [
     'test/**',
     'server/**',
     'output/**',
+    'dist/**',
     'fis-conf.js'
 ]);
 
 fis.match(/static\/(css)\/.*\.*$/, {
     useHash: true
 });
-
 
 
 //sass的编译
@@ -38,7 +38,7 @@ fis.match('::packager', {
 //-------------------------删除 生产实际代码--------------------------------
 
 fis.media('debug')
-    //调整 main.html
+//调整 main.html
     .match('static/(main.html)', {
         release: "/$1",
         useCache: false
@@ -69,6 +69,7 @@ fis.media('test')
         'test/**',
         'server/**',
         'output/**',
+        'dist/**',
         'fis-conf.js'
     ])
     .match(/static\/(css|js)\/.*\.*$/, {
@@ -85,8 +86,8 @@ fis.media('test')
         }),
         optimizer: fis.plugin('uglify-js')
     })
-    .match("static/page/(**.html)", {                                    //修改 html文件 为ejs
-        release: '../views/$1',
+    .match("static/page/(**.html)", {                                    //修改 附属文件
+        release: '../views/page/$1',
         useCache: false
     })
     .match("static/page/login/index.html", {                             //修改登录 释放位置
@@ -112,10 +113,4 @@ fis.media('test')
     })
     .match('**.css', {
         optimizer: fis.plugin('clean-css')
-    });
-
-//生产环境下
-fis.media('prod')
-    .match('hock/**', {
-        release: false
     });
