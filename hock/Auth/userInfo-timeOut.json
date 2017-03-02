@@ -1,4 +1,4 @@
 {
-  "auth": 500,
+  "status": 500,
   "authMessage":"登录超时，请重新登录！"
 }

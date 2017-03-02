@@ -28,7 +28,7 @@
 <div id="app" v-loading.fullscreen.lock="fullscreenLoading" element-loading-text="拼命加载中">
     <div class="header">
         <div class="decorate">
-            <div class="logo">
+            <div class="logo" @click="clickGoHome">
                 <img src="" alt="">
                 <span>乐速仓库管理系统</span>
             </div>
@@ -36,9 +36,10 @@
         <el-menu class="headerNav" mode="horizontal" @select="handleSelect" default-active="0">
             <el-menu-item v-bind:index="index" v-for="(item, index) in headMenu">{{item}}</el-menu-item>
         </el-menu>
-        <el-menu class="user" mode="horizontal" @select="userSelect" default-active="0">
+        <el-menu class="user" mode="horizontal" @select="userSelect" default-active="0" style="float: right">
+            <el-menu-item index="1"><img :src="rmsUser.portrait" alt=""></el-menu-item>
             <el-submenu index="2">
-                <template slot="title" :user="user">{{user.username}}</template>
+                <template slot="title">{{rmsUser.userName}}</template>
                 <el-menu-item index="2-1">修改信息</el-menu-item>
                 <el-menu-item index="2-2">退出登录</el-menu-item>
             </el-submenu>
@@ -62,7 +63,7 @@
         <el-breadcrumb separator="/">
             <el-breadcrumb-item v-for="(item, index) in breadcrumb">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
-        <div id="showing">
+        <div id="showing" v-loading.body="showingLoading">
 
         </div>
     </div>

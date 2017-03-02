@@ -1,142 +1,388 @@
 {
   "data": [
     {
-      "head": "资源管理",
       "children": [
         {
-          "label": "仓库管理",
-          "url":""
+          "menuId": 34,
+          "menuCode": "011",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon glyphicon glyphicon-save",
+          "parentMenuId": 1,
+          "menuName": "入库单据查询",
+          "orderNumber": 1,
+          "menuLevel": 2,
+          "url": "page/inputSelect",
+          "createTime": 1481091237000,
+          "modifyTime": 1481091240000,
+          "status": 1,
+          "remark": null,
+          "label": "入库单据查询"
         },
         {
-          "label": "货品管理",
-          "url":""
+          "menuId": 33,
+          "menuCode": "011",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon glyphicon glyphicon-open",
+          "parentMenuId": 1,
+          "menuName": "出库单据查询",
+          "orderNumber": 2,
+          "menuLevel": 2,
+          "url": "page/outputSelect",
+          "createTime": 1481091107000,
+          "modifyTime": 1481091146000,
+          "status": 1,
+          "remark": null,
+          "label": "出库单据查询"
         },
         {
-          "label": "RF管理",
-          "url":""
-        },
-        {
-          "label": "作业区管理",
-          "url":""
-        },
-        {
-          "label": "客户管理",
-          "url":""
-        },
-        {
-          "label": "单位管理",
-          "url":""
+          "menuId": 35,
+          "menuCode": "012",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon glyphicon glyphicon-home",
+          "parentMenuId": 1,
+          "menuName": "库存信息查询",
+          "orderNumber": 3,
+          "menuLevel": 2,
+          "url": "main",
+          "createTime": 1481094983000,
+          "modifyTime": 1481094986000,
+          "status": 1,
+          "remark": null,
+          "label": "库存信息查询"
         }
-      ]
+      ],
+      "head": "业务查询"
     },
     {
-      "head": "业务处理",
       "children": [
         {
-          "label": "入库操作",
-          "url":""
+          "menuId": 16,
+          "menuCode": "031",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon glyphicon glyphicon-user",
+          "parentMenuId": 3,
+          "menuName": "系统权限配置",
+          "orderNumber": 1,
+          "menuLevel": 2,
+          "url": "configsys/authority",
+          "createTime": 1480992929000,
+          "modifyTime": 1481011964000,
+          "status": 1,
+          "remark": null,
+          "label": "系统权限配置"
         },
         {
-          "label": "出库操作",
-          "url":""
+          "menuId": 17,
+          "menuCode": "032",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon \r\nglyphicon glyphicon-th-list",
+          "parentMenuId": 3,
+          "menuName": "系统菜单配置",
+          "orderNumber": 2,
+          "menuLevel": 2,
+          "url": "configsys/menu",
+          "createTime": 1480993007000,
+          "modifyTime": 1481011967000,
+          "status": 1,
+          "remark": null,
+          "label": "系统菜单配置"
+        },
+        {
+          "menuId": 18,
+          "menuCode": "033",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon glyphicon glyphicon-book",
+          "parentMenuId": 3,
+          "menuName": "字典配置",
+          "orderNumber": 3,
+          "menuLevel": 2,
+          "url": "configsys/item",
+          "createTime": 1480993078000,
+          "modifyTime": 1481011970000,
+          "status": 1,
+          "remark": null,
+          "label": "字典配置"
         }
-      ]
+      ],
+      "head": "系统设置"
     },
     {
-      "head": "库内管理",
       "children": [
         {
-          "label": "库位转移",
-          "url":""
+          "menuId": 21,
+          "menuCode": "041",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon glyphicon glyphicon-thumbs-up",
+          "parentMenuId": 4,
+          "menuName": "客户配置管理",
+          "orderNumber": 1,
+          "menuLevel": 2,
+          "url": "configmfun/clientmanager",
+          "createTime": 1480993315000,
+          "modifyTime": 1481011979000,
+          "status": 1,
+          "remark": null,
+          "label": "客户配置管理"
         },
         {
-          "label": "库存转移确认",
-          "url":""
+          "menuId": 22,
+          "menuCode": "042",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon glyphicon glyphicon-home",
+          "parentMenuId": 4,
+          "menuName": "仓库配置管理",
+          "orderNumber": 2,
+          "menuLevel": 2,
+          "url": "configmfun/arehousemanager",
+          "createTime": 1480993366000,
+          "modifyTime": 1481011982000,
+          "status": 1,
+          "remark": null,
+          "label": "仓库配置管理"
         },
         {
-          "label": "库存调整",
-          "url":""
+          "menuId": 23,
+          "menuCode": "043",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon glyphicon glyphicon-picture",
+          "parentMenuId": 4,
+          "menuName": "仓库平面图配置",
+          "orderNumber": 3,
+          "menuLevel": 2,
+          "url": "configmfun/arehouseplanmanager",
+          "createTime": 1480993411000,
+          "modifyTime": 1481011986000,
+          "status": 1,
+          "remark": null,
+          "label": "仓库平面图配置"
         },
         {
-          "label": "库存调整确认",
-          "url":""
+          "menuId": 24,
+          "menuCode": "044",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon glyphicon glyphicon-calendar",
+          "parentMenuId": 4,
+          "menuName": "储位组配置管理",
+          "orderNumber": 4,
+          "menuLevel": 2,
+          "url": "configmfun/groupmanager",
+          "createTime": 1480993720000,
+          "modifyTime": 1481011995000,
+          "status": 1,
+          "remark": null,
+          "label": "储位组配置管理"
         },
         {
-          "label": "库存冻结/解冻",
-          "url":""
+          "menuId": 25,
+          "menuCode": "045",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon \r\nglyphicon glyphicon-tree-deciduous",
+          "parentMenuId": 4,
+          "menuName": "货品配置",
+          "orderNumber": 5,
+          "menuLevel": 2,
+          "url": "configmfun/goodsmanager",
+          "createTime": 1480993766000,
+          "modifyTime": 1481011997000,
+          "status": 1,
+          "remark": null,
+          "label": "货品配置"
+        },
+        {
+          "menuId": 26,
+          "menuCode": "046",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon glyphicon glyphicon-cutlery",
+          "parentMenuId": 4,
+          "menuName": "切箱规格配置",
+          "orderNumber": 6,
+          "menuLevel": 2,
+          "url": "configmfun/boxmanager",
+          "createTime": 1480993833000,
+          "modifyTime": 1481012002000,
+          "status": 1,
+          "remark": null,
+          "label": "切箱规格配置"
+        },
+        {
+          "menuId": 27,
+          "menuCode": "047",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon glyphicon glyphicon-flag",
+          "parentMenuId": 4,
+          "menuName": "收货方客户配置管理",
+          "orderNumber": 7,
+          "menuLevel": 2,
+          "url": "configmfun/toclientmanager",
+          "createTime": 1480993860000,
+          "modifyTime": 1481012005000,
+          "status": 1,
+          "remark": null,
+          "label": "收货方客户配置管理"
+        },
+        {
+          "menuId": 36,
+          "menuCode": "048",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon glyphicon glyphicon-tower",
+          "parentMenuId": 4,
+          "menuName": "整箱单位管理",
+          "orderNumber": 8,
+          "menuLevel": 2,
+          "url": "configmfun/containermanager",
+          "createTime": 1482818058000,
+          "modifyTime": 1482818060000,
+          "status": 1,
+          "remark": null,
+          "label": "整箱单位管理"
+        },
+        {
+          "menuId": 37,
+          "menuCode": "049",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon glyphicon glyphicon-pushpin",
+          "parentMenuId": 4,
+          "menuName": "散支单位管理",
+          "orderNumber": 9,
+          "menuLevel": 2,
+          "url": "configmfun/bulkmanager",
+          "createTime": 1482818160000,
+          "modifyTime": 1482818233000,
+          "status": 1,
+          "remark": null,
+          "label": "散支单位管理"
         }
-      ]
+      ],
+      "head": "业务字典"
     },
     {
-      "head": "业务查询",
       "children": [
         {
-          "label": "入库日报",
-          "url":""
+          "menuId": 28,
+          "menuCode": "051",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon glyphicon glyphicon-exclamation-sign",
+          "parentMenuId": 5,
+          "menuName": "debug/5error/info",
+          "orderNumber": 1,
+          "menuLevel": 2,
+          "url": "syslog/debuginfoerror",
+          "createTime": 1480993916000,
+          "modifyTime": 1481012008000,
+          "status": 1,
+          "remark": null,
+          "label": "debug/5error/info"
         },
         {
-          "label": "出库日报",
-          "url":""
-        },
-        {
-          "label": "动碰查询",
-          "url":""
-        },
-        {
-          "label": "库存查询",
-          "url":""
-        },
-        {
-          "label": "入库单据查询",
-          "url":""
-        },
-        {
-          "label": "出库单据查询",
-          "url":""
-        },
-        {
-          "label": "发货装车清单",
-          "url":""
-        },
-        {
-          "label": "进出合并查询",
-          "url":""
-        },
-        {
-          "label": "库位转移查询",
-          "url":""
-        },
-        {
-          "label": "库存调整查询",
-          "url":""
+          "menuId": 29,
+          "menuCode": "052",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon glyphicon glyphicon-send",
+          "parentMenuId": 5,
+          "menuName": "用户登录统计",
+          "orderNumber": 2,
+          "menuLevel": 2,
+          "url": "syslog/userlogininfo",
+          "createTime": 1480993957000,
+          "modifyTime": 1481012010000,
+          "status": 1,
+          "remark": null,
+          "label": "用户登录统计"
         }
-      ]
+      ],
+      "head": "系统维护"
     },
     {
-      "head": "盘点查询",
       "children": [
         {
-          "label": "动碰盘点查询",
-          "url":""
+          "menuId": 43,
+          "menuCode": null,
+          "menuType": null,
+          "menuIcon": "menu-icon glyphicon glyphicon-book",
+          "parentMenuId": 38,
+          "menuName": "仓库列表",
+          "orderNumber": 1,
+          "menuLevel": null,
+          "url": null,
+          "createTime": 1486200028000,
+          "modifyTime": 1487838404000,
+          "status": 1,
+          "remark": null,
+          "label": "仓库列表"
         },
         {
-          "label": "循环盘点查询",
-          "url":""
-        },
-        {
-          "label": "全面盘点查询",
-          "url":""
+          "menuId": 44,
+          "menuCode": null,
+          "menuType": null,
+          "menuIcon": "menu-icon glyphicon glyphicon-book",
+          "parentMenuId": 38,
+          "menuName": "账户管理",
+          "orderNumber": 2,
+          "menuLevel": null,
+          "url": null,
+          "createTime": 1486200049000,
+          "modifyTime": 1487924808000,
+          "status": 1,
+          "remark": null,
+          "label": "账户管理"
         }
-      ]
+      ],
+      "head": "找仓库"
     },
     {
-      "head": "关于本系统",
       "children": [
         {
-          "label": "关于本系统",
-          "url":""
+          "menuId": 30,
+          "menuCode": "061",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon glyphicon glyphicon-copyright-mark",
+          "parentMenuId": 6,
+          "menuName": "公司信息及开发组",
+          "orderNumber": 1,
+          "menuLevel": 2,
+          "url": "aboutus/company",
+          "createTime": 1480994007000,
+          "modifyTime": 1481012011000,
+          "status": 1,
+          "remark": null,
+          "label": "公司信息及开发组"
+        },
+        {
+          "menuId": 31,
+          "menuCode": "062",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon glyphicon glyphicon-registration-mark",
+          "parentMenuId": 6,
+          "menuName": "联系方式及系统授权",
+          "orderNumber": 2,
+          "menuLevel": 2,
+          "url": "aboutus/phone",
+          "createTime": 1480994052000,
+          "modifyTime": 1481013730000,
+          "status": 1,
+          "remark": null,
+          "label": "联系方式及系统授权"
+        },
+        {
+          "menuId": 32,
+          "menuCode": "063",
+          "menuType": "widget1",
+          "menuIcon": "menu-icon glyphicon glyphicon-subtitles",
+          "parentMenuId": 6,
+          "menuName": "版权信息",
+          "orderNumber": 3,
+          "menuLevel": 2,
+          "url": "aboutus/atinfo",
+          "createTime": 1480994103000,
+          "modifyTime": 1481013733000,
+          "status": 1,
+          "remark": null,
+          "label": "版权信息"
         }
-      ]
+      ],
+      "head": "关于我们"
     }
   ]
 }
+
+
