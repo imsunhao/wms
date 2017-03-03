@@ -170,7 +170,49 @@ $(function (dbmessage) {
             /*</debug>*/
 
             /*<prod>*/
-            Loading();
+            (function (json) {
+                function generateNode(tree) {
+                    var formatTree = formatTreeData(tree);
+                    return combinationNode(formatTree);
+                    function formatTreeData(tree) {
+                        if (!tree)return;
+                        var formatTree = {};
+                        for (var i = 0; i < tree.length; i++) {
+                            if (formatTree[tree[i].parentMenuId]) {
+                                tree[i].label = tree[i].menuName;
+                                formatTree[tree[i].parentMenuId].children.push(tree[i]);
+                            }
+                            else {
+                                formatTree[tree[i].parentMenuId] = {};
+                                formatTree[tree[i].parentMenuId].children = [];
+                                tree[i].label = tree[i].menuName;
+                                formatTree[tree[i].parentMenuId].children.push(tree[i]);
+                            }
+                        }
+                        return formatTree;
+                    }
+
+                    function combinationNode(tree) {
+                        var data = [];
+                        for (var i = 0; i < tree[0].children.length; i++) {
+                            tree[tree[0].children[i].menuId].head = tree[0].children[i].menuName;
+                            data.push(tree[tree[0].children[i].menuId]);
+                        }
+                        return data;
+                    }
+                }
+                app.$data.nav = generateNode(json);
+                //加载header-Nav
+                (function () {
+                    var temp = [];
+                    for (var i = 0; i < app.$data.nav.length; i++)
+                        temp.push(app.$data.nav[i].head);
+                    app.$data.headMenu = temp;
+                })();
+                //加载slider-Menu
+                analysisSliderNav(app);
+                Loading();
+            })(json.baseMenus);
             /*</prod>*/
 
 
@@ -193,7 +235,6 @@ $(function (dbmessage) {
             function analysisSliderNav(app) {
                 app.$data.slideMenu = app.$data.nav[app.$data.navControl].children;
             }
-
 
             /*<debug>*/
             //初始化程序结束，输出提示

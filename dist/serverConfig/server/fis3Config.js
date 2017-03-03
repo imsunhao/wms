@@ -20,6 +20,17 @@
 
 --------------------------------
 
+ cd C:\project\work\
+
+ fis3 release test ./dist/public -wl
+
+
+
+
+
+
+
+
  cd C:\project\work\12\server
 
  rm public

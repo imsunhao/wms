@@ -63,7 +63,7 @@
         <el-breadcrumb separator="/">
             <el-breadcrumb-item v-for="(item, index) in breadcrumb">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
-        <div id="showing" v-loading.body="showingLoading">
+        <div id="showing" v-loading.body="showingLoading" element-loading-text="拼命加载中">
 
         </div>
     </div>

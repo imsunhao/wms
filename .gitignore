@@ -17,3 +17,6 @@ UI/
 log/
 
 server/
+serverConfig/
+public/
+views/

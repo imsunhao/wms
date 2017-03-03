@@ -1,0 +1,43 @@
+{
+  "rkdjId": 1,
+  "rkdjNo": "12121212",
+  "erpNo": "erp_10001",
+  "gysmc": "供应商001",
+  "remarks": "备注",
+  "userId": 1,
+  "sjsj": 1487054744000,
+  "bjsj": 1487141149000,
+  "createtime": 1486968354000,
+  "createUserId": 1,
+  "zdfs": 1,
+  "startwith": 2,
+  "status": 31,
+  "arehouseId": 1,
+  "endTime": 1487141185000,
+  "rkdocsList":[
+    {
+      "rkmxId": 22,
+      "goodsId": 1,
+      "dwid": 1,
+      "count": 10,
+      "status": 31,
+      "rkdjId": 1
+    },
+    {
+      "rkmxId": 24,
+      "goodsId": 3,
+      "dwid": 3,
+      "count": 30,
+      "status": 31,
+      "rkdjId": 1
+    },
+    {
+      "rkmxId": 25,
+      "goodsId": 4,
+      "dwid": 4,
+      "count": 40,
+      "status": 31,
+      "rkdjId": 1
+    }
+  ]
+}

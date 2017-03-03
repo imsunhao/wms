@@ -1,24 +1,10 @@
 // 设置项目属性
 fis.set('project.static', '/static');
 
-// 目录不发布
-fis.set('project.ignore', [
-    'DOC/**',
-    'UL/**',
-    'node_modules/**',
-    '.git/**',
-    '.idea/**',
-    'test/**',
-    'server/**',
-    'output/**',
-    'dist/**',
-    'fis-conf.js'
-]);
 
 fis.match(/static\/(css)\/.*\.*$/, {
     useHash: true
 });
-
 
 //sass的编译
 fis.match('**/*.scss', {
@@ -38,7 +24,19 @@ fis.match('::packager', {
 //-------------------------删除 生产实际代码--------------------------------
 
 fis.media('debug')
-//调整 main.html
+    .set('project.ignore', [
+        'DOC/**',
+        'UL/**',
+        'node_modules/**',
+        '.git/**',
+        '.idea/**',
+        'test/**',
+        'server/**',
+        'output/**',
+        'dist/**',
+        'fis-conf.js'
+    ])
+    //调整 main.html
     .match('static/(main.html)', {
         release: "/$1",
         useCache: false
@@ -47,9 +45,6 @@ fis.media('debug')
     .match("static/page/login/(*.html)", {
         release: '/$1',
         useCache: false
-    })
-    .match('components/prod/*.js', {
-        release: false
     })
     .match('static/**(.{html,js})', {
         parser: fis.plugin('jdists', {
