@@ -2,7 +2,88 @@
     <el-table
             :data="inputOperation"
             style="width: 100%">
-        <el-table-column type="expand">
+        <el-table-column
+                type="selection"
+                width="60">
+        </el-table-column>
+        <el-table-column
+                type="index"
+                show-overflow-tooltip="true"
+                width="55">
+        </el-table-column>
+        <el-table-column
+                label="入库单号"
+                width="130"
+                show-overflow-tooltip="true"
+                align="center"
+                prop="rkdjNo">
+        </el-table-column>
+        <el-table-column
+                width="220"
+                align="center"
+                label="下单时间">
+            <template scope="scope">
+                <el-icon name="time"></el-icon>
+                <span style="margin-left: 10px">{{ scope.row.sjsj }}</span>
+            </template>
+        </el-table-column>
+        <el-table-column
+                label="单据"
+                align="center"
+                width="150"
+                show-overflow-tooltip="true"
+                :filters="[{ text: '采购订单', value: '采购订单' }, { text: '不购订单', value: '不购订单' }]"
+                :filter-method="filterTag">
+            <template scope="scope">
+                <el-tag
+                        :type="scope.row.status == '采购订单' ? 'primary' : 'success'"
+                        close-transition>{{scope.row.status}}
+                </el-tag>
+            </template>
+        </el-table-column>
+        <el-table-column
+                label="备注"
+                width="100"
+                show-overflow-tooltip="true"
+                prop="remarks">
+        </el-table-column>
+        <el-table-column
+                width="400"
+                label="操作">
+            <template scope="props">
+
+                <el-button
+                        size="small"
+                        @click="handleEdit(props.$index, props.row)">分配
+                </el-button>
+                <el-button
+                        size="small"
+                        type="danger"
+                        @click="handleDelete(props.$index, props.row)">编辑
+                </el-button>
+                <el-button
+                        size="small"
+                        @click="handleEdit(props.$index, props.row)">删除
+                </el-button>
+                <el-button
+                        size="small"
+                        type="danger"
+                        @click="handleDelete(props.$index, props.row)">再次收货
+                </el-button>
+                <el-button
+                        size="small"
+                        type="danger"
+                        @click="handleDelete(props.$index, props.row)">打印
+                </el-button>
+
+                <!--<el-button @click="moreOperation(scope.$index,scope.row)">-->
+                    <!--<i class="el-icon-plus"></i>-->
+                <!--</el-button>-->
+            </template>
+        </el-table-column>
+        <el-table-column
+                fixed="right"
+                type="expand">
             <template scope="props">
                 <el-form label-position="left" inline class="demo-table-expand">
                     <el-form-item label="下单时间">
@@ -58,54 +139,6 @@
                 </el-form>
             </template>
         </el-table-column>
-        <el-table-column
-                type="index"
-                width="33">
-        </el-table-column>
-        <el-table-column
-                label="入库单号"
-                align="center"
-                prop="rkdjNo">
-        </el-table-column>
-        <el-table-column
-                width="220"
-                align="center"
-                label="下单时间">
-            <template scope="scope">
-                <el-icon name="time"></el-icon>
-                <span style="margin-left: 10px">{{ scope.row.sjsj }}</span>
-            </template>
-        </el-table-column>
-        <el-table-column
-                label="单据"
-                align="center"
-                width="150"
-                :filters="[{ text: '采购订单', value: '采购订单' }, { text: '不购订单', value: '不购订单' }]"
-                :filter-method="filterTag">
-            <template scope="scope">
-                <el-tag
-                        :type="scope.row.status == '采购订单' ? 'primary' : 'success'"
-                        close-transition>{{scope.row.status}}
-                </el-tag>
-            </template>
-        </el-table-column>
-        <el-table-column
-                label="备注"
-                show-overflow-tooltip="true"
-                prop="remarks">
-        </el-table-column>
-        <el-table-column
-                label="操作">
-            <template scope="scope">
-                <el-button @click="moreOperation(scope.$index,scope.row)">
-                    <i class="el-icon-plus"></i>
-                </el-button>
-            </template>
-        </el-table-column>
-        <el-table-column
-                type="selection"
-                width="50">
-        </el-table-column>
     </el-table>
     <el-button
             size="small"
@@ -135,6 +168,10 @@
 
     #inputOperation {
         width: 100%;
+    }
+
+    .el-table__expand-column .el-table__expand-icon{
+        height: 39px;
     }
 </style>
 
@@ -232,7 +269,6 @@
             }
         });
     }
-
     function changeDate(date) {
         return dateFormat(new Date(date), 'yyyy-MM-dd hh:mm:ss');
     }
