@@ -31,7 +31,6 @@
                 label="单据"
                 align="center"
                 width="150"
-                show-overflow-tooltip="true"
                 :filters="[{ text: '采购订单', value: '采购订单' }, { text: '不购订单', value: '不购订单' }]"
                 :filter-method="filterTag">
             <template scope="scope">
@@ -42,49 +41,35 @@
             </template>
         </el-table-column>
         <el-table-column
+                label="总数量"
+                width="100"
+                prop="number">
+        </el-table-column>
+        <el-table-column
+                label="总体积"
+                width="100"
+                prop="volume">
+        </el-table-column>
+        <el-table-column
                 label="备注"
                 width="100"
                 show-overflow-tooltip="true"
                 prop="remarks">
         </el-table-column>
         <el-table-column
-                width="400"
-                label="操作">
-            <template scope="props">
-
-                <el-button
-                        size="small"
-                        @click="handleEdit(props.$index, props.row)">分配
-                </el-button>
-                <el-button
-                        size="small"
-                        type="danger"
-                        @click="handleDelete(props.$index, props.row)">编辑
-                </el-button>
-                <el-button
-                        size="small"
-                        @click="handleEdit(props.$index, props.row)">删除
-                </el-button>
-                <el-button
-                        size="small"
-                        type="danger"
-                        @click="handleDelete(props.$index, props.row)">再次收货
-                </el-button>
-                <el-button
-                        size="small"
-                        type="danger"
-                        @click="handleDelete(props.$index, props.row)">打印
-                </el-button>
-
-                <!--<el-button @click="moreOperation(scope.$index,scope.row)">-->
-                    <!--<i class="el-icon-plus"></i>-->
-                <!--</el-button>-->
-            </template>
-        </el-table-column>
-        <el-table-column
                 fixed="right"
                 type="expand">
             <template scope="props">
+                <!--<el-row>-->
+                    <!--<el-col :span="10">-->
+                        <!--<h3>项目进度</h3>-->
+                        <!--<el-steps :space="100" :active="1" direction="vertical">-->
+                            <!--<el-step title="分配" description="在 2017年3月5日14:48:30 由 孙颢 分配完毕"></el-step>-->
+                            <!--<el-step title="上架" description="等待上架中" @click="hello"></el-step>-->
+                            <!--<el-step title="步骤 3" description="这是一段很长很长很长的描述性文字"></el-step>-->
+                        <!--</el-steps>-->
+                    <!--</el-col>-->
+                <!--</el-row>-->
                 <el-form label-position="left" inline class="demo-table-expand">
                     <el-form-item label="下单时间">
                         <el-icon name="time"></el-icon>
@@ -148,6 +133,22 @@
     <el-button
             size="small"
             @click="handleDelete(props.$index, props.row)">新建入库单
+    </el-button>
+    <el-button
+            size="small"
+            @click="handleDelete(props.$index, props.row)">编辑
+    </el-button>
+    <el-button
+            size="small"
+            @click="handleDelete(props.$index, props.row)">分配
+    </el-button>
+    <el-button
+            size="small"
+            @click="handleDelete(props.$index, props.row)">再次收货
+    </el-button>
+    <el-button
+            size="small"
+            @click="handleDelete(props.$index, props.row)">打印
     </el-button>
 </div>
 <style>
@@ -216,6 +217,9 @@
                 console.log(row);
                 /*</debug>*/
                 remove(index,this.inputOperation);
+            },
+            hello:function () {
+                console.log('say hello!');
             }
         },
         watch: {
@@ -261,6 +265,8 @@
                     };
                     json.data[i].status=status[json.data[i].status];
                     json.data[i].zdfs=method[json.data[i].zdfs];
+                    json.data[i].number=100+i;
+                    json.data[i].volume=200+i;
                 }
                 inputOperation.$data.inputOperation = json.data;
             },
