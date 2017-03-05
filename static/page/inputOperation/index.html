@@ -8,7 +8,6 @@
         </el-table-column>
         <el-table-column
                 type="index"
-                show-overflow-tooltip="true"
                 width="55">
         </el-table-column>
         <el-table-column
@@ -29,10 +28,11 @@
         </el-table-column>
         <el-table-column
                 label="单据"
+                prop="type"
                 align="center"
                 width="150"
-                :filters="[{ text: '采购订单', value: '1' }, { text: '仓间挑拨', value: '2' }, { text: '退货入库', value: '3' }]"
-                :filter-method="filterTag">
+                :filters="[{ text: '采购订单', value: '采购订单' }, { text: '仓间挑拨', value: '仓间挑拨' }, { text: '退货入库', value: '退货入库' }]"
+                :filter-method="filterType">
             <template scope="scope">
                 <el-tag
                         :type="typeWatch(scope.row.type)"
@@ -40,19 +40,20 @@
                 </el-tag>
             </template>
         </el-table-column>
-        <!--<el-table-column-->
-                <!--label="状态"-->
-                <!--align="center"-->
-                <!--width="150"-->
-                <!--:filters="[{ text: '初始状态', value: '1' }, { text: '部分分配', value: '2' }, { text: '全部分配', value: '3' }, { text: '部分上架', value: '4' }, { text: '全部上架', value: '5' }]"-->
-                <!--:filter-method="filterTag">-->
-            <!--<template scope="scope">-->
-                <!--<el-tag-->
-                        <!--:type="statusWatch(scope.row.status)"-->
-                        <!--close-transition>{{scope.row.status}}-->
-                <!--</el-tag>-->
-            <!--</template>-->
-        <!--</el-table-column>-->
+        <el-table-column
+                label="状态"
+                prop="status"
+                align="center"
+                width="150"
+                :filters="[{ text: '初始状态', value: '初始状态' }, { text: '部分分配', value: '部分分配' }, { text: '全部分配', value: '全部分配' }, { text: '部分上架', value: '部分上架' }, { text: '全部上架', value: '全部上架' }]"
+                :filter-method="filterStatus">
+            <template scope="scope">
+                <el-tag
+                        :type="statusWatch(scope.row.status)"
+                        close-transition>{{scope.row.status}}
+                </el-tag>
+            </template>
+        </el-table-column>
         <el-table-column
                 label="总数量"
                 width="100"
@@ -212,9 +213,11 @@
             handleDelete: function (index, row) {
                 console.log(index, row);
             },
-            filterTag: function (value, row) {
-                alert(value);
-                return row.tag == value;
+            filterStatus: function (value, row) {
+                return row.status == value;
+            },
+            filterType: function (value, row) {
+                return row.type == value;
             },
             storage: function () {
 
@@ -232,38 +235,38 @@
             hello: function () {
                 console.log('say hello!');
             },
-            statusWatch:function (status) {
-                var str='';
-                switch (status){
+            statusWatch: function (status) {
+                var str = '';
+                switch (status) {
                     case '初始状态':
-                        str='info';
+                        str = 'info';
                         break;
                     case '部分分配':
-                        str='danger';
+                        str = 'danger';
                         break;
                     case '全部分配':
-                        str='warning';
+                        str = 'warning';
                         break;
                     case '部分上架':
-                        str='success';
+                        str = 'success';
                         break;
                     case '全部上架':
-                        str='primary';
+                        str = 'primary';
                         break;
                 }
                 return str;
             },
-            typeWatch:function (type) {
-                var str='';
-                switch (type){
+            typeWatch: function (type) {
+                var str = '';
+                switch (type) {
                     case '采购订单':
-                        str='warning';
+                        str = 'warning';
                         break;
                     case '仓间挑拨':
-                        str='success';
+                        str = 'success';
                         break;
                     case '退货入库':
-                        str='default';
+                        str = 'default';
                         break;
                 }
                 return str;
@@ -306,19 +309,19 @@
                         "1": "仓间挑拨",
                         "2": "退货入库"
                     };
-                    var status ={
-                        "31":"初始状态",
-                        "32":"部分分配",
-                        "33":"全部分配",
-                        "34":"部分上架",
-                        "35":"全部上架"
+                    var status = {
+                        "31": "初始状态",
+                        "32": "部分分配",
+                        "33": "全部分配",
+                        "34": "部分上架",
+                        "35": "全部上架"
                     };
                     var method = {
                         "1": "手动",
                         "2": "excel",
                         "3": "接口"
                     };
-                    json.data[i].type = type[i%3];
+                    json.data[i].type = type[i % 3];
                     json.data[i].status = status[json.data[i].status];
                     json.data[i].zdfs = method[json.data[i].zdfs];
                     json.data[i].number = 100 + i;
