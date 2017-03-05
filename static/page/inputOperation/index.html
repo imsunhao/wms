@@ -31,15 +31,28 @@
                 label="单据"
                 align="center"
                 width="150"
-                :filters="[{ text: '采购订单', value: '采购订单' }, { text: '不购订单', value: '不购订单' }]"
+                :filters="[{ text: '采购订单', value: '1' }, { text: '仓间挑拨', value: '2' }, { text: '退货入库', value: '3' }]"
                 :filter-method="filterTag">
             <template scope="scope">
                 <el-tag
-                        :type="scope.row.status == '采购订单' ? 'primary' : 'success'"
-                        close-transition>{{scope.row.status}}
+                        :type="typeWatch(scope.row.type)"
+                        close-transition>{{scope.row.type}}
                 </el-tag>
             </template>
         </el-table-column>
+        <!--<el-table-column-->
+                <!--label="状态"-->
+                <!--align="center"-->
+                <!--width="150"-->
+                <!--:filters="[{ text: '初始状态', value: '1' }, { text: '部分分配', value: '2' }, { text: '全部分配', value: '3' }, { text: '部分上架', value: '4' }, { text: '全部上架', value: '5' }]"-->
+                <!--:filter-method="filterTag">-->
+            <!--<template scope="scope">-->
+                <!--<el-tag-->
+                        <!--:type="statusWatch(scope.row.status)"-->
+                        <!--close-transition>{{scope.row.status}}-->
+                <!--</el-tag>-->
+            <!--</template>-->
+        <!--</el-table-column>-->
         <el-table-column
                 label="总数量"
                 width="100"
@@ -52,75 +65,76 @@
         </el-table-column>
         <el-table-column
                 label="备注"
-                width="100"
                 show-overflow-tooltip="true"
                 prop="remarks">
         </el-table-column>
         <el-table-column
                 type="expand">
             <template scope="props">
-                <!--<el-row>-->
-                <!--<el-col :span="10">-->
-                <!--<h3>项目进度</h3>-->
-                <!--<el-steps :space="100" :active="1" direction="vertical">-->
-                <!--<el-step title="分配" description="在 2017年3月5日14:48:30 由 孙颢 分配完毕"></el-step>-->
-                <!--<el-step title="上架" description="等待上架中" @click="hello"></el-step>-->
-                <!--<el-step title="步骤 3" description="这是一段很长很长很长的描述性文字"></el-step>-->
-                <!--</el-steps>-->
-                <!--</el-col>-->
-                <!--</el-row>-->
-                <el-form label-position="left" inline class="demo-table-expand">
-                    <el-form-item label="下单时间">
-                        <el-icon name="time"></el-icon>
-                        <span style="margin-left: 10px">{{ props.row.sjsj }}</span>
-                    </el-form-item>
-                    <el-form-item label="入库单号">
-                        <span>{{ props.row.rkdjNo }}</span>
-                    </el-form-item>
-                    <el-form-item label="入库状态">
-                        <span>{{ props.row.status }}</span>
-                    </el-form-item>
-                    <el-form-item label="单据类型">
-                        <span>{{ props.row.status }}</span>
-                    </el-form-item>
-                    <el-form-item label="总数量">
-                        <span>{{ props.row.number }}</span>
-                    </el-form-item>
-                    <el-form-item label="总体积">
-                        <span>{{ props.row.volume }}</span>
-                    </el-form-item>
-                    <el-form-item label="制作方式">
-                        <span>{{ props.row.zdfs }}</span>
-                    </el-form-item>
-                    <el-form-item label="备注">
-                        <span>{{ props.row.remarks }}</span>
-                    </el-form-item>
-                    <el-form-item label="操作">
-                        <el-button
-                                size="small"
-                                @click="handleEdit(props.$index, props.row)">分配
-                        </el-button>
-                        <el-button
-                                size="small"
-                                type="danger"
-                                @click="handleDelete(props.$index, props.row)">编辑
-                        </el-button>
-                        <el-button
-                                size="small"
-                                @click="handleEdit(props.$index, props.row)">删除
-                        </el-button>
-                        <el-button
-                                size="small"
-                                type="danger"
-                                @click="handleDelete(props.$index, props.row)">再次收货
-                        </el-button>
-                        <el-button
-                                size="small"
-                                type="danger"
-                                @click="handleDelete(props.$index, props.row)">打印
-                        </el-button>
-                    </el-form-item>
-                </el-form>
+                <el-row>
+                    <el-col :span="10">
+                        <h3>项目进度</h3>
+                        <el-steps :space="100" :active="1" direction="vertical">
+                            <el-step title="分配" description="在 2017年3月5日14:48:30 由 孙颢 分配完毕"></el-step>
+                            <el-step title="上架" description="等待上架中" @click="hello"></el-step>
+                            <el-step title="步骤 3" description="这是一段很长很长很长的描述性文字"></el-step>
+                        </el-steps>
+                    </el-col>
+                    <el-col :span="14">
+                        <el-form label-position="left" inline class="demo-table-expand">
+                            <el-form-item label="下单时间">
+                                <el-icon name="time"></el-icon>
+                                <span style="margin-left: 10px">{{ props.row.sjsj }}</span>
+                            </el-form-item>
+                            <el-form-item label="入库单号">
+                                <span>{{ props.row.rkdjNo }}</span>
+                            </el-form-item>
+                            <el-form-item label="入库状态">
+                                <span>{{ props.row.status }}</span>
+                            </el-form-item>
+                            <el-form-item label="单据类型">
+                                <span>{{ props.row.type }}</span>
+                            </el-form-item>
+                            <el-form-item label="总数量">
+                                <span>{{ props.row.number }}</span>
+                            </el-form-item>
+                            <el-form-item label="总体积">
+                                <span>{{ props.row.volume }}</span>
+                            </el-form-item>
+                            <el-form-item label="制作方式">
+                                <span>{{ props.row.zdfs }}</span>
+                            </el-form-item>
+                            <el-form-item label="备注">
+                                <span>{{ props.row.remarks }}</span>
+                            </el-form-item>
+                            <el-form-item label="操作">
+                                <el-button
+                                        size="small"
+                                        @click="handleEdit(props.$index, props.row)">分配
+                                </el-button>
+                                <el-button
+                                        size="small"
+                                        type="danger"
+                                        @click="handleDelete(props.$index, props.row)">编辑
+                                </el-button>
+                                <el-button
+                                        size="small"
+                                        @click="handleEdit(props.$index, props.row)">删除
+                                </el-button>
+                                <el-button
+                                        size="small"
+                                        type="danger"
+                                        @click="handleDelete(props.$index, props.row)">再次收货
+                                </el-button>
+                                <el-button
+                                        size="small"
+                                        type="danger"
+                                        @click="handleDelete(props.$index, props.row)">打印
+                                </el-button>
+                            </el-form-item>
+                        </el-form>
+                    </el-col>
+                </el-row>
             </template>
         </el-table-column>
     </el-table>
@@ -170,7 +184,7 @@
         width: 100%;
     }
 
-    .el-table__expand-column .el-table__expand-icon{
+    .el-table__expand-column .el-table__expand-icon {
         height: 39px;
     }
 </style>
@@ -198,27 +212,61 @@
             handleDelete: function (index, row) {
                 console.log(index, row);
             },
-            formatter: function (row, column) {
-                return row.address;
-            },
             filterTag: function (value, row) {
-                return row.status == value;
+                alert(value);
+                return row.tag == value;
             },
-            storage:function () {
+            storage: function () {
 
             },
-            batchDelete:function () {
+            batchDelete: function () {
 
             },
-            moreOperation:function (index,row) {
+            moreOperation: function (index, row) {
                 /*<debug>*/
                 console.log(index);
                 console.log(row);
                 /*</debug>*/
-                remove(index,this.inputOperation);
+                remove(index, this.inputOperation);
             },
-            hello:function () {
+            hello: function () {
                 console.log('say hello!');
+            },
+            statusWatch:function (status) {
+                var str='';
+                switch (status){
+                    case '初始状态':
+                        str='info';
+                        break;
+                    case '部分分配':
+                        str='danger';
+                        break;
+                    case '全部分配':
+                        str='warning';
+                        break;
+                    case '部分上架':
+                        str='success';
+                        break;
+                    case '全部上架':
+                        str='primary';
+                        break;
+                }
+                return str;
+            },
+            typeWatch:function (type) {
+                var str='';
+                switch (type){
+                    case '采购订单':
+                        str='warning';
+                        break;
+                    case '仓间挑拨':
+                        str='success';
+                        break;
+                    case '退货入库':
+                        str='default';
+                        break;
+                }
+                return str;
             }
         },
         watch: {
@@ -251,21 +299,30 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                for (var i = 0; i < json.data.length; i++){
+                for (var i = 0; i < json.data.length; i++) {
                     json.data[i].sjsj = changeDate(json.data[i].sjsj);
-                    var status={
-                        "31":"采购订单",
-                        "32":"不购订单"
+                    var type = {
+                        "0": "采购订单",
+                        "1": "仓间挑拨",
+                        "2": "退货入库"
                     };
-                    var method={
-                        "1":"手动",
-                        "2":"excel",
-                        "3":"接口"
+                    var status ={
+                        "31":"初始状态",
+                        "32":"部分分配",
+                        "33":"全部分配",
+                        "34":"部分上架",
+                        "35":"全部上架"
                     };
-                    json.data[i].status=status[json.data[i].status];
-                    json.data[i].zdfs=method[json.data[i].zdfs];
-                    json.data[i].number=100+i;
-                    json.data[i].volume=200+i;
+                    var method = {
+                        "1": "手动",
+                        "2": "excel",
+                        "3": "接口"
+                    };
+                    json.data[i].type = type[i%3];
+                    json.data[i].status = status[json.data[i].status];
+                    json.data[i].zdfs = method[json.data[i].zdfs];
+                    json.data[i].number = 100 + i;
+                    json.data[i].volume = 200 + i;
                 }
                 inputOperation.$data.inputOperation = json.data;
             },
@@ -300,19 +357,24 @@
                 fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
         return fmt;
     }
-    function remove(obj,data) {
+    function remove(obj, data) {
         console.log(data);
-        for(var i =0;i <data.length;i++){
+        for (var i = 0; i < data.length; i++) {
             var temp = data[i];
-            if(!isNaN(obj)){
-                temp=i;
+            if (!isNaN(obj)) {
+                temp = i;
             }
-            if(temp == obj){
-                for(var j = i;j <data.length;j++){
-                    data[j]=data[j+1];
+            if (temp == obj) {
+                for (var j = i; j < data.length; j++) {
+                    data[j] = data[j + 1];
                 }
                 data.pop();
             }
         }
     }
 </script>
+
+
+
+
+
