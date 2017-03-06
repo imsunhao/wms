@@ -34,7 +34,7 @@
             </div>
         </div>
         <el-menu class="headerNav" mode="horizontal" @select="handleSelect" default-active="0">
-            <el-menu-item v-bind:index="index" v-for="(item, index) in headMenu">{{item}}</el-menu-item>
+            <el-menu-item :index="index" v-for="(item, index) in headMenu">{{item}}</el-menu-item>
         </el-menu>
         <el-menu class="user" mode="horizontal" @select="userSelect" default-active="0" style="float: right">
             <el-menu-item index="1"><img :src="rmsUser.portrait" alt=""></el-menu-item>

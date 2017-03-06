@@ -1,6 +1,9 @@
 <div id="inputOperation">
     <el-table
             :data="inputOperation"
+            :default-sort = "{prop: 'sjsj', order: 'descending'}"
+            @row-click="hello"
+            @selection-change="handleSelectionChange"
             style="width: 100%">
         <el-table-column
                 type="selection"
@@ -13,13 +16,15 @@
         <el-table-column
                 label="入库单号"
                 width="130"
-                show-overflow-tooltip="true"
+                show-overflow-tooltip
                 align="center"
                 prop="rkdjNo">
         </el-table-column>
         <el-table-column
                 width="220"
                 align="center"
+                prop="sjsj"
+                sortable
                 label="下单时间">
             <template scope="scope">
                 <el-icon name="time"></el-icon>
@@ -30,7 +35,7 @@
                 label="单据"
                 prop="type"
                 align="center"
-                width="150"
+                width="120"
                 :filters="[{ text: '采购订单', value: '采购订单' }, { text: '仓间挑拨', value: '仓间挑拨' }, { text: '退货入库', value: '退货入库' }]"
                 :filter-method="filterType">
             <template scope="scope">
@@ -44,7 +49,7 @@
                 label="状态"
                 prop="status"
                 align="center"
-                width="150"
+                width="120"
                 :filters="[{ text: '初始状态', value: '初始状态' }, { text: '部分分配', value: '部分分配' }, { text: '全部分配', value: '全部分配' }, { text: '部分上架', value: '部分上架' }, { text: '全部上架', value: '全部上架' }]"
                 :filter-method="filterStatus">
             <template scope="scope">
@@ -56,17 +61,17 @@
         </el-table-column>
         <el-table-column
                 label="总数量"
-                width="100"
+                align="center"
                 prop="number">
         </el-table-column>
         <el-table-column
                 label="总体积"
-                width="100"
+                align="center"
                 prop="volume">
         </el-table-column>
         <el-table-column
                 label="备注"
-                show-overflow-tooltip="true"
+                show-overflow-tooltip
                 prop="remarks">
         </el-table-column>
         <el-table-column
@@ -188,6 +193,9 @@
     .el-table__expand-column .el-table__expand-icon {
         height: 39px;
     }
+
+
+
 </style>
 
 <script>
@@ -196,11 +204,17 @@
         prop: {},
         data: function () {
             return {
-                inputOperation: []
+                inputOperation: [],
+                multipleSelection: []
             }
         },
         computed: {},
         methods: {
+            handleSelectionChange:function(val) {
+                /*<debug>*/
+                this.multipleSelection = val;
+                /*</debug>*/
+            },
             onSubmit: function () {
                 console.log('submit!');
             },
@@ -232,8 +246,8 @@
                 /*</debug>*/
                 remove(index, this.inputOperation);
             },
-            hello: function () {
-                console.log('say hello!');
+            hello: function (row) {
+//                console.log(row);
             },
             statusWatch: function (status) {
                 var str = '';
@@ -303,7 +317,6 @@
             },
             success: function (json) {
                 for (var i = 0; i < json.data.length; i++) {
-                    json.data[i].sjsj = changeDate(json.data[i].sjsj);
                     var type = {
                         "0": "采购订单",
                         "1": "仓间挑拨",
@@ -322,6 +335,7 @@
                         "3": "接口"
                     };
                     json.data[i].type = type[i % 3];
+                    json.data[i].sjsj = changeDate(json.data[i].sjsj);
                     json.data[i].status = status[json.data[i].status];
                     json.data[i].zdfs = method[json.data[i].zdfs];
                     json.data[i].number = 100 + i;
