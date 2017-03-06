@@ -2,10 +2,13 @@
     <el-table
             :data="inputOperation"
             :default-sort = "{prop: 'sjsj', order: 'descending'}"
+            highlight-current-row
+            @toggleRowSelection="rowSelection"
             @row-click="hello"
             @selection-change="handleSelectionChange"
             style="width: 100%">
         <el-table-column
+                v-if="true"
                 type="selection"
                 width="60">
         </el-table-column>
@@ -144,6 +147,18 @@
             </template>
         </el-table-column>
     </el-table>
+    <div class="block">
+        <span class="demonstration">完整功能</span>
+        <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="1"
+                :page-sizes="[5, 10, 15, 20]"
+                :page-size="10"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="inputOperation.length">
+        </el-pagination>
+    </div>
     <el-button
             size="small"
             type="danger"
@@ -193,8 +208,6 @@
     .el-table__expand-column .el-table__expand-icon {
         height: 39px;
     }
-
-
 
 </style>
 
@@ -246,8 +259,11 @@
                 /*</debug>*/
                 remove(index, this.inputOperation);
             },
-            hello: function (row) {
-//                console.log(row);
+            hello: function (row,event,column) {
+//                this.$emit('toggleRowSelection',row,true);
+                console.log(row);
+                console.log(event);
+                console.log(column);
             },
             statusWatch: function (status) {
                 var str = '';
@@ -284,6 +300,16 @@
                         break;
                 }
                 return str;
+            },
+            handleSizeChange:function(val) {
+                console.log('每页'+val+'条');
+            },
+            handleCurrentChange:function(val) {
+                this.currentPage = val;
+                console.log('每页'+val+'条');
+            },
+            rowSelection:function (row, selected) {
+                console.log(selected)
             }
         },
         watch: {
