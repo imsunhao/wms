@@ -37,6 +37,8 @@
             @click="handleDelete(props.$index, props.row)">打印
     </el-button>
     <el-table
+            v-loading="true"
+            element-loading-text="拼命加载中"
             :data="inputOperation"
             :default-sort="{prop: 'sjsj', order: 'descending'}"
             highlight-current-row
@@ -67,32 +69,29 @@
                             <el-col :span="14">
                                 <h3>入库详细</h3>
                                 <el-form label-position="left" inline class="demo-table-expand">
+                                    <el-form-item label="入库单号">
+                                        <span>{{ props.row.rkdjNo }}</span>
+                                    </el-form-item>
                                     <el-form-item label="下单时间">
                                         <el-icon name="time"></el-icon>
                                         <span style="margin-left: 10px">{{ props.row.sjsj }}</span>
                                     </el-form-item>
-                                    <el-form-item label="入库单号">
-                                        <span>{{ props.row.rkdjNo }}</span>
+                                    <el-form-item label="单据类型">
+                                        <span>{{ props.row.type }}</span>
                                     </el-form-item>
                                     <el-form-item label="入库状态">
                                         <span>{{ props.row.status }}</span>
                                     </el-form-item>
-                                    <el-form-item label="单据类型">
-                                        <span>{{ props.row.type }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="总数量">
+                                    <el-form-item label="入库数量">
                                         <span>{{ props.row.number }}</span>
                                     </el-form-item>
-                                    <el-form-item label="总体积">
+                                    <el-form-item label="入库体积">
                                         <span>{{ props.row.volume }}</span>
                                     </el-form-item>
                                     <el-form-item label="制作方式">
                                         <span>{{ props.row.zdfs }}</span>
                                     </el-form-item>
-                                    <el-form-item label="备注">
-                                        <span>{{ props.row.remarks }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="操作">
+                                    <el-form-item label="可用操作">
                                         <el-button
                                                 size="small"
                                                 @click="handleEdit(props.$index, props.row)">分配
@@ -116,6 +115,11 @@
                                                 type="danger"
                                                 @click="handleDelete(props.$index, props.row)">打印
                                         </el-button>
+                                    </el-form-item>
+                                    <el-form-item label="入库备注">
+                                        <el-tooltip class="item" effect="dark" :content="props.row.remarks" placement="top">
+                                            <span class="remark">{{ props.row.remarks }}</span>
+                                        </el-tooltip>
                                     </el-form-item>
                                 </el-form>
                             </el-col>
@@ -271,6 +275,9 @@
         height: 440px;
     }
 
+    .el-tooltip__popper{
+        max-width: 400px;
+    }
 
 </style>
 
