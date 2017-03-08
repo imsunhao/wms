@@ -2,46 +2,22 @@
   "status": 1,
   "rmsUser": {
     "userId": 1,
-    "userName": "超级管理员",
-    "loginName": "admin",
-    "loginPassword": "d135f41faa533e92dcff73f9179670bc",
-    "phone": "15098879708",
-    "zoneNo": null,
-    "telephone": "1234567",
-    "email": "infchd@hotmail.com",
-    "sex": true,
-    "birthday": null,
-    "homeaddress": null,
-    "qicq": null,
-    "createTime": 1474165944000,
-    "lastModifiedTime": 1474301742000,
-    "status": 1,
-    "salt": "HKJID",
-    "userType": 1,
-    "userZyq": "A,B",
-    "remarks": null,
-    "ispda": true
+    "userName": "超级管理员"
   },
   "baseMenus": [
     {
       "menuId": 28,
       "menuCode": "051",
-      "menuType": "widget1",
-      "menuIcon": "menu-icon glyphicon glyphicon-exclamation-sign",
       "parentMenuId": 5,
       "menuName": "debug/5error/info",
       "orderNumber": 1,
       "menuLevel": 2,
       "url": "",
-      "createTime": 1480993916000,
-      "modifyTime": 1481012008000,
-      "status": 1,
-      "remark": null
+      "status": 1
     },
     {
       "menuId": 39,
       "menuCode": "0121",
-      "menuType": "widget2",
       "menuIcon": "icon fa fa-meh-o",
       "parentMenuId": 35,
       "menuName": "入库日报",

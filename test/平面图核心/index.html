@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../components/element/element.css">
+    <style>
+        body {
+            margin: 0 !important;
+            padding: 0 !important
+        }
+
+        .header {
+            max-height: 60px
+        }
+
+        .header .user .el-submenu.is-active .el-submenu__title {
+            border-bottom: 0 !important
+        }
+
+        .content #showing {
+            width: 600px;
+            margin: 20px auto
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<div id="plan">
+
+    <el-input type="textarea" v-model="desc"></el-input>
+    <ul id="tag">
+        <li v-for="a of list">名字：{{a.name}} 年龄：{{a.age}}</li>
+    </ul>
+</div>
+
+</body>
+</html>
+
+<script src="../../components/debug/jquery.js"></script>
+<script src="../../components/debug/vue.js"></script>
+<script src="../../components/debug/element.js"></script>
+
+<script>
+    /*<prod>*/
+    console.log('线上版本');
+    /*</prod>*/
+
+    plan = new Vue({
+        el: '#plan',
+        prop: {},
+        data: function () {
+            return {
+                desc:''
+            };
+        },
+        computed:{
+            list:function () {
+                var obj=[];
+
+                for (var i=0;i<this.desc.length;i++){
+                    if(this.desc[i]=='a') obj.push({"name":"imsunhao","age":"18"});
+                }
+
+                return obj;
+            }
+
+        },
+        methods: {
+        },
+        watch: {
+        }
+    });
+</script>
