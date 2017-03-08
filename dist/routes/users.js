@@ -63,8 +63,8 @@ router.post('/login', function (req, res, next) {
                     console.log("用户:\t" + User.name + "\t登录成功");
 
                     if (typeof (req.body.originalUrl) !== 'undefined') {
-                        return res.send({status: status,url: req.body.originalUrl});
-                    } else return res.send({status: status,url: "/"});
+                        return res.send({status: json.status,url: req.body.originalUrl});
+                    } else return res.send({status: json.status,url: "/"});
                 case 0:
                 case 2:
                 case 3:

@@ -1,6 +1,20 @@
-var express = require("express"), router = express.Router();
-router.param("_id", function (o, e, r, s) {
-    console.log("CALLED ONLY ONCE" + s), r()
-}), router.post("/aaa", function (o, e) {
-    console.log("12351235235"), console.log(o.body), e.send(o.body)
-}), module.exports = router;
+
+// TODO 盘点作业
+
+var express = require('express');
+var router = express.Router();
+
+/*Set routerParam*/
+router.param('_id', function (req, res, next, id) {
+    console.log('CALLED ONLY ONCE'+id);
+    next();
+});
+
+router.post('/aaa',function (req,res,next) {
+    console.log('12351235235');
+    console.log(req.body);
+    res.send(req.body);
+});
+
+
+module.exports = router;
