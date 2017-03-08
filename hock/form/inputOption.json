@@ -7,6 +7,221 @@
       "gysmc": "供应商名称",
       "remarks": "备注",
       "userId": "编辑人账户ID",
+      "sjsj": 1486054744000,
+      "bjsj": 1487141149000,
+      "createtime": 1486968354000,
+      "createUserId": 1,
+      "zdfs": 1,
+      "startwith": 2,
+      "status": 35,
+      "arehouseId": 1,
+      "endTime": 1487141185000,
+      "rkdocsList":[
+        {
+          "rkmxId": "1 入库明细ID",
+          "goodsId": "1 入库货品ID",
+          "dwid": "单位id",
+          "count": "8 数量",
+          "status": "31 收货状态(1:初始状态 2:部分分配 3:完全分配 4部分收货 5 完全收货)",
+          "rkdjId": "1 入库明单据id"
+        },
+        {
+          "rkmxId": 24,
+          "goodsId": 3,
+          "dwid": 3,
+          "count": 30,
+          "status": 31,
+          "rkdjId": 1
+        },
+        {
+          "rkmxId": 25,
+          "goodsId": 4,
+          "dwid": 4,
+          "count": 40,
+          "status": 31,
+          "rkdjId": 1
+        }
+      ]
+    },
+    {
+      "rkdjId": 2,
+      "rkdjNo": "1z23452123461212",
+      "erpNo": "erp_10002",
+      "gysmc": "供应商002",
+      "remarks": "备注",
+      "userId": 1,
+      "sjsj": 1487144744000,
+      "bjsj": 1487141149000,
+      "createtime": 1486968354000,
+      "createUserId": 1,
+      "zdfs": 1,
+      "startwith": 2,
+      "status": 32,
+      "arehouseId": 1,
+      "endTime": 1487141185000,
+      "rkdocsList":[
+        {
+          "rkmxId": 22,
+          "goodsId": 1,
+          "dwid": 1,
+          "count": 10,
+          "status": 31,
+          "rkdjId": 1
+        },
+        {
+          "rkmxId": 24,
+          "goodsId": 3,
+          "dwid": 3,
+          "count": 30,
+          "status": 31,
+          "rkdjId": 1
+        },
+        {
+          "rkmxId": 25,
+          "goodsId": 4,
+          "dwid": 4,
+          "count": 40,
+          "status": 31,
+          "rkdjId": 1
+        }
+      ]
+    },
+    {
+      "rkdjId":3,
+      "rkdjNo": "12121213",
+      "erpNo": "erp_10003",
+      "gysmc": "供应商003",
+      "remarks": "备注",
+      "userId": 1,
+      "sjsj": 1487022744000,
+      "bjsj": 1487141149000,
+      "createtime": 1486968354000,
+      "createUserId": 1,
+      "zdfs": 1,
+      "startwith": 2,
+      "status": 34,
+      "arehouseId": 1,
+      "endTime": 1487141185000,
+      "rkdocsList":[
+        {
+          "rkmxId": 22,
+          "goodsId": 1,
+          "dwid": 1,
+          "count": 10,
+          "status": 31,
+          "rkdjId": 1
+        },
+        {
+          "rkmxId": 24,
+          "goodsId": 3,
+          "dwid": 3,
+          "count": 30,
+          "status": 31,
+          "rkdjId": 1
+        },
+        {
+          "rkmxId": 25,
+          "goodsId": 4,
+          "dwid": 4,
+          "count": 40,
+          "status": 31,
+          "rkdjId": 1
+        }
+      ]
+    },
+    {
+      "rkdjId": 4,
+      "rkdjNo": "12121212",
+      "erpNo": "erp_10004",
+      "gysmc": "供应商004",
+      "remarks": "备注",
+      "userId": 1,
+      "sjsj": 1484325742000,
+      "bjsj": 1487141149000,
+      "createtime": 1486968354000,
+      "createUserId": 1,
+      "zdfs": 2,
+      "startwith": 2,
+      "status": 31,
+      "arehouseId": 1,
+      "endTime": 1487141185000,
+      "rkdocsList":[
+        {
+          "rkmxId": 22,
+          "goodsId": 1,
+          "dwid": 1,
+          "count": 10,
+          "status": 31,
+          "rkdjId": 1
+        },
+        {
+          "rkmxId": 24,
+          "goodsId": 3,
+          "dwid": 3,
+          "count": 30,
+          "status": 31,
+          "rkdjId": 1
+        },
+        {
+          "rkmxId": 25,
+          "goodsId": 4,
+          "dwid": 4,
+          "count": 40,
+          "status": 31,
+          "rkdjId": 1
+        }
+      ]
+    },
+    {
+      "rkdjId": 5,
+      "rkdjNo": "12xcb121sdgzxcb212",
+      "erpNo": "erp_10005",
+      "gysmc": "供应商005",
+      "remarks": "备注超级长的备注备注超级长的备注备注超级长的备注备 注超级长的备注备注 超级长的备注备注超 级长的备注备注超级 长的备注备注超级长的备注备注超级 长的备注备注超级长的备注备注 超级长的备注备注超级长的备注备注超级长的备注备注超级长的备注",
+      "userId": 1,
+      "sjsj": 1487054744000,
+      "bjsj": 1487141149000,
+      "createtime": 1486968354000,
+      "createUserId": 1,
+      "zdfs": 3,
+      "startwith": 2,
+      "status": 31,
+      "arehouseId": 1,
+      "endTime": 1487141185000,
+      "rkdocsList":[
+        {
+          "rkmxId": 22,
+          "goodsId": 1,
+          "dwid": 1,
+          "count": 10,
+          "status": 31,
+          "rkdjId": 1
+        },
+        {
+          "rkmxId": 24,
+          "goodsId": 3,
+          "dwid": 3,
+          "count": 30,
+          "status": 31,
+          "rkdjId": 1
+        },
+        {
+          "rkmxId": 25,
+          "goodsId": 4,
+          "dwid": 4,
+          "count": 40,
+          "status": 31,
+          "rkdjId": 1
+        }
+      ]
+    },
+    {
+      "rkdjId": "编号iD",
+      "rkdjNo": "入库单号",
+      "erpNo": "外部单号",
+      "gysmc": "供应商名称",
+      "remarks": "备注",
+      "userId": "编辑人账户ID",
       "sjsj": 1487054744000,
       "bjsj": 1487141149000,
       "createtime": 1486968354000,
@@ -142,7 +357,7 @@
       "createUserId": 1,
       "zdfs": 2,
       "startwith": 2,
-      "status": 31,
+      "status": 33,
       "arehouseId": 1,
       "endTime": 1487141185000,
       "rkdocsList":[
@@ -177,7 +392,7 @@
       "rkdjNo": "12121212",
       "erpNo": "erp_10005",
       "gysmc": "供应商005",
-      "remarks": "备注",
+      "remarks": "备注超级长的备注备注超级长的备注备注超级长的备注备 注超级长的备注备注 超级长的备注备注超 级长的备注备注超级 长的备注备注超级长的备注备注超级 长的备注备注超级长的备注备注 超级长的备注备注超级长的备注备注超级长的备注备注超级长的备注",
       "userId": 1,
       "sjsj": 1487054744000,
       "bjsj": 1487141149000,
@@ -214,9 +429,124 @@
           "rkdjId": 1
         }
       ]
+    },
+    {
+      "rkdjId": 11,
+      "rkdjNo": "L0197167",
+      "erpNo": "erp_10001",
+      "gysmc": "供应商001",
+      "remarks": "备注",
+      "userId": 1,
+      "sjsj": 1487054744000,
+      "bjsj": 1487141149000,
+      "createtime": 1486968354000,
+      "createUserId": 1,
+      "zdfs": 1,
+      "startwith": 2,
+      "status": 31,
+      "arehouseId": 1,
+      "endTime": 1487141185000,
+      "rmsUser":{
+        "userId": 1,
+        "userName": "超级管理员",
+        "loginName": "admin",
+        "loginPassword": "d135f41faa533e92dcff73f9179670bc",
+        "phone": "15098879708",
+        "zoneNo": null,
+        "telephone": "1234567",
+        "email": "infchd@hotmail.com",
+        "sex": true,
+        "birthday": null,
+        "homeaddress": null,
+        "qicq": null,
+        "createTime": 1474165944000,
+        "lastModifiedTime": 1474301742000,
+        "status": 31,
+        "salt": "HKJID",
+        "userType": 1,
+        "userZyq": "A,B",
+        "remarks": "备注",
+        "ispda": true
+      },
+      "rkdocsList":[
+        {
+          "rkmxId": 26,
+          "goodsId": 1,
+          "dwid": 1,
+          "count": 300,
+          "status": 31,
+          "rkdjId": 1,
+          "baseGoods":{
+            "goodsId": 1,
+            "goodsNo": null,
+            "goodsName": null,
+            "namejc": null,
+            "t": null,
+            "i": null,
+            "hsl": null,
+            "zxdw": null,
+            "szdw": null,
+            "status": 31,
+            "arehouseId": 1,
+            "clientId": null,
+            "goodsType": null,
+            "goodsTj": null,
+            "goodsZl": null,
+            "goodsPrice": null,
+            "createtime": 1486968354000,
+            "remarks": "备注",
+            "goodsGg": null
+          },
+          "baseDw":{
+            "dwId": null,
+            "name": null,
+            "status": 31,
+            "createtime": 1486968354000
+          }
+        },
+        {
+          "rkmxId": 27,
+          "goodsId": 2,
+          "dwid": 1,
+          "count": 471,
+          "status": 31,
+          "rkdjId": 1,
+          "baseGoods":{
+            "goodsId": 2,
+            "goodsNo": null,
+            "goodsName": null,
+            "namejc": null,
+            "t": null,
+            "i": null,
+            "hsl": null,
+            "zxdw": null,
+            "szdw": null,
+            "status": 31,
+            "arehouseId": 1,
+            "clientId": null,
+            "goodsType": null,
+            "goodsTj": null,
+            "goodsZl": null,
+            "goodsPrice": null,
+            "createtime": 1486968354000,
+            "remarks": "备注",
+            "goodsGg": null
+          },
+          "baseDw":{
+            "dwId": null,
+            "name": null,
+            "status": 31,
+            "createtime": 1486968354000
+          }
+        }
+      ]
     }
   ],
   "draw": 1,
   "recordsTotal": 5,
   "recordsFiltered": 5
 }
+
+
+
+
