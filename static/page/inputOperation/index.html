@@ -45,6 +45,7 @@
                     highlight-current-row
                     @toggleRowSelection="rowSelection"
                     @row-click="hello"
+                    @expand="expandChange"
                     @selection-change="handleSelectionChange"
                     ref="table"
                     style="width: 100%">
@@ -58,14 +59,26 @@
                             <el-carousel-item>
                                 <el-row>
                                     <el-col :span="10">
-                                        <h3>项目进度</h3>
-                                        <el-steps :space="80" :active="1" direction="vertical">
-                                            <el-step title="初始状态" description="在 2017年3月5日14:48:30 由 孙颢 分配完毕"></el-step>
-                                            <el-step title="部分分配" description="等待分配中" @click="hello"></el-step>
-                                            <el-step title="全部分配" description="这是一段很长很长很长的描述性文字"></el-step>
-                                            <el-step title="部分上架" description="这是一段很长很长很长的描述性文字"></el-step>
-                                            <el-step title="全部上架" description="这是一段很长很长很长的描述性文字"></el-step>
-                                        </el-steps>
+                                        <el-row
+                                                v-loading="props.row.historyLoading"
+                                                element-loading-text="拼命加载中">
+                                            <el-col><h3>单号历史记录</h3></el-col>
+                                            <el-col
+                                                    :span="20"
+                                                    style="min-height: 386px;height: 386px;overflow: scroll;">
+                                                <el-steps
+                                                        :space="100"
+                                                        :active="props.row.historyLength"
+                                                        process-status="success"
+                                                        finish-status="finish"
+                                                        direction="vertical">
+                                                    <el-step
+                                                            :title="history.createTime"
+                                                            :description="history.description"
+                                                            v-for="history in props.row.history"></el-step>
+                                                </el-steps>
+                                            </el-col>
+                                        </el-row>
                                     </el-col>
                                     <el-col :span="14">
                                         <h3>入库详细</h3>
@@ -280,6 +293,9 @@
         max-width: 400px;
     }
 
+    .el-step__description{
+        max-width: 250px;
+    }
 </style>
 
 <script>
@@ -292,7 +308,7 @@
                 inputOperation: [],
                 multipleSelection: [],
                 multiSelect: false,
-                date: [null,null],
+                date: [null, null],
                 pickerOptions: {
                     shortcuts: [{
                         text: '最近一周',
@@ -320,13 +336,13 @@
                         }
                     }]
                 },
-                showLoading:false,
-                currentPage:1,
-                pageSize:10
+                showLoading: false,
+                currentPage: 1,
+                pageSize: 10
             }
         },
         computed: {
-            option:function(){
+            option: function () {
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
@@ -401,34 +417,42 @@
                 /*<debug>*/
                 console.log('选中的删除');
                 /*</debug>*/
-                for(var i=0;i<this.multipleSelection.length;i++)remove(this.multipleSelection[i], this.inputOperation);
+                for (var i = 0; i < this.multipleSelection.length; i++)remove(this.multipleSelection[i], this.inputOperation);
             },                                   //多选 删除
 
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
                 /*</debug>*/
-                this.pageSize=val;
-                post(this,this.option);
+                this.pageSize = val;
+                post(this, this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this,this.option);
+                post(this, this.option);
             },                                //分页 当前页
 
+            expandChange:function (row, expanded) {
+                if(typeof (row.history) =='undefined'){
+                    postHistory(row);
+                }
+                console.log(row);
+            },                              //下拉 选择
+
             rowSelection: function (row, selected) {
-                console.log(selected)
+//                console.log(selected)
             },                             //选中 当前行
             hello: function (row, event, column) {
-                console.log(row);
+//                console.log(row);
 //                this.$refs.table.$emit('toggleRowSelection', row, true);
 //                console.log(row);
 //                console.log(event);
 //                console.log(column);
-            }                                //测试 函数
+            }                                //测试 函数 --> 选中 当前行
+
         },
         watch: {
             inputOperation: function () {
@@ -450,7 +474,7 @@
 
         $.ajax(url, {
             type: "GET",
-            data: option|{
+            data: option | {
                 "draw": 1,                      //* 没有意义
                 "pageNum": 1,                   //* 当前页
                 "pageSize": 10                  //* 每页大小
@@ -483,11 +507,43 @@
                     json.data[i].zdfs = method[json.data[i].zdfs];
                     json.data[i].number = 100 + i;
                     json.data[i].volume = 200 + i;
+                    json.data[i].historyLoading = false;              //维护 history 的加载层
                 }
                 inputOperation.$data.inputOperation = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
+            }
+        });
+    }
+    function postHistory(obj, option) {
+        obj.historyLoading = true;
+
+        /*<debug>*/
+        url = "/hock/form/inputOptionDetialHistory.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/data/inputOption/history" + option;
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option | {
+                "id": 1                        //* 入库单号id
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                for (var i = 0; i < json.history.length; i++) {
+                    json.history[i].createTime=changeDate(json.history[i].createTime);
+                }
+                obj.history = json.history;
+                obj.historyLength = json.history.length-1;
+            },
+            complete: function () {
+                obj.historyLoading = false;
             }
         });
     }
