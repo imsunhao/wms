@@ -10,6 +10,7 @@ router.param('_id', function (req, res, next, id) {
     next();
 });
 
+
 // GET 用户信息
 router.get('/', function (req, res, next) {
 
@@ -25,7 +26,7 @@ router.get('/login', function (req, res, next) {
 
 // 提交登录
 router.post('/login', function (req, res, next) {
-    //TODO      图片验证
+    //TODO 图片验证 imsunhao
 
     //请求java服务器
     /*<debug>*/
@@ -52,6 +53,10 @@ router.post('/login', function (req, res, next) {
             var message = status[json.status];
             switch (json.status) {
                 case 1:
+
+                    //TODO 要做的工作 imzhangxing
+                    json=jsonChange(json);
+
                     var User = json.rmsUser;
                     //不能发布的数据定义
                     User.loginPassword = null;
@@ -59,6 +64,8 @@ router.post('/login', function (req, res, next) {
 
                     //注册 session
                     req.session.user = User;
+
+
 
                     console.log("用户:\t" + User.name + "\t登录成功");
 
@@ -86,7 +93,11 @@ router.post('/login', function (req, res, next) {
         }
     });
 
+    //zhangxing
+    function jsonChange(json) {
 
+        return json;
+    }
 });
 
 // TODO   登出测试
