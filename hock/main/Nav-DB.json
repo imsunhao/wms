@@ -1,6 +1,19 @@
 {
   "data": [
     {
+      "head": "业务处理",
+      "children": [
+        {
+          "label": "入库操作",
+          "url":"page/inputOperation"
+        },
+        {
+          "label": "出库操作",
+          "url":"page/outputOperation"
+        }
+      ]
+    },
+    {
       "head": "资源管理",
       "children": [
         {
@@ -27,19 +40,6 @@
         {
           "label": "单位管理",
           "url":"page/unitManage"
-        }
-      ]
-    },
-    {
-      "head": "业务处理",
-      "children": [
-        {
-          "label": "入库操作",
-          "url":"page/inputOperation"
-        },
-        {
-          "label": "出库操作",
-          "url":"page/outputOperation"
         }
       ]
     },

@@ -20,3 +20,5 @@ server/
 serverConfig/
 public/
 views/
+
+.sass-cache/

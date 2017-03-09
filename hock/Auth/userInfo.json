@@ -1,26 +1,8 @@
 {
-  "status": "1",
+  "status": 1,
   "rmsUser": {
     "userId": 1,
     "userName": "超级管理员",
-    "loginName": "admin",
-    "loginPassword": "d135f41faa533e92dcff73f9179670bc",
-    "phone": "15098879708",
-    "zoneNo": null,
-    "telephone": "1234567",
-    "email": "infchd@hotmail.com",
-    "sex": true,
-    "birthday": null,
-    "homeaddress": null,
-    "qicq": null,
-    "createTime": 1474165944000,
-    "lastModifiedTime": 1474301742000,
-    "status": 1,
-    "salt": "HKJID",
-    "userType": 1,
-    "userZyq": "A,B",
-    "remarks": null,
-    "ispda": true,
     "portrait": "static/images/00.jpg"
   }
 }
