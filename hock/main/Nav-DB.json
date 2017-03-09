@@ -5,27 +5,28 @@
       "children": [
         {
           "label": "仓库管理",
-          "url":""
+          "url":"page/warehouseManage",
+          "icon":""
         },
         {
           "label": "货品管理",
-          "url":""
+          "url":"page/goodsManage"
         },
         {
           "label": "RF管理",
-          "url":""
+          "url":"page/RFManage"
         },
         {
           "label": "作业区管理",
-          "url":""
+          "url":"page/operationAreaManage"
         },
         {
           "label": "客户管理",
-          "url":""
+          "url":"page/customerManage"
         },
         {
           "label": "单位管理",
-          "url":""
+          "url":"page/unitManage"
         }
       ]
     },
@@ -46,24 +47,25 @@
       "head": "库内管理",
       "children": [
         {
+//         库位：A library
           "label": "库位转移",
-          "url":""
+          "url":"page/aLibraryTransfer"
         },
         {
           "label": "库存转移确认",
-          "url":""
+          "url":"page/stockTransferConfirm"
         },
         {
           "label": "库存调整",
-          "url":""
+          "url":"page/stockAdjustment"
         },
         {
           "label": "库存调整确认",
-          "url":""
+          "url":"page/stockAdjustmentConfirm"
         },
         {
           "label": "库存冻结/解冻",
-          "url":""
+          "url":"page/stockFrozenThaw"
         }
       ]
     },
@@ -72,19 +74,20 @@
       "children": [
         {
           "label": "入库日报",
-          "url":""
+          "url":"page/inputDaily"
         },
         {
           "label": "出库日报",
-          "url":""
+          "url":"page/outputDaily"
         },
+//        动碰的翻译：Dynamic touch疑问
         {
           "label": "动碰查询",
-          "url":""
+          "url":"page/dynamicTouchSelect"
         },
         {
           "label": "库存查询",
-          "url":""
+          "url":"page/stockSelect"
         },
         {
           "label": "入库单据查询",
@@ -94,21 +97,23 @@
           "label": "出库单据查询",
           "url":"page/outputSelect"
         },
+//       发货： Deliver goods  装车：Loading  清单Detailed list
         {
           "label": "发货装车清单",
-          "url":""
+          "url":"page/deliverGoodsLoadingDetailedList"
         },
         {
           "label": "进出合并查询",
-          "url":""
+          "url":"page/importMergeSelect"
         },
+//        库位：A library
         {
           "label": "库位转移查询",
-          "url":""
+          "url":"page/aLibraryTransferSelect"
         },
         {
           "label": "库存调整查询",
-          "url":""
+          "url":"page/stockAdjustmentSelect"
         }
       ]
     },
@@ -116,16 +121,17 @@
       "head": "盘点查询",
       "children": [
         {
+//          动碰
           "label": "动碰盘点查询",
-          "url":""
+          "url":"page/dynamicTouchInventorySelect"
         },
         {
           "label": "循环盘点查询",
-          "url":""
+          "url":"page/loopInventorySelect"
         },
         {
           "label": "全面盘点查询",
-          "url":""
+          "url":"page/comprehensiveInventorySelect"
         }
       ]
     },
@@ -133,8 +139,9 @@
       "head": "关于本系统",
       "children": [
         {
+          //关于本系统
           "label": "关于本系统",
-          "url":""
+          "url":"page/aboutThisSystem"
         }
       ]
     }

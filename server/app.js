@@ -129,7 +129,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 
-var mongoDBConfig=require('./serverConfig/server/mongoBDConfig.json');       //网络数据库 配置
+var mongoDBConfig = require('./serverConfig/server/mongoBDConfig.json');       //网络数据库 配置
 var MongoStore = require('connect-mongo')(session);                      //提供 session  数据库依赖
 
 mongoose.Promise = global.Promise;
@@ -157,7 +157,9 @@ app.set('view engine', 'ejs');                                     //模板为ej
  /*
  */
 
-mongoose.connect('mongodb://'+mongoDBConfig.user+':'+mongoDBConfig.password+'@'+mongoDBConfig.host+':'+mongoDBConfig.port+'/'+mongoDBConfig.database+'?authSource='+mongoDBConfig.authSource, {native_parser: true});//网路数据库
+mongoose.connect('mongodb://' + mongoDBConfig.user + ':' + mongoDBConfig.password + '@'
+    + mongoDBConfig.host + ':' + mongoDBConfig.port + '/' + mongoDBConfig.database + '?authSource='
+    + mongoDBConfig.authSource, {native_parser: true});//网路数据库
 mongoose.connection.on('error', console.error.bind(console, '连接数据库失败'));
 /*
  /*****************************************************************************/
@@ -191,7 +193,7 @@ app.use(express.static(path.join(__dirname, 'public')));              //加载pu
 app.use(session({
     key: 'session',
     secret: 'keboard cat',
-    cookie: {maxAge: 1000 * 60 * 60 * 24 },//1小时 //1k (s) * 60(min) *60 (hover) *24(day)
+    cookie: {maxAge: 1000 * 60 * 60 * 24},//1小时 //1k (s) * 60(min) *60 (hover) *24(day)
     store: new MongoStore({
         db: 'wms',
         mongooseConnection: mongoose.connection
@@ -204,7 +206,7 @@ app.use(session({
 
 /*****************************************************************************/
 /*
- /*   TODO 访问统计
+ /*   TODO 访问统计 imsunhao
  /*     功能           见注释
  /*
  */
@@ -218,18 +220,18 @@ app.use(session({
  /*     功能           见注释
  /*
  */
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     //demo req.originalUrl.match(/\/article\/read\/.*/)
-    if(/^.+\./.test(req.originalUrl)==req.originalUrl) next();
+    if (/^.+\./.test(req.originalUrl) == req.originalUrl) next();
     /*<debug>*/
     console.log("---------启用验证！------------------");
     console.log(req.session.user);
     console.log(req.originalUrl);
     console.log("--------------------------------------");
     /*</debug>*/
-    if(req.session.user||req.originalUrl=='/users/login'){
+    if (req.session.user || req.originalUrl == '/users/login') {
         next();
-    }else{
+    } else {
         return res.redirect('/users/login');
     }
 });
