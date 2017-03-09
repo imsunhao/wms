@@ -18,33 +18,13 @@
            data: {},
            success: function (json) {
                console.log('--------- json 原始数据------------');
-
-               (function (json) {
-                   console.log(json);
-               })(json);
-
-//               console.log(json);
-
-
+               console.log(json);
                console.log('--------- json 删除 baseArehouses 后的数据------------');
                delete json.baseArehouses;
-
-               (function (json) {
-                   console.log(json);
-               })(json);
-
-//               console.log(json);
-
-
+               console.log(json);
                console.log('--------- json 删除 rmsUser 后的数据------------');
                delete json.rmsUser;
-
-               (function (json) {
-                   console.log(json);
-               })(json);
-
-//               console.log(json);
-
+               console.log(json);
                console.log('\n\n\n--------- 思考，为什么点开object箭头后 都一样了？------------');
                console.log('--------- 思考，为什么我不直接使用console.log来输出？------------');
                console.log('--------- 上面两个原因是一样的，就是因为闭包\n--------------------引用类型、与实体类型的区别----');
