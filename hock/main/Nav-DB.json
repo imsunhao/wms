@@ -47,7 +47,6 @@
       "head": "库内管理",
       "children": [
         {
-//         库位：A library
           "label": "库位转移",
           "url":"page/aLibraryTransfer"
         },
@@ -80,7 +79,6 @@
           "label": "出库日报",
           "url":"page/outputDaily"
         },
-//        动碰的翻译：Dynamic touch疑问
         {
           "label": "动碰查询",
           "url":"page/dynamicTouchSelect"
@@ -97,7 +95,6 @@
           "label": "出库单据查询",
           "url":"page/outputSelect"
         },
-//       发货： Deliver goods  装车：Loading  清单Detailed list
         {
           "label": "发货装车清单",
           "url":"page/deliverGoodsLoadingDetailedList"
@@ -106,7 +103,6 @@
           "label": "进出合并查询",
           "url":"page/importMergeSelect"
         },
-//        库位：A library
         {
           "label": "库位转移查询",
           "url":"page/aLibraryTransferSelect"
@@ -121,7 +117,6 @@
       "head": "盘点查询",
       "children": [
         {
-//          动碰
           "label": "动碰盘点查询",
           "url":"page/dynamicTouchInventorySelect"
         },
@@ -139,7 +134,6 @@
       "head": "关于本系统",
       "children": [
         {
-          //关于本系统
           "label": "关于本系统",
           "url":"page/aboutThisSystem"
         }
