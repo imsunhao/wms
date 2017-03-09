@@ -23,7 +23,23 @@
             margin: 20px auto
         }
 
+        .clearfix:after {
+            content: " ";
+            display: block;
+            height: 0;
+            clear: both;
+        }
 
+        /*IE/7/6*/
+        .clearfix {
+            *zoom: 1;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
     </style>
 </head>
 <body>
@@ -32,9 +48,16 @@
 <div id="plan">
 
     <el-input type="textarea" v-model="desc"></el-input>
-    <ul id="tag">
-        <li v-for="a of list">名字：{{a.name}} 年龄：{{a.age}}</li>
-    </ul>
+
+    <div id="tag">
+        <ul v-for="a of list" style="width: 100%;min-height: 30px" class="clearfix">
+            <li
+                    v-for="a1 of a"
+                    :style="[baseStyle,statusColor(a1.status)]">
+                {{a1.id}}
+            </li>
+        </ul>
+    </div>
 </div>
 
 </body>
@@ -45,6 +68,9 @@
 <script src="../../components/debug/element.js"></script>
 
 <script>
+    //TODO 制作平面图解析功能
+
+
     /*<prod>*/
     console.log('线上版本');
     /*</prod>*/
@@ -54,24 +80,58 @@
         prop: {},
         data: function () {
             return {
-                desc:''
+                desc: '',
+                baseStyle: {
+                    float: 'left',
+                    width: '25px',
+                    height: '25px',
+                    margin: '5px'
+                }
             };
         },
-        computed:{
-            list:function () {
-                var obj=[];
+        computed: {
+            list: function () {
+                var obj = [[]];
+                var row = 0;
+                var col = 1;
 
-                for (var i=0;i<this.desc.length;i++){
-                    if(this.desc[i]=='a') obj.push({"name":"imsunhao","age":"18"});
+                for (var i = 0; i < this.desc.length; i++) {
+                    switch (this.desc[i]) {
+                        case 'a':       //仓库
+                            obj[row].push({id: row * 100 + col++, status: i % 6});
+                            break;
+                        case '\n':      //换行
+                            row++;
+                            col = 1;
+                            obj.push([]);
+                            break;
+                    }
                 }
 
                 return obj;
+            },
+            listWidth: function () {
             }
 
         },
         methods: {
+            statusColor: function (status) {
+                switch (status) {
+                    case 0:         //仓库
+                        return {background:'#ee352a'};
+                    case 1:         //仓库
+                        return {background:'#eee'};
+                    case 2:         //换行
+                        return {background:'#5468ee'};
+                    case 3:         //换行
+                        return {background:'#ee719e'};
+                    case 4:         //换行
+                        return {background:'#a4ee96'};
+                    case 5:         //换行
+                        return {background:'#a4ee50'};
+                }
+            }
         },
-        watch: {
-        }
+        watch: {}
     });
 </script>
