@@ -41,6 +41,38 @@ $(function (dbmessage) {
                 rmsUser: {},                          //User信息
                 breadcrumb: ['首页'],                //面包屑菜单
                 showingLoading: false,                //content 加载控制
+                treeRenderContent:function (h,node) {
+                    console.log(node.data.label);
+                    return h(
+                        'div',{
+                            style: {
+                                width:'100%',
+                                lineHeight:'60px',
+                                position:'relative',
+                                paddingLeft:'60px'
+                            }
+                        },
+                        [
+                            h('i', {
+                                style: {
+                                    width:'24px',
+                                    height:'24px',
+                                    display:'inline-block',
+                                    position:'absolute',
+                                    left:'18px',
+                                    top:'18px',
+                                    backgroundImage:'url("/static/images/'+node.data.icon+'.png")'
+                                }
+                            }),
+                            h('span', {
+                                style: {
+                                    color: '#fafafa',
+                                    fontSize: '14px'
+                                }
+                            }, node.data.label)
+                        ]
+                    )
+                }
             };
         },
         methods: {
