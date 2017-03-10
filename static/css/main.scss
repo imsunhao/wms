@@ -197,6 +197,10 @@ html,body {
   border: 1px solid #424F63;
 }
 
+.el-tree-node__content .is-leaf{
+  display: none;
+}
+
 .clearfix:after {
   content: " ";
   display: block;

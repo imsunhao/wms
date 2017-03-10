@@ -5,7 +5,8 @@
       "children": [
         {
           "label": "入库操作",
-          "url":"page/inputOperation"
+          "url":"page/inputOperation",
+          "icon":"a2"
         },
         {
           "label": "出库操作",
