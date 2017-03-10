@@ -10,7 +10,8 @@
         },
         {
           "label": "出库操作",
-          "url":"page/outputOperation"
+          "url":"page/outputOperation",
+          "icon":"a3"
         }
       ]
     },
@@ -20,27 +21,32 @@
         {
           "label": "仓库管理",
           "url":"page/warehouseManage",
-          "icon":""
+          "icon":"e3"
         },
         {
           "label": "货品管理",
-          "url":"page/goodsManage"
+          "url":"page/goodsManage",
+          "icon":"e4"
         },
         {
           "label": "RF管理",
-          "url":"page/RFManage"
+          "url":"page/RFManage",
+          "icon":"e1"
         },
         {
           "label": "作业区管理",
-          "url":"page/operationAreaManage"
+          "url":"page/operationAreaManage",
+          "icon":"e5"
         },
         {
           "label": "客户管理",
-          "url":"page/customerManage"
+          "url":"page/customerManage",
+          "icon":"e2"
         },
         {
           "label": "单位管理",
-          "url":"page/unitManage"
+          "url":"page/unitManage",
+          "icon":"e6"
         }
       ]
     },
@@ -49,23 +55,29 @@
       "children": [
         {
           "label": "库位转移",
-          "url":"page/aLibraryTransfer"
+          "url":"page/aLibraryTransfer",
+          "icon":"d1"
         },
         {
           "label": "库存转移确认",
-          "url":"page/stockTransferConfirm"
+          "url":"page/stockTransferConfirm",
+          "icon":"d2"
         },
         {
           "label": "库存调整",
-          "url":"page/stockAdjustment"
+          "url":"page/stockAdjustment",
+          "icon":"d3"
         },
         {
           "label": "库存调整确认",
-          "url":"page/stockAdjustmentConfirm"
+          "url":"page/stockAdjustmentConfirm",
+          "icon":"d4"
         },
         {
           "label": "库存冻结/解冻",
-          "url":"page/stockFrozenThaw"
+          "url":"page/stockFrozenThaw",
+          "icon":"d5"
+
         }
       ]
     },
@@ -74,43 +86,55 @@
       "children": [
         {
           "label": "入库日报",
-          "url":"page/inputDaily"
+          "url":"page/inputDaily",
+          "icon":"b1"
         },
         {
           "label": "出库日报",
-          "url":"page/outputDaily"
+          "url":"page/outputDaily",
+          "icon":"b2"
         },
         {
           "label": "动碰查询",
-          "url":"page/dynamicTouchSelect"
+          "url":"page/dynamicTouchSelect",
+          "icon":"b3"
         },
         {
           "label": "库存查询",
-          "url":"page/stockSelect"
+          "url":"page/stockSelect",
+          "icon":"b4"
+
+
         },
         {
           "label": "入库单据查询",
-          "url":"page/inputSelect"
+          "url":"page/inputSelect",
+          "icon":"b5"
         },
         {
           "label": "出库单据查询",
-          "url":"page/outputSelect"
+          "url":"page/outputSelect",
+          "icon":"b6"
         },
         {
           "label": "发货装车清单",
-          "url":"page/deliverGoodsLoadingDetailedList"
+          "url":"page/deliverGoodsLoadingDetailedList",
+          "icon":"b7"
         },
         {
           "label": "进出合并查询",
-          "url":"page/importMergeSelect"
+          "url":"page/importMergeSelect",
+          "icon":"b8"
         },
         {
           "label": "库位转移查询",
-          "url":"page/aLibraryTransferSelect"
+          "url":"page/aLibraryTransferSelect",
+          "icon":"b9"
         },
         {
           "label": "库存调整查询",
-          "url":"page/stockAdjustmentSelect"
+          "url":"page/stockAdjustmentSelect",
+          "icon":"b10"
         }
       ]
     },
@@ -119,15 +143,18 @@
       "children": [
         {
           "label": "动碰盘点查询",
-          "url":"page/dynamicTouchInventorySelect"
+          "url":"page/dynamicTouchInventorySelect",
+          "icon":"b12"
         },
         {
           "label": "循环盘点查询",
-          "url":"page/loopInventorySelect"
+          "url":"page/loopInventorySelect",
+          "icon":"b13"
         },
         {
           "label": "全面盘点查询",
-          "url":"page/comprehensiveInventorySelect"
+          "url":"page/comprehensiveInventorySelect",
+          "icon":"b14"
         }
       ]
     },
