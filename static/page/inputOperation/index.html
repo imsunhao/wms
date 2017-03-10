@@ -48,6 +48,7 @@
                     @expand="expandChange"
                     @selection-change="handleSelectionChange"
                     ref="table"
+                    class="inputOperationTable"
                     style="width: 100%">
                 <el-table-column
                         type="expand">
@@ -262,6 +263,7 @@
 <style>
     #inputOperation {
         width: 100%;
+        min-width: 890px;
     }
 
     #inputOperation .demo-table-expand {
@@ -297,6 +299,11 @@
 
     .el-step__main {
         max-width: calc(100% - 60px);
+    }
+
+    .inputOperationTable{
+        width: 95% !important;
+        margin: 20px auto;
     }
 </style>
 
@@ -418,7 +425,15 @@
                 /*<debug>*/
                 console.log('选中的删除');
                 /*</debug>*/
-                for (var i = 0; i < this.multipleSelection.length; i++)remove(this.multipleSelection[i], this.inputOperation);
+                var listID=[];
+                for (var i = 0; i < this.multipleSelection.length; i++){
+                    remove(this.multipleSelection[i], this.inputOperation);
+                    listID.push(this.inputOperation.rkdjNo);
+                }
+                postDelete(this,{
+                    id:listID
+                })
+
             },                                   //多选 删除
 
             handleSizeChange: function (val) {
@@ -448,7 +463,7 @@
                     }
                 });
 
-            },                                               //按钮 新建入库单
+            },                                              //按钮 新建入库单
 
             expandChange: function (row, expanded) {
                 if (typeof (row.history) == 'undefined') {
@@ -539,7 +554,7 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/data/inputOption/history" + option;
+        url = "/data/inputOption/history";
         /*</prod>*/
 
         $.ajax(url, {
@@ -559,6 +574,44 @@
             },
             complete: function () {
                 obj.historyLoading = false;
+            }
+        });
+    }
+    function postDelete(obj, option) {
+        if(option.id.length<1)return;
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "/hock/form/inputOptoionDelete.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/data/inputOption/delete" + option;
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option | {
+                "id": 1                        //* 入库单号id
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                if(json.status==1){
+                    obj.$notify({
+                        title: '提示',
+                        type:'success',
+                        message: obj.$createElement(
+                            'p',
+                            '删除完成'
+                        )
+                    });
+
+                }
+            },
+            complete: function () {
+                obj.showLoading = false;
             }
         });
     }
