@@ -1,5 +1,6 @@
-body {
-  min-width:1200px;
+html,body {
+  height: 100%;
+  width: 100%;
   margin: 0 !important;
   padding: 0 !important;
 }
@@ -54,12 +55,14 @@ body {
     height: 60px;
     input[type="text"]{
       background: #354051;
-      border-radius: 2px;
+      border-radius: 4px;
       margin-top: 10px;
       width: 260px;
       height: 40px;
       margin-left: 20px;
-
+    }
+    .el-input__icon{
+      right:25px;
     }
   }
 
@@ -96,34 +99,6 @@ body {
       float: left;
     }
 
-    .user {
-      &:hover {
-        border-bottom: none !important;
-      }
-      float: right;
-      img {
-        position: absolute;
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        overflow: hidden;
-        top: 13px;
-        left: -20px;
-      }
-      .el-submenu__title{
-        border-bottom: none !important;
-        height: 60px !important;
-        background-color: #fff !important;
-        color: #333;
-      }
-      .el-menu-item{
-        line-height: 30px;
-        &:hover{
-          border-top:5px #eee solid;
-          background-color: #eee !important;
-        }
-      }
-    }
     .el-menu-item,.el-menu{
       background:#fff !important;
     }
@@ -148,13 +123,57 @@ body {
       cursor: pointer;
       background-image: url("../images/navControl.png");
     }
+
+    .user {
+      &:hover {
+        border-bottom: none !important;
+      }
+      float: right;
+      margin-right: 10px;
+      img {
+        position: absolute;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        overflow: hidden;
+        top: 13px;
+        left: -20px;
+      }
+
+      .el-submenu{
+        border-top:none !important;
+        border-bottom: none !important;
+      }
+      .el-submenu__title{
+        border-top:5px #fff solid !important;
+        border-bottom: none !important;
+        height: 60px !important;
+        background-color: #fff !important;
+        color: #333;
+      }
+      .el-menu-item{
+        border:none !important;
+        line-height: 40px;
+        height: 40px;
+        padding-left:15px;
+        &:hover{
+          border-top:none !important;
+          background-color: #eee !important;
+        }
+      }
+      .el-menu{
+        padding: 0;
+      }
+
+    }
   }
 
   .content {
+    height: calc(100vh - 60px);
     background-color: #eee;
     width: 100%;
     .inner{
-      margin-left:2%;
+      margin:0 2%;
       .contentHeader{
         height: 60px;
         overflow: hidden;
@@ -164,14 +183,18 @@ body {
       }
       #showing {
         overflow: scroll;
-        height: calc(100vh - 120px);
+        position: relative;
+        min-width:900px;
+        height: calc(100vh - 150px);
+        background: #F8FAFB;
+        border: 1px solid #CCCCCC;
       }
     }
   }
 }
 
 .el-input__inner{
-  border: 1px solid #516b8a;
+  border: 1px solid #424F63;
 }
 
 .clearfix:after {

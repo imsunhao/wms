@@ -21,7 +21,7 @@
             </el-button>
             <el-button
                     size="small"
-                    @click="handleDelete">新建入库单
+                    @click="newInput">新建入库单
             </el-button>
             <el-button
                     size="small"
@@ -42,6 +42,7 @@
             <el-table
                     :data="inputOperation"
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
+                    :max-height="570"
                     highlight-current-row
                     @toggleRowSelection="rowSelection"
                     @row-click="hello"
@@ -172,19 +173,19 @@
                         </el-carousel>
                     </template>
                 </el-table-column>
-                <el-table-column
-                        type="index"
-                        width="55">
-                </el-table-column>
+                <!--<el-table-column-->
+                <!--type="index"-->
+                <!--width="55">-->
+                <!--</el-table-column>-->
                 <el-table-column
                         label="入库单号"
-                        width="130"
+                        width="170"
                         show-overflow-tooltip
                         align="center"
                         prop="rkdjNo">
                 </el-table-column>
                 <el-table-column
-                        width="220"
+                        width="150"
                         align="center"
                         prop="sjsj"
                         sortable
@@ -198,7 +199,7 @@
                         label="单据"
                         prop="type"
                         align="center"
-                        width="120"
+                        width="100"
                         :filters="[{ text: '采购订单', value: '采购订单' }, { text: '仓间挑拨', value: '仓间挑拨' }, { text: '退货入库', value: '退货入库' }]"
                         :filter-method="filterType">
                     <template scope="scope">
@@ -212,7 +213,7 @@
                         label="状态"
                         prop="status"
                         align="center"
-                        width="120"
+                        width="100"
                         :filters="[{ text: '初始状态', value: '初始状态' }, { text: '部分分配', value: '部分分配' }, { text: '全部分配', value: '全部分配' }, { text: '部分上架', value: '部分上架' }, { text: '全部上架', value: '全部上架' }]"
                         :filter-method="filterStatus">
                     <template scope="scope">
@@ -225,11 +226,13 @@
                 <el-table-column
                         label="总数量"
                         align="center"
+                        show-overflow-tooltip
                         prop="number">
                 </el-table-column>
                 <el-table-column
                         label="总体积"
                         align="center"
+                        show-overflow-tooltip
                         prop="volume">
                 </el-table-column>
                 <el-table-column
@@ -293,8 +296,8 @@
         max-width: 400px;
     }
 
-    .el-step__description{
-        max-width: 250px;
+    .el-step__main {
+        max-width: calc(100% - 60px);
     }
 </style>
 
@@ -434,8 +437,22 @@
                 post(this, this.option);
             },                                //分页 当前页
 
-            expandChange:function (row, expanded) {
-                if(typeof (row.history) =='undefined'){
+            newInput: function () {
+                this.$msgbox({
+                    title: '消息',
+                    message: 'sadgasd',
+                    showCancelButton: true,
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    beforeClose: function (action, instance, done) {
+                        done();
+                    }
+                });
+
+            },                                               //按钮 新建入库单
+
+            expandChange: function (row, expanded) {
+                if (typeof (row.history) == 'undefined') {
                     postHistory(row);
                 }
                 console.log(row);
@@ -504,8 +521,8 @@
                     json.data[i].sjsj = changeDate(json.data[i].sjsj);
                     json.data[i].status = status[json.data[i].status];
                     json.data[i].zdfs = method[json.data[i].zdfs];
-                    json.data[i].number = 100 + i;
-                    json.data[i].volume = 200 + i;
+                    json.data[i].number = 10120 + i;
+                    json.data[i].volume = 200.0234 + i;
                     json.data[i].historyLoading = false;              //维护 history 的加载层
                 }
                 inputOperation.$data.inputOperation = json.data;
@@ -536,10 +553,10 @@
             },
             success: function (json) {
                 for (var i = 0; i < json.history.length; i++) {
-                    json.history[i].createTime=changeDate(json.history[i].createTime);
+                    json.history[i].createTime = changeDate(json.history[i].createTime);
                 }
                 obj.history = json.history;
-                obj.historyLength = json.history.length-1;
+                obj.historyLength = json.history.length - 1;
             },
             complete: function () {
                 obj.historyLoading = false;
@@ -547,7 +564,7 @@
         });
     }
     function changeDate(date) {
-        return dateFormat(new Date(date), 'yyyy-MM-dd hh:mm:ss');
+        return dateFormat(new Date(date), 'MM-dd hh:mm');
     }
     function errorTip(obj, error) {                    // 错误提示
         /*<debug>*/
