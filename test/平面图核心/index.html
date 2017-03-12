@@ -51,11 +51,11 @@
 
     <div id="tag">
         <ul v-for="a of list" style="width: 100%;min-height: 30px" class="clearfix">
-            <li
-                    v-for="a1 of a"
-                    :style="[baseStyle,statusColor(a1.status)]">
-                {{a1.id}}
-            </li>
+            <!--<li-->
+                    <!--v-for="a1 of a"-->
+                    <!--:style="[baseStyle,statusColor(a1.status)]">-->
+                <!--{{a1.id}}-->
+            <!--</li>-->
         </ul>
     </div>
 </div>
@@ -97,14 +97,17 @@
 
                 for (var i = 0; i < this.desc.length; i++) {
                     switch (this.desc[i]) {
-                        case 'a':       //仓库
-                            obj[row].push({id: row * 100 + col++, status: i % 6});
+                        case ' ':       //过道
+                            obj[row].push({id: -1 , status: -1});
                             break;
                         case '\n':      //换行
                             row++;
                             col = 1;
                             obj.push([]);
                             break;
+                        default:       //仓库
+                            //库区
+                            obj[row].push({id: row * 100 + col++, status: 2});
                     }
                 }
 
@@ -115,10 +118,13 @@
 
         },
         methods: {
+            // TODO 根据 UI 平面图 kuqu 配置正确的颜色于注释   imzhangxing
             statusColor: function (status) {
                 switch (status) {
+                    case -1:         //仓库
+                        return {background:'#eeeeee'};
                     case 0:         //仓库
-                        return {background:'#ee352a'};
+                        return {background:'#fe352a'};
                     case 1:         //仓库
                         return {background:'#eee'};
                     case 2:         //换行
@@ -129,6 +135,13 @@
                         return {background:'#a4ee96'};
                     case 5:         //换行
                         return {background:'#a4ee50'};
+                }
+            },
+            isAisle:function (id) {
+                if(id == -1){
+
+                }else{
+
                 }
             }
         },
