@@ -75,7 +75,7 @@
     console.log('线上版本');
     /*</prod>*/
 
-    plan = new Vue({
+    var plan = new Vue({
         el: '#plan',
         prop: {},
         data: function () {
@@ -92,43 +92,61 @@
         computed: {
             list: function () {
                 var obj = [[]];
+                var kuQu={};
                 var row = 0;
                 var col = 1;
+                var step={};
 
                 for (var i = 0; i < this.desc.length; i++) {
                     switch (this.desc[i]) {
-                        case 'a':       //仓库
-                            obj[row].push({id: row * 100 + col++, status: i % 6});
+                        case ' ':       //过道
+                            obj[row].push({id: -1 , status: -1});
                             break;
                         case '\n':      //换行
                             row++;
                             col = 1;
                             obj.push([]);
                             break;
+                        default:       //仓库
+                            //库区
+                            step={row:row,col:col++, status: 2};
+                            if(typeof kuQu[this.desc[i]]=='undefined'){
+                                kuQu[this.desc[i]]={color:'',src:[],id:this.desc[i].toUpperCase()};
+                            }
+                            kuQu[this.desc[i]].src.push(step);
+                            obj[row].push();
                     }
                 }
 
                 return obj;
-            },
-            listWidth: function () {
             }
 
         },
         methods: {
+            // TODO 根据 UI 平面图 kuqu 配置正确的颜色于注释   imzhangxing
             statusColor: function (status) {
                 switch (status) {
-                    case 0:         //仓库
-                        return {background:'#ee352a'};
+                    case -1:        //过道  #999
+                        return 'Aisle';
+                    case 0:         //未定义  #ccc
+                        return 'undefined';
                     case 1:         //仓库
-                        return {background:'#eee'};
+                        return ;
                     case 2:         //换行
-                        return {background:'#5468ee'};
+                        return ;
                     case 3:         //换行
-                        return {background:'#ee719e'};
+                        return ;
                     case 4:         //换行
-                        return {background:'#a4ee96'};
+                        return ;
                     case 5:         //换行
-                        return {background:'#a4ee50'};
+                        return ;
+                }
+            },
+            isAisle:function (id) {
+                if(id == -1){
+
+                }else{
+
                 }
             }
         },

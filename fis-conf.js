@@ -56,7 +56,7 @@ fis.media('debug')
 fis.media('test')
     .set('project.ignore', [
         'DOC/**',
-        'UL/**',
+        'UI/**',
         'hock/**',
         'node_modules/**',
         '.git/**',

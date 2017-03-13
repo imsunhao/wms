@@ -48,6 +48,7 @@
                     @expand="expandChange"
                     @selection-change="handleSelectionChange"
                     ref="table"
+                    class="inputOperationTable"
                     style="width: 100%">
                 <el-table-column
                         type="expand">
@@ -258,10 +259,28 @@
             </div>
         </el-col>
     </el-row>
+    <el-dialog title="收货地址" v-model="dialogFormVisible">
+        <el-form :model="form">
+            <el-form-item label="活动名称" :label-width="formLabelWidth">
+                <el-input v-model="form.name" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="活动区域" :label-width="formLabelWidth">
+                <el-select v-model="form.region" placeholder="请选择活动区域">
+                    <el-option label="区域一" value="shanghai"></el-option>
+                    <el-option label="区域二" value="beijing"></el-option>
+                </el-select>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        </div>
+    </el-dialog>
 </div>
 <style>
     #inputOperation {
         width: 100%;
+        min-width: 890px;
     }
 
     #inputOperation .demo-table-expand {
@@ -298,6 +317,11 @@
     .el-step__main {
         max-width: calc(100% - 60px);
     }
+
+    .inputOperationTable{
+        width: 95% !important;
+        margin: 20px auto;
+    }
 </style>
 
 <script>
@@ -310,6 +334,18 @@
                 multipleSelection: [],
                 multiSelect: false,
                 date: [null, null],
+                dialogFormVisible: false,
+                form: {
+                    name: '',
+                    region: '',
+                    date1: '',
+                    date2: '',
+                    delivery: false,
+                    type: [],
+                    resource: '',
+                    desc: ''
+                },
+                formLabelWidth: '120px',
                 pickerOptions: {
                     shortcuts: [{
                         text: '最近一周',
@@ -418,7 +454,15 @@
                 /*<debug>*/
                 console.log('选中的删除');
                 /*</debug>*/
-                for (var i = 0; i < this.multipleSelection.length; i++)remove(this.multipleSelection[i], this.inputOperation);
+                var listID=[];
+                for (var i = 0; i < this.multipleSelection.length; i++){
+                    remove(this.multipleSelection[i], this.inputOperation);
+                    listID.push(this.inputOperation.rkdjNo);
+                }
+                postDelete(this,{
+                    id:listID
+                })
+
             },                                   //多选 删除
 
             handleSizeChange: function (val) {
@@ -437,18 +481,19 @@
             },                                //分页 当前页
 
             newInput: function () {
-                this.$msgbox({
-                    title: '消息',
-                    message: 'sadgasd',
-                    showCancelButton: true,
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    beforeClose: function (action, instance, done) {
-                        done();
-                    }
-                });
+                this.dialogFormVisible = true;
+//                this.$msgbox({
+//                    title: '消息',
+//                    message: 'sadgasd',
+//                    showCancelButton: true,
+//                    confirmButtonText: '确定',
+//                    cancelButtonText: '取消',
+//                    beforeClose: function (action, instance, done) {
+//                        done();
+//                    }
+//                });
 
-            },                                               //按钮 新建入库单
+            },                                              //按钮 新建入库单
 
             expandChange: function (row, expanded) {
                 if (typeof (row.history) == 'undefined') {
@@ -539,7 +584,7 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/data/inputOption/history" + option;
+        url = "/data/inputOption/history";
         /*</prod>*/
 
         $.ajax(url, {
@@ -559,6 +604,44 @@
             },
             complete: function () {
                 obj.historyLoading = false;
+            }
+        });
+    }
+    function postDelete(obj, option) {
+        if(option.id.length<1)return;
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "/hock/form/inputOptoionDelete.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/data/inputOption/delete" + option;
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option | {
+                "id": 1                        //* 入库单号id
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                if(json.status==1){
+                    obj.$notify({
+                        title: '提示',
+                        type:'success',
+                        message: obj.$createElement(
+                            'p',
+                            '删除完成'
+                        )
+                    });
+
+                }
+            },
+            complete: function () {
+                obj.showLoading = false;
             }
         });
     }
