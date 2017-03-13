@@ -497,7 +497,49 @@
           }
         }
       ]
+    },
+    {
+      "rkRkdjId": 1,
+      "rkRkdjNo": "S0001295946",
+      "rkErpNo": "erp_10001",
+      "rkGysmc": "供应商001",
+      "rkRemarks": "备注",
+      "rkUserId": 1,
+      "rkSjsj": 1488955840000,
+      "rkBjsj": 1487141149000,
+      "rkCreatetime": 1486968354000,
+      "rkCreateUserId": 1,
+      "rkZdfs": 1,
+      "rkStartwith": 2,
+      "rkStatus": 32,
+      "rkArehouseId": 1,
+      "rkEndTime": 1488956161000,
+      "rmsUser": {
+        "ruUserId": 1,
+        "ruUserName": "超级管理员",
+        "ruLoginName": "admin",
+        "ruLoginPassword": "d135f41faa533e92dcff73f9179670bc",
+        "ruPhone": "15098879708",
+        "ruZoneNo": "",
+        "ruTelephone": "1234567",
+        "ruEmail": "infchd@hotmail.com",
+        "ruSex": true,
+        "ruBirthday": 1488873925000,
+        "ruHomeaddress": "",
+        "ruQicq": "",
+        "ruCreateTime": 1474165944000,
+        "ruLastModifiedTime": 1474301742000,
+        "ruStatus": 1,
+        "ruSalt": "HKJID",
+        "ruUserType": 0,
+        "ruUserZyq": "1,2",
+        "ruRemarks": "",
+        "ruIspda": true
+      },
+      "rkDocsList": [
+      ]
     }
+
   ],
   "draw": 1,
   "recordsTotal": 5,
