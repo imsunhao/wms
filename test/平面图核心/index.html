@@ -123,23 +123,23 @@
 
         },
         methods: {
-            // TODO 根据 UI 平面图 kuqu 配置正确的颜色于注释   imzhangxing
+            //  根据 UI 平面图 kuqu 配置正确的颜色于注释   imzhangxing
             statusColor: function (status) {
                 switch (status) {
                     case -1:        //过道  #999
                         return 'Aisle';
                     case 0:         //未定义  #ccc
                         return 'undefined';
-                    case 1:         //仓库
-                        return ;
-                    case 2:         //换行
-                        return ;
-                    case 3:         //换行
-                        return ;
-                    case 4:         //换行
-                        return ;
-                    case 5:         //换行
-                        return ;
+                    case 1:         //存储区 #7ED321
+                        return 'StorageArea' ;
+                    case 2:         //分拣区 #47D0B2
+                        return 'SortingArea';
+                    case 3:         //暂存区 #F6A623
+                        return 'TemporaryStorageArea';
+                    case 4:         //不合格区 #FF5066
+                        return 'UnqualifiedArea';
+                    case 5:         //选中状态 #4C5EA8
+                        return 'SelectedState';
                 }
             },
             isAisle:function (id) {
