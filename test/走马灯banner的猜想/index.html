@@ -41,12 +41,38 @@
             padding: 0;
         }
     </style>
+
+
+    <style>
+        .el-carousel__item h3 {
+            color: #475669;
+            font-size: 18px;
+            opacity: 0.75;
+            line-height: 300px;
+            margin: 0;
+        }
+
+        .el-carousel__item:nth-child(2n) {
+            background-color: #99a9bf;
+        }
+
+        .el-carousel__item:nth-child(2n+1) {
+            background-color: #d3dce6;
+        }
+    </style>
+
 </head>
 <body>
 
 
 <div id="banner">
-
+    <div id="showing" style="height: 100vh">
+        <el-carousel :interval="5000" arrow="always" height="100%">
+            <el-carousel-item v-for="item in 4">
+                <h3>{{ item }}</h3>
+            </el-carousel-item>
+        </el-carousel>
+    </div>
 </div>
 
 </body>
@@ -55,6 +81,9 @@
 <script src="../../components/debug/jquery.js"></script>
 <script src="../../components/debug/vue.js"></script>
 <script src="../../components/debug/element.js"></script>
+
+
+
 
 <script>
     //TODO content的猜想 imsunhao
@@ -68,16 +97,10 @@
         el: '#banner',
         prop: {},
         data: function () {
-            return {
-
-            };
+            return {};
         },
-        computed: {
-
-        },
-        methods: {
-
-        },
+        computed: {},
+        methods: {},
         watch: {}
     });
 </script>

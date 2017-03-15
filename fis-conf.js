@@ -57,6 +57,7 @@ fis.media('test')
     .set('project.ignore', [
         'DOC/**',
         'UI/**',
+        'TODOLIST/**',
         'hock/**',
         'node_modules/**',
         '.git/**',

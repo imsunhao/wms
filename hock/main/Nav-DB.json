@@ -139,7 +139,7 @@
       ]
     },
     {
-      "head": "盘点查询",
+      "head": "盘点作业",
       "children": [
         {
           "label": "动碰盘点查询",
@@ -163,7 +163,8 @@
       "children": [
         {
           "label": "关于本系统",
-          "url":"page/aboutThisSystem"
+          "url":"page/aboutThisSystem",
+          "icon":"g1"
         }
       ]
     }
