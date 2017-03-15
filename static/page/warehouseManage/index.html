@@ -31,10 +31,6 @@
         border-radius: 10px;
     }
 
-    #plan .noBigKuQuSe:before{
-        display: none;
-    }
-
     #plan .aisle {
         background-color: #999;
         border-radius: 0;
@@ -90,6 +86,9 @@
 
     }
 
+    #plan .btnGroup {
+
+    }
     #plan .btn {
         display: inline-block;
         border: 1px solid #999999;
@@ -103,9 +102,6 @@
         margin: 0;
     }
 
-    #plan .btnGroup {
-
-    }
     #plan .signGroup{
         height:44px;
         margin-top:16px;
@@ -135,14 +131,31 @@
     }
 
     #plan .HouseStructureGroup .HouseStructure{
-
+        float: left;
+        width: 48%;
     }
     #plan .HouseStructureGroup .HouseStructure .el-textarea__inner{
-        height:120px;
-        width: 46%;
+        height:60px;
+        background: #FFFFFF;
+        border: 1px solid #CCCCCC;
+        border-radius: 2px;
+    }
+    #plan .HouseStructureGroup .HouseStructure__label{
+        float: left;
+        display: block;
+        width: 47%;
+        height: 58px;
+        margin-left: 2%;
+        background: #FCEFB3;
+        border: 1px solid #CCCCCC;
+        border-radius: 2px;
+        padding: 0 1%;
     }
     #plan .HouseStructureGroup{
-
+        margin-top: 30px;
+    }
+    #plan .btnGroup .el-row{
+        margin: 10px 0;
     }
 
 
@@ -151,7 +164,7 @@
 
 <div id="plan">
     <div class="inner">
-        <div class="HouseStructureGroup" v-show="HouseStructure">
+        <div class="HouseStructureGroup clearfix" v-show="HouseStructure">
             <el-input type="textarea" v-model="desc"  class="HouseStructure"></el-input>
             <div class="HouseStructure__label">
                 <p>库区代码结构, 可点击右侧图标显示！</p>
@@ -182,22 +195,28 @@
         </el-checkbox-group>
         <div class="btnGroup">
             <!--TODO 按钮等待效果-->
-            <button class="btn storageArea" @click="set(2)">设为存储区</button>
-            <button class="btn temporaryStorageArea" @click="set(4)">设为暂存区</button>
-            <button class="btn undefined" @click="set(1)">设为未设定区</button>
-            <!--TODO 查看所有库区是什么鬼？-->
-            <button class="btn " @click="">查看所有库区</button>
-            <button class="btn sortingArea" @click="set(3)">设为分拣区</button>
-            <button class="btn unqualifiedArea" @click="set(5)">设为不合格区</button>
+            <el-row>
+                <el-col :span="4"><button class="btn storageArea" @click="set(2)">设为存储区</button></el-col>
+                <el-col :span="4"><button class="btn temporaryStorageArea" @click="set(4)">设为暂存区</button></el-col>
+                <el-col :span="4"><button class="btn undefined" @click="set(1)">设为未设定区</button></el-col>
+                <!--TODO 查看所有库区是什么鬼？-->
+                <el-col :span="4"><button class="btn " @click="">查看所有库区</button></el-col>
+                <el-col :span="4"><button class="btn resetSelect" @click="resetSelect">重置选择</button></el-col>
+                <el-col :span="4"><button class="btn resetHouse" @click="resetHouse">调整仓库结构</button></el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="4"><button class="btn sortingArea" @click="set(3)">设为分拣区</button></el-col>
+                <el-col :span="4"><button class="btn unqualifiedArea" @click="set(5)">设为不合格区</button></el-col>
+            </el-row>
+
             <!--TODO 删除库区与添加库区-->
             <!--<button class="btn deleteArea" @click="deleteArea">删除库区</button>-->
-            <button class="btn resetSelect" @click="resetSelect">重置选择</button>
-            <button class="btn resetHouse" @click="resetHouse">调整仓库结构</button>
-            <button class="btn resetHouse" @click="resetHouse">显示库区区色</button>
-        </div>
 
+            <!--TODO 显示库区区色-->
+            <!--<button class="btn resetHouse" @click="resetHouse">显示库区区色</button>-->
+        </div>
         <el-dialog
-                title="收货地址"
+                title="新建入库单"
                 @open="dialogOpen"
                 v-model="dialogTableVisible">
             <el-table :data="dialogData">
@@ -264,13 +283,13 @@
         },
         methods:{
             kuQuColor:function (kuQu) {
-                //  适配颜色 在 http://www.bootcss.com/p/websafecolors/ 中挑选26种颜色，最好这些颜色还得兼容咱们的五种区域色 imzhangxing
-                //TODO 待测试
+                // 适配颜色 在 http://www.bootcss.com/p/websafecolors/ 中挑选26种颜色，最好这些颜色还得兼容咱们的五种区域色 imzhangxing
+                // 待测试
                 switch (kuQu){
                     case 'A':
                         return '#000099';
                     case 'B':
-                      return '#FFFFCC';
+                        return '#FFFFCC';
                     case 'C':
                         return '#990033';
                     case 'D':

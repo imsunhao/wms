@@ -59,6 +59,23 @@
         .el-carousel__item:nth-child(2n+1) {
             background-color: #d3dce6;
         }
+
+        .steps{
+            position: absolute;
+            bottom: 10px;
+            left: 30vw;
+            margin: auto;
+        }
+
+        .el-dialog__headerbtn{
+            position: absolute;
+            right: 25px;
+            top: 15px;
+        }
+
+        .el-dialog__body{
+
+        }
     </style>
 
 </head>
@@ -66,13 +83,32 @@
 
 
 <div id="banner">
-    <div id="showing" style="height: 100vh">
-        <el-carousel :interval="5000" arrow="always" height="100%">
+    <el-dialog
+            size="large"
+            v-model="dialogFormVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">新建入库单</span>
+            <el-steps
+                    class="steps"
+                    :space="100"
+                    :active="active"
+                    finish-status="success">
+                <el-step title="步骤 1"></el-step>
+                <el-step title="步骤 2"></el-step>
+                <el-step title="步骤 3"></el-step>
+            </el-steps>
+        </div>
+
+        <el-carousel :interval="5000" arrow="always" height="55vh">
             <el-carousel-item v-for="item in 4">
                 <h3>{{ item }}</h3>
             </el-carousel-item>
         </el-carousel>
-    </div>
+
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="dialogFormVisible = false">保存</el-button>
+        </div>
+    </el-dialog>
 </div>
 
 </body>
@@ -97,7 +133,9 @@
         el: '#banner',
         prop: {},
         data: function () {
-            return {};
+            return {
+                dialogFormVisible:true
+            };
         },
         computed: {},
         methods: {},
