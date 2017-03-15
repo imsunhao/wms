@@ -36,7 +36,7 @@
             padding: 0;
         }
 
-        li {
+        #plan li {
             float: left;
             width: 50px;
             height: 50px;
@@ -47,13 +47,14 @@
             line-height: 50px;
             text-align: center;
             position: relative;
+            border-radius: 4px;
         }
 
-        .aisle {
+        #plan .aisle {
 
         }
 
-        .aisle:before {
+        #plan .aisle:before {
             content: ' ';
             position: absolute;
             width: 50px;
@@ -64,27 +65,27 @@
 
         }
 
-        .undefined {
+        #plan .undefined {
             background-color: #ccc;
         }
 
-        .storageArea {
+        #plan .storageArea {
             background-color: #7ED321;
         }
 
-        .sortingArea {
+        #plan .sortingArea {
             background-color: #47D0B2;
         }
 
-        .temporaryStorageArea {
+        #plan .temporaryStorageArea {
             background-color: #F6A623;
         }
 
-        .unqualifiedArea {
+        #plan .unqualifiedArea {
             background-color: #FF5066;
         }
 
-        .selectedState {
+        #plan .selectedState {
             border:2px solid #BD0FE1;
             margin: 2px;
         }
@@ -126,6 +127,7 @@
     <el-checkbox-group v-model="checkList" @change="checkListChange">
         <el-checkbox :label="big.id" v-for="big of bigKuQu"></el-checkbox>
     </el-checkbox-group>
+    <!--TODO 按钮等待效果-->
     <el-button @click="set(2)">设为存储区</el-button>
     <el-button @click="set(4)">设为暂存区</el-button>
     <el-button @click="set(1)">设为未设定区</el-button>
@@ -215,7 +217,7 @@
                     }, 300);
                 },      // 单击库区 选中
                 eDoubleClick: function (e) {
-                    //TODO 模拟弹出层
+                    //TODO 模拟弹出层 完整版
                     isdb=true;
 //                    console.log(e);
                     plan.$data.dialogData = [e];
@@ -379,6 +381,8 @@
         },
         watch: {}
     });
+
+    //TODO 工具函数调整
     function resetSelectC(kuQu) {
         for(var b=0;b<kuQu.length;b++){
             for(var i=0;i<kuQu[b].length;i++){
