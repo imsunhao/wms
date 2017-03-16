@@ -26,7 +26,8 @@ fis.match('::packager', {
 fis.media('debug')
     .set('project.ignore', [
         'DOC/**',
-        'UL/**',
+        'UI/**',
+        'TODOLIST/**',
         'node_modules/**',
         '.git/**',
         '.idea/**',
