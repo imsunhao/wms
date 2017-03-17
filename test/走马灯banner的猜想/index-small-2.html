@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../components/element/element.css">
+    <style>
+        body {
+            margin: 0 !important;
+            padding: 0 !important
+        }
+
+        .header {
+            max-height: 60px
+        }
+
+        .header .user .el-submenu.is-active .el-submenu__title {
+            border-bottom: 0 !important
+        }
+
+        .content #showing {
+            width: 600px;
+            margin: 20px auto
+        }
+
+        .clearfix:after {
+            content: " ";
+            display: block;
+            height: 0;
+            clear: both;
+        }
+
+        /*IE/7/6*/
+        .clearfix {
+            *zoom: 1;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+    <style>
+        .el-carousel__item h3 {
+            color: #475669;
+            font-size: 18px;
+            opacity: 0.75;
+            line-height: 300px;
+            margin: 0;
+        }
+
+        .el-carousel__item:nth-child(2n) {
+            background-color: #99a9bf;
+        }
+
+        .el-carousel__item:nth-child(2n+1) {
+            background-color: #d3dce6;
+        }
+
+        .steps {
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            margin: auto;
+        }
+
+        .el-dialog__headerbtn {
+            position: absolute;
+            right: 25px;
+            top: 15px;
+        }
+
+        .el-dialog__body {
+
+        }
+    </style>
+
+</head>
+<body>
+
+
+<div id="banner">
+    <el-dialog
+            size="small"
+            v-model="dialogFormVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">新建入库单</span>
+            <el-steps
+                    class="steps"
+                    :space="100"
+                    :active="dialogFormActive"
+                    finish-status="success">
+                <el-step title="步骤 1"></el-step>
+                <el-step title="步骤 2"></el-step>
+            </el-steps>
+        </div>
+
+        <el-carousel
+                ref="carousel"
+                :autoplay="false"
+                arrow="never"
+                indicator-position="none"
+                height="55vh">
+            <el-carousel-item v-for="item in 2">
+                <h3>{{ item }}</h3>
+            </el-carousel-item>
+        </el-carousel>
+
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="prev" v-show="dialogFormActive">上一步</el-button>
+            <el-button type="primary" @click="next" v-show="dialogFormActive!=1">下一步</el-button>
+            <el-button type="primary" @click="submit" :loading="submitLoading" v-show="dialogFormActive==1">保存</el-button>
+        </div>
+    </el-dialog>
+</div>
+
+</body>
+</html>
+
+<script src="../../components/debug/jquery.js"></script>
+<script src="../../components/debug/vue.js"></script>
+<script src="../../components/debug/element.js"></script>
+
+
+<script>
+    // content的猜想 imsunhao
+
+
+    /*<prod>*/
+    console.log('线上版本');
+    /*</prod>*/
+
+    var banner = new Vue({
+        el: '#banner',
+        prop: {},
+        data: function () {
+            return {
+                dialogFormActive: 0,
+                dialogFormVisible: true,
+                submitLoading:false
+            };
+        },
+        computed: {},
+        methods: {
+            prev: function () {
+                this.dialogFormActive--;
+                this.$refs.carousel.prev();
+            },
+            next: function () {
+                this.dialogFormActive++;
+                this.$refs.carousel.next();
+            },
+            submit:function () {
+                var _this=this;
+                this.submitLoading=true;
+                setTimeout(function () {
+                    _this.submitLoading=true;
+                    _this.dialogFormVisible = false;
+                    _this.$notify({
+                        title: '成功',
+                        message: '保存成功！',
+                        type: 'success'
+                    });
+                },1500);
+            }
+        },
+        watch: {}
+    });
+</script>

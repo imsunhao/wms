@@ -1,10 +1,45 @@
 {
   "data": [
     {
-      "head": "业务处理",
+      "head": "业务处理",//TODO 修改业务处理 测试的时候删除注释 图标暂无
       "children": [
         {
+          "label": "入库预约",
+          "url":"page/inputOperation",
+          "icon":"a2"
+        },
+        {
+          "label": "下达任务",
+          "url":"page/inputOperation",
+          "icon":"a2"
+        },
+        {
+          "label": "开始收货",
+          "url":"page/inputOperation",
+          "icon":"a2"
+        },
+        {
           "label": "入库操作",
+          "url":"page/inputOperation",
+          "icon":"a2"
+        },
+        {
+          "label": "入库台账",
+          "url":"page/inputOperation",
+          "icon":"a2"
+        },
+        {
+          "label": "出库预约",
+          "url":"page/inputOperation",
+          "icon":"a2"
+        },
+        {
+          "label": "挑选单据",
+          "url":"page/inputOperation",
+          "icon":"a2"
+        },
+        {
+          "label": "激活单据",
           "url":"page/inputOperation",
           "icon":"a2"
         },
@@ -12,6 +47,16 @@
           "label": "出库操作",
           "url":"page/outputOperation",
           "icon":"a3"
+        },
+        {
+          "label": "出库发运",
+          "url":"page/inputOperation",
+          "icon":"a2"
+        },
+        {
+          "label": "回收存档",
+          "url":"page/inputOperation",
+          "icon":"a2"
         }
       ]
     },

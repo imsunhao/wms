@@ -1,12 +1,14 @@
 <div id="inputOperation">
-    <!--TODO 页面调整-->
+    <!--页面调整-->
     <el-row v-loading="showLoading"
             element-loading-text="拼命加载中">
         <el-col :span="24">
             <div class="inner btn-nav">
                 <button @click="newInput" class="btn btn-add"><i class="icon add"></i><span>添加</span></button>
-                <button @click="moreOperationDelete" class="btn btn-del"><i class="icon del"></i><span>批量删除</span></button>
-                <button @click="handleDelete" class="btn btn-search"><i class="icon search"></i><span>条件搜索</span></button>
+                <button @click="moreOperationDelete" class="btn btn-del"><i class="icon del"></i><span>批量删除</span>
+                </button>
+                <button @click="handleDelete" class="btn btn-search"><i class="icon search"></i><span>条件搜索</span>
+                </button>
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i class="icon sel"></i><span>多选</span>
                 </button>
                 <el-date-picker
@@ -89,7 +91,7 @@
                                                 <el-icon name="time"></el-icon>
                                                 <span style="margin-left: 10px">{{ props.row.sjsj }}</span>
                                             </el-form-item>
-                                            <el-form-item label="单据类型">
+                                            <el-form-item label="订单类型">
                                                 <span>{{ props.row.type }}</span>
                                             </el-form-item>
                                             <el-form-item label="入库状态">
@@ -194,7 +196,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        label="单据"
+                        label="类型"
                         prop="type"
                         align="center"
                         width="100"
@@ -257,21 +259,152 @@
             </div>
         </el-col>
     </el-row>
-    <el-dialog title="收货地址" v-model="dialogFormVisible">
+    <el-dialog
+            size="small"
+            v-model="dialogFormVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">新建入库单</span>
+            <el-steps
+                    class="steps"
+                    :space="120"
+                    :active="dialogFormActive"
+                    finish-status="success">
+                <el-step title="基础信息"></el-step>
+                <el-step title="入库明细"></el-step>
+            </el-steps>
+        </div>
         <el-form :model="form">
-            <el-form-item label="活动名称" :label-width="formLabelWidth">
-                <el-input v-model="form.name" auto-complete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="活动区域" :label-width="formLabelWidth">
-                <el-select v-model="form.region" placeholder="请选择活动区域">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
-                </el-select>
-            </el-form-item>
+            <el-carousel
+                    ref="carousel"
+                    :autoplay="false"
+                    arrow="never"
+                    indicator-position="none"
+                    height="55vh">
+                <el-carousel-item>
+                    <el-row>
+                        <el-col :span="24"><h3>入库基础信息</h3></el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="10">
+                            <el-form-item label="入库单号" :label-width="formLabelWidth">
+                                <el-input v-model="form.rkRkdjNo" auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item label="订单类型" :label-width="formLabelWidth">
+                                <el-select v-model="form.rkType" placeholder="请选择单据类型">
+                                    <el-option label="采购订单" :value="0"></el-option>
+                                    <el-option label="仓间挑拨" :value="1"></el-option>
+                                    <el-option label="退货入库" :value="2"></el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item label="入库备注" :label-width="formLabelWidth">
+                                <el-input
+                                        type="textarea"
+                                        :rows="2"
+                                        v-model="form.rkRemarks"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="12" :offset="2">
+                            <el-form-item label="入库状态">
+                                form.rkStatus
+                            </el-form-item>
+                            <el-form-item label="入库数量">
+                                form.number
+                            </el-form-item>
+                            <el-form-item label="入库体积">
+                                form.volume
+                            </el-form-item>
+                            <el-form-item label="制作方式">
+                                form.zdfs=1 手动
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                </el-carousel-item>
+                <el-carousel-item>
+                    <el-row>
+                        <el-col :span="24"><h3>入库明细</h3></el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="12">
+                            <el-form-item label="货品编号" :label-width="formLabelWidth">
+                                <el-autocomplete
+                                        v-model="form.bgGoodsNo"
+                                        :fetch-suggestions="querySearchAsync"
+                                        @select="GoodSelect"
+                                        auto-complete="off"></el-autocomplete>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="12">
+                            <el-form-item
+                                    label="货品数量"
+                                    :label-width="formLabelWidth"
+                                    prop="selectGood.count"
+                                    :rules="{ type: 'number', message: '货品数量必须为数字值'}">
+                                <el-input
+                                        type="count"
+                                        :disabled="form.selectGood.value==''"
+                                        v-model.number="form.selectGood.count"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="8">
+                            <el-form-item label="货品编号" :label-width="formLabelWidth">
+                                {{form.selectGood.value}}
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-form-item label="货品名称" :label-width="formLabelWidth">
+                                {{form.selectGood.bgGoodsName}}
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-form-item label="货品数量" :label-width="formLabelWidth">
+                                {{form.selectGood.count}}
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="8" :offset="16">
+                            <el-button size="small" @click="saveARkDocsList" :disabled="form.saveARkDocsList">保存明细</el-button>
+                            <el-button size="small" @click="deleteARkDocsList" :disabled="form.deleteARkDocsList" type="danger">删除明细</el-button>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="24" style="margin-top: 5px">
+                            <el-table
+                                    height="200"
+                                    :data="form.rkDocsList"
+                                    @row-click="GoodClick">
+                                <el-table-column
+                                        property="value"
+                                        label="货品编号">
+                                </el-table-column>
+                                <el-table-column
+                                        property="bgGoodsName"
+                                        label="货品名称">
+                                </el-table-column>
+                                <el-table-column
+                                        property="bgDw"
+                                        label="货品单位">
+                                </el-table-column>
+                                <el-table-column
+                                        property="count"
+                                        label="货品数量">
+                                </el-table-column>
+                            </el-table>
+                        </el-col>
+                    </el-row>
+                </el-carousel-item>
+            </el-carousel>
         </el-form>
+
         <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+            <el-button type="primary" @click="prev" v-show="dialogFormActive">上一步</el-button>
+            <el-button type="primary" @click="next" v-show="dialogFormActive < 1">下一步</el-button>
+            <el-button type="primary" @click="submit" :loading="submitLoading" v-show="dialogFormActive >= 1">保存
+            </el-button>
         </div>
     </el-dialog>
 </div>
@@ -317,50 +450,55 @@
         max-width: calc(100% - 60px);
     }
 
-    #inputOperation .inputOperationTable{
+    #inputOperation .inputOperationTable {
         width: 95% !important;
         margin: 20px auto;
     }
 
-    #inputOperation .datePicker{
+    #inputOperation .datePicker {
         width: 140px !important;
-        height:24px !important;
+        height: 24px !important;
         margin-top: 29px;
         margin-right: 18px;
         float: left;
     }
 
-    #inputOperation .datePicker .el-input__inner{
+    #inputOperation .datePicker .el-input__inner {
         border-radius: 2px !important;
         height: 24px !important;
     }
 
-    #inputOperation .add{
+    #inputOperation .add {
         background: url("/static/images/add.png") no-repeat center;
     }
-    #inputOperation .del{
+
+    #inputOperation .del {
         background: url("/static/images/del.png") no-repeat center;
     }
-    #inputOperation .search{
+
+    #inputOperation .search {
         background: url("/static/images/search.png") no-repeat center;
     }
-    #inputOperation .sel{
+
+    #inputOperation .sel {
         background: url("/static/images/sel.png") no-repeat center;
     }
-    #inputOperation .icon{
+
+    #inputOperation .icon {
         float: left;
     }
-    #inputOperation .btn span{
+
+    #inputOperation .btn span {
         float: left;
         margin-top: 4px;
         margin-left: 2px;
     }
 
-    #inputOperation .btn{
+    #inputOperation .btn {
         height: 24px;
         line-height: 1;
         border: none;
-        background:#f8fafb;
+        background: #f8fafb;
         outline: none;
         cursor: pointer;
         padding: 0;
@@ -371,31 +509,54 @@
         margin-top: 29px;
         margin-right: 16px;
     }
-    #inputOperation .btn-print{
+
+    #inputOperation .btn-print {
         margin-right: 0;
     }
-    #inputOperation .btn:hover{
+
+    #inputOperation .btn:hover {
         color: #5468ee;
     }
-    #inputOperation .inner{
+
+    #inputOperation .inner {
         margin: 0 20px;
     }
-    #inputOperation .btn-nav{
+
+    #inputOperation .btn-nav {
         height: 60px;
         overflow: hidden;
     }
-    #inputOperation .btn-nav .el-input .el-input__inner{
+
+    #inputOperation .btn-nav .el-input .el-input__inner {
         height: 24px;
     }
-    #inputOperation .btn-nav .el-input{
+
+    #inputOperation .btn-nav .el-input {
         float: left;
         margin-top: 29px;
         margin-right: 18px;
         width: 140px;
-        height:24px;
+        height: 24px;
     }
 </style>
+<style>
+    .steps {
+        position: absolute;
+        bottom: 10px;
+        left: 30px;
+        margin: auto;
+    }
 
+    .el-dialog__headerbtn {
+        position: absolute;
+        right: 25px;
+        top: 15px;
+    }
+
+    .el-step__main {
+        margin-left: -8px !important;
+    }
+</style>
 <script>
     var inputOperation = new Vue({
         el: '#inputOperation',
@@ -406,16 +567,20 @@
                 multipleSelection: [],
                 multiSelect: false,
                 date: [null, null],
-                dialogFormVisible: false,
                 form: {
-                    name: '',
-                    region: '',
-                    date1: '',
-                    date2: '',
-                    delivery: false,
-                    type: [],
-                    resource: '',
-                    desc: ''
+                    rkRkdjNo: '',
+                    rkType: '',
+                    rkRemarks: '',
+                    rkDocsList: [],
+                    bgGoodsNo: '',
+                    selectGood: {
+                        value: '',
+                        bgGoodsName: '',
+                        count: 0,
+                        bgGoodsId:''
+                    },
+                    saveARkDocsList:true,
+                    deleteARkDocsList:true
                 },
                 formLabelWidth: '120px',
                 pickerOptions: {
@@ -447,10 +612,17 @@
                 },
                 showLoading: false,
                 currentPage: 1,
-                pageSize: 10
+                pageSize: 10,
+
+                dialogFormActive: 0,           //新建 弹出层 steps 当前进度
+                dialogFormVisible: false,      //新建 弹出层 是否可见
+                submitLoading: false,          //新建 弹出层 提交等待
+
+
             }
         },
         computed: {
+            // TODO 表格提交
             option: function () {
                 return {
                     "draw": 1,
@@ -526,13 +698,13 @@
                 /*<debug>*/
                 console.log('选中的删除');
                 /*</debug>*/
-                var listID=[];
-                for (var i = 0; i < this.multipleSelection.length; i++){
+                var listID = [];
+                for (var i = 0; i < this.multipleSelection.length; i++) {
                     remove(this.multipleSelection[i], this.inputOperation);
                     listID.push(this.inputOperation.rkdjNo);
                 }
-                postDelete(this,{
-                    id:listID
+                postDelete(this, {
+                    id: listID
                 })
 
             },                                   //多选 删除
@@ -572,7 +744,7 @@
                     postHistory(row);
                 }
                 console.log(row);
-            },                              //下拉 选择
+            },                             //下拉 选择
 
             rowSelection: function (row, selected) {
 //                console.log(selected)
@@ -583,12 +755,87 @@
 //                console.log(row);
 //                console.log(event);
 //                console.log(column);
-            }                                //测试 函数 --> 选中 当前行
+            },                               //测试 函数 --> 选中 当前行
 
+            prev: function () {
+                this.dialogFormActive--;
+                this.$refs.carousel.prev();
+            },                                                  //新建 弹出层banner控制 前一个
+            next: function () {
+                this.dialogFormActive++;
+                this.$refs.carousel.next();
+            },                                                  //新建 弹出层banner控制 后一个
+            submit: function () {
+                var _this = this;
+                this.dialogFormActive++;
+                this.submitLoading = true;
+                //TODO 此处应是ajax请求
+                setTimeout(function () {
+                    _this.submitLoading = false;
+                    _this.$notify({
+                        title: '成功',
+                        message: '保存成功！',
+                        type: 'success'
+                    });
+                    _this.dialogFormVisible = false;
+                    _this.form ={
+                        rkRkdjNo: '',
+                            rkType: '',
+                            rkRemarks: '',
+                            rkDocsList: [],
+                            bgGoodsNo: '',
+                            selectGood: {
+                            value: '',
+                                bgGoodsName: '',
+                                count: 0,
+                                bgGoodsId:''
+                        },
+                        saveARkDocsList:true,
+                            deleteARkDocsList:true
+                    };
+                    _this.dialogFormActive = 0;
+                    _this.$refs.carousel.setActiveItem(0);
+                    post(inputOperation);
+                }, 1500);
+            },                                                //新建 表单提交
+
+            querySearchAsync: function (queryString, cb) {
+                postGoods(this, {bgGoodsNo: queryString}, cb);
+            },
+            GoodSelect: function (item) {
+                this.form.saveARkDocsList=false;
+                this.form.deleteARkDocsList=true;
+                this.form.selectGood = item;
+            },
+            GoodClick: function (item) {
+                this.form.saveARkDocsList=true;
+                this.form.deleteARkDocsList=false;
+                this.form.selectGood = item;
+            },
+            saveARkDocsList:function () {
+                this.form.rkDocsList.push(this.form.selectGood);
+                this.form.selectGood={
+                    value: '',
+                    bgGoodsName: '',
+                    count: 0
+                };
+                this.form.saveARkDocsList=true;
+            },
+            deleteARkDocsList:function () {
+                remove(this.form.selectGood,this.form.rkDocsList);
+                this.form.selectGood={
+                    value: '',
+                    bgGoodsName: '',
+                    count: 0
+                };
+            }
         },
         watch: {
             inputOperation: function () {
 
+            },
+            form: function () {
+                console.log(this.form);
             }
         }
     });
@@ -680,7 +927,7 @@
         });
     }
     function postDelete(obj, option) {
-        if(option.id.length<1)return;
+        if (option.id.length < 1)return;
         obj.showLoading = true;
 
         /*<debug>*/
@@ -700,10 +947,10 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                if(json.status==1){
+                if (json.status == 1) {
                     obj.$notify({
                         title: '提示',
-                        type:'success',
+                        type: 'success',
                         message: obj.$createElement(
                             'p',
                             '删除完成'
@@ -714,6 +961,43 @@
             },
             complete: function () {
                 obj.showLoading = false;
+            }
+        });
+    }
+    function postGoods(obj, option, cb) {
+        //TODO 此处应为AJAX请求,待完善 querySearchAsync
+
+        /*<debug>*/
+        url = "/hock/form/rkGoods.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/data/inputOption/delete" + option;
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option | {
+                "id": 1                        //* 入库单号id
+            },
+            error: function (error) {
+
+            },
+            success: function (json) {
+                var step = [];
+                var length = json.length > 20 ? 20 : json.length;
+                for (var i = 0; i < length; i++) {
+                    step.push({
+                        bgGoodsId: json[i].bgGoodsId,
+                        value: json[i].bgGoodsNo,
+                        bgGoodsName: json[i].bgGoodsName,
+                        count: 0
+                    });
+                }
+                cb(step);
+            },
+            complete: function () {
+
             }
         });
     }
@@ -744,7 +1028,6 @@
         return fmt;
     }
     function remove(obj, data) {
-        console.log(data);
         for (var i = 0; i < data.length; i++) {
             var temp = data[i];
             if (!isNaN(obj)) {
@@ -753,6 +1036,8 @@
             if (temp == obj) {
                 for (var j = i; j < data.length; j++) {
                     data[j] = data[j + 1];
+
+                    console.log(temp);
                 }
                 data.pop();
             }
