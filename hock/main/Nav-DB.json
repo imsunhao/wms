@@ -1,21 +1,21 @@
 {
   "data": [
     {
-      "head": "业务处理",//TODO 修改业务处理 测试的时候删除注释 图标暂无
+      "head": "业务处理",
       "children": [
         {
           "label": "入库预约",
-          "url":"page/inputOperation",
+          "url":"page/warehousingReservation",
           "icon":"a2"
         },
         {
           "label": "下达任务",
-          "url":"page/inputOperation",
+          "url":"page/issuedTask",
           "icon":"a2"
         },
         {
           "label": "开始收货",
-          "url":"page/inputOperation",
+          "url":"page/startReceiving",
           "icon":"a2"
         },
         {
@@ -25,22 +25,22 @@
         },
         {
           "label": "入库台账",
-          "url":"page/inputOperation",
+          "url":"page/inputLedger",
           "icon":"a2"
         },
         {
           "label": "出库预约",
-          "url":"page/inputOperation",
+          "url":"page/outputAppointment",
           "icon":"a2"
         },
         {
           "label": "挑选单据",
-          "url":"page/inputOperation",
+          "url":"page/chooseBill",
           "icon":"a2"
         },
         {
           "label": "激活单据",
-          "url":"page/inputOperation",
+          "url":"page/activationBill",
           "icon":"a2"
         },
         {
@@ -50,12 +50,12 @@
         },
         {
           "label": "出库发运",
-          "url":"page/inputOperation",
+          "url":"page/outputShipment",
           "icon":"a2"
         },
         {
           "label": "回收存档",
-          "url":"page/inputOperation",
+          "url":"page/recoveryArchive",
           "icon":"a2"
         }
       ]

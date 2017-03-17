@@ -32,8 +32,7 @@ fis.media('debug')
         '.git/**',
         '.idea/**',
         'test/**',
-        'server/**',
-        'output/**',
+          'output/**',
         'dist/**',
         'fis-conf.js'
     ])
