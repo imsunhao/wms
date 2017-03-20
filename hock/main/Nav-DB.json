@@ -6,17 +6,17 @@
         {
           "label": "入库预约",
           "url":"page/warehousingReservation",
-          "icon":"a2"
+          "icon":"aa1"
         },
         {
           "label": "下达任务",
           "url":"page/issuedTask",
-          "icon":"a2"
+          "icon":"aa2"
         },
         {
           "label": "开始收货",
           "url":"page/startReceiving",
-          "icon":"a2"
+          "icon":"aa3"
         },
         {
           "label": "入库操作",
@@ -26,22 +26,22 @@
         {
           "label": "入库台账",
           "url":"page/inputLedger",
-          "icon":"a2"
+          "icon":"aa4"
         },
         {
           "label": "出库预约",
           "url":"page/outputAppointment",
-          "icon":"a2"
+          "icon":"aa5"
         },
         {
           "label": "挑选单据",
           "url":"page/chooseBill",
-          "icon":"a2"
+          "icon":"aa6"
         },
         {
           "label": "激活单据",
           "url":"page/activationBill",
-          "icon":"a2"
+          "icon":"aa7"
         },
         {
           "label": "出库操作",
@@ -51,12 +51,12 @@
         {
           "label": "出库发运",
           "url":"page/outputShipment",
-          "icon":"a2"
+          "icon":"aa8"
         },
         {
           "label": "回收存档",
           "url":"page/recoveryArchive",
-          "icon":"a2"
+          "icon":"aa9"
         }
       ]
     },
@@ -200,6 +200,36 @@
           "label": "全面盘点查询",
           "url":"page/comprehensiveInventorySelect",
           "icon":"b14"
+        }
+      ]
+    },
+    {
+      "head": "系统设置",
+      "children": [
+        {
+          "label": "用户管理",
+          "url":"page/aboutThisSystem",
+          "icon":"f1"
+        },
+        {
+          "label": "角色管理",
+          "url":"page/aboutThisSystem",
+          "icon":"f2"
+        },
+        {
+          "label": "菜单配置",
+          "url":"page/aboutThisSystem",
+          "icon":"f3"
+        },
+        {
+          "label": "仓库配置",
+          "url":"page/aboutThisSystem",
+          "icon":"ff1"
+        },
+        {
+          "label": "客户配置",
+          "url":"page/aboutThisSystem",
+          "icon":"f4"
         }
       ]
     },

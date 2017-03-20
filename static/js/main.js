@@ -1,14 +1,11 @@
 /*<prod>*/
 console.log('线上版本');
 /*</prod>*/
-/*<debug>*/
 var app;
+/*<debug>*/
 var hock = "../../hock";
 /*</debug>*/
 $(function (dbmessage) {
-    /*<prod>*/
-    var app;
-    /*</prod>*/
     Vue.directive('echarts', {
         bind: function (el, binding, vnode) {
             Vue.nextTick(function () {
@@ -35,33 +32,33 @@ $(function (dbmessage) {
                 headMenu: [],                       //nav-header
                 slideMenu: {},                      //Nav-slide
                 f_SlideMenuText: '',                //Nav-slide-search
+                navIsOpen: false,                   //Nav 开启状态维护
 
                 fullscreenLoading: false,           //全局 加载控制
 
-                rmsUser: {},                          //User信息
-                breadcrumb: ['首页'],                //面包屑菜单
-                showingLoading: false,                //content 加载控制
-                treeRenderContent:function (h,node) {
+                breadcrumb: ['首页'],               //面包屑菜单
+                showingLoading: false,              //content 加载控制
+                treeRenderContent: function (h, node) {
                     console.log(node.data.label);
                     return h(
-                        'div',{
+                        'div', {
                             style: {
-                                width:'100%',
-                                lineHeight:'60px',
-                                position:'relative',
-                                paddingLeft:'60px'
+                                width: '100%',
+                                lineHeight: '60px',
+                                position: 'relative',
+                                paddingLeft: '60px'
                             }
                         },
                         [
                             h('i', {
                                 style: {
-                                    width:'24px',
-                                    height:'24px',
-                                    display:'inline-block',
-                                    position:'absolute',
-                                    left:'18px',
-                                    top:'18px',
-                                    backgroundImage:'url("/static/images/'+node.data.icon+'.png")'
+                                    width: '24px',
+                                    height: '24px',
+                                    display: 'inline-block',
+                                    position: 'absolute',
+                                    left: '18px',
+                                    top: '18px',
+                                    backgroundImage: 'url("/static/images/' + node.data.icon + '.png")'
                                 }
                             }),
                             h('span', {
@@ -72,25 +69,27 @@ $(function (dbmessage) {
                             }, node.data.label)
                         ]
                     )
-                }
+                },
+
+                rmsUser: {},                        //User信息
+                dialogUserVisible: false,
+                userLoading: false
             };
         },
         methods: {
-            handleSelect: function (key, keyPath) { //nav-head 点击事件
+            handleSelect: function (key, keyPath) {
                 this.$data.slideMenu = this.$data.nav[key].children;
+                this.$data.navControl = key;
                 this.$data.f_SlideMenuText = '';
-                this.breadcrumb = [];
+                this.breadcrumb = ['首页'];
                 this.breadcrumb.push(this.$data.nav[key].head);
-            },
-            userSelect: function () {                //nav-head 用户点击事件
-                console.log('userSelect!');
-            },
-            handleNodeClick: function (data) {      //nav-slider 点击事件
+            },                    //nav-head 点击事件
+            handleNodeClick: function (data) {
                 /*<debug>*/
                 console.log(this.breadcrumb);
                 console.log(data);
                 /*</debug>*/
-                if (this.breadcrumb.length == 2) this.breadcrumb.pop();
+                if (this.breadcrumb.length > 2) this.breadcrumb.pop();
                 this.breadcrumb.push(data.label);
                 // ------------ 切换 content ---------------
                 this.showingLoading = true;           //开启加载
@@ -113,11 +112,11 @@ $(function (dbmessage) {
                 })(this);
 
 
-            },
-            filterNode: function (value, data) {    //nav-slider 过滤文字
+            },                         //nav-slider 点击事件
+            filterNode: function (value, data) {
                 if (!value) return true;
                 return data.label.indexOf(value) !== -1;
-            },
+            },                       //nav-slider 过滤文字
             clickGoHome: function () {
                 this.showingLoading = true;           //开启加载
                 /*<debug>*/
@@ -131,21 +130,43 @@ $(function (dbmessage) {
                         /*<debug>*/
                         console.log("loadSuccess");
                         /*</debug>*/
+                        console.log(_this.headMenu);
+                        console.log(_this.navControl);
+                        _this.breadcrumb=['首页',_this.headMenu[_this.navControl]];
                         _this.showingLoading = false;           //结束加载
                     })
                 })(this);
+            },                                 //返回首页
+            navOpen: function () {
+                this.navIsOpen = !this.navIsOpen;
+            },                                     //最大化界面
+            userSubmit: function () {
+                this.dialogUserVisible = false;
+                console.log('select!');
+            },                                  //用户修改信息提交
+            handleAvatarScucess: function (res, file) {
+                this.imageUrl = URL.createObjectURL(file.raw);
+            },
+            beforeAvatarUpload: function (file) {
+                const isJPG = file.type === 'image/jpeg';
+                const isLt2M = file.size / 1024 / 1024 < 2;
+
+                if (!isJPG) {
+                    this.$message.error('上传头像图片只能是 JPG 格式!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('上传头像图片大小不能超过 2MB!');
+                }
+                return isJPG && isLt2M;
+            },
+            signOut: function () {
+                // TODO signOut
+                window.location = '/';
             }
         },
         watch: {
             f_SlideMenuText: function (val) {
                 this.$refs.slideTree.filter(val);
-            },
-            slideMenu: function () {
-            },
-            breadcrumb: function () {
-            },
-            rmsUser: function () {
-
             }
         }
     });
@@ -158,7 +179,7 @@ $(function (dbmessage) {
         app.$data.fullscreenLoading = true;             //显示加载
         function Loading() {
             complie++;
-            if (complie == end) {
+            if (complie >= end) {
                 app.$data.fullscreenLoading = false; //结束加载
             }
         }
@@ -190,6 +211,7 @@ $(function (dbmessage) {
                         for (var i = 0; i < app.$data.nav.length; i++)
                             temp.push(app.$data.nav[i].head);
                         app.$data.headMenu = temp;
+                        app.$data.breadcrumb.push(app.$data.nav[0].head);
                     })();
 
                     //加载slider-Menu
@@ -233,6 +255,7 @@ $(function (dbmessage) {
                         return data;
                     }
                 }
+
                 app.$data.nav = generateNode(json);
                 //加载header-Nav
                 (function () {
@@ -240,6 +263,7 @@ $(function (dbmessage) {
                     for (var i = 0; i < app.$data.nav.length; i++)
                         temp.push(app.$data.nav[i].head);
                     app.$data.headMenu = temp;
+                    app.$data.breadcrumb.push(app.$data.nav[0].head);
                 })();
                 //加载slider-Menu
                 analysisSliderNav(app);
@@ -262,6 +286,12 @@ $(function (dbmessage) {
                 Loading();
             });
             /*</prod>*/
+
+
+            // 面包屑 菜单 首页按钮
+            $('.el-breadcrumb__item__inner').eq(0).on('click',function () {
+                app.clickGoHome();
+            });
 
             //------------------------------工具函数-------------------------
             function analysisSliderNav(app) {
