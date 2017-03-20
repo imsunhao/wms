@@ -208,27 +208,27 @@
       "children": [
         {
           "label": "用户管理",
-          "url":"page/aboutThisSystem",
+          "url":"page/userManagement",
           "icon":"f1"
         },
         {
           "label": "角色管理",
-          "url":"page/aboutThisSystem",
+          "url":"page/roleManagement",
           "icon":"f2"
         },
         {
           "label": "菜单配置",
-          "url":"page/aboutThisSystem",
+          "url":"page/menuConfiguration",
           "icon":"f3"
         },
         {
           "label": "仓库配置",
-          "url":"page/aboutThisSystem",
+          "url":"page/warehouseConfiguration",
           "icon":"ff1"
         },
         {
           "label": "客户配置",
-          "url":"page/aboutThisSystem",
+          "url":"page/clientConfiguration",
           "icon":"f4"
         }
       ]
