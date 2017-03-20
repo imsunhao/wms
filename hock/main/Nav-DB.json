@@ -221,6 +221,7 @@
           "url":"page/menuConfiguration",
           "icon":"f3"
         },
+
         {
           "label": "仓库配置",
           "url":"page/warehouseConfiguration",
