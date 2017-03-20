@@ -4,12 +4,10 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
-
 router.param('_id', function (req, res, next, id) {
     console.log('CALLED ONLY ONCE' + id);
     next();
 });
-
 
 // GET 用户信息
 router.get('/', function (req, res, next) {

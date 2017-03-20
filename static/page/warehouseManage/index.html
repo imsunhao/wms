@@ -22,7 +22,7 @@
         width: 50px;
         height: 50px;
         margin: 3px;
-        border: 1px solid #999;
+        border: 1px solid #bbb;
         color: #fff;
         font-size: 12px;
         line-height: 50px;
@@ -32,7 +32,7 @@
     }
 
     #plan .aisle {
-        background-color: #999;
+        background-color: #bbb;
         border-radius: 0;
         border: 1px solid #fff;
     }
@@ -40,11 +40,11 @@
     #plan .aisle:before {
         content: ' ';
         position: absolute;
-        width: 56px;
+        width: 58px;
         height: 58px;
-        left: 0;
-        top: 0;
-        background-color: #999;
+        left: -3px;
+        top: -4px;
+        background-color: #ccc;
         z-index: 3;
     }
 
@@ -161,7 +161,6 @@
 
 </style>
 
-
 <div id="plan">
     <div class="inner">
         <div class="HouseStructureGroup clearfix" v-show="HouseStructure">
@@ -207,6 +206,7 @@
             <el-row>
                 <el-col :span="4"><button class="btn sortingArea" @click="set(3)">设为分拣区</button></el-col>
                 <el-col :span="4"><button class="btn unqualifiedArea" @click="set(5)">设为不合格区</button></el-col>
+                <el-col :span="4" :offset="8"><button class="btn unqualifiedArea" @click="">保存修改</button></el-col>
             </el-row>
 
             <!--TODO 删除库区与添加库区-->
@@ -351,10 +351,14 @@
         prop: {},
         data: function () {
             return {
-                desc: 'aaaa bbbbb cccc\naaaa bbbbb cccc\naaaa bbbbb cccc\ndddd bbbbb eeee\ndddd bbbbb eeee\n',
+                desc: '',
                 // TODO 平面图 总数据信息 (未解析)
                 kuQu: [[]],                      // 库区
                 bigKuQu: {},                     // 库区组
+
+                oldKuQu: [],                     // 旧的库区备份
+
+
                 eClick: function (e) {
                     isdb = false;
                     window.setTimeout(function () {
@@ -424,20 +428,30 @@
                 var obj = [[]];
                 var kuQu = {};
                 var row = 0;
+                var rRow = 0;
                 var col = 1;
                 var step = {};
+
+                var ifAisle=false;
 
                 for (var i = 0; i < this.desc.length; i++) {
                     switch (this.desc[i]) {
                         case ' ':       //过道
-                            obj[row].push({id: -1, status: 0, statusColor: [true, false, false, false, false, false]});
+                            obj[rRow].push({id: -1, status: 0, statusColor: [true, false, false, false, false, false]});
                             break;
                         case '\n':      //换行
-                            row++;
+                            rRow++;
+                            if(!ifAisle){
+
+                            }else {
+                                row++;
+                                ifAisle=false;
+                            }
                             col = 1;
                             obj.push([]);
                             break;
                         default:        //仓库
+                            ifAisle=true;
                             if (typeof kuQu[this.desc[i]] == 'undefined') {
                                 kuQu[this.desc[i]] = {color: '', src: [], id: this.desc[i].toUpperCase()};
                             }
@@ -446,14 +460,16 @@
                                 col: col++,
                                 statusColor: [false, true, false, false, false, false],
                                 status: 1,
-                                id: kuQu[this.desc[i]].id + kuQu[this.desc[i]].src.length,
+//                                id: kuQu[this.desc[i]].id + kuQu[this.desc[i]].src.length,
+                                id: kuQu[this.desc[i]].id + (row+1)+'-'+(col-1),
+//                                id: (row+1) + '-' + (col-1) + '-' + kuQu[this.desc[i]].id
                                 click: function () {
                                     return this;
                                 },
                                 select: false
                             };
                             kuQu[this.desc[i]].src.push(step);                  //库区
-                            obj[row].push(step);
+                            obj[rRow].push(step);
                     }
                 }
                 this.bigKuQu = kuQu;
@@ -525,7 +541,15 @@
                 this.HouseStructure = !this.HouseStructure;
             }
         },
-        watch: {}
+        watch: {
+            desc:function () {
+                if(plan.$data.oldKuQu.length!=0){
+                    setTimeout(function () {
+                        reset(plan.$data.oldKuQu);
+                    },0);
+                }
+            }
+        }
     });
 
     //TODO 工具函数调整
@@ -551,6 +575,62 @@
             }
         }
     }
+    function addId() {
+        var complie = 0;                                //统计页面是否全部完成
+        var end = 1;
+        app.$data.fullscreenLoading = true;             //显示加载
 
+        function Loading() {
+            complie++;
+            if (complie >= end) {
+                app.$data.fullscreenLoading = false; //结束加载
+            }
+        }
+
+        //------------------------- 加载 kuQu-----------------------
+        (function () {
+            /*<debug>*/
+            url='hock/warehouse/id.json';
+            /*</debug>*/
+
+            /*<prod>*/
+            // TODO 配置 kuQu 获取地址
+            url='hock/warehouse/id';
+            /*</prod>*/
+
+            $.ajax(url, {
+                type: "GET",
+                data: {},
+                error: function () {
+                },
+                success: function (json) {
+                    plan.$data.desc = json.desc;
+                    setTimeout(function () {
+                        reset(json.kuQu);
+                        plan.$data.oldKuQu = json.kuQu;
+                    },0);
+                },
+                complete: function () {
+                    Loading();
+                }
+            });
+        })();
+    }
+    function reset(json) {
+        for(var i=0;i<json.length;i++)
+        {
+            for (var b=0;b<json[i].length;b++){
+                if(typeof plan.$data.kuQu[i][b]=='undefined') continue;
+                plan.$data.kuQu[i][b].row = json[i][b].row;
+                plan.$data.kuQu[i][b].col = json[i][b].col;
+                plan.$data.kuQu[i][b].statusColor = json[i][b].statusColor;
+                plan.$data.kuQu[i][b].status = json[i][b].status;
+                plan.$data.kuQu[i][b].select = json[i][b].select;
+            }
+        }
+    }
+
+//    addId(); //启用加载
+    // JSON.stringify(plan.$data.kuQu);
 
 </script>
