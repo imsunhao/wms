@@ -4,8 +4,6 @@
             element-loading-text="拼命加载中">
         <el-col :span="24">
             <div class="inner btn-nav">
-                <button @click="newInput" class="btn btn-add"><i class="icon add"></i><span>添加</span></button>
-                <button @click="moreOperationDelete" class="btn btn-del"><i class="icon del"></i><span>批量删除</span>
                 </button>
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
@@ -1004,6 +1002,7 @@
         });
     }
     function postDelete(obj, option) {
+        //TODO 删除后重新post
         if (option.id.length < 1)return;
         obj.showLoading = true;
 
