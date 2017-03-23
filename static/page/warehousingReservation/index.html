@@ -487,7 +487,7 @@
                     </el-row>
                     <el-row>
                         <el-col :span="8" :offset="16">
-                            <el-button size="small" @click="saveARkDocsList" :disabled="form.saveARkDocsList">保存明细
+                            <el-button size="small" @click="saveARkDocsList" :disabled="form.saveARkDocsList||form.bgGoodsNo!=form.selectGood.value">保存明细
                             </el-button>
                             <el-button size="small" @click="deleteARkDocsList" :disabled="form.deleteARkDocsList"
                                        type="danger">删除明细
