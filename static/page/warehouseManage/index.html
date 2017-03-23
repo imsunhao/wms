@@ -517,7 +517,7 @@
                 if (e.select) {
                     this.selected.push(e);
                 } else {
-                    remove(this.selected, e);
+                    remove(e,this.selected);
                 }
             },
             resetSelect: function () {
@@ -562,7 +562,6 @@
         }
     }
     function remove(obj, data) {
-        console.log(data);
         for (var i = 0; i < data.length; i++) {
             var temp = data[i];
             if (!isNaN(obj)) {
