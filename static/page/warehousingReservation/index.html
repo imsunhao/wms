@@ -165,43 +165,49 @@
             <el-row>
                 <el-col :span="24">
                     <div class="inner btn-nav">
+
+                        <el-input
+                            v-model="rkRkdjNo"
+                            icon="search"
+                            placeholder="入库单号"></el-input>
+
+                        <el-date-picker
+                            v-model="date"
+                            type="daterange"
+                            align="right"
+                            placeholder="选择日期"
+                            class="datePicker"
+                            :picker-options="pickerOptions">
+                        </el-date-picker>
+
                         <button @click="newInput" class="btn btn-add"><i class="icon add"></i><span>添加</span></button>
-                        <button @click="moreOperationDelete" class="btn btn-del"><i
+
+                        <button @click="multiSelectClick" class="btn btn-multiSelect"><i
+                            class="icon sel"></i><span>多选</span>
+                        </button>
+
+                        <button @click="moreOperationDelete" class="btn btn-del" v-show="multiSelect"><i
                                 class="icon del"></i><span>批量删除</span>
                         </button>
-                        <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
-                                class="icon search"></i><span>详细查询</span>
-                        </button>
-                        <button @click="multiSelectClick" class="btn btn-multiSelect"><i
-                                class="icon sel"></i><span>多选</span>
-                        </button>
-                        <el-date-picker
-                                v-model="date"
-                                type="daterange"
-                                align="right"
-                                placeholder="选择日期"
-                                class="datePicker"
-                                :picker-options="pickerOptions">
-                        </el-date-picker>
-                        <el-input
-                                icon="search"
-                                placeholder="入库单号"></el-input>
-                        <button
-                                class="btn btn-edit"
-                                @click="handleDelete">编辑
-                        </button>
-                        <button
-                                class="btn btn-distribution"
-                                @click="handleDelete">分配
-                        </button>
-                        <button
-                                class="btn btn-receipt"
-                                @click="handleDelete">再次收货
-                        </button>
-                        <button
-                                class="btn btn-print"
-                                @click="handleDelete">打印
-                        </button>
+                        <!--<button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i-->
+                                <!--class="icon search"></i><span>详细查询</span>-->
+                        <!--</button>-->
+                        <!--<button-->
+                                <!--class="btn btn-edit"-->
+                                <!--@click="handleDelete">编辑-->
+                        <!--</button>-->
+                        <!--<button-->
+                                <!--class="btn btn-distribution"-->
+                                <!--@click="handleDelete">分配-->
+                        <!--</button>-->
+                        <!--<button-->
+                                <!--class="btn btn-receipt"-->
+                                <!--@click="handleDelete">再次收货-->
+                        <!--</button>-->
+                        <!--<button-->
+                                <!--class="btn btn-print"-->
+                                <!--@click="handleDelete">打印-->
+                        <!--</button>-->
                     </div>
                 </el-col>
             </el-row>
@@ -405,8 +411,15 @@
                     </el-row>
                     <el-row>
                         <el-col :span="10">
-                            <el-form-item label="入库单号" :label-width="formLabelWidth">
-                                <el-input v-model="form.rkRkdjNo" auto-complete="off"></el-input>
+                            <el-form-item
+                                    label="入库单号"
+                                    prop="rkRkdjNo"
+                                    :rules="{ validator: validateRkRkdjNo, trigger: 'blur' }"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        type="rkRkdjNo"
+                                        v-model="form.rkRkdjNo"
+                                        auto-complete="off"></el-input>
                             </el-form-item>
                             <el-form-item label="订单类型" :label-width="formLabelWidth">
                                 <el-select v-model="form.rkType" placeholder="请选择单据类型">
@@ -470,17 +483,17 @@
                     <el-row>
                         <el-col :span="8">
                             <el-form-item label="货品编号" :label-width="formLabelWidth">
-                                {{form.selectGood.value}}
+                                <strong>{{form.selectGood.value}}</strong>
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
                             <el-form-item label="货品名称" :label-width="formLabelWidth">
-                                {{form.selectGood.bgGoodsName}}
+                                <strong>{{form.selectGood.bgGoodsName}}</strong>
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
                             <el-form-item label="货品数量" :label-width="formLabelWidth">
-                                {{form.selectGood.count}}
+                                <strong>{{form.selectGood.count}}</strong>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -529,7 +542,7 @@
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="prev" v-show="dialogFormActive">上一步</el-button>
             <el-button type="primary" @click="next" v-show="dialogFormActive < 1">下一步</el-button>
-            <el-button type="primary" @click="submit" :loading="submitLoading" v-show="dialogFormActive >= 1">保存
+            <el-button type="primary" @click="submit" :loading="submitLoading" v-show="dialogFormActive >= 1" :disabled="form.rkDocsList.length==0">保存
             </el-button>
         </div>
     </el-dialog>
@@ -551,6 +564,10 @@
 </div>
 
 <script>
+    var validateRule={
+        a:new RegExp("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])","g")
+    };
+
     var warehousingReservation = new Vue({
         el: '#warehousingReservation',
         prop: {},
@@ -561,7 +578,8 @@
                 multipleSelection: [],
                 multipleSelectionCombination: [],
                 multiSelect: false,
-                date: [null, null],
+                date: [null, null],           //主页面 选择日期 搜索
+                rkRkdjNo: '',                 //主页面 入库单号 搜索
                 pickerOptions: {
                     shortcuts: [{
                         text: '最近一周',
@@ -847,6 +865,14 @@
                     post(warehousingReservation);
                 }, 1500);
             },                                                //新建 表单提交
+            validateRkRkdjNo:function (rule, value, callback) {
+                if(validateRule.a.exec(value)){
+                    callback(new Error('不允许存在特殊字符!'));
+                }
+                else{
+                    callback();
+                }
+            },                  //validate 入库单号
             formValidateField: function (formName) {
 //                console.log(warehousingReservation.$refs[formName]);
 //                console.log(warehousingReservation.$refs);
@@ -919,6 +945,12 @@
                 if (isNaN(this.form.selectGood.count)) {
                     this.saveARkDocsList = false;
                 }
+            },
+            rkRkdjNo:function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                post(this,this.option);
             }
         }
     });
@@ -934,9 +966,13 @@
             this.form.saveARkDocsList = false :
             this.form.saveARkDocsList = true
     });
-    //    , {
-    //        deep: true
-    //    }
+    warehousingReservation.$watch('date', function () {
+        if(!this.option.dateStart)return;
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        post(this,this.option);
+    }, {deep: true});
 
     post(warehousingReservation);
     function post(obj, option) {
