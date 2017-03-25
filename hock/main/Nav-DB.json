@@ -1,59 +1,71 @@
 {
   "data": [
     {
+      "id":48,
       "head": "业务处理",
       "children": [
         {
+          "id":1,
           "label": "入库预约",
           "url":"page/warehousingReservation",
           "icon":"aa1"
         },
         {
+          "id":2,
           "label": "下达任务",
           "url":"page/issuedTask",
           "icon":"aa2"
         },
         {
+          "id":3,
           "label": "开始收货",
           "url":"page/startReceiving",
           "icon":"aa3"
         },
         {
+          "id":4,
           "label": "入库操作",
           "url":"page/inputOperation",
           "icon":"a2"
         },
         {
+          "id":5,
           "label": "入库台账",
           "url":"page/inputLedger",
           "icon":"aa4"
         },
         {
+          "id":6,
           "label": "出库预约",
           "url":"page/outputAppointment",
           "icon":"aa5"
         },
         {
+          "id":7,
           "label": "挑选单据",
           "url":"page/chooseBill",
           "icon":"aa6"
         },
         {
+          "id":8,
           "label": "激活单据",
           "url":"page/activationBill",
           "icon":"aa7"
         },
         {
+          "id":9,
           "label": "出库操作",
           "url":"page/outputOperation",
           "icon":"a3"
         },
         {
+          "id":10,
           "label": "出库发运",
           "url":"page/outputShipment",
           "icon":"aa8"
         },
         {
+          "id":11,
           "label": "回收存档",
           "url":"page/recoveryArchive",
           "icon":"aa9"
@@ -61,34 +73,41 @@
       ]
     },
     {
+      "id":12,
       "head": "资源管理",
       "children": [
         {
+          "id":13,
           "label": "仓库管理",
           "url":"page/warehouseManage",
           "icon":"e3"
         },
         {
+          "id":14,
           "label": "货品管理",
           "url":"page/goodsManage",
           "icon":"e4"
         },
         {
+          "id":15,
           "label": "RF管理",
           "url":"page/RFManage",
           "icon":"e1"
         },
         {
+          "id":16,
           "label": "作业区管理",
           "url":"page/operationAreaManage",
           "icon":"e5"
         },
         {
+          "id":17,
           "label": "客户管理",
           "url":"page/customerManage",
           "icon":"e2"
         },
         {
+          "id":18,
           "label": "单位管理",
           "url":"page/unitManage",
           "icon":"e6"
@@ -96,29 +115,35 @@
       ]
     },
     {
+      "id":19,
       "head": "库内管理",
       "children": [
         {
+          "id":20,
           "label": "库位转移",
           "url":"page/aLibraryTransfer",
           "icon":"d1"
         },
         {
+          "id":21,
           "label": "库存转移确认",
           "url":"page/stockTransferConfirm",
           "icon":"d2"
         },
         {
+          "id":22,
           "label": "库存调整",
           "url":"page/stockAdjustment",
           "icon":"d3"
         },
         {
+          "id":23,
           "label": "库存调整确认",
           "url":"page/stockAdjustmentConfirm",
           "icon":"d4"
         },
         {
+          "id":24,
           "label": "库存冻结/解冻",
           "url":"page/stockFrozenThaw",
           "icon":"d5"
@@ -127,24 +152,29 @@
       ]
     },
     {
+      "id":25,
       "head": "业务查询",
       "children": [
         {
+          "id":26,
           "label": "入库日报",
           "url":"page/inputDaily",
           "icon":"b1"
         },
         {
+          "id":27,
           "label": "出库日报",
           "url":"page/outputDaily",
           "icon":"b2"
         },
         {
+          "id":28,
           "label": "动碰查询",
           "url":"page/dynamicTouchSelect",
           "icon":"b3"
         },
         {
+          "id":29,
           "label": "库存查询",
           "url":"page/stockSelect",
           "icon":"b4"
@@ -152,31 +182,37 @@
 
         },
         {
+          "id":30,
           "label": "入库单据查询",
           "url":"page/inputSelect",
           "icon":"b5"
         },
         {
+          "id":31,
           "label": "出库单据查询",
           "url":"page/outputSelect",
           "icon":"b6"
         },
         {
+          "id":32,
           "label": "发货装车清单",
           "url":"page/deliverGoodsLoadingDetailedList",
           "icon":"b7"
         },
         {
+          "id":33,
           "label": "进出合并查询",
           "url":"page/importMergeSelect",
           "icon":"b8"
         },
         {
+          "id":34,
           "label": "库位转移查询",
           "url":"page/aLibraryTransferSelect",
           "icon":"b9"
         },
         {
+          "id":35,
           "label": "库存调整查询",
           "url":"page/stockAdjustmentSelect",
           "icon":"b10"
@@ -184,19 +220,23 @@
       ]
     },
     {
+      "id":36,
       "head": "盘点作业",
       "children": [
         {
+          "id":37,
           "label": "动碰盘点查询",
           "url":"page/dynamicTouchInventorySelect",
           "icon":"b12"
         },
         {
+          "id":38,
           "label": "循环盘点查询",
           "url":"page/loopInventorySelect",
           "icon":"b13"
         },
         {
+          "id":39,
           "label": "全面盘点查询",
           "url":"page/comprehensiveInventorySelect",
           "icon":"b14"
@@ -204,30 +244,36 @@
       ]
     },
     {
+      "id":40,
       "head": "系统设置",
       "children": [
         {
+          "id":41,
           "label": "用户管理",
           "url":"page/userManagement",
           "icon":"f1"
         },
         {
+          "id":42,
           "label": "角色管理",
           "url":"page/roleManagement",
           "icon":"f2"
         },
         {
+          "id":43,
           "label": "菜单配置",
           "url":"page/menuConfiguration",
           "icon":"f3"
         },
 
         {
+          "id":44,
           "label": "仓库配置",
           "url":"page/warehouseConfiguration",
           "icon":"ff1"
         },
         {
+          "id":45,
           "label": "客户配置",
           "url":"page/clientConfiguration",
           "icon":"f4"
@@ -235,9 +281,11 @@
       ]
     },
     {
+      "id":46,
       "head": "关于本系统",
       "children": [
         {
+          "id":47,
           "label": "关于本系统",
           "url":"page/aboutThisSystem",
           "icon":"g1"

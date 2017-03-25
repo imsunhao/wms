@@ -104,7 +104,7 @@ button, input[type="checkbox"] {
   background-position: 0 -570px;
 }
 
-.center {
+#center {
   position: absolute;
   right: 0;
   left: 0;
@@ -118,13 +118,13 @@ button, input[type="checkbox"] {
   box-shadow: 0 0 5px 0 #000a0e, 0 5px 7px 0 #000a0e;
   overflow: hidden;
   *zoom: 1;
-  .left, .right {
+  .left__center, .right {
     position: relative;
     width: 50%;
     height: 100%;
     float: left;
   }
-  .left {
+  .left__center {
     text-align: center;
     .box {
       position: absolute;

@@ -1,10 +1,163 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<style>
+    .addHidden {
+        display: none;
+    }
 
-</body>
-</html>
+    .treeHead {
+        color: rgb(51, 51, 51);
+        font-size: 16px;
+    }
+
+    .treeChildren {
+        color: #48576a;
+        font-size: 14px;
+    }
+
+    #menu .el-tree-node__children .el-tree-node__content {
+        padding-left: 36px !important;
+    }
+
+    #menu .el-tree-node__expand-icon {
+        margin-top: -3px;
+    }
+
+    #menu .el-checkbox__input {
+        line-height: -1px;
+    }
+</style>
+<div id="menu">
+    <el-row v-loading="showLoading"
+            element-loading-text="拼命加载中">
+        <el-col :span="24">
+            <el-tree
+                    ref="dataBaseMenu"
+                    :data="dataBaseMenu"
+                    node-key="id"
+                    show-checkbox
+                    accordion
+                    :expand-on-click-node="true"
+                    :render-content="renderContent">
+            </el-tree>
+        </el-col>
+    </el-row>
+</div>
+
+<script>
+    var id = 1000;
+
+    var menu = new Vue({
+        el: "#menu",
+        data: function () {
+            return {
+                showLoading: false,
+                dataBaseMenu: [],
+                renderContent: function (h, obj) {
+                    var node = obj.node;
+                    var data = obj.data;
+                    var store = obj.store;
+
+                    return h(
+                        'span', {},
+                        [
+                            h('span', {
+                                'class': {
+                                    'treeHead': typeof data.children !== 'undefined',
+                                    'treeChildren': typeof data.children === 'undefined'
+                                }
+                            }, data.label || data.head),
+                            h('span', {
+                                style: {
+                                    'float': 'right',
+                                    'margin-right': '20px'
+                                }
+                            }, [h('button', {
+                                on: {
+                                    click: function (e) {
+                                        appendMenu(store, data);
+                                        e.stopPropagation();
+                                    }
+                                },
+                                'class': {
+                                    'el-button': true,
+                                    'el-button--mini': true,
+                                    'addHidden': typeof data.children === 'undefined'
+                                }
+                            }, '添加'), h('button', {
+                                on: {
+                                    click: function (e) {
+                                        removeMenu(store, data);
+                                        e.stopPropagation();
+                                    }
+                                },
+                                'class': {
+                                    'el-button': true,
+                                    'el-button--danger': true,
+                                    'el-button--mini': true
+                                }
+                            }, '删除')])
+                        ]
+                    )
+                }
+            }
+        },
+        methods: {}
+    });
+
+    menuInit();
+
+    function menuInit() {
+        postMenu(menu);
+    }
+
+    function getUserMenu() {
+        var step = [];
+
+        for (var i = 0; i < app.$data.nav.length; i++) {
+            for (var b = 0; b < app.$data.nav[i].children.length; b++) {
+                step.push(app.$data.nav[i].children[b])
+            }
+        }
+        Vue.nextTick(function () {
+            menu.$refs.dataBaseMenu.setCheckedNodes(step);
+        });
+    }
+
+    function appendMenu(store, data) {
+        store.append({id: id++, label: 'testtest'}, data);
+    }
+
+    function removeMenu(store, data) {
+        store.remove(data);
+    }
+
+    function postMenu(obj, option) {
+        obj.$data.showLoading = true;
+
+        /*<debug>*/
+        url = "/hock/main/Nav-DB.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/data/inputOption/" + option;
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option | {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                menu.$data.dataBaseMenu = json.data;
+                getUserMenu();
+            },
+            complete: function () {
+                obj.$data.showLoading = false;
+            }
+        });
+    }
+</script>

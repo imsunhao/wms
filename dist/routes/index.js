@@ -14,9 +14,12 @@ router.param('_pageName', function (req, res, next, id) {
 });
 
 router.get('/', function (req, res, next) {
+    // var data=req.session.user;
+    // delete data.rmsUser.ruLoginPassword;
+    // req.session.user=data.rmsUser;
     res.render('index', {
         title: '主页',
-        user: req.session.user
+        data: req.session.user
     });
 });
 
@@ -34,3 +37,21 @@ router.get('page/:_pageName', function (req, res, next) {
 });
 
 module.exports = router;
+
+
+
+
+// //TODO 要做的工作 imzhangxing
+// json=jsonChange(json);
+//
+// var User = json.rmsUser;
+// //不能发布的数据定义
+// User.loginPassword = null;
+// delete User.loginPassword;
+//
+// //注册 session
+// //zhangxing
+// function jsonChange(json) {
+//
+//     return json;
+// }

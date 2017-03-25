@@ -51,21 +51,9 @@ router.post('/login', function (req, res, next) {
             var message = status[json.status];
             switch (json.status) {
                 case 1:
+                    req.session.user = json;
 
-                    //TODO 要做的工作 imzhangxing
-                    json=jsonChange(json);
-
-                    var User = json.rmsUser;
-                    //不能发布的数据定义
-                    User.loginPassword = null;
-                    delete User.loginPassword;
-
-                    //注册 session
-                    req.session.user = User;
-
-
-
-                    console.log("用户:\t" + User.name + "\t登录成功");
+                    console.log("用户:\t" + json.rmsUser.ruUserName + "\t登录成功");
 
                     if (typeof (req.body.originalUrl) !== 'undefined') {
                         return res.send({status: json.status,url: req.body.originalUrl});
@@ -90,12 +78,6 @@ router.post('/login', function (req, res, next) {
             });
         }
     });
-
-    //zhangxing
-    function jsonChange(json) {
-
-        return json;
-    }
 });
 
 // TODO   登出测试
