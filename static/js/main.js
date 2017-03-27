@@ -57,7 +57,7 @@ $(function () {
                                     position: 'absolute',
                                     left: '18px',
                                     top: '18px',
-                                    backgroundImage: 'url("/static/images/' + node.data.icon + '.png")'
+                                    backgroundImage: 'url("/static/images/' + node.data.bmMenuIcon + '.png")'
                                 }
                             }),
                             h('span', {
@@ -98,7 +98,7 @@ $(function () {
                 /*</debug>*/
 
                 /*<prod>*/
-                url = data.url;
+                url = data.bmMenuUrl;
                 /*</prod>*/
 
                 (function (_this) {
@@ -128,9 +128,9 @@ $(function () {
                     $("#showing").load(url, function () {
                         /*<debug>*/
                         console.log("loadSuccess");
-                        /*</debug>*/
                         console.log(_this.headMenu);
                         console.log(_this.navControl);
+                        /*</debug>*/
                         _this.breadcrumb = ['首页', _this.headMenu[_this.navControl]];
                         _this.showingLoading = false;           //结束加载
                     })
@@ -141,7 +141,11 @@ $(function () {
             },                                     //最大化界面
             userSubmit: function () {
                 this.dialogUserVisible = false;
+
+                /*<debug>*/
                 console.log('select!');
+                /*</debug>*/
+
             },                                  //用户修改信息提交
             handleAvatarScucess: function (res, file) {
                 this.imageUrl = URL.createObjectURL(file.raw);
@@ -229,7 +233,6 @@ $(function () {
             (function (json) {
                 function generateNode(tree) {
                     var formatTree = formatTreeData(tree);
-                    console.log(formatTree);
                     return combinationNode(formatTree);
                     function formatTreeData(tree) {
                         if (!tree)return;
@@ -254,9 +257,6 @@ $(function () {
                     function combinationNode(tree) {
                         var data = [];
                         for (var i = 0; i < tree[0].children.length; i++) {
-                            console.log(tree[tree[0].children[i].bmMenuId]);
-                            console.log(tree[0].children[i].bmMenuId);
-                            console.log(tree[0].children[i].bmMenuName);
                             tree[tree[0].children[i].bmMenuId].head = tree[0].children[i].bmMenuName;
                             data.push(tree[tree[0].children[i].bmMenuId]);
                         }
@@ -291,7 +291,6 @@ $(function () {
 
             /*<prod>*/
             $("#showing").load("/page/home", function (json) {
-                console.log(json);
                 Loading();
             });
             /*</prod>*/

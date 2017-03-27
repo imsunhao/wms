@@ -45,6 +45,7 @@ var library = require('./routes/library');                            //库内�
 var check = require('./routes/check');                                //盘点作业
 var about = require('./routes/about');                                //关于我们
 var imageServer = require('./routes/imageServer');                    //图片服务器
+var route = require('./routes/route');                                //请求转发
 /*
  /*****************************************************************************/
 
@@ -232,7 +233,7 @@ app.use(function (req, res, next) {
         console.log('未登录用户');
     }
     console.log(req.originalUrl);
-    console.log("--------------------------------------");
+    // console.log("--------------------------------------");
     /*</debug>*/
     if (req.session.user || req.originalUrl == '/users/login') {
         next();
@@ -254,11 +255,18 @@ app.use(function (req, res, next) {
  /*     功能           见注释
  /*
  */
+
 /*主页*/
 app.use('/', index);
 
 /*用户信息层*/
 app.use('/users', users);
+
+/*请求转发*/
+app.use('/route', route);
+
+/*图片服务*/
+app.use('/imageServer', imageServer);
 
 /*关于我们*/
 app.use('/about', about);

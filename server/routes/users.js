@@ -17,7 +17,9 @@ router.get('/', function (req, res, next) {
 //   登录
 router.get('/login', function (req, res, next) {
     /*<debug>*/
+    console.log("登录");
     console.log(req.originalUrl);
+    console.log("--------------------------------------");
     /*</debug>*/
     res.render('login');
 });
@@ -54,6 +56,7 @@ router.post('/login', function (req, res, next) {
                     req.session.user = json;
 
                     console.log("用户:\t" + json.rmsUser.ruUserName + "\t登录成功");
+                    console.log("--------------------------------------");
 
                     if (typeof (req.body.originalUrl) !== 'undefined') {
                         return res.send({status: json.status,url: req.body.originalUrl});
