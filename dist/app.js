@@ -43,7 +43,9 @@ var resource = require('./routes/resource');                          //资源�
 var transaction = require('./routes/transaction');                    //业务处理
 var library = require('./routes/library');                            //库内管理
 var check = require('./routes/check');                                //盘点作业
-var about = require('./routes/about');                                //盘点作业
+var about = require('./routes/about');                                //关于我们
+var imageServer = require('./routes/imageServer');                    //图片服务器
+var route = require('./routes/route');                                //请求转发
 /*
  /*****************************************************************************/
 
@@ -222,12 +224,16 @@ app.use(session({
  */
 app.use(function (req, res, next) {
     //demo req.originalUrl.match(/\/article\/read\/.*/)
-    if (/^.+\./.test(req.originalUrl) == req.originalUrl) next();
+    if (/^.+\./.test(req.originalUrl)||/^\/page\/.+/.test(req.originalUrl)) return next();
     /*<debug>*/
     console.log("---------启用验证！------------------");
-    console.log(req.session.user);
+    if(typeof req.session.user!=='undefined')
+        console.log(req.session.user.rmsUser.ruUserName);
+    else{
+        console.log('未登录用户');
+    }
     console.log(req.originalUrl);
-    console.log("--------------------------------------");
+    // console.log("--------------------------------------");
     /*</debug>*/
     if (req.session.user || req.originalUrl == '/users/login') {
         next();
@@ -235,6 +241,11 @@ app.use(function (req, res, next) {
         return res.redirect('/users/login');
     }
 });
+
+// function a(test) {
+//     return /^.+\./.test(test)||/^\/page\/.+/.test(test)
+// }
+
 /*
  /*****************************************************************************/
 
@@ -244,11 +255,18 @@ app.use(function (req, res, next) {
  /*     功能           见注释
  /*
  */
+
 /*主页*/
 app.use('/', index);
 
 /*用户信息层*/
 app.use('/users', users);
+
+/*请求转发*/
+app.use('/route', route);
+
+/*图片服务*/
+app.use('/imageServer', imageServer);
 
 /*关于我们*/
 app.use('/about', about);

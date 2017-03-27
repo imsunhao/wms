@@ -454,7 +454,7 @@ console.log('线上版本');
                     if (json.status == 1)
                         window.location.href = json.url;
                     else {
-                        alertMessage.call(this, {name: "对不起"}, "");
+                        alertMessage.call(this, {name: "对不起"}, json.message);
                     }
                 });
                 /*</prod>*/

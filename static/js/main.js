@@ -5,7 +5,7 @@ var app;
 /*<debug>*/
 var hock = "../../hock";
 /*</debug>*/
-$(function (dbmessage) {
+$(function () {
     Vue.directive('echarts', {
         bind: function (el, binding, vnode) {
             Vue.nextTick(function () {
@@ -39,7 +39,6 @@ $(function (dbmessage) {
                 breadcrumb: ['首页'],               //面包屑菜单
                 showingLoading: false,              //content 加载控制
                 treeRenderContent: function (h, node) {
-                    console.log(node.data.label);
                     return h(
                         'div', {
                             style: {
@@ -58,7 +57,7 @@ $(function (dbmessage) {
                                     position: 'absolute',
                                     left: '18px',
                                     top: '18px',
-                                    backgroundImage: 'url("/static/images/' + node.data.icon + '.png")'
+                                    backgroundImage: 'url("/static/images/' + node.data.bmMenuIcon + '.png")'
                                 }
                             }),
                             h('span', {
@@ -99,7 +98,7 @@ $(function (dbmessage) {
                 /*</debug>*/
 
                 /*<prod>*/
-                url = data.url;
+                url = data.bmMenuUrl;
                 /*</prod>*/
 
                 (function (_this) {
@@ -129,10 +128,10 @@ $(function (dbmessage) {
                     $("#showing").load(url, function () {
                         /*<debug>*/
                         console.log("loadSuccess");
-                        /*</debug>*/
                         console.log(_this.headMenu);
                         console.log(_this.navControl);
-                        _this.breadcrumb=['首页',_this.headMenu[_this.navControl]];
+                        /*</debug>*/
+                        _this.breadcrumb = ['首页', _this.headMenu[_this.navControl]];
                         _this.showingLoading = false;           //结束加载
                     })
                 })(this);
@@ -142,14 +141,18 @@ $(function (dbmessage) {
             },                                     //最大化界面
             userSubmit: function () {
                 this.dialogUserVisible = false;
+
+                /*<debug>*/
                 console.log('select!');
+                /*</debug>*/
+
             },                                  //用户修改信息提交
             handleAvatarScucess: function (res, file) {
                 this.imageUrl = URL.createObjectURL(file.raw);
             },
             beforeAvatarUpload: function (file) {
-                const isJPG = file.type === 'image/jpeg';
-                const isLt2M = file.size / 1024 / 1024 < 2;
+                var isJPG = file.type === 'image/jpeg';
+                var isLt2M = file.size / 1024 / 1024 < 2;
 
                 if (!isJPG) {
                     this.$message.error('上传头像图片只能是 JPG 格式!');
@@ -161,7 +164,7 @@ $(function (dbmessage) {
             },
             signOut: function () {
                 // TODO signOut
-                window.location = '/';
+                window.location = '/users/logout';
             }
         },
         watch: {
@@ -194,7 +197,10 @@ $(function (dbmessage) {
 
             //-------------------------用户信息---------------------
             app.$data.rmsUser = json.rmsUser;
+
+            /*<debug>*/
             console.log(json.rmsUser);
+            /*</debug>*/
 
             //-------------------------加载nav----------------------
             /*<debug>*/
@@ -232,15 +238,17 @@ $(function (dbmessage) {
                         if (!tree)return;
                         var formatTree = {};
                         for (var i = 0; i < tree.length; i++) {
-                            if (formatTree[tree[i].parentMenuId]) {
-                                tree[i].label = tree[i].menuName;
-                                formatTree[tree[i].parentMenuId].children.push(tree[i]);
+                            if (formatTree[tree[i].bmParentMenuId]) {
+                                tree[i].label = tree[i].bmMenuName;
+                                tree[i].id = tree[i].bmMenuId;
+                                formatTree[tree[i].bmParentMenuId].children.push(tree[i]);
                             }
                             else {
-                                formatTree[tree[i].parentMenuId] = {};
-                                formatTree[tree[i].parentMenuId].children = [];
-                                tree[i].label = tree[i].menuName;
-                                formatTree[tree[i].parentMenuId].children.push(tree[i]);
+                                formatTree[tree[i].bmParentMenuId] = {};
+                                formatTree[tree[i].bmParentMenuId].children = [];
+                                tree[i].id = tree[i].bmMenuId;
+                                tree[i].label = tree[i].bmMenuName;
+                                formatTree[tree[i].bmParentMenuId].children.push(tree[i]);
                             }
                         }
                         return formatTree;
@@ -249,8 +257,8 @@ $(function (dbmessage) {
                     function combinationNode(tree) {
                         var data = [];
                         for (var i = 0; i < tree[0].children.length; i++) {
-                            tree[tree[0].children[i].menuId].head = tree[0].children[i].menuName;
-                            data.push(tree[tree[0].children[i].menuId]);
+                            tree[tree[0].children[i].bmMenuId].head = tree[0].children[i].bmMenuName;
+                            data.push(tree[tree[0].children[i].bmMenuId]);
                         }
                         return data;
                     }
@@ -282,14 +290,13 @@ $(function (dbmessage) {
             /*</debug>*/
 
             /*<prod>*/
-            $("#showing").load("/page/home", function () {
+            $("#showing").load("/page/home", function (json) {
                 Loading();
             });
             /*</prod>*/
 
-
             // 面包屑 菜单 首页按钮
-            $('.el-breadcrumb__item__inner').eq(0).on('click',function () {
+            $('.el-breadcrumb__item__inner').eq(0).on('click', function () {
                 app.clickGoHome();
             });
 
@@ -326,7 +333,6 @@ $(function (dbmessage) {
                 console.log(error);
             },
             success: function (json) {
-                console.log(json);
                 if (json.status != 1) tip(json.authMessage);//身份验证失败信息窗
                 else init(json);
             },
@@ -337,7 +343,7 @@ $(function (dbmessage) {
         /*</debug>*/
 
         /*<prod>*/
-        init(dbmessage);
+        init(window.dbmessage);
         /*</prod>*/
-    })(app, dbmessage);
+    })(app);
 });

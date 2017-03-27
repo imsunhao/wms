@@ -12,6 +12,9 @@
     <!--prod-->
     <link rel="stylesheet" href="/static/lib/common.css">
     <script src="/static/lib/common.js"></script>
+    <script>
+        window.dbmessage = JSON.parse('<%-JSON.stringify(data)%>');
+    </script>
     <!--/prod-->
     <title>乐速 仓储管理系统 V2.0</title>
     <!--[if lt IE 9]>
@@ -33,9 +36,11 @@
             position: relative;
             overflow: hidden;
         }
+
         .avatar-uploader .el-upload:hover {
             border-color: #20a0ff;
         }
+
         .avatar-uploader-icon {
             font-size: 28px;
             color: #8c939d;
@@ -44,6 +49,7 @@
             line-height: 178px;
             text-align: center;
         }
+
         .avatar {
             width: 178px;
             height: 178px;
@@ -85,7 +91,7 @@
             </el-menu>
             <el-menu class="user" mode="horizontal" style="float: right">
                 <el-submenu index="1">
-                    <template slot="title"><img :src="rmsUser.portrait" alt="">{{rmsUser.userName}}</template>
+                    <template slot="title"><img :src="rmsUser.ruPortrait" alt="">{{rmsUser.ruUserName}}</template>
                     <el-menu-item index="2-1" @click="dialogUserVisible=!dialogUserVisible">修改信息</el-menu-item>
                     <el-menu-item index="2-2" @click="signOut">注销登录</el-menu-item>
                 </el-submenu>
@@ -99,7 +105,8 @@
                     </el-col>
                     <el-col :span="6" :offset="14">
                         <el-breadcrumb separator=">">
-                            <el-breadcrumb-item v-for="(item, index) in breadcrumb" :index="index">{{item}}</el-breadcrumb-item>
+                            <el-breadcrumb-item v-for="(item, index) in breadcrumb" :index="index">{{item}}
+                            </el-breadcrumb-item>
                         </el-breadcrumb>
                     </el-col>
                 </el-row>
@@ -118,7 +125,7 @@
         <el-form :model="rmsUser">
             <el-upload
                     class="avatar-uploader"
-                    action="//jsonplaceholder.typicode.com/posts/"
+                    action="/imageServer/"
                     :show-file-list="false"
                     :on-success="handleAvatarScucess"
                     :before-upload="beforeAvatarUpload">
@@ -132,6 +139,5 @@
         </div>
     </el-dialog>
 </div>
-
 </body>
 </html>
