@@ -426,7 +426,7 @@
                     2.全部收货(任务下所有订单状态为全部收货整个任务状态为全部收货)
                 6.收货完成/欠货(全部收货状态下导出台帐为收货完成,部分收货状态下导出台帐为欠货)
                   可以手动将欠货标记为收货完成需要输入原因以及补发单号
- *      TODO 组合      /mfunrkRwDoc
+ *      TODO 组合      mfunrkRwDoc
  *          rkArehouseId    所属仓库(仓库id(外键)
  *          rkRkdjNo        入库单号(WMS单号)
  *          rkCreatetime    下单时间(创建时间)
@@ -447,7 +447,7 @@
  *                              2.excel
  *                              3.接口
  *          rkRemarks       入库备注
- *      TODO 新增/添加入库基础信息    /mfunrkRwDoc
+ *      TODO 新增/添加入库基础信息
  *          rkRkdjNo    入库单号(WMS单号)
  *          rkType      订单类型
  *                          0.采购订单
@@ -466,12 +466,49 @@
  *                          1.手动
  *                          2.excel
  *                          3.接口
- *      TODO 新增/添加入库明细   mfunrk_docs(入库明细表)
+ *      TODO 新增/添加入库明细
  *          rksGoodsId  货品id(货品编号)
  *          rksCount    数量  (货品数量)
  *          rksGoodsId  货品id(货品名称)
  *          rksGoodsId  货品id(货品单位)
- *      TODO 编辑
+ *      TODO 编辑入库基础信息
+ *          rkRkdjNo    入库单号(WMS单号)
+ *          rkType      订单类型
+ *                          0.采购订单
+ *                          1.仓间调拨
+ *                          2.退货入库
+ *          rkRemarks   入库备注
+ *          rkStatus    入库状态
+ *                          1.原始状态
+ *                          21.部分分配
+ *                          22.全部分配
+ *                          31.部分收货
+ *                          32.完全收货
+ *                      入库数量
+ *                      入库体积
+ *          rkZdfs      制作方式
+ *                          1.手动
+ *                          2.excel
+ *                          3.接口
+ *      TODO 编辑入库明细
+ *          rkRkdjNo    入库单号(WMS单号)
+ *          rkType      订单类型
+ *                          0.采购订单
+ *                          1.仓间调拨
+ *                          2.退货入库
+ *          rkRemarks   入库备注
+ *          rkStatus    入库状态
+ *                          1.原始状态
+ *                          21.部分分配
+ *                          22.全部分配
+ *                          31.部分收货
+ *                          32.完全收货
+ *                      入库数量
+ *                      入库体积
+ *          rkZdfs      制作方式
+ *                          1.手动
+ *                          2.excel
+ *                          3.接口
  *      TODO 删除
  *      TODO 入库单号不能重复
  * TODO 业务处理
