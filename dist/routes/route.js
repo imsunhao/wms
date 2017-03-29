@@ -56,8 +56,8 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 7:
                         urlName = '用户管理-判断用户名是否重复';
-                        req = autoUrl(req, '/user/isRepeatByUsername/{username}', "GET", function (json) {
-                            res.send(json);
+                        req = autoUrl(req, '/user/isRepeatByUsername/{username}', "GET", functioon (json) {
+                                      res.send(json);
                         });
                         break;
                     case 8:
@@ -69,37 +69,42 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
-
-        }111
+        }
 
         console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + url);
         next();
-    }111
+    }
     else {
         var err = new Error('您没有权限，请您重新登录');
         err.status = 403;
         next(err);
     }
-
 });
-function autoUrl(req, url, data, method, cal) {
-    req.url = url;
-    req.data = data;
-    req.method = method;
-    req.cal = cal;
+
+function autoUrl(req, url, method, cal) {
+    req.body.url = url;
+    req.body.method = method;
+    req.body.cal = cal;
+    return req;
 }
 
 //请求java服务器
 router.get('/:_url/:_status', function (req, res, next) {
+
     request({
-        method: req.method,
+        url: 'http://' + server.host + ':' + server.port + server.path + req.body.url,
+        method: req.body.method,
         json: true,
-        url: server.host + '/' + server.port + req.url,
-        data: req.data,
-        headers: {"Content-Type": 'application/json'}
+        headers: {
+            "content-type": "application/json"
+        },
+        body: req.query
     }, function (error, response, json) {
-        if (!error && response.statusCode == 200) {
-            req.cal();
+        if (!error && response.statusCode === 200) {
+            req.body.cal(json);
+            /*<debug>*/
+            console.log('------------------');
+            /*</debug>*/
         } else {
             return res.send({
                 status: 500,
@@ -107,6 +112,77 @@ router.get('/:_url/:_status', function (req, res, next) {
             });
         }
     });
+
+    // switch (req.body.method){
+    //     case 'POST':
+    //         request.post({
+    //             json: true,
+    //             url: 'http://' + server.host + ':' + server.port + req.body.url,
+    //             form: req.query,
+    //             headers: {"Content-Type": 'application/json'}
+    //         }, function (error, response, json) {
+    //             if (!error && response.statusCode === 200) {
+    //                 req.body.cal(json);
+    //             } else {
+    //                 return res.send({
+    //                     status: 500,
+    //                     message: "服务器未响应"
+    //                 });
+    //             }
+    //         });
+    //         break;
+    //     case 'GET':
+    //         request.get({
+    //             json: true,
+    //             url: 'http://' + server.host + ':' + server.port + req.body.url,
+    //             form: req.query,
+    //             headers: {"Content-Type": 'application/json'}
+    //         }, function (error, response, json) {
+    //             if (!error && response.statusCode === 200) {
+    //                 req.body.cal(json);
+    //             } else {
+    //                 return res.send({
+    //                     status: 500,
+    //                     message: "服务器未响应"
+    //                 });
+    //             }
+    //         });
+    //         break;
+    //     case 'PUT':
+    //         request.put({
+    //             json: true,
+    //             url: 'http://' + server.host + ':' + server.port + req.body.url,
+    //             form: req.query,
+    //             headers: {"Content-Type": 'application/json'}
+    //         }, function (error, response, json) {
+    //             if (!error && response.statusCode === 200) {
+    //                 req.body.cal(json);
+    //             } else {
+    //                 return res.send({
+    //                     status: 500,
+    //                     message: "服务器未响应"
+    //                 });
+    //             }
+    //         });
+    //         break;
+    //     case 'DELETE':
+    //         request.delete({
+    //             json: true,
+    //             url: 'http://' + server.host + ':' + server.port + req.body.url,
+    //             form: req.query,
+    //             headers: {"Content-Type": 'application/json'}
+    //         }, function (error, response, json) {
+    //             if (!error && response.statusCode === 200) {
+    //                 req.body.cal(json);
+    //             } else {
+    //                 return res.send({
+    //                     status: 500,
+    //                     message: "服务器未响应"
+    //                 });
+    //             }
+    //         });
+    //         break;
+    // }
 });
 
 module.exports = router;

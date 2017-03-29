@@ -51,13 +51,13 @@
 
 /**数据库数据
  * TODO 系统配置
- *      TODO 用户管理 0   /user
+ *      TODO 用户管理   /user/page
  *          ruUserId            id
  *          ruUserName          用户昵称/名
  *          ruLoginName         登录账户
  *          ruLoginPassword     密码
  *          ruPhone             手机
- *          ruZoneNo            区号 电话区号 例如 0531
+ *          // ruZoneNo            区号 电话区号 例如 0531
  *          ruTelephone         电话
  *          ruEmail             邮箱地址
  *          ruSex               性别
@@ -67,20 +67,23 @@
  *          ruBirthday          生日
  *          ruHomeaddress       家庭住址
  *          ruQicq              qq
- *          ruCreateTime        创建时间
- *          ruLastModifiedTime  最后修改时间
- *          ruStatus            状态(status)0.软删除
- *          ruSalt              随机掩码
  *          ruUserType          用户类型
  *                                  0.普通
  *                                  1.堆高车
  *                                  2.高位叉车
  *          ruUserZyq           高位叉车作业区域
- *          ruRemarks           备注
  *          ruIspda             是否允许登陆pda
  *                                  1.是
  *                                  0.否
- *      TODO 新增-启用-配置角色 1
+
+ *          ruRemarks           备注
+ *          ruStatus            状态(status)0.软删除
+ *
+ *
+ *          ruSalt              随机掩码
+ *          ruCreateTime        创建时间
+ *          ruLastModifiedTime  最后修改时间
+ *      TODO 新增-启用-配置角色
  *          ruUserName          用户昵称/名
  *          ruLoginPassword     密码
  *          ruPhone             手机

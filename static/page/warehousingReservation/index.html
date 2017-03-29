@@ -1055,7 +1055,7 @@
         post(this, this.option);
     }, {deep: true});
 
-    post(warehousingReservation);
+    post(warehousingReservation,warehousingReservation.option);
     function post(obj, option) {
         obj.showLoading = true;
 
@@ -1065,11 +1065,14 @@
 
         /*<prod>*/
         url = "/route/warehousingReservation/0";
+
+//        if(option.dateStart==='') delete option.dateStart;
+//        if(option.dateStop==='') delete option.dateStop;
         /*</prod>*/
 
         $.ajax(url, {
             type: "GET",
-            data: option | {
+            data: option || {
                 "draw": 1,                      //* 没有意义
                 "pageNum": 1,                   //* 当前页
                 "pageSize": 10                  //* 每页大小
@@ -1121,7 +1124,7 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/data/inputOption/delete" + option;
+        url = "/route/warehousingReservation/1";
         /*</prod>*/
 
         $.ajax(url, {
