@@ -51,7 +51,7 @@
 
 /**数据库数据
  * TODO 系统配置
- *      TODO 用户管理   /user
+ *      TODO 用户管理 0   /user
  *          ruUserId            id
  *          ruUserName          用户昵称/名
  *          ruLoginName         登录账户
@@ -80,7 +80,7 @@
  *          ruIspda             是否允许登陆pda
  *                                  1.是
  *                                  0.否
- *      TODO 新增-启用-配置角色
+ *      TODO 新增-启用-配置角色 1
  *          ruUserName          用户昵称/名
  *          ruLoginPassword     密码
  *          ruPhone             手机
@@ -101,15 +101,14 @@
  *                                  0.普通
  *                                  1.堆高车
  *                                  2.高位叉车
- *      TODO 启用：
- *          ruStatus    状态
- *                          1.启用
- *      TODO 配置角色   /user/userAddRoles
+ *      TODO 启用：2    /user/liveUsersByUids
+ *          user_ids    被勾选的用户id集合
+ *      TODO 配置角色 3  /user/userAddRoles
  *          用户配置角色
  *          userId         用户id
  *          roleIds        被勾选的角色id集合
  *
- *      TODO 编辑 /user
+ *      TODO 编辑 /user 4
  *          ruUserName          用户昵称/名
  *          ruLoginPassword     密码
  *          ruPhone             手机
@@ -131,11 +130,15 @@
  *                                  1.堆高车
  *                                  2.高位叉车
  *
- *      TODO 重置密码
- *          ruLoginPassword 密码
- *      TODO 禁用
- *          ruStatus    状态
- *                          0.禁用
+ *      TODO 重置密码   5  /user/resetPwd
+ *          user_ids    被勾选的用户id集合
+ *      TODO 禁用 6   /user/dieUsersByUids
+ *          user_ids    被勾选的用户id集合
+ *      TODO 用户名不允许重复且不允许使用特殊字符的接口 7   /user/isRepeatByUsername/{username}
+ *          username    用户名称
+ *      TODO 登录账号不允许重复且不允许使用特殊字符的接口 8 /user/isRepeatByLoginname/{loginname}
+ *          loginname   登录账号
+ *
  *      用户配置角色
  *          userId         用户id
  *          roleIds        被勾选的角色id集合
@@ -143,9 +146,7 @@
  *          id              用户id
  *      用户管理 根据id返回用户信息
  *          id              用户id
- *      TODO  用户名和登录账号不允许重复且不允许使用特殊字符的接口
- *          ruUserName          用户昵称/名
- *          ruLoginName         登录账户
+ *
  * TODO 系统设置
  *      TODO 角色管理   role
  *          rrRoleId             角色id
@@ -375,7 +376,7 @@
  *              ruUserZyq
  * TODO 资源管理
  *      TODO 作业区管理
- *          TODO 新增
+ *          TODO 新增 0
  *              库区
  *              brgRegionNo     区域编号
  *              brgRegionStatus 0
@@ -385,7 +386,7 @@
  *                                  4.分拣区
  *                                  5.不合格区
  *             blLname          储位name/储位名称
- *          TODO 编辑
+ *          TODO 编辑 1
  *              库区
  *              brgRegionNo     区域编号
  *              brgRegionStatus 0
