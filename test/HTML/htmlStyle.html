@@ -1,0 +1,161 @@
+<html>
+<head>
+    <title>打印相关</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <!--media=print 这个属性在打印时有效 有些不想打印出来的分页打印的都可以应用这类样式进行控制 在非打印时是无效的(可从打印预览中看到效果)-->
+    <style media=print>
+        /* 应用这个样式的在打印时隐藏 */
+        .Noprint {
+            display: none;
+        }
+
+        /* 应用这个样式的，从那个标签结束开始另算一页，之后在遇到再起一页，以此类推 */
+        .PageNext {
+            page-break-after: always;
+        }
+    </style>
+
+    <!-- 这个是普通样式 -->
+    <style type="text/css">
+        .tdp {
+            border-bottom: 1 solid #000000;
+            border-left: 1 solid #000000;
+            border-right: 0 solid #ffffff;
+            border-top: 0 solid #ffffff;
+        }
+
+        .tabp {
+            border-color: #000000 #000000 #000000 #000000;
+            border-style: solid;
+            border-top-width: 2px;
+            border-right-width: 2px;
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+        }
+
+        .hr {
+            font-family: "宋体";
+            font-size: 9pt;
+        }
+    </style>
+    <script type="text/JavaScript">
+        var hkey_root,hkey_path,hkey_key
+        hkey_root="HKEY_CURRENT_USER";
+        hkey_path="\\Software\\Microsoft\\Internet Explorer\\PageSetup\\";
+        //这个是用来设置打印页眉页脚的，你可以设置为空或者其它
+        try{
+            var RegWsh = new ActiveXObject("WScript.Shell");
+
+            hkey_key="header";
+            RegWsh.RegWrite(hkey_root+hkey_path+hkey_key,"");
+
+            hkey_key="footer";
+            RegWsh.RegWrite(hkey_root+hkey_path+hkey_key,"");
+
+        }catch(e){
+            alert(e.description());
+        }
+    </script>
+</head>
+<body>
+<center class="Noprint">
+    <p>
+        <OBJECT id=WebBrowser classid=CLSID:8856F961-340A-11D0-A96B-00C04FD705A2 height=0 width=0 ></OBJECT>
+        <input type=button value=打印 onclick=document.all.WebBrowser.ExecWB(6,1)>
+        <input type=button value=直接打印 onclick=document.all.WebBrowser.ExecWB(6,6) />
+        <input type=button value=页面设置 onclick=document.all.WebBrowser.ExecWB(8,1) />
+        <input type=button value=打印预览 onclick=document.all.WebBrowser.ExecWB(7,1) />
+        <br />
+    </p>
+    <hr align="center" width="90%" size="1" noshade />
+</center>
+<table width="90%" border="0" align="center" cellpadding="2" cellspacing="0" class="tabp">
+    <tr>
+        <td colspan="3" class="tdp">
+            第1页
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="tdp">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="tdp">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="50%" class="tdp">
+                        对于这类打印功能的，有一个问题，就是权限问题，一般这种和操控客户端东西的代码会有安全提示，一般用户也未必会理解，
+                        所以像此类方法为了让使用者更明白，还需要多加注意，可以设置浏览器安全性中的未标记安全的ActiveX选项为提示，看到提示后点击（是或者允许）之类的词。
+                        当然最简单但不推荐的方法就是直接设置安全性最低……
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<hr align="center" width="90%" size="1" noshade class="hr">
+<!--分页-->
+<div class="PageNext"></div>
+<table width="90%" border="0" align="center" cellpadding="2" cellspacing="0" class="tabp">
+    <tr>
+        <td class="tdp">
+            第2页
+        </td>
+    </tr>
+    <tr>
+        <td class="tdp">
+            模式对话框下打印可能会报脚本错误“对象不支持此属性或方法”，如果想做类似的可以用open开一个网页是可以的，
+            或者在模式对话框中嵌一个iframe里面引用打印页（后一种方法我没有实际测试，有兴趣的人自行研究，顺便把结果告诉我...）
+        </td>
+    </tr>
+    <tr>
+        <td class="tdp">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="tdp">
+            &nbsp;
+        </td>
+    </tr>
+</table>
+<hr align="center" width="90%" size="1" noshade class="hr">
+<div class="PageNext"></div>
+<table width="90%" border="0" align="center" cellpadding="2" cellspacing="0" class="tabp">
+    <tr>
+        <td class="tdp">
+            第3页
+        </td>
+    </tr>
+    <tr>
+        <td class="tdp">
+            打印预览中，你会看到最下方有显示分页的地方，你可以预览自己的设置是否成功
+        </td>
+    </tr>
+    <tr>
+        <td class="tdp">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="tdp">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="tdp">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="50%" class="tdp">
+                        最后就是：
+                        <font color="#ff0000"><strong>Java风暴qq群：63353324</strong></font>
+                        <font color="#ff8000">本人qq：287572694</font>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

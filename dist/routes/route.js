@@ -10,19 +10,19 @@ router.param('_url', function (req, res, next, url) {
         var urlName = '';
 
         switch (url) {
-            case '':
-                switch (req.params._status) {
+            case 'warehousingReservation':
+                switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '入库预约-加载入库单号';
-                        autoUrl(req,'warehousingReservation',{},"GET",function () {
-
+                        req = autoUrl(req, '/mfunrkDoc', "POST", function (json) {
+                            res.send(json);
                         });
                         break;
                 }
                 break;
         }
 
-        console.log(req.session.user.ruUserName + '\t请求：\t' + urlName + '\t' + url);
+        console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + url);
         next();
     }
     else {
@@ -32,25 +32,30 @@ router.param('_url', function (req, res, next, url) {
     }
 });
 
-
-function autoUrl(req, url, data, method, cal) {
-    req.url = url;
-    req.data = data;
-    req.method = method;
-    req.cal = cal;
+function autoUrl(req, url, method, cal) {
+    req.body.url = url;
+    req.body.method = method;
+    req.body.cal = cal;
+    return req;
 }
 
 //请求java服务器
 router.get('/:_url/:_status', function (req, res, next) {
+
     request({
-        method: req.method,
+        url: 'http://' + server.host + ':' + server.port + server.path + req.body.url,
+        method: req.body.method,
         json: true,
-        url: server.host + '/' + server.port + req.url,
-        data: req.data,
-        headers: {"Content-Type": 'application/json'}
+        headers: {
+            "content-type": "application/json"
+        },
+        body: req.query
     }, function (error, response, json) {
-        if (!error && response.statusCode == 200) {
-            req.cal();
+        if (!error && response.statusCode === 200) {
+            req.body.cal(json);
+            /*<debug>*/
+            console.log('------------------');
+            /*</debug>*/
         } else {
             return res.send({
                 status: 500,
@@ -58,6 +63,77 @@ router.get('/:_url/:_status', function (req, res, next) {
             });
         }
     });
+
+    // switch (req.body.method){
+    //     case 'POST':
+    //         request.post({
+    //             json: true,
+    //             url: 'http://' + server.host + ':' + server.port + req.body.url,
+    //             form: req.query,
+    //             headers: {"Content-Type": 'application/json'}
+    //         }, function (error, response, json) {
+    //             if (!error && response.statusCode === 200) {
+    //                 req.body.cal(json);
+    //             } else {
+    //                 return res.send({
+    //                     status: 500,
+    //                     message: "服务器未响应"
+    //                 });
+    //             }
+    //         });
+    //         break;
+    //     case 'GET':
+    //         request.get({
+    //             json: true,
+    //             url: 'http://' + server.host + ':' + server.port + req.body.url,
+    //             form: req.query,
+    //             headers: {"Content-Type": 'application/json'}
+    //         }, function (error, response, json) {
+    //             if (!error && response.statusCode === 200) {
+    //                 req.body.cal(json);
+    //             } else {
+    //                 return res.send({
+    //                     status: 500,
+    //                     message: "服务器未响应"
+    //                 });
+    //             }
+    //         });
+    //         break;
+    //     case 'PUT':
+    //         request.put({
+    //             json: true,
+    //             url: 'http://' + server.host + ':' + server.port + req.body.url,
+    //             form: req.query,
+    //             headers: {"Content-Type": 'application/json'}
+    //         }, function (error, response, json) {
+    //             if (!error && response.statusCode === 200) {
+    //                 req.body.cal(json);
+    //             } else {
+    //                 return res.send({
+    //                     status: 500,
+    //                     message: "服务器未响应"
+    //                 });
+    //             }
+    //         });
+    //         break;
+    //     case 'DELETE':
+    //         request.delete({
+    //             json: true,
+    //             url: 'http://' + server.host + ':' + server.port + req.body.url,
+    //             form: req.query,
+    //             headers: {"Content-Type": 'application/json'}
+    //         }, function (error, response, json) {
+    //             if (!error && response.statusCode === 200) {
+    //                 req.body.cal(json);
+    //             } else {
+    //                 return res.send({
+    //                     status: 500,
+    //                     message: "服务器未响应"
+    //                 });
+    //             }
+    //         });
+    //         break;
+    // }
 });
 
 module.exports = router;

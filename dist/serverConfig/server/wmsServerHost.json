@@ -1,6 +1,6 @@
 {
   "host":"192.168.5.33",
   "port":"8080",
-  "path":"wms_cg_web/auth/",
+  "path":"/wms_cg_web",
   "url":"http://192.168.5.33:8080/wms_cg_web/auth/"
 }

@@ -1,24 +1,5 @@
-.idea/
+/node_modules
 
-*.swp
-.DS_Store
-._*
-*.tmp
-*.temp
+/output
 
-node_modules/
-npm-debug.log
-
-temp/
-output/
-DOC/
-UI/
-
-log/
-
-server/
-serverConfig/
-public/
-views/
-
-.sass-cache/
+/components
