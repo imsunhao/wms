@@ -12,8 +12,8 @@
         },
         {
           "id":2,
-          "label": "下达任务",
-          "url":"page/issuedTask",
+          "label": "入库任务",
+          "url":"page/warehousingTask",
           "bmMenuIcon":"aa2"
         },
         {
@@ -77,12 +77,6 @@
       "head": "资源管理",
       "children": [
         {
-          "id":13,
-          "label": "仓库管理",
-          "url":"page/warehouseManage",
-          "bmMenuIcon":"e3"
-        },
-        {
           "id":14,
           "label": "货品管理",
           "url":"page/goodsManage",
@@ -99,19 +93,8 @@
           "label": "作业区管理",
           "url":"page/operationAreaManage",
           "bmMenuIcon":"e5"
-        },
-        {
-          "id":17,
-          "label": "客户管理",
-          "url":"page/customerManage",
-          "bmMenuIcon":"e2"
-        },
-        {
-          "id":18,
-          "label": "单位管理",
-          "url":"page/unitManage",
-          "bmMenuIcon":"e6"
         }
+
       ]
     },
     {
@@ -261,8 +244,8 @@
         },
         {
           "id":43,
-          "label": "菜单配置",
-          "url":"page/menuConfiguration",
+          "label": "模块管理",
+          "url":"page/moduleManagement",
           "bmMenuIcon":"f3"
         },
 
