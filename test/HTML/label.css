@@ -4,6 +4,11 @@
     padding: 0 10px; /*quiet zone*/
     overflow: auto;
     height: 0.5in; /*size*/
+
+    position: absolute;
+    transform: rotate(-90deg);
+    right: -12mm;
+    top: 38mm;
 }
 
 .right {
@@ -124,6 +129,7 @@
     font: 0.250in/100% helvetica; /*size*/
 }
 
+
 #wap .el-dialog__header {
     display: none !important;
 }
@@ -131,17 +137,45 @@
 #wap .el-dialog__body {
     margin: 0 !important;
     padding: 0 !important;
+    color: #000;
+}
+
+#wap .el-dialog--full {
+    overflow: visible;
+    height:auto;
+}
+#wap .el-dialog__wrapper {
+    overflow: visible;
+    position:static;
 }
 
 #wap .divImsunhao {
-    width: 95mm;
-    height: 65mm;
-    page-break-after: always;
+    width: 88.2mm;
+    height: 57.6mm;
+    padding: 3.4mm 3.7mm;
+    position: relative;
+    margin-bottom: 0.5mm;
+}
+
+#wap p{
+    font:0.200in/100% '宋体';
+    padding: 0;
+    margin: 0;
+    height: 9.5mm;
+    line-height: 9.5mm;
+}
+
+#wap p span{
+    padding-left: 3.3mm;
 }
 
 @media print {
     @page {
         margin: 0;
+        padding: 0;
         size: 95mm 65mm;
+    }
+    .divImsunhao{
+        page-break-after: always;
     }
 }
