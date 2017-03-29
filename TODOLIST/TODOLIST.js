@@ -368,10 +368,11 @@
  * TODO 资源管理
  *      TODO RF管理
  *          TODO 关联作业区
- *          ruUserZyq   高位叉车作业区域 该区域存放的就是区域名称
+ *              ruUserZyq   高位叉车作业区域 该区域存放的就是区域名称
  *          TODO 获取作业区名称
- *          ruUserZyq   高位叉车作业区域
+ *              ruUserZyq   高位叉车作业区域
  *          TODO 判断两个作业区名称是否相同
+ *              ruUserZyq
  * TODO 资源管理
  *      TODO 作业区管理
  *          TODO 新增
@@ -406,6 +407,7 @@
  *             blLname          储位name/储位名称
  *          TODO 删除
  *          TODO 库位名称不允许重复
+ *             blLname          储位name/储位名称
  * TODO 业务处理
  *      TODO 入库预约   /mfunrkRwDoc/add (预约详细)
  *          rkrwId      id
@@ -440,8 +442,8 @@
  *                              22.全部分配
  *                              31.部分收货
  *                              32.完全收货
- *                          入库数量
- *                          入库体积
+ *          rksCount        入库数量
+ *          bgGoodsId       入库体积( bgGoodsTj)
  *          rkZdfs          制作方式
  *                              1.手动
  *                              2.excel
@@ -460,8 +462,8 @@
  *                          22.全部分配
  *                          31.部分收货
  *                          32.完全收货
- *                      入库数量
- *                      入库体积
+ *          rksCount    入库数量
+ *          bgGoodsId   入库体积( bgGoodsTj)
  *          rkZdfs      制作方式
  *                          1.手动
  *                          2.excel
@@ -484,8 +486,8 @@
  *                          22.全部分配
  *                          31.部分收货
  *                          32.完全收货
- *                      入库数量
- *                      入库体积
+ *          rksCount    入库数量
+ *          bgGoodsId   入库体积( bgGoodsTj)
  *          rkZdfs      制作方式
  *                          1.手动
  *                          2.excel
@@ -503,8 +505,7 @@
  *                          22.全部分配
  *                          31.部分收货
  *                          32.完全收货
- *                      入库数量
- *                      入库体积
+ *          rksCount    入库数量
  *          rkZdfs      制作方式
  *                          1.手动
  *                          2.excel
@@ -514,14 +515,54 @@
  * TODO 业务处理
  *      TODO 入库任务
  *          TODO 修改
+ *          rkrwNo      入库任务单号
+ *          rkrwDbd     调拨地
+ *          rkrwCph     车牌号
+ *          rkrwDh      司机电话
+ *          rkrwDhrq    预计到货日期精确到分钟
+ *          rkrwCys     承运商
+ *          rkrwSjxm    司机姓名
+ *          TODO 修改明细表
+ *          rkRkdjNo        入库单号
+ *          rkCreatetime    下单时间
+ *                          总数量
+ *                          总体积
+ *          rkRemarks       备注
  *          TODO 下发
  * TODO 业务处理
  *      TODO 开始收货
  *          TODO 打印收货标签
  * TODO 业务处理
- *      TODO 入库操作
- *          TODO 分配
+ *      TODO 入库操作--分配
+ *          TODO 入库清单
+ *              rksGoodsId    货品名称
+ *              rksGoodsId    货品编号
+ *              rks_count     货品数量
+ *              货品单位分为: 整箱单位和散 支单位
+ *              bgZxdw        整箱单位
+ *              bgSzdw        散支单位
+ *              rk_status     收货状态
+ *          TODO 入库储位信息
+ *              rksGoodsId  货品名称
+ *              rksGoodsId  货品编号
+ *              mdtCount    分配数量/上架时间
+ *              blLname     库位名称
+ *              mdtBatch   货品批号
  *          TODO 再次收货
+ *              TODO 入库清单
+ *                  rksGoodsId    货品名称
+ *                  rksGoodsId    货品编号
+ *                  rks_count     货品数量
+ *                  货品单位分为: 整箱单位和散 支单位
+ *                  bgZxdw        整箱单位
+ *                  bgSzdw        散支单位
+ *                  rk_status     收货状态
+ *              TODO 入库储位信息
+ *                  rksGoodsId  货品名称
+ *                  rksGoodsId  货品编号
+ *                  mdtCount    分配数量/上架时间
+ *                  blLname     库位名称
+ *                  mdtBatch   货品批号
  *          TODO 分配中的关联
  *          TODO 分配中的删除
  *          TODO 再次收货中的关联
@@ -529,6 +570,16 @@
  * TODO 业务处理
  *      TODO 入库台账
  *          TODO 制作台账
+ *          rkspm       泡沫(可以为0,操作员手动输入)
+ *          rksDbPswb   调拨破损外包(可以为0,操作员手动输入)
+ *          rksYtPswb   源头破损外包(可以为0,操作员手动输入)
+ *          rksDb_psnb  调拨破损内保(可以为0,操作员手动输入)
+ *          rksYtPsnb   源头破损内保(可以为0,操作员手动输入)
+ *          rks_qhsl    缺机/台(欠货数量,操作员手动输入)
+ *          rksYcyy     异常原因(操作员手动输入)
+ *          rksCljg     处理结果(操作员手动输入)
+ *          rks_psts    破损台数(入库储位时入到破损区库位中按明细累加破损台数)
+ *          rksJssj     结算时间,可以为空操作员手动输入
  *          TODO 制作台账明细
  *          入库单号
  *          rksGoodsId  货品名称
@@ -537,13 +588,12 @@
  *          收货人
  *          TODO 导出
  *          TODO 欠货完结
+ *          rkQhWjyy    欠货完结原因/完结原因
+ *          rk_qh_bfdh  (欠货补发单号)补发原因
  *          TODO 入库单号不允许重复
  *          TODO 数量不允许为负数
- *
- *
  * TODO 出库预约
  * TODO 挑选数据
- * 
  * TODO 激活数据
  * TODO 出库操作
  *
