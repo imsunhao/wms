@@ -164,6 +164,11 @@
         margin-left: -8px !important;
     }
 </style>
+<style>
+    .el-date-editor.el-input {
+        width: 100%;
+    }
+</style>
 
 <div id="userManagement">
     <!--页面调整-->
@@ -190,31 +195,34 @@
                     class="icon sel"></i><span>多选</span>
             </button>
 
-            <button @click="moreOperationDelete" class="btn btn-del" v-show="multiSelect"><i
-                    class="icon del"></i><span>批量删除</span>
+            <button
+                    @click="moreOperationDelete"
+                    class="btn btn-del"
+                    v-show="multiSelect">批量删除
             </button>
             <button
-                    class="btn btn-edit"
+                    class="btn"
+                    v-show="multiSelect"
                     @click="">编辑
             </button>
             <button
-                    class="btn btn-distribution"
-                    @click="">分配
-            </button>
-            <button
-                    class="btn btn-receipt"
+                    class="btn"
+                    v-show="multiSelect"
                     @click="">重置密码
             </button>
             <button
-                    class="btn btn-receipt"
+                    class="btn"
+                    v-show="multiSelect"
                     @click="">配置角色
             </button>
             <button
-                    class="btn btn-print"
+                    class="btn"
+                    v-show="multiSelect"
                     @click="">启用
             </button>
             <button
-                    class="btn btn-print"
+                    class="btn"
+                    v-show="multiSelect"
                     @click="">禁用
             </button>
         </div>
@@ -228,7 +236,7 @@
                     type="expand">
                 <template scope="props">
                     <el-row>
-                        <el-col :span="12">
+                        <el-col :span="10">
                             <el-form label-position="left" inline class="demo-table-expand">
                                 <el-form-item label="用户名">
                                     <span>{{ props.row.ruUserName        }}</span>
@@ -260,7 +268,7 @@
                                 </el-form-item>
                             </el-form>
                         </el-col>
-                        <el-col :span="12">
+                        <el-col :span="14">
                             <el-form label-position="left" inline class="demo-table-expand">
                                 <el-form-item label="生日">
                                     <span>{{ props.row.ruBirthday   }}</span>
@@ -284,37 +292,35 @@
                                     <el-button
                                             size="small"
                                             icon="edit"
-                                            @click="Edit(props.$index, props.row)">启用
+                                            @click="Edit(props.$index, props.row)">
                                     </el-button>
                                     <el-button
                                             size="small"
                                             icon="delete"
                                             type="danger"
-                                            @click="deleteOlder(props.$index, props.row)">禁用
+                                            @click="deleteOlder(props.$index, props.row)">
                                     </el-button>
                                     <el-button
                                             size="small"
-                                            icon="delete"
-                                            type="danger"
-                                            @click="deleteOlder(props.$index, props.row)">编辑
+                                            type="primary"
+                                            @click="deleteOlder(props.$index, props.row)">角色
                                     </el-button>
                                     <el-button
                                             size="small"
-                                            icon="delete"
-                                            type="danger"
+                                            type="warning"
                                             @click="deleteOlder(props.$index, props.row)">重置密码
                                     </el-button>
                                     <el-button
                                             size="small"
-                                            icon="delete"
-                                            type="danger"
-                                            @click="deleteOlder(props.$index, props.row)">配置角色
+                                            v-show="props.row.ruStatus==0"
+                                            type="success"
+                                            @click="Edit(props.$index, props.row)">启用
                                     </el-button>
                                     <el-button
                                             size="small"
-                                            icon="delete"
                                             type="danger"
-                                            @click="deleteOlder(props.$index, props.row)">删除
+                                            v-show="props.row.ruStatus!=0"
+                                            @click="deleteOlder(props.$index, props.row)">禁用
                                     </el-button>
                                 </el-form-item>
                             </el-form>
@@ -322,7 +328,6 @@
                     </el-row>
                 </template>
             </el-table-column>
-
             <el-table-column
                     label="用户名"
                     align="center">
@@ -330,7 +335,6 @@
                     <span>{{ scope.row.ruUserName}}</span>
                 </template>
             </el-table-column>
-
             <el-table-column
                     label="登录账户"
                     align="center">
@@ -338,7 +342,6 @@
                     <span>{{ scope.row.ruLoginName}}</span>
                 </template>
             </el-table-column>
-
             <el-table-column
                     label="用户类型"
                     align="center">
@@ -346,15 +349,14 @@
                     <span>{{ scope.row.ruUserType}}</span>
                 </template>
             </el-table-column>
-
             <el-table-column
                     label="手机"
+                    show-overflow-tooltip
                     align="center">
                 <template scope="scope">
                     <span>{{ scope.row.ruPhone}}</span>
                 </template>
             </el-table-column>
-
             <el-table-column
                     label="登陆pda"
                     align="center">
@@ -362,15 +364,14 @@
                     <span>{{ scope.row.ruIspda?'否':'是'}}</span>
                 </template>
             </el-table-column>
-
             <el-table-column
                     label="作业区域"
+                    show-overflow-tooltip
                     align="center">
                 <template scope="scope">
                     <span>{{ scope.row.ruUserZyq}}</span>
                 </template>
             </el-table-column>
-
             <el-table-column
                     label="性别"
                     align="center">
@@ -378,8 +379,8 @@
                     <span>{{ scope.row.ruSex?'女':'男'}}</span>
                 </template>
             </el-table-column>
-
             <el-table-column
+                    v-if="multiSelect"
                     type="selection"
                     width="60">
             </el-table-column>
@@ -439,6 +440,7 @@
                                     :label-width="formLabelWidth">
                                 <el-input
                                         v-model.number="form.ruLoginPassword   "
+                                        type="password"
                                         auto-complete="off"></el-input>
                             </el-form-item>
                             <el-form-item
@@ -451,9 +453,12 @@
                             <el-form-item
                                     label="生日"
                                     :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.ruBirthday             "
-                                        auto-complete="off"></el-input>
+                                <el-date-picker
+                                        v-model="form.ruBirthday"
+                                        type="date"
+                                        placeholder="选择日期"
+                                        :picker-options="pickerOptions0">
+                                </el-date-picker>
                             </el-form-item>
                             <el-form-item
                                     label="家庭住址"
@@ -474,25 +479,18 @@
                             <el-form-item
                                     label="用户类型"
                                     :label-width="formLabelWidth">
-                                <el-select v-model="form.ruUserType" placeholder="请选择">
-                                    <el-option :label="普通" :value="0"></el-option>
-                                    <el-option :label="堆高车" :value="1"></el-option>
-                                    <el-option :label="高位叉车" :value="2"></el-option>
+                                <el-select v-model="_ruUserType" placeholder="请选择">
+                                    <el-option :value="0">普通</el-option>
+                                    <el-option :value="1">堆高车</el-option>
+                                    <el-option :value="2">高位叉车</el-option>
                                 </el-select>
-                            </el-form-item>
-                            <el-form-item
-                                    label="作业区域"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.ruUserZyq              "
-                                        auto-complete="off"></el-input>
                             </el-form-item>
                             <el-form-item
                                     label="登陆pda"
                                     :label-width="formLabelWidth">
 
-                                <el-radio class="radio" v-model="form.ruIspda" :label="1">是</el-radio>
-                                <el-radio class="radio" v-model="form.ruIspda" :label="0">否</el-radio>
+                                <el-radio class="radio" v-model="form.ruIspda" :label="true">是</el-radio>
+                                <el-radio class="radio" v-model="form.ruIspda" :label="false">否</el-radio>
                             </el-form-item>
                             <el-form-item
                                     label="备注"
@@ -518,8 +516,8 @@
                             <el-form-item
                                     label="性别"
                                     :label-width="formLabelWidth">
-                                <el-radio class="radio" v-model="form.ruSex" :label="1">男</el-radio>
-                                <el-radio class="radio" v-model="form.ruSex" :label="0">女</el-radio>
+                                <el-radio class="radio" v-model="form.ruSex" :label="true">男</el-radio>
+                                <el-radio class="radio" v-model="form.ruSex" :label="false">女</el-radio>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -528,7 +526,7 @@
                     <el-row>
                         <h3>配置角色</h3>
                         <div style="margin: 15px 0;"></div>
-                        <el-radio v-for="city in role" v-model="radio0" :label="city.roleId">{{city.roleName}}
+                        <el-radio v-for="city in role" v-model="radio0" :label="city.rrRoleId">{{city.rrName}}
                         </el-radio>
                     </el-row>
                     <el-row>
@@ -559,6 +557,12 @@
                 userManagement: [],
                 multipleSelection: [],
                 multiSelect: false,
+
+                pickerOptions0: {
+                    disabledDate: function (time) {
+                        return time.getTime() > Date.now();
+                    }
+                },
                 ruUserName: '',                  //主页面 用户名 搜索
                 ruLoginName: '',                 //主页面 账户   搜索
                 showLoading: false,
@@ -566,8 +570,9 @@
                 currentTotal: 1,
                 pageSize: 10,
 
-                formLabelWidth: '120px',       //表单 配置
+                formLabelWidth: '120px',        //表单 配置
                 form: {
+                    ruUserId: '',
                     title: "新建用户",
                     ruUserName: '',
                     ruLoginName: '',
@@ -576,19 +581,22 @@
                     ruZoneNo: '',
                     ruTelephone: '',
                     ruEmail: '',
-                    ruSex: 1,
+                    ruSex: true,
                     ruBirthday: '',
                     ruHomeaddress: '',
                     ruQicq: '',
                     ruUserType: 0,
                     ruUserZyq: '',
-                    ruIspda: 0,
+                    ruIspda: false,
                     ruRemarks: '',
+
+                    roleId:'',
+
                     ruStatus: 1,
-                },     //表单 弹出层 信息集合
-                dialogFormActive: 0,           //新建 弹出层 steps 当前进度
-                dialogFormVisible: false,      //新建 弹出层 是否可见
-                submitLoading: false,          //新建 弹出层 提交等待
+                },      //表单 弹出层 信息集合
+                dialogFormActive: 0,            //新建 弹出层 steps 当前进度
+                dialogFormVisible: false,       //新建 弹出层 是否可见
+                submitLoading: false,           //新建 弹出层 提交等待
 
                 formActive: 0,                 //form steps 当前进度
 
@@ -610,13 +618,57 @@
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize
                 }
+            },
+            _ruUserType: {
+                get: function () {
+                    switch (this.form.ruUserType) {
+                        case 0:
+                            return '普通';
+                        case 1:
+                            return '堆高车';
+                        case 2:
+                            return '高位叉车';
+                    }
+                    return '';
+                },
+                set: function (newValue) {
+                    this.form.ruUserType = newValue;
+                }
             }
         },
         methods: {
             Edit: function (index, row) {
+                console.log(row)
                 this.form.title = '编辑';
+                postRoles(userManagement, userManagement.option);
+                this.form.ruUserId = row.ruUserId;
+                this.form.ruUserName = row.ruUserName;
+                this.form.ruLoginName = row.ruLoginName;
+                this.form.ruPhone = row.ruPhone;
+                this.form.ruTelephone = row.ruTelephone;
+                this.form.ruEmail = row.ruEmail;
+                this.form.ruSex = row.ruSex;
+                this.form.ruBirthday = row.ruBirthday;
+                this.form.ruHomeaddress = row.ruHomeaddress;
+                this.form.ruQicq = row.ruQicq;
+                switch (row.ruUserType) {
+                    case '普通':
+                        this.form.ruUserType = 0;
+                        break;
+                    case '堆高车':
+                        this.form.ruUserType = 1;
+                        break;
+                    case '高位叉车':
+                        this.form.ruUserType = 2;
+                        break;
+                }
+                this.form.ruUserZyq = row.ruUserZyq;
+                this.form.ruIspda = row.ruIspda;
+                this.form.ruRemarks = row.ruRemarks;
+                this.form.ruStatus = parseInt(row.ruStatus);
+                this.dialogFormActive = 0;
                 this.dialogFormVisible = true;
-                console.log(index, row);
+                this.$refs.carousel.setActiveItem(0);
             },                                        //行内按钮-编辑
             deleteOlder: function (index, row) {
                 var _this = this;
@@ -627,7 +679,7 @@
                 }).then(function () {
                     remove(row, _this.userManagement);
                     postDelete(_this, {
-                        id: [row.rkdjNo]
+                        id: [row.ruUserId]
                     });
                 }).catch(function () {
                     _this.$message({
@@ -691,6 +743,31 @@
 
             newInput: function () {
                 this.dialogFormVisible = true;
+                this.form={
+                    ruUserId: '',
+                    title: "新建用户",
+                    ruUserName: '',
+                    ruLoginName: '',
+                    ruLoginPassword: '',
+                    ruPhone: '',
+                    ruZoneNo: '',
+                    ruTelephone: '',
+                    ruEmail: '',
+                    ruSex: true,
+                    ruBirthday: '',
+                    ruHomeaddress: '',
+                    ruQicq: '',
+                    ruUserType: 0,
+                    ruUserZyq: '',
+                    ruIspda: false,
+                    ruRemarks: '',
+
+                    roleId:'',
+
+                    ruStatus: 1,
+                };
+                this.dialogFormActive = 0;
+                this.$refs.carousel.setActiveItem(0);
                 postRoles(userManagement, userManagement.option);
             },                                              //按钮 新建入库单
 
@@ -714,7 +791,7 @@
                         message: '保存成功！',
                         type: 'success'
                     });
-                    _this.form={
+                    _this.form = {
                         title: "新建用户",
                         ruUserName: '',
                         ruLoginName: '',
@@ -754,13 +831,15 @@
                 this.submitLoading = true;
                 //TODO 此处应是ajax请求
 
-                if (this.form.title == '新建入库单') {
 
+                /*<prod>*/
+                if (this.form.title === '新建用户') {
+                    postSubmit(this, this.form);
                 } else {
-
+                    postModify(this, this.form);
                 }
-
-
+                /*</prod>*/
+                /*<debug>*/
                 setTimeout(function () {
                     _this.submitLoading = false;
                     _this.$notify({
@@ -769,26 +848,11 @@
                         type: 'success'
                     });
                     _this.dialogFormVisible = false;
-                    _this.form = {
-                        title: '新建入库单',
-                        rkRkdjNo: '',
-                        rkType: '',
-                        rkRemarks: '',
-                        rkDocsList: [],
-                        bgGoodsNo: '',
-                        selectGood: {
-                            value: '',
-                            bgGoodsName: '',
-                            count: 0,
-                            bgGoodsId: ''
-                        },
-                        saveARkDocsList: true,
-                        deleteARkDocsList: true
-                    };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
                     post(userManagement);
                 }, 1500);
+                /*</debug>*/
             },                                                //新建 表单提交
 
         },
@@ -850,7 +914,7 @@
                     json.data[i].ruUserType = ruUserType[json.data[i].ruUserType];
                 }
                 userManagement.$data.userManagement = json.data;
-                userManagement.$data.currentTotal = json.recordsTotal;
+                userManagement.$data.currentTotal = json.recordsFiltered;
             },
             complete: function () {
                 obj.showLoading = false;
@@ -885,7 +949,152 @@
                 obj.showLoading = false;
             }
         });
-    }
+    }                  //请求 所有角色
+    function postRuRoles(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/role/page/0";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                userManagement.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                //请求 用户 角色
+    function postRuUserName(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/role/page/0";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                userManagement.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }             //用户名 查重
+    function postRuLoginName(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/role/page/0";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                userManagement.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }            //登录名 查重
+    function postSubmit(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/role/page/0";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                userManagement.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                 //用户 新增
+    function postModify(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/role/page/0";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                userManagement.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                 //用户 修改
     function postDelete(obj, option) {
         //TODO 删除后重新post
         if (option.id.length < 1)return;
@@ -923,7 +1132,7 @@
                 obj.showLoading = false;
             }
         });
-    }
+    }                 //用户 删除
     function errorTip(obj, error) {                    // 错误提示
         /*<debug>*/
         console.log(error);
