@@ -257,7 +257,7 @@
                                     <span>{{ props.row.ruEmail          }}</span>
                                 </el-form-item>
                                 <el-form-item label="性别">
-                                    <span>{{ props.row.ruSex == 0 ? '女' : '男'   }}</span>
+                                    <span>{{ props.row.ruSex  ? '女' : '男'   }}</span>
                                 </el-form-item>
                                 <el-form-item label="入库备注">
                                     <el-tooltip class="item" effect="dark"
@@ -712,7 +712,7 @@
             },                                //行内按钮-删除
             inlineRole: function (index, row) {
                 var _this = this;
-            },                                  //行内按钮-角色
+            },                                  //行内按 钮-角色
 
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;

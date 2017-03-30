@@ -176,56 +176,53 @@
             v-loading="showLoading"
             element-loading-text="拼命加载中">
         <div class="inner btn-nav">
-
             <el-input
-                    v-model="ruUserName"
+                    v-model="rrName"
                     icon="search"
-                    placeholder="用户名"></el-input>
-            <el-input
-                    v-model="ruLoginName"
-                    icon="search"
-                    placeholder="账户"></el-input>
-
-
+                    placeholder="角色名称"></el-input>
             <button @click="newInput" class="btn btn-add"><i
                     class="icon add"></i><span>新增</span>
             </button>
-
             <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                     class="icon sel"></i><span>多选</span>
             </button>
-
             <button
-                    @click="moreOperationDelete"
+                    @click="multiBatchDelete"
                     class="btn btn-del"
                     v-show="multiSelect">批量删除
             </button>
             <button
                     class="btn"
                     v-show="multiSelect"
-                    @click="">编辑
+                    @click="multiEdit">编辑
             </button>
             <button
                     class="btn"
                     v-show="multiSelect"
-                    @click="">重置密码
+                    @click="multiStart">启用
             </button>
             <button
                     class="btn"
                     v-show="multiSelect"
-                    @click="">配置角色
+                    @click="multiDisable">禁用
             </button>
             <button
                     class="btn"
                     v-show="multiSelect"
-                    @click="">启用
+                    @click="multiWarehouse">配置仓库
             </button>
             <button
                     class="btn"
                     v-show="multiSelect"
-                    @click="">禁用
+                    @click="multiCustomer">配置客户
+            </button>
+            <button
+                    class="btn"
+                    v-show="multiSelect"
+                    @click="multiMenu">配置菜单
             </button>
         </div>
+        <!--主页面的字段-->
         <el-table
                 :data="roleManagement"
                 :max-height="450"
@@ -238,55 +235,26 @@
                     <el-row>
                         <el-col :span="10">
                             <el-form label-position="left" inline class="demo-table-expand">
-                                <el-form-item label="用户名">
-                                    <span>{{ props.row.ruUserName        }}</span>
+                                <el-form-item label="角色名称">
+                                    <span>{{ props.row.rrName        }}</span>
                                 </el-form-item>
-                                <el-form-item label="登录账户">
-                                    <span>{{ props.row.ruLoginName        }}</span>
+                                <el-form-item label="创建时间">
+                                    <span>{{ props.row.rrCjsj }}</span>
                                 </el-form-item>
-                                <el-form-item label="手机">
-                                    <span>{{ props.row.ruPhone           }}</span>
-                                </el-form-item>
-                                <el-form-item label="区号">
-                                    <span>{{ props.row.ruZoneNo          }}</span>
-                                </el-form-item>
-                                <el-form-item label="电话">
-                                    <span>{{ props.row.ruTelephone      }}</span>
-                                </el-form-item>
-                                <el-form-item label="邮箱地址">
-                                    <span>{{ props.row.ruEmail          }}</span>
-                                </el-form-item>
-                                <el-form-item label="性别">
-                                    <span>{{ props.row.ruSex == 0 ? '女' : '男'   }}</span>
-                                </el-form-item>
-                                <el-form-item label="入库备注">
+                                <el-form-item label="角色备注">
                                     <el-tooltip class="item" effect="dark"
-                                                :content="props.row.ruRemarks"
+                                                :content="props.row.rrRemarks"
                                                 placement="top">
-                                        <span class="remark">{{ props.row.ruRemarks }}</span>
+                                        <span class="remark">{{ props.row.rrRemarks }}</span>
                                     </el-tooltip>
                                 </el-form-item>
                             </el-form>
                         </el-col>
                         <el-col :span="14">
                             <el-form label-position="left" inline class="demo-table-expand">
-                                <el-form-item label="生日">
-                                    <span>{{ props.row.ruBirthday   }}</span>
-                                </el-form-item>
-                                <el-form-item label="家庭住址">
-                                    <span>{{ props.row.ruHomeaddress }}</span>
-                                </el-form-item>
-                                <el-form-item label="qq">
-                                    <span>{{ props.row.ruQicq       }}</span>
-                                </el-form-item>
-                                <el-form-item label="用户类型">
-                                    <span>{{ props.row.ruUserType   }}</span>
-                                </el-form-item>
-                                <el-form-item label="作业区域">
-                                    <span>{{ props.row.ruUserZyq    }}</span>
-                                </el-form-item>
-                                <el-form-item label="登陆pda">
-                                    <span>{{ props.row.ruIspda == false ? '否':'是'      }}</span>
+
+                                <el-form-item label="状态">
+                                    <span>{{ props.row.rrStatus == 0 ? '禁用':'可用'        }}</span>
                                 </el-form-item>
                                 <el-form-item label="可用操作">
                                     <el-button
@@ -302,24 +270,14 @@
                                     </el-button>
                                     <el-button
                                             size="small"
-                                            type="primary"
-                                            @click="deleteOlder(props.$index, props.row)">角色
-                                    </el-button>
-                                    <el-button
-                                            size="small"
-                                            type="warning"
-                                            @click="deleteOlder(props.$index, props.row)">重置密码
-                                    </el-button>
-                                    <el-button
-                                            size="small"
-                                            v-show="props.row.ruStatus==0"
+                                            v-show="props.row.ruStatus!=0"
                                             type="success"
                                             @click="Edit(props.$index, props.row)">启用
                                     </el-button>
                                     <el-button
                                             size="small"
                                             type="danger"
-                                            v-show="props.row.ruStatus!=0"
+                                            v-show="props.row.ruStatus==0"
                                             @click="deleteOlder(props.$index, props.row)">禁用
                                     </el-button>
                                 </el-form-item>
@@ -329,54 +287,33 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    label="用户名"
+                    label="角色名称"
                     align="center">
                 <template scope="scope">
-                    <span>{{ scope.row.ruUserName}}</span>
+                    <span>{{ scope.row.rrName}}</span>
                 </template>
             </el-table-column>
             <el-table-column
-                    label="登录账户"
+                    label="备注"
                     align="center">
                 <template scope="scope">
-                    <span>{{ scope.row.ruLoginName}}</span>
+                    <span>{{ scope.row.rrRemarks}}</span>
                 </template>
             </el-table-column>
             <el-table-column
-                    label="用户类型"
+                    label="创建时间"
                     align="center">
                 <template scope="scope">
-                    <span>{{ scope.row.ruUserType}}</span>
+                    <span>{{ scope.row.rrCjsj}}</span>
                 </template>
             </el-table-column>
             <el-table-column
-                    label="手机"
+                    label="是否启用"
                     show-overflow-tooltip
                     align="center">
                 <template scope="scope">
-                    <span>{{ scope.row.ruPhone}}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="登陆pda"
-                    align="center">
-                <template scope="scope">
-                    <span>{{ scope.row.ruIspda?'否':'是'}}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="作业区域"
-                    show-overflow-tooltip
-                    align="center">
-                <template scope="scope">
-                    <span>{{ scope.row.ruUserZyq}}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="性别"
-                    align="center">
-                <template scope="scope">
-                    <span>{{ scope.row.ruSex?'女':'男'}}</span>
+                    <span>{{ scope.row.rrStatus == 0 ? '禁用':'可用'}}</span>
+
                 </template>
             </el-table-column>
             <el-table-column
@@ -398,236 +335,87 @@
         </div>
     </el-row>
     <el-dialog
-            size="small"
             v-model="dialogFormVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">{{form.title}}</span>
-            <el-steps
-                    class="steps"
-                    :space="120"
-                    :active="dialogFormActive"
-                    finish-status="success">
-                <el-step title="基础信息"></el-step>
-                <el-step title="用户详细"></el-step>
-            </el-steps>
         </div>
         <el-form :model="form" ref="newForm">
-            <el-carousel
-                    ref="carousel"
-                    :autoplay="false"
-                    arrow="never"
-                    indicator-position="none"
-                    height="55vh">
-                <el-carousel-item>
-                    <el-row>
-                        <el-col :span="10">
-                            <el-form-item
-                                    label="用户名"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.ruUserName        "
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="登录名"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.ruLoginName       "
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="密码"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.ruLoginPassword   "
-                                        type="password"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="手机号"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.ruPhone           "
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="生日"
-                                    :label-width="formLabelWidth">
-                                <el-date-picker
-                                        v-model="form.ruBirthday"
-                                        type="date"
-                                        placeholder="选择日期"
-                                        :picker-options="pickerOptions0">
-                                </el-date-picker>
-                            </el-form-item>
-                            <el-form-item
-                                    label="家庭住址"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.ruHomeaddress          "
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="qq"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.ruQicq                 "
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="10" :offset="2">
-                            <el-form-item
-                                    label="用户类型"
-                                    :label-width="formLabelWidth">
-                                <el-select v-model="_ruUserType" placeholder="请选择">
-                                    <el-option :value="0">普通</el-option>
-                                    <el-option :value="1">堆高车</el-option>
-                                    <el-option :value="2">高位叉车</el-option>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item
-                                    label="登陆pda"
-                                    :label-width="formLabelWidth">
-
-                                <el-radio class="radio" v-model="form.ruIspda" :label="true">是</el-radio>
-                                <el-radio class="radio" v-model="form.ruIspda" :label="false">否</el-radio>
-                            </el-form-item>
-                            <el-form-item
-                                    label="备注"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.ruRemarks              "
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="电话号"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.ruTelephone       "
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="邮箱"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.ruEmail           "
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="性别"
-                                    :label-width="formLabelWidth">
-                                <el-radio class="radio" v-model="form.ruSex" :label="true">男</el-radio>
-                                <el-radio class="radio" v-model="form.ruSex" :label="false">女</el-radio>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                </el-carousel-item>
-                <el-carousel-item>
-                    <el-row>
-                        <h3>配置角色</h3>
-                        <div style="margin: 15px 0;"></div>
-                        <el-radio v-for="city in role" v-model="radio0" :label="city.rrRoleId">{{city.rrName}}
-                        </el-radio>
-                    </el-row>
-                    <el-row>
-                        <h3>是否启用</h3>
-                        <el-radio class="radio" v-model="form.ruStatus" :label="1">是</el-radio>
-                        <el-radio class="radio" v-model="form.ruStatus" :label="0">否</el-radio>
-                    </el-row>
-                </el-carousel-item>
-            </el-carousel>
-        </el-form>
-
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="prev" v-show="dialogFormActive">上一步</el-button>
-            <el-button type="primary" @click="next" v-show="dialogFormActive < 1">下一步</el-button>
-            <el-button type="primary" @click="submit" :loading="submitLoading"
-                       v-show="dialogFormActive >= 1">保存
-            </el-button>
-        </div>
-    </el-dialog>
-    <el-dialog
-            size="small"
-            v-model="dialogFormVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">配置角色</span>
-        </div>
-
-        <el-form :model="roleForm" ref="newRoleForm">
             <el-row>
-                <el-radio v-for="city in role" v-model="radio0" :label="city.rrRoleId">{{city.rrName}}
-                </el-radio>
+                <el-col :span="16" :offset="4">
+                    <el-form-item
+                            label="角色名称"
+                            :label-width="formLabelWidth">
+                        <el-input
+                                v-model.number="form.rrName       "
+                                auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item
+                            label="备注"
+                            :label-width="formLabelWidth">
+                        <el-input
+                                v-model.number="form.rrRemarks              "
+                                auto-complete="off"></el-input>
+                    </el-form-item>
+                </el-col>
             </el-row>
         </el-form>
 
         <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="submit" :loading="submitLoading"
-                       v-show="dialogFormActive >= 1">保存
+            <el-button type="primary" @click="submit" :loading="submitLoading">保存
             </el-button>
         </div>
     </el-dialog>
 </div>
-
 <script>
+    var form = function () {
+        return {
+            rrRoleId: '',
+            title: "新建角色",
+            rrUserName: '',
+            rrCjsj: '',
+            rrStatus:0,
+            rrRemarks: '',
+
+            roleId:1,
+
+            ruStatus: 1,
+        }
+    };               //弹出层 form 模板
     var roleManagement = new Vue({
         el: '#roleManagement',
         prop: {},
         data: function () {
             return {
-                roleManagement: [],
-                multipleSelection: [],
-                multiSelect: false,
+                roleManagement: [],              //主页面 信息集合
+                multipleSelection: [],           //主页面 多选集合
+                multiSelect: false,              //主页面 多选状态 维护
 
-                pickerOptions0: {
+                rrName: '',                  //主页面 角色名称 搜索
+                showLoading: false,              //主页面 加载 维护
+
+                currentPage: 1,                  //分页 当前页
+                currentTotal: 1,                 //分页 总页数
+                pageSize: 10,                    //分页 分页大小
+
+                formLabelWidth: '120px',         //表单 配置
+
+                form: form(),                    //新建 弹出层 信息集合
+                dialogFormActive: 0,             //新建 弹出层 steps 当前进度
+                dialogFormVisible: false,        //新建 弹出层 是否可见
+                submitLoading: false,            //新建 弹出层 提交等待
+
+                pickerOption: {
                     disabledDate: function (time) {
                         return time.getTime() > Date.now();
                     }
-                },
-                ruUserName: '',                  //主页面 用户名 搜索
-                ruLoginName: '',                 //主页面 账户   搜索
-                showLoading: false,
-                currentPage: 1,
-                currentTotal: 1,
-                pageSize: 10,
+                },             //新建 弹出层 生日选项
 
-                formLabelWidth: '120px',        //表单 配置
-                form: {
-                    ruUserId: '',
-                    title: "新建用户",
-                    ruUserName: '',
-                    ruLoginName: '',
-                    ruLoginPassword: '',
-                    ruPhone: '',
-                    ruZoneNo: '',
-                    ruTelephone: '',
-                    ruEmail: '',
-                    ruSex: true,
-                    ruBirthday: '',
-                    ruHomeaddress: '',
-                    ruQicq: '',
-                    ruUserType: 0,
-                    ruUserZyq: '',
-                    ruIspda: false,
-                    ruRemarks: '',
-
-                    roleId:'',
-
-                    ruStatus: 1,
-                },      //表单 弹出层 信息集合
-                dialogFormActive: 0,            //新建 弹出层 steps 当前进度
-                dialogFormVisible: false,       //新建 弹出层 是否可见
-                submitLoading: false,           //新建 弹出层 提交等待
-
-                formActive: 0,                 //form steps 当前进度
-
-                dialogSelectVisible: false,
-                selectLoading: false,
-
-                role: [],
-                isIndeterminate: true,
-
-                radio: '1',
-                radio0: 1,
+                dialogRoleVisible: false,        //角色 弹出层 是否可见
+                loadingRole: false,              //角色 弹出层 提交等待
+                role: [],                        //角色 集合
+                roleForm:{
+                    roleId:0,                        //角色 弹出层 角色ID
+                },                  //角色 弹出层 信息集合
 
             }
         },
@@ -659,58 +447,35 @@
         methods: {
             Edit: function (index, row) {
                 console.log(row)
-                this.form.title = '编辑';
-                this.form.ruUserId = row.ruUserId;
-                this.form.ruUserName = row.ruUserName;
-                this.form.ruLoginName = row.ruLoginName;
-                this.form.ruPhone = row.ruPhone;
-                this.form.ruTelephone = row.ruTelephone;
-                this.form.ruEmail = row.ruEmail;
-                this.form.ruSex = row.ruSex;
-                this.form.ruBirthday = row.ruBirthday;
-                this.form.ruHomeaddress = row.ruHomeaddress;
-                this.form.ruQicq = row.ruQicq;
-                switch (row.ruUserType) {
-                    case '普通':
-                        this.form.ruUserType = 0;
-                        break;
-                    case '堆高车':
-                        this.form.ruUserType = 1;
-                        break;
-                    case '高位叉车':
-                        this.form.ruUserType = 2;
-                        break;
-                }
-                this.form.ruUserZyq = row.ruUserZyq;
-                this.form.ruIspda = row.ruIspda;
-                this.form.ruRemarks = row.ruRemarks;
-                this.form.ruStatus = parseInt(row.ruStatus);
-                this.dialogFormActive = 0;
-                this.dialogFormVisible = true;
-                this.$refs.carousel.setActiveItem(0);
+                this.form.title = '新增';
+                this.form.rrName = row.rrName;
+                this.form.rrRemarks = row.rrRemarks;
             },                                        //行内按钮-编辑
-            deleteOlder: function (index, row) {
-                var _this = this;
-                _this.$confirm('此操作将永久删除该入库单, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(function () {
-                    remove(row, _this.roleManagement);
-                    postDelete(_this, {
-                        id: [row.ruUserId]
-                    });
-                }).catch(function () {
-                    _this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    });
-                });
-            },                                 //行内按钮-删除
-
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
+            multiBatchDelete : function () {
+                this.multiBatchDelete = !this.multiBatchDelete;
+            },                                      //多选 批量删除维护
+            multiEdit: function () {
+                this.  multiEdit = !this. multiEdit;
+            },                                      //多选 编辑维护
+            multiStart: function () {
+                this.multiStart = !this.multiStart;
+            },                                      //多选 启用维护
+            multiDisable: function () {
+                this.multiDisable = !this.multiDisable;
+            },                                      //多选 禁用维护
+            multiWarehouse: function () {
+                this.multiWarehouse = !this.multiWarehouse;
+            },                                      //多选 仓库维护
+            multiCustomer: function () {
+                this.multiCustomer = !this.multiCustomer;
+            },                                      //多选 状态维护
+            multiMenu: function () {
+                this.multiMenu = !this.multiMenu;
+            },                                      //多选 状态维护
+
             handleSelectionChange: function (val, row) {
                 /*<debug>*/
                 console.log(addOrDelete(row, val));
@@ -764,7 +529,7 @@
                 this.dialogFormVisible = true;
                 this.form={
                     ruUserId: '',
-                    title: "新建用户",
+                    title: "新建角色",
                     ruUserName: '',
                     ruLoginName: '',
                     ruLoginPassword: '',
@@ -811,7 +576,7 @@
                         type: 'success'
                     });
                     _this.form = {
-                        title: "新建用户",
+                        title: "新建角色",
                         ruUserName: '',
                         ruLoginName: '',
                         ruLoginPassword: '',
@@ -852,7 +617,7 @@
 
 
                 /*<prod>*/
-                if (this.form.title === '新建用户') {
+                if (this.form.title === '新建角色') {
                     postSubmit(this, this.form);
                 } else {
                     postModify(this, this.form);
@@ -876,22 +641,14 @@
 
         },
         watch: {
-            ruUserName: function () {
-                /*<debug>*/
-                console.log(this.option);
-                /*</debug>*/
-                post(this, this.option);
-            },
-            ruLoginName: function () {
+            rrName: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
                 post(this, this.option);
             }
-
         }
     });
-
     // 高级 监视器的 使用方法
     //    roleManagement.$watch('date', function () {
     //        if (!this.option.dateStart)return;
@@ -900,7 +657,6 @@
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
-
     post(roleManagement, roleManagement.option);
     postRoles(roleManagement, roleManagement.option);
     function post(obj, option) {
@@ -908,6 +664,34 @@
 
         /*<debug>*/
         url = "../../hock/roleControl/role.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/roleManagement/0";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                roleManagement.$data.roleManagement = json;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }
+    function postRole(obj, option) {
+        obj.showLoading = true;
+        /*<debug>*/
+        url = "../../hock/roleControl/add.json";
         /*</debug>*/
 
         /*<prod>*/
@@ -940,12 +724,11 @@
                 obj.showLoading = false;
             }
         });
-    }
-    function post(obj, option) {
+    }            //分页获取 角色信息
+    function postAdd(obj, option) {
         obj.showLoading = true;
-
         /*<debug>*/
-        url = "../../hock/roleControl/add.json";
+        url = "../../hock/roleControl/.json";
         /*</debug>*/
 
         /*<prod>*/
@@ -978,16 +761,15 @@
                 obj.showLoading = false;
             }
         });
-    }
-    function post(obj, option) {
+    }             //新增-启用-配置仓库-配置客户-配置菜单
+    function postStart(obj, option) {
         obj.showLoading = true;
-
         /*<debug>*/
-        url = "../../hock/roleControl/edit.json";
+        url = "../../hock/roleControl/.json";
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/roleManagement/7";//post
+        url = "/route/roleManagement/2";//post
         /*</prod>*/
 
         $.ajax(url, {
@@ -1016,8 +798,230 @@
                 obj.showLoading = false;
             }
         });
-    }
+    }           //启用
+    function postWarehouse(obj, option) {
+        obj.showLoading = true;
+        /*<debug>*/
+        url = "../../hock/roleControl/.json";
+        /*</debug>*/
 
+        /*<prod>*/
+        url = "/role/roleAddArehouses/3";//post
+        /*</prod>*/
 
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                for (var i = 0; i < json.data.length; i++) {
+                    var ruUserType = {
+                        "0": "普通",
+                        "1": "堆高车",
+                        "2": "高位叉车"
+                    };
+                    json.data[i].ruUserType = ruUserType[json.data[i].ruUserType];
+                }
+                roleManagement.$data.roleManagement = json.data;
+                roleManagement.$data.currentTotal = json.recordsFiltered;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }       // 配置仓库
+    function postCustomer(obj, option) {
+        obj.showLoading = true;
+        /*<debug>*/
+        url = "../../hock/roleControl/.json";
+        /*</debug>*/
 
+        /*<prod>*/
+        url = " /role/roleAddClients/4";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                for (var i = 0; i < json.data.length; i++) {
+                    var ruUserType = {
+                        "0": "普通",
+                        "1": "堆高车",
+                        "2": "高位叉车"
+                    };
+                    json.data[i].ruUserType = ruUserType[json.data[i].ruUserType];
+                }
+                roleManagement.$data.roleManagement = json.data;
+                roleManagement.$data.currentTotal = json.recordsFiltered;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }        //配置客户
+    function postMenu(obj, option) {
+        obj.showLoading = true;
+        /*<debug>*/
+        url = "../../hock/roleControl/.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/role/roleAddMenus/5";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                for (var i = 0; i < json.data.length; i++) {
+                    var ruUserType = {
+                        "0": "普通",
+                        "1": "堆高车",
+                        "2": "高位叉车"
+                    };
+                    json.data[i].ruUserType = ruUserType[json.data[i].ruUserType];
+                }
+                roleManagement.$data.roleManagement = json.data;
+                roleManagement.$data.currentTotal = json.recordsFiltered;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }            //配置菜单
+    function postDisable(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/edit.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/roleManagement/6";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                for (var i = 0; i < json.data.length; i++) {
+                    var ruUserType = {
+                        "0": "普通",
+                        "1": "堆高车",
+                        "2": "高位叉车"
+                    };
+                    json.data[i].ruUserType = ruUserType[json.data[i].ruUserType];
+                }
+                roleManagement.$data.roleManagement = json.data;
+                roleManagement.$data.currentTotal = json.recordsFiltered;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }         //禁用
+    function postEdit(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/edit.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/role/7";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                for (var i = 0; i < json.data.length; i++) {
+                    var ruUserType = {
+                        "0": "普通",
+                        "1": "堆高车",
+                        "2": "高位叉车"
+                    };
+                    json.data[i].ruUserType = ruUserType[json.data[i].ruUserType];
+                }
+                roleManagement.$data.roleManagement = json.data;
+                roleManagement.$data.currentTotal = json.recordsFiltered;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }            //角色编辑
+    function postNoRepetition(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/roleManagement/8";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                for (var i = 0; i < json.data.length; i++) {
+                    var ruUserType = {
+                        "0": "普通",
+                        "1": "堆高车",
+                        "2": "高位叉车"
+                    };
+                    json.data[i].ruUserType = ruUserType[json.data[i].ruUserType];
+                }
+                roleManagement.$data.roleManagement = json.data;
+                roleManagement.$data.currentTotal = json.recordsFiltered;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }    //角色名称不允许重复的接口
 </script>
