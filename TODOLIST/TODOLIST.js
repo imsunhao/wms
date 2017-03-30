@@ -188,7 +188,7 @@
          *          rrCjsj               创建时间
          *          */
         /** TODO 1 新增-启用-配置仓库-配置客户-配置菜单
-         *          rrName               角色name
+         *          rrName               角色名称
          *          rrRemarks            备注
          *          */
         /** TODO 2 启用

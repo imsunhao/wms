@@ -314,13 +314,13 @@
                                             size="small"
                                             v-show="props.row.ruStatus==0"
                                             type="success"
-                                            @click="open(props.$index, props.row)">启用
+                                            @click="Edit(props.$index, props.row)">启用
                                     </el-button>
                                     <el-button
                                             size="small"
                                             type="danger"
                                             v-show="props.row.ruStatus!=0"
-                                            @click="disable(props.$index, props.row)">禁用
+                                            @click="deleteOlder(props.$index, props.row)">禁用
                                     </el-button>
                                 </el-form-item>
                             </el-form>
@@ -361,7 +361,7 @@
                     label="登陆pda"
                     align="center">
                 <template scope="scope">
-                    <span>{{ scope.row.ruIspda?'是':'否'}}</span>
+                    <span>{{ scope.row.ruIspda?'否':'是'}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -376,7 +376,7 @@
                     label="性别"
                     align="center">
                 <template scope="scope">
-                    <span>{{ scope.row.ruSex?'男':'女'}}</span>
+                    <span>{{ scope.row.ruSex?'女':'男'}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -546,6 +546,26 @@
             </el-button>
         </div>
     </el-dialog>
+    <el-dialog
+            size="small"
+            v-model="dialogFormVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">配置角色</span>
+        </div>
+
+        <el-form :model="roleForm" ref="newRoleForm">
+            <el-row>
+                <el-radio v-for="city in role" v-model="radio0" :label="city.rrRoleId">{{city.rrName}}
+                </el-radio>
+            </el-row>
+        </el-form>
+
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="submit" :loading="submitLoading"
+                       v-show="dialogFormActive >= 1">保存
+            </el-button>
+        </div>
+    </el-dialog>
 </div>
 
 <script>
@@ -565,9 +585,7 @@
                 },
                 ruUserName: '',                  //主页面 用户名 搜索
                 ruLoginName: '',                 //主页面 账户   搜索
-
                 showLoading: false,
-
                 currentPage: 1,
                 currentTotal: 1,
                 pageSize: 10,
@@ -600,10 +618,13 @@
                 dialogFormVisible: false,       //新建 弹出层 是否可见
                 submitLoading: false,           //新建 弹出层 提交等待
 
-                formActive: 0,                  //form steps 当前进度
+                formActive: 0,                 //form steps 当前进度
+
+                dialogSelectVisible: false,
+                selectLoading: false,
 
                 role: [],
-
+                isIndeterminate: true,
 
                 radio: '1',
                 radio0: 1,
@@ -639,7 +660,6 @@
             Edit: function (index, row) {
                 console.log(row)
                 this.form.title = '编辑';
-                postRoles(roleManagement, roleManagement.option);
                 this.form.ruUserId = row.ruUserId;
                 this.form.ruUserName = row.ruUserName;
                 this.form.ruLoginName = row.ruLoginName;
@@ -669,72 +689,6 @@
                 this.dialogFormVisible = true;
                 this.$refs.carousel.setActiveItem(0);
             },                                        //行内按钮-编辑
-            open: function (index, row) {
-                console.log(row)
-                this.form.title = '编辑';
-                postRoles(roleManagement, roleManagement.option);
-                this.form.ruUserId = row.ruUserId;
-                this.form.ruUserName = row.ruUserName;
-                this.form.ruLoginName = row.ruLoginName;
-                this.form.ruPhone = row.ruPhone;
-                this.form.ruTelephone = row.ruTelephone;
-                this.form.ruEmail = row.ruEmail;
-                this.form.ruSex = row.ruSex;
-                this.form.ruBirthday = row.ruBirthday;
-                this.form.ruHomeaddress = row.ruHomeaddress;
-                this.form.ruQicq = row.ruQicq;
-                switch (row.ruUserType) {
-                    case '普通':
-                        this.form.ruUserType = 0;
-                        break;
-                    case '堆高车':
-                        this.form.ruUserType = 1;
-                        break;
-                    case '高位叉车':
-                        this.form.ruUserType = 2;
-                        break;
-                }
-                this.form.ruUserZyq = row.ruUserZyq;
-                this.form.ruIspda = row.ruIspda;
-                this.form.ruRemarks = row.ruRemarks;
-                this.form.ruStatus = parseInt(row.ruStatus);
-                this.dialogFormActive = 0;
-                this.dialogFormVisible = true;
-                this.$refs.carousel.setActiveItem(0);
-            },                                        //TODO 行内按钮-启用
-            disable: function (index, row) {
-                console.log(row)
-                this.form.title = '编辑';
-                postRoles(roleManagement, roleManagement.option);
-                this.form.ruUserId = row.ruUserId;
-                this.form.ruUserName = row.ruUserName;
-                this.form.ruLoginName = row.ruLoginName;
-                this.form.ruPhone = row.ruPhone;
-                this.form.ruTelephone = row.ruTelephone;
-                this.form.ruEmail = row.ruEmail;
-                this.form.ruSex = row.ruSex;
-                this.form.ruBirthday = row.ruBirthday;
-                this.form.ruHomeaddress = row.ruHomeaddress;
-                this.form.ruQicq = row.ruQicq;
-                switch (row.ruUserType) {
-                    case '普通':
-                        this.form.ruUserType = 0;
-                        break;
-                    case '堆高车':
-                        this.form.ruUserType = 1;
-                        break;
-                    case '高位叉车':
-                        this.form.ruUserType = 2;
-                        break;
-                }
-                this.form.ruUserZyq = row.ruUserZyq;
-                this.form.ruIspda = row.ruIspda;
-                this.form.ruRemarks = row.ruRemarks;
-                this.form.ruStatus = parseInt(row.ruStatus);
-                this.dialogFormActive = 0;
-                this.dialogFormVisible = true;
-                this.$refs.carousel.setActiveItem(0);
-            },                                     //TODO 行内按钮-禁用
             deleteOlder: function (index, row) {
                 var _this = this;
                 _this.$confirm('此操作将永久删除该入库单, 是否继续?', '提示', {
@@ -789,7 +743,7 @@
                 for (i = 0; i < this.multipleSelectionCombination.length; i++) {
                     remove(this.multipleSelectionCombination[i], this.roleManagementCombination);
                 }
-            },                                   //TODO 多选 删除
+            },                                   //多选 删除
 
             handleSizeChange: function (val) {
                 /*<debug>*/
@@ -834,7 +788,7 @@
                 this.dialogFormActive = 0;
                 this.$refs.carousel.setActiveItem(0);
                 postRoles(roleManagement, roleManagement.option);
-            },                                              //按钮 新建 用户
+            },                                              //按钮 新建入库单
 
             prevForm: function () {
                 this.formActive--;
@@ -922,13 +876,13 @@
 
         },
         watch: {
-            ruUserName: function (val) {
+            ruUserName: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
                 post(this, this.option);
             },
-            ruLoginName: function (val) {
+            ruLoginName: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
@@ -939,24 +893,25 @@
     });
 
     // 高级 监视器的 使用方法
-//        roleManagement.$watch('date', function () {
-//            if (!this.option.dateStart)return;
-//            /*<debug>*/
-//            console.log(this.option);
-//            /*</debug>*/
-//            post(this, this.option);
-//        }, {deep: true});
+    //    roleManagement.$watch('date', function () {
+    //        if (!this.option.dateStart)return;
+    //        /*<debug>*/
+    //        console.log(this.option);
+    //        /*</debug>*/
+    //        post(this, this.option);
+    //    }, {deep: true});
 
     post(roleManagement, roleManagement.option);
+    postRoles(roleManagement, roleManagement.option);
     function post(obj, option) {
         obj.showLoading = true;
 
         /*<debug>*/
-        url = "../../hock/userControl/page.json";
+        url = "../../hock/roleControl/role.json";
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/roleManagement/0"; //post
+        url = "/route/roleManagement/0";//post
         /*</prod>*/
 
         $.ajax(url, {
@@ -986,15 +941,15 @@
             }
         });
     }
-    function postRoles(obj, option) {
+    function post(obj, option) {
         obj.showLoading = true;
 
         /*<debug>*/
-        url = "../../hock/roleControl/page.json";
+        url = "../../hock/roleControl/add.json";
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/role/page/0";//post
+        url = "/route/roleManagement/1";//post
         /*</prod>*/
 
         $.ajax(url, {
@@ -1008,225 +963,61 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                roleManagement.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                  //请求 所有角色
-    function postRuRoles(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/roleControl/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/role/page/0";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                roleManagement.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                //请求 用户 角色
-    function postRuUserName(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/roleControl/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/role/page/0";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                roleManagement.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }             //用户名 查重
-    function postRuLoginName(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/roleControl/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/role/page/0";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                roleManagement.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }            //登录名 查重
-    function postSubmit(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/roleControl/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/role/page/0";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                roleManagement.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                 //用户 新增
-    function postModify(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/roleControl/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/role/page/0";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                roleManagement.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                 //用户 修改
-    function postDelete(obj, option) {
-        //TODO 删除后重新post
-        if (option.id.length < 1)return;
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/form/inputOptoionDelete.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/roleManagement/1";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "id": 1                        //* 入库单号id
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                if (json.status == 1) {
-                    obj.$notify({
-                        title: '提示',
-                        type: 'success',
-                        message: obj.$createElement(
-                            'p',
-                            '删除完成'
-                        )
-                    });
+                for (var i = 0; i < json.data.length; i++) {
+                    var ruUserType = {
+                        "0": "普通",
+                        "1": "堆高车",
+                        "2": "高位叉车"
+                    };
+                    json.data[i].ruUserType = ruUserType[json.data[i].ruUserType];
                 }
+                roleManagement.$data.roleManagement = json.data;
+                roleManagement.$data.currentTotal = json.recordsFiltered;
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
-    }                 //用户 删除
-    function errorTip(obj, error) {                    // 错误提示
-        /*<debug>*/
-        console.log(error);
-        /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
     }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
+    function post(obj, option) {
+        obj.showLoading = true;
 
-//                    console.log(temp);
+        /*<debug>*/
+        url = "../../hock/roleControl/edit.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/roleManagement/7";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                for (var i = 0; i < json.data.length; i++) {
+                    var ruUserType = {
+                        "0": "普通",
+                        "1": "堆高车",
+                        "2": "高位叉车"
+                    };
+                    json.data[i].ruUserType = ruUserType[json.data[i].ruUserType];
                 }
-                data.pop();
+                roleManagement.$data.roleManagement = json.data;
+                roleManagement.$data.currentTotal = json.recordsFiltered;
+            },
+            complete: function () {
+                obj.showLoading = false;
             }
-        }
+        });
     }
-    function addOrDelete(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            if (data[i] == obj) {
-                return true;
-            }
-        }
-        return false;
-    }
+
+
 
 </script>

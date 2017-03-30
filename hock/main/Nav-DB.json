@@ -239,7 +239,7 @@
         {
           "id":42,
           "label": "角色管理",
-          "url":"page/",
+          "url":"page/roleManagement",
           "bmMenuIcon":"f2"
         },
         {
