@@ -51,39 +51,31 @@
 
 /**数据库数据
  * TODO 系统配置
- *      TODO 用户管理   /user/page
+ *      TODO 用户管理 0   /user
  *          ruUserId            id
- *          ruUserName          用户昵称/名
- *          ruLoginName         登录账户
- *          ruLoginPassword     密码
- *          ruPhone             手机
- *          // ruZoneNo            区号 电话区号 例如 0531
- *          ruTelephone         电话
- *          ruEmail             邮箱地址
- *          ruSex               性别
- *                                  1.男
- *                                  0.女
- *                                  json数据中1对应true 0对应false
- *          ruBirthday          生日
- *          ruHomeaddress       家庭住址
- *          ruQicq              qq
+ *          ruUserName          用户名
+ *          ruLoginName         登录账户/账户
  *          ruUserType          用户类型
  *                                  0.普通
  *                                  1.堆高车
  *                                  2.高位叉车
- *          ruUserZyq           高位叉车作业区域
- *          ruIspda             是否允许登陆pda
+ *          ruPhone             手机/联系方式
+ *          ruTelephone         电话/联系方式
+ *          ruLoginPassword     密码
+ *          ruStatus            状态(int)
+ *                                  0.软删除禁用
+ *                                  1.启用
+ *          ruIspda             是否允许登陆pda(tinyint)
  *                                  1.是
  *                                  0.否
-
- *          ruRemarks           备注
- *          ruStatus            状态(status)0.软删除
- *
- *
- *          ruSalt              随机掩码
- *          ruCreateTime        创建时间
- *          ruLastModifiedTime  最后修改时间
- *      TODO 新增-启用-配置角色
+ *           ruUserZyq           高位叉车作业区域/作业区域
+ *           ruSex               性别(tinyint)
+ *                                  1.男
+ *                                  0.女
+ *                                  json数据中1对应true 0对应false
+ *           ruHomeaddress       家庭住址
+ *           ruRemarks           备注
+ *      TODO 新增-启用-配置角色 1
  *          ruUserName          用户昵称/名
  *          ruLoginPassword     密码
  *          ruPhone             手机
@@ -111,7 +103,7 @@
  *          userId         用户id
  *          roleIds        被勾选的角色id集合
  *
- *      TODO 编辑 /user 4
+ *      TODO 编辑 4  /user
  *          ruUserName          用户昵称/名
  *          ruLoginPassword     密码
  *          ruPhone             手机
@@ -151,36 +143,31 @@
  *          id              用户id
  *
  * TODO 系统设置
- *      TODO 角色管理   role
+ *      TODO 角色管理 0  /role
  *          rrRoleId             角色id
  *          rrName               角色name
  *          rrRemarks            备注
- *          rrStatus             状态
+ *          rrStatus             状态(int)/是否启用
                                     1.可用
                                     0.软删除禁用
  *          rrCjsj               创建时间
- *      TODO 新增-启用-配置仓库-配置客户-配置菜单
+ *      TODO  新增-启用-配置仓库-配置客户-配置菜单 1
  *          rrName               角色name
  *          rrRemarks            备注
- *      TODO 启用
+ *      TODO  启用 2  /role/liveRolesByRids
  *          rrStatus             状态
- *      TODO 配置仓库   /role/roleAddArehouses
- *          角色配置仓库
+ *      TODO 配置仓库 3  /role/roleAddArehouses
  *          roleId              角色id
  *          arehouseIds         被勾选的仓库id集合
- *      TODO 配置客户  /role/roleAddClients
- *         角色配置客户
+ *      TODO 配置客户 4 /role/roleAddClients
  *         roleId              角色id
  *         clientIds           被勾选的客户id集合
- *      TODO 配置菜单   /role/roleAddMenus
- *          角色配置菜单
+ *      TODO 配置菜单 5  /role/roleAddMenus
  *         roleId              角色id
  *         menuIds             被勾选的菜单id集合
- *      TODO 禁用
- *          禁用
- *          rrStatus             状态
- *                                  0.禁用
- *      TODO 编辑
+ *      TODO 禁用 6 /role/dieRolesByRids
+ *          role_ids           被勾选的角色id集合
+ *      TODO 编辑 7  /role
  *          rrName               角色name
  *          rrRemarks            备注
  *         通过user_id获取对应的权限角色
@@ -194,28 +181,29 @@
  *         角色配置菜单
  *         roleId              角色id
  *         menuIds             被勾选的菜单id集合
- *      TODO 角色名称不允许重复的接口
+ *      TODO 角色名称不允许重复的接口 8 /role/isRepeatByRoleName/{roleName}
  *          rrName               角色name
  * TODO 系统配置
  *      TODO 仓库管理/配置
  *          ArehouseId           id
+ *          baClientId           客户id----待确认
+ *          ClientId             客户id
  *          Name                 仓库名称
- *          Addr                 仓库地址
- *          Scity                所在地市
- *          Scontacts            联系人
+ *          Scontacts            联系人/负责人
  *          Phone                电话
- *          Acreage              面积
+ *          Addr                 仓库地址
  *          Ctype                仓库类型
  *          Humidity             相对湿度
  *          Fax                  传真
  *          Postoffice           邮编
+            Acreage              面积
  *          Isti                 是否需要维护ti值
  *                                  1.存在ti
  *                                  2.不存在ti
  *          Status               状态
  *                                  1.可用
  *                                  0.软删除
- *          ClientId             客户id
+ *
  *          Remarks              备注
  *          Pgroupinfo           平面图信息
  *          Createtime           创建时间
@@ -423,15 +411,15 @@
  *          rkrwSjxm    司机姓名
  *          rkrwDh      司机电话
  *          rkrwStatus  任务状态
-                1.初始(创建入库任务后的状态)
-                2.已下发任务(下达任务后的状态)
-                3.已开始收货(打印收货标签后的状态)
-                4.收货中(上架第一个库位后的状态)
-                5.
-                    1.部分收货(任务下所有订单有一个部分收货整个任务为部分收货)
-                    2.全部收货(任务下所有订单状态为全部收货整个任务状态为全部收货)
-                6.收货完成/欠货(全部收货状态下导出台帐为收货完成,部分收货状态下导出台帐为欠货)
-                  可以手动将欠货标记为收货完成需要输入原因以及补发单号
+ 1.初始(创建入库任务后的状态)
+ 2.已下发任务(下达任务后的状态)
+ 3.已开始收货(打印收货标签后的状态)
+ 4.收货中(上架第一个库位后的状态)
+ 5.
+ 1.部分收货(任务下所有订单有一个部分收货整个任务为部分收货)
+ 2.全部收货(任务下所有订单状态为全部收货整个任务状态为全部收货)
+ 6.收货完成/欠货(全部收货状态下导出台帐为收货完成,部分收货状态下导出台帐为欠货)
+ 可以手动将欠货标记为收货完成需要输入原因以及补发单号
  *      TODO 组合      mfunrkRwDoc
  *          rkArehouseId    所属仓库(仓库id(外键)
  *          rkRkdjNo        入库单号(WMS单号)
