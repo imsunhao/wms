@@ -68,6 +68,64 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
+            case 'roleManagement':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '角色管理-加载角色管理页面';
+                        req = autoUrl(req, '/role', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '新增-启用-配置仓库-配置客户-配置菜单';// TODO 0
+                        req = autoUrl(req, '/user/', "", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '角色管理-启用';
+                        req = autoUrl(req, '/user/liveUsersByUids', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '角色管理-配置仓库';
+                        req = autoUrl(req, '/role/roleAddArehouses', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 4:
+                        urlName = '角色管理-配置客户';
+                        req = autoUrl(req, '/role/roleAddClients', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 5:
+                        urlName = '角色管理-配置菜单 ';
+                        req = autoUrl(req, '/role/roleAddMenus', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 6:
+                        urlName = '角色管理-禁用 ';
+                        req = autoUrl(req, '/role/roleAddMenus', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 7:
+                        urlName = '角色管理-编辑';
+                        req = autoUrl(req, '/role', "PUT", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 8:
+                        urlName = '角色管理-角色名称不允许重复';
+                        req = autoUrl(req, '/user/resetPwd', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
             case 'warehousingReservation':
                 switch (parseInt(req.params._status)) {
                     case 0:
