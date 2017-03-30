@@ -546,6 +546,26 @@
             </el-button>
         </div>
     </el-dialog>
+    <el-dialog
+            size="small"
+            v-model="dialogFormVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">配置角色</span>
+        </div>
+
+        <el-form :model="roleForm" ref="newRoleForm">
+            <el-row>
+                <el-radio v-for="city in role" v-model="radio0" :label="city.rrRoleId">{{city.rrName}}
+                </el-radio>
+            </el-row>
+        </el-form>
+
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="submit" :loading="submitLoading"
+                       v-show="dialogFormActive >= 1">保存
+            </el-button>
+        </div>
+    </el-dialog>
 </div>
 
 <script>
@@ -640,7 +660,6 @@
             Edit: function (index, row) {
                 console.log(row)
                 this.form.title = '编辑';
-                postRoles(userManagement, userManagement.option);
                 this.form.ruUserId = row.ruUserId;
                 this.form.ruUserName = row.ruUserName;
                 this.form.ruLoginName = row.ruLoginName;
@@ -883,6 +902,7 @@
     //    }, {deep: true});
 
     post(userManagement, userManagement.option);
+    postRoles(userManagement, userManagement.option);
     function post(obj, option) {
         obj.showLoading = true;
 
@@ -950,7 +970,7 @@
             }
         });
     }                  //请求 所有角色
-    function postRuRoles(obj, option) {
+    function postRuRoles(obj) {
         obj.showLoading = true;
 
         /*<debug>*/
@@ -958,15 +978,15 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/role/page/0";//post
+        url = "/userManagement/12";//post
         /*</prod>*/
 
         $.ajax(url, {
             type: "GET",
-            data: option || {
+            data: {
                 "draw": 1,                      //* 没有意义
                 "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
+                "pageSize": 999                 //* 每页大小
             },
             error: function (error) {
                 errorTip(obj, error);
@@ -978,7 +998,7 @@
                 obj.showLoading = false;
             }
         });
-    }                //请求 用户 角色
+    }                        //请求 用户 角色 执行一次
     function postRuUserName(obj, option) {
         obj.showLoading = true;
 
@@ -1042,10 +1062,14 @@
 
         /*<debug>*/
         url = "../../hock/roleControl/page.json";
+        url1 = "../../hock/roleControl/page.json";
+        url2 = "../../hock/roleControl/page.json";
         /*</debug>*/
 
         /*<prod>*/
         url = "/route/role/page/0";//post
+        url1 = "/route/role/page/0";//post
+        url2 = "/route/role/page/0";//post
         /*</prod>*/
 
         $.ajax(url, {
