@@ -233,64 +233,75 @@
          *          rrName               角色name
          *          */
 
- /** TODO 系统配置
- *      TODO 仓库管理/配置
- *          ArehouseId           id
- *          Name                 仓库名称
- *          Addr                 仓库地址
- *          Scity                所在地市
- *          Scontacts            联系人
- *          Phone                电话
- *          Acreage              面积
- *          Ctype                仓库类型
- *          Humidity             相对湿度
- *          Fax                  传真
- *          Postoffice           邮编
- *          Isti                 是否需要维护ti值
- *                                  1.存在ti
- *                                  2.不存在ti
- *          Status               状态
- *                                  1.可用
- *                                  0.软删除
- *          ClientId             客户id
- *          Remarks              备注
- *          Pgroupinfo           平面图信息
- *          Createtime           创建时间
- *      TODO 新增 /arehouse
- *          Name                 仓库名称
- *          Addr                 仓库地址
- *          Scontacts            联系人/负责人
- *          Phone                电话
- *          Remarks              备注
- *          Ctype                仓库类型
- *          Humidity             相对湿度
- *          Postoffice           邮编
- *          Fax                  传真
- *      TODO 编辑 /arehouse
- *          Name                 仓库名称
- *          Addr                 仓库地址
- *          Scontacts            联系人/负责人
- *          Phone                电话
- *          Remarks              备注
- *          Ctype                仓库类型
- *          Humidity             相对湿度
- *          Postoffice           邮编
- *          Fax                  传真
- *
- *          客户归属
- *          arehouseId          仓库id
- *          通过clientId查询部分仓库的信息(被客户id绑定的)
- *          clientId            客户id
- *          通过roleId查询部分仓库的信息(被角色id绑定的)
- *          roleId              角色id
- *          通过id删除一条仓库数据
- *          id                   仓库id
- *          根据id返回仓库信息
- *          id                   仓库id
- *          通过client_id查询部分仓库的信息(被用户id绑定的)
- *          userId              用户id
- *          clientId            客户id
- * TODO 系统配置
+    /** 仓库管理/配置   warehouseConfiguration
+     *
+     */
+        /** TODO 0 分页获取 仓库详情
+         *          ArehouseId           id
+         *          Name                 仓库名称
+         *          Addr                 仓库地址
+         *          Scity                所在地市
+         *          Scontacts            联系人
+         *          Phone                电话
+         *          Acreage              面积
+         *          Ctype                仓库类型
+         *
+         *          Humidity             相对湿度
+         *          Fax                  传真
+         *          Postoffice           邮编
+         *          Isti                 是否需要维护ti值
+         *                                  1.存在ti
+         *                                  2.不存在ti
+         *          Status               状态
+         *                                  1.可用
+         *                                  0.软删除
+         *          ClientId             客户id
+         *          Remarks              备注
+         *          Pgroupinfo           平面图信息
+         *          Createtime           创建时间
+         *          */
+        /** TODO 1 新增 /arehouse
+         *          Name                 仓库名称
+         *          Addr                 仓库地址
+         *          Scontacts            联系人/负责人
+         *          Phone                电话
+         *          Remarks              备注
+         *          Ctype                仓库类型
+         *          Humidity             相对湿度
+         *          Postoffice           邮编
+         *          Fax                  传真
+         *          */
+        /** TODO 2 编辑 /arehouse
+         *          Name                 仓库名称
+         *          Addr                 仓库地址
+         *          Scontacts            联系人/负责人
+         *          Phone                电话
+         *          Remarks              备注
+         *          Ctype                仓库类型
+         *          Humidity             相对湿度
+         *          Postoffice           邮编
+         *          Fax                  传真
+         *
+         *          客户归属
+         *          arehouseId          仓库id
+         *          */
+        /** TODO 3 通过clientId查询部分仓库的信息(被客户id绑定的)
+         *          clientId            客户id
+         *          */
+        /** TODO 4 通过roleId查询部分仓库的信息(被角色id绑定的)
+         *          roleId              角色id
+         *          */
+        /** TODO 5 通过id删除一条仓库数据
+         *          id                   仓库id
+         *          */
+        /** TODO 6 根据id返回仓库信息
+         *          id                   仓库id
+         *          */
+        /** TODO 7 通过client_id查询部分仓库的信息(被用户id绑定的)
+         *          userId              用户id
+         *          clientId            客户id
+         *          */
+ /* TODO 系统配置
  *      TODO 客户配置
  *          bcClientId           id
  *          bcCname              客户名称
