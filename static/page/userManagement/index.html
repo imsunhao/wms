@@ -203,27 +203,27 @@
             <button
                     class="btn"
                     v-show="multiSelect"
-                    @click="">编辑
+                    @click="multiOperationPassword">重置密码
             </button>
             <button
                     class="btn"
                     v-show="multiSelect"
-                    @click="">重置密码
+                    @click="multiOperationAble    ">启用
             </button>
             <button
                     class="btn"
                     v-show="multiSelect"
-                    @click="">配置角色
+                    @click="multiOperationDisAble ">禁用
             </button>
             <button
                     class="btn"
-                    v-show="multiSelect"
-                    @click="">启用
+                    v-show="multiSelect&&multipleSelection.length==1"
+                    @click="multiOperationRole">配置角色
             </button>
             <button
                     class="btn"
-                    v-show="multiSelect"
-                    @click="">禁用
+                    v-show="multiSelect&&multipleSelection.length==1"
+                    @click="multiOperationEdit">编辑
             </button>
         </div>
         <el-table
@@ -231,6 +231,7 @@
                 :max-height="450"
                 ref="table"
                 class="userManagementTable"
+                @selection-change="multiSelectionChange"
                 style="width: 100%">
             <el-table-column
                     type="expand">
@@ -308,19 +309,19 @@
                                     <el-button
                                             size="small"
                                             type="warning"
-                                            @click="Delete(props.$index, props.row)">重置密码
+                                            @click="inlinePassword(props.$index, props.row)">重置密码
                                     </el-button>
                                     <el-button
                                             size="small"
                                             v-show="props.row.ruStatus==0"
                                             type="success"
-                                            @click="inlineEdit(props.$index, props.row)">启用
+                                            @click="inlineAble(props.$index, props.row)">启用
                                     </el-button>
                                     <el-button
                                             size="small"
                                             type="danger"
                                             v-show="props.row.ruStatus!=0"
-                                            @click="Delete(props.$index, props.row)">禁用
+                                            @click="inlineDisAble(props.$index, props.row)">禁用
                                     </el-button>
                                 </el-form-item>
                             </el-form>
@@ -561,8 +562,7 @@
         </el-form>
 
         <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="submit" :loading="submitLoading"
-                       v-show="dialogFormActive >= 1">保存
+            <el-button type="primary" @click="submitRole" :loading="loadingRole">保存
             </el-button>
         </div>
     </el-dialog>
@@ -589,13 +589,13 @@
             ruIspda: false,
             ruRemarks: '',
 
-            roleId:1,
+            roleId: 1,
 
             ruStatus: 1,
         }
     };               //弹出层 form 模板
-    
-    
+
+
     var userManagement = new Vue({
         el: '#userManagement',
         prop: {},
@@ -608,7 +608,7 @@
                 ruUserName: '',                  //主页面 用户名 搜索
                 ruLoginName: '',                 //主页面 账户   搜索
                 showLoading: false,              //主页面 加载 维护
-                
+
                 currentPage: 1,                  //分页 当前页
                 currentTotal: 1,                 //分页 总页数
                 pageSize: 10,                    //分页 分页大小
@@ -629,9 +629,9 @@
                 dialogRoleVisible: false,        //角色 弹出层 是否可见
                 loadingRole: false,              //角色 弹出层 提交等待
                 role: [],                        //角色 集合
-                roleForm:{
-                    roleId:0,                        //角色 弹出层 角色ID
-                },                  //角色 弹出层 信息集合
+                roleForm: {
+                    roleId: 0,                        //角色 弹出层 角色ID
+                },                 //角色 弹出层 信息集合
 
             }
         },
@@ -690,11 +690,13 @@
                 this.form.ruStatus = parseInt(row.ruStatus);
                 this.dialogFormVisible = true;
                 this.dialogFormActive = 0;
-                this.$refs.carousel.setActiveItem(0);
+                Vue.nextTick(function () {
+                    userManagement.$refs.carousel.setActiveItem(0);
+                });
             },                                  //行内按钮-编辑
             inlineDelete: function (index, row) {
                 var _this = this;
-                _this.$confirm('此操作将永久删除该入库单, 是否继续?', '提示', {
+                _this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -710,46 +712,125 @@
                     });
                 });
             },                                //行内按钮-删除
-            inlineRole: function (index, row) {
+            inlinePassword: function (index, row) {
                 var _this = this;
+                _this.$confirm('此操作将此用户密码重置, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                              //行内按钮-密码
+            inlineAble: function (index, row) {
+                var _this = this;
+                _this.$confirm('此操作将启用此用户, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                                  //行内按钮-密码
+            inlineDisAble: function (index, row) {
+                var _this = this;
+                _this.$confirm('此操作将此用户禁用, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                               //行内按钮-密码
+            inlineRole: function (index, row) {
+                /*<debug>*/
+                this.roleForm = {
+                    roleId: row.ruUserId,                        //角色 弹出层 角色ID
+                };
+                /*</debug>*/
+                /*<prod>*/
+                postRuRoles(this, row.ruUserId);
+                /*</prod>*/
+                this.dialogRoleVisible = !this.dialogRoleVisible;
             },                                  //行内按钮-角色
 
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
             multiSelectionChange: function (val, row) {
-                /*<debug>*/
-                console.log(addOrDelete(row, val));
-                /*</debug>*/
-                if (addOrDelete(row, val)) {
-                    this.userManagementCombination.push(row);
-                } else {
-                    remove(row, this.userManagementCombination);
-                }
                 this.multipleSelection = val;
             },                          //多选 选中控制
-            multiSelectionChangeAll: function (val) {
-                if (val.length > 0) {
-                    for (var i = 0; i < val.length; i++) {
-                        if (!addOrDelete(val[i], this.userManagementCombination)) {
-                            this.userManagementCombination.push(val[i]);
-                        }
-                    }
-                } else {
-                    for (var i = 0; i < this.userManagement.length; i++) {
-                        remove(this.userManagement[i], this.userManagementCombination);
-                    }
-                }
-                this.multipleSelection = val;
-            },                            //多选 选中控制
             multiOperationDelete: function () {
-                /*<debug>*/
-                console.log('选中的删除');
-                /*</debug>*/
-                for (i = 0; i < this.multipleSelectionCombination.length; i++) {
-                    remove(this.multipleSelectionCombination[i], this.userManagementCombination);
+                for (i = 0; i < this.multipleSelection.length; i++) {
+                    remove(this.multipleSelection[i], this.userManagement);
                 }
             },                                  //多选 删除
+            multiOperationEdit: function () {
+                this.inlineEdit(1, this.multipleSelection[0]);
+            },                                    //多选 编辑
+            multiOperationRole: function () {
+                this.inlineRole(1, this.multipleSelection[0]);
+            },                                    //多选 角色
+            multiOperationPassword: function () {
+                var _this = this;
+                _this.$confirm('此操作将这些用户密码重置, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                                //多选 密码
+            multiOperationAble: function () {
+                var _this = this;
+                _this.$confirm('此操作将这些用户设置为启用, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                                    //多选 启用
+            multiOperationDisAble: function () {
+                var _this = this;
+                _this.$confirm('此操作将这些用户设置为禁用, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                                 //多选 禁用
 
             handleSizeChange: function (val) {
                 /*<debug>*/
@@ -767,7 +848,7 @@
             },                                //分页 当前页
 
             newInput: function () {
-                this.form=form();
+                this.form = form();
                 this.dialogFormVisible = true;
                 this.dialogFormActive = 0;
                 this.$refs.carousel.setActiveItem(0);
@@ -811,6 +892,27 @@
                 /*</debug>*/
             },                                                //新建 表单提交
 
+            submitRole: function () {
+                var _this = this;
+                this.loadingRole = true;
+
+                /*<prod>*/
+                //TODO
+                postModify(this, this.form);
+                /*</prod>*/
+                /*<debug>*/
+                setTimeout(function () {
+                    _this.loadingRole = false;
+                    _this.dialogRoleVisible = false;
+                    _this.$notify({
+                        title: '成功',
+                        message: '更换角色成功！',
+                        type: 'success'
+                    });
+                }, 1500);
+                /*</debug>*/
+            },                                            //新建 表单提交
+
         },
         watch: {
             ruUserName: function () {
@@ -838,7 +940,7 @@
     //    }, {deep: true});
 
     post(userManagement, userManagement.option);
-    postRoles(userManagement, userManagement.option);
+    postRoles(userManagement);
     function post(obj, option) {
         obj.showLoading = true;
 
@@ -877,36 +979,7 @@
             }
         });
     }
-    function postRoles(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/roleControl/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/role/page/0";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                userManagement.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                  //请求 所有角色
-    function postRuRoles(obj) {
+    function postRoles(obj) {
         obj.showLoading = true;
 
         /*<debug>*/
@@ -934,7 +1007,36 @@
                 obj.showLoading = false;
             }
         });
-    }                        //请求 用户 角色 执行一次
+    }                          //请求 所有角色 执行一次
+    function postRuRoles(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/userManagement/12";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 999                 //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                userManagement.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                //请求 用户 角色
     function postRuUserName(obj, option) {
         obj.showLoading = true;
 
