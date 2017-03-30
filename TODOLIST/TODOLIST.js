@@ -50,153 +50,190 @@
 
 
 /**数据库数据
- * TODO 系统配置
- *      TODO 用户管理   /user/page
- *          ruUserId            id
- *          ruUserName          用户昵称/名
- *          ruLoginName         登录账户
- *          ruLoginPassword     密码
- *          ruPhone             手机
- *          // ruZoneNo            区号 电话区号 例如 0531
- *          ruTelephone         电话
- *          ruEmail             邮箱地址
- *          ruSex               性别
- *                                  1.男
- *                                  0.女
- *                                  json数据中1对应true 0对应false
- *          ruBirthday          生日
- *          ruHomeaddress       家庭住址
- *          ruQicq              qq
- *          ruUserType          用户类型
- *                                  0.普通
- *                                  1.堆高车
- *                                  2.高位叉车
- *          ruUserZyq           高位叉车作业区域
- *          ruIspda             是否允许登陆pda
- *                                  true    是
- *                                  false   否
+ *  TODO 千万不要自动排版！！！看完删除
+ */
 
- *          ruRemarks           备注
- *          ruStatus            状态(status)0.软删除
+/** TODO 系统配置
  *
- *
- *          ruSalt              随机掩码
- *          ruCreateTime        创建时间
- *          ruLastModifiedTime  最后修改时间
- *      TODO 新增-启用-配置角色
- *          ruUserName          用户昵称/名
- *          ruLoginPassword     密码
- *          ruPhone             手机
- *          ruTelephone         电话/座机
- *          ruQicq              qq
- *          ruIspda             是否允许登陆pda
- *                                  1.是
- *                                  0.否
- *          ruLoginName         登录账户
- *          ruEmail             邮箱地址
- *          ruSex               性别
- *                                  1.男
- *                                  0.女
- *                                  json数据中1对应true 0对应false
- *          ruBirthday          生日/出生日期
- *          ruHomeaddress       家庭住址
- *          ruUserType          用户类型
- *                                  0.普通
- *                                  1.堆高车
- *                                  2.高位叉车
- *      TODO 启用：2    /user/liveUsersByUids
- *          user_ids    被勾选的用户id集合
- *      TODO 配置角色 3  /user/userAddRoles
- *          用户配置角色
- *          userId         用户id
- *          roleIds        被勾选的角色id集合
- *
- *      TODO 编辑 /user 4
- *          ruUserName          用户昵称/名
- *          ruLoginPassword     密码
- *          ruPhone             手机
- *          ruTelephone         电话/座机
- *          ruQicq              qq
- *          ruIspda             是否允许登陆pda
- *                                  1.是
- *                                  0.否
- *          ruLoginName         登录账户
- *          ruEmail             邮箱地址
- *          ruSex               性别
- *                                  1.男
- *                                  0.女
- *                                  json数据中1对应true 0对应false
- *          ruBirthday          生日/出生日期
- *          ruHomeaddress       家庭住址
- *          ruUserType          用户类型
- *                                  0.普通
- *                                  1.堆高车
- *                                  2.高位叉车
- *
- *      TODO 重置密码   5  /user/resetPwd
- *          user_ids    被勾选的用户id集合
- *      TODO 禁用 6   /user/dieUsersByUids
- *          user_ids    被勾选的用户id集合
- *      TODO 用户名不允许重复且不允许使用特殊字符的接口 7   /user/isRepeatByUsername/{username}
- *          username    用户名称
- *      TODO 登录账号不允许重复且不允许使用特殊字符的接口 8 /user/isRepeatByLoginname/{loginname}
- *          loginname   登录账号
- *
- *      用户配置角色
- *          userId         用户id
- *          roleIds        被勾选的角色id集合
- *      用户管理 通过userid删除一条用户数据
- *          id              用户id
- *      用户管理 根据id返回用户信息
- *          id              用户id
- *
- * TODO 系统设置
- *      TODO 角色管理   role
- *          rrRoleId             角色id
- *          rrName               角色name
- *          rrRemarks            备注
- *          rrStatus             状态
-                                    1.可用
-                                    0.软删除禁用
- *          rrCjsj               创建时间
- *      TODO 新增-启用-配置仓库-配置客户-配置菜单
- *          rrName               角色name
- *          rrRemarks            备注
- *      TODO 启用
- *          rrStatus             状态
- *      TODO 配置仓库   /role/roleAddArehouses
- *          角色配置仓库
- *          roleId              角色id
- *          arehouseIds         被勾选的仓库id集合
- *      TODO 配置客户  /role/roleAddClients
- *         角色配置客户
- *         roleId              角色id
- *         clientIds           被勾选的客户id集合
- *      TODO 配置菜单   /role/roleAddMenus
- *          角色配置菜单
- *         roleId              角色id
- *         menuIds             被勾选的菜单id集合
- *      TODO 禁用
- *          禁用
- *          rrStatus             状态
- *                                  0.禁用
- *      TODO 编辑
- *          rrName               角色name
- *          rrRemarks            备注
- *         通过user_id获取对应的权限角色
- *         userId              用户id
- *         角色配置仓库
- *         roleId              角色id
- *         arehouseIds         被勾选的仓库id集合
- *         角色配置客户
- *         roleId              角色id
- *         clientIds           被勾选的客户id集合
- *         角色配置菜单
- *         roleId              角色id
- *         menuIds             被勾选的菜单id集合
- *      TODO 角色名称不允许重复的接口
- *          rrName               角色name
- * TODO 系统配置
+ */
+    /**      用户管理     userManagement
+     *
+     * */
+        /**  0 分页获取 用户信息                        /user/page
+         *
+         *          ruUserId            id
+         *          ruUserName          用户昵称/名
+         *          ruLoginName         登录账户
+         *          ruLoginPassword     密码
+         *          ruPhone             手机
+         *          // ruZoneNo            区号 电话区号 例如 0531
+         *          ruTelephone         电话
+         *          ruEmail             邮箱地址
+         *          ruSex               性别
+         *                                  1.男
+         *                                  0.女
+         *                                  json数据中1对应true 0对应false
+         *          ruBirthday          生日
+         *          ruHomeaddress       家庭住址
+         *          ruQicq              qq
+         *          ruUserType          用户类型
+         *                                  0.普通
+         *                                  1.堆高车
+         *                                  2.高位叉车
+         *          ruUserZyq           高位叉车作业区域
+         *          ruIspda             是否允许登陆pda
+         *                                  true    是
+         *                                  false   否
+
+         *          ruRemarks           备注
+         *          ruStatus            状态(status)0.软删除
+         *
+         *
+         *          ruSalt              随机掩码
+         *          ruCreateTime        创建时间
+         *          ruLastModifiedTime  最后修改时间
+         *
+         **/
+        /**     TODO 1  新增-启用-配置角色                 /new
+         *          ruUserName          用户昵称/名
+         *          ruLoginPassword     密码
+         *          ruPhone             手机
+         *          ruTelephone         电话/座机
+         *          ruQicq              qq
+         *          ruIspda             是否允许登陆pda
+         *                                  1.是
+         *                                  0.否
+         *          ruLoginName         登录账户
+         *          ruEmail             邮箱地址
+         *          ruSex               性别
+         *                                  1.男
+         *                                  0.女
+         *                                  json数据中1对应true 0对应false
+         *          ruBirthday          生日/出生日期
+         *          ruHomeaddress       家庭住址
+         *          ruUserType          用户类型
+         *                                  0.普通
+         *                                  1.堆高车
+         *                                  2.高位叉车
+         *                                  */
+        /**    TODO 2 启用                               /user/liveUsersByUids
+         *          user_ids    被勾选的用户id集合
+         *          */
+        /**TODO 3 配置角色                           /user/userAddRoles
+         *          用户配置角色
+         *          userId         用户id
+         *          roleIds        被勾选的角色id集合
+         *          */
+        /** TODO 4 编辑                               /user
+         *          ruUserName          用户昵称/名
+         *          ruLoginPassword     密码
+         *          ruPhone             手机
+         *          ruTelephone         电话/座机
+         *          ruQicq              qq
+         *          ruIspda             是否允许登陆pda
+         *                                  1.是
+         *                                  0.否
+         *          ruLoginName         登录账户
+         *          ruEmail             邮箱地址
+         *          ruSex               性别
+         *                                  1.男
+         *                                  0.女
+         *                                  json数据中1对应true 0对应false
+         *          ruBirthday          生日/出生日期
+         *          ruHomeaddress       家庭住址
+         *          ruUserType          用户类型
+         *                                  0.普通
+         *                                  1.堆高车
+         *                                  2.高位叉车
+         *                                  */
+        /** TODO 5 重置密码                             /user/resetPwd
+         *          user_ids    被勾选的用户id集合
+         *          */
+        /** TODO 6 禁用                               /user/dieUsersByUids
+         *          user_ids    被勾选的用户id集合
+         *          */
+        /** TODO 7 用户名不允许重复且不允许使用特殊字符的接口     /user/isRepeatByUsername/{username}
+         *          username    用户名称
+         *          */
+        /** TODO 8 登录账号不允许重复且不允许使用特殊字符的接口   /user/isRepeatByLoginname/{loginname}
+         *          loginname   登录账号
+         *          */
+        /** TODO 9 用户配置角色
+         *          userId         用户id
+         *          roleIds        被勾选的角色id  TODO 接口有问题  不应该是集合
+         *          */
+        /** TODO 10 用户管理 通过userid删除一条用户数据
+         *          id              用户id
+         *          */
+        /** TODO 11 用户管理 根据id返回用户信息
+         *          id              用户id
+         *          */
+        /** TODO 12 请求所有角色                      /role/page  post
+         *
+                    draw            没有意义   0
+                    pageNum         当前页     1
+                    pageSize        每页大小   999
+         */
+
+    /**   角色管理   roleManagement
+     *
+     */
+        /** TODO 0 分页获取 角色信息                        /role
+         *          rrRoleId             角色id
+         *          rrName               角色name
+         *          rrRemarks            备注
+         *          rrStatus             状态
+                                             1.可用
+                                             0.软删除禁用
+         *          rrCjsj               创建时间
+         *          */
+        /** TODO 1 新增-启用-配置仓库-配置客户-配置菜单
+         *          rrName               角色name
+         *          rrRemarks            备注
+         *          */
+        /** TODO 2 启用
+         *          rrStatus             状态
+         *          */
+        /** TODO 3 配置仓库   /role/roleAddArehouses
+         *          角色配置仓库
+         *          roleId              角色id
+         *          arehouseIds         被勾选的仓库id集合
+         *          */
+        /** TODO 4 配置客户  /role/roleAddClients
+         *         角色配置客户
+         *         roleId              角色id
+         *         clientIds           被勾选的客户id集合
+         *         */
+        /** TODO 5 配置菜单   /role/roleAddMenus
+         *          角色配置菜单
+         *         roleId              角色id
+         *         menuIds             被勾选的菜单id集合
+         *         */
+        /** TODO 6 禁用
+         *          禁用
+         *          rrStatus             状态
+         *                                  0.禁用
+         *                                  */
+        /** TODO 7 编辑
+         *          rrName               角色name
+         *          rrRemarks            备注
+         *         通过user_id获取对应的权限角色
+         *         userId              用户id
+         *         角色配置仓库
+         *         roleId              角色id
+         *         arehouseIds         被勾选的仓库id集合
+         *         角色配置客户
+         *         roleId              角色id
+         *         clientIds           被勾选的客户id集合
+         *         角色配置菜单
+         *         roleId              角色id
+         *         menuIds             被勾选的菜单id集合
+         *         */
+        /** TODO 8 角色名称不允许重复的接口
+         *          rrName               角色name
+         *          */
+
+ /** TODO 系统配置
  *      TODO 仓库管理/配置
  *          ArehouseId           id
  *          Name                 仓库名称
