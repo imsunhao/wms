@@ -1,0 +1,30 @@
+[
+  {
+    "rrRoleId ": "角色id 1",
+    "rrName   ": "角色name",
+    "rrRemarks": "备注",
+    "rrStatus ": 1,
+    "rrCjsj ": "创建时间"
+  },
+  {
+    "rrRoleId ": "角色id 2",
+    "rrName   ": "角色name",
+    "rrRemarks": "备注",
+    "rrStatus ": 1,
+    "rrCjsj ": "创建时间"
+  },
+  {
+    "rrRoleId ": "角色id 3",
+    "rrName   ": "角色name",
+    "rrRemarks": "备注",
+    "rrStatus ": 0,
+    "rrCjsj ": "创建时间"
+  },
+  {
+    "rrRoleId ": "角色id 4",
+    "rrName   ": "角色name",
+    "rrRemarks": "备注",
+    "rrStatus ": 0,
+    "rrCjsj ": "创建时间"
+  }
+]
