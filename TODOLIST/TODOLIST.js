@@ -73,8 +73,8 @@
  *                                  2.高位叉车
  *          ruUserZyq           高位叉车作业区域
  *          ruIspda             是否允许登陆pda
- *                                  1.是
- *                                  0.否
+ *                                  true    是
+ *                                  false   否
 
  *          ruRemarks           备注
  *          ruStatus            状态(status)0.软删除

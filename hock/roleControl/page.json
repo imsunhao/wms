@@ -1,19 +1,42 @@
 {
   "data": [
     {
-      "roleId": 1,
-      "roleName": "九阳管理员"
+      "rrRoleId": 1,
+      "rrName": "超级管理员",
+      "rrRemarks": "所有权限",
+      "rrStatus": 1,
+      "rrCjsj": 1475149930000
     },
     {
-      "roleId": 2,
-      "roleName": "无限极管理员"
+      "rrRoleId": 2,
+      "rrName": "九阳操作员",
+      "rrRemarks": "操作九阳客户的一个仓库",
+      "rrStatus": 1,
+      "rrCjsj": 1486537109000
     },
     {
-      "roleId": 3,
-      "roleName": "九阳操作员"
+      "rrRoleId": 3,
+      "rrName": "九阳仓库经理",
+      "rrRemarks": "可以查询出九阳客户的所有仓库",
+      "rrStatus": 1,
+      "rrCjsj": 1487833142000
+    },
+    {
+      "rrRoleId": 4,
+      "rrName": "ceshi",
+      "rrRemarks": "测试",
+      "rrStatus": 1,
+      "rrCjsj": 1487746774000
+    },
+    {
+      "rrRoleId": 5,
+      "rrName": "test",
+      "rrRemarks": "test",
+      "rrStatus": 0,
+      "rrCjsj": 1487746797000
     }
   ],
   "draw": 0,
-  "recordsTotal": 3,
-  "recordsFiltered": 1
+  "recordsTotal": 5,
+  "recordsFiltered": 5
 }
