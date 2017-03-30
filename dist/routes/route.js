@@ -14,13 +14,13 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '用户管理-加载用户管理页面';
-                        req = autoUrl(req, '/user', "POST", function (json) {
+                        req = autoUrl(req, '/user/page', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 1:
-                        urlName = '用户管理-新增-启用-配置角色';// TODO 0
-                        req = autoUrl(req, '/user/', "", function (json) {
+                        urlName = '用户管理-新增-配置角色-启用';// TODO 0
+                        req = autoUrl(req, '', "", function (json) {
                             res.send(json);
                         });
                         break;
