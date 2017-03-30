@@ -196,7 +196,7 @@
             </button>
 
             <button
-                    @click="moreOperationDelete"
+                    @click="multiOperationDelete"
                     class="btn btn-del"
                     v-show="multiSelect">批量删除
             </button>
@@ -292,35 +292,35 @@
                                     <el-button
                                             size="small"
                                             icon="edit"
-                                            @click="Edit(props.$index, props.row)">
+                                            @click="inlineEdit(props.$index, props.row)">
                                     </el-button>
                                     <el-button
                                             size="small"
                                             icon="delete"
                                             type="danger"
-                                            @click="deleteOlder(props.$index, props.row)">
+                                            @click="Delete(props.$index, props.row)">
                                     </el-button>
                                     <el-button
                                             size="small"
                                             type="primary"
-                                            @click="deleteOlder(props.$index, props.row)">角色
+                                            @click="inlineRole(props.$index, props.row)">角色
                                     </el-button>
                                     <el-button
                                             size="small"
                                             type="warning"
-                                            @click="deleteOlder(props.$index, props.row)">重置密码
+                                            @click="Delete(props.$index, props.row)">重置密码
                                     </el-button>
                                     <el-button
                                             size="small"
                                             v-show="props.row.ruStatus==0"
                                             type="success"
-                                            @click="Edit(props.$index, props.row)">启用
+                                            @click="inlineEdit(props.$index, props.row)">启用
                                     </el-button>
                                     <el-button
                                             size="small"
                                             type="danger"
                                             v-show="props.row.ruStatus!=0"
-                                            @click="deleteOlder(props.$index, props.row)">禁用
+                                            @click="Delete(props.$index, props.row)">禁用
                                     </el-button>
                                 </el-form-item>
                             </el-form>
@@ -457,7 +457,7 @@
                                         v-model="form.ruBirthday"
                                         type="date"
                                         placeholder="选择日期"
-                                        :picker-options="pickerOptions0">
+                                        :picker-options="pickerOption">
                                 </el-date-picker>
                             </el-form-item>
                             <el-form-item
@@ -526,7 +526,7 @@
                     <el-row>
                         <h3>配置角色</h3>
                         <div style="margin: 15px 0;"></div>
-                        <el-radio v-for="city in role" v-model="radio0" :label="city.rrRoleId">{{city.rrName}}
+                        <el-radio v-for="city in role" v-model="form.roleId" :label="city.rrRoleId">{{city.rrName}}
                         </el-radio>
                     </el-row>
                     <el-row>
@@ -548,14 +548,14 @@
     </el-dialog>
     <el-dialog
             size="small"
-            v-model="dialogFormVisible">
+            v-model="dialogRoleVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">配置角色</span>
         </div>
 
         <el-form :model="roleForm" ref="newRoleForm">
             <el-row>
-                <el-radio v-for="city in role" v-model="radio0" :label="city.rrRoleId">{{city.rrName}}
+                <el-radio v-for="city in role" v-model="roleForm.roleId" :label="city.rrRoleId">{{city.rrName}}
                 </el-radio>
             </el-row>
         </el-form>
@@ -569,65 +569,69 @@
 </div>
 
 <script>
+    var form = function () {
+        return {
+            ruUserId: '',
+            title: "新建用户",
+            ruUserName: '',
+            ruLoginName: '',
+            ruLoginPassword: '',
+            ruPhone: '',
+            ruZoneNo: '',
+            ruTelephone: '',
+            ruEmail: '',
+            ruSex: true,
+            ruBirthday: '',
+            ruHomeaddress: '',
+            ruQicq: '',
+            ruUserType: 0,
+            ruUserZyq: '',
+            ruIspda: false,
+            ruRemarks: '',
+
+            roleId:1,
+
+            ruStatus: 1,
+        }
+    };               //弹出层 form 模板
+    
+    
     var userManagement = new Vue({
         el: '#userManagement',
         prop: {},
         data: function () {
             return {
-                userManagement: [],
-                multipleSelection: [],
-                multiSelect: false,
+                userManagement: [],              //主页面 信息集合
+                multipleSelection: [],           //主页面 多选集合
+                multiSelect: false,              //主页面 多选状态 维护
 
-                pickerOptions0: {
+                ruUserName: '',                  //主页面 用户名 搜索
+                ruLoginName: '',                 //主页面 账户   搜索
+                showLoading: false,              //主页面 加载 维护
+                
+                currentPage: 1,                  //分页 当前页
+                currentTotal: 1,                 //分页 总页数
+                pageSize: 10,                    //分页 分页大小
+
+                formLabelWidth: '120px',         //表单 配置
+
+                form: form(),                    //新建 弹出层 信息集合
+                dialogFormActive: 0,             //新建 弹出层 steps 当前进度
+                dialogFormVisible: false,        //新建 弹出层 是否可见
+                submitLoading: false,            //新建 弹出层 提交等待
+
+                pickerOption: {
                     disabledDate: function (time) {
                         return time.getTime() > Date.now();
                     }
-                },
-                ruUserName: '',                  //主页面 用户名 搜索
-                ruLoginName: '',                 //主页面 账户   搜索
-                showLoading: false,
-                currentPage: 1,
-                currentTotal: 1,
-                pageSize: 10,
+                },             //新建 弹出层 生日选项
 
-                formLabelWidth: '120px',        //表单 配置
-                form: {
-                    ruUserId: '',
-                    title: "新建用户",
-                    ruUserName: '',
-                    ruLoginName: '',
-                    ruLoginPassword: '',
-                    ruPhone: '',
-                    ruZoneNo: '',
-                    ruTelephone: '',
-                    ruEmail: '',
-                    ruSex: true,
-                    ruBirthday: '',
-                    ruHomeaddress: '',
-                    ruQicq: '',
-                    ruUserType: 0,
-                    ruUserZyq: '',
-                    ruIspda: false,
-                    ruRemarks: '',
-
-                    roleId:'',
-
-                    ruStatus: 1,
-                },      //表单 弹出层 信息集合
-                dialogFormActive: 0,            //新建 弹出层 steps 当前进度
-                dialogFormVisible: false,       //新建 弹出层 是否可见
-                submitLoading: false,           //新建 弹出层 提交等待
-
-                formActive: 0,                 //form steps 当前进度
-
-                dialogSelectVisible: false,
-                selectLoading: false,
-
-                role: [],
-                isIndeterminate: true,
-
-                radio: '1',
-                radio0: 1,
+                dialogRoleVisible: false,        //角色 弹出层 是否可见
+                loadingRole: false,              //角色 弹出层 提交等待
+                role: [],                        //角色 集合
+                roleForm:{
+                    roleId:0,                        //角色 弹出层 角色ID
+                },                  //角色 弹出层 信息集合
 
             }
         },
@@ -638,7 +642,7 @@
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize
                 }
-            },
+            },           //主页面 post 0
             _ruUserType: {
                 get: function () {
                     switch (this.form.ruUserType) {
@@ -654,11 +658,10 @@
                 set: function (newValue) {
                     this.form.ruUserType = newValue;
                 }
-            }
+            },                  //转换 用户类型
         },
         methods: {
-            Edit: function (index, row) {
-                console.log(row)
+            inlineEdit: function (index, row) {
                 this.form.title = '编辑';
                 this.form.ruUserId = row.ruUserId;
                 this.form.ruUserName = row.ruUserName;
@@ -685,11 +688,11 @@
                 this.form.ruIspda = row.ruIspda;
                 this.form.ruRemarks = row.ruRemarks;
                 this.form.ruStatus = parseInt(row.ruStatus);
-                this.dialogFormActive = 0;
                 this.dialogFormVisible = true;
+                this.dialogFormActive = 0;
                 this.$refs.carousel.setActiveItem(0);
-            },                                        //行内按钮-编辑
-            deleteOlder: function (index, row) {
+            },                                  //行内按钮-编辑
+            inlineDelete: function (index, row) {
                 var _this = this;
                 _this.$confirm('此操作将永久删除该入库单, 是否继续?', '提示', {
                     confirmButtonText: '确定',
@@ -706,12 +709,15 @@
                         message: '已取消删除'
                     });
                 });
-            },                                 //行内按钮-删除
+            },                                //行内按钮-删除
+            inlineRole: function (index, row) {
+                var _this = this;
+            },                                  //行内按钮-角色
 
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
-            handleSelectionChange: function (val, row) {
+            multiSelectionChange: function (val, row) {
                 /*<debug>*/
                 console.log(addOrDelete(row, val));
                 /*</debug>*/
@@ -721,8 +727,8 @@
                     remove(row, this.userManagementCombination);
                 }
                 this.multipleSelection = val;
-            },                         //多选 选中控制
-            handleSelectionChangeAll: function (val) {
+            },                          //多选 选中控制
+            multiSelectionChangeAll: function (val) {
                 if (val.length > 0) {
                     for (var i = 0; i < val.length; i++) {
                         if (!addOrDelete(val[i], this.userManagementCombination)) {
@@ -735,15 +741,15 @@
                     }
                 }
                 this.multipleSelection = val;
-            },                           //多选 选中控制
-            moreOperationDelete: function () {
+            },                            //多选 选中控制
+            multiOperationDelete: function () {
                 /*<debug>*/
                 console.log('选中的删除');
                 /*</debug>*/
                 for (i = 0; i < this.multipleSelectionCombination.length; i++) {
                     remove(this.multipleSelectionCombination[i], this.userManagementCombination);
                 }
-            },                                   //多选 删除
+            },                                  //多选 删除
 
             handleSizeChange: function (val) {
                 /*<debug>*/
@@ -761,80 +767,11 @@
             },                                //分页 当前页
 
             newInput: function () {
+                this.form=form();
                 this.dialogFormVisible = true;
-                this.form={
-                    ruUserId: '',
-                    title: "新建用户",
-                    ruUserName: '',
-                    ruLoginName: '',
-                    ruLoginPassword: '',
-                    ruPhone: '',
-                    ruZoneNo: '',
-                    ruTelephone: '',
-                    ruEmail: '',
-                    ruSex: true,
-                    ruBirthday: '',
-                    ruHomeaddress: '',
-                    ruQicq: '',
-                    ruUserType: 0,
-                    ruUserZyq: '',
-                    ruIspda: false,
-                    ruRemarks: '',
-
-                    roleId:'',
-
-                    ruStatus: 1,
-                };
                 this.dialogFormActive = 0;
                 this.$refs.carousel.setActiveItem(0);
-                postRoles(userManagement, userManagement.option);
             },                                              //按钮 新建入库单
-
-            prevForm: function () {
-                this.formActive--;
-                this.$refs.carouselWaiting.prev();
-            },                                              //form 前一个
-            nextForm: function () {
-                this.formActive++;
-                this.$refs.carouselWaiting.next();
-            },                                              //form 后一个
-            submitForm: function () {
-                var _this = this;
-                this.formActive++;
-                this.submitLoading = true;
-                //TODO 此处应是ajax请求
-                setTimeout(function () {
-                    _this.submitLoading = false;
-                    _this.$notify({
-                        title: '成功',
-                        message: '保存成功！',
-                        type: 'success'
-                    });
-                    _this.form = {
-                        title: "新建用户",
-                        ruUserName: '',
-                        ruLoginName: '',
-                        ruLoginPassword: '',
-                        ruPhone: '',
-                        ruZoneNo: '',
-                        ruTelephone: '',
-                        ruEmail: '',
-                        ruSex: 1,
-                        ruBirthday: '',
-                        ruHomeaddress: '',
-                        ruQicq: '',
-                        ruUserType: '',
-                        ruUserZyq: '',
-                        ruIspda: '',
-                        ruRemarks: '',
-                        ruStatus: 1,
-                    };
-                    _this.multipleSelection = [];
-                    _this.formActive = 0;
-                    _this.$refs.carouselWaiting.setActiveItem(0);
-                    post(userManagement);
-                }, 1500);
-            },                                            //form 表单提交
 
             prev: function () {
                 this.dialogFormActive--;
@@ -888,7 +825,6 @@
                 /*</debug>*/
                 post(this, this.option);
             }
-
         }
     });
 
@@ -911,7 +847,7 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/user/page/0";//post
+        url = "/route/userManagement/0";//post
         /*</prod>*/
 
         $.ajax(url, {
