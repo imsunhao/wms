@@ -260,25 +260,31 @@
                                     <el-button
                                             size="small"
                                             icon="edit"
-                                            @click="Edit(props.$index, props.row)">
+                                            @click="inlineEdit       (props.$index, props.row)">
                                     </el-button>
                                     <el-button
                                             size="small"
                                             icon="delete"
                                             type="danger"
-                                            @click="deleteOlder(props.$index, props.row)">
+                                            @click="inlineDelete      (props.$index, props.row)">
+                                    </el-button>
+                                    <el-button
+                                            size="small"
+                                            icon="delete"
+                                            type="danger"
+                                            @click="inlinePassword    (props.$index, props.row)">
                                     </el-button>
                                     <el-button
                                             size="small"
                                             v-show="props.row.ruStatus!=0"
                                             type="success"
-                                            @click="Edit(props.$index, props.row)">启用
+                                            @click="inlineAble           (props.$index, props.row)">启用
                                     </el-button>
                                     <el-button
                                             size="small"
                                             type="danger"
                                             v-show="props.row.ruStatus==0"
-                                            @click="deleteOlder(props.$index, props.row)">禁用
+                                            @click="inlineDisAble         (props.$index, props.row)">禁用
                                     </el-button>
                                 </el-form-item>
                             </el-form>
@@ -313,7 +319,6 @@
                     align="center">
                 <template scope="scope">
                     <span>{{ scope.row.rrStatus == 0 ? '禁用':'可用'}}</span>
-
                 </template>
             </el-table-column>
             <el-table-column
@@ -335,6 +340,7 @@
         </div>
     </el-row>
     <el-dialog
+            size="tiny"
             v-model="dialogFormVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">{{form.title}}</span>
@@ -366,6 +372,7 @@
         </div>
     </el-dialog>
 </div>
+
 <script>
     var form = function () {
         return {
@@ -373,14 +380,14 @@
             title: "新建角色",
             rrUserName: '',
             rrCjsj: '',
-            rrStatus:0,
+            rrStatus: 0,
             rrRemarks: '',
 
-            roleId:1,
+            roleId: 1,
 
             ruStatus: 1,
         }
-    };               //弹出层 form 模板
+    };                //弹出层 form 模板
     var roleManagement = new Vue({
         el: '#roleManagement',
         prop: {},
@@ -390,7 +397,7 @@
                 multipleSelection: [],           //主页面 多选集合
                 multiSelect: false,              //主页面 多选状态 维护
 
-                rrName: '',                  //主页面 角色名称 搜索
+                rrName: '',                      //主页面 角色名称 搜索
                 showLoading: false,              //主页面 加载 维护
 
                 currentPage: 1,                  //分页 当前页
@@ -413,9 +420,9 @@
                 dialogRoleVisible: false,        //角色 弹出层 是否可见
                 loadingRole: false,              //角色 弹出层 提交等待
                 role: [],                        //角色 集合
-                roleForm:{
-                    roleId:0,                        //角色 弹出层 角色ID
-                },                  //角色 弹出层 信息集合
+                roleForm: {
+                    roleId: 0,                        //角色 弹出层 角色ID
+                },                 //角色 弹出层 信息集合
 
             }
         },
@@ -445,36 +452,138 @@
             }
         },
         methods: {
-            Edit: function (index, row) {
-                console.log(row)
-                this.form.title = '新增';
-                this.form.rrName = row.rrName;
-                this.form.rrRemarks = row.rrRemarks;
-            },                                        //行内按钮-编辑
+            inlineEdit: function (index, row) {
+                this.form.title = '编辑';
+                this.form.ruUserId = row.ruUserId;
+                this.form.ruUserName = row.ruUserName;
+                this.form.ruLoginName = row.ruLoginName;
+                this.form.ruPhone = row.ruPhone;
+                this.form.ruTelephone = row.ruTelephone;
+                this.form.ruEmail = row.ruEmail;
+                this.form.ruSex = row.ruSex;
+                this.form.ruBirthday = row.ruBirthday;
+                this.form.ruHomeaddress = row.ruHomeaddress;
+                this.form.ruQicq = row.ruQicq;
+                switch (row.ruUserType) {
+                    case '普通':
+                        this.form.ruUserType = 0;
+                        break;
+                    case '堆高车':
+                        this.form.ruUserType = 1;
+                        break;
+                    case '高位叉车':
+                        this.form.ruUserType = 2;
+                        break;
+                }
+                this.form.ruUserZyq = row.ruUserZyq;
+                this.form.ruIspda = row.ruIspda;
+                this.form.ruRemarks = row.ruRemarks;
+                this.form.ruStatus = parseInt(row.ruStatus);
+                this.dialogFormVisible = true;
+                this.dialogFormActive = 0;
+                Vue.nextTick(function () {
+                    userManagement.$refs.carousel.setActiveItem(0);
+                });
+            },                                  //行内按钮-编辑
+            inlineDelete: function (index, row) {
+                var _this = this;
+                _this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.userManagement);
+                    postDelete(_this, {
+                        id: [row.ruUserId]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },                                //行内按钮-删除
+            inlinePassword: function (index, row) {
+                var _this = this;
+                _this.$confirm('此操作将此用户密码重置, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                              //行内按钮-密码
+            inlineAble: function (index, row) {
+                var _this = this;
+                _this.$confirm('此操作将启用此用户, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                                  //行内按钮-密码
+            inlineDisAble: function (index, row) {
+                var _this = this;
+                _this.$confirm('此操作将此用户禁用, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                               //行内按钮-密码
+            inlineRole: function (index, row) {
+                /*<debug>*/
+                this.roleForm = {
+                    roleId: row.ruUserId,                        //角色 弹出层 角色ID
+                };
+                /*</debug>*/
+                /*<prod>*/
+                postRuRoles(this, row.ruUserId);
+                /*</prod>*/
+                this.dialogRoleVisible = !this.dialogRoleVisible;
+            },                                  //行内按钮-角色
+
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
-            multiBatchDelete : function () {
+            multiBatchDelete: function () {
                 this.multiBatchDelete = !this.multiBatchDelete;
             },                                      //多选 批量删除维护
             multiEdit: function () {
-                this.  multiEdit = !this. multiEdit;
-            },                                      //多选 编辑维护
+                this.multiEdit = !this.multiEdit;
+            },                                             //多选 编辑维护
             multiStart: function () {
                 this.multiStart = !this.multiStart;
-            },                                      //多选 启用维护
+            },                                            //多选 启用维护
             multiDisable: function () {
                 this.multiDisable = !this.multiDisable;
-            },                                      //多选 禁用维护
+            },                                          //多选 禁用维护
             multiWarehouse: function () {
                 this.multiWarehouse = !this.multiWarehouse;
-            },                                      //多选 仓库维护
+            },                                        //多选 仓库维护
             multiCustomer: function () {
                 this.multiCustomer = !this.multiCustomer;
-            },                                      //多选 状态维护
+            },                                         //多选 状态维护
             multiMenu: function () {
                 this.multiMenu = !this.multiMenu;
-            },                                      //多选 状态维护
+            },                                             //多选 状态维护
 
             handleSelectionChange: function (val, row) {
                 /*<debug>*/
@@ -527,7 +636,7 @@
 
             newInput: function () {
                 this.dialogFormVisible = true;
-                this.form={
+                this.form = {
                     ruUserId: '',
                     title: "新建角色",
                     ruUserName: '',
@@ -546,7 +655,7 @@
                     ruIspda: false,
                     ruRemarks: '',
 
-                    roleId:'',
+                    roleId: '',
 
                     ruStatus: 1,
                 };

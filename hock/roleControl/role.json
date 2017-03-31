@@ -1,27 +1,27 @@
 [
   {
-    "rrRoleId": "角色id 1",
+    "rrRoleId": "1",
     "rrName": "超级管理员",
     "rrRemarks": "所有权限",
     "rrStatus": 1,
     "rrCjsj": "2016-01-29 19:52:10"
   },
   {
-    "rrRoleId": "角色id 2",
+    "rrRoleId": "2",
     "rrName": "九阳操作员",
     "rrRemarks": "操作九阳客户的一个仓库",
     "rrStatus": 1,
     "rrCjsj": "2016-09-02 19:52:10"
   },
   {
-    "rrRoleId": "角色id 3",
+    "rrRoleId": "3",
     "rrName": "九阳仓库经理",
     "rrRemarks": "操作九阳客户的所有仓库",
     "rrStatus": 0,
     "rrCjsj": "2016-09-19 19:52:10"
   },
   {
-    "rrRoleId": "角色id 4",
+    "rrRoleId": "4",
     "rrName": "九阳操作员",
     "rrRemarks": "操作九阳客户的一个仓库",
     "rrStatus": 0,
