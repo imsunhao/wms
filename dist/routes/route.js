@@ -177,6 +177,30 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
+            case 'warehousingTask':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '入库任务管理-加载入库任务管理页面';
+                        req = autoUrl(req, 't', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 1:
+                        urlName = '修改';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 2:
+                        urlName = '下发';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
+                }
+                break;
 
         }
 
