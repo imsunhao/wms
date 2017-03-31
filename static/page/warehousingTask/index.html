@@ -1,4 +1,4 @@
-<div id="warehousingTask">
+<div id="inputOperation">
     <!--页面调整-->
     <el-row v-loading="showLoading"
             element-loading-text="拼命加载中">
@@ -14,8 +14,8 @@
                         v-model="rkrwCph"
                         icon="search"
                         placeholder="车牌号"></el-input>
-                <el-input
-                        v-model="rkrwSjxm"
+                 <el-input
+                        v-model="rkrwCph"
                         icon="search"
                         placeholder="司机姓名"></el-input>
                 <el-date-picker
@@ -27,7 +27,7 @@
                         :picker-options="pickerOptions">
                 </el-date-picker>
                 <el-input
-                        v-model="rkrwDbd"
+                        v-model="rkrwCph"
                         icon="search"
                         placeholder="调拨地"></el-input>
                 <el-input
@@ -38,8 +38,6 @@
                         v-model="rkrwNo"
                         icon="search"
                         placeholder="任务号"></el-input>
-
-
                 <button
                         class="btn btn-edit"
                         @click="handleDelete">编辑
@@ -58,7 +56,7 @@
                 </button>
             </div>
             <el-table
-                    :data="warehousingTask"
+                    :data="inputOperation"
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
                     :max-height="570"
                     @toggleRowSelection="rowSelection"
@@ -66,7 +64,7 @@
                     @expand="expandChange"
                     @selection-change="handleSelectionChange"
                     ref="table"
-                    class="warehousingTaskTable"
+                    class="inputOperationTable"
                     style="width: 100%">
                 <el-table-column
                         type="expand">
@@ -197,71 +195,77 @@
                 <!--</el-table-column>-->
                 <el-table-column
                         label="任务号"
-                        width="100"
+                        width="170"
                         show-overflow-tooltip
                         align="center"
                         prop="rkrwNo">
                 </el-table-column>
                 <el-table-column
                         label="车牌号"
-                        width="90"
+                        width="170"
                         show-overflow-tooltip
                         align="center"
                         prop="rkrwCph">
                 </el-table-column>
-                 <el-table-column
+                <el-table-column
                         label="订单数"
-                        width="80"
+                        width="170"
                         show-overflow-tooltip
                         align="center"
                         prop="">
                 </el-table-column>
                 <el-table-column
                         label="品项数"
-                        width="80"
+                        width="170"
                         show-overflow-tooltip
                         align="center"
                         prop="">
+                </el-table-column>
+                <el-table-column
+                        label="司机姓名"
+                        width="170"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="rkrwSjxm">
                 </el-table-column>
                 <el-table-column
                         width="150"
                         align="center"
                         prop="rkrwDhrq"
                         sortable
-                        label="预计到货日期">
+                        label="预计到货时间">
                     <template scope="scope">
                         <el-icon name="time"></el-icon>
-
                         <span style="margin-left: 10px">{{ scope.row.sjsj }}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
                         label="调拨地"
-                        width="100"
+                        width="170"
                         show-overflow-tooltip
                         align="center"
                         prop="rkrwDbd">
                 </el-table-column>
-                 <el-table-column
+                <el-table-column
                         label="承运商"
-                        width="100"
+                        width="170"
                         show-overflow-tooltip
                         align="center"
                         prop="rkrwCys">
                 </el-table-column>
-                 <el-table-column
+                <el-table-column
                         label="司机电话"
-                        width="100"
+                        width="170"
                         show-overflow-tooltip
                         align="center"
-                        prop="rkrwDh">
+                        prop="rkrwSjxm">
                 </el-table-column>
                 <el-table-column
                         label="任务状态"
-                        prop="rkrwStatus"
+                        prop="status"
                         align="center"
                         width="100"
-                        :filters="[{ text: '初始', value: '初始' }, { text: '已下发任务', value: '已下发任务' }, { text: '已开始收货', value: '已开始收货' }, { text: '收货中', value: '收货中' }, { text: '部分收货', value: '部分收货' }, { text: '部分收货', value: '部分收货' }, { text: '全部收货', value: '全部收货' }, { text: '欠货', value: '欠货' }]"
+                        :filters="[{ text: '初始', value: '初始' }, { text: '已下发任务', value: '已下发任务' }, { text: '已开始收货', value: '已开始收货' }, { text: '收货中', value: '收货中' }, { text: '部分收货', value: '部分收货' }, { text: '全部收货', value: '全部收货' }, { text: '收货完成', value: '收货完成' }, { text: '欠货', value: '欠货' }]"
                         :filter-method="filterStatus">
                     <template scope="scope">
                         <el-tag
@@ -270,7 +274,11 @@
                         </el-tag>
                     </template>
                 </el-table-column>
-
+                <el-table-column
+                        v-if="multiSelect"
+                        type="selection"
+                        width="60">
+                </el-table-column>
             </el-table>
             <div class="block">
                 <el-pagination
@@ -280,7 +288,7 @@
                         :page-sizes="[5, 10, 15, 20]"
                         :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="warehousingTask.length">
+                        :total="inputOperation.length">
                 </el-pagination>
             </div>
         </el-col>
@@ -506,36 +514,36 @@
     </el-dialog>
 </div>
 <style>
-    #warehousingTask {
+    #inputOperation {
         width: 100%;
         min-width: 890px;
         position: relative;
     }
 
-    #warehousingTask .demo-table-expand {
+    #inputOperation .demo-table-expand {
         font-size: 0;
     }
 
-    #warehousingTask .demo-table-expand label {
+    #inputOperation .demo-table-expand label {
         width: 90px;
         color: #99a9bf;
     }
 
-    #warehousingTask .demo-table-expand .el-form-item {
+    #inputOperation .demo-table-expand .el-form-item {
         margin-right: 0;
         margin-bottom: 0;
         width: 80%;
     }
 
-    #warehousingTask .el-table__expand-column .el-table__expand-icon {
+    #inputOperation .el-table__expand-column .el-table__expand-icon {
         height: 39px;
     }
 
-    #warehousingTask .table {
+    #inputOperation .table {
         transition: 1s all;
     }
 
-    #warehousingTask .el-carousel__container {
+    #inputOperation .el-carousel__container {
         height: 440px;
     }
 
@@ -547,12 +555,12 @@
         max-width: calc(100% - 60px);
     }
 
-    #warehousingTask .warehousingTaskTable {
+    #inputOperation .inputOperationTable {
         width: 95% !important;
         margin: 20px auto;
     }
 
-    #warehousingTask .datePicker {
+    #inputOperation .datePicker {
         width: 140px !important;
         height: 24px !important;
         margin-top: 29px;
@@ -560,38 +568,38 @@
         float: left;
     }
 
-    #warehousingTask .datePicker .el-input__inner {
+    #inputOperation .datePicker .el-input__inner {
         border-radius: 2px !important;
         height: 24px !important;
     }
 
-    #warehousingTask .add {
+    #inputOperation .add {
         background: url("/static/images/add.png") no-repeat center;
     }
 
-    #warehousingTask .del {
+    #inputOperation .del {
         background: url("/static/images/del.png") no-repeat center;
     }
 
-    #warehousingTask .search {
+    #inputOperation .search {
         background: url("/static/images/search.png") no-repeat center;
     }
 
-    #warehousingTask .sel {
+    #inputOperation .sel {
         background: url("/static/images/sel.png") no-repeat center;
     }
 
-    #warehousingTask .icon {
+    #inputOperation .icon {
         float: left;
     }
 
-    #warehousingTask .btn span {
+    #inputOperation .btn span {
         float: left;
         margin-top: 4px;
         margin-left: 2px;
     }
 
-    #warehousingTask .btn {
+    #inputOperation .btn {
         height: 24px;
         line-height: 1;
         border: none;
@@ -607,28 +615,28 @@
         margin-right: 16px;
     }
 
-    #warehousingTask .btn-print {
+    #inputOperation .btn-print {
         margin-right: 0;
     }
 
-    #warehousingTask .btn:hover {
+    #inputOperation .btn:hover {
         color: #5468ee;
     }
 
-    #warehousingTask .inner {
+    #inputOperation .inner {
         margin: 0 20px;
     }
 
-    #warehousingTask .btn-nav {
+    #inputOperation .btn-nav {
         height: 60px;
         overflow: hidden;
     }
 
-    #warehousingTask .btn-nav .el-input .el-input__inner {
+    #inputOperation .btn-nav .el-input .el-input__inner {
         height: 24px;
     }
 
-    #warehousingTask .btn-nav .el-input {
+    #inputOperation .btn-nav .el-input {
         float: left;
         margin-top: 29px;
         margin-right: 18px;
@@ -655,12 +663,12 @@
     }
 </style>
 <script>
-    var warehousingTask = new Vue({
-        el: '#warehousingTask',
+    var inputOperation = new Vue({
+        el: '#inputOperation',
         prop: {},
         data: function () {
             return {
-                warehousingTask: [],
+                inputOperation: [],
                 multipleSelection: [],
                 multiSelect: false,
                 pickerOptions: {
@@ -763,28 +771,21 @@
             statusWatch: function (status) {
                 var str = '';
                 switch (status) {
-                    case '初始':
+                    case '初始状态':
                         str = 'info';
                         break;
-                    case '已下发任务':
+                    case '部分分配':
                         str = 'danger';
                         break;
-                    case '已开始收货':
+                    case '全部分配':
                         str = 'warning';
                         break;
-                    case '收货中':
+                    case '部分收货':
                         str = 'success';
                         break;
                     case '全部收货':
                         str = 'primary';
                         break;
-                     case '收货完成':
-                        str = 'primary';
-                        break;
-                     case '欠货':
-                        str = 'primary';
-                        break;
-
                 }
                 return str;
             },                                     //状态 标签颜色
@@ -823,8 +824,8 @@
                 /*</debug>*/
                 var listID = [];
                 for (var i = 0; i < this.multipleSelection.length; i++) {
-                    remove(this.multipleSelection[i], this.warehousingTask);
-                    listID.push(this.warehousingTask.rkdjNo);
+                    remove(this.multipleSelection[i], this.inputOperation);
+                    listID.push(this.inputOperation.rkdjNo);
                 }
                 postDelete(this, {
                     id: listID
@@ -918,14 +919,14 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(warehousingTask);
+                    post(inputOperation);
                 }, 1500);
             },                                                //新建 表单提交
             formValidateField: function (formName) {
-//                console.log(warehousingTask.$refs[formName]);
-//                console.log(warehousingTask.$refs);
+//                console.log(inputOperation.$refs[formName]);
+//                console.log(inputOperation.$refs);
 //                setTimeout(function () {
-//                    return warehousingTask.$refs[formName].validate(function (valid) {
+//                    return inputOperation.$refs[formName].validate(function (valid) {
 //                        console.log(valid);
 //                        return valid;
 //                    })
@@ -978,7 +979,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.warehousingTask);
+                    remove(row, _this.inputOperation);
                     postDelete(_this, {
                         id: [row.rkdjNo]
                     });
@@ -993,7 +994,7 @@
 
         },
         watch: {
-            warehousingTask: function () {
+            inputOperation: function () {
 
             },
             form: function () {
@@ -1011,17 +1012,17 @@
     });
 
     // 高级 监视器的 使用方法
-    warehousingTask.$watch('form.selectGood.count', function () {
+    inputOperation.$watch('form.selectGood.count', function () {
         if (!this.form.deleteARkDocsList)return;
         var valid = false;
-        warehousingTask.$refs['newForm'].validate(function (_valid) {
+        inputOperation.$refs['newForm'].validate(function (_valid) {
             valid = _valid;
         });
         valid ?
             this.form.saveARkDocsList = false :
             this.form.saveARkDocsList = true
     });
-    warehousingTask.$watch('date', function () {
+    inputOperation.$watch('date', function () {
         if (!this.option.dateStart)return;
         /*<debug>*/
         console.log(this.option);
@@ -1032,8 +1033,7 @@
     //        deep: true
     //    }
 
-    post(warehousingTask);
-
+    post(inputOperation);
     function post(obj, option) {
         obj.showLoading = true;
 
@@ -1042,7 +1042,7 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/0" + option;
+        url = "/data/inputOption/" + option;
         /*</prod>*/
 
         $.ajax(url, {
@@ -1056,42 +1056,13 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-//                for (var i = 0; i < json.data.length; i++) {
-//                    var type = {
-//                        "0": "采购订单",
-//                        "1": "仓间挑拨",
-//                        "2": "退货入库"
-//                    };
-                    var status = {
-//                        "31": "初始",
-//                        "32": "已下发任务",
-//                        "33": "已开始收货",
-//                        "34": "收货中",
-//                        "35": "部分收货",
-//                        "35": "全部收货",
-//                        "35": "收货完成",
-//                        "35": "欠货",
-                    };
-//                    var method = {
-//                        "1": "手动",
-//                        "2": "excel",
-//                        "3": "接口"
-//                    };
-//                    json.data[i].type = type[i % 3];
-//                    json.data[i].sjsj = changeDate(json.data[i].sjsj);
-//                    json.data[i].status = status[json.data[i].status];
-//                    json.data[i].zdfs = method[json.data[i].zdfs];
-//                    json.data[i].number = 10120 + i;
-//                    json.data[i].volume = 200.0234 + i;
-//                    json.data[i].historyLoading = false;              //维护 history 的加载层
-//                }
-                warehousingTask.$data.warehousingTask = json;
+                inputOperation.$data.inputOperation = json;
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
-    }
+    }          //TODO 获取入库任务主页面
     function postHistory(obj, option) {
         obj.historyLoading = true;
 
