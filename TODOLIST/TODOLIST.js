@@ -152,7 +152,7 @@
         /** TODO 6 禁用                               /user/dieUsersByUids
          *          user_ids    被勾选的用户id集合
          *          */
-        /** TODO 7 用户名不允许重复且不允许使用特殊字符的接口     /user/isRepeatByUsername/{username}
+         /** TODO 7 用户名不允许重复且不允许使用特殊字符的接口     /user/isRepeatByUsername/{username}
          *          username    用户名称
          *          */
         /** TODO 8 登录账号不允许重复且不允许使用特殊字符的接口   /user/isRepeatByLoginname/{loginname}
