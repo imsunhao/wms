@@ -1,0 +1,22 @@
+[
+  {
+    "bcCname":"张三",
+    "bcCaddr":"山东聊城",
+    "bcCtel":"13056420968"
+  },
+  {
+    "bcCname":"张杰",
+    "bcCaddr":"山东济南",
+    "bcCtel":"13056420968"
+  },
+  {
+    "bcCname":"张栋梁",
+    "bcCaddr":"山东菏泽",
+    "bcCtel":"13056420968"
+  },
+  {
+    "bcCname":"张其",
+    "bcCaddr":"山东章丘",
+    "bcCtel":"13056420968"
+  }
+]

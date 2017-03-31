@@ -1,16 +1,18 @@
 [
   {
-    "rrName   ":"角色名称1",
+    "rrName":"角色名称1",
     "rrRemarks":"备注"
   },
   {
-    "rrName   ":"角色名称2",
+    "rrName":"角色名称2",
     "rrRemarks":"备注"
-  }, {
-    "rrName   ":"角色名称3",
+  },
+  {
+    "rrName":"角色名称3",
     "rrRemarks":"备注"
-  }, {
-    "rrName   ":"角色名称4",
+  },
+  {
+    "rrName":"张三",                                                                                                                       ":"角色名称4",
     "rrRemarks":"备注"
   }
 ]

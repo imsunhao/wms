@@ -1,0 +1,31 @@
+[
+  {
+    "bcCname":"张三",
+    "bcCaddr":"山东济南",
+    "bcCtel":"13056420968",
+    "bcStatus":1,
+    "bcCjsj":"2016-09-02 19:52:10"
+  },
+   {
+    "bcCname":"李四",
+    "bcCaddr":"山东聊城",
+    "bcCtel":"13056420968",
+    "bcStatus":1,
+    "bcCjsj":"2016-09-02 19:52:10"
+  },
+   {
+    "bcCname":"王五",
+    "bcCaddr":"山东济南章丘",
+    "bcCtel":"13056420968",
+    "bcStatus":0,
+    "bcCjsj":"2016-09-02 19:52:10"
+  },
+   {
+    "bcCname":"赵六",
+    "bcCaddr":"山东济南",
+    "bcCtel":"13056420968",
+    "bcStatus":0,
+    "bcCjsj":"2016-09-02 19:52:10"
+  }
+
+]
