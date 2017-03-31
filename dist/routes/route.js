@@ -19,20 +19,14 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 1:
-                        urlName = '用户管理-新增-配置角色-启用';// TODO 0
-                        req = autoUrl(req, '', "", function (json) {
+                        urlName = '用户管理-新增-配置角色-启用';
+                        req = autoUrl(req, '/user', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
                         urlName = '用户管理-启用';
                         req = autoUrl(req, '/user/liveUsersByUids', "POST", function (json) {
-                            res.send(json);
-                        });
-                        break;
-                    case 3:
-                        urlName = '用户管理-配置角色';
-                        req = autoUrl(req, '/user/userAddRoles', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -56,13 +50,31 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 7:
                         urlName = '用户管理-判断用户名是否重复';
-                        req = autoUrl(req, '/user/isRepeatByUsername/{username}', "GET", function (json) {
-                                      res.send(json);
+                        req = autoUrl(req, '/user/isRepeatByUsername/' + req.query.userName, "GET", function (json) {
+                            res.send(json);
                         });
                         break;
                     case 8:
                         urlName = '用户管理-判断登录账号是否重复';
-                        req = autoUrl(req, '/user/isRepeatByLoginname/{loginname}', "GET", function (json) {
+                        req = autoUrl(req, '/user/isRepeatByLoginname/' + req.query.loginName, "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 9:
+                        urlName = '用户管理-设置 用户 角色';
+                        req = autoUrl(req, '/user/userAddRoles', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 11:
+                        urlName = '用户管理-根据id返回用户角色信息';
+                        req = autoUrl(req, '/role/findByUserId/' + req.query.user_id, "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 12:
+                        urlName = '用户管理-请求所有角色';
+                        req = autoUrl(req, '/role/page', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -136,7 +148,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
-             case 'clientConfiguration':
+            case 'clientConfiguration':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '客户管理-加载客户管理页面';
@@ -144,31 +156,31 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-                      case 1:
+                    case 1:
                         urlName = '新增-配置货品-配置仓库';
                         req = autoUrl(req, '/client', "POST", function (json) {
                             res.send(json);
                         });
                         break;
-                      case 2:
+                    case 2:
                         urlName = '配置货品';
                         req = autoUrl(req, '/client/clientAddGoods', "POST", function (json) {
                             res.send(json);
                         });
                         break;
-                      case 3:
+                    case 3:
                         urlName = '配置仓库';
                         req = autoUrl(req, '/client/clientAddArehouses', "POST", function (json) {
                             res.send(json);
                         });
                         break;
-                      case 4:
+                    case 4:
                         urlName = '编辑';
                         req = autoUrl(req, '/client', "PUT", function (json) {
                             res.send(json);
                         });
                         break;
-                      case 5:
+                    case 5:
                         urlName = ' 客户名称不允许重复';
                         req = autoUrl(req, '/client', "POST", function (json) {
                             res.send(json);
@@ -185,26 +197,23 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-                      case 1:
+                    case 1:
                         urlName = '修改';
                         req = autoUrl(req, '', "POST", function (json) {
                             res.send(json);
                         });
                         break;
-                      case 2:
+                    case 2:
                         urlName = '下发';
                         req = autoUrl(req, '', "POST", function (json) {
                             res.send(json);
                         });
                         break;
-
-
                 }
                 break;
-
         }
 
-        console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + url);
+        console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + req.body.url);
         next();
     }
     else {
@@ -223,7 +232,7 @@ function autoUrl(req, url, method, cal) {
 
 //请求java服务器
 router.get('/:_url/:_status', function (req, res, next) {
-
+    console.log(req.query);
     request({
         url: 'http://' + server.host + ':' + server.port + server.path + req.body.url,
         method: req.body.method,
