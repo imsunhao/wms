@@ -1,10 +1,909 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<style>
+    #clientConfiguration {
+        width: 100%;
+        min-width: 890px;
+        position: relative;
+    }
 
-</body>
-</html>
+    #clientConfiguration .demo-table-expand {
+        font-size: 0;
+    }
+
+    #clientConfiguration .demo-table-expand label {
+        width: 90px;
+        color: #99a9bf;
+    }
+
+    #clientConfiguration .demo-table-expand .el-form-item {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 80%;
+    }
+
+    #clientConfiguration .el-table__expand-column .el-table__expand-icon {
+        height: 39px;
+    }
+
+    #clientConfiguration .table {
+        transition: 1s all;
+    }
+
+    #clientConfiguration .el-carousel__container {
+        height: 440px;
+    }
+
+    .el-tooltip__popper {
+        max-width: 400px;
+    }
+
+    .el-step__main {
+        max-width: calc(100% - 60px);
+    }
+
+    #clientConfiguration .clientConfigurationTable {
+        width: 95% !important;
+        margin: 10px 20px 0;
+    }
+
+    #clientConfiguration .datePicker {
+        width: 140px !important;
+        height: 24px !important;
+        margin-top: 29px;
+        margin-right: 18px;
+        float: left;
+    }
+
+    #clientConfiguration .datePicker .el-input__inner {
+        border-radius: 2px !important;
+        height: 24px !important;
+    }
+
+    #clientConfiguration .add {
+        background: url("/static/images/add.png") no-repeat center;
+    }
+
+    #clientConfiguration .del {
+        background: url("/static/images/del.png") no-repeat center;
+    }
+
+    #clientConfiguration .search {
+        background: url("/static/images/search.png") no-repeat center;
+    }
+
+    #clientConfiguration .sel {
+        background: url("/static/images/sel.png") no-repeat center;
+    }
+
+    #clientConfiguration .icon {
+        float: left;
+    }
+
+    #clientConfiguration .btn span {
+        float: left;
+        margin-top: 4px;
+        margin-left: 2px;
+    }
+
+    #clientConfiguration .btn {
+        height: 24px;
+        line-height: 1;
+        border: none;
+        background: #f8fafb;
+        outline: none;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        float: left;
+        font-size: 14px;
+        color: #1f2d3d;
+        margin-top: 29px;
+        margin-right: 16px;
+    }
+
+    #clientConfiguration .btn-print {
+        margin-right: 0;
+    }
+
+    #clientConfiguration .btn:hover {
+        color: #5468ee;
+    }
+
+    #clientConfiguration .inner {
+        margin: 0 20px;
+    }
+
+    #clientConfiguration .btn-nav {
+        height: 60px;
+        overflow: hidden;
+    }
+
+    #clientConfiguration .btn-nav .el-input .el-input__inner {
+        height: 24px;
+    }
+
+    #clientConfiguration .btn-nav .el-input {
+        float: left;
+        margin-top: 29px;
+        margin-right: 18px;
+        width: 140px;
+        height: 24px;
+    }
+
+    #clientConfiguration h4 {
+        padding-left: 20px;
+        margin-bottom: 0px;
+    }
+
+    #clientConfiguration .formBottom {
+        margin-top: 10px;
+    }
+
+    #clientConfiguration .clientConfigurationCombinationDetails .el-date-editor.el-input {
+        width: 100%;
+    }
+
+    #clientConfiguration .clientConfigurationCombinationDetails {
+        margin-top: 30px;
+    }
+</style>
+<style>
+    .steps {
+        position: absolute;
+        bottom: 10px;
+        left: 30px;
+        margin: auto;
+    }
+
+    .el-dialog__headerbtn {
+        position: absolute;
+        right: 25px;
+        top: 15px;
+    }
+
+    .el-step__main {
+        margin-left: -8px !important;
+    }
+</style>
+<style>
+    .el-date-editor.el-input {
+        width: 100%;
+    }
+</style>
+
+<div id="clientConfiguration">
+    <!--页面调整-->
+    <el-row
+            v-loading="showLoading"
+            element-loading-text="拼命加载中">
+        <div class="inner btn-nav">
+
+            <el-input
+                    v-model="bcCname"
+                    icon="search"
+                    placeholder="客户名称"></el-input>
+
+            <button @click="newInput" class="btn btn-add"><i
+                    class="icon add"></i><span>新增</span>
+            </button>
+
+            <button @click="multiSelectClick" class="btn btn-multiSelect"><i
+                    class="icon sel"></i><span>多选</span>
+            </button>
+
+            <button
+                    @click="multiOperationDelete"
+                    class="btn btn-del"
+                    v-show="multiSelect">批量删除
+            </button>
+            <button
+                    class="btn"
+                    v-show="multiSelect"
+                    @click="multiOperationEdit">编辑
+            </button>
+            <button
+                    class="btn"
+                    v-show="multiSelect"
+                    @click="multiOperationGoods">配置货品
+            </button>
+            <button
+                    class="btn"
+                    v-show="multiSelect"
+                    @click="multiOperationClient">配置仓库
+            </button>
+
+
+            <button
+                    class="btn"
+                    v-show="multiSelect&&multipleSelection.length==1"
+                    @click="multiOperationEdit">编辑
+            </button>
+        </div>
+        <el-table
+                :data="clientConfiguration"
+                :max-height="450"
+                ref="table"
+                class="clientConfigurationTable"
+                @selection-change="multiSelectionChange"
+                style="width: 100%">
+            <el-table-column
+                    type="expand">
+                <template scope="props">
+                    <el-row>
+                        <el-col :span="10">
+                            <el-form label-position="left" inline class="demo-table-expand">
+                                <el-form-item label="客户名称">
+                                    <span>{{ props.row.bcCname        }}</span>
+                                </el-form-item>
+                                <el-form-item label="客户地址">
+                                    <span>{{ props.row.bcCaddr       }}</span>
+                                </el-form-item>
+                                <el-form-item label="联系电话">
+                                    <span>{{ props.row.bcCtel           }}</span>
+                                </el-form-item>
+
+                            </el-form>
+                        </el-col>
+                        <el-col :span="14">
+                            <el-form label-position="left" inline class="demo-table-expand">
+                                </el-form-item>
+                                <el-form-item label="创建时间">
+                                    <span>{{ props.row.bcCjsj    }}</span>
+                                </el-form-item>
+                                <el-form-item label="状态">
+                                    <span>{{ props.row.bcStatus == 0 ? '':'可用'      }}</span>
+                                </el-form-item>
+                                <el-form-item label="可用操作">
+                                    <el-button
+                                            size="small"
+                                            icon="edit"
+                                            @click="inlineEdit(props.$index, props.row)">
+                                    </el-button>
+                                    <el-button
+                                            size="small"
+                                            icon="delete"
+                                            type="danger"
+                                            @click="inlineDelete(props.$index, props.row)">
+                                    </el-button>
+                                    <el-button
+                                            size="small"
+                                            type="primary"
+                                            @click="inlineGoods(props.$index, props.row)">配置货品
+                                    </el-button>
+                                    <el-button
+                                            size="small"
+                                            type="warning"
+                                            @click="inlineClient(props.$index, props.row)">配置仓库
+                                    </el-button>
+                                </el-form-item>
+                            </el-form>
+                        </el-col>
+                    </el-row>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="客户名称"
+                    align="center">
+                <template scope="scope">
+                    <span>{{ scope.row.bcCname}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="客户地址"
+                    align="center">
+                <template scope="scope">
+                    <span>{{ scope.row.bcCaddr}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="联系电话"
+                    align="center">
+                <template scope="scope">
+                    <span>{{ scope.row.bcCtel}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    v-if="multiSelect"
+                    type="selection"
+                    width="60">
+            </el-table-column>
+        </el-table>
+        <div class="block">
+            <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="[5, 10, 15, 20]"
+                    :page-size="pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="currentTotal">
+            </el-pagination>
+        </div>
+    </el-row>
+    <el-dialog
+            size="small"
+            v-model="dialogFormVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">{{form.title}}</span>
+            <el-steps
+                    class="steps"
+                    :space="120"
+                    :active="dialogFormActive"
+                    finish-status="success">
+            </el-steps>
+        </div>
+        <el-form :model="form" ref="newForm">
+            <el-carousel
+                    ref="carousel"
+                    :autoplay="false"
+                    arrow="never"
+                    indicator-position="none"
+                    height="55vh">
+                <el-carousel-item>
+                    <el-row>
+                        <el-col :span="10">
+                            <el-form-item
+                                    label="客户名称"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.bcCname        "
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    label="联系电话"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.bcCtel       "
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    label="客户地址"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.bcCaddr   "
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+
+                </el-carousel-item>
+            </el-carousel>
+        </el-form>
+    </el-dialog>
+    <el-dialog
+            size="small"
+            v-model="dialogRoleVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">配置角色</span>
+        </div>
+
+        <el-form :model="roleForm" ref="newRoleForm">
+            <el-row>
+                <el-radio v-for="city in role" v-model="roleForm.roleId" :label="city.rrRoleId">{{city.rrName}}
+                </el-radio>
+            </el-row>
+        </el-form>
+
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="submitRole" :loading="loadingRole">保存
+            </el-button>
+        </div>
+    </el-dialog>
+</div>
+
+<script>
+    var form = function () {
+        return {
+            bcClientId: '',
+            title: "新建客户",
+            bcCname: '',
+            bcCaddr: '',
+            bcCtel: '',
+            bcStatus: '',
+            bcCjsj: '',
+
+
+            roleId: 1,
+
+            ruStatus: 1,
+        }
+    };               //弹出层 form 模板
+    var clientConfiguration = new Vue({
+        el: '#clientConfiguration',
+        prop: {},
+        data: function () {
+            return {
+                clientConfiguration: [],              //主页面 信息集合
+                multipleSelection: [],           //主页面 多选集合
+                multiSelect: false,              //主页面 多选状态 维护
+
+                bcCname: '',                  //主页面 客户名称 搜索
+                showLoading: false,              //主页面 加载 维护
+
+                currentPage: 1,                  //分页 当前页
+                currentTotal: 1,                 //分页 总页数
+                pageSize: 10,                    //分页 分页大小
+
+                formLabelWidth: '120px',         //表单 配置
+
+                form: form(),                    //新建 弹出层 信息集合
+                dialogFormActive: 0,             //新建 弹出层 steps 当前进度
+                dialogFormVisible: false,        //新建 弹出层 是否可见
+                submitLoading: false,            //新建 弹出层 提交等待
+
+                pickerOption: {
+                    disabledDate: function (time) {
+                        return time.getTime() > Date.now();
+                    }
+                },             //新建 弹出层 生日选项
+
+                dialogRoleVisible: false,        //角色 弹出层 是否可见
+                loadingRole: false,              //角色 弹出层 提交等待
+                role: [],                        //角色 集合
+                roleForm: {
+                    roleId: 0,                        //角色 弹出层 角色ID
+                },                 //角色 弹出层 信息集合
+
+            }
+        },
+        computed: {
+            option: function () {
+                return {
+                    "draw": 1,
+                    "pageNum": this.currentPage,
+                    "pageSize": this.pageSize
+                }
+            },           //主页面 post 0
+            _ruUserType: {
+                get: function () {
+                    switch (this.form.ruUserType) {
+                        case 0:
+                            return '普通';
+                        case 1:
+                            return '堆高车';
+                        case 2:
+                            return '高位叉车';
+                    }
+                    return '';
+                },
+                set: function (newValue) {
+                    this.form.ruUserType = newValue;
+                }
+            },                  //转换 用户类型
+        },
+        methods: {
+            inlineEdit: function (index, row) {
+                this.form.title = '编辑';
+                this.form.bcClientId = row.bcClientId;
+                this.form.bcCname = row.bcCname;
+                this.form.bcCtel = row.bcCtel;
+                this.form.bcCaddr = row.bcCaddr;
+                this.dialogFormVisible = true;
+                this.dialogFormActive = 0;
+                Vue.nextTick(function () {
+                    clientConfiguration.$refs.carousel.setActiveItem(0);
+                });
+            },                                  //TODO 行内按钮-编辑
+            inlineDelete: function (index, row) {
+                var _this = this;
+                _this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.clientConfiguration);
+                    postDelete(_this, {
+                        id: [row.ruUserId]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },                                //TODO 行内按钮-删除
+            inlineGoods: function (index, row) {
+                var _this = this;
+                _this.$confirm('此操作将此用户密码重置, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                              //TODO 行内按钮-配置货品
+            inlineClient: function (index, row) {
+                var _this = this;
+                _this.$confirm('此操作将启用此用户, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                                  //TODO 行内按钮-配置仓库
+
+
+            multiSelectClick: function () {
+                this.multiSelect = !this.multiSelect;
+            },                                      //多选 状态维护
+            multiSelectionChange: function (val, row) {
+                this.multipleSelection = val;
+            },                          //多选 选中控制
+            multiOperationDelete: function () {
+                for (i = 0; i < this.multipleSelection.length; i++) {
+                    remove(this.multipleSelection[i], this.clientConfiguration);
+                }
+            },                                  //TODO 多选 删除
+            multiOperationEdit: function () {
+                this.inlineEdit(1, this.multipleSelection[0]);
+            },                                    //TODO 多选 编辑
+            multiOperationGoods: function () {
+                this.inlineRole(1, this.multipleSelection[0]);
+            },                                    //TODO 多选 配置货品
+            multiOperationClient: function () {
+                this.inlineRole(1, this.multipleSelection[0]);
+            },                                    //TODO 多选 配置仓库
+
+            multiOperationPassword: function () {
+                var _this = this;
+                _this.$confirm('此操作将这些用户密码重置, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                                //多选 密码
+            multiOperationAble: function () {
+                var _this = this;
+                _this.$confirm('此操作将这些用户设置为启用, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                                    //多选 启用
+            multiOperationDisAble: function () {
+                var _this = this;
+                _this.$confirm('此操作将这些用户设置为禁用, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                                 //多选 禁用
+
+            handleSizeChange: function (val) {
+                /*<debug>*/
+                console.log('每页' + val + '条');
+                /*</debug>*/
+                this.pageSize = val;
+                post(this, this.option);
+            },                                   //分页 Size
+            handleCurrentChange: function (val) {
+                /*<debug>*/
+                console.log('当前第' + val + '页');
+                /*</debug>*/
+                this.currentPage = val;
+                post(this, this.option);
+            },                                //分页 当前页
+
+            newInput: function () {
+                this.form = form();
+                this.dialogFormVisible = true;
+                this.dialogFormActive = 0;
+                this.$refs.carousel.setActiveItem(0);
+            },                                              //按钮 新建入库单
+
+            prev: function () {
+                this.dialogFormActive--;
+                this.$refs.carousel.prev();
+            },                                                  //新建 弹出层banner控制 前一个
+            next: function () {
+                this.dialogFormActive++;
+                this.$refs.carousel.next();
+            },                                                  //新建 弹出层banner控制 后一个
+            submit: function () {
+                var _this = this;
+                this.dialogFormActive++;
+                this.submitLoading = true;
+                //TODO 此处应是ajax请求
+
+
+                /*<prod>*/
+                if (this.form.title === '新建客户') {
+                    postSubmit(this, this.form);
+                } else {
+                    postModify(this, this.form);
+                }
+                /*</prod>*/
+                /*<debug>*/
+                setTimeout(function () {
+                    _this.submitLoading = false;
+                    _this.$notify({
+                        title: '成功',
+                        message: '保存成功！',
+                        type: 'success'
+                    });
+                    _this.dialogFormVisible = false;
+                    _this.dialogFormActive = 0;
+                    _this.$refs.carousel.setActiveItem(0);
+                    post(clientConfiguration);
+                }, 1500);
+                /*</debug>*/
+            },                                                //新建 表单提交
+
+            submitRole: function () {
+                var _this = this;
+                this.loadingRole = true;
+
+                /*<prod>*/
+                //TODO
+                postModify(this, this.form);
+                /*</prod>*/
+                /*<debug>*/
+                setTimeout(function () {
+                    _this.loadingRole = false;
+                    _this.dialogRoleVisible = false;
+                    _this.$notify({
+                        title: '成功',
+                        message: '更换角色成功！',
+                        type: 'success'
+                    });
+                }, 1500);
+                /*</debug>*/
+            },                                            //新建 表单提交
+
+        },
+        watch: {
+            bcCname: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                post(this, this.option);
+            }
+        }
+    });
+    // 高级 监视器的 使用方法
+    //    clientConfiguration.$watch('date', function () {
+    //        if (!this.option.dateStart)return;
+    //        /*<debug>*/
+    //        console.log(this.option);
+    //        /*</debug>*/
+    //        post(this, this.option);
+    //    }, {deep: true});
+    post(clientConfiguration, clientConfiguration.option);
+    postRoles(clientConfiguration);
+    function post(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/clientControl/client.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/client/0";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                clientConfiguration.$data.clientConfiguration = json
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                       //TODO 请求 客户配置主页面
+    function postAdd(obj) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/clientControl/add.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "route/client/1";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 999                 //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                clientConfiguration.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                             //TODO 请求 新增-配置货品-配置仓库
+    function postGodds(obj) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/clientControl/add.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "route//client/clientAddGoods/2";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 999                 //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                clientConfiguration.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                        //TODO 请求 配置货品
+    function postClient(obj) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/clientControl/add.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "route//client/clientAddArehouses/3";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 999                 //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                clientConfiguration.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                          //TODO 请求 配置仓库
+    function postAdd(obj) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/clientControl/add.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "route/client/4";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 999                 //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                clientConfiguration.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                          //TODO 请求  编辑
+    function postNoRepeat(obj) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/clientControl/add.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "route/client/5";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 999                 //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                clientConfiguration.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                          //TODO 请求  客户名称不重复
+    function errorTip(obj, error) {                    // 错误提示
+        /*<debug>*/
+        console.log(error);
+        /*</debug>*/
+        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
+    }
+    function remove(obj, data) {
+        for (var i = 0; i < data.length; i++) {
+            var temp = data[i];
+            if (!isNaN(obj)) {
+                temp = i;
+            }
+            if (temp == obj) {
+                for (var j = i; j < data.length; j++) {
+                    data[j] = data[j + 1];
+
+//                    console.log(temp);
+                }
+                data.pop();
+            }
+        }
+    }
+    function addOrDelete(obj, data) {
+        for (var i = 0; i < data.length; i++) {
+            if (data[i] == obj) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+</script>
