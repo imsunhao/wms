@@ -1,6 +1,7 @@
 /**
  * Created by imsunhao on 2017/3/13.
  */
+
 /**
  * TODO 测试新版数据库 wms_rb Menu
  *  入库操作 弹出层 样式调整 应用走马灯的猜想
@@ -50,7 +51,7 @@
 
 
 /**数据库数据
- *  TODO 千万不要自动排版！！！看完删除
+ *
  */
 
 /** TODO 系统配置
@@ -94,7 +95,7 @@
          *          ruLastModifiedTime  最后修改时间
          *
          **/
-        /**     TODO 1  新增-启用-配置角色                 /new
+        /**     TODO 1  新增-启用-配置角色            POST /user
          *          ruUserName          用户昵称/名
          *          ruLoginPassword     密码
          *          ruPhone             手机
@@ -116,10 +117,10 @@
          *                                  1.堆高车
          *                                  2.高位叉车
          *                                  */
-        /**    TODO 2 启用                               /user/liveUsersByUids
+        /** 2 启用                               /user/liveUsersByUids
          *          user_ids    被勾选的用户id集合
          *          */
-        /**TODO 3 配置角色                           /user/userAddRoles
+        /** 3 配置角色                           /user/userAddRoles
          *          用户配置角色
          *          userId         用户id
          *          roleIds        被勾选的角色id集合
@@ -147,28 +148,25 @@
          *                                  2.高位叉车
          *                                  */
         /** TODO 5 重置密码                             /user/resetPwd
+         *          ids    被勾选的用户id集合
+         *          */
+        /** 6 禁用                               /user/dieUsersByUids
          *          user_ids    被勾选的用户id集合
          *          */
-        /** TODO 6 禁用                               /user/dieUsersByUids
-         *          user_ids    被勾选的用户id集合
-         *          */
-        /** TODO 7 用户名不允许重复且不允许使用特殊字符的接口     /user/isRepeatByUsername/{username}
+        /**  7 用户名不允许重复                  /user/isRepeatByUsername/{username}
          *          username    用户名称
          *          */
-        /** TODO 8 登录账号不允许重复且不允许使用特殊字符的接口   /user/isRepeatByLoginname/{loginname}
+        /**  8 登录账号不允许重复              /user/isRepeatByLoginname/{loginname}
          *          loginname   登录账号
          *          */
-        /** TODO 9 用户配置角色
+        /** 9 设置 用户 角色            POST /user/userAddRoles
          *          userId         用户id
-         *          roleIds        被勾选的角色id  TODO 接口有问题  不应该是集合
+         *          roleIds        被勾选的角色id
          *          */
-        /** TODO 10 用户管理 通过userid删除一条用户数据
-         *          id              用户id
-         *          */
-        /** TODO 11 用户管理 根据id返回用户信息
-         *          id              用户id
-         *          */
-        /** TODO 12 请求所有角色                      /role/page  post
+        /** 11 用户管理 根据id返回用户角色信息     POST /role/findByUserId/{user_id}
+         *          user_id              用户id
+         **/
+        /**  12 请求所有角色                      /role/page  post
          *
                     draw            没有意义   0
                     pageNum         当前页     1
@@ -233,65 +231,76 @@
          *          rrName               角色name
          *          */
 
- /** TODO 系统配置
- *      TODO 仓库管理/配置
- *          ArehouseId           id
- *          Name                 仓库名称
- *          Addr                 仓库地址
- *          Scity                所在地市
- *          Scontacts            联系人
- *          Phone                电话
- *          Acreage              面积
- *          Ctype                仓库类型
- *          Humidity             相对湿度
- *          Fax                  传真
- *          Postoffice           邮编
- *          Isti                 是否需要维护ti值
- *                                  1.存在ti
- *                                  2.不存在ti
- *          Status               状态
- *                                  1.可用
- *                                  0.软删除
- *          ClientId             客户id
- *          Remarks              备注
- *          Pgroupinfo           平面图信息
- *          Createtime           创建时间
- *      TODO 新增 /arehouse
- *          Name                 仓库名称
- *          Addr                 仓库地址
- *          Scontacts            联系人/负责人
- *          Phone                电话
- *          Remarks              备注
- *          Ctype                仓库类型
- *          Humidity             相对湿度
- *          Postoffice           邮编
- *          Fax                  传真
- *      TODO 编辑 /arehouse
- *          Name                 仓库名称
- *          Addr                 仓库地址
- *          Scontacts            联系人/负责人
- *          Phone                电话
- *          Remarks              备注
- *          Ctype                仓库类型
- *          Humidity             相对湿度
- *          Postoffice           邮编
- *          Fax                  传真
- *
- *          客户归属
- *          arehouseId          仓库id
- *          通过clientId查询部分仓库的信息(被客户id绑定的)
- *          clientId            客户id
- *          通过roleId查询部分仓库的信息(被角色id绑定的)
- *          roleId              角色id
- *          通过id删除一条仓库数据
- *          id                   仓库id
- *          根据id返回仓库信息
- *          id                   仓库id
- *          通过client_id查询部分仓库的信息(被用户id绑定的)
- *          userId              用户id
- *          clientId            客户id
- * TODO 系统配置
- *      TODO 客户配置 0
+    /** 仓库管理/配置   warehouseConfiguration
+     *
+     */
+        /** TODO 0 分页获取 仓库详情
+         *          ArehouseId           id
+         *          Name                 仓库名称
+         *          Addr                 仓库地址
+         *          Scity                所在地市
+         *          Scontacts            联系人
+         *          Phone                电话
+         *          Acreage              面积
+         *          Ctype                仓库类型
+         *
+         *          Humidity             相对湿度
+         *          Fax                  传真
+         *          Postoffice           邮编
+         *          Isti                 是否需要维护ti值
+         *                                  1.存在ti
+         *                                  2.不存在ti
+         *          Status               状态
+         *                                  1.可用
+         *                                  0.软删除
+         *          ClientId             客户id
+         *          Remarks              备注
+         *          Pgroupinfo           平面图信息
+         *          Createtime           创建时间
+         *          */
+        /** TODO 1 新增 /arehouse
+         *          Name                 仓库名称
+         *          Addr                 仓库地址
+         *          Scontacts            联系人/负责人
+         *          Phone                电话
+         *          Remarks              备注
+         *          Ctype                仓库类型
+         *          Humidity             相对湿度
+         *          Postoffice           邮编
+         *          Fax                  传真
+         *          */
+        /** TODO 2 编辑 /arehouse
+         *          Name                 仓库名称
+         *          Addr                 仓库地址
+         *          Scontacts            联系人/负责人
+         *          Phone                电话
+         *          Remarks              备注
+         *          Ctype                仓库类型
+         *          Humidity             相对湿度
+         *          Postoffice           邮编
+         *          Fax                  传真
+         *
+         *          客户归属
+         *          arehouseId          仓库id
+         *          */
+        /** TODO 3 通过clientId查询部分仓库的信息(被客户id绑定的)
+         *          clientId            客户id
+         *          */
+        /** TODO 4 通过roleId查询部分仓库的信息(被角色id绑定的)
+         *          roleId              角色id
+         *          */
+        /** TODO 5 通过id删除一条仓库数据
+         *          id                   仓库id
+         *          */
+        /** TODO 6 根据id返回仓库信息
+         *          id                   仓库id
+         *          */
+        /** TODO 7 通过client_id查询部分仓库的信息(被用户id绑定的)
+         *          userId              用户id
+         *          clientId            客户id
+         *          */
+ /* TODO 系统配置
+ *      TODO 客户配置
  *          bcClientId           id
  *          bcCname              客户名称
  *          bcCaddr              客户地址

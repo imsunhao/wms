@@ -196,11 +196,6 @@
             </button>
 
             <button
-                    @click="multiOperationDelete"
-                    class="btn btn-del"
-                    v-show="multiSelect">批量删除
-            </button>
-            <button
                     class="btn"
                     v-show="multiSelect"
                     @click="multiOperationPassword">重置密码
@@ -295,11 +290,6 @@
                                             icon="edit"
                                             @click="inlineEdit(props.$index, props.row)">
                                     </el-button>
-                                    <el-button
-                                            size="small"
-                                            icon="delete"
-                                            type="danger"
-                                            @click="inlineDelete(props.$index, props.row)">
                                     </el-button>
                                     <el-button
                                             size="small"
@@ -333,7 +323,8 @@
                     label="用户名"
                     align="center">
                 <template scope="scope">
-                    <span>{{ scope.row.ruUserName}}</span>
+                    <img :src="scope.row.ruPortrait"
+                         style="width: 24px;height: 24px;border-radius: 50%;float:left;"><span>{{ scope.row.ruUserName}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -595,7 +586,6 @@
         }
     };               //弹出层 form 模板
 
-
     var userManagement = new Vue({
         el: '#userManagement',
         prop: {},
@@ -630,6 +620,7 @@
                 loadingRole: false,              //角色 弹出层 提交等待
                 role: [],                        //角色 集合
                 roleForm: {
+                    userId: 1,
                     roleId: 0,                        //角色 弹出层 角色ID
                 },                 //角色 弹出层 信息集合
 
@@ -640,7 +631,9 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
+                    "pageSize": this.pageSize,
+                    "ruUserName": this.ruUserName.trim(),
+                    "ruLoginName": this.ruLoginName.trim()
                 }
             },           //主页面 post 0
             _ruUserType: {
@@ -694,77 +687,61 @@
                     userManagement.$refs.carousel.setActiveItem(0);
                 });
             },                                  //行内按钮-编辑
-            inlineDelete: function (index, row) {
-                var _this = this;
-                _this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(function () {
-                    remove(row, _this.userManagement);
-                    postDelete(_this, {
-                        id: [row.ruUserId]
-                    });
-                }).catch(function () {
-                    _this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    });
-                });
-            },                                //行内按钮-删除
             inlinePassword: function (index, row) {
-                var _this = this;
-                _this.$confirm('此操作将此用户密码重置, 是否继续?', '提示', {
+                var obj = this;
+                obj.$confirm('此操作将此用户密码重置, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    // TODO
+                    postPassword(this, {ids: row.ruUserId});
                 }).catch(function () {
-                    _this.$message({
+                    obj.$message({
                         type: 'info',
                         message: '已取消'
                     });
                 });
             },                              //行内按钮-密码
             inlineAble: function (index, row) {
-                var _this = this;
-                _this.$confirm('此操作将启用此用户, 是否继续?', '提示', {
+                var obj = this;
+                obj.$confirm('此操作将启用此用户, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    // TODO
+                    postAble(obj, {ids: [row.ruUserId]});
                 }).catch(function () {
-                    _this.$message({
+                    obj.$message({
                         type: 'info',
                         message: '已取消'
                     });
                 });
-            },                                  //行内按钮-密码
+            },                                  //行内按钮-启用
             inlineDisAble: function (index, row) {
-                var _this = this;
-                _this.$confirm('此操作将此用户禁用, 是否继续?', '提示', {
+                var obj = this;
+                obj.$confirm('此操作将此用户禁用, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    // TODO
+                    postDisAble(obj, {ids: [row.ruUserId]});
                 }).catch(function () {
-                    _this.$message({
+                    obj.$message({
                         type: 'info',
                         message: '已取消'
                     });
                 });
-            },                               //行内按钮-密码
+            },                               //行内按钮-禁用
             inlineRole: function (index, row) {
                 /*<debug>*/
                 this.roleForm = {
+                    userId: row.userId,
                     roleId: row.ruUserId,                        //角色 弹出层 角色ID
                 };
                 /*</debug>*/
                 /*<prod>*/
-                postRuRoles(this, row.ruUserId);
+                postRuRoles(this, {user_id: row.ruUserId});
+                this.roleForm.userId = row.ruUserId;
                 /*</prod>*/
                 this.dialogRoleVisible = !this.dialogRoleVisible;
             },                                  //行内按钮-角色
@@ -775,11 +752,6 @@
             multiSelectionChange: function (val, row) {
                 this.multipleSelection = val;
             },                          //多选 选中控制
-            multiOperationDelete: function () {
-                for (i = 0; i < this.multipleSelection.length; i++) {
-                    remove(this.multipleSelection[i], this.userManagement);
-                }
-            },                                  //多选 删除
             multiOperationEdit: function () {
                 this.inlineEdit(1, this.multipleSelection[0]);
             },                                    //多选 编辑
@@ -787,45 +759,58 @@
                 this.inlineRole(1, this.multipleSelection[0]);
             },                                    //多选 角色
             multiOperationPassword: function () {
-                var _this = this;
-                _this.$confirm('此操作将这些用户密码重置, 是否继续?', '提示', {
+                var obj = this;
+                obj.$confirm('此操作将这些用户密码重置, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
                     // TODO
+                    var step = [];
+                    for (var i = 0; i < obj.multipleSelection.length; i++) {
+                        step.push(obj.multipleSelection[i].ruUserId);
+                    }
+                    postPassword(this, {ids: step});
                 }).catch(function () {
-                    _this.$message({
+                    obj.$message({
                         type: 'info',
                         message: '已取消'
                     });
                 });
             },                                //多选 密码
             multiOperationAble: function () {
-                var _this = this;
-                _this.$confirm('此操作将这些用户设置为启用, 是否继续?', '提示', {
+                var obj = this;
+                obj.$confirm('此操作将这些用户设置为启用, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    // TODO
+                    var step = [];
+                    for (var i = 0; i < obj.multipleSelection.length; i++) {
+                        step.push(obj.multipleSelection[i].ruUserId);
+                    }
+                    postAble(obj, {"ids": step});
                 }).catch(function () {
-                    _this.$message({
+                    obj.$message({
                         type: 'info',
                         message: '已取消'
                     });
                 });
             },                                    //多选 启用
             multiOperationDisAble: function () {
-                var _this = this;
-                _this.$confirm('此操作将这些用户设置为禁用, 是否继续?', '提示', {
+                var obj = this;
+                obj.$confirm('此操作将这些用户设置为禁用, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    // TODO
+                    var step = [];
+                    for (var i = 0; i < obj.multipleSelection.length; i++) {
+                        step.push(obj.multipleSelection[i].ruUserId);
+                    }
+                    postDisAble(obj, {"ids": step});
                 }).catch(function () {
-                    _this.$message({
+                    obj.$message({
                         type: 'info',
                         message: '已取消'
                     });
@@ -851,7 +836,9 @@
                 this.form = form();
                 this.dialogFormVisible = true;
                 this.dialogFormActive = 0;
-                this.$refs.carousel.setActiveItem(0);
+                Vue.nextTick(function () {
+                    userManagement.$refs.carousel.setActiveItem(0);
+                });
             },                                              //按钮 新建入库单
 
             prev: function () {
@@ -863,7 +850,7 @@
                 this.$refs.carousel.next();
             },                                                  //新建 弹出层banner控制 后一个
             submit: function () {
-                var _this = this;
+                var obj = this;
                 this.dialogFormActive++;
                 this.submitLoading = true;
                 //TODO 此处应是ajax请求
@@ -878,40 +865,39 @@
                 /*</prod>*/
                 /*<debug>*/
                 setTimeout(function () {
-                    _this.submitLoading = false;
-                    _this.$notify({
+                    obj.submitLoading = false;
+                    obj.$notify({
                         title: '成功',
                         message: '保存成功！',
                         type: 'success'
                     });
-                    _this.dialogFormVisible = false;
-                    _this.dialogFormActive = 0;
-                    _this.$refs.carousel.setActiveItem(0);
+                    obj.dialogFormVisible = false;
+                    obj.dialogFormActive = 0;
+                    obj.$refs.carousel.setActiveItem(0);
                     post(userManagement);
                 }, 1500);
                 /*</debug>*/
             },                                                //新建 表单提交
 
             submitRole: function () {
-                var _this = this;
+                var obj = this;
                 this.loadingRole = true;
-
                 /*<prod>*/
                 //TODO
-                postModify(this, this.form);
+                postSetRuRoles(this, {user_id: this.roleForm.userId, role_ids: [this.roleForm.roleId]});
                 /*</prod>*/
                 /*<debug>*/
                 setTimeout(function () {
-                    _this.loadingRole = false;
-                    _this.dialogRoleVisible = false;
-                    _this.$notify({
+                    obj.loadingRole = false;
+                    obj.dialogRoleVisible = false;
+                    obj.$notify({
                         title: '成功',
                         message: '更换角色成功！',
                         type: 'success'
                     });
                 }, 1500);
                 /*</debug>*/
-            },                                            //新建 表单提交
+            },                                            //角色 表单提交
 
         },
         watch: {
@@ -931,13 +917,12 @@
     });
 
     // 高级 监视器的 使用方法
-    //    userManagement.$watch('date', function () {
-    //        if (!this.option.dateStart)return;
-    //        /*<debug>*/
-    //        console.log(this.option);
-    //        /*</debug>*/
-    //        post(this, this.option);
-    //    }, {deep: true});
+    userManagement.$watch('form.ruUserName', function () {
+        postRuUserName(this, {userName: this.form.ruUserName.trim()});
+    }, {deep: true});
+    userManagement.$watch('form.ruLoginName', function () {
+        postRuLoginName(this, {loginName: this.form.ruLoginName.trim()});
+    }, {deep: true});
 
     post(userManagement, userManagement.option);
     postRoles(userManagement);
@@ -949,7 +934,7 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/userManagement/0";//post
+        url = "/route/userManagement/0";  //post
         /*</prod>*/
 
         $.ajax(url, {
@@ -978,156 +963,124 @@
                 obj.showLoading = false;
             }
         });
-    }
-    function postRoles(obj) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/roleControl/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/userManagement/12";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 999                 //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                userManagement.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                          //请求 所有角色 执行一次
-    function postRuRoles(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/roleControl/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/userManagement/12";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 999                 //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                userManagement.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                //请求 用户 角色
-    function postRuUserName(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/roleControl/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/role/page/0";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                userManagement.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }             //用户名 查重
-    function postRuLoginName(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/roleControl/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/role/page/0";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                userManagement.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }            //登录名 查重
+    }                       // 0
     function postSubmit(obj, option) {
         obj.showLoading = true;
 
         /*<debug>*/
         url = "../../hock/roleControl/page.json";
-        url1 = "../../hock/roleControl/page.json";
-        url2 = "../../hock/roleControl/page.json";
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/role/page/0";//post
-        url1 = "/route/role/page/0";//post
-        url2 = "/route/role/page/0";//post
+        url = "/route/userManagement/1";  //new
+        url1 = "/route/userManagement/0";  //new
+        url2 = "/route/userManagement/3";  //配置角色
+        option.ruStatus === 0 ? url3 = "/route/userManagement/2" : url3 = "/route/userManagement/6";
         /*</prod>*/
 
         $.ajax(url, {
             type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
+            data: option,
             error: function (error) {
                 errorTip(obj, error);
             },
             success: function (json) {
-                userManagement.$data.role = json.data;
+                /*<prod>*/
+                if (json.status === 20002) {
+                    $ajax(url1, {
+                        type: "GET",
+                        data: {user_id: option.userId, role_ids: [option.roleId]},
+                        error: function (error) {
+                            errorTip(obj, error);
+                        },
+                        success: function (json) {
+                            if (json.recordsFiltered !== 0) {
+                                $ajax(url2, {
+                                    type: "GET",
+                                    data: {user_id: option.userId, role_ids: [option.roleId]},
+                                    error: function (error) {
+                                        errorTip(obj, error);
+                                    },
+                                    success: function (json) {
+                                        if (json.status === 20000) {
+                                            $ajax(url3, {
+                                                type: "GET",
+                                                data: {"ids": option.ruStatus},
+                                                error: function (error) {
+                                                    errorTip(obj, error);
+                                                },
+                                                success: function (json) {
+                                                    if (json.status === 20000) {
+                                                        obj.submitLoading = false;
+                                                        obj.$notify({
+                                                            title: '成功',
+                                                            message: '保存成功！',
+                                                            type: 'success'
+                                                        });
+                                                        obj.dialogFormVisible = false;
+                                                        obj.dialogFormActive = 0;
+                                                        obj.$refs.carousel.setActiveItem(0);
+                                                        post(userManagement, obj.option);
+                                                    }
+                                                },
+                                                complete: function () {
+                                                    obj.showLoading = false;
+                                                }
+                                            });
+
+                                        }
+                                    },
+                                    complete: function () {
+
+                                    }
+                                });
+                            }
+                        },
+                        complete: function () {
+
+                        }
+                    });
+                }
+                /*</prod>*/
+            },
+            complete: function () {
+
+            }
+        });
+    }                 // 1 用户 新增
+    function postAble(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "/hock/form/inputOptoionDelete.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/userManagement/2";
+        /*</prod>*/
+        $.ajax(url, {
+            type: "GET",
+            data: option,
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                if (json.status === 20000) {
+                    obj.$notify({
+                        title: '提示',
+                        type: 'success',
+                        message: obj.$createElement(
+                            'p',
+                            '启用完成'
+                        )
+                    });
+                }
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
-    }                 //用户 新增
+    }                   // 2 用户 启用
     function postModify(obj, option) {
         obj.showLoading = true;
 
@@ -1156,36 +1109,32 @@
                 obj.showLoading = false;
             }
         });
-    }                 //用户 修改
-    function postDelete(obj, option) {
-        //TODO 删除后重新post
-        if (option.id.length < 1)return;
+    }                 // 4 用户 编辑
+    function postPassword(obj, option) {
         obj.showLoading = true;
 
         /*<debug>*/
-        url = "/hock/form/inputOptoionDelete.json";
+        url = "../../hock/roleControl/page.json";
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/userManagement/1";
+        url = "/route/role/page/0";//post
         /*</prod>*/
 
         $.ajax(url, {
             type: "GET",
-            data: option | {
-                "id": 1                        //* 入库单号id
-            },
+            data: option,
             error: function (error) {
                 errorTip(obj, error);
             },
             success: function (json) {
-                if (json.status == 1) {
+                if (json.status === 20000) {
                     obj.$notify({
                         title: '提示',
                         type: 'success',
                         message: obj.$createElement(
                             'p',
-                            '删除完成'
+                            '密码修改完成'
                         )
                     });
                 }
@@ -1194,13 +1143,202 @@
                 obj.showLoading = false;
             }
         });
-    }                 //用户 删除
-    function errorTip(obj, error) {                    // 错误提示
+    }               // 5 用户 密码
+    function postDisAble(obj, option) {
+        obj.showLoading = true;
+
         /*<debug>*/
-        console.log(error);
+        url = "/hock/form/inputOptoionDelete.json";
         /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
+
+        /*<prod>*/
+        url = "/route/userManagement/6";
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option,
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                if (json.status === 20000) {
+                    obj.$notify({
+                        title: '提示',
+                        type: 'success',
+                        message: obj.$createElement(
+                            'p',
+                            '禁用完成'
+                        )
+                    });
+                }
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                // 6 用户 禁用
+    function postRuUserName(obj, option) {
+        if (option.userName === '')return;
+//        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/userManagement/7";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                if (json.status !== 20000) {
+                    errorTip(obj, json.model);
+                }
+            },
+            complete: function () {
+//                obj.showLoading = false;
+            }
+        });
+    }             // 7 用户名 查重
+    function postRuLoginName(obj, option) {
+        if (option.loginName === '')return;
+//        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/userManagement/8";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                if (json.status !== 20000) {
+                    errorTip(obj, json.model);
+                }
+            },
+            complete: function () {
+//                obj.showLoading = false;
+            }
+        });
+    }            // 8 登录名 查重
+    function postSetRuRoles(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/userManagement/9";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 999                 //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                obj.loadingRole = false;
+                obj.dialogRoleVisible = false;
+                obj.$notify({
+                    title: '成功',
+                    message: '更换角色成功！',
+                    type: 'success'
+                });
+                console.log(json);
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }             // 9 设置 用户 角色
+    function postRuRoles(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/userManagement/11";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 999                 //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                obj.roleForm.roleId = json[0].rrRoleId;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                // 11 请求 用户 角色
+    function postRoles(obj) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/userManagement/12";
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 999                 //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                userManagement.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                          // 12 请求 所有角色 执行一次
+    function errorTip(obj, error) {
+        console.log(error);
+    }                    // 错误提示
     function remove(obj, data) {
         for (var i = 0; i < data.length; i++) {
             var temp = data[i];
