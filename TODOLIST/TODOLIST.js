@@ -610,6 +610,35 @@
  *          TODO 再次收货中的删除
  * TODO 业务处理
  *      TODO 入库台账
+  *         TODO 入库台账主页面
+  *             rkCreatetime    始发日期
+  *             rkrwDhrq        到货日期
+  *             rk_Sjsj         收货日期
+  *             rkrwDbd         调拨地点
+  *             rkrwCys         承运商
+  *             rkrwCph         车牌号
+  *             mdtUserId       收货人
+  *             mdtArehouseId   收货仓库
+  *             rkRkdjNo        单号
+  *             rkErpNo         调拨单号
+  *             承运件数(台)    --计算出来的，在数据库中无字段
+  *             承运件数(箱)    --计算出来的，在数据库中无字段
+  *             方数            --计算出来的，在数据库中无字段
+  *             bgGoodsNo       物料编码
+  *             bgGoodsName     物料描述
+  *             台数            --计算出来的，在数据库中无字段
+  *             件数            --计算出来的，在数据库中无字段
+  *             方数            --计算出来的，在数据库中无字段
+  *             rksPsts         破损台数(入库储位时入到破损区库位中按明细累加破损台数)
+  *             rksDbPswb       调拨破损外包(可以为0,操作员手动输入)
+  *             rksYtPswb       源头破损外包(可以为0,操作员手动输入)
+  *             rksDbPsnb       调拨破损内保(可以为0,操作员手动输入)
+  *             rksYtPsnb       源头破损内保(可以为0,操作员手动输入)
+  *             rksPm           泡沫(可以为0,操作员手动输入)
+  *             rksQhsl         缺机/台(欠货数量,操作员手动输入)
+  *             rksYcyy         异常原因(操作员手动输入)
+  *             rksCljg         处理结果(操作员手动输入)
+  *             rks_jssj         结算时间,可以为空操作员手动输入
  *          TODO 制作台账
  *          rkspm       泡沫(可以为0,操作员手动输入)
  *          rksDbPswb   调拨破损外包(可以为0,操作员手动输入)
