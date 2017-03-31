@@ -136,6 +136,72 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
+             case 'clientConfiguration':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '客户管理-加载客户管理页面';
+                        req = autoUrl(req, '/client', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 1:
+                        urlName = '新增-配置货品-配置仓库';
+                        req = autoUrl(req, '/client', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 2:
+                        urlName = '配置货品';
+                        req = autoUrl(req, '/client/clientAddGoods', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 3:
+                        urlName = '配置仓库';
+                        req = autoUrl(req, '/client/clientAddArehouses', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 4:
+                        urlName = '编辑';
+                        req = autoUrl(req, '/client', "PUT", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 5:
+                        urlName = ' 客户名称不允许重复';
+                        req = autoUrl(req, '/client', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+                }
+                break;
+            case 'warehousingTask':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '入库任务管理-加载入库任务管理页面';
+                        req = autoUrl(req, 't', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 1:
+                        urlName = '修改';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 2:
+                        urlName = '下发';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
+                }
+                break;
+
         }
 
         console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + url);
