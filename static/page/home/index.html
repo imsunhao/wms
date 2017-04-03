@@ -1,7 +1,8 @@
 <style>
-#home >div{
-    width: 600px;height:400px;
-}
+    #home > div {
+        width: 600px;
+        height: 400px;
+    }
 </style>
 
 <div id="home">
@@ -15,312 +16,340 @@
 </div>
 <script>
     /*<debug>*/
-    var home=
-    /*</debug>*/
-    new Vue({
-        el:"#home",
-        data:function () {
-            return {
-                a1:{
-                    title: {
-                        text: '入库出库周明细',
-                        subtext: '纯属虚构'
-                    },
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+    var home =
+            /*</debug>*/
+        new Vue({
+            el: "#home",
+            data: function () {
+                return {
+                    a1: {
+                        title: {
+                            text: '入库出库周明细',
+                            subtext: '纯属虚构'
                         },
-                        width:'20%',
-                        height:'20%'
-                    },
-                    legend: {
-                        data: ['总计', '入库', '出库']
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
-                    xAxis: [
-                        {
-                            type: 'value'
-                        }
-                    ],
-                    yAxis: [
-                        {
-                            type: 'category',
-                            axisTick: {show: false},
-                            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-                        }
-                    ],
-                    series: [
-                        {
-                            name: '总计',
-                            type: 'bar',
-                            label: {
-                                normal: {
-                                    show: true,
-                                    position: 'inside'
-                                }
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
                             },
-                            data: [200, 170, 240, 244, 200, 220, 210]
+                            width: '20%',
+                            height: '20%'
                         },
-                        {
-                            name: '入库',
-                            type: 'bar',
-                            stack: '总量',
-                            label: {
-                                normal: {
-                                    show: true
-                                }
-                            },
-                            data: [320, 302, 341, 374, 390, 450, 420]
+                        legend: {
+                            data: ['总计', '入库', '出库']
                         },
-                        {
-                            name: '出库',
-                            type: 'bar',
-                            stack: '总量',
-                            label: {
-                                normal: {
-                                    show: true,
-                                    position: 'left'
-                                }
-                            },
-                            data: [-120, -132, -101, -134, -190, -230, -210]
-                        }
-                    ]
-                },
-                a2:{
-                    title: {
-                        text: '入库出库周明细',
-                        subtext: '纯属虚构'
-                    },
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    legend: {
-                        data: ['入库量', '出库量']
-                    },
-                    toolbox: {
-                        show: true,
-                        feature: {
-                            dataZoom: {
-                                yAxisIndex: 'none'
-                            },
-                            dataView: {readOnly: false},
-                            magicType: {type: ['line', 'bar']},
-                            restore: {},
-                            saveAsImage: {}
-                        }
-                    },
-                    xAxis: {
-                        type: 'category',
-                        boundaryGap: false,
-                        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-                    },
-                    yAxis: {
-                        type: 'value',
-                        axisLabel: {
-                            formatter: '{value} 件'
-                        }
-                    },
-                    series: [
-                        {
-                            name: '入库量',
-                            type: 'line',
-                            data: [110, 160, 105, 130, 412, 103, 129],
-                            markPoint: {
-                                data: [
-                                    {type: 'max', name: '周最高'},
-                                    {type: 'min', name: '周最低'}
-                                ]
-                            },
-                            markLine: {
-                                data: [
-                                    {type: 'average', name: '平均值'}
-                                ]
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: [
+                            {
+                                type: 'value'
                             }
-                        },
-                        {
-                            name: '出库量',
-                            type: 'line',
-                            data: [-100, -200, -200, -405, -300, -210, -120],
-                            markPoint: {
-                                data: [
-                                    {name: '周最低', value: -120, xAxis: 6, yAxis: -120}
-                                ]
-                            },
-                            markLine: {
-                                data: [
-                                    {type: 'average', name: '平均值'},
-                                    [{
-                                        symbol: 'none',
-                                        x: '90%',
-                                        yAxis: 'max'
-                                    }, {
-                                        symbol: 'circle',
-                                        label: {
-                                            normal: {
-                                                position: 'start',
-                                                formatter: '最大值'
-                                            }
-                                        },
-                                        type: 'max',
-                                        name: '最高点'
-                                    }]
-                                ]
+                        ],
+                        yAxis: [
+                            {
+                                type: 'category',
+                                axisTick: {show: false},
+                                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
                             }
-                        }
-                    ]
-                },
-                a3:{
-                    title: {
-                        text: '某站点用户访问来源',
-                        subtext: '纯属虚构',
-                        x: 'center'
-                    },
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
-                    legend: {
-                        orient: 'vertical',
-                        left: 'left',
-                        data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
-                    },
-                    series: [
-                        {
-                            name: '访问来源',
-                            type: 'pie',
-                            radius: '55%',
-                            center: ['50%', '60%'],
-                            data: [
-                                {value: 335, name: '直接访问'},
-                                {value: 310, name: '邮件营销'},
-                                {value: 234, name: '联盟广告'},
-                                {value: 135, name: '视频广告'},
-                                {value: 1548, name: '搜索引擎'}
-                            ],
-                            itemStyle: {
-                                emphasis: {
-                                    shadowBlur: 10,
-                                    shadowOffsetX: 0,
-                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                                }
-                            }
-                        }
-                    ]
-                },
-                a4:{
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                        }
-                    },
-                    legend: {
-                        data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎', '百度', '谷歌', '必应', '其他']
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
-                    xAxis: [
-                        {
-                            type: 'category',
-                            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-                        }
-                    ],
-                    yAxis: [
-                        {
-                            type: 'value'
-                        }
-                    ],
-                    series: [
-                        {
-                            name: '直接访问',
-                            type: 'bar',
-                            data: [320, 332, 301, 334, 390, 330, 320]
-                        },
-                        {
-                            name: '邮件营销',
-                            type: 'bar',
-                            stack: '广告',
-                            data: [120, 132, 101, 134, 90, 230, 210]
-                        },
-                        {
-                            name: '联盟广告',
-                            type: 'bar',
-                            stack: '广告',
-                            data: [220, 182, 191, 234, 290, 330, 310]
-                        },
-                        {
-                            name: '视频广告',
-                            type: 'bar',
-                            stack: '广告',
-                            data: [150, 232, 201, 154, 190, 330, 410]
-                        },
-                        {
-                            name: '搜索引擎',
-                            type: 'bar',
-                            data: [862, 1018, 964, 1026, 1679, 1600, 1570],
-                            markLine: {
-                                lineStyle: {
+                        ],
+                        series: [
+                            {
+                                name: '总计',
+                                type: 'bar',
+                                label: {
                                     normal: {
-                                        type: 'dashed'
+                                        show: true,
+                                        position: 'inside'
                                     }
                                 },
-                                data: [
-                                    [{type: 'min'}, {type: 'max'}]
-                                ]
+                                data: [200, 170, 240, 244, 200, 220, 210]
+                            },
+                            {
+                                name: '入库',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    normal: {
+                                        show: true
+                                    }
+                                },
+                                data: [320, 302, 341, 374, 390, 450, 420]
+                            },
+                            {
+                                name: '出库',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        position: 'left'
+                                    }
+                                },
+                                data: [-120, -132, -101, -134, -190, -230, -210]
+                            }
+                        ]
+                    },
+                    a2: {
+                        title: {
+                            text: '入库出库周明细',
+                            subtext: '纯属虚构'
+                        },
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data: ['入库量', '出库量']
+                        },
+                        toolbox: {
+                            show: true,
+                            feature: {
+                                dataZoom: {
+                                    yAxisIndex: 'none'
+                                },
+                                dataView: {readOnly: false},
+                                magicType: {type: ['line', 'bar']},
+                                restore: {},
+                                saveAsImage: {}
                             }
                         },
-                        {
-                            name: '百度',
-                            type: 'bar',
-                            barWidth: 5,
-                            stack: '搜索引擎',
-                            data: [620, 732, 701, 734, 1090, 1130, 1120]
+                        xAxis: {
+                            type: 'category',
+                            boundaryGap: false,
+                            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
                         },
-                        {
-                            name: '谷歌',
-                            type: 'bar',
-                            stack: '搜索引擎',
-                            data: [120, 132, 101, 134, 290, 230, 220]
+                        yAxis: {
+                            type: 'value',
+                            axisLabel: {
+                                formatter: '{value} 件'
+                            }
                         },
-                        {
-                            name: '必应',
-                            type: 'bar',
-                            stack: '搜索引擎',
-                            data: [60, 72, 71, 74, 190, 130, 110]
+                        series: [
+                            {
+                                name: '入库量',
+                                type: 'line',
+                                data: [110, 160, 105, 130, 412, 103, 129],
+                                markPoint: {
+                                    data: [
+                                        {type: 'max', name: '周最高'},
+                                        {type: 'min', name: '周最低'}
+                                    ]
+                                },
+                                markLine: {
+                                    data: [
+                                        {type: 'average', name: '平均值'}
+                                    ]
+                                }
+                            },
+                            {
+                                name: '出库量',
+                                type: 'line',
+                                data: [-100, -200, -200, -405, -300, -210, -120],
+                                markPoint: {
+                                    data: [
+                                        {name: '周最低', value: -120, xAxis: 6, yAxis: -120}
+                                    ]
+                                },
+                                markLine: {
+                                    data: [
+                                        {type: 'average', name: '平均值'},
+                                        [{
+                                            symbol: 'none',
+                                            x: '90%',
+                                            yAxis: 'max'
+                                        }, {
+                                            symbol: 'circle',
+                                            label: {
+                                                normal: {
+                                                    position: 'start',
+                                                    formatter: '最大值'
+                                                }
+                                            },
+                                            type: 'max',
+                                            name: '最高点'
+                                        }]
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    a3: {
+                        title: {
+                            text: '货品在库存中所占比例',
+                            subtext: '纯属虚构',
+                            x: 'center'
                         },
-                        {
-                            name: '其他',
-                            type: 'bar',
-                            stack: '搜索引擎',
-                            data: [62, 82, 91, 84, 109, 110, 120]
-                        }
-                    ]
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        },
+                        legend: {
+                            orient: 'vertical',
+                            left: 'left',
+                            data: [
+                                '刘名绍',
+                                '罗　蔚',
+                                '盛羡如',
+                                '华利树',
+                                '钟亚树',
+                                '陈本津',
+                                '韦昊衷',
+                                '邢云舜',
+                                '洪弘祯',
+                                '池镇逸',
+                                '甘　友',
+                                '岳锵澜',
+                                '刘彪彪',
+                                '张东可',
+                                '周淮兴',]
+                        },
+                        series: [
+                            {
+                                name: '访问来源',
+                                type: 'pie',
+                                radius: '55%',
+                                center: ['50%', '60%'],
+                                data: [
+                                    {value: 1020, name: '刘名绍'},
+                                    {value: 1420, name: '罗　蔚'},
+                                    {value: 1520, name: '盛羡如'},
+                                    {value: 1320, name: '华利树'},
+                                    {value: 1090, name: '钟亚树'},
+                                    {value: 1030, name: '陈本津'},
+                                    {value: 990, name: '韦昊衷'},
+                                    {value: 820, name: '邢云舜'},
+                                    {value: 1520, name: '洪弘祯'},
+                                    {value: 1420, name: '池镇逸'},
+                                    {value: 1220, name: '甘　友'},
+                                    {value: 1320, name: '岳锵澜'},
+                                    {value: 1720, name: '刘彪彪'},
+                                    {value: 1120, name: '张东可'},
+                                    {value: 920, name: '周淮兴'}
+                                ],
+                                itemStyle: {
+                                    emphasis: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    a4: {
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                            }
+                        },
+                        legend: {
+                            data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎', '百度', '谷歌', '必应', '其他']
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: [
+                            {
+                                type: 'category',
+                                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value'
+                            }
+                        ],
+                        series: [
+                            {
+                                name: '直接访问',
+                                type: 'bar',
+                                data: [320, 332, 301, 334, 390, 330, 320]
+                            },
+                            {
+                                name: '邮件营销',
+                                type: 'bar',
+                                stack: '广告',
+                                data: [120, 132, 101, 134, 90, 230, 210]
+                            },
+                            {
+                                name: '联盟广告',
+                                type: 'bar',
+                                stack: '广告',
+                                data: [220, 182, 191, 234, 290, 330, 310]
+                            },
+                            {
+                                name: '视频广告',
+                                type: 'bar',
+                                stack: '广告',
+                                data: [150, 232, 201, 154, 190, 330, 410]
+                            },
+                            {
+                                name: '搜索引擎',
+                                type: 'bar',
+                                data: [862, 1018, 964, 1026, 1679, 1600, 1570],
+                                markLine: {
+                                    lineStyle: {
+                                        normal: {
+                                            type: 'dashed'
+                                        }
+                                    },
+                                    data: [
+                                        [{type: 'min'}, {type: 'max'}]
+                                    ]
+                                }
+                            },
+                            {
+                                name: '百度',
+                                type: 'bar',
+                                barWidth: 5,
+                                stack: '搜索引擎',
+                                data: [620, 732, 701, 734, 1090, 1130, 1120]
+                            },
+                            {
+                                name: '谷歌',
+                                type: 'bar',
+                                stack: '搜索引擎',
+                                data: [120, 132, 101, 134, 290, 230, 220]
+                            },
+                            {
+                                name: '必应',
+                                type: 'bar',
+                                stack: '搜索引擎',
+                                data: [60, 72, 71, 74, 190, 130, 110]
+                            },
+                            {
+                                name: '其他',
+                                type: 'bar',
+                                stack: '搜索引擎',
+                                data: [62, 82, 91, 84, 109, 110, 120]
+                            }
+                        ]
+                    }
+                }
+            },
+            methods: {
+                changeA1: function () {
+                    var input = parseInt((Math.random() * 160 + 40).toFixed(2));
+                    var output = parseInt((Math.random() * -160 - 40).toFixed(2));
+                    this.a1.yAxis[0].data.push(this.a1.yAxis[0].data.shift());
+                    this.a1.series[0].data.shift();
+                    this.a1.series[1].data.shift();
+                    this.a1.series[2].data.shift();
+                    this.a1.series[1].data.push(input);
+                    this.a1.series[2].data.push(output);
+                    this.a1.series[0].data.push(parseInt((input + output).toFixed(2)));
+                    document.getElementById('a1').instance.setOption(this.a1);
                 }
             }
-        },
-        methods:{
-            changeA1:function () {
-                var input=parseInt((Math.random() * 160 + 40).toFixed(2));
-                var output=parseInt((Math.random() * -160 - 40).toFixed(2));
-                this.a1.yAxis[0].data.push(this.a1.yAxis[0].data.shift());
-                this.a1.series[0].data.shift();
-                this.a1.series[1].data.shift();
-                this.a1.series[2].data.shift();
-                this.a1.series[1].data.push(input);
-                this.a1.series[2].data.push(output);
-                this.a1.series[0].data.push(parseInt((input+output).toFixed(2)));
-                document.getElementById('a1').instance.setOption(this.a1);
-            }
-        }
-    })
+        })
+
+
+
 </script>
