@@ -1,16 +1,19 @@
 <style>
-    #home > div {
-        width: 600px;
+    #a1, #a2, #a3, #a4 {
+        padding: 20px 10px;
+        width: 440px;
         height: 400px;
+        float: left;
+        transition: .4s all;
     }
 </style>
 
 <div id="home">
     <div id="a1" v-echarts:a1="a1"></div>
-    <button @click="changeA1">changeA1</button>
     <div id="a2" v-echarts:a2="a2"></div>
     <div id="a3" v-echarts:a3="a3"></div>
     <div id="a4" v-echarts:a4="a4"></div>
+    <!--<button @click="changeA1">changeA1</button>-->
     <!--<div id="main4" v-echarts="a5" style="width: 600px;height:400px;"></div>-->
     <!--<div id="main5" v-echarts="a6" style="width: 600px;height:400px;"></div>-->
 </div>
@@ -179,7 +182,6 @@
                     a3: {
                         title: {
                             text: '货品在库存中所占比例',
-                            subtext: '纯属虚构',
                             x: 'center'
                         },
                         tooltip: {
@@ -204,11 +206,11 @@
                                 '岳锵澜',
                                 '刘彪彪',
                                 '张东可',
-                                '周淮兴',]
+                                '周淮兴']
                         },
                         series: [
                             {
-                                name: '访问来源',
+                                name: '货品信息',
                                 type: 'pie',
                                 radius: '55%',
                                 center: ['50%', '60%'],
@@ -349,7 +351,6 @@
                 }
             }
         })
-
 
 
 </script>
