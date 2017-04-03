@@ -228,3 +228,176 @@ html,body {
   left: 60px;
   width: calc(100% - 60px);
 }
+
+
+/*********** 打印功能 *********************************/
+
+.barcode {
+  float: left;
+  clear: both;
+  padding: 0 10px;
+  /*quiet zone*/
+  overflow: auto;
+  height: 0.5in;
+  /*size*/
+  position: absolute;
+  transform: rotate(-90deg);
+  right: -12mm;
+  top: 38mm;
+}
+
+.right {
+  float: right;
+}
+
+.barcode {
+  + * {
+    clear: both;
+  }
+  div {
+    float: left;
+    height: 0.35in;
+    /*size*/
+  }
+  .bar1 {
+    border-left: 1px solid black;
+  }
+  .bar2 {
+    border-left: 2px solid black;
+  }
+  .bar3 {
+    border-left: 3px solid black;
+  }
+  .bar4 {
+    border-left: 4px solid black;
+  }
+  .space0 {
+    margin-right: 0;
+  }
+  .space1 {
+    margin-right: 1px;
+  }
+  .space2 {
+    margin-right: 2px;
+  }
+  .space3 {
+    margin-right: 3px;
+  }
+  .space4 {
+    margin-right: 4px;
+  }
+  label {
+    clear: both;
+    display: block;
+    text-align: center;
+    font: 0.125in/100% helvetica;
+    /*size*/
+  }
+}
+
+
+.barcode2 {
+  float: left;
+  clear: both;
+  padding: 0;
+  /*quiet zone*/
+  overflow: hidden;
+  height: 1in;
+  /*size*/
+  color: black !important;
+  + * {
+    clear: both;
+  }
+  div {
+    float: left;
+    height: 0.7in;
+    /*size*/
+  }
+  .bar1 {
+    border-left: 2px solid black;
+  }
+  .bar2 {
+    border-left: 4px solid black;
+  }
+  .bar3 {
+    border-left: 6px solid black;
+  }
+  .bar4 {
+    border-left: 8px solid black;
+  }
+  .space0 {
+    margin-right: 0;
+  }
+  .space1 {
+    margin-right: 2px;
+  }
+  .space2 {
+    margin-right: 4px;
+  }
+  .space3 {
+    margin-right: 6px;
+  }
+  .space4 {
+    margin-right: 8px;
+  }
+  label {
+    clear: both;
+    display: block;
+    text-align: center;
+    font: 0.250in/100% helvetica;
+    /*size*/
+  }
+}
+
+#wap {
+  .el-dialog__header {
+    display: none !important;
+  }
+  .el-dialog__body {
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #000;
+  }
+  .el-dialog--full {
+    overflow: visible;
+    height: auto;
+  }
+  .el-dialog__wrapper {
+    overflow: visible;
+    position: static;
+  }
+  .divImsunhao {
+    width: 88.2mm;
+    height: 57.6mm;
+    padding: 3.4mm 3.7mm;
+    position: relative;
+    margin-bottom: 0.5mm;
+  }
+  p {
+    font: 0.200in/100% '宋体';
+    padding: 0;
+    margin: 0;
+    height: 9.5mm;
+    line-height: 9.5mm;
+    span {
+      padding-left: 3.3mm;
+    }
+  }
+}
+
+@media print {
+  #app {
+    display: none;
+  }
+  @page {
+    margin: 0 !important;
+    padding: 0;
+    size: 95mm 65mm !important;
+  }
+
+  .divImsunhao {
+    page-break-after: always;
+  }
+}
+
+/*** bigger ******************************************/

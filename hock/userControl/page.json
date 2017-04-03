@@ -21,7 +21,7 @@
       "ruUserZyq": "1,2",
       "ruRemarks": "",
       "ruIspda": false,
-      "ruPortrait": null
+      "ruPortrait": "static/images/users/00.jpg"
     },
     {
       "ruUserId": 1,
@@ -44,7 +44,8 @@
       "ruUserZyq": "1,2",
       "ruRemarks": "",
       "ruIspda": false,
-      "ruPortrait": null
+      "ruPortrait": "static/images/users/02.jpg"
+
     },
     {
       "ruUserId": 3,
@@ -67,7 +68,7 @@
       "ruUserZyq": "1,2",
       "ruRemarks": "",
       "ruIspda": false,
-      "ruPortrait": null
+      "ruPortrait": "static/images/users/01.jpg"
     }
   ],
   "draw": 0,
