@@ -211,6 +211,55 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
+             case 'inputLedger':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '入库台账管理-加载入库台账管理页面';
+                        req = autoUrl(req, 't', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '制作台账';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '制作台账明细';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '导出';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 4:
+                        urlName = '欠货完结';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 5:
+                        urlName = '入库单号不允许重复';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 6:
+                        urlName = '数量不允许为负数';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
+                }
+                break;
+
         }
 
         console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + req.body.url);
