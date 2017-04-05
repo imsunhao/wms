@@ -77,6 +77,12 @@
       "head": "资源管理",
       "children": [
         {
+          "id":13,
+          "label": "仓库管理",
+          "url":"page/warehouseManage",
+          "bmMenuIcon":"e3"
+        },
+        {
           "id":14,
           "label": "货品管理",
           "url":"page/goodsManage",
