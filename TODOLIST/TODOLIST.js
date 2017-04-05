@@ -64,15 +64,14 @@
          *                                  0.普通
          *                                  1.堆高车
          *                                  2.高位叉车
-         *          ruPhone             手机  联系方式???
-         ruStatus            状态(int)
-         0.禁用(软删除)
-         1启用
-         ruIspda             是否允许登陆PDA(tinyint)
+         *          ruPhone             联系方式
+                    ruStatus            是否启用
+                                            0.禁用(软删除)
+                                            1启用
+                    ruIspda             是否允许登陆PDA(tinyint)
          *                                  0.是
          *                                  1.否
          *          ruUserZyq           高位叉车作业区域
-         *          ruEmail             邮箱地址
          *          ruSex               性别(tinyint)
          *                                  1.男
          *                                  0.女
@@ -368,10 +367,21 @@
      *          id                   货品id
      **/
         /**
-         TODO 0 货品管理主页面
+         TODO 0 分页查询货品详情 POST /goods
+         参数
+          name      货品名称
+          _no       货品编号
+          status    货品状态
+          _status   保留字段
+          pageNum   固定格式
+          pageSize  固定格式
+          draw      固定格式
+
+         页面中需要显示的字段
          bgGoodsName    货品名称
          bgGoodsNo      货品编号
-         bgNamejc       货品体积
+         bgNameJc       货品简称
+         bgGoodsTj      货品体积
          bgGoodsZl      货品重量
          bgGoodsPrice   货品单价
          bgGoodsGg      规格
@@ -380,12 +390,70 @@
          bgRemarks      备注
          */
         /**
-         *  TODO 1 新增  /goods/add
-         *      bgGoodsNo       货品编号
+            *  TODO 1 更新/编辑货品 PUT /goods
+         *      参数
+                    bgGoodsId       货品id
+                    bgGoodsNo       货品编号
+                    bgGoodsName     货品名称
+                    bgName          货品简称
+                    bgT             货品t值
+                    bgI             货品i值
+                    bgHsl           货品换算量
+                    bgZxdw          整箱单位
+                    bgSzdw          散支单位
+                    bgStatus        状态
+                    bgArehouseId    仓库id(外键)
+                    bgClientId      客户id(外键)
+                    bgGoodsType     货品类型
+                    bgGoodsTj       货品体积
+                    bgGoodsZl       货品重量
+                    bgGoodsPrice    单价
+                    bgCreatetime    创建时间
+                    bgRemarks       备注
+                    bgGoodsGg       规格
+            页面中需要的显示的字段
+            *      bgGoodsNo       货品编号
+            *      bgGoodsName     货品名称
+            *      bgGoodsPrice    单价/货品单价
+            *      bgGoodsTj       货品体积
+            *      bgGoodsZl       货品重量
+            *      bgT             货品t值
+            *      bgI             货品i值
+            *      bgGoodsType     货品类型
+            *      bgNamejc        货品简称
+            *      bgHsl           货品换算量
+            *      bgZxdw          整箱单位
+            *      bgSzdw          散支单位
+            *      bgRemarks       备注
+            **/
+        /**
+         *  TODO 2 新增货品 POST /goods/add
+         *  参数
+                bgGoodsId               货品id
+                bgGoodsNo               货品编号
+                bgGoodsName             货品名称
+                bgNamejc                货品简称
+                bgT                     货品t值
+                bgI                     货品i值
+                bgHsl                   货品换算量
+                bgZxdw                  整箱单位
+                bgSzdw                  散支单位
+                bgStatus                状态
+                bgArehouseId            仓库id(外键)
+                bgClientId              客户id(外键)
+                bgGoodsType             货品类型
+                bgGoodsTj               货品体积
+                bgGoodsZl               货品重量
+                bgGoodsPrice            单价
+                bgCreatetime            创建时间
+                bgRemarks               备注
+                bgGoodsGg               规格
+          页面中需要的字段
+         *      bgGoodsNo       货品编号(只能是字母+数字或者全数组不允许出现汉字和特殊符号)
          *      bgGoodsName     货品名称
-         *      bgGoodsPrice    单价/货品单价
-         *      bgGoodsTj       货品体积
-         *      bgGoodsZl       货品重量
+         *      bgGoodsPrice    单价/货品单价(保留小数点后4位)
+         *      bgGoodsTj       货品体积(保留小数点后4位)
+         *      bgGoodsZl       货品重量(保留小数点后4位)
          *      bgT             货品t值
          *      bgI             货品i值
          *      bgGoodsType     货品类型
@@ -395,22 +463,6 @@
          *      bgSzdw          散支单位
          *      bgRemarks       货品备注
          */
-        /**
-         *  TODO 2 编辑 /goods
-         *      bgGoodsNo       货品编号
-         *      bgGoodsName     货品名称
-         *      bgGoodsPrice    单价/货品单价
-         *      bgGoodsTj       货品体积
-         *      bgGoodsZl       货品重量
-         *      bgT             货品t值
-         *      bgI             货品i值
-         *      bgGoodsType     货品类型
-         *      bgNamejc        货品简称
-         *      bgHsl           货品换算量
-         *      bgZxdw          整箱单位
-         *      bgSzdw          散支单位
-         *      bgRemarks       备注
-         **/
         /**
          *  TODO 3 查看
          *      bgGoodsNo       货品编号
@@ -428,14 +480,56 @@
          *      bgRemarks       备注
          **/
         /**
-         *  TODO 4 删除
+         *  TODO 4 货品管理 通过客户id查询一些货品数据 GET /goods/findByClientId/{client_id}
+         *  client_id       客户id
+         **/
+        /**
+         *  TODO 5 货品管理 通过货品编号查询一些货品数据 GET /goods/findBygoodsNo/{goods_no}
+         *  goods_no 货品编号(模糊查询
+         **/
+        /**
+            *  TODO 6 货品管理 通过货品id查询货品  GET /goods/{id}
+            *  id     货品id
+         **/
+        /**
+         *  TODO 7 货品管理 软删除多个或单个数据 POST /goods/deleteOfSoft
+         *   "id": 0,
+            "ids": [
+                     0
+                   ]
          *  **/
         /**
-         *  TODO 5 货品单号、编号不允许重复
+         *  TODO 8  货品管理 通过id删除一条货品数据 DELETE /goods/{id}
+         *  id 货品id
+         *  **/
+        /**
+         *  TODO 9 货品单号、编号不允许重复
          *      bgGoodsNo       货品编号
          **/
-    /**
-     * TODO RF管理   RFManage
+        // /**
+        //  * TODO 10 货品管理详细信息
+        //     bgGoodsId	    货品id
+        //     bgGoodsNo	    货品编号
+        //     bgGoodsName		货品名称
+        //     bgNameJc		货品简称
+        //     bgT		        货品t值
+        //     bgI		        货品i值
+        //     bgHsl		    货品换算量
+        //     bgZxdw			整箱单位
+        //     bgSzdw          散支单位
+        //     bgStatus        状态
+        //     bgArehouseId	仓库id(外键)
+        //     bgClientId	    客户id(外键)
+        //     bgGoodsType     货品类型
+        //     bgGoodsTj	    货品体积
+        //     bgGoodsZl	    货品重量
+        //     bgGoodsPrice	单价
+        //     bgCreatetime	创建时间
+        //     bgRemarks		备注
+        //     bgGoodsGg		规格
+        //  */
+/**
+ * TODO RF管理   RFManage
      **/
         /**
          *TODO 0 RF管理主页面

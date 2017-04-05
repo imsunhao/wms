@@ -259,6 +259,71 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
+             case 'goodsManage':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '货品管理-加载货品管理页面';
+                        req = autoUrl(req, '/goods', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '编辑货品';
+                        req = autoUrl(req, '/goods', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '新增货品';
+                        req = autoUrl(req, '/goods/add', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '查看';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 4:
+                        urlName = '货品管理 通过客户id查询一些货品数据';
+                        req = autoUrl(req, '/goods/findByClientId/{client_id}', "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 5:
+                        urlName = '货品管理 通过货品编号查询一些货品数据';
+                        req = autoUrl(req, '/goods/findBygoodsNo/{goods_no}', "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 6:
+                        urlName = '货品管理 通过货品id查询货品';
+                        req = autoUrl(req, '/goods/{id}', " GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                   case 7:
+                        urlName = '货品管理 软删除多个或单个数据 ';
+                        req = autoUrl(req, '/goods/deleteOfSoft', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                   case 8:
+                        urlName = '货品管理 通过id删除一条货品数据';
+                        req = autoUrl(req, '/goods/{id}', "DELETE", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                     case 9:
+                        urlName = '货品单号、编号不允许重复';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+
 
         }
 
