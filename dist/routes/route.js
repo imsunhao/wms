@@ -345,6 +345,49 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
+            case 'operationAreaManage':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '作业区管理-加载作业区管理页面';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '新增';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '编辑';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                   case 3:
+                        urlName = '查看';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                   case 4:
+                        urlName = '删除';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                   case 5:
+                        urlName = '库位名称不允许重复';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
+                }
+                break;
+
 
 
         }

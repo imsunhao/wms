@@ -1,34 +1,34 @@
 <style>
-    #goodsManage {
+    #RFManage {
         width: 100%;
         min-width: 890px;
         position: relative;
     }
 
-    #goodsManage .demo-table-expand {
+    #RFManage .demo-table-expand {
         font-size: 0;
     }
 
-    #goodsManage .demo-table-expand label {
+    #RFManage .demo-table-expand label {
         width: 90px;
         color: #99a9bf;
     }
 
-    #goodsManage .demo-table-expand .el-form-item {
+    #RFManage .demo-table-expand .el-form-item {
         margin-right: 0;
         margin-bottom: 0;
         width: 80%;
     }
 
-    #goodsManage .el-table__expand-column .el-table__expand-icon {
+    #RFManage .el-table__expand-column .el-table__expand-icon {
         height: 39px;
     }
 
-    #goodsManage .table {
+    #RFManage .table {
         transition: 1s all;
     }
 
-    #goodsManage .el-carousel__container {
+    #RFManage .el-carousel__container {
         height: 440px;
     }
 
@@ -40,12 +40,12 @@
         max-width: calc(100% - 60px);
     }
 
-    #goodsManage .goodsManageTable {
+    #RFManage .RFManageTable {
         width: 95% !important;
         margin: 10px 20px 0;
     }
 
-    #goodsManage .datePicker {
+    #RFManage .datePicker {
         width: 140px !important;
         height: 24px !important;
         margin-top: 29px;
@@ -53,38 +53,38 @@
         float: left;
     }
 
-    #goodsManage .datePicker .el-input__inner {
+    #RFManage .datePicker .el-input__inner {
         border-radius: 2px !important;
         height: 24px !important;
     }
 
-    #goodsManage .add {
+    #RFManage .add {
         background: url("/static/images/add.png") no-repeat center;
     }
 
-    #goodsManage .del {
+    #RFManage .del {
         background: url("/static/images/del.png") no-repeat center;
     }
 
-    #goodsManage .search {
+    #RFManage .search {
         background: url("/static/images/search.png") no-repeat center;
     }
 
-    #goodsManage .sel {
+    #RFManage .sel {
         background: url("/static/images/sel.png") no-repeat center;
     }
 
-    #goodsManage .icon {
+    #RFManage .icon {
         float: left;
     }
 
-    #goodsManage .btn span {
+    #RFManage .btn span {
         float: left;
         margin-top: 4px;
         margin-left: 2px;
     }
 
-    #goodsManage .btn {
+    #RFManage .btn {
         height: 24px;
         line-height: 1;
         border: none;
@@ -100,28 +100,28 @@
         margin-right: 16px;
     }
 
-    #goodsManage .btn-print {
+    #RFManage .btn-print {
         margin-right: 0;
     }
 
-    #goodsManage .btn:hover {
+    #RFManage .btn:hover {
         color: #5468ee;
     }
 
-    #goodsManage .inner {
+    #RFManage .inner {
         margin: 0 20px;
     }
 
-    #goodsManage .btn-nav {
+    #RFManage .btn-nav {
         height: 60px;
         overflow: hidden;
     }
 
-    #goodsManage .btn-nav .el-input .el-input__inner {
+    #RFManage .btn-nav .el-input .el-input__inner {
         height: 24px;
     }
 
-    #goodsManage .btn-nav .el-input {
+    #RFManage .btn-nav .el-input {
         float: left;
         margin-top: 29px;
         margin-right: 18px;
@@ -129,20 +129,20 @@
         height: 24px;
     }
 
-    #goodsManage h4 {
+    #RFManage h4 {
         padding-left: 20px;
         margin-bottom: 0px;
     }
 
-    #goodsManage .formBottom {
+    #RFManage .formBottom {
         margin-top: 10px;
     }
 
-    #goodsManage .goodsManageCombinationDetails .el-date-editor.el-input {
+    #RFManage .RFManageCombinationDetails .el-date-editor.el-input {
         width: 100%;
     }
 
-    #goodsManage .goodsManageCombinationDetails {
+    #RFManage .RFManageCombinationDetails {
         margin-top: 30px;
     }
 </style>
@@ -170,7 +170,7 @@
     }
 </style>
 
-<div id="goodsManage">
+<div id="RFManage">
     <!--页面调整-->
     <el-row
             v-loading="showLoading"
@@ -182,10 +182,6 @@
                     v-model="bgGoodsNo"
                     icon="search"
                     placeholder="货品名称/货品编号"></el-input>
-            <button @click="newInput" class="btn btn-add"><i
-                    class="icon select"></i><span>查询</span>
-            </button>
-
             <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                     class="icon sel"></i><span>多选</span>
             </button>
@@ -196,10 +192,10 @@
             </button>
         </div>
         <el-table
-                :data="goodsManage"
+                :data="RFManage"
                 :max-height="450"
                 ref="table"
-                class="goodsManageTable"
+                class="RFManageTable"
                 @selection-change="multiSelectionChange"
                 style="width: 100%">
             <el-table-column
@@ -266,13 +262,6 @@
                     align="center">
                 <template scope="scope">
                     <span>{{ scope.row.ruUserZyq}}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="操作"
-                    align="center">
-                <template scope="scope">
-                    <span></span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -409,20 +398,17 @@
         }
     };               //弹出层 form 模板
 
-    var goodsManage = new Vue({
-        el: '#goodsManage',
+    var RFManage = new Vue({
+        el: '#RFManage',
         prop: {},
         data: function () {
             return {
-                goodsManage: [],      //主页面 信息集合
+                RFManage: [],      //主页面 信息集合
                 multipleSelection: [],           //主页面 多选集合
                 multiSelect: false,              //主页面 多选状态 维护
 
                 bgGoodsName: '',                  //TODO 主页面 货品名称搜索 货品名称和货品编号是一个搜索条件
                 bgGoodsNo: '',                 //TODO 主页面 货品编号  搜索
-
-
-
                 showLoading: false,              //主页面 加载 维护
 
                 currentPage: 1,                  //分页 当前页
@@ -471,7 +457,7 @@
                 this.dialogFormVisible = true;
                 this.dialogFormActive = 0;
                 Vue.nextTick(function () {
-                    goodsManage.$refs.carousel.setActiveItem(0);
+                    RFManage.$refs.carousel.setActiveItem(0);
                 });
             },                                  //TODO 行内按钮-编辑
 
@@ -505,7 +491,7 @@
                 this.dialogFormVisible = true;
                 this.dialogFormActive = 0;
                 Vue.nextTick(function () {
-                    goodsManage.$refs.carousel.setActiveItem(0);
+                    RFManage.$refs.carousel.setActiveItem(0);
                 });
             },                                              //按钮 新建入库单
             warehouseManage: function () {
@@ -513,7 +499,7 @@
                 this.dialogFormVisible = true;
                 this.dialogFormActive = 0;
                 Vue.nextTick(function () {
-                    goodsManage.$refs.carousel.setActiveItem(0);
+                    RFManage.$refs.carousel.setActiveItem(0);
                 });
             },                                       //按钮 仓库管理 TODO
 
@@ -550,7 +536,7 @@
                     _this.dialogFormVisible = false;
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(goodsManage);
+                    post(RFManage);
                 }, 1500);
                 /*</debug>*/
             },                                                //新建 表单提交
@@ -593,14 +579,14 @@
         }
     });
     // 高级 监视器的 使用方法
-    //    goodsManage.$watch('date', function () {
+    //    RFManage.$watch('date', function () {
     //        if (!this.option.dateStart)return;
     //        /*<debug>*/
     //        console.log(this.option);
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
-    post(goodsManage, goodsManage.option);
+    post(RFManage, RFManage.option);
     function post(obj, option) {
         obj.showLoading = true;
 
@@ -623,7 +609,7 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                goodsManage.goodsManage = json;
+                RFManage.RFManage = json;
             },
             complete: function () {
                 obj.showLoading = false;
@@ -652,7 +638,7 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                goodsManage.$data.role = json.data;
+                RFManage.$data.role = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
@@ -681,7 +667,7 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                goodsManage.$data.role = json.data;
+                RFManage.$data.role = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
@@ -714,7 +700,7 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                goodsManage.$data.role = json.data;
+                RFManage.$data.role = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
@@ -743,7 +729,7 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                goodsManage.$data.role = json.data;
+                RFManage.$data.role = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
@@ -760,7 +746,7 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/goodsManage/1";
+        url = "/route/RFManage/1";
         /*</prod>*/
 
         $.ajax(url, {
