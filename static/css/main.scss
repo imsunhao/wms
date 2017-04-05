@@ -409,3 +409,11 @@ html, body {
 }
 
 /*** bigger ******************************************/
+
+/* 用户头像 */
+.avatar-uploader{
+  .el-upload{
+    border-radius: 50% !important;
+    border:none !important;
+  }
+}
