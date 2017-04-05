@@ -323,6 +323,28 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
+            case 'RFManage':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = 'RF管理-加载RF页面';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '关联作业区';
+                        req = autoUrl(req, '/goods', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '获取作业区名称';
+                        req = autoUrl(req, '/goods/add', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
 
 
         }

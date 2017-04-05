@@ -533,13 +533,13 @@
      **/
         /**
          *TODO 0 RF管理主页面
-         *  ruLoginName账户
-         *  ruUserType类型
-         *      0.普通
-         *      1.堆高车
-         *      2.高位叉车
-         *  主要作业区
-         *  次要作业区
+         *  ruLoginName 账户
+         *  ruUserType  类型（int）
+         *                  0.普通
+         *                  1.堆高车
+         *                  2.高位叉车
+         *  ruUserZyq   主要作业区
+         *  ruUserZyq   次要作业区
          *  操作
          */
         /**
