@@ -149,10 +149,7 @@ $(function () {
                 /*</debug>*/
 
             },                                  //用户修改信息提交
-            handleAvatarScucess: function (res, a1, a2) {
-                // console.log(res)
-                // console.log(a1)
-                // console.log(a2)
+            handleAvatarScucess: function (res) {
                 if (res.status === 200) {
                     this.rmsUser.ruPortrait = res.ruPortrait;
                     this.$notify({

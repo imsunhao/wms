@@ -106,12 +106,12 @@
         /** 2 启用                               /user/liveUsersByUids
          *          user_ids    被勾选的用户id集合
          *          */
-        /** 3 TODO 配置角色                           /user/userAddRoles
+        /** 3 配置角色                           /user/userAddRoles
          *          用户配置角色
          *          userId         用户id
          *          roleIds        被勾选的角色id集合
          *          */
-        /** TODO 4 编辑                               /user
+        /** 4 编辑                               /user
          *          ruUserName          用户昵称/名
          *          ruLoginPassword     密码
          *          ruPhone             手机
@@ -133,7 +133,7 @@
          *                                  1.堆高车
          *                                  2.高位叉车
          *                                  */
-        /** TODO 5 重置密码                             /user/resetPwd
+        /** 5 重置密码                             /user/resetPwd
          *          ids    被勾选的用户id集合
          *          */
         /** 6 禁用                               /user/dieUsersByUids
