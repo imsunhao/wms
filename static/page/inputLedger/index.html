@@ -1,4 +1,4 @@
-<div id="inputLedger">
+<div id="inputOperation">
     <!--页面调整-->
     <el-row v-loading="showLoading"
             element-loading-text="拼命加载中">
@@ -11,7 +11,7 @@
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i class="icon sel"></i><span>多选</span>
                 </button>
                 <el-date-picker
-                        v-model="departureDate"
+                        v-model="date"
                         type="daterange"
                         align="right"
                         placeholder="始发日期"
@@ -19,94 +19,94 @@
                         :picker-options="pickerOptions">
                 </el-date-picker>
                 <el-date-picker
-                        v-model="departureDate"
+                        v-model="date"
                         type="daterange"
                         align="right"
                         placeholder=""
                         class="datePicker"
                         :picker-options="pickerOptions">
                 </el-date-picker>
-                <el-date-picker
-                        v-model="arrivalDate"
-                        type="daterange"
-                        align="right"
-                        placeholder="到货日期"
-                        class="datePicker"
-                        :picker-options="pickerOptions">
-                </el-date-picker>
-                <el-date-picker
-                        v-model="arrivalDate"
-                        type="daterange"
-                        align="right"
-                        placeholder=""
-                        class="datePicker"
-                        :picker-options="pickerOptions">
-                </el-date-picker>
-                <el-date-picker
-                        v-model="receiptDate"
-                        type="daterange"
-                        align="right"
-                        placeholder="收货日期"
-                        class="datePicker"
-                        :picker-options="pickerOptions">
-                </el-date-picker>
-                <el-date-picker
-                        v-model="receiptDate"
-                        type="daterange"
-                        align="right"
-                        placeholder=""
-                        class="datePicker"
-                        :picker-options="pickerOptions">
-                </el-date-picker>
+                <!--<el-date-picker-->
+                        <!--v-model="date"-->
+                        <!--type="daterange"-->
+                        <!--align="right"-->
+                        <!--placeholder="到货日期"-->
+                        <!--class="datePicker"-->
+                        <!--:picker-options="pickerOptions">-->
+                <!--</el-date-picker>-->
+                <!--<el-date-picker-->
+                        <!--v-model="date"-->
+                        <!--type="daterange"-->
+                        <!--align="right"-->
+                        <!--placeholder=""-->
+                        <!--class="datePicker"-->
+                        <!--:picker-options="pickerOptions">-->
+                <!--</el-date-picker>-->
+                <!--<el-date-picker-->
+                        <!--v-model="date"-->
+                        <!--type="daterange"-->
+                        <!--align="right"-->
+                        <!--placeholder="收货日期"-->
+                        <!--class="datePicker"-->
+                        <!--:picker-options="pickerOptions">-->
+                <!--</el-date-picker>-->
+                <!--<el-date-picker-->
+                        <!--v-model="date"-->
+                        <!--type="daterange"-->
+                        <!--align="right"-->
+                        <!--placeholder=""-->
+                        <!--class="datePicker"-->
+                        <!--:picker-options="pickerOptions">-->
+                <!--</el-date-picker>-->
+                <!--<el-input-->
+                        <!--v-model="rkRkdjNo"-->
+                        <!--icon="search"-->
+                        <!--placeholder="入库单号"></el-input>-->
+                <!--<el-input-->
+                        <!--v-model="rkErpNo"-->
+                        <!--icon="search"-->
+                        <!--placeholder="调拨单号"></el-input>-->
+                <!--<el-input-->
+                        <!--v-model="rkrwDbd"-->
+                        <!--icon="search"-->
+                        <!--placeholder="调拨地"></el-input>-->
+                <!--<el-input-->
+                        <!--v-model="rkrwCph"-->
+                        <!--icon="search"-->
+                        <!--placeholder="车牌号"></el-input>-->
+                <!--<el-input-->
+                        <!--v-model="ruUserName"-->
+                        <!--icon="search"-->
+                        <!--placeholder="收货人"></el-input>-->
+                <!--<el-input-->
+                        <!--v-model="baName"-->
+                        <!--icon="search"-->
+                        <!--placeholder="收货仓库"></el-input>-->
+                <!--<el-input-->
+                        <!--v-model="bgGoodsNo"-->
+                        <!--icon="search"-->
+                        <!--placeholder="物料编号"></el-input>-->
+                <!--<el-input-->
+                        <!--v-model="bgGoodsName"-->
+                        <!--icon="search"-->
+                        <!--placeholder="物料描述"></el-input>-->
+                <button
+                        class="btn btn-edit"
+                        @click="handleDelete">制作台账
 
 
-                <el-input
-                        v-model="rkRkdjNo"
-                        icon="search"
-                        placeholder="入库单号"></el-input>
-                <el-input
-                        v-model="rkErpNo"
-                        icon="search"
-                        placeholder="调拨单号"></el-input>
-                <el-input
-                        v-model="rkrwDbd"
-                        icon="search"
-                        placeholder="调拨地"></el-input>
-                <el-input
-                        v-model="rkrwCph"
-                        icon="search"
-                        placeholder="车牌号"></el-input>
-                <el-input
-                        v-model="ruUserName"
-                        icon="search"
-                        placeholder="收货人"></el-input>
-                <el-input
-                        v-model="baName"
-                        icon="search"
-                        placeholder="收货仓库"></el-input>
-                <el-input
-                        v-model="bgGoodsNo"
-                        icon="search"
-                        placeholder="物料编号"></el-input>
-                 <el-input
-                        v-model="bgGoodsName"
-                        icon="search"
-                        placeholder="物料描述"></el-input>
-                <!--<button-->
-                        <!--class="btn btn-distribution"-->
-                        <!--@click="productionLedger">制作台账-->
-                <!--</button>-->
-                <!--<button-->
-                        <!--class="btn btn-receipt"-->
-                        <!--@click="export">导出-->
-                <!--</button>-->
-                <!--<button-->
-                        <!--class="btn btn-print"-->
-                        <!--@click="oweEnd">欠货完结-->
-                <!--</button>-->
+                </button>
+                <button
+                        class="btn btn-distribution"
+                        @click="distributionBtn">导出
+                </button>
+                <button
+                        class="btn btn-receipt"
+                        @click="handleDelete">欠货完结
+                </button>
             </div>
             <el-table
-                    :data="inputLedger"
+                    :data="inputOperation"
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
                     :max-height="570"
                     @toggleRowSelection="rowSelection"
@@ -114,7 +114,7 @@
                     @expand="expandChange"
                     @selection-change="handleSelectionChange"
                     ref="table"
-                    class="inputLedgerTable"
+                    class="inputOperationTable"
                     style="width: 100%">
                 <el-table-column
                         type="expand">
@@ -148,38 +148,104 @@
                                         </el-row>
                                     </el-col>
                                     <el-col :span="14">
-                                        <h3>入库详细</h3>
+                                        <h3>入库台账详细</h3>
                                         <el-form label-position="left" inline class="demo-table-expand">
-                                            <el-form-item label="入库单号">
-                                                <span>{{ props.row.rkdjNo }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="下单时间">
+                                            <el-form-item label="始发日期">
                                                 <el-icon name="time"></el-icon>
-                                                <span style="margin-left: 10px">{{ props.row.sjsj }}</span>
+                                                <span style="margin-left: 10px">{{ props.row.rkCreatetime }}</span>
                                             </el-form-item>
-                                            <el-form-item label="订单类型">
-                                                <span>{{ props.row.type }}</span>
+                                            <el-form-item label="到货日期">
+                                                <el-icon name="time"></el-icon>
+                                                <span style="margin-left: 10px">{{ props.row.rkrwDhrq  }}</span>
                                             </el-form-item>
-                                            <el-form-item label="入库状态">
-                                                <span>{{ props.row.status }}</span>
+                                            <el-form-item label="收货日期">
+                                                <el-icon name="time"></el-icon>
+                                                <span style="margin-left: 10px">{{ props.row.rkSjsj }}</span>
                                             </el-form-item>
-                                            <el-form-item label="入库数量">
-                                                <span>{{ props.row.number }}</span>
+                                            <el-form-item label="调拨地点">
+                                                <span>{{ props.row.rkrwDbd }}</span>
                                             </el-form-item>
-                                            <el-form-item label="入库体积">
-                                                <span>{{ props.row.volume }}</span>
+                                            <el-form-item label="承运商">
+                                                <span>{{ props.row.rkrwCys }}</span>
                                             </el-form-item>
-                                            <el-form-item label="制作方式">
-                                                <span>{{ props.row.zdfs }}</span>
-                                            </el-form-item>
+                                            <!--<el-form-item label="车牌号">-->
+                                                <!--<span>{{ props.row.rkrwCph }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="收货人">-->
+                                                <!--<span>{{ props.row.ruUserName }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="收货仓库">-->
+                                                <!--<span>{{ props.row.baName }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="单号">-->
+                                                <!--<span>{{ props.row.rkRkdjNo }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="调拨单号">-->
+                                                <!--<span>{{ props.row.rkErpNo }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="承运件数(台)">-->
+                                                <!--<span>{{ props.row }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="承运件数(箱)">-->
+                                                <!--<span>{{ props.row }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="方数">-->
+                                                <!--<span>{{ props.row }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="物料编码">-->
+                                                <!--<span>{{ props.row.bgGoodsNo }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="物料描述">-->
+                                                <!--<span>{{ props.row.bgGoodsName }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="台数">-->
+                                                <!--<span>{{ props.row }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="件数">-->
+                                                <!--<span>{{ props.row }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="方数">-->
+                                                <!--<span>{{ props.row }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="破损/台数">-->
+                                                <!--<span>{{ props.row.rksPsts }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="调拨破损外包">-->
+                                                <!--<span>{{ props.row.rksDbPswb }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="源头破损外包">-->
+                                                <!--<span>{{ props.row.rksYtPswb }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="调拨破损内保">-->
+                                                <!--<span>{{ props.row.rksDbPsnb }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="源头破损内保">-->
+                                                <!--<span>{{ props.row.rksYtPsnb }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="泡沫">-->
+                                                <!--<span>{{ props.row.rksPm }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="缺机/台">-->
+                                                <!--<span>{{ props.row.rksQhsl }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="异常原因">-->
+                                                <!--<span>{{ props.row.rksYcyy }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="处理结果">-->
+                                                <!--<span>{{ props.row.rksCljg }}</span>-->
+                                            <!--</el-form-item>-->
+                                            <!--<el-form-item label="结算时间">-->
+                                                <!--<el-icon name="time"></el-icon>-->
+                                                <!--<span style="margin-left: 10px">{{ props.row.rksJssj }}</span>-->
+                                            <!--</el-form-item>-->
                                             <el-form-item label="可用操作">
                                                 <el-button
                                                         size="small"
-                                                        @click="handleEdit(props.$index, props.row)">分配
+                                                        @click="handleEdit(props.$index, props.row)">导出
                                                 </el-button>
                                                 <el-button
                                                         size="small"
-                                                        @click="handleDelete(props.$index, props.row)">编辑
+                                                        @click="handleDelete(props.$index, props.row)">制作台账
                                                 </el-button>
                                                 <el-button
                                                         size="small"
@@ -187,11 +253,7 @@
                                                 </el-button>
                                                 <el-button
                                                         size="small"
-                                                        @click="handleDelete(props.$index, props.row)">再次收货
-                                                </el-button>
-                                                <el-button
-                                                        size="small"
-                                                        @click="handleDelete(props.$index, props.row)">打印
+                                                        @click="handleDelete(props.$index, props.row)">欠货完结
                                                 </el-button>
                                             </el-form-item>
                                             <el-form-item label="入库备注">
@@ -205,7 +267,7 @@
                                 </el-row>
                             </el-carousel-item>
                             <el-carousel-item>
-                                <h3>入库明细</h3>
+                                <h3>入库台账明细</h3>
                                 <el-table
                                         :data="props.row.rkdocsList"
                                         highlight-current-row
@@ -250,195 +312,196 @@
                         align="center"
                         prop="rkCreatetime">
                 </el-table-column>
-               <el-table-column
+                <el-table-column
                         label="到账日期"
                         width="170"
                         show-overflow-tooltip
                         align="center"
                         prop="rkrwDhrq">
                 </el-table-column>
-               <el-table-column
+                <el-table-column
                         label="收货日期"
                         width="170"
                         show-overflow-tooltip
                         align="center"
-                        prop="rkSjsj ">
+                        prop="rkSjsj">
                 </el-table-column>
-               <el-table-column
+                <el-table-column
                         label="调拨地点"
                         width="170"
                         show-overflow-tooltip
                         align="center"
                         prop="rkrwDbd">
                 </el-table-column>
-               <el-table-column
+                <el-table-column
                         label="承运商"
                         width="170"
                         show-overflow-tooltip
                         align="center"
                         prop="rkrwCys">
                 </el-table-column>
-               <el-table-column
+                <el-table-column
                         label="车牌号"
                         width="170"
                         show-overflow-tooltip
                         align="center"
                         prop="rkrwCph">
                 </el-table-column>
-               <el-table-column
+                <el-table-column
                         label="收货人"
                         width="170"
                         show-overflow-tooltip
                         align="center"
                         prop="ruUserName">
                 </el-table-column>
-               <el-table-column
-                        label="收货仓库"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="baName">
-                </el-table-column>
-               <el-table-column
-                        label="单号"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="rkRkdjNo">
-                </el-table-column>
-               <el-table-column
-                        label="调拨单号"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="rkErpNo">
-                </el-table-column>
-               <el-table-column
-                        label="承运件数(台)"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="">
-                </el-table-column>
-               <el-table-column
-                        label="承运件数(箱)"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="">
-                </el-table-column>
-               <el-table-column
-                        label="方数"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="">
-                </el-table-column>
-               <el-table-column
-                        label="物料编码"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="bgGoodsNo">
-                </el-table-column>
-               <el-table-column
-                        label="物料描述"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="bgGoodsName">
-                </el-table-column>
-               <el-table-column
-                        label="台数"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="">
-                </el-table-column>
-               <el-table-column
-                        label="件数"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="">
-                </el-table-column>
-               <el-table-column
-                        label="方数"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="">
-                </el-table-column>
-               <el-table-column
-                        label="破损/台数"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="rksPsts">
-                </el-table-column>
-               <el-table-column
-                        label="调拨破损外包"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="rksDbPswb">
-                </el-table-column>
-               <el-table-column
-                        label="源头破损外包"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="rksYtPswb">
-                </el-table-column>
-               <el-table-column
-                        label="调拨破损内保"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="rksDbPsnb">
-                </el-table-column>
-               <el-table-column
-                        label="源头破损内保"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="rksYtPsnb">
-                </el-table-column>
-               <el-table-column
-                        label="泡沫"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="rksPm">
-                </el-table-column>
-               <el-table-column
-                        label="缺机/台"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="rksQhsl">
-                </el-table-column>
-               <el-table-column
-                        label="异常原因"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="rksYcyy">
-                </el-table-column>
-               <el-table-column
-                        label="处理结果"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="rksCljg">
-                </el-table-column>
-               <el-table-column
-                        label="结算时间"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="rks_jssj">
-                </el-table-column>
+                <!--<el-table-column-->
+                        <!--label="收货仓库"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="baName">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="单号"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="rkRkdjNo">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="调拨单号"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="rkErpNo">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="承运件数(台)"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="承运件数(箱)"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="方数"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="物料编码"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="bgGoodsNo">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="物料描述"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="bgGoodsName">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="台数"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="件数"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="方数"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="破损/台数"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="rksPsts">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="调拨破损外包"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="rksDbPswb">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="源头破损外包"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="rksYtPswb">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="调拨破损内保"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="rksDbPsnb">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="源头破损内保"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="rksYtPsnb">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="泡沫"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="rksPm">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="缺机/台"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="rksQhsl">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="异常原因"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="rksYcyy">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="处理结果"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="rksCljg">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column-->
+                        <!--label="结算时间"-->
+                        <!--width="170"-->
+                        <!--show-overflow-tooltip-->
+                        <!--align="center"-->
+                        <!--prop="rksJssj">-->
+                <!--</el-table-column>-->
+
                 <el-table-column
                         v-if="multiSelect"
                         type="selection"
@@ -453,7 +516,7 @@
                         :page-sizes="[5, 10, 15, 20]"
                         :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="inputLedger.length">
+                        :total="inputOperation.length">
                 </el-pagination>
             </div>
         </el-col>
@@ -615,7 +678,7 @@
     </el-dialog>
     <el-dialog
             size="small"
-            title="分配"
+            title="导出"
             v-model="dialogDistributionVisible">
         <el-form :model="distributionForm" ref="newForm">
 
@@ -677,38 +740,39 @@
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
         </div>
     </el-dialog>
-</div>
+</div>  <!--我把该主页面和详细页面的字段注释了-->
+
 <style>
-    #inputLedger {
+    #inputOperation {
         width: 100%;
         min-width: 890px;
         position: relative;
     }
 
-    #inputLedger .demo-table-expand {
+    #inputOperation .demo-table-expand {
         font-size: 0;
     }
 
-    #inputLedger .demo-table-expand label {
+    #inputOperation .demo-table-expand label {
         width: 90px;
         color: #99a9bf;
     }
 
-    #inputLedger .demo-table-expand .el-form-item {
+    #inputOperation .demo-table-expand .el-form-item {
         margin-right: 0;
         margin-bottom: 0;
         width: 80%;
     }
 
-    #inputLedger .el-table__expand-column .el-table__expand-icon {
+    #inputOperation .el-table__expand-column .el-table__expand-icon {
         height: 39px;
     }
 
-    #inputLedger .table {
+    #inputOperation .table {
         transition: 1s all;
     }
 
-    #inputLedger .el-carousel__container {
+    #inputOperation .el-carousel__container {
         height: 440px;
     }
 
@@ -720,12 +784,12 @@
         max-width: calc(100% - 60px);
     }
 
-    #inputLedger .inputLedgerTable {
+    #inputOperation .inputOperationTable {
         width: 95% !important;
         margin: 20px auto;
     }
 
-    #inputLedger .datePicker {
+    #inputOperation .datePicker {
         width: 140px !important;
         height: 24px !important;
         margin-top: 29px;
@@ -733,38 +797,38 @@
         float: left;
     }
 
-    #inputLedger .datePicker .el-input__inner {
+    #inputOperation .datePicker .el-input__inner {
         border-radius: 2px !important;
         height: 24px !important;
     }
 
-    #inputLedger .add {
+    #inputOperation .add {
         background: url("/static/images/add.png") no-repeat center;
     }
 
-    #inputLedger .del {
+    #inputOperation .del {
         background: url("/static/images/del.png") no-repeat center;
     }
 
-    #inputLedger .search {
+    #inputOperation .search {
         background: url("/static/images/search.png") no-repeat center;
     }
 
-    #inputLedger .sel {
+    #inputOperation .sel {
         background: url("/static/images/sel.png") no-repeat center;
     }
 
-    #inputLedger .icon {
+    #inputOperation .icon {
         float: left;
     }
 
-    #inputLedger .btn span {
+    #inputOperation .btn span {
         float: left;
         margin-top: 4px;
         margin-left: 2px;
     }
 
-    #inputLedger .btn {
+    #inputOperation .btn {
         height: 24px;
         line-height: 1;
         border: none;
@@ -780,28 +844,28 @@
         margin-right: 16px;
     }
 
-    #inputLedger .btn-print {
+    #inputOperation .btn-print {
         margin-right: 0;
     }
 
-    #inputLedger .btn:hover {
+    #inputOperation .btn:hover {
         color: #5468ee;
     }
 
-    #inputLedger .inner {
+    #inputOperation .inner {
         margin: 0 20px;
     }
 
-    #inputLedger .btn-nav {
+    #inputOperation .btn-nav {
         height: 60px;
         overflow: hidden;
     }
 
-    #inputLedger .btn-nav .el-input .el-input__inner {
+    #inputOperation .btn-nav .el-input .el-input__inner {
         height: 24px;
     }
 
-    #inputLedger .btn-nav .el-input {
+    #inputOperation .btn-nav .el-input {
         float: left;
         margin-top: 29px;
         margin-right: 18px;
@@ -828,12 +892,12 @@
     }
 </style>
 <script>
-    var inputLedger = new Vue({
-        el: '#inputLedger',
+    var inputOperation = new Vue({
+        el: '#inputOperation',
         prop: {},
         data: function () {
             return {
-                inputLedger: [],
+                inputOperation: [],
                 multipleSelection: [],
                 multiSelect: false,
                 pickerOptions: {
@@ -867,8 +931,15 @@
                 currentPage: 1,
                 pageSize: 10,
 
-                date: [null, null],                 //主页面 选择日期 搜索
-                rkRkdjNo: '',                       //主页面 入库单号 搜索
+                date: [null, null],                 //TODO 主页面 日期 搜索
+                rkrwCph: '',                        //TODO 主页面 车牌号 搜索
+                ruUserName: '',                     //TODO 主页面 收货人 搜索
+                baName: '',                         //TODO 主页面 收货仓库 搜索
+                rkErpNo: '',                        //TODO 主页面 调拨单号 搜索
+                rkrwDbd: '',                        //TODO 主页面 调拨地 搜索
+                bgGoodsNo: '',                      //TODO 主页面 物料编码 搜索
+                bgGoodsName: '',                    //TODO 主页面 物料描述 搜索
+
 
                 formLabelWidth: '120px',            //表单 配置
                 form: {
@@ -895,8 +966,8 @@
                     bgGoodsName: '',
                     count: 0,
                     bgGoodsId: ''
-                },     //分配 弹出层 信息集合
-                dialogDistributionVisible: false,   //分配 弹出层 是否可见
+                },     //导出 弹出层 信息集合
+                dialogDistributionVisible: false,   //导出 弹出层 是否可见
 
                 select: {},                         //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
@@ -920,7 +991,7 @@
                 return {
                     distribution:this.distribution
                 }
-            },                                      //分配 表单
+            },                                      //导出 表单
         },
         methods: {
             handleEdit: function (index, row) {
@@ -929,7 +1000,6 @@
             handleDelete: function (index, row) {
                 console.log(index, row);
             },                                //测试 行内按钮 有效性
-
             filterStatus: function (value, row) {
                 return row.status == value;
             },                                //状态 过滤函数
@@ -989,15 +1059,56 @@
                 /*</debug>*/
                 var listID = [];
                 for (var i = 0; i < this.multipleSelection.length; i++) {
-                    remove(this.multipleSelection[i], this.inputLedger);
-                    listID.push(this.inputLedger.rkdjNo);
+                    remove(this.multipleSelection[i], this.inputOperation);
+                    listID.push(this.inputOperation.rkdjNo);
                 }
                 postDelete(this, {
                     id: listID
                 })
 
             },                                   //多选 删除
+            productionLedger: function () {
+                /*<debug>*/
+                console.log('选中的删除');
+                /*</debug>*/
+                var listID = [];
+                for (var i = 0; i < this.multipleSelection.length; i++) {
+                    remove(this.multipleSelection[i], this.inputOperation);
+                    listID.push(this.inputOperation.rkdjNo);
+                }
+                postDelete(this, {
+                    id: listID
+                })
 
+            },                                   //TODO 制作台账
+            export: function () {
+                /*<debug>*/
+                console.log('选中的删除');
+                /*</debug>*/
+                var listID = [];
+                for (var i = 0; i < this.multipleSelection.length; i++) {
+                    remove(this.multipleSelection[i], this.inputOperation);
+                    listID.push(this.inputOperation.rkdjNo);
+                }
+                postDelete(this, {
+                    id: listID
+                })
+
+            },                                            //TODO 导出
+            oweEnd: function () {
+                /*<debug>*/
+                console.log('选中的删除');
+                /*</debug>*/
+                var listID = [];
+                for (var i = 0; i < this.multipleSelection.length; i++) {
+                    remove(this.multipleSelection[i], this.inputOperation);
+                    listID.push(this.inputOperation.rkdjNo);
+                }
+                postDelete(this, {
+                    id: listID
+                })
+
+            },                                            //TODO 欠货完结
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -1084,14 +1195,14 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(inputLedger);
+                    post(inputOperation);
                 }, 1500);
             },                                                //新建 表单提交
             formValidateField: function (formName) {
-//                console.log(inputLedger.$refs[formName]);
-//                console.log(inputLedger.$refs);
+//                console.log(inputOperation.$refs[formName]);
+//                console.log(inputOperation.$refs);
 //                setTimeout(function () {
-//                    return inputLedger.$refs[formName].validate(function (valid) {
+//                    return inputOperation.$refs[formName].validate(function (valid) {
 //                        console.log(valid);
 //                        return valid;
 //                    })
@@ -1144,7 +1255,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.inputLedger);
+                    remove(row, _this.inputOperation);
                     postDelete(_this, {
                         id: [row.rkdjNo]
                     });
@@ -1159,7 +1270,7 @@
 
         },
         watch: {
-            inputLedger: function () {
+            inputOperation: function () {
 
             },
             form: function () {
@@ -1177,17 +1288,17 @@
     });
 
     // 高级 监视器的 使用方法
-    inputLedger.$watch('form.selectGood.count', function () {
+    inputOperation.$watch('form.selectGood.count', function () {
         if (!this.form.deleteARkDocsList)return;
         var valid = false;
-        inputLedger.$refs['newForm'].validate(function (_valid) {
+        inputOperation.$refs['newForm'].validate(function (_valid) {
             valid = _valid;
         });
         valid ?
             this.form.saveARkDocsList = false :
             this.form.saveARkDocsList = true
     });
-    inputLedger.$watch('date', function () {
+    inputOperation.$watch('date', function () {
         if (!this.option.dateStart)return;
         /*<debug>*/
         console.log(this.option);
@@ -1198,12 +1309,12 @@
     //        deep: true
     //    }
 
-    post(inputLedger);
+    post(inputOperation);
     function post(obj, option) {
         obj.showLoading = true;
 
         /*<debug>*/
-        url = "/hock/form/inputOption.json";
+        url = "/hock/inputLedger/inputLedger.json";
         /*</debug>*/
 
         /*<prod>*/
@@ -1221,39 +1332,13 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                for (var i = 0; i < json.data.length; i++) {
-                    var type = {
-                        "0": "采购订单",
-                        "1": "仓间挑拨",
-                        "2": "退货入库"
-                    };
-                    var status = {
-                        "31": "初始状态",
-                        "32": "部分分配",
-                        "33": "全部分配",
-                        "34": "部分收货",
-                        "35": "全部收货"
-                    };
-                    var method = {
-                        "1": "手动",
-                        "2": "excel",
-                        "3": "接口"
-                    };
-                    json.data[i].type = type[i % 3];
-                    json.data[i].sjsj = changeDate(json.data[i].sjsj);
-                    json.data[i].status = status[json.data[i].status];
-                    json.data[i].zdfs = method[json.data[i].zdfs];
-                    json.data[i].number = 10120 + i;
-                    json.data[i].volume = 200.0234 + i;
-                    json.data[i].historyLoading = false;              //维护 history 的加载层
-                }
-                inputLedger.$data.inputLedger = json.data;
+                inputOperation.$data.inputOperation = json;
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
-    }
+    }               //TODO 入库台账的主页面
     function postHistory(obj, option) {
         obj.historyLoading = true;
 
