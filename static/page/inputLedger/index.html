@@ -10,100 +10,22 @@
                 </button>
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i class="icon sel"></i><span>多选</span>
                 </button>
-                <el-date-picker
-                        v-model="date"
-                        type="daterange"
-                        align="right"
-                        placeholder="始发日期"
-                        class="datePicker"
-                        :picker-options="pickerOptions">
-                </el-date-picker>
-                <el-date-picker
-                        v-model="date"
-                        type="daterange"
-                        align="right"
-                        placeholder=""
-                        class="datePicker"
-                        :picker-options="pickerOptions">
-                </el-date-picker>
-                <!--<el-date-picker-->
-                        <!--v-model="date"-->
-                        <!--type="daterange"-->
-                        <!--align="right"-->
-                        <!--placeholder="到货日期"-->
-                        <!--class="datePicker"-->
-                        <!--:picker-options="pickerOptions">-->
-                <!--</el-date-picker>-->
-                <!--<el-date-picker-->
-                        <!--v-model="date"-->
-                        <!--type="daterange"-->
-                        <!--align="right"-->
-                        <!--placeholder=""-->
-                        <!--class="datePicker"-->
-                        <!--:picker-options="pickerOptions">-->
-                <!--</el-date-picker>-->
-                <!--<el-date-picker-->
-                        <!--v-model="date"-->
-                        <!--type="daterange"-->
-                        <!--align="right"-->
-                        <!--placeholder="收货日期"-->
-                        <!--class="datePicker"-->
-                        <!--:picker-options="pickerOptions">-->
-                <!--</el-date-picker>-->
-                <!--<el-date-picker-->
-                        <!--v-model="date"-->
-                        <!--type="daterange"-->
-                        <!--align="right"-->
-                        <!--placeholder=""-->
-                        <!--class="datePicker"-->
-                        <!--:picker-options="pickerOptions">-->
-                <!--</el-date-picker>-->
-                <!--<el-input-->
-                        <!--v-model="rkRkdjNo"-->
-                        <!--icon="search"-->
-                        <!--placeholder="入库单号"></el-input>-->
-                <!--<el-input-->
-                        <!--v-model="rkErpNo"-->
-                        <!--icon="search"-->
-                        <!--placeholder="调拨单号"></el-input>-->
-                <!--<el-input-->
-                        <!--v-model="rkrwDbd"-->
-                        <!--icon="search"-->
-                        <!--placeholder="调拨地"></el-input>-->
-                <!--<el-input-->
-                        <!--v-model="rkrwCph"-->
-                        <!--icon="search"-->
-                        <!--placeholder="车牌号"></el-input>-->
-                <!--<el-input-->
-                        <!--v-model="ruUserName"-->
-                        <!--icon="search"-->
-                        <!--placeholder="收货人"></el-input>-->
-                <!--<el-input-->
-                        <!--v-model="baName"-->
-                        <!--icon="search"-->
-                        <!--placeholder="收货仓库"></el-input>-->
-                <!--<el-input-->
-                        <!--v-model="bgGoodsNo"-->
-                        <!--icon="search"-->
-                        <!--placeholder="物料编号"></el-input>-->
-                <!--<el-input-->
-                        <!--v-model="bgGoodsName"-->
-                        <!--icon="search"-->
-                        <!--placeholder="物料描述"></el-input>-->
                 <button
                         class="btn btn-edit"
-                        @click="handleDelete">制作台账
+                        @click="handleDelete" v-show="multiSelect">制作台账
 
 
                 </button>
                 <button
                         class="btn btn-distribution"
-                        @click="distributionBtn">导出
+                        @click="distributionBtn" v-show="multiSelect">导出
                 </button>
                 <button
                         class="btn btn-receipt"
-                        @click="handleDelete">欠货完结
+                        @click="handleDelete" v-show="multiSelect">欠货完结
                 </button>
+
+
             </div>
             <el-table
                     :data="inputOperation"
@@ -730,10 +652,84 @@
             v-model="dialogSelectVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
+            <el-date-picker
+                    v-model="date"
+                    type="daterange"
+                    align="right"
+                    placeholder="始发日期"
+                    class="datePicker"
+                    :picker-options="pickerOptions">
+            </el-date-picker>
+            <el-date-picker
+                    v-model="date"
+                    type="daterange"
+                    align="right"
+                    placeholder=""
+                    class="datePicker"
+                    :picker-options="pickerOptions">
+            </el-date-picker>
+            <el-date-picker
+                    v-model="date"
+                    type="daterange"
+                    align="right"
+                    placeholder="到货日期"
+                    class="datePicker"
+                    :picker-options="pickerOptions">
+            </el-date-picker>
+            <el-date-picker
+                    v-model="date"
+                    type="daterange"
+                    align="right"
+                    placeholder=""
+                    class="datePicker"
+                    :picker-options="pickerOptions">
+            </el-date-picker>
+            <el-date-picker
+                    v-model="date"
+                    type="daterange"
+                    align="right"
+                    placeholder="收货日期"
+                    class="datePicker"
+                    :picker-options="pickerOptions">
+            </el-date-picker>
+            <el-date-picker
+                    v-model="date"
+                    type="daterange"
+                    align="right"
+                    placeholder=""
+                    class="datePicker"
+                    :picker-options="pickerOptions">
+            </el-date-picker>
+            <el-input
+                    v-model="rkErpNo"
+                    icon="search"
+                    placeholder="调拨单号"></el-input>
+            <el-input
+                    v-model="rkrwDbd"
+                    icon="search"
+                    placeholder="调拨地"></el-input>
+            <el-input
+                    v-model="rkrwCph"
+                    icon="search"
+                    placeholder="车牌号"></el-input>
+            <el-input
+                    v-model="ruUserName"
+                    icon="search"
+                    placeholder="收货人"></el-input>
+            <el-input
+                    v-model="baName"
+                    icon="search"
+                    placeholder="收货仓库"></el-input>
+            <el-input
+                    v-model="bgGoodsNo"
+                    icon="search"
+                    placeholder="物料编号"></el-input>
+            <el-input
+                    v-model="bgGoodsName"
+                    icon="search"
+                    placeholder="物料描述"></el-input>
         </div>
         <el-form :model="select">
-
-
         </el-form>
 
         <div slot="footer" class="dialog-footer">
@@ -1080,7 +1076,7 @@
                     id: listID
                 })
 
-            },                                   //TODO 制作台账
+            },                                   //TODO 多选 制作台账
             export: function () {
                 /*<debug>*/
                 console.log('选中的删除');
@@ -1094,7 +1090,7 @@
                     id: listID
                 })
 
-            },                                            //TODO 导出
+            },                                            //TODO 多选导出
             oweEnd: function () {
                 /*<debug>*/
                 console.log('选中的删除');
@@ -1108,7 +1104,7 @@
                     id: listID
                 })
 
-            },                                            //TODO 欠货完结
+            },                                            //TODO 多选欠货完结
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
