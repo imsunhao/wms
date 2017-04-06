@@ -489,15 +489,15 @@
          }
          参数说明：
          id     客户id
-         ids
+         ids    货品id
         **/
         /**
-         *  TODO 3 配置仓库 客户管理 通过client_id配置仓库所属关系 POST /client/clientAddArehouses
+         *   3 配置仓库 客户管理 通过client_id配置仓库所属关系 POST /client/clientAddArehouses
          * 参数
          * {
                 "id": 0,
                 "ids": [
-                  1,2,3,
+                  1
                 ]
             }
          参数说明：
@@ -528,7 +528,17 @@
          *
          **/
         /**
-         * TODO 6  客户管理 软删除多个或单个数据  POST /client/deleteOfSoft (报500)
+         *  6  客户管理 软删除多个或单个数据  POST /client/deleteOfSoft
+         * 参数
+         * {
+         *      "id": 0,
+                "ids": [
+                  1
+                ]
+         * }
+         * 参数说明：
+         *      id   客户id
+         *      ids
          */
         /**
          *  7  客户管理 通过role_id查询部分客户的信息(被角色id绑定的) GET /client/findByRoleId/{role_id}
@@ -536,7 +546,12 @@
         /**
          * 8 客户管理 通过user_id查询部分客户的信息(被用户id绑定的) GET /client/findByUserId/{user_id}
          */
-
+        /**
+         *  9 客户管理 通过id删除一条客户数据 DELETE /client/{id}
+         */
+        /**
+         * 10 客户管理 根据id返回客户信息 GET /client/{id}
+         */
 /**
  * TODO 资源管理
  **/

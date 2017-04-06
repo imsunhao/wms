@@ -16,8 +16,13 @@ router.get('/', function (req, res, next) {
         json: true,
         body:{//写好参数后 运行  失败后找亚伟 成功后这样操作
 
+        "id": 0,
+        "ids": [
+        1
+    ]
+
         },
-        url: 'http://192.168.5.14:8080/wms_cg_web/arehouse',
+        url: 'http://192.168.5.14:8080/wms_cg_web/client/deleteOfSoft',
         headers: {"Content-Type": 'application/json'}
     }, function (error, response, json) {
         res.send(response);

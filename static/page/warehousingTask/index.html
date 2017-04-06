@@ -94,11 +94,11 @@
                                             <el-form-item label="可用操作">
                                                 <el-button
                                                         size="small"
-                                                        @click="handleEdit(props.$index, props.row)">分配
+                                                        @click="handleDistribution(props.$index, props.row)">分配
                                                 </el-button>
                                                 <el-button
                                                         size="small"
-                                                        @click="handleDelete(props.$index, props.row)">编辑
+                                                        @click="handleEdit(props.$index, props.row)">编辑
                                                 </el-button>
                                                 <el-button
                                                         size="small"
@@ -751,7 +751,7 @@
         methods: {
             handleEdit: function (index, row) {
                 console.log(index, row);
-            },                                  //测试 行内按钮 有效性
+            },                                  //测试 行内bia 有效性
             handleDelete: function (index, row) {
                 console.log(index, row);
             },                                //测试 行内按钮 有效性
