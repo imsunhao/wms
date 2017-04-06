@@ -217,30 +217,35 @@
     /** 仓库管理/配置   warehouseConfiguration
      *
      */
-        /** TODO 0 分页获取 仓库详情   ??路径？
-             *          ArehouseId           id
-             *          Name                 仓库名称
-             *          Addr                 仓库地址
-             *          Scity                所在地市
-             *          Scontacts            联系人
-             *          Phone                电话
-             *          Acreage              面积
-             *          Ctype                仓库类型
-             *
-             *          Humidity             相对湿度
-             *          Fax                  传真
-             *          Postoffice           邮编
-             *          Isti                 是否需要维护ti值
-             *                                  1.存在ti
-             *                                  2.不存在ti
-             *          Status               状态
-             *                                  1.可用
-             *                                  0.软删除
-             *          ClientId             客户id
-             *          Remarks              备注
-             *          Pgroupinfo           平面图信息
-             *          Createtime           创建时间
-             *          */
+        /**  0 分页获取 仓库详情   POST /arehouse/page
+         * 参数
+         * {
+                "baName": "",
+                "baScontacts": "",
+                "baCtype": "",
+                "baStatus": "",
+                "pageNum": 1,
+                "pageSize": 1,
+                "draw": 1
+            }
+         参数说明
+              baArehouseId      id
+              baName            仓库名称
+              baAddr            仓库地址
+              baScity           所在地市
+              baScontacts       联系人
+              baPhone           电话
+              baAcreage         面积
+              baCtype           仓库类型
+              baHumidity        相对湿度
+              baFax             传真
+              baPostoffice      邮编
+              baIsti            是否需要维护ti值
+              baStatus          状态
+              baClientId        客户id
+              baRemarks         备注
+              baCreatetime      创建时间
+              baPgroupinfo      平面图信息
         /** TODO 1 新增 /arehouse  就从这个开始吧 测试接口
          *
          *{
@@ -294,57 +299,178 @@
         *          Postoffice           邮编
         *          Fax                  传真
         *          */
-        /** TODO 2 编辑 /arehouse
-        *          Name                 仓库名称
-        *          Addr                 仓库地址
-        *          Scontacts            联系人/负责人
-        *          Phone                电话
-        *          Remarks              备注
-        *          Ctype                仓库类型
-        *          Humidity             相对湿度
-        *          Postoffice           邮编
-        *          Fax                  传真
-        *
-        *          客户归属
-        *          arehouseId          仓库id
+        /**  1 新增 POST /arehouse
+         * 参数
+         * {
+                "baArehouseId": 0,
+                "baName": "23221",
+                "baAddr": "122",
+                "baScity": "122",
+                "baScontacts": "string",
+                "baPhone": "string",
+                "baAcreage": "string",
+                "baCtype": "string",
+                "baHumidity": "string",
+                "baFax": "string",
+                "baPostoffice": "string",
+                "baIsti": 0,
+                "baStatus": 0,
+                "baClientId": 0,
+                "baRemarks": "string",
+                "baCreatetime": "2017-04-06T06:05:11.376Z",
+                "baPgroupinfo": "string",
+                "arehouseKqs": [
+                    {
+                        "baqKqId": 8,
+                        "baqArehouseId": 0,
+                        "baqKqName": "string",
+                        "baqIsdel": 0,
+                        "baqStatus": 0,
+                        "baseRegions": [
+                            {
+                                "brgRegionId": 8,
+                                "brgArehouseId": 0,
+                                "brgRegionNo": "string",
+                                "brgKqId": 0,
+                                "brgRegionStatus": 0
+                             }
+                        ]
+                       }
+                   ]
+            }
+         参数说明
+                baArehouseId    仓库id 主键
+                baName          仓库名称
+                baAddr          仓库地址
+                baScity         所在地市
+                baScontacts     联系人
+                baPhone         电话
+                baAcreage       面积
+                baCtype         仓库类型
+                baHumidity      相对湿度
+                baFax           传真
+                baPostoffice    邮编
+                baIsti          是否需要维护ti值 1:存在ti 2:不存在ti
+                baStatus        状态1可用 0软删除
+                baClientId      客户id
+                baRemarks       备注
+                baCreatetime    创建时间
+                baPgroupinfo    平面图信息
+         *
+         */
+        /**   编辑 PUT /arehouse
+         * 参数
+         * {
+               "baArehouseId": 2,
+               "baName": "000",
+               "baAddr": "000",
+               "baScity": "222",
+               "baScontacts": "string",
+               "baPhone": "string",
+               "baAcreage": "string",
+               "baCtype": "string",
+               "baHumidity": "string",
+               "baFax": "string",
+               "baPostoffice": "string",
+               "baIsti": 0,
+               "baStatus": 0,
+               "baClientId": 1,
+               "baRemarks": "string",
+               "baCreatetime": "2017-04-06T06:05:11.379Z",
+               "baPgroupinfo": "string",
+               "arehouseKqs": [
+               {
+                   "baqKqId": 1,
+                   "baqArehouseId": 1,
+                   "baqKqName": "string",
+                   "baqIsdel": 0,
+                   "baqStatus": 0,
+                   "baseRegions": [
+                       {
+                           "brgRegionId": 1,
+                           "brgArehouseId": 0,
+                           "brgRegionNo": "string",
+                           "brgKqId": 0,
+                           "brgRegionStatus": 0
+                       }
+                   ]
+               }
+               ]
+           }
+         参数说明
+                baArehouseId    仓库id 主键
+                baName          仓库名称
+                baAddr          仓库地址
+                baScity         所在地市
+                baScontacts     联系人
+                baPhone         电话
+                baAcreage       面积
+                baCtype         仓库类型
+                baHumidity      相对湿度
+                baFax           传真
+                baPostoffice    邮编
+                baIsti          是否需要维护ti值 1:存在ti 2:不存在ti
+                baStatus        状态1可用 0软删除
+                baClientId      客户id
+                baRemarks       备注
+                baCreatetime    创建时间
+                baPgroupinfo    平面图信息
+         */
+        /**  3 仓库管理 通过client_id查询部分仓库的信息(被客户id绑定的) GET /arehouse/findByClientId/{client_id}
         *          */
-        /** TODO 3 通过clientId查询部分仓库的信息(被客户id绑定的)
-        *          clientId            客户id
+        /**  4 仓库管理 通过role_id查询部分仓库的信息(被角色id绑定的 GET /arehouse/findByRoleId/{role_id}
         *          */
-        /** TODO 4 通过roleId查询部分仓库的信息(被角色id绑定的)
-        *          roleId              角色id
+        /**  5 仓库管理 通过id删除一条仓库数据 DELETE /arehouse/{id}
         *          */
-        /** TODO 5 通过id删除一条仓库数据
-        *          id                   仓库id
+        /**  6 仓库管理 根据id返回仓库信息 GET /arehouse/{id}
         *          */
-        /** TODO 6 根据id返回仓库信息
-        *          id                   仓库id
+        /**  7 仓库管理 通过client_id查询部分仓库的信息(被用户id绑定的)  GET /arehouse/{user_id}/{client_id}
+
         *          */
-        /** TODO 7 通过client_id查询部分仓库的信息(被用户id绑定的)
-        *          userId              用户id
-        *          clientId            客户id
-        *          */
+        /**  8 仓库管理 客户归属 GET /arehouse/belongToWhichClient/{arehouse_id}
+         *
+         */
+        /**  9 仓库管理 软删除多个或单个数据 POST /arehouse/deleteOfSoft
+         *
+         */
     /**
- *   TODO 客户配置  clientConfiguration
- *          bcClientId           id
- *          bcCname              客户名称
- *          bcCaddr              客户地址
- *          bcCtel               联系方式
- *          bcStatus             状态
- *                                   0.软删除
- *                                   1.可用
- *          bcCjsj               创建时间
- **/
-        /** TODO 0 客户配置的主页面
-                bcCname 客户名称
-                bcCaddr 客户地址
-                bcCtel  联系电话
+     *   TODO 客户配置  clientConfiguration
+     **/
+        /**  0  分页获取 仓库详情 POST /client/page
+         * 参数
+         * {
+         *      "bcCname": "",
+                "bcStatus": 0,
+                "pageNum": 1,
+                "pageSize": 1,
+                "draw": 1
+         * }
+         * 参数说明：
+         *      bcClientId   客户id
+                bcCname      客户名称
+                bcCaddr      客户地址
+                bcCtel       联系方式
+                bcStatus     状态0 软删除 1 可用
+                bcCjsj       创建时间
          */
         /**
-         *  TODO 1 新增-配置货品-配置仓库
-         *      bcCname              客户名称
-         *      bcCtel               联系方式/联系地址
-         *      bcCaddr              客户地址
+         *   1 新增-配置货品-配置仓库 POST /client
+         *   参数
+         *   {
+                "bcClientId": 0,
+                "bcCname": "string",
+                "bcCaddr": "string",
+                "bcCtel": "string",
+                "bcStatus": 0,
+                "bcCjsj": "2017-04-06T06:05:11.359Z"
+              }
+            参数说明：
+                bcClientId      客户id
+                bcCname         客户名称
+                bcCaddr         客户地址
+                bcCtel          联系方式
+                bcStatus        0 软删除 1 可用
+                bcCjsj          创建时间
          *
         /**
          *  TODO 2 配置货品    /client/clientAddGoods
@@ -353,31 +479,68 @@
          *      goodsIds            被勾选的货品id集合
          **/
         /**
-        TODO 2 配置货品    /client/clientAddGoods
-            通过clientId配置货品所属关系
-            clientId            客户id
-            goodsIds            被勾选的货品id集合
+         2 配置货品 客户管理 通过client_id配置货品所属关系 POST /client/clientAddGoods
+         参数
+         {
+            "id": 1,
+            "ids": [
+            2,3,4
+            ]
+         }
+         参数说明：
+         id     客户id
+         ids
         **/
         /**
-         *  TODO 3 配置仓库   /client/clientAddArehouses
-         *      通过client_id配置仓库所属关系
-         *      clientId            客户id
-         *      arehouseIds         被勾选的仓库id集合
+         *  TODO 3 配置仓库 客户管理 通过client_id配置仓库所属关系 POST /client/clientAddArehouses
+         * 参数
+         * {
+                "id": 0,
+                "ids": [
+                  1,2,3,
+                ]
+            }
+         参数说明：
+                id  客户id
+                ids 仓库id
          **/
         /**
-         *  TODO 4 编辑  /client
-         *      bcCname              客户名称
-         *      bcCtel               联系方式/联系地址
-         *      bcCaddr              客户地址
+         *   4 编辑  PUT /client
+         *  参数
+         *  {
+         *      "bcClientId": 1,
+                "bcCname": "",
+                "bcCaddr": "",
+                "bcCtel": "",
+                "bcStatus": 0,
+                "bcCjsj": ""
+         *  }
+         *  参数说明：
+         *          bcClientId  客户id
+                    bcCname     客户名称
+                    bcCaddr     客户地址
+                    bcCtel      联系方式
+                    bcStatu     0 软删除 1 可用
+                    bcCjsj      创建时间
          **/
         /**
-         *  TODO 5 客户不允许重复
-         *      bcCname              客户名称
+         *   5 客户不允许重复 客户管理 判断客户名称是否重复  GET /client/isRepeatByBcCname/{bcCname}
+         *
          **/
+        /**
+         * TODO 6  客户管理 软删除多个或单个数据  POST /client/deleteOfSoft (报500)
+         */
+        /**
+         *  7  客户管理 通过role_id查询部分客户的信息(被角色id绑定的) GET /client/findByRoleId/{role_id}
+         */
+        /**
+         * 8 客户管理 通过user_id查询部分客户的信息(被用户id绑定的) GET /client/findByUserId/{user_id}
+         */
+
 /**
  * TODO 资源管理
  **/
-    /**
+/**
      *      TODO 货品管理   goodsManage
 
      *          bgGoodsId       id
