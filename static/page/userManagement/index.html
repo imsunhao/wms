@@ -169,7 +169,6 @@
         width: 100%;
     }
 </style>
-
 <div id="userManagement">
     <!--页面调整-->
     <el-row
@@ -554,7 +553,6 @@
         </div>
     </el-dialog>
 </div>
-
 <script>
     var form = function () {
         return {
@@ -581,7 +579,6 @@
             ruStatus: 1,
         }
     };               //弹出层 form 模板
-
     var userManagement = new Vue({
         el: '#userManagement',
         prop: {},
@@ -911,7 +908,6 @@
             }
         }
     });
-
     // 高级 监视器的 使用方法
     userManagement.$watch('form.ruUserName', function () {
         if (this.form.title !== '新建用户') return;
@@ -1380,5 +1376,4 @@
         }
         return false;
     }
-
 </script>

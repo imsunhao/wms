@@ -1,16 +1,15 @@
-
 // TODO 首页
 
 var express = require('express');
 var router = express.Router();
 
 router.param('_id', function (req, res, next, id) {
-    console.log('CALLED ONLY ONCE'+id);
+    console.log('CALLED ONLY ONCE' + id);
     next();
 });
 router.param('_pageName', function (req, res, next, pageName) {
-    if(typeof req.session.user!=='undefined') {
-        console.log(req.session.user.ruUserName+'\t动态加载页面\t'+pageName);
+    if (typeof req.session.user !== 'undefined') {
+        console.log(req.session.user.rmsUser.ruUserName + '\t动态加载页面\t' + pageName);
         next();
     }
     else {
@@ -34,22 +33,20 @@ router.get('/', function (req, res, next) {
 
 router.get('/page/:_pageName', function (req, res, next) {
 
-    var option={};
+    var option = {};
 
-    switch (req.params._pageName){
+    switch (req.params._pageName) {
         //TODO 适配参数
         default:
-            option={};
+            option = {};
     }
     /*<debug>*/
     console.log("--------------------------------------");
     /*</debug>*/
-    res.render('page/'+req.params._pageName, option);
+    res.render('page/' + req.params._pageName, option);
 });
 
 module.exports = router;
-
-
 
 
 //  要做的工作 imzhangxing

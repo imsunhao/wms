@@ -84,7 +84,7 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '角色管理-加载角色管理页面';
-                        req = autoUrl(req, '/role', "POST", function (json) {
+                        req = autoUrl(req, '/role/page', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -96,7 +96,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 2:
                         urlName = '角色管理-启用';
-                        req = autoUrl(req, '/user/liveUsersByUids', "POST", function (json) {
+                        req = autoUrl(req, '/role/liveRolesByRids', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -120,7 +120,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 6:
                         urlName = '角色管理-禁用 ';
-                        req = autoUrl(req, '/role/roleAddMenus', "POST", function (json) {
+                        req = autoUrl(req, '/role/dieRolesByRids', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -411,7 +411,7 @@ function autoUrl(req, url, method, cal) {
 
 //请求java服务器
 router.get('/:_url/:_status', function (req, res, next) {
-    console.log(req.query);
+    console.log(JSON.stringify(req.query));
     request({
         url: 'http://' + server.host + ':' + server.port + server.path + req.body.url,
         method: req.body.method,

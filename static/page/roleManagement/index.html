@@ -187,11 +187,6 @@
                     class="icon sel"></i><span>多选</span>
             </button>
             <button
-                    @click="multiBatchDelete"
-                    class="btn btn-del"
-                    v-show="multiSelect">批量删除
-            </button>
-            <button
                     class="btn"
                     v-show="multiSelect"
                     @click="multiEdit">编辑
@@ -228,6 +223,7 @@
                 :max-height="450"
                 ref="table"
                 class="roleManagementTable"
+                @selection-change="multiSelectionChange"
                 style="width: 100%">
             <el-table-column
                     type="expand">
@@ -264,26 +260,14 @@
                                     </el-button>
                                     <el-button
                                             size="small"
-                                            icon="delete"
-                                            type="danger"
-                                            @click="inlineDelete      (props.$index, props.row)">
-                                    </el-button>
-                                    <el-button
-                                            size="small"
-                                            icon="delete"
-                                            type="danger"
-                                            @click="inlinePassword    (props.$index, props.row)">
-                                    </el-button>
-                                    <el-button
-                                            size="small"
-                                            v-show="props.row.ruStatus!=0"
+                                            v-show="props.row.rrStatus==0"
                                             type="success"
                                             @click="inlineAble           (props.$index, props.row)">启用
                                     </el-button>
                                     <el-button
                                             size="small"
                                             type="danger"
-                                            v-show="props.row.ruStatus==0"
+                                            v-show="props.row.rrStatus!=0"
                                             @click="inlineDisAble         (props.$index, props.row)">禁用
                                     </el-button>
                                 </el-form-item>
@@ -301,6 +285,7 @@
             </el-table-column>
             <el-table-column
                     label="备注"
+                    show-overflow-tooltip
                     align="center">
                 <template scope="scope">
                     <span>{{ scope.row.rrRemarks}}</span>
@@ -315,10 +300,12 @@
             </el-table-column>
             <el-table-column
                     label="是否启用"
-                    show-overflow-tooltip
                     align="center">
                 <template scope="scope">
-                    <span>{{ scope.row.rrStatus == 0 ? '禁用':'可用'}}</span>
+                    <el-tag
+                            :type="scope.row.rrStatus == 0 ? 'danger':'success'"
+                            close-transition>{{scope.row.rrStatus == 0 ? '禁用':'启用'}}
+                    </el-tag>
                 </template>
             </el-table-column>
             <el-table-column
@@ -365,7 +352,6 @@
                 </el-col>
             </el-row>
         </el-form>
-
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="submit" :loading="submitLoading">保存
             </el-button>
@@ -387,7 +373,7 @@
 
             ruStatus: 1,
         }
-    };                //弹出层 form 模板
+    };                  //弹出层 form 模板
     var roleManagement = new Vue({
         el: '#roleManagement',
         prop: {},
@@ -454,7 +440,7 @@
         methods: {
             inlineEdit: function (index, row) {
                 this.form.title = '编辑';
-                this.form.ruUserId = row.ruUserId;
+                this.form.rrRoleId = row.rrRoleId;
                 this.form.ruUserName = row.ruUserName;
                 this.form.ruLoginName = row.ruLoginName;
                 this.form.ruPhone = row.ruPhone;
@@ -494,7 +480,7 @@
                 }).then(function () {
                     remove(row, _this.userManagement);
                     postDelete(_this, {
-                        id: [row.ruUserId]
+                        id: [row.rrRoleId]
                     });
                 }).catch(function () {
                     _this.$message({
@@ -525,37 +511,37 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    // TODO
+                    postStart(_this, {ids: [row.rrRoleId]})
                 }).catch(function () {
                     _this.$message({
                         type: 'info',
                         message: '已取消'
                     });
                 });
-            },                                  //行内按钮-密码
+            },                                  //行内按钮-启用
             inlineDisAble: function (index, row) {
-                var _this = this;
-                _this.$confirm('此操作将此用户禁用, 是否继续?', '提示', {
+                var obj = this;
+                obj.$confirm('此操作将此用户禁用, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    // TODO
+                    postDisable(obj, {ids: [row.rrRoleId]});
                 }).catch(function () {
-                    _this.$message({
+                    obj.$message({
                         type: 'info',
                         message: '已取消'
                     });
                 });
-            },                               //行内按钮-密码
+            },                               //行内按钮-禁用
             inlineRole: function (index, row) {
                 /*<debug>*/
                 this.roleForm = {
-                    roleId: row.ruUserId,                        //角色 弹出层 角色ID
+                    roleId: row.rrRoleId,                        //角色 弹出层 角色ID
                 };
                 /*</debug>*/
                 /*<prod>*/
-                postRuRoles(this, row.ruUserId);
+                postRuRoles(this, row.rrRoleId);
                 /*</prod>*/
                 this.dialogRoleVisible = !this.dialogRoleVisible;
             },                                  //行内按钮-角色
@@ -570,10 +556,42 @@
                 this.multiEdit = !this.multiEdit;
             },                                             //多选 编辑维护
             multiStart: function () {
-                this.multiStart = !this.multiStart;
+                var obj = this;
+                obj.$confirm('此操作将这些用户设置为启用, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    var step = [];
+                    for (var i = 0; i < obj.multipleSelection.length; i++) {
+                        step.push(obj.multipleSelection[i].rrRoleId);
+                    }
+                    postStart(obj, {"ids": step});
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
             },                                            //多选 启用维护
             multiDisable: function () {
-                this.multiDisable = !this.multiDisable;
+                var obj = this;
+                obj.$confirm('此操作将这些用户设置为禁用, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    var step = [];
+                    for (var i = 0; i < obj.multipleSelection.length; i++) {
+                        step.push(obj.multipleSelection[i].rrRoleId);
+                    }
+                    postDisable(obj, {"ids": step});
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
             },                                          //多选 禁用维护
             multiWarehouse: function () {
                 this.multiWarehouse = !this.multiWarehouse;
@@ -585,39 +603,9 @@
                 this.multiMenu = !this.multiMenu;
             },                                             //多选 状态维护
 
-            handleSelectionChange: function (val, row) {
-                /*<debug>*/
-                console.log(addOrDelete(row, val));
-                /*</debug>*/
-                if (addOrDelete(row, val)) {
-                    this.roleManagementCombination.push(row);
-                } else {
-                    remove(row, this.roleManagementCombination);
-                }
+            multiSelectionChange: function (val, row) {
                 this.multipleSelection = val;
-            },                         //多选 选中控制
-            handleSelectionChangeAll: function (val) {
-                if (val.length > 0) {
-                    for (var i = 0; i < val.length; i++) {
-                        if (!addOrDelete(val[i], this.roleManagementCombination)) {
-                            this.roleManagementCombination.push(val[i]);
-                        }
-                    }
-                } else {
-                    for (var i = 0; i < this.roleManagement.length; i++) {
-                        remove(this.roleManagement[i], this.roleManagementCombination);
-                    }
-                }
-                this.multipleSelection = val;
-            },                           //多选 选中控制
-            moreOperationDelete: function () {
-                /*<debug>*/
-                console.log('选中的删除');
-                /*</debug>*/
-                for (i = 0; i < this.multipleSelectionCombination.length; i++) {
-                    remove(this.multipleSelectionCombination[i], this.roleManagementCombination);
-                }
-            },                                   //多选 删除
+            },                          //多选 选中控制
 
             handleSizeChange: function (val) {
                 /*<debug>*/
@@ -637,7 +625,7 @@
             newInput: function () {
                 this.dialogFormVisible = true;
                 this.form = {
-                    ruUserId: '',
+                    rrRoleId: '',
                     title: "新建角色",
                     ruUserName: '',
                     ruLoginName: '',
@@ -767,37 +755,7 @@
     //        post(this, this.option);
     //    }, {deep: true});
     post(roleManagement, roleManagement.option);
-    postRoles(roleManagement, roleManagement.option);
     function post(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/roleControl/role.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/roleManagement/0";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                roleManagement.$data.roleManagement = json;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }
-    function postRole(obj, option) {
         obj.showLoading = true;
         /*<debug>*/
         url = "../../hock/roleControl/add.json";
@@ -818,14 +776,6 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                for (var i = 0; i < json.data.length; i++) {
-                    var ruUserType = {
-                        "0": "普通",
-                        "1": "堆高车",
-                        "2": "高位叉车"
-                    };
-                    json.data[i].ruUserType = ruUserType[json.data[i].ruUserType];
-                }
                 roleManagement.$data.roleManagement = json.data;
                 roleManagement.$data.currentTotal = json.recordsFiltered;
             },
@@ -833,7 +783,7 @@
                 obj.showLoading = false;
             }
         });
-    }            //分页获取 角色信息
+    }                // 0 分页获取 角色信息
     function postAdd(obj, option) {
         obj.showLoading = true;
         /*<debug>*/
@@ -870,7 +820,7 @@
                 obj.showLoading = false;
             }
         });
-    }             //新增-启用-配置仓库-配置客户-配置菜单
+    }             // 1 新增-启用-配置仓库-配置客户-配置菜单
     function postStart(obj, option) {
         obj.showLoading = true;
         /*<debug>*/
@@ -880,34 +830,40 @@
         /*<prod>*/
         url = "/route/roleManagement/2";//post
         /*</prod>*/
-
         $.ajax(url, {
             type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
+            data: option,
             error: function (error) {
                 errorTip(obj, error);
             },
             success: function (json) {
-                for (var i = 0; i < json.data.length; i++) {
-                    var ruUserType = {
-                        "0": "普通",
-                        "1": "堆高车",
-                        "2": "高位叉车"
-                    };
-                    json.data[i].ruUserType = ruUserType[json.data[i].ruUserType];
+                if (json.status === 20000) {
+                    post(roleManagement, roleManagement.option);
+                    obj.$notify({
+                        title: '提示',
+                        type: 'success',
+                        message: obj.$createElement(
+                            'p',
+                            '启用完成'
+                        )
+                    });
+                }else{
+                    obj.$notify({
+                        title: '提示',
+                        type: 'error',
+                        message: obj.$createElement(
+                            'p',
+                            '启用失败'
+                        )
+                    });
                 }
-                roleManagement.$data.roleManagement = json.data;
-                roleManagement.$data.currentTotal = json.recordsFiltered;
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
-    }           //启用
+
+    }           // 2 启用
     function postWarehouse(obj, option) {
         obj.showLoading = true;
         /*<debug>*/
@@ -944,7 +900,7 @@
                 obj.showLoading = false;
             }
         });
-    }       // 配置仓库
+    }       // 3 配置仓库
     function postCustomer(obj, option) {
         obj.showLoading = true;
         /*<debug>*/
@@ -981,7 +937,7 @@
                 obj.showLoading = false;
             }
         });
-    }        //配置客户
+    }        // 4 配置客户
     function postMenu(obj, option) {
         obj.showLoading = true;
         /*<debug>*/
@@ -1018,7 +974,7 @@
                 obj.showLoading = false;
             }
         });
-    }            //配置菜单
+    }            // 5 配置菜单
     function postDisable(obj, option) {
         obj.showLoading = true;
 
@@ -1032,31 +988,37 @@
 
         $.ajax(url, {
             type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
+            data: option,
             error: function (error) {
                 errorTip(obj, error);
             },
             success: function (json) {
-                for (var i = 0; i < json.data.length; i++) {
-                    var ruUserType = {
-                        "0": "普通",
-                        "1": "堆高车",
-                        "2": "高位叉车"
-                    };
-                    json.data[i].ruUserType = ruUserType[json.data[i].ruUserType];
+                if (json.status === 20000) {
+                    post(roleManagement, roleManagement.option);
+                    obj.$notify({
+                        title: '提示',
+                        type: 'success',
+                        message: obj.$createElement(
+                            'p',
+                            '禁用完成'
+                        )
+                    });
+                }else{
+                    obj.$notify({
+                        title: '提示',
+                        type: 'error',
+                        message: obj.$createElement(
+                            'p',
+                            '禁用失败'
+                        )
+                    });
                 }
-                roleManagement.$data.roleManagement = json.data;
-                roleManagement.$data.currentTotal = json.recordsFiltered;
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
-    }         //禁用
+    }         // 6 禁用
     function postEdit(obj, option) {
         obj.showLoading = true;
 
@@ -1065,7 +1027,7 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/role/7";//post
+        url = "/route/roleManagement/7";//post
         /*</prod>*/
 
         $.ajax(url, {
@@ -1094,7 +1056,7 @@
                 obj.showLoading = false;
             }
         });
-    }            //角色编辑
+    }            // 7 角色编辑
     function postNoRepetition(obj, option) {
         obj.showLoading = true;
 
@@ -1132,5 +1094,5 @@
                 obj.showLoading = false;
             }
         });
-    }    //角色名称不允许重复的接口
+    }    // 8 角色名称不允许重复的接口
 </script>

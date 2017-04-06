@@ -14,29 +14,10 @@ router.get('/', function (req, res, next) {
     request({
         method: "POST",
         json: true,
-        postData: {
-            mimeType: 'application/x-www-form-urlencoded',
-            params: {
-                draw: 1,
-                rkno: "sdfgdsfg",
-                status: 1,
-                startTimeParam: "2017-3-2 11:31:18",
-                endTimeParam: "2017-3-2 11:31:31",
-                pageNum: 123,
-                pageSize: 1
-            }
+        body:{//写好参数后 运行  失败后找亚伟 成功后这样操作
+
         },
-        data: {
-            draw: 1,
-            rkno: "sdfgdsfg",
-            status: 1,
-            startTimeParam: "2017-3-2 11:31:18",
-            endTimeParam: "2017-3-2 11:31:31",
-            pageNum: 123,
-            pageSize: 1
-        },
-        // url: 'http://192.168.5.29:8080/wms_cg_web/mfunrkDoc',
-        url: 'http://127.0.0.1:3000/check/aaa',                      //ceshi/123456
+        url: 'http://192.168.5.14:8080/wms_cg_web/arehouse',
         headers: {"Content-Type": 'application/json'}
     }, function (error, response, json) {
         res.send(response);
