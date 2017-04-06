@@ -4,56 +4,20 @@
             element-loading-text="拼命加载中">
         <el-col :span="24">
             <div class="inner btn-nav">
-                </button>
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
-                <button @click="multiSelectClick" class="btn btn-multiSelect"><i class="icon sel"></i><span>多选</span>
+                <button @click="multiSelectClick" class="btn btn-multiSelect"><i
+                        class="icon sel"></i><span>多选</span>
                 </button>
-                <el-input
-                        v-model="rkrwCph"
-                        icon="search"
-                        placeholder="车牌号"></el-input>
-                 <el-input
-                        v-model="rkrwCph"
-                        icon="search"
-                        placeholder="司机姓名"></el-input>
-                <el-date-picker
-                        v-model="rkrwDhrq"
-                        type="daterange"
-                        align="right"
-                        placeholder="预计到货日期"
-                        class="datePicker"
-                        :picker-options="pickerOptions">
-                </el-date-picker>
-                <el-input
-                        v-model="rkrwCph"
-                        icon="search"
-                        placeholder="调拨地"></el-input>
-                <el-input
-                        v-model="rkrwCys"
-                        icon="search"
-                        placeholder="承运商"></el-input>
-                <el-input
-                        v-model="rkrwNo"
-                        icon="search"
-                        placeholder="任务号"></el-input>
-                <button
-                        class="btn btn-edit"
-                        @click="handleDelete">编辑
+
+                <button @click="moreOperationModify" class="btn btn-modify" v-show="multiSelect"><i
+                        class="icon modify"></i><span>修改</span>
                 </button>
-                <button
-                        class="btn btn-distribution"
-                        @click="distributionBtn">分配
+                <button @click="moreOperationIssued" class="btn btn-Issued" v-show="multiSelect"><i
+                        class="icon issued"></i><span>下发</span>
                 </button>
-                <button
-                        class="btn btn-receipt"
-                        @click="handleDelete">再次收货
-                </button>
-                <button
-                        class="btn btn-print"
-                        @click="handleDelete">打印
-                </button>
+
             </div>
             <el-table
                     :data="inputOperation"
@@ -502,6 +466,35 @@
             v-model="dialogSelectVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
+            <el-input
+                    v-model="rkrwCph"
+                    icon="search"
+                    placeholder="车牌号"></el-input>
+            <el-input
+                    v-model="rkrwCph"
+                    icon="search"
+                    placeholder="司机姓名"></el-input>
+            <el-date-picker
+                    v-model="rkrwDhrq"
+                    type="daterange"
+                    align="right"
+                    placeholder="预计到货日期"
+                    class="datePicker"
+                    :picker-options="pickerOptions">
+            </el-date-picker>
+            <el-input
+                    v-model="rkrwCph"
+                    icon="search"
+                    placeholder="调拨地"></el-input>
+            <el-input
+                    v-model="rkrwCys"
+                    icon="search"
+                    placeholder="承运商"></el-input>
+            <el-input
+                    v-model="rkrwNo"
+                    icon="search"
+                    placeholder="任务号"></el-input>
+
         </div>
         <el-form :model="select">
 
@@ -818,7 +811,7 @@
                 /*</debug>*/
                 this.multipleSelection = val;
             },                              //多选 选中控制
-            moreOperationDelete: function () {
+            moreOperationModify: function () {
                 /*<debug>*/
                 console.log('选中的删除');
                 /*</debug>*/
@@ -831,7 +824,21 @@
                     id: listID
                 })
 
-            },                                   //多选 删除
+            },                                   //TODO 多选 修改
+            moreOperationIssued: function () {
+                /*<debug>*/
+                console.log('选中的删除');
+                /*</debug>*/
+                var listID = [];
+                for (var i = 0; i < this.multipleSelection.length; i++) {
+                    remove(this.multipleSelection[i], this.inputOperation);
+                    listID.push(this.inputOperation.rkdjNo);
+                }
+                postDelete(this, {
+                    id: listID
+                })
+
+            },                                   //TODO 多选 下发
 
             handleSizeChange: function (val) {
                 /*<debug>*/
