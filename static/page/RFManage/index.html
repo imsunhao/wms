@@ -178,10 +178,13 @@
         <div class="inner btn-nav">
 
             <el-input
-                    v-model="bgGoodsName"
-                    v-model="bgGoodsNo"
+                    v-model="ruLoginName"
                     icon="search"
-                    placeholder="货品名称/货品编号"></el-input>
+                    placeholder="账户"></el-input>
+            <el-input
+                    v-model="ruUserZyq"
+                    icon="search"
+                    placeholder="作业区"></el-input>
             <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                     class="icon sel"></i><span>多选</span>
             </button>
@@ -407,8 +410,8 @@
                 multipleSelection: [],           //主页面 多选集合
                 multiSelect: false,              //主页面 多选状态 维护
 
-                bgGoodsName: '',                  //TODO 主页面 货品名称搜索 货品名称和货品编号是一个搜索条件
-                bgGoodsNo: '',                 //TODO 主页面 货品编号  搜索
+                ruLoginName: '',                  //TODO RF主页面 账户
+                ruUserZyq: '',                   //TODO RF主页面 作业区  搜索
                 showLoading: false,              //主页面 加载 维护
 
                 currentPage: 1,                  //分页 当前页

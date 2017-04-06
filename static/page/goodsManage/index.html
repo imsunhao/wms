@@ -179,9 +179,12 @@
 
             <el-input
                     v-model="bgGoodsName"
+                    icon="search"
+                    placeholder="货品名称"></el-input>
+            <el-input
                     v-model="bgGoodsNo"
                     icon="search"
-                    placeholder="货品名称/货品编号"></el-input>
+                    placeholder="货品编号"></el-input>
             <button @click="newInput" class="btn btn-add"><i
                     class="icon add"></i><span>新增</span>
             </button>
@@ -247,9 +250,6 @@
 
                                 <el-form-item label="货品换算量">
                                     <span>{{ props.row.bgHsl          }}</span>
-                                </el-form-item>
-                                <el-form-item label="状态">
-                                    <span>{{ props.row.Status   }}</span>
                                 </el-form-item>
                                 <el-form-item label="规格">
                                     <span>{{ props.row.bgGoodsGg    }}</span>
@@ -445,7 +445,7 @@
                                         auto-complete="off"></el-input>
                             </el-form-item>
                             <el-form-item
-                                    label="规格/换算量"
+                                    label="换算量"
                                     :label-width="formLabelWidth">
                                 <el-input
                                         v-model.number="form.bgHsl"
@@ -532,12 +532,8 @@
                 goodsManage: [],      //主页面 信息集合
                 multipleSelection: [],           //主页面 多选集合
                 multiSelect: false,              //主页面 多选状态 维护
-
                 bgGoodsName: '',                  //TODO 主页面 货品名称搜索 货品名称和货品编号是一个搜索条件
                 bgGoodsNo: '',                 //TODO 主页面 货品编号  搜索
-
-
-
                 showLoading: false,              //主页面 加载 维护
 
                 currentPage: 1,                  //分页 当前页

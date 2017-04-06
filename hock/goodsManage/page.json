@@ -7,7 +7,8 @@
     "bgGoodsTj":10.1315,
     "bgGoodsZl":3.1314,
     "bgGoodsPrice":2.1234,
-    "bgGoodsGg":12,
+    "bgHsl":3,
+    "bgGoodsGg":2,
     "bgZxdw":"箱",
     "bgSzdw":"袋",
     "bgRemarks":"其余的一些备注"
@@ -19,7 +20,8 @@
     "bgGoodsTj":10.1315,
     "bgGoodsZl":3.1314,
     "bgGoodsPrice":2.1234,
-    "bgGoodsGg":10,
+    "bgHsl":3,
+    "bgGoodsGg":2,
     "bgZxdw":"箱",
     "bgSzdw":"袋",
     "bgRemarks":"其余的信息"
@@ -31,7 +33,8 @@
     "bgGoodsTj":10.1315,
     "bgGoodsZl":3.1314,
     "bgGoodsPrice":2.1234,
-    "bgGoodsGg":9,
+    "bgHsl":3,
+    "bgGoodsGg":2,
     "bgZxdw":"箱",
     "bgSzdw":"袋",
     "bgRemarks":"别的信息"
@@ -43,7 +46,8 @@
     "bgGoodsTj":10.1315,
     "bgGoodsZl":3.1314,
     "bgGoodsPrice":2.1234,
-    "bgGoodsGg":1,
+    "bgHsl":3,
+    "bgGoodsGg":2,
     "bgZxdw":"箱",
     "bgSzdw":"袋",
     "bgRemarks":"其余的别的信息"
