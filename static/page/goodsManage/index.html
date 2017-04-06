@@ -1,10 +1,931 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<style>
+    #goodsManage {
+        width: 100%;
+        min-width: 890px;
+        position: relative;
+    }
 
-</body>
-</html>
+    #goodsManage .demo-table-expand {
+        font-size: 0;
+    }
+
+    #goodsManage .demo-table-expand label {
+        width: 90px;
+        color: #99a9bf;
+    }
+
+    #goodsManage .demo-table-expand .el-form-item {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 80%;
+    }
+
+    #goodsManage .el-table__expand-column .el-table__expand-icon {
+        height: 39px;
+    }
+
+    #goodsManage .table {
+        transition: 1s all;
+    }
+
+    #goodsManage .el-carousel__container {
+        height: 440px;
+    }
+
+    .el-tooltip__popper {
+        max-width: 400px;
+    }
+
+    .el-step__main {
+        max-width: calc(100% - 60px);
+    }
+
+    #goodsManage .goodsManageTable {
+        width: 95% !important;
+        margin: 10px 20px 0;
+    }
+
+    #goodsManage .datePicker {
+        width: 140px !important;
+        height: 24px !important;
+        margin-top: 29px;
+        margin-right: 18px;
+        float: left;
+    }
+
+    #goodsManage .datePicker .el-input__inner {
+        border-radius: 2px !important;
+        height: 24px !important;
+    }
+
+    #goodsManage .add {
+        background: url("/static/images/add.png") no-repeat center;
+    }
+
+    #goodsManage .del {
+        background: url("/static/images/del.png") no-repeat center;
+    }
+
+    #goodsManage .search {
+        background: url("/static/images/search.png") no-repeat center;
+    }
+
+    #goodsManage .sel {
+        background: url("/static/images/sel.png") no-repeat center;
+    }
+
+    #goodsManage .icon {
+        float: left;
+    }
+
+    #goodsManage .btn span {
+        float: left;
+        margin-top: 4px;
+        margin-left: 2px;
+    }
+
+    #goodsManage .btn {
+        height: 24px;
+        line-height: 1;
+        border: none;
+        background: #f8fafb;
+        outline: none;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        float: left;
+        font-size: 14px;
+        color: #1f2d3d;
+        margin-top: 29px;
+        margin-right: 16px;
+    }
+
+    #goodsManage .btn-print {
+        margin-right: 0;
+    }
+
+    #goodsManage .btn:hover {
+        color: #5468ee;
+    }
+
+    #goodsManage .inner {
+        margin: 0 20px;
+    }
+
+    #goodsManage .btn-nav {
+        height: 60px;
+        overflow: hidden;
+    }
+
+    #goodsManage .btn-nav .el-input .el-input__inner {
+        height: 24px;
+    }
+
+    #goodsManage .btn-nav .el-input {
+        float: left;
+        margin-top: 29px;
+        margin-right: 18px;
+        width: 140px;
+        height: 24px;
+    }
+
+    #goodsManage h4 {
+        padding-left: 20px;
+        margin-bottom: 0px;
+    }
+
+    #goodsManage .formBottom {
+        margin-top: 10px;
+    }
+
+    #goodsManage .goodsManageCombinationDetails .el-date-editor.el-input {
+        width: 100%;
+    }
+
+    #goodsManage .goodsManageCombinationDetails {
+        margin-top: 30px;
+    }
+</style>
+<style>
+    .steps {
+        position: absolute;
+        bottom: 10px;
+        left: 30px;
+        margin: auto;
+    }
+
+    .el-dialog__headerbtn {
+        position: absolute;
+        right: 25px;
+        top: 15px;
+    }
+
+    .el-step__main {
+        margin-left: -8px !important;
+    }
+</style>
+<style>
+    .el-date-editor.el-input {
+        width: 100%;
+    }
+</style>
+
+<div id="goodsManage">
+    <!--页面调整-->
+    <el-row
+            v-loading="showLoading"
+            element-loading-text="拼命加载中">
+        <div class="inner btn-nav">
+
+            <el-input
+                    v-model="bgGoodsName"
+                    icon="search"
+                    placeholder="货品名称"></el-input>
+            <el-input
+                    v-model="bgGoodsNo"
+                    icon="search"
+                    placeholder="货品编号"></el-input>
+            <button @click="newInput" class="btn btn-add"><i
+                    class="icon add"></i><span>新增</span>
+            </button>
+
+            <button @click="multiSelectClick" class="btn btn-multiSelect"><i
+                    class="icon sel"></i><span>多选</span>
+            </button>
+            <button
+                    class="btn"
+                    v-show="multiSelect&&multipleSelection.length==1"
+                    @click="multiOperationEdit">编辑
+            </button>
+        </div>
+        <el-table
+                :data="goodsManage"
+                :max-height="450"
+                ref="table"
+                class="goodsManageTable"
+                @selection-change="multiSelectionChange"
+                style="width: 100%">
+            <el-table-column
+                    type="expand">
+                <template scope="props">
+                    <el-row>
+                        <el-col :span="10">
+                            <el-form label-position="left" inline class="demo-table-expand">
+                                <el-form-item label="货品编号">
+                                    <span>{{ props.row.bgGoodsNo        }}</span>
+                                </el-form-item>
+                                <el-form-item label="货品名称">
+                                    <span>{{ props.row.bgGoodsName        }}</span>
+                                </el-form-item>
+                                <el-form-item label="货品简称">
+                                    <span>{{ props.row.bgNameJc           }}</span>
+                                </el-form-item>
+
+                                <el-form-item label="整箱单位">
+                                    <span>{{ props.row.bgZxdw   }}</span>
+                                </el-form-item>
+                                <el-form-item label="散支单位">
+                                    <span>{{ props.row.bgSzdw   }}</span>
+                                </el-form-item>
+                                <el-form-item label="备注">
+                                    <el-tooltip class="item" effect="dark"
+                                                :content="props.row.Remarks"
+                                                placement="top">
+                                        <span class="remark">{{ props.row.bgRemarks }}</span>
+                                    </el-tooltip>
+                                </el-form-item>
+                            </el-form>
+                        </el-col>
+                        <el-col :span="14">
+                            <el-form label-position="left" inline class="demo-table-expand">
+                                <el-form-item label="货品体积">
+                                    <span>{{ props.row.bgGoodsTj   }}</span>
+                                </el-form-item>
+                                <el-form-item label="货品重量">
+                                    <span>{{ props.row.bgGoodsZl }}</span>
+                                </el-form-item>
+                                <el-form-item label="单价">
+                                    <span>{{ props.row.bgGoodsPrice       }}</span>
+                                </el-form-item>
+
+                                <el-form-item label="货品换算量">
+                                    <span>{{ props.row.bgHsl          }}</span>
+                                </el-form-item>
+                                <el-form-item label="规格">
+                                    <span>{{ props.row.bgGoodsGg    }}</span>
+                                </el-form-item>
+
+                                <el-form-item label="可用操作">
+                                    <el-button
+                                            size="small"
+                                            icon="edit"
+                                            @click="inlineEdit(props.$index, props.row)">
+                                    </el-button>
+                                </el-form-item>
+                            </el-form>
+                        </el-col>
+                    </el-row>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="货品名称"
+                    show-overflow-tooltip
+                    align="center">
+                <template scope="scope">
+                    <span>{{ scope.row.bgGoodsName}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="货品编号"
+                    align="center">
+                <template scope="scope">
+                    <span>{{ scope.row.bgGoodsNo}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="货品简称"
+                    align="center">
+                <template scope="scope">
+                    <span>{{ scope.row.bgNameJc}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="货品体积"
+                    align="center">
+                <template scope="scope">
+                    <span>{{ scope.row.bgGoodsTj}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="货品重量"
+                    align="center">
+                <template scope="scope">
+                    <span>{{ scope.row.bgGoodsZl}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="货品单价"
+                    align="center">
+                <template scope="scope">
+                    <span>{{ scope.row.bgGoodsPrice}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="规格"
+                    align="center">
+                <template scope="scope">
+                    <span>{{ scope.row.bgGoodsGg}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="整箱单位"
+                    align="center">
+                <template scope="scope">
+                    <span>{{ scope.row.bgZxdw}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="散支单位"
+                    align="center">
+                <template scope="scope">
+                    <span>{{ scope.row.bgSzdw}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="备注"
+                    align="center">
+                <template scope="scope">
+                    <span>{{ scope.row.bgRemarks}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    v-if="multiSelect"
+                    type="selection"
+                    width="60">
+            </el-table-column>
+        </el-table>
+        <div class="block">
+            <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="[5, 10, 15, 20]"
+                    :page-size="pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="currentTotal">
+            </el-pagination>
+        </div>
+    </el-row>
+    <el-dialog
+            size="large"
+            v-model="dialogFormVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">{{form.title}}</span>
+            <el-steps
+                    class="steps"
+                    :space="120"
+                    :active="dialogFormActive"
+                    finish-status="success">
+            </el-steps>
+        </div>
+        <el-form :model="form" ref="newForm">
+            <el-carousel
+                    ref="carousel"
+                    :autoplay="false"
+                    arrow="never"
+                    indicator-position="none"
+                    height="55vh">
+                <el-carousel-item>
+                    <el-row>
+                        <el-col :span="10">
+                            <el-form-item
+                                    label="货品编号"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.bgGoodsNo        "
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    label="货品名称"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.bgGoodsName           "
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+
+                            <el-form-item
+                                    label="货品简称"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.bgNameJc"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    label="整箱单位"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.bgZxdw                 "
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    label="散支单位"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.bgSzdw                 "
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    label="备注"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.bgRemarks                 "
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="10" :offset="2">
+                            <el-form-item
+                                    label="货品体积"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.bgGoodsTj                 "
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                           <el-form-item
+                                    label="货品重量"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.bgGoodsZl                 "
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    label="单价"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.bgGoodsPrice"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    label="换算量"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.bgHsl"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    label="规格"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.bgGoodsGg"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+
+
+
+                        </el-col>
+                    </el-row>
+                </el-carousel-item>
+                <el-carousel-item>
+                    <el-row>
+
+                    </el-row>
+                </el-carousel-item>
+                <el-carousel-item>
+                    <el-row>
+
+                    </el-row>
+                </el-carousel-item>
+            </el-carousel>
+        </el-form>
+
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="submit" :loading="submitLoading"
+                       v-show="dialogFormActive >= 2">保存
+            </el-button>
+            <el-button type="primary" @click="submit" :loading="submitLoading"
+                       v-show="dialogFormActive >= 2">取消
+            </el-button>
+        </div>
+    </el-dialog>
+    <el-dialog
+            size="tiny"
+            v-model="dialogRoleVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">配置角色</span>
+        </div>
+
+        <el-form :model="warehouseForm" ref="newRoleForm">
+            <el-row>
+                <el-radio v-for="city in role" v-model="warehouseForm.roleId" :label="city.rrRoleId">{{city.rrName}}
+                </el-radio>
+            </el-row>
+        </el-form>
+
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="submitRole" :loading="loadingWarehouse">保存
+            </el-button>
+        </div>
+    </el-dialog>
+</div>
+
+<script>
+    var form = function () {
+        return {
+            arehouseId: 1,          //仓库id
+            title: "新建仓库",
+            Name: '',               //仓库名称
+            Addr: '',               //仓库地址
+            Scontacts: '',          //联系人/负责人
+            Phone: '',              //电话
+            Remarks: '',            //备注
+            Ctype: '',              //仓库类型
+            Humidity: '',           //相对湿度
+            Postoffice: '',         //邮编
+            Fax: '',                //传真
+        }
+    };               //弹出层 form 模板
+
+    var goodsManage = new Vue({
+        el: '#goodsManage',
+        prop: {},
+        data: function () {
+            return {
+                goodsManage: [],      //主页面 信息集合
+                multipleSelection: [],           //主页面 多选集合
+                multiSelect: false,              //主页面 多选状态 维护
+                bgGoodsName: '',                  //TODO 主页面 货品名称搜索 货品名称和货品编号是一个搜索条件
+                bgGoodsNo: '',                 //TODO 主页面 货品编号  搜索
+                showLoading: false,              //主页面 加载 维护
+
+                currentPage: 1,                  //分页 当前页
+                currentTotal: 1,                 //分页 总页数
+                pageSize: 10,                    //分页 分页大小
+
+                formLabelWidth: '120px',         //表单 配置
+
+                form: form(),                    //新建 弹出层 信息集合
+                dialogFormActive: 0,             //新建 弹出层 steps 当前进度
+                dialogFormVisible: false,        //新建 弹出层 是否可见
+                submitLoading: false,            //新建 弹出层 提交等待
+
+                pickerOption: {
+                    disabledDate: function (time) {
+                        return time.getTime() > Date.now();
+                    }
+                },             //新建 弹出层 相对湿度选项
+
+                dialogRoleVisible: false,        //仓库管理 弹出层 是否可见
+                loadingWarehouse: false,         //仓库管理 弹出层 提交等待
+                role: [],                        //仓库管理 集合
+                warehouseForm: {
+
+                },            //仓库管理 弹出层 信息集合
+
+            }
+        },
+        computed: {
+            option: function () {
+                return {
+                    "draw": 1,
+                    "pageNum": this.currentPage,
+                    "pageSize": this.pageSize
+                }
+            },           //主页面 post 0
+        },
+        methods: {
+            inlineEdit: function (index, row) {
+                this.form.title = '编辑';
+                this.form.bgGoodsNo = row.bgGoodsNo;
+                this.form.bgGoodsName = row.bgGoodsName;
+                this.form.bgNameJc = row.bgNameJc;
+                this.form.bgZxdw = row.bgZxdw;
+                this.form.bgSzdw = row.bgSzdw;
+                this.form.bgRemarks = row.bgRemarks;
+                this.form.bgGoodsTj = row.bgGoodsTj;
+                this.form.bgGoodsZl = row.bgGoodsZl;
+                this.form.bgGoodsPrice = row.bgGoodsPrice;
+                this.form.bgGoodsGg = row.bgGoodsGg;
+                this.form.bgHsl = row.bgHsl;
+                this.form.ruStatus = parseInt(row.ruStatus);
+                this.dialogFormVisible = true;
+                this.dialogFormActive = 0;
+                Vue.nextTick(function () {
+                    goodsManage.$refs.carousel.setActiveItem(0);
+                });
+            },                                  //TODO 行内按钮-编辑
+
+            multiSelectClick: function () {
+                this.multiSelect = !this.multiSelect;
+            },                                      //多选 状态维护
+            multiSelectionChange: function (val, row) {
+                this.multipleSelection = val;
+            },                          //多选 选中控制
+            multiOperationEdit: function () {
+                this.inlineEdit(1, this.multipleSelection[0]);
+            },                                    //多选 编辑
+
+            handleSizeChange: function (val) {
+                /*<debug>*/
+                console.log('每页' + val + '条');
+                /*</debug>*/
+                this.pageSize = val;
+                post(this, this.option);
+            },                                   //分页 Size
+            handleCurrentChange: function (val) {
+                /*<debug>*/
+                console.log('当前第' + val + '页');
+                /*</debug>*/
+                this.currentPage = val;
+                post(this, this.option);
+            },                                //分页 当前页
+
+            newInput: function () {
+                this.form = form();
+                this.dialogFormVisible = true;
+                this.dialogFormActive = 0;
+                Vue.nextTick(function () {
+                    goodsManage.$refs.carousel.setActiveItem(0);
+                });
+            },                                              //按钮 新建入库单
+            warehouseManage: function () {
+                this.form = form();
+                this.dialogFormVisible = true;
+                this.dialogFormActive = 0;
+                Vue.nextTick(function () {
+                    goodsManage.$refs.carousel.setActiveItem(0);
+                });
+            },                                       //按钮 仓库管理 TODO
+
+            prev: function () {
+                this.dialogFormActive--;
+                this.$refs.carousel.prev();
+            },                                                  //新建 弹出层banner控制 前一个
+            next: function () {
+                this.dialogFormActive++;
+                this.$refs.carousel.next();
+            },                                                  //新建 弹出层banner控制 后一个
+            submit: function () {
+                var _this = this;
+                this.dialogFormActive++;
+                this.submitLoading = true;
+                //TODO 此处应是ajax请求
+
+
+                /*<prod>*/
+                if (this.form.title === '新建仓库') {
+                    postSubmit(this, this.form);
+                } else {
+                    postModify(this, this.form);
+                }
+                /*</prod>*/
+                /*<debug>*/
+                setTimeout(function () {
+                    _this.submitLoading = false;
+                    _this.$notify({
+                        title: '成功',
+                        message: '保存成功！',
+                        type: 'success'
+                    });
+                    _this.dialogFormVisible = false;
+                    _this.dialogFormActive = 0;
+                    _this.$refs.carousel.setActiveItem(0);
+                    post(goodsManage);
+                }, 1500);
+                /*</debug>*/
+            },                                                //新建 表单提交
+
+            submitRole: function () {
+                var _this = this;
+                this.loadingWarehouse = true;
+
+                /*<prod>*/
+                //TODO
+                postModify(this, this.form);
+                /*</prod>*/
+                /*<debug>*/
+                setTimeout(function () {
+                    _this.loadingWarehouse = false;
+                    _this.dialogRoleVisible = false;
+                    _this.$notify({
+                        title: '成功',
+                        message: '更换仓库管理成功！',
+                        type: 'success'
+                    });
+                }, 1500);
+                /*</debug>*/
+            },                                            //新建 表单提交
+
+        },
+        watch: {
+            Name: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                post(this, this.option);
+            },
+            Addr: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                post(this, this.option);
+            }
+        }
+    });
+    // 高级 监视器的 使用方法
+    //    goodsManage.$watch('date', function () {
+    //        if (!this.option.dateStart)return;
+    //        /*<debug>*/
+    //        console.log(this.option);
+    //        /*</debug>*/
+    //        post(this, this.option);
+    //    }, {deep: true});
+    post(goodsManage, goodsManage.option);
+    function post(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/goodsManage/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/goodsManage/0";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                goodsManage.goodsManage = json;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                       //TODO 货品管理主页面
+    function postRuUserName(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/role/page/0";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                goodsManage.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }             //仓库名称 查重
+    function postRuLoginName(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/role/page/0";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                goodsManage.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }            //登录名 查重
+    function postSubmit(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        url1 = "../../hock/roleControl/page.json";
+        url2 = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/role/page/0";//post
+        url1 = "/route/role/page/0";//post
+        url2 = "/route/role/page/0";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                goodsManage.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                 //仓库 新增
+    function postModify(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/role/page/0";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                goodsManage.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                 //仓库 修改
+    function postDelete(obj, option) {
+        //TODO 删除后重新post
+        if (option.id.length < 1)return;
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "/hock/form/inputOptoionDelete.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/goodsManage/1";
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option | {
+                "id": 1                        //* 入库单号id
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                if (json.status == 1) {
+                    obj.$notify({
+                        title: '提示',
+                        type: 'success',
+                        message: obj.$createElement(
+                            'p',
+                            '删除完成'
+                        )
+                    });
+                }
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                 //仓库 删除
+    function errorTip(obj, error) {                    // 错误提示
+        /*<debug>*/
+        console.log(error);
+        /*</debug>*/
+        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
+    }
+    function remove(obj, data) {
+        for (var i = 0; i < data.length; i++) {
+            var temp = data[i];
+            if (!isNaN(obj)) {
+                temp = i;
+            }
+            if (temp == obj) {
+                for (var j = i; j < data.length; j++) {
+                    data[j] = data[j + 1];
+
+//                    console.log(temp);
+                }
+                data.pop();
+            }
+        }
+    }
+</script>

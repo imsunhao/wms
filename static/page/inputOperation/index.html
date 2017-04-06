@@ -10,33 +10,21 @@
                 </button>
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i class="icon sel"></i><span>多选</span>
                 </button>
-                <el-date-picker
-                        v-model="date"
-                        type="daterange"
-                        align="right"
-                        placeholder="选择日期"
-                        class="datePicker"
-                        :picker-options="pickerOptions">
-                </el-date-picker>
-                <el-input
-                        v-model="rkRkdjNo"
-                        icon="search"
-                        placeholder="入库单号"></el-input>
                 <button
                         class="btn btn-edit"
-                        @click="handleDelete">编辑
+                        @click="handleDelete" v-show="multiSelect">编辑
                 </button>
                 <button
                         class="btn btn-distribution"
-                        @click="distributionBtn">分配
+                        @click="distributionBtn" v-show="multiSelect">分配
                 </button>
                 <button
                         class="btn btn-receipt"
-                        @click="handleDelete">再次收货
+                        @click="handleDelete" v-show="multiSelect">再次收货
                 </button>
                 <button
                         class="btn btn-print"
-                        @click="handleDelete">打印
+                        @click="handleDelete" v-show="multiSelect">打印
                 </button>
             </div>
             <el-table
@@ -468,6 +456,20 @@
             v-model="dialogSelectVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
+            <el-input
+                    v-model="rkRkdjNo"
+                    icon="search"
+                    placeholder="入库单号"></el-input>
+            <el-date-picker
+                    v-model="date"
+                    type="daterange"
+                    align="right"
+                    placeholder="选择日期"
+                    class="datePicker"
+                    :picker-options="pickerOptions">
+            </el-date-picker>
+
+
         </div>
         <el-form :model="select">
 

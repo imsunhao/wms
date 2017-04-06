@@ -10,49 +10,10 @@
                 </button>
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i class="icon sel"></i><span>多选</span>
                 </button>
-                <el-input
-                        v-model="rkrwCph"
-                        icon="search"
-                        placeholder="车牌号"></el-input>
-                <el-input
-                        v-model="rkrwCph"
-                        icon="search"
-                        placeholder="司机姓名"></el-input>
-                <el-date-picker
-                        v-model="rkrwDhrq"
-                        type="daterange"
-                        align="right"
-                        placeholder="预计到货日期"
-                        class="datePicker"
-                        :picker-options="pickerOptions">
-                </el-date-picker>
-                <el-input
-                        v-model="rkrwCph"
-                        icon="search"
-                        placeholder="调拨地"></el-input>
-                <el-input
-                        v-model="rkrwCys"
-                        icon="search"
-                        placeholder="承运商"></el-input>
-                <el-input
-                        v-model="rkrwNo"
-                        icon="search"
-                        placeholder="任务号"></el-input>
-                <button
-                        class="btn btn-edit"
-                        @click="handleDelete">编辑
-                </button>
-                <button
-                        class="btn btn-distribution"
-                        @click="distributionBtn">分配
-                </button>
-                <button
-                        class="btn btn-receipt"
-                        @click="handleDelete">再次收货
-                </button>
                 <button
                         class="btn btn-print"
-                        @click="handleDelete">打印
+                        @click="handleDelete" v-show="multiSelect">打印收货标签
+                    <!--printReceiptLabel-->
                 </button>
             </div>
             <el-table
@@ -502,6 +463,34 @@
             v-model="dialogSelectVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
+            <el-input
+                    v-model="rkrwCph"
+                    icon="search"
+                    placeholder="车牌号"></el-input>
+            <el-input
+                    v-model="rkrwCph"
+                    icon="search"
+                    placeholder="司机姓名"></el-input>
+            <el-date-picker
+                    v-model="rkrwDhrq"
+                    type="daterange"
+                    align="right"
+                    placeholder="预计到货日期"
+                    class="datePicker"
+                    :picker-options="pickerOptions">
+            </el-date-picker>
+            <el-input
+                    v-model="rkrwCph"
+                    icon="search"
+                    placeholder="调拨地"></el-input>
+            <el-input
+                    v-model="rkrwCys"
+                    icon="search"
+                    placeholder="承运商"></el-input>
+            <el-input
+                    v-model="rkrwNo"
+                    icon="search"
+                    placeholder="任务号"></el-input>
         </div>
         <el-form :model="select">
 
