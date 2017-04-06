@@ -1,5 +1,3 @@
-// TODO 关于我们
-
 var express = require('express');
 var router = express.Router();
 var multiparty = require('multiparty');
@@ -17,10 +15,12 @@ router.post('/', function (req, res, next) {
         var path = files.file[0].path.split('\\')[5];
         if (err) {
             console.log('parse error: ' + err);
-        } else {
-            if(req.session.user.rmsUser.ruPortrait!=='') fs.unlink('../public' + req.session.user.rmsUser.ruPortrait);
+            return;
         }
-        req.session.user.rmsUser.ruPortrait = '/static/images/users/' + path;
+
+        var step={};
+        extendDeepCopy(req.session.user.rmsUser,step);
+        step.ruPortrait='/static/images/users/' + path;
 
         request({
             url: 'http://' + server.host + ':' + server.port + server.path + '/user',
@@ -29,11 +29,14 @@ router.post('/', function (req, res, next) {
             headers: {
                 "content-type": "application/json"
             },
-            body: req.session.user.rmsUser
+            body: step
         }, function (error, response, json) {
             if (!error && response.statusCode === 200) {
+                if(req.session.user.rmsUser.ruPortrait!=='') fs.unlink('../public' + req.session.user.rmsUser.ruPortrait);
+                req.session.user.rmsUser.ruPortrait = step.ruPortrait;
                 res.end(JSON.stringify({status: 200, ruPortrait: req.session.user.rmsUser.ruPortrait}));
             } else {
+                fs.unlink(files.file[0].path);
                 return res.send({
                     status: 500,
                     message: "服务器未响应"
@@ -42,5 +45,20 @@ router.post('/', function (req, res, next) {
         });
     });
 });
+
+
+function extendDeepCopy(obj,newObj) {
+    var newObj=newObj||{};
+    for(var i in obj){
+        if(typeof obj[i]==='object'){
+            newObj[i]=(obj[i].constructor===Array)?[]:{};
+            extendDeepCopy(obj[i],newObj[i]);
+        }else{
+            newObj[i]=obj[i];
+        }
+    }
+    return newObj;
+}     //深克隆
+
 
 module.exports = router;

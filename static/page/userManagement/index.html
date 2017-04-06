@@ -169,7 +169,6 @@
         width: 100%;
     }
 </style>
-
 <div id="userManagement">
     <!--页面调整-->
     <el-row
@@ -554,7 +553,6 @@
         </div>
     </el-dialog>
 </div>
-
 <script>
     var form = function () {
         return {
@@ -581,7 +579,6 @@
             ruStatus: 1,
         }
     };               //弹出层 form 模板
-
     var userManagement = new Vue({
         el: '#userManagement',
         prop: {},
@@ -617,7 +614,7 @@
                 role: [],                        //角色 集合
                 roleForm: {
                     userId: 1,
-                    roleId: 0,                        //角色 弹出层 角色ID
+                    roleId: 0,                   //角色 弹出层 角色ID
                 },                 //角色 弹出层 信息集合
 
             }
@@ -690,7 +687,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    postPassword(this, {ids: row.ruUserId});
+                    postPassword(userManagement, {ids: row.ruUserId});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -736,7 +733,7 @@
                 };
                 /*</debug>*/
                 /*<prod>*/
-                postRuRoles(this, {user_id: row.ruUserId});
+                postRuRoles(this, {id: row.ruUserId});
                 this.roleForm.userId = row.ruUserId;
                 /*</prod>*/
                 this.dialogRoleVisible = !this.dialogRoleVisible;
@@ -766,7 +763,7 @@
                     for (var i = 0; i < obj.multipleSelection.length; i++) {
                         step.push(obj.multipleSelection[i].ruUserId);
                     }
-                    postPassword(this, {ids: step});
+                    postPassword(userManagement, {ids: step});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -880,7 +877,7 @@
                 this.loadingRole = true;
                 /*<prod>*/
                 //TODO
-                postSetRuRoles(this, {user_id: this.roleForm.userId, role_ids: [this.roleForm.roleId]});
+                postSetRuRoles(this, {id: this.roleForm.userId, ids: [this.roleForm.roleId]});
                 /*</prod>*/
                 /*<debug>*/
                 setTimeout(function () {
@@ -911,7 +908,6 @@
             }
         }
     });
-
     // 高级 监视器的 使用方法
     userManagement.$watch('form.ruUserName', function () {
         if (this.form.title !== '新建用户') return;
@@ -935,10 +931,9 @@
         url = "/route/userManagement/0";  //post
         /*</prod>*/
 
-        //option ||
         $.ajax(url, {
             type: "GET",
-            data: {
+            data: option ||{
                 "draw": 1,                      //* 没有意义
                 "pageNum": 1,                   //* 当前页
                 "pageSize": 10                  //* 每页大小
@@ -972,14 +967,14 @@
 
         /*<prod>*/
         url = "/route/userManagement/1";  //new
-        url1 = "/route/userManagement/0";  //new
+        url1 = "/route/userManagement/0";  //请求id
         url2 = "/route/userManagement/3";  //配置角色
         option.ruStatus === 0 ? url3 = "/route/userManagement/2" : url3 = "/route/userManagement/6";
         /*</prod>*/
 
         $.ajax(url, {
             type: "GET",
-            data: option,
+            data: obj.form,
             error: function (error) {
                 errorTip(obj, error);
             },
@@ -988,7 +983,12 @@
                 if (json.status === 20002) {
                     $ajax(url1, {
                         type: "GET",
-                        data: {user_id: option.userId, role_ids: [option.roleId]},
+                        data: {
+                            "ruLoginName":option.ruLoginName,
+                            "draw": 1,
+                            "pageNum": 1,
+                            "pageSize": 1
+                        },
                         error: function (error) {
                             errorTip(obj, error);
                         },
@@ -996,7 +996,7 @@
                             if (json.recordsFiltered !== 0) {
                                 $ajax(url2, {
                                     type: "GET",
-                                    data: {user_id: option.userId, role_ids: [option.roleId]},
+                                    data: {id: json.data[0].ruUserId, ids: [option.roleId]},
                                     error: function (error) {
                                         errorTip(obj, error);
                                     },
@@ -1118,7 +1118,7 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/role/page/0";//post
+        url = "/route/userManagement/5";//post
         /*</prod>*/
 
         $.ajax(url, {
@@ -1376,5 +1376,4 @@
         }
         return false;
     }
-
 </script>

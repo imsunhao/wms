@@ -105,12 +105,12 @@
         /** 2 启用                               /user/liveUsersByUids
          *          user_ids    被勾选的用户id集合
          *          */
-        /** 3 TODO 配置角色                           /user/userAddRoles
+        /** 3 配置角色                           /user/userAddRoles
          *          用户配置角色
          *          userId         用户id
          *          roleIds        被勾选的角色id集合
          *          */
-        /** TODO 4 编辑                               /user
+        /** 4 编辑                               /user
          *          ruUserName          用户昵称/名
          *          ruLoginPassword     密码
          *          ruPhone             手机
@@ -132,7 +132,7 @@
          *                                  1.堆高车
          *                                  2.高位叉车
          *                                  */
-        /** TODO 5 重置密码                             /user/resetPwd
+        /** 5 重置密码                             /user/resetPwd
          *          ids    被勾选的用户id集合
          *          */
         /** 6 禁用                               /user/dieUsersByUids
@@ -160,7 +160,7 @@
     /**   角色管理   roleManagement
      *
      */
-        /** TODO 0 分页获取 角色信息                        /role
+        /** 0 分页获取 角色信息                        /role
          *          rrRoleId             角色id
          *          rrName               角色name
          *          rrRemarks            备注
@@ -217,7 +217,7 @@
     /** 仓库管理/配置   warehouseConfiguration
      *
      */
-        /** TODO 0 分页获取 仓库详情
+        /** TODO 0 分页获取 仓库详情   ??路径？
              *          ArehouseId           id
              *          Name                 仓库名称
              *          Addr                 仓库地址
@@ -241,9 +241,51 @@
              *          Pgroupinfo           平面图信息
              *          Createtime           创建时间
              *          */
-        /** TODO 1 新增 /arehouse
-        *          Name                 仓库名称
-        *          Addr                 仓库地址
+        /** TODO 1 新增 /arehouse  就从这个开始吧 测试接口
+         *
+         *{
+            "baName": "测试11",
+            "baAddr": "111",
+            "baScity": "111",
+            "baScontacts": "string",
+            "baPhone": "string",
+            "baAcreage": "string",
+            "baCtype": "string",
+            "baHumidity": "string",
+            "baFax": "string",
+            "baPostoffice": "string",
+            "baIsti": 0,
+            "baStatus": 0,
+            "baClientId": 0,
+            "baRemarks": "string",
+            "baCreatetime": "2017-04-06T02:37:55.971Z",
+            "baPgroupinfo": "string",
+            "arehouseKqs": [
+                {
+                    "baqKqId": 1,
+                    "baqArehouseId": 0,
+                    "baqKqName": "string",
+                    "baqIsdel": 0,
+                    "baqStatus": 0,
+                    "baseRegions": [
+                        {
+                            "brgRegionId": 1,
+                            "brgArehouseId": 0,
+                            "brgRegionNo": "string",
+                            "brgKqId": 0,
+                            "brgRegionStatus": 0
+                        }
+                    ]
+                }
+            ]
+          }
+         *
+         *
+         *
+         *
+         *     下面这些参数都是错误得   修改正确的参数名
+        *          baName                 仓库名称
+        *          baAddr                 仓库地址
         *          Scontacts            联系人/负责人
         *          Phone                电话
         *          Remarks              备注

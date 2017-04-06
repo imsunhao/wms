@@ -201,6 +201,17 @@
                             type: 'pie',
                             radius: '55%',
                             center: ['50%', '60%'],
+                            label : {
+                                normal : {
+                                    show : true,
+                                    position : 'outside'
+                                }
+                            },
+                            labelLine : {
+                                normal : {
+                                    show : true
+                                }
+                            },
                             data: [
                                 {value: 1020, name: '可乐  '},
                                 {value: 1420, name: '电饭锅 '},
@@ -213,7 +224,7 @@
                             itemStyle: {
                                 emphasis: {
                                     shadowBlur: 10,
-                                    shadowOffsetX: 0,
+                                    shadowOffsetX:0,
                                     shadowColor: 'rgba(0, 0, 0, 0.5)'
                                 }
                             }
