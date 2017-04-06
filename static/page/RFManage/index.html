@@ -1,10 +1,802 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<style>
+    #RFManage {
+        width: 100%;
+        min-width: 890px;
+        position: relative;
+    }
 
-</body>
-</html>
+    #RFManage .demo-table-expand {
+        font-size: 0;
+    }
+
+    #RFManage .demo-table-expand label {
+        width: 90px;
+        color: #99a9bf;
+    }
+
+    #RFManage .demo-table-expand .el-form-item {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 80%;
+    }
+
+    #RFManage .el-table__expand-column .el-table__expand-icon {
+        height: 39px;
+    }
+
+    #RFManage .table {
+        transition: 1s all;
+    }
+
+    #RFManage .el-carousel__container {
+        height: 440px;
+    }
+
+    .el-tooltip__popper {
+        max-width: 400px;
+    }
+
+    .el-step__main {
+        max-width: calc(100% - 60px);
+    }
+
+    #RFManage .RFManageTable {
+        width: 95% !important;
+        margin: 10px 20px 0;
+    }
+
+    #RFManage .datePicker {
+        width: 140px !important;
+        height: 24px !important;
+        margin-top: 29px;
+        margin-right: 18px;
+        float: left;
+    }
+
+    #RFManage .datePicker .el-input__inner {
+        border-radius: 2px !important;
+        height: 24px !important;
+    }
+
+    #RFManage .add {
+        background: url("/static/images/add.png") no-repeat center;
+    }
+
+    #RFManage .del {
+        background: url("/static/images/del.png") no-repeat center;
+    }
+
+    #RFManage .search {
+        background: url("/static/images/search.png") no-repeat center;
+    }
+
+    #RFManage .sel {
+        background: url("/static/images/sel.png") no-repeat center;
+    }
+
+    #RFManage .icon {
+        float: left;
+    }
+
+    #RFManage .btn span {
+        float: left;
+        margin-top: 4px;
+        margin-left: 2px;
+    }
+
+    #RFManage .btn {
+        height: 24px;
+        line-height: 1;
+        border: none;
+        background: #f8fafb;
+        outline: none;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        float: left;
+        font-size: 14px;
+        color: #1f2d3d;
+        margin-top: 29px;
+        margin-right: 16px;
+    }
+
+    #RFManage .btn-print {
+        margin-right: 0;
+    }
+
+    #RFManage .btn:hover {
+        color: #5468ee;
+    }
+
+    #RFManage .inner {
+        margin: 0 20px;
+    }
+
+    #RFManage .btn-nav {
+        height: 60px;
+        overflow: hidden;
+    }
+
+    #RFManage .btn-nav .el-input .el-input__inner {
+        height: 24px;
+    }
+
+    #RFManage .btn-nav .el-input {
+        float: left;
+        margin-top: 29px;
+        margin-right: 18px;
+        width: 140px;
+        height: 24px;
+    }
+
+    #RFManage h4 {
+        padding-left: 20px;
+        margin-bottom: 0px;
+    }
+
+    #RFManage .formBottom {
+        margin-top: 10px;
+    }
+
+    #RFManage .RFManageCombinationDetails .el-date-editor.el-input {
+        width: 100%;
+    }
+
+    #RFManage .RFManageCombinationDetails {
+        margin-top: 30px;
+    }
+</style>
+<style>
+    .steps {
+        position: absolute;
+        bottom: 10px;
+        left: 30px;
+        margin: auto;
+    }
+
+    .el-dialog__headerbtn {
+        position: absolute;
+        right: 25px;
+        top: 15px;
+    }
+
+    .el-step__main {
+        margin-left: -8px !important;
+    }
+</style>
+<style>
+    .el-date-editor.el-input {
+        width: 100%;
+    }
+</style>
+
+<div id="RFManage">
+    <!--页面调整-->
+    <el-row
+            v-loading="showLoading"
+            element-loading-text="拼命加载中">
+        <div class="inner btn-nav">
+
+            <el-input
+                    v-model="ruLoginName"
+                    icon="search"
+                    placeholder="账户"></el-input>
+            <el-input
+                    v-model="ruUserZyq"
+                    icon="search"
+                    placeholder="作业区"></el-input>
+            <button @click="multiSelectClick" class="btn btn-multiSelect"><i
+                    class="icon sel"></i><span>多选</span>
+            </button>
+            <button
+                    class="btn"
+                    v-show="multiSelect&&multipleSelection.length==1"
+                    @click="multiOperationEdit">编辑
+            </button>
+        </div>
+        <el-table
+                :data="RFManage"
+                :max-height="450"
+                ref="table"
+                class="RFManageTable"
+                @selection-change="multiSelectionChange"
+                style="width: 100%">
+            <el-table-column
+                    type="expand">
+                <template scope="props">
+                    <el-row>
+                        <el-col :span="10">
+                            <el-form label-position="left" inline class="demo-table-expand">
+                                <el-form-item label="账户">
+                                    <span>{{ props.row.ruLoginName        }}</span>
+                                </el-form-item>
+                                <el-form-item label="类型">
+                                    <span>{{ props.row.ruUserType        }}</span>
+                                </el-form-item>
+                            </el-form>
+                        </el-col>
+                        <el-col :span="14">
+                            <el-form label-position="left" inline class="demo-table-expand">
+                                <el-form-item label="主要作业区">
+                                    <span>{{ props.row.ruUserZyq   }}</span>
+                                </el-form-item>
+                                <el-form-item label="次要作业区">
+                                    <span>{{ props.row.ruUserZyq }}</span>
+                                </el-form-item>
+
+
+                                <el-form-item label="可用操作">
+                                    <el-button
+                                            size="small"
+                                            icon="edit"
+                                            @click="inlineEdit(props.$index, props.row)">
+                                    </el-button>
+                                </el-form-item>
+                            </el-form>
+                        </el-col>
+                    </el-row>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="账户"
+                    show-overflow-tooltip
+                    align="center">
+                <template scope="scope">
+                    <span>{{ scope.row.ruLoginName}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="类型"
+                    align="center">
+                <template scope="scope">
+                    <span>{{ scope.row.ruUserType == 0 ? '普通' : '高位叉车'}}</span>
+
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="主要作业区"
+                    align="center">
+                <template scope="scope">
+                    <span>{{ scope.row.ruUserZyq}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="次要作业区"
+                    align="center">
+                <template scope="scope">
+                    <span>{{ scope.row.ruUserZyq}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    v-if="multiSelect"
+                    type="selection"
+                    width="60">
+            </el-table-column>
+        </el-table>
+        <div class="block">
+            <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="[5, 10, 15, 20]"
+                    :page-size="pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="currentTotal">
+            </el-pagination>
+        </div>
+    </el-row>
+    <el-dialog
+            size="large"
+            v-model="dialogFormVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">{{form.title}}</span>
+            <el-steps
+                    class="steps"
+                    :space="120"
+                    :active="dialogFormActive"
+                    finish-status="success">
+            </el-steps>
+        </div>
+        <el-form :model="form" ref="newForm">
+            <el-carousel
+                    ref="carousel"
+                    :autoplay="false"
+                    arrow="never"
+                    indicator-position="none"
+                    height="55vh">
+                <el-carousel-item>
+                    <el-row>
+                        <el-col :span="10">
+                            <el-form-item
+                                    label="账户"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.ruLoginName"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    label="类型"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.ruUserType"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="10" :offset="2">
+                            <el-form-item
+                                    label="主要作业区"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.ruUserZyq"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    label="次要作业区"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.ruUserZyq"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+
+                        </el-col>
+                    </el-row>
+                </el-carousel-item>
+                <el-carousel-item>
+                    <el-row>
+
+                    </el-row>
+                </el-carousel-item>
+                <el-carousel-item>
+                    <el-row>
+
+                    </el-row>
+                </el-carousel-item>
+            </el-carousel>
+        </el-form>
+
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="submit" :loading="submitLoading"
+                       v-show="dialogFormActive >= 2">保存
+            </el-button>
+            <el-button type="primary" @click="submit" :loading="submitLoading"
+                       v-show="dialogFormActive >= 2">取消
+            </el-button>
+        </div>
+    </el-dialog>
+    <el-dialog
+            size="tiny"
+            v-model="dialogRoleVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">配置角色</span>
+        </div>
+
+        <el-form :model="warehouseForm" ref="newRoleForm">
+            <el-row>
+                <el-radio v-for="city in role" v-model="warehouseForm.roleId" :label="city.rrRoleId">{{city.rrName}}
+                </el-radio>
+            </el-row>
+        </el-form>
+
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="submitRole" :loading="loadingWarehouse">保存
+            </el-button>
+        </div>
+    </el-dialog>
+</div>
+
+<script>
+    var form = function () {
+        return {
+            arehouseId: 1,          //仓库id
+            title: "新建仓库",
+            Name: '',               //仓库名称
+            Addr: '',               //仓库地址
+            Scontacts: '',          //联系人/负责人
+            Phone: '',              //电话
+            Remarks: '',            //备注
+            Ctype: '',              //仓库类型
+            Humidity: '',           //相对湿度
+            Postoffice: '',         //邮编
+            Fax: '',                //传真
+        }
+    };               //弹出层 form 模板
+
+    var RFManage = new Vue({
+        el: '#RFManage',
+        prop: {},
+        data: function () {
+            return {
+                RFManage: [],      //主页面 信息集合
+                multipleSelection: [],           //主页面 多选集合
+                multiSelect: false,              //主页面 多选状态 维护
+
+                ruLoginName: '',                  //TODO RF主页面 账户
+                ruUserZyq: '',                   //TODO RF主页面 作业区  搜索
+                showLoading: false,              //主页面 加载 维护
+
+                currentPage: 1,                  //分页 当前页
+                currentTotal: 1,                 //分页 总页数
+                pageSize: 10,                    //分页 分页大小
+
+                formLabelWidth: '120px',         //表单 配置
+
+                form: form(),                    //新建 弹出层 信息集合
+                dialogFormActive: 0,             //新建 弹出层 steps 当前进度
+                dialogFormVisible: false,        //新建 弹出层 是否可见
+                submitLoading: false,            //新建 弹出层 提交等待
+
+                pickerOption: {
+                    disabledDate: function (time) {
+                        return time.getTime() > Date.now();
+                    }
+                },             //新建 弹出层 相对湿度选项
+
+                dialogRoleVisible: false,        //仓库管理 弹出层 是否可见
+                loadingWarehouse: false,         //仓库管理 弹出层 提交等待
+                role: [],                        //仓库管理 集合
+                warehouseForm: {
+
+                },            //仓库管理 弹出层 信息集合
+
+            }
+        },
+        computed: {
+            option: function () {
+                return {
+                    "draw": 1,
+                    "pageNum": this.currentPage,
+                    "pageSize": this.pageSize
+                }
+            },           //主页面 post 0
+        },
+        methods: {
+            inlineEdit: function (index, row) {
+                this.form.title = '编辑';
+                this.form.ruLoginName = row.ruLoginName;
+                this.form.ruUserType = row.ruUserType;
+                this.form.ruUserZyq = row.ruUserZyq;
+                this.form.ruUserZyq = row.ruUserZyq;
+                this.form.ruStatus = parseInt(row.ruStatus);
+                this.dialogFormVisible = true;
+                this.dialogFormActive = 0;
+                Vue.nextTick(function () {
+                    RFManage.$refs.carousel.setActiveItem(0);
+                });
+            },                                  //TODO 行内按钮-编辑
+
+            multiSelectClick: function () {
+                this.multiSelect = !this.multiSelect;
+            },                                      //多选 状态维护
+            multiSelectionChange: function (val, row) {
+                this.multipleSelection = val;
+            },                          //多选 选中控制
+            multiOperationEdit: function () {
+                this.inlineEdit(1, this.multipleSelection[0]);
+            },                                    //多选 编辑
+
+            handleSizeChange: function (val) {
+                /*<debug>*/
+                console.log('每页' + val + '条');
+                /*</debug>*/
+                this.pageSize = val;
+                post(this, this.option);
+            },                                   //分页 Size
+            handleCurrentChange: function (val) {
+                /*<debug>*/
+                console.log('当前第' + val + '页');
+                /*</debug>*/
+                this.currentPage = val;
+                post(this, this.option);
+            },                                //分页 当前页
+
+            newInput: function () {
+                this.form = form();
+                this.dialogFormVisible = true;
+                this.dialogFormActive = 0;
+                Vue.nextTick(function () {
+                    RFManage.$refs.carousel.setActiveItem(0);
+                });
+            },                                              //按钮 新建入库单
+            warehouseManage: function () {
+                this.form = form();
+                this.dialogFormVisible = true;
+                this.dialogFormActive = 0;
+                Vue.nextTick(function () {
+                    RFManage.$refs.carousel.setActiveItem(0);
+                });
+            },                                       //按钮 仓库管理 TODO
+
+            prev: function () {
+                this.dialogFormActive--;
+                this.$refs.carousel.prev();
+            },                                                  //新建 弹出层banner控制 前一个
+            next: function () {
+                this.dialogFormActive++;
+                this.$refs.carousel.next();
+            },                                                  //新建 弹出层banner控制 后一个
+            submit: function () {
+                var _this = this;
+                this.dialogFormActive++;
+                this.submitLoading = true;
+                //TODO 此处应是ajax请求
+
+
+                /*<prod>*/
+                if (this.form.title === '新建仓库') {
+                    postSubmit(this, this.form);
+                } else {
+                    postModify(this, this.form);
+                }
+                /*</prod>*/
+                /*<debug>*/
+                setTimeout(function () {
+                    _this.submitLoading = false;
+                    _this.$notify({
+                        title: '成功',
+                        message: '保存成功！',
+                        type: 'success'
+                    });
+                    _this.dialogFormVisible = false;
+                    _this.dialogFormActive = 0;
+                    _this.$refs.carousel.setActiveItem(0);
+                    post(RFManage);
+                }, 1500);
+                /*</debug>*/
+            },                                                //新建 表单提交
+
+            submitRole: function () {
+                var _this = this;
+                this.loadingWarehouse = true;
+
+                /*<prod>*/
+                //TODO
+                postModify(this, this.form);
+                /*</prod>*/
+                /*<debug>*/
+                setTimeout(function () {
+                    _this.loadingWarehouse = false;
+                    _this.dialogRoleVisible = false;
+                    _this.$notify({
+                        title: '成功',
+                        message: '更换仓库管理成功！',
+                        type: 'success'
+                    });
+                }, 1500);
+                /*</debug>*/
+            },                                            //新建 表单提交
+
+        },
+        watch: {
+            Name: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                post(this, this.option);
+            },
+            Addr: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                post(this, this.option);
+            }
+        }
+    });
+    // 高级 监视器的 使用方法
+    //    RFManage.$watch('date', function () {
+    //        if (!this.option.dateStart)return;
+    //        /*<debug>*/
+    //        console.log(this.option);
+    //        /*</debug>*/
+    //        post(this, this.option);
+    //    }, {deep: true});
+    post(RFManage, RFManage.option);
+    function post(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/RFManage/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/RFManage/0";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                RFManage.RFManage = json;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                       //TODO RF管理主页面
+    function postRuUserName(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/role/page/0";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                RFManage.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }             //仓库名称 查重
+    function postRuLoginName(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/role/page/0";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                RFManage.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }            //登录名 查重
+    function postSubmit(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        url1 = "../../hock/roleControl/page.json";
+        url2 = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/role/page/0";//post
+        url1 = "/route/role/page/0";//post
+        url2 = "/route/role/page/0";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                RFManage.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                 //仓库 新增
+    function postModify(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/role/page/0";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                RFManage.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                 //仓库 修改
+    function postDelete(obj, option) {
+        //TODO 删除后重新post
+        if (option.id.length < 1)return;
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "/hock/form/inputOptoionDelete.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/RFManage/1";
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option | {
+                "id": 1                        //* 入库单号id
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                if (json.status == 1) {
+                    obj.$notify({
+                        title: '提示',
+                        type: 'success',
+                        message: obj.$createElement(
+                            'p',
+                            '删除完成'
+                        )
+                    });
+                }
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                 //仓库 删除
+    function errorTip(obj, error) {                    // 错误提示
+        /*<debug>*/
+        console.log(error);
+        /*</debug>*/
+        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
+    }
+    function remove(obj, data) {
+        for (var i = 0; i < data.length; i++) {
+            var temp = data[i];
+            if (!isNaN(obj)) {
+                temp = i;
+            }
+            if (temp == obj) {
+                for (var j = i; j < data.length; j++) {
+                    data[j] = data[j + 1];
+
+//                    console.log(temp);
+                }
+                data.pop();
+            }
+        }
+    }
+</script>
