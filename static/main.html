@@ -117,21 +117,33 @@
         </div>
     </div>
     <el-dialog
-            size="small"
+            size="tiny"
             v-model="dialogUserVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">修改用户信息</span>
         </div>
-        <el-form :model="rmsUser">
-            <el-upload
-                    class="avatar-uploader"
-                    action="/imageServer/"
-                    :show-file-list="false"
-                    :on-success="handleAvatarScucess"
-                    :before-upload="beforeAvatarUpload">
-                <img v-if="rmsUser.portrait" :src="rmsUser.portrait" class="avatar">
-                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
+        <el-form :model="rmsUser" style="position: relative">
+            <el-row>
+                <el-col :span="20" offset="4">
+                    <el-upload
+                            :headers="{enctype:'multipart/form-data'}"
+                            class="avatar-uploader"
+                            action="/imageServer/"
+                            :show-file-list="false"
+                            :on-success="handleAvatarScucess"
+                            :before-upload="beforeAvatarUpload">
+                        <img v-if="rmsUser.ruPortrait" :src="rmsUser.ruPortrait" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    </el-upload>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-input
+                        style="position:absolute;width: 30%;left: -50px;right: 0;margin: 0 auto;bottom: -50px;text-align: center;"
+                        v-model="rmsUser.ruUserName"
+                        placeholder="昵称">
+                </el-input>
+            </el-row>
         </el-form>
 
         <div slot="footer" class="dialog-footer">
@@ -288,8 +300,8 @@
         },
         methods: {
             print: function (obj) {
-                if(typeof (obj.printDatas) === 'undefined') return;
-                this.printDatas=obj.printDatas;
+                if (typeof (obj.printDatas) === 'undefined') return;
+                this.printDatas = obj.printDatas;
                 this.dialogTableVisible = true;
                 var _this = this;
                 setTimeout(function () {
@@ -300,7 +312,6 @@
             }
         }
     });
-
 </script>
 </body>
 </html>

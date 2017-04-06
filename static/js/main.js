@@ -70,7 +70,9 @@ $(function () {
                     )
                 },
 
-                rmsUser: {},                        //User信息
+                rmsUser: {
+                    ruUserName:''
+                },                        //User信息
                 dialogUserVisible: false,
                 userLoading: false
             };
@@ -147,8 +149,30 @@ $(function () {
                 /*</debug>*/
 
             },                                  //用户修改信息提交
-            handleAvatarScucess: function (res, file) {
-                this.imageUrl = URL.createObjectURL(file.raw);
+            handleAvatarScucess: function (res, a1, a2) {
+                // console.log(res)
+                // console.log(a1)
+                // console.log(a2)
+                if (res.status === 200) {
+                    this.rmsUser.ruPortrait = res.ruPortrait;
+                    this.$notify({
+                        title: '提示',
+                        type: 'success',
+                        message: this.$createElement(
+                            'p',
+                            '更换头像成功！'
+                        )
+                    });
+                } else {
+                    this.$notify({
+                        title: '提示',
+                        type: 'error',
+                        message: this.$createElement(
+                            'p',
+                            '更换头像失败！'
+                        )
+                    });
+                }
             },
             beforeAvatarUpload: function (file) {
                 var isJPG = file.type === 'image/jpeg';
@@ -173,6 +197,7 @@ $(function () {
             }
         }
     });
+    app.$watch('rmsUser', function () {}, {deep: true});
 
     //维护 权限验证
     (function (app) {

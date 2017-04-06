@@ -64,8 +64,8 @@
          *                                  0.普通
          *                                  1.堆高车
          *                                  2.高位叉车
-         *          ruPhone             联系方式
-                    ruStatus            是否启用
+         *          ruPhone             手机  联系方式???
+                    ruStatus            状态(int)
                                             0.禁用(软删除)
                                             1启用
                     ruIspda             是否允许登陆PDA(tinyint)
@@ -105,7 +105,7 @@
         /** 2 启用                               /user/liveUsersByUids
          *          user_ids    被勾选的用户id集合
          *          */
-        /** 3 配置角色                           /user/userAddRoles
+        /** 3 TODO 配置角色                           /user/userAddRoles
          *          用户配置角色
          *          userId         用户id
          *          roleIds        被勾选的角色id集合

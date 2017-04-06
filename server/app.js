@@ -176,7 +176,10 @@ mongoose.connection.on('error', console.error.bind(console, '连接数据库失�
  */
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));   //图标
 app.use(logger('combined', {stream: accessLogStream}));         //日志
-app.use(bodyParser.json());                                                         //请求解析 为json格式
+
+// app.use(bodyParser({uploadDir:'./public/static/images/users/'}));
+app.use(bodyParser.json({ type: 'application/*+json' }));                                                         //请求解析 为json格式
+// app.use(express.bodyParser('./public/static/images/users/'));                   //图片路径
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());                                                                //请求解析 cookie
 app.use(express.static(path.join(__dirname, 'public')));              //加载public资源
@@ -299,7 +302,7 @@ app.use(function (err, req, res, next) {
 
     // render the error page
     res.status(err.status || 500);
-    res.render('error/error');
+    res.render('page/error/index');
 });
 
 /*

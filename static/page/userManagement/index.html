@@ -321,6 +321,7 @@
             </el-table-column>
             <el-table-column
                     label="用户名"
+                    show-overflow-tooltip
                     align="center">
                 <template scope="scope">
                     <img :src="scope.row.ruPortrait"
@@ -357,18 +358,13 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    label="作业区域"
-                    show-overflow-tooltip
+                    label="状态"
                     align="center">
                 <template scope="scope">
-                    <span>{{ scope.row.ruUserZyq}}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="性别"
-                    align="center">
-                <template scope="scope">
-                    <span>{{ scope.row.ruSex?'女':'男'}}</span>
+                    <el-tag
+                            :type="scope.row.ruStatus==0?'danger':'success'"
+                            close-transition>{{scope.row.ruStatus==0?'禁用':'启用'}}
+                    </el-tag>
                 </template>
             </el-table-column>
             <el-table-column
@@ -918,9 +914,11 @@
 
     // 高级 监视器的 使用方法
     userManagement.$watch('form.ruUserName', function () {
+        if (this.form.title !== '新建用户') return;
         postRuUserName(this, {userName: this.form.ruUserName.trim()});
     }, {deep: true});
     userManagement.$watch('form.ruLoginName', function () {
+        if (this.form.title !== '新建用户') return;
         postRuLoginName(this, {loginName: this.form.ruLoginName.trim()});
     }, {deep: true});
 
@@ -937,9 +935,10 @@
         url = "/route/userManagement/0";  //post
         /*</prod>*/
 
+        //option ||
         $.ajax(url, {
             type: "GET",
-            data: option || {
+            data: {
                 "draw": 1,                      //* 没有意义
                 "pageNum": 1,                   //* 当前页
                 "pageSize": 10                  //* 每页大小
@@ -1066,6 +1065,7 @@
             },
             success: function (json) {
                 if (json.status === 20000) {
+                    post(userManagement, userManagement.option);
                     obj.$notify({
                         title: '提示',
                         type: 'success',
@@ -1163,6 +1163,7 @@
             },
             success: function (json) {
                 if (json.status === 20000) {
+                    post(userManagement, userManagement.option);
                     obj.$notify({
                         title: '提示',
                         type: 'success',
@@ -1264,14 +1265,25 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                obj.loadingRole = false;
-                obj.dialogRoleVisible = false;
-                obj.$notify({
-                    title: '成功',
-                    message: '更换角色成功！',
-                    type: 'success'
-                });
-                console.log(json);
+                if (json.status !== 50003) {
+                    obj.loadingRole = false;
+                    obj.dialogRoleVisible = false;
+                    obj.$notify({
+                        title: '成功',
+                        message: '更换角色成功！',
+                        type: 'success'
+                    });
+                } else {
+                    obj.loadingRole = false;
+                    obj.dialogRoleVisible = false;
+                    obj.$notify({
+                        title: '错误',
+                        duration: 0,
+                        message: '更换角色失败！',
+                        type: 'error'
+                    });
+                    console.log(json);
+                }
             },
             complete: function () {
                 obj.showLoading = false;
@@ -1321,6 +1333,7 @@
         $.ajax(url, {
             type: "GET",
             data: {
+                "status":1,
                 "draw": 1,                      //* 没有意义
                 "pageNum": 1,                   //* 当前页
                 "pageSize": 999                 //* 每页大小
