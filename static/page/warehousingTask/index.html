@@ -62,29 +62,34 @@
                                         </el-row>
                                     </el-col>
                                     <el-col :span="14">
-                                        <h3>入库详细</h3>
+                                        <h3>入库任务详细</h3>
                                         <el-form label-position="left" inline class="demo-table-expand">
-                                            <el-form-item label="入库单号">
-                                                <span>{{ props.row.rkdjNo }}</span>
+                                            <el-form-item label="任务号">
+                                                <span style="margin-left: 10px">{{ props.row.rkrwNo }}</span>
                                             </el-form-item>
-                                            <el-form-item label="下单时间">
-                                                <el-icon name="time"></el-icon>
-                                                <span style="margin-left: 10px">{{ props.row.sjsj }}</span>
+                                            <el-form-item label="车牌号">
+                                                <span style="margin-left: 10px">{{ props.row.rkrwCph }}</span>
                                             </el-form-item>
-                                            <el-form-item label="订单类型">
-                                                <span>{{ props.row.type }}</span>
+                                            <el-form-item label="订单数">
+                                                <span style="margin-left: 10px">{{props.row.dds}}</span>
                                             </el-form-item>
-                                            <el-form-item label="入库状态">
-                                                <span>{{ props.row.status }}</span>
+                                            <el-form-item label="品项数">
+                                                <span style="margin-left: 10px">{{props.row.pxs}}</span>
                                             </el-form-item>
-                                            <el-form-item label="入库数量">
-                                                <span>{{ props.row.number }}</span>
+                                            <el-form-item label="司机姓名">
+                                                <span>{{ props.row.rkrwSjxm }}</span>
                                             </el-form-item>
-                                            <el-form-item label="入库体积">
-                                                <span>{{ props.row.volume }}</span>
+                                            <el-form-item label="预计到货日期">
+                                                <span>{{ props.row.rkrwDhrq }}</span>
                                             </el-form-item>
-                                            <el-form-item label="制作方式">
-                                                <span>{{ props.row.zdfs }}</span>
+                                            <el-form-item label="调拨地">
+                                                <span>{{ props.row.rkrwDbd }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="承运商">
+                                                <span>{{ props.row.rkrwCys }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="司机电话">
+                                                <span>{{ props.row.rkrwDh }}</span>
                                             </el-form-item>
                                             <el-form-item label="可用操作">
                                                 <el-button
@@ -158,13 +163,6 @@
                 <!--width="55">-->
                 <!--</el-table-column>-->
                 <el-table-column
-                        label="任务号"
-                        width="170"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="rkrwNo">
-                </el-table-column>
-                <el-table-column
                         label="车牌号"
                         width="170"
                         show-overflow-tooltip
@@ -176,14 +174,14 @@
                         width="170"
                         show-overflow-tooltip
                         align="center"
-                        prop="">
+                        prop="dds">
                 </el-table-column>
                 <el-table-column
                         label="品项数"
                         width="170"
                         show-overflow-tooltip
                         align="center"
-                        prop="">
+                        prop="pxs">
                 </el-table-column>
                 <el-table-column
                         label="司机姓名"
@@ -200,7 +198,7 @@
                         label="预计到货时间">
                     <template scope="scope">
                         <el-icon name="time"></el-icon>
-                        <span style="margin-left: 10px">{{ scope.row.sjsj }}</span>
+                        <span style="margin-left: 10px">{{ scope.row.rkrwDhrq }}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
