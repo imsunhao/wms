@@ -136,6 +136,18 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 9:
+                        urlName = '角色管理-查询所有仓库';
+                        req = autoUrl(req, '/arehouse/page', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 10:
+                        urlName = '角色管理-查询所有客户';
+                        req = autoUrl(req, '/client/page', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
                 }
                 break;
             case 'warehousingReservation':
@@ -211,7 +223,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
-             case 'inputLedger':
+            case 'inputLedger':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '入库台账管理-加载入库台账管理页面';
@@ -259,7 +271,7 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
-             case 'goodsManage':
+            case 'goodsManage':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '货品管理-加载货品管理页面';
@@ -303,19 +315,19 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-                   case 7:
+                    case 7:
                         urlName = '货品管理 软删除多个或单个数据 ';
                         req = autoUrl(req, '/goods/deleteOfSoft', "POST", function (json) {
                             res.send(json);
                         });
                         break;
-                   case 8:
+                    case 8:
                         urlName = '货品管理 通过id删除一条货品数据';
                         req = autoUrl(req, '/goods/{id}', "DELETE", function (json) {
                             res.send(json);
                         });
                         break;
-                     case 9:
+                    case 9:
                         urlName = '货品单号、编号不允许重复';
                         req = autoUrl(req, '', "POST", function (json) {
                             res.send(json);
@@ -365,19 +377,19 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-                   case 3:
+                    case 3:
                         urlName = '查看';
                         req = autoUrl(req, '', "POST", function (json) {
                             res.send(json);
                         });
                         break;
-                   case 4:
+                    case 4:
                         urlName = '删除';
                         req = autoUrl(req, '', "POST", function (json) {
                             res.send(json);
                         });
                         break;
-                   case 5:
+                    case 5:
                         urlName = '库位名称不允许重复';
                         req = autoUrl(req, '', "POST", function (json) {
                             res.send(json);
@@ -387,9 +399,6 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
-
-
-
         }
 
         console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + req.body.url);

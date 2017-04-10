@@ -197,21 +197,35 @@
         /** TODO 7 编辑
          *          rrName               角色name
          *          rrRemarks            备注
-         *         通过user_id获取对应的权限角色
-         *         userId              用户id
-         *         角色配置仓库
-         *         roleId              角色id
-         *         arehouseIds         被勾选的仓库id集合
-         *         角色配置客户
-         *         roleId              角色id
-         *         clientIds           被勾选的客户id集合
-         *         角色配置菜单
-         *         roleId              角色id
-         *         menuIds             被勾选的菜单id集合
-         *         */
+         **/
         /** TODO 8 角色名称不允许重复的接口
          *          rrName               角色name
          *          */
+        /** 9 查询所有仓库   POST /arehouse/page
+         * 参数
+         * {
+                "pageNum": 1,
+                "pageSize": 999,
+                "draw": 1,
+                "baStatus":1
+            }
+         * 参数说明
+         *     baName            仓库名称
+         *     baArehouseId      id
+         **/
+        /** 10 查询所有客户   POST /client/page
+         * 参数
+         * {
+                "pageNum": 1,
+                "pageSize": 999,
+                "draw": 1,
+                "bcStatus":1
+            }
+         * 参数说明
+         *     bcCname      客户名称
+         *     bcClientId   客户id
+         **/
+
     /** 仓库管理/配置   warehouseConfiguration
      *
      */
@@ -244,59 +258,6 @@
               baRemarks         备注
               baCreatetime      创建时间
               baPgroupinfo      平面图信息
-        /** TODO 1 新增 /arehouse  就从这个开始吧 测试接口
-         *
-         *{
-            "baName": "测试11",
-            "baAddr": "111",
-            "baScity": "111",
-            "baScontacts": "string",
-            "baPhone": "string",
-            "baAcreage": "string",
-            "baCtype": "string",
-            "baHumidity": "string",
-            "baFax": "string",
-            "baPostoffice": "string",
-            "baIsti": 0,
-            "baStatus": 0,
-            "baClientId": 0,
-            "baRemarks": "string",
-            "baCreatetime": "2017-04-06T02:37:55.971Z",
-            "baPgroupinfo": "string",
-            "arehouseKqs": [
-                {
-                    "baqKqId": 1,
-                    "baqArehouseId": 0,
-                    "baqKqName": "string",
-                    "baqIsdel": 0,
-                    "baqStatus": 0,
-                    "baseRegions": [
-                        {
-                            "brgRegionId": 1,
-                            "brgArehouseId": 0,
-                            "brgRegionNo": "string",
-                            "brgKqId": 0,
-                            "brgRegionStatus": 0
-                        }
-                    ]
-                }
-            ]
-          }
-         *
-         *
-         *
-         *
-         *     下面这些参数都是错误得   修改正确的参数名
-        *          baName                 仓库名称
-        *          baAddr                 仓库地址
-        *          Scontacts            联系人/负责人
-        *          Phone                电话
-        *          Remarks              备注
-        *          Ctype                仓库类型
-        *          Humidity             相对湿度
-        *          Postoffice           邮编
-        *          Fax                  传真
-        *          */
         /**  1 新增 POST /arehouse
          * 参数
          * {
@@ -356,7 +317,7 @@
                 baPgroupinfo    平面图信息
          *
          */
-        /**   编辑 PUT /arehouse
+        /** 1  编辑 PUT /arehouse
          * 参数
          * {
                "baArehouseId": 2,

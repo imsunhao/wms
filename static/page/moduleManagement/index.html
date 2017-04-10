@@ -71,6 +71,9 @@
                                     'margin-right': '20px'
                                 }
                             }, [h('button', {
+                                style:{
+                                  display:'none'
+                                },
                                 on: {
                                     click: function (e) {
                                         appendMenu(store, data);
@@ -83,6 +86,9 @@
                                     'addHidden': typeof data.children === 'undefined'
                                 }
                             }, '添加'), h('button', {
+                                style:{
+                                    display:'none'
+                                },
                                 on: {
                                     click: function (e) {
                                         removeMenu(store, data);
@@ -131,16 +137,10 @@
     }
 
     function postMenu(obj, option) {
-        obj.$data.showLoading = true;
 
         /*<debug>*/
+        obj.$data.showLoading = true;
         url = "/hock/main/Nav-DB.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
         $.ajax(url, {
             type: "GET",
             data: option | {
@@ -159,5 +159,13 @@
                 obj.$data.showLoading = false;
             }
         });
+        /*</debug>*/
+
+        /*<prod>*/
+        menu.$data.dataBaseMenu=app.$data.nav;
+        getUserMenu();
+        /*</prod>*/
+
+
     }
 </script>
