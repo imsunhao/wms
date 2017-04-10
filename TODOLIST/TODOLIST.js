@@ -697,27 +697,8 @@
          *                              1.手动
          *                              2.excel
          *                              3.接口
-         *          rkRemarks       入库备     **      /**
-         *      TODO 新增/添加入库基础信息
-         *          rkRkdjNo    入库单号(WMS单号)
-         *          rkType      订单类型
-         *                          0.采购订单
-         *                          1.仓间调拨
-         *                          2.退货入库
-         *          rkRemarks   入库备注
-         *          rkStatus    入库状态
-         *                          1.原始状态
-         *                          21.部分分配
-         *                          22.全部分配
-         *                          31.部分收货
-         *                          32.完全收货
-         *          rksCount    入库数量
-         *          bgGoodsId   入库体积( bgGoodsTj)
-         *          rkZdfs      制作方式
-         *                          1.手动
-         *                          2.excel
-         *                          3.接口
-         **/
+         *          rkRemarks       入库备     **
+         *          **/
         /**
          *      TODO 2 新增/添加入库明细
          *          rksGoodsId  货品id(货品编号)
@@ -772,6 +753,27 @@
         /**
          *  TODO 6 入库单号不能重复
          */
+        /**
+         *      TODO 7 新增/添加入库基础信息
+         *          rkRkdjNo    入库单号(WMS单号)
+         *          rkType      订单类型
+         *                          0.采购订单
+         *                          1.仓间调拨
+         *                          2.退货入库
+         *          rkRemarks   入库备注
+         *          rkStatus    入库状态
+         *                          1.原始状态
+         *                          21.部分分配
+         *                          22.全部分配
+         *                          31.部分收货
+         *                          32.完全收货
+         *          rksCount    入库数量
+         *          bgGoodsId   入库体积( bgGoodsTj)
+         *          rkZdfs      制作方式
+         *                          1.手动
+         *                          2.excel
+         *                          3.接口
+         **/
     /**
      *      TODO 入库任务 warehousingTask
      */
