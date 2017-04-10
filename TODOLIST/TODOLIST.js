@@ -49,8 +49,6 @@
 /**数据库数据
  *
  */
-
-
 /** TODO 系统配置
  *
  */
@@ -556,8 +554,45 @@
  * TODO 资源管理
  **/
     /**
-         *      TODO 货品管理   goodsManage
-         **/
+     * 仓库管理
+     */
+        /**
+         *TODO 0 对于仓库的区域的增加
+         */
+        /**
+         * TODO 1 对于仓库的区域的修改
+         */
+        /**
+         * TODO 2 对于仓库的区域的查看
+         */
+        /**
+         * TODO 3 禁止
+         */
+        /**
+         * TODO 4 启用
+         */
+        /**
+         * TODO 5 设为存储区
+         */
+        /**
+         * TODO 6 设为暂存区
+         */
+        /**
+         * TODO 7 设为未设定区
+         */
+        /**
+         * TODO 8 设为分拣区
+         */
+        /**
+         * TODO 9 设为不合格去区
+         */
+        /** TODO 10 查看区域中库存明细
+         *
+         */
+
+/**
+ *       TODO 货品管理   goodsManage
+             **/
         /**
           0 分页查询货品详情 POST /goods
          参数
@@ -728,7 +763,10 @@
      * TODO RF管理   RFManage
          **/
         /**
-         *TODO 0 RF管理主页面
+         *TODO 0 (RF管理主页面) 分页查询RF管理详情 POST /user/page
+         * 参数
+         * 参数说明{
+         * }
          *  ruLoginName 账户
          *  ruUserType  类型（int）
          *                  0.普通
@@ -747,70 +785,82 @@
          *      ruUserZyq   高位叉车作业区域
          *   **/
         /**
-         *  TODO 3 判断两个作业区名称是否相同
-         *      ruUserZyq
+         * 3 判断两个作业区名称是否相同   RF管理 判断主作业区是否重复 GET /user/isRepeatByFirstZyq/{firstZyq}
          **/
+
     /**
          *      TODO 作业区管理 operationAreaManage
          *      **/
         /**
-         * TODO 0 作业区管理主页面
-         *      blsName 作业区名称
-         *       库位数  --库位数是计算出来的
-         *      操作
-         * /
-
-         *
+         *  0 (作业区管理主页面) 储位组管理 POST请求查询储位组信息 POST /locations/page
+         * 参数
+         * {
+                "blsName": "储位组1001",
+                "pageNum": 1,
+                "pageSize": 1,
+                "draw": 1
+         * }
+         * 参数说明
+             blsLocationsId   储位组id
+             blsName          名称
+             blsCjsj          创建时间
+             blsArehouseId    仓库id
+             blsUserId        创建人
+             blsRemarks       备注
          */
         /**
-         *  TODO 1 新增
-         *      库区
-         *      brgRegionNo     区域编号
-         *      brgRegionStatus 0
-         *                          1.存储区
-         *                          2.暂存区
-         *                          3.未设定区
-         *                          4.分拣区
-         *                          5.不合格区
-         *     blLname          储位name/储位名称
+         *  1  储位组管理 新增储位组 POST /locations
+         *  参数
+         *  {
+         *      "blsName": "string11",
+                "blsCjsj": "2017-04-10T05:41:24.926Z",
+                "blsArehouseId": 0,
+                "blsUserId": 0,
+                "blsRemarks": "string"
+         *  }
+         *  参数说明
+                blsName         名称
+                blsCjsj         创建时间
+                blsArehouseId   仓库Id
+                blsUserId       创建人
+                blsRemarks      备注
          **/
         /**
-         *  TODO 2 编辑
-         *      库区
-         *      brgRegionNo     区域编号
-         *      brgRegionStatus 0
-         *                          1.存储区
-         *                          2.暂存区
-         *                          3.未设定区
-         *                          4.分拣区
-         *                          5.不合格区
-         *     blLname          储位name/储位名称
+         *   2 编辑 储位组管理 更新储位组信息 PUT /locations
+         *  参数
+         *  {
+         *      "blsLocationsId": 1,
+                "blsName": "string",
+                "blsCjsj": "2017-04-10T05:52:25.431Z",
+                "blsArehouseId": 1,
+                "blsUserId": 1,
+                "blsRemarks": "string"
+         *  }
+         *  参数说明
+         *      blsLocationsId      储位组id
+                blsName             名称
+                blsCjsj             创建时间
+                blsArehouseId       仓库id
+                blsUserId           创建人
+                blsRemarks          备注
          **/
         /**
-         *  TODO 3 查看
-         *      库区
-         *      brgRegionNo     区域编号
-         *      brgRegionStatus 0
-         *                          1.存储区
-         *                          2.暂存区
-         *                          3.未设定区
-         *                          4.分拣区
-         *                          5.不合格区
-         *     blLname          储位name/储位名称
-         **/
+         * 3 储位组管理 根据id返回储位组信息 GET /locations/{id}
+         */
         /**
-         *  TODO 4 删除
+         *  4  储位组管理 通过id删除一条储位组数据 DELETE /locations/{id}
          */
         /**
          *  TODO 5 库位名称不允许重复
-         *     blLname          储位name/储位名称
+         *
          **/
+
+
 /**
  *  TODO 业务处理
  **/
     /**TODO 入库预约 warehousingReservation
     */
-
         /**
          *      TODO 0 入库预约 POST /mfunrkRwDoc/add (预约详细)
          *      TODO 参数 该参数测试有问题，新增不成功，参数需要超哥回来确定
