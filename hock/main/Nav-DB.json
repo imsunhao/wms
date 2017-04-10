@@ -1,6 +1,37 @@
 {
   "data": [
     {
+      "id":12,
+      "head": "资源管理",
+      "children": [
+        {
+          "id":13,
+          "label": "仓库管理",
+          "url":"page/warehouseManage",
+          "bmMenuIcon":"e3"
+        },
+        {
+          "id":14,
+          "label": "货品管理",
+          "url":"page/goodsManage",
+          "bmMenuIcon":"e4"
+        },
+        {
+          "id":15,
+          "label": "RF管理",
+          "url":"page/RFManage",
+          "bmMenuIcon":"e1"
+        },
+        {
+          "id":16,
+          "label": "作业区管理",
+          "url":"page/operationAreaManage",
+          "bmMenuIcon":"e5"
+        }
+
+      ]
+    },
+    {
       "id":48,
       "head": "业务处理",
       "children": [
@@ -73,37 +104,6 @@
       ]
     },
     {
-      "id":12,
-      "head": "资源管理",
-      "children": [
-        {
-          "id":13,
-          "label": "仓库管理",
-          "url":"page/warehouseManage",
-          "bmMenuIcon":"e3"
-        },
-        {
-          "id":14,
-          "label": "货品管理",
-          "url":"page/goodsManage",
-          "bmMenuIcon":"e4"
-        },
-        {
-          "id":15,
-          "label": "RF管理",
-          "url":"page/RFManage",
-          "bmMenuIcon":"e1"
-        },
-        {
-          "id":16,
-          "label": "作业区管理",
-          "url":"page/operationAreaManage",
-          "bmMenuIcon":"e5"
-        }
-
-      ]
-    },
-    {
       "id":19,
       "head": "库内管理",
       "children": [
@@ -137,6 +137,30 @@
           "url":"page/stockFrozenThaw",
           "bmMenuIcon":"d5"
 
+        }
+      ]
+    },
+    {
+      "id":36,
+      "head": "盘点作业",
+      "children": [
+        {
+          "id":37,
+          "label": "动碰盘点查询",
+          "url":"page/dynamicTouchInventorySelect",
+          "bmMenuIcon":"b12"
+        },
+        {
+          "id":38,
+          "label": "循环盘点查询",
+          "url":"page/loopInventorySelect",
+          "bmMenuIcon":"b13"
+        },
+        {
+          "id":39,
+          "label": "全面盘点查询",
+          "url":"page/comprehensiveInventorySelect",
+          "bmMenuIcon":"b14"
         }
       ]
     },
@@ -205,30 +229,6 @@
           "label": "库存调整查询",
           "url":"page/stockAdjustmentSelect",
           "bmMenuIcon":"b10"
-        }
-      ]
-    },
-    {
-      "id":36,
-      "head": "盘点作业",
-      "children": [
-        {
-          "id":37,
-          "label": "动碰盘点查询",
-          "url":"page/dynamicTouchInventorySelect",
-          "bmMenuIcon":"b12"
-        },
-        {
-          "id":38,
-          "label": "循环盘点查询",
-          "url":"page/loopInventorySelect",
-          "bmMenuIcon":"b13"
-        },
-        {
-          "id":39,
-          "label": "全面盘点查询",
-          "url":"page/comprehensiveInventorySelect",
-          "bmMenuIcon":"b14"
         }
       ]
     },

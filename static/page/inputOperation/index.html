@@ -4,7 +4,18 @@
             element-loading-text="拼命加载中">
         <el-col :span="24">
             <div class="inner btn-nav">
-                </button>
+                <el-input
+                        v-model="rkRkdjNo"
+                        icon="search"
+                        placeholder="入库单号"></el-input>
+                <el-date-picker
+                        v-model="date"
+                        type="daterange"
+                        align="right"
+                        placeholder="选择日期"
+                        class="datePicker"
+                        :picker-options="pickerOptions">
+                </el-date-picker>
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
@@ -456,18 +467,7 @@
             v-model="dialogSelectVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
-            <el-input
-                    v-model="rkRkdjNo"
-                    icon="search"
-                    placeholder="入库单号"></el-input>
-            <el-date-picker
-                    v-model="date"
-                    type="daterange"
-                    align="right"
-                    placeholder="选择日期"
-                    class="datePicker"
-                    :picker-options="pickerOptions">
-            </el-date-picker>
+
 
 
         </div>

@@ -164,47 +164,41 @@
         margin-left: -8px !important;
     }
 </style>
-
 <div id="warehousingReservation">
     <!--页面调整-->
     <el-row v-loading="showLoading"
             element-loading-text="拼命加载中">
         <el-col :span="24">
-
             <el-carousel
-                ref="carouselWaiting"
-                :autoplay="false"
-                arrow="never"
-                indicator-position="none"
-                height="65vh">
+                    ref="carouselWaiting"
+                    :autoplay="false"
+                    arrow="never"
+                    indicator-position="none"
+                    height="65vh">
                 <el-carousel-item>
                     <el-row>
                         <el-col :span="24">
                             <div class="inner btn-nav">
 
                                 <el-input
-                                    v-model="rkRkdjNo"
-                                    icon="search"
-                                    placeholder="入库单号"></el-input>
-
+                                        v-model="rkRkdjNo"
+                                        icon="search"
+                                        placeholder="入库单号"></el-input>
                                 <el-date-picker
-                                    v-model="date"
-                                    type="daterange"
-                                    align="right"
-                                    placeholder="选择日期"
-                                    class="datePicker"
-                                    :picker-options="pickerOptions">
+                                        v-model="date"
+                                        type="daterange"
+                                        align="right"
+                                        placeholder="选择日期"
+                                        class="datePicker"
+                                        :picker-options="pickerOptions">
                                 </el-date-picker>
-
                                 <button @click="newInput" class="btn btn-add"><i class="icon add"></i><span>添加</span>
                                 </button>
-
                                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
-                                    class="icon sel"></i><span>多选</span>
+                                        class="icon sel"></i><span>多选</span>
                                 </button>
-
                                 <button @click="moreOperationDelete" class="btn btn-del" v-show="multiSelect"><i
-                                    class="icon del"></i><span>批量删除</span>
+                                        class="icon del"></i><span>批量删除</span>
                                 </button>
                                 <!--<button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i-->
                                 <!--class="icon search"></i><span>详细查询</span>-->
@@ -232,18 +226,18 @@
                         <el-col :span="12">
                             <h4>等待选择</h4>
                             <el-table
-                                :data="warehousingReservation"
-                                :default-sort="{prop: 'sjsj', order: 'descending'}"
-                                :max-height="350"
-                                @toggleRowSelection="rowSelection"
-                                @expand="expandChange"
-                                @select="handleSelectionChange"
-                                @select-all="handleSelectionChangeAll"
-                                ref="table"
-                                class="warehousingReservationTable"
-                                style="width: 100%">
+                                    :data="warehousingReservation"
+                                    :default-sort="{prop: 'sjsj', order: 'descending'}"
+                                    :max-height="350"
+                                    @toggleRowSelection="rowSelection"
+                                    @expand="expandChange"
+                                    @select="handleSelectionChange"
+                                    @select-all="handleSelectionChangeAll"
+                                    ref="table"
+                                    class="warehousingReservationTable"
+                                    style="width: 100%">
                                 <el-table-column
-                                    type="expand">
+                                        type="expand">
                                     <template scope="props">
                                         <el-row>
                                             <el-col :span="24">
@@ -272,15 +266,15 @@
                                                     </el-form-item>
                                                     <el-form-item label="可用操作" v-if="props.row.zdfs==='手动'">
                                                         <el-button
-                                                            size="small"
-                                                            icon="edit"
-                                                            @click="Edit(props.$index, props.row)">编辑
+                                                                size="small"
+                                                                icon="edit"
+                                                                @click="Edit(props.$index, props.row)">编辑
                                                         </el-button>
                                                         <el-button
-                                                            size="small"
-                                                            icon="delete"
-                                                            type="danger"
-                                                            @click="deleteOlder(props.$index, props.row)">删除
+                                                                size="small"
+                                                                icon="delete"
+                                                                type="danger"
+                                                                @click="deleteOlder(props.$index, props.row)">删除
                                                         </el-button>
                                                     </el-form-item>
                                                     <el-form-item label="入库备注">
@@ -296,79 +290,79 @@
                                     </template>
                                 </el-table-column>
                                 <el-table-column
-                                    label="所属仓库"
-                                    align="center">
+                                        label="所属仓库"
+                                        align="center">
                                     <template scope="scope">
                                         <el-tag
-                                            type="success"
-                                            close-transition>
+                                                type="success"
+                                                close-transition>
                                             九阳21号仓库
                                         </el-tag>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
-                                    label="入库单号"
-                                    show-overflow-tooltip
-                                    align="center"
-                                    prop="rkdjNo">
+                                        label="入库单号"
+                                        show-overflow-tooltip
+                                        align="center"
+                                        prop="rkdjNo">
                                 </el-table-column>
                                 <el-table-column
-                                    width="80"
-                                    align="center"
-                                    prop="sjsj"
-                                    label="时间">
+                                        width="80"
+                                        align="center"
+                                        prop="sjsj"
+                                        label="时间">
                                     <template scope="scope">{{ scope.row.sjsj }}</template>
                                 </el-table-column>
                                 <el-table-column
-                                    type="selection"
-                                    width="60">
+                                        type="selection"
+                                        width="60">
                                 </el-table-column>
                             </el-table>
                         </el-col>
                         <el-col :span="12">
                             <h4>等待组合</h4>
                             <el-table
-                                :data="warehousingReservationCombination"
-                                :default-sort="{prop: 'sjsj', order: 'descending'}"
-                                :max-height="350"
-                                @toggleRowSelection="rowSelection"
-                                @expand="expandChange"
-                                @selection-change="handleSelectionChangeCombination"
-                                ref="table"
-                                class="warehousingReservationTable"
-                                style="width: 100%">
+                                    :data="warehousingReservationCombination"
+                                    :default-sort="{prop: 'sjsj', order: 'descending'}"
+                                    :max-height="350"
+                                    @toggleRowSelection="rowSelection"
+                                    @expand="expandChange"
+                                    @selection-change="handleSelectionChangeCombination"
+                                    ref="table"
+                                    class="warehousingReservationTable"
+                                    style="width: 100%">
                                 <el-table-column
-                                    type="index"
-                                    width="55">
+                                        type="index"
+                                        width="55">
                                 </el-table-column>
                                 <el-table-column
-                                    label="所属仓库"
-                                    align="center">
+                                        label="所属仓库"
+                                        align="center">
                                     <template scope="scope">
                                         <el-tag
-                                            type="success"
-                                            close-transition>
+                                                type="success"
+                                                close-transition>
                                             九阳21号仓库
                                         </el-tag>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
-                                    label="入库单号"
-                                    show-overflow-tooltip
-                                    align="center"
-                                    prop="rkdjNo">
+                                        label="入库单号"
+                                        show-overflow-tooltip
+                                        align="center"
+                                        prop="rkdjNo">
                                 </el-table-column>
                                 <el-table-column
-                                    width="80"
-                                    align="center"
-                                    prop="sjsj"
-                                    label="时间">
+                                        width="80"
+                                        align="center"
+                                        prop="sjsj"
+                                        label="时间">
                                     <template scope="scope">{{ scope.row.sjsj }}</template>
                                 </el-table-column>
                                 <el-table-column
-                                    v-if="multiSelect"
-                                    type="selection"
-                                    width="60">
+                                        v-if="multiSelect"
+                                        type="selection"
+                                        width="60">
                                 </el-table-column>
                             </el-table>
                         </el-col>
@@ -380,49 +374,49 @@
                     </el-row>
                     <el-row class="warehousingReservationCombinationDetails">
                         <el-form
-                            ref="warehousingReservationCombinationDetails"
-                            :data="warehousingReservationCombinationDetails">
+                                ref="warehousingReservationCombinationDetails"
+                                :data="warehousingReservationCombinationDetails">
                             <el-col :span="10">
                                 <el-form-item
-                                    label="入库任务单号"
-                                    :label-width="formLabelWidth">
+                                        label="入库任务单号"
+                                        :label-width="formLabelWidth">
                                     <el-input
-                                        v-model="warehousingReservationCombinationDetails.rkrwNo"
-                                        auto-complete="off"></el-input>
+                                            v-model="warehousingReservationCombinationDetails.rkrwNo"
+                                            auto-complete="off"></el-input>
                                 </el-form-item>
                                 <el-form-item label="调拨地" :label-width="formLabelWidth">
                                     <el-input
-                                        v-model="warehousingReservationCombinationDetails.rkrwDbd"
-                                        auto-complete="off"></el-input>
+                                            v-model="warehousingReservationCombinationDetails.rkrwDbd"
+                                            auto-complete="off"></el-input>
                                 </el-form-item>
                                 <el-form-item label="车牌号" :label-width="formLabelWidth">
                                     <el-input
-                                        v-model="warehousingReservationCombinationDetails.rkrwCph"
-                                        auto-complete="off"></el-input>
+                                            v-model="warehousingReservationCombinationDetails.rkrwCph"
+                                            auto-complete="off"></el-input>
                                 </el-form-item>
                                 <el-form-item label="司机电话" :label-width="formLabelWidth">
                                     <el-input
-                                        v-model="warehousingReservationCombinationDetails.rkrwDh"
-                                        auto-complete="off"></el-input>
+                                            v-model="warehousingReservationCombinationDetails.rkrwDh"
+                                            auto-complete="off"></el-input>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="10" :offset="2">
                                 <el-form-item label="预计到货日期" :label-width="formLabelWidth">
                                     <el-date-picker
-                                        v-model="warehousingReservationCombinationDetails.rkrwDhrq"
-                                        type="datetime"
-                                        placeholder="选择到货日期">
+                                            v-model="warehousingReservationCombinationDetails.rkrwDhrq"
+                                            type="datetime"
+                                            placeholder="选择到货日期">
                                     </el-date-picker>
                                 </el-form-item>
                                 <el-form-item label="承运商" :label-width="formLabelWidth">
                                     <el-input
-                                        v-model="warehousingReservationCombinationDetails.rkrwCys"
-                                        auto-complete="off"></el-input>
+                                            v-model="warehousingReservationCombinationDetails.rkrwCys"
+                                            auto-complete="off"></el-input>
                                 </el-form-item>
                                 <el-form-item label="司机姓名" :label-width="formLabelWidth">
                                     <el-input
-                                        v-model="warehousingReservationCombinationDetails.rkrwSjxm"
-                                        auto-complete="off"></el-input>
+                                            v-model="warehousingReservationCombinationDetails.rkrwSjxm"
+                                            auto-complete="off"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-form>
@@ -433,9 +427,9 @@
             <el-row class="formBottom">
                 <el-col :span="18" :offset="1">
                     <el-steps
-                        :space="200"
-                        :active="formActive"
-                        finish-status="success">
+                            :space="200"
+                            :active="formActive"
+                            finish-status="success">
                         <el-step title="选择订单"></el-step>
                         <el-step title="预约详细"></el-step>
                     </el-steps>
@@ -453,26 +447,26 @@
         </el-col>
     </el-row>
     <el-dialog
-        size="small"
-        v-model="dialogFormVisible">
+            size="small"
+            v-model="dialogFormVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">{{form.title}}</span>
             <el-steps
-                class="steps"
-                :space="120"
-                :active="dialogFormActive"
-                finish-status="success">
+                    class="steps"
+                    :space="120"
+                    :active="dialogFormActive"
+                    finish-status="success">
                 <el-step title="基础信息"></el-step>
                 <el-step title="入库明细"></el-step>
             </el-steps>
         </div>
         <el-form :model="form" ref="newForm">
             <el-carousel
-                ref="carousel"
-                :autoplay="false"
-                arrow="never"
-                indicator-position="none"
-                height="55vh">
+                    ref="carousel"
+                    :autoplay="false"
+                    arrow="never"
+                    indicator-position="none"
+                    height="55vh">
                 <el-carousel-item>
                     <el-row>
                         <el-col :span="24"><h3>入库基础信息</h3></el-col>
@@ -480,14 +474,14 @@
                     <el-row>
                         <el-col :span="10">
                             <el-form-item
-                                label="入库单号"
-                                prop="rkRkdjNo"
-                                :rules="{ validator: validateRkRkdjNo, trigger: 'blur' }"
-                                :label-width="formLabelWidth">
+                                    label="入库单号"
+                                    prop="rkRkdjNo"
+                                    :rules="{ validator: validateRkRkdjNo, trigger: 'blur' }"
+                                    :label-width="formLabelWidth">
                                 <el-input
-                                    type="rkRkdjNo"
-                                    v-model="form.rkRkdjNo"
-                                    auto-complete="off"></el-input>
+                                        type="rkRkdjNo"
+                                        v-model="form.rkRkdjNo"
+                                        auto-complete="off"></el-input>
                             </el-form-item>
                             <el-form-item label="订单类型" :label-width="formLabelWidth">
                                 <el-select v-model="form.rkType" placeholder="请选择单据类型">
@@ -498,24 +492,24 @@
                             </el-form-item>
                             <el-form-item label="入库备注" :label-width="formLabelWidth">
                                 <el-input
-                                    type="textarea"
-                                    :rows="2"
-                                    v-model="form.rkRemarks"
-                                    auto-complete="off"></el-input>
+                                        type="textarea"
+                                        :rows="2"
+                                        v-model="form.rkRemarks"
+                                        auto-complete="off"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col :span="12" :offset="2">
                             <el-form-item label="入库状态">
-                                form.rkStatus
+                                {{form.rkStatus}}
                             </el-form-item>
                             <el-form-item label="入库数量">
-                                form.number
+                                {{form.rksCount}}
                             </el-form-item>
                             <el-form-item label="入库体积">
-                                form.volume
+                                {{form.volume }}
                             </el-form-item>
                             <el-form-item label="制作方式">
-                                form.zdfs=1 手动
+                                {{form.rkZdfs }}
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -528,23 +522,23 @@
                         <el-col :span="12">
                             <el-form-item label="货品编号" :label-width="formLabelWidth">
                                 <el-autocomplete
-                                    v-model="form.bgGoodsNo"
-                                    :fetch-suggestions="querySearchAsync"
-                                    @select="GoodSelect"
-                                    auto-complete="off"></el-autocomplete>
+                                        v-model="form.bgGoodsNo"
+                                        :fetch-suggestions="querySearchAsync"
+                                        @select="GoodSelect"
+                                        auto-complete="off"></el-autocomplete>
                             </el-form-item>
                         </el-col>
                         <el-col :span="12">
                             <el-form-item
-                                label="货品数量"
-                                :label-width="formLabelWidth"
-                                prop="selectGood.count"
-                                :rules="{ type: 'number', message: '货品数量必须为数字值'}">
+                                    label="货品数量"
+                                    :label-width="formLabelWidth"
+                                    prop="selectGood.count"
+                                    :rules="{ type: 'number', message: '货品数量必须为数字值'}">
                                 <el-input
-                                    type="count"
-                                    :disabled="form.selectGood.value==''"
-                                    v-model.number="form.selectGood.count"
-                                    auto-complete="off"></el-input>
+                                        type="count"
+                                        :disabled="form.selectGood.value==''"
+                                        v-model.number="form.selectGood.count"
+                                        auto-complete="off"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -578,28 +572,28 @@
                     <el-row>
                         <el-col :span="24" style="margin-top: 5px">
                             <el-table
-                                height="200"
-                                :data="form.rkDocsList"
-                                @row-click="GoodClick">
+                                    height="200"
+                                    :data="form.rkDocsList"
+                                    @row-click="GoodClick">
                                 <el-table-column
-                                    type="index"
-                                    width="55">
+                                        type="index"
+                                        width="55">
                                 </el-table-column>
                                 <el-table-column
-                                    property="value"
-                                    label="货品编号">
+                                        property="value"
+                                        label="货品编号">
                                 </el-table-column>
                                 <el-table-column
-                                    property="bgGoodsName"
-                                    label="货品名称">
+                                        property="bgGoodsName"
+                                        label="货品名称">
                                 </el-table-column>
                                 <el-table-column
-                                    property="bgDw"
-                                    label="货品单位">
+                                        property="bgDw"
+                                        label="货品单位">
                                 </el-table-column>
                                 <el-table-column
-                                    property="count"
-                                    label="货品数量">
+                                        property="count"
+                                        label="货品数量">
                                 </el-table-column>
                             </el-table>
                         </el-col>
@@ -617,12 +611,28 @@
         </div>
     </el-dialog>
 </div>
-
 <script>
+    function form() {
+        return {
+            title: '新建入库单',
+            rkRkdjNo: '',
+            rkType: '',
+            rkRemarks: '',
+            rkDocsList: [],
+            bgGoodsNo: '',
+            selectGood: {
+                value: '',
+                bgGoodsName: '',
+                count: 0,
+                bgGoodsId: ''
+            },
+            saveARkDocsList: true,
+            deleteARkDocsList: true
+        }
+    }
     var validateRule = {
         a: new RegExp("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", "g")
     };
-
     var warehousingReservation = new Vue({
         el: '#warehousingReservation',
         prop: {},
@@ -678,22 +688,7 @@
                 pageSize: 10,
 
                 formLabelWidth: '120px',       //表单 配置
-                form: {
-                    title: '新建入库单',
-                    rkRkdjNo: '',
-                    rkType: '',
-                    rkRemarks: '',
-                    rkDocsList: [],
-                    bgGoodsNo: '',
-                    selectGood: {
-                        value: '',
-                        bgGoodsName: '',
-                        count: 0,
-                        bgGoodsId: ''
-                    },
-                    saveARkDocsList: true,
-                    deleteARkDocsList: true
-                },     //表单 弹出层 信息集合
+                form: form(),                  //表单 弹出层 信息集合
                 dialogFormActive: 0,           //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,      //新建 弹出层 是否可见
                 submitLoading: false,          //新建 弹出层 提交等待
@@ -703,8 +698,6 @@
                 select: {},                    //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 selectLoading: false
-
-
             }
         },
         computed: {
@@ -720,9 +713,22 @@
         },
         methods: {
             Edit: function (index, row) {
-                this.form.title = '编辑';
-                this.dialogFormVisible = true;
-                console.log(index, row);
+                var obj = this;
+                var step = form();
+                allPrposCb(step,function (obj,index) {
+                    console.log(row[index])
+                    if(typeof row[index]!=='undefined') step[index]=row[index];
+                });
+                console.log(step);
+                console.log(row);
+//                this.form = row;
+//                this.form.title = '编辑';
+//                this.dialogFormActive = 1;
+//                postGoods(obj, {rkRkdjNo: row.rkRkdjNo}, function (json) {
+//                    obj.form.rkDocsList=json;
+//                    obj.dialogFormVisible = true;
+//                    console.log(index, row);
+//                });
             },                                        //行内按钮-编辑
             deleteOlder: function (index, row) {
                 var _this = this;
@@ -904,9 +910,9 @@
                         rkrwDh: '',         //司机电话
                         rkrwStatus: ''      //任务状态
                     };
-                    _this.warehousingReservationCombination=[];
-                    _this.multipleSelection=[];
-                    _this.multipleSelectionCombination=[];
+                    _this.warehousingReservationCombination = [];
+                    _this.multipleSelection = [];
+                    _this.multipleSelectionCombination = [];
 
                     _this.formActive = 0;
                     _this.$refs.carouselWaiting.setActiveItem(0);
@@ -1035,7 +1041,6 @@
             }
         }
     });
-
     // 高级 监视器的 使用方法
     warehousingReservation.$watch('form.selectGood.count', function () {
         if (!this.form.deleteARkDocsList)return;
@@ -1054,8 +1059,7 @@
         /*</debug>*/
         post(this, this.option);
     }, {deep: true});
-
-    post(warehousingReservation,warehousingReservation.option);
+    post(warehousingReservation, warehousingReservation.option);
     function post(obj, option) {
         obj.showLoading = true;
 
@@ -1099,6 +1103,7 @@
                         "2": "excel",
                         "3": "接口"
                     };
+                    // TODO imzhangxing  记得修改下这里
                     json.data[i].type = type[i % 3];
                     json.data[i].sjsj = changeDate(json.data[i].sjsj);
                     json.data[i].status = status[json.data[i].status];
@@ -1240,4 +1245,16 @@
         return false;
     }
 
+    /*
+     * 用来遍历指定对象所有的属性名称和值
+     * obj 需要遍历的对象
+     * cb 回调函数  1. 子属性 2.子属性名
+     */
+    function allPrposCb(obj, cb) {
+        for (var p in obj) {
+            if (typeof(obj[p]) !== "function") {
+                cb(obj[p],p)
+            }
+        }
+    }
 </script>
