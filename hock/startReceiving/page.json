@@ -1,59 +1,39 @@
 [
   {
-    "rkrwNo":20170331001,
-    "rkrwCph":"鲁ALZ132",
-    "dds":10,
-    "pxs":30,
-    "rkrwSjxm":"张三",
-    "rkrwDhrq":"2017-02-15 14:45:49",
-    "rkrwDbd":"山东章丘",
-    "rkrwCys":"亓耳",
-    "rkrwDh":"13065098763"
+    "rkrwNo": 20170331001,
+    "rkrwCph": "鲁ALZ452",
+    "dds": 45,
+    "pxs": 54,
+    "rkrwSjxm": "张三",
+    "rkrwDhrq": "2017-04-07T06:41:11.939Z",
+    "rkrwDbd": "山东泰安",
+    "rkrwCys": "苗圃",
+    "rkrwDh": "13087636505",
+    "rkrwStatus": 2
   },
   {
-    "rkrwNo":20170331001,
-    "rkrwCph":"鲁ALZ132",
-    "dds":20,
-    "pxs":20,
-    "rkrwSjxm":"张三",
-    "rkrwDhrq":"2017-02-15 14:45:49",
-    "rkrwDbd":"山东菏泽",
-    "rkrwCys":"伊泽",
-    "rkrwDh":"13665098763"
+    "rkrwNo": 20170331002,
+    "rkrwCph": "鲁ALZ135",
+    "dds": 36,
+    "pxs": 42,
+    "rkrwSjxm": "lisi",
+    "rkrwDhrq": "2017-04-07T06:41:11.939Z",
+    "rkrwDbd": "山东青岛",
+    "rkrwCys": "畦田",
+    "rkrwDh": "13065631987",
+    "rkrwStatus": 51
   },
   {
-    "rkrwNo":20170331001,
-    "rkrwCph":"鲁ALZ132",
-    "dds":45,
-    "pxs":54,
-    "rkrwSjxm":"张三",
-    "rkrwDhrq":"2017-02-15 14:45:49",
-    "rkrwDbd":"山东泰安",
-    "rkrwCys":"苗圃",
-    "rkrwDh":"13065058763"
-  },
-  {
-    "rkrwNo":20170331001,
-    "rkrwCph":"鲁ALZ132",
-    "dds":36,
-    "pxs":42,
-    "rkrwSjxm":"张三",
-    "rkrwDhrq":"2017-02-15 14:45:49",
-    "rkrwDbd":"山东青岛",
-    "rkrwCys":"畦田",
-    "rkrwDh":"13065198763"
-  },
-  {
-    "rkrwNo":20170331001,
-    "rkrwCph":"鲁ALZ132",
-    "dds":24,
-    "pxs":60,
-    "rkrwSjxm":"张三",
-    "rkrwDhrq":"2017-02-15 14:45:49",
-    "rkrwDbd":"山东烟台",
-    "rkrwCys":"安庆",
-    "rkrwDh":"13365098763"
+    "rkrwNo": 20170331003,
+    "rkrwCph": "鲁ALZ152",
+    "dds": 24,
+    "pxs": 60,
+    "rkrwSjxm": "sunhao",
+    "rkrwDhrq": "2017-04-07T06:41:11.939Z",
+    "rkrwDbd": "山东烟台",
+    "rkrwCys": "安庆",
+    "rkrwDh": "13367635098",
+    "rkrwStatus": 52
   }
-
 ]
 

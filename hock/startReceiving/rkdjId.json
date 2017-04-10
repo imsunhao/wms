@@ -1,0 +1,74 @@
+[
+  {
+    "rksRkmxId": 73,
+    "rksGoodsId": 9,
+    "rksDwid": 1,
+    "rksCount": 100,
+    "rksStatus": 1,
+    "rksRkdjId": 8,
+    "baseGoods": {
+      "bgGoodsId": 9,
+      "bgGoodsNo": "13701003001",
+      "bgGoodsName": "电热锅、JK-32R1（32R1-A）、黑色+拉丝不锈钢、32CM、2100W、220V、50Hz、内销、Ⅰ类结构",
+      "bgNamejc": "电热锅、JK-32R1（32R1-A）、黑色+拉丝不锈钢、32CM、2100W、220V、50Hz、内销、Ⅰ类结构",
+      "bgT": null,
+      "bgI": null,
+      "bgHsl": 2,
+      "bgZxdw": 8,
+      "bgSzdw": 1,
+      "bgStatus": 1,
+      "bgArehouseId": 1,
+      "bgClientId": 2,
+      "bgGoodsType": null,
+      "bgGoodsTj": 20.57,
+      "bgGoodsZl": 0,
+      "bgGoodsPrice": null,
+      "bgCreatetime": 1488942458000,
+      "bgRemarks": null,
+      "bgGoodsGg": null
+    },
+    "baseDw": {
+      "bdDwId": 1,
+      "bdName": "hhhh",
+      "bdStatus": 2,
+      "bdIsdel": true,
+      "bdCreatetime": 1488786104000
+    }
+  },
+  {
+    "rksRkmxId": 74,
+    "rksGoodsId": 10,
+    "rksDwid": 1,
+    "rksCount": 100,
+    "rksStatus": 1,
+    "rksRkdjId": 8,
+    "baseGoods": {
+      "bgGoodsId": 10,
+      "bgGoodsNo": "13701002001",
+      "bgGoodsName": "电火锅、JK-45H01(45H01-A)、红色、L30cm、W30cm、1360W、220V、50Hz、内销、I类结构",
+      "bgNamejc": "电火锅、JK-45H01(45H01-A)、红色、L30cm、W30cm、1360W、220V、50Hz、内销、I类结构",
+      "bgT": null,
+      "bgI": null,
+      "bgHsl": 5,
+      "bgZxdw": 8,
+      "bgSzdw": 1,
+      "bgStatus": 1,
+      "bgArehouseId": 1,
+      "bgClientId": 2,
+      "bgGoodsType": null,
+      "bgGoodsTj": 41.05,
+      "bgGoodsZl": 0,
+      "bgGoodsPrice": null,
+      "bgCreatetime": 1488942499000,
+      "bgRemarks": null,
+      "bgGoodsGg": null
+    },
+    "baseDw": {
+      "bdDwId": 1,
+      "bdName": "hhhh",
+      "bdStatus": 2,
+      "bdIsdel": true,
+      "bdCreatetime": 1488786104000
+    }
+  }
+]
