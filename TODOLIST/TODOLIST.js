@@ -809,7 +809,7 @@
          *  2 获取作业区的名称 用户管理 根据id返回用户信息  GET /user/{id}
          */
         /**
-         * 3 判断两个作业区名称是否相同   RF管理 判断主作业区是否重复 GET /user/isRepeatByFirstZyq/{firstZyq}
+         * 3  RF管理 判断主作业区是否重复 GET /user/isRepeatByFirstZyq/{firstZyq}
          **/
     /**
          *      TODO 作业区管理 operationAreaManage
@@ -877,8 +877,6 @@
          *  TODO 5 库位名称不允许重复
          *
          **/
-
-
 /**
  *  TODO 业务处理
  **/
@@ -1097,9 +1095,8 @@
              * 6  入库任务管理 通过id获取一条入库任务单 GET /mfunrkRwDoc/{rkrw_id}
          * */
     /**
-
         * TODO 开始收货 startReceiving
-        *      */
+           */
             /**
              * TODO 0 开始收货主页面 POST /mfunrkRwDoc 待补充没有模糊查询
              参数 --该分页不支持模糊查询 模糊查询的字段有6个
@@ -1125,7 +1122,7 @@
              *  TODO 1 打印收货标签
              */
         /**
-         *      TODO 入库操作       inputOperation
+         *  TODO 入库操作   inputOperation
          */
             /**TODO 0 入库操作主页面  入库过程 分页获取入库单据 POST /mfunrkDoc (待超哥补充)没有模糊查询
              * 参数{
