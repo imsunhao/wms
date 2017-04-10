@@ -15,16 +15,16 @@ router.get('/', function (req, res, next) {
         method: "POST",
         json: true,
         body: {//写好参数后 运行  失败后找亚伟 成功后这样操作
-            "ruUserName": "",
-            "ruLoginName": "",
-            "ruUserType": 0,
-            "ruUserZyq": "",
-            "ruStatus": 1,
-            "pageNum": 1,
-            "pageSize": 1,
-            "draw": 1
+        "ruUserName": "",
+        "ruLoginName": "",
+        "ruUserType": 0,
+        "ruUserZyq": "",
+        "ruStatus": 1,
+        "pageNum": 1,
+        "pageSize": 1,
+        "draw": 1
         },
-        url: 'http://192.168.5.33:8080/wms_cg_web/user/page ',
+        url: 'http://192.168.5.33:8080/wms_cg_web/user/page',
         headers: {"Content-Type": 'application/json'}
     }, function (error, response, json) {
         res.send(response);

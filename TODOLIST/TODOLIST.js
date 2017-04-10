@@ -554,7 +554,7 @@
  * TODO 资源管理
  **/
     /**
-     * 仓库管理
+     * TODO 仓库管理
      */
         /**
          *TODO 0 对于仓库的区域的增加
@@ -591,7 +591,7 @@
          */
 
 /**
- *       TODO 货品管理   goodsManage
+ *       货品管理   goodsManage
              **/
         /**
           0 分页查询货品详情 POST /goods
@@ -760,34 +760,57 @@
          *
          **/
     /**
-     * TODO RF管理   RFManage
+     *  RF管理   RFManage
          **/
         /**
-         *TODO 0 (RF管理主页面) 分页查询RF管理详情 POST /user/page
+         *  0 (RF管理主页面) 分页查询RF管理详情 POST /user/page
          * 参数
-         * 参数说明{
+         * {
+         *    "ruUserName": "",
+              "ruLoginName": "",
+              "ruUserType": 0,
+              "ruUserZyq": "",
+              "ruStatus": 1,
+              "pageNum": 1,
+              "pageSize": 1,
+              "draw": 1
          * }
-         *  ruLoginName 账户
-         *  ruUserType  类型（int）
-         *                  0.普通
-         *                  1.堆高车
-         *                  2.高位叉车
-         *  ruUserZyq   主要作业区
-         *  ruUserZyq   次要作业区
-         *  操作
+         *
+         * 参数说明
+                ruUserId            用户主键id
+                ruUserName          用户昵称/名
+                ruLoginName         登录账户
+                ruLoginPassword     密码
+                ruPhone             手机
+                ruTelephone         电话
+                ruEmail             邮箱地址
+                ruSex               性别1男 0 女  json数据中1对应true 0对应false
+                ruBirthday          生日
+                ruHomeaddress       家庭住址
+                ruQicq              QQ
+                ruCreateTime        创建时间
+                ruLastModifiedTime  最后修改时间
+                ruStatus            状态(status) 0禁用(软删除) 1启用
+                ruSalt              随机掩码
+                ruUserType          用户类型(0:普通 1堆高车 2高位叉车)
+                ruUserZyq           高位叉车作业区域
+                ruRemarks           备注
+                ruIspda             是否允许登陆pda 1是 0否
+                ruPortrait          头像保存路径
+         *
          */
         /**
-         *  TODO 1 关联作业区
-         *      ruUserZyq   高位叉车作业区域 该区域存放的就是区域名称
-         *   */
+         * 1 RF管理 关联作业区，判断主作业区是否被占用，是否已关联；是否有PDA任务 GET /user/userAddZyq/{id}/{firstZyq}/{secondZyq}
         /**
          *  TODO 2 获取作业区名称
          *      ruUserZyq   高位叉车作业区域
          *   **/
         /**
+         *  2 获取作业区的名称 用户管理 根据id返回用户信息  GET /user/{id}
+         */
+        /**
          * 3 判断两个作业区名称是否相同   RF管理 判断主作业区是否重复 GET /user/isRepeatByFirstZyq/{firstZyq}
          **/
-
     /**
          *      TODO 作业区管理 operationAreaManage
          *      **/
