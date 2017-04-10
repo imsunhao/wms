@@ -14,15 +14,17 @@ router.get('/', function (req, res, next) {
     request({
         method: "POST",
         json: true,
-        body:{//写好参数后 运行  失败后找亚伟 成功后这样操作
-
-        "id": 0,
-        "ids": [
-        1
-    ]
-
+        body: {//写好参数后 运行  失败后找亚伟 成功后这样操作
+            "rkrwNo": "s111",
+            "rkrwDhrq": "2017-04-10T02:49:09.278Z",
+            "rkrwDbd": "string",
+            "rkrwCys": "string",
+            "rkrwCph": "string",
+            "rkrwSjxm": "string",
+            "rkrwDh": "string",
+            "rkrwStatus": 1
         },
-        url: 'http://192.168.5.14:8080/wms_cg_web/client/deleteOfSoft',
+        url: 'http://192.168.5.33:8080/wms_cg_web/mfunrkRwDoc/add ',
         headers: {"Content-Type": 'application/json'}
     }, function (error, response, json) {
         res.send(response);

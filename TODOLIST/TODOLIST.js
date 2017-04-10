@@ -811,7 +811,19 @@
     /**TODO 入库预约 warehousingReservation
     */
         /**
-         *      TODO 0 入库预约   /mfunrkRwDoc/add (预约详细)
+         *      TODO 0 入库预约 POST /mfunrkRwDoc/add (预约详细)
+         *      TODO 参数 该参数测试有问题，新增不成功，参数需要超哥回来确定
+         *      {
+         *          "rkrwId": 1,
+                    "rkrwNo": "string",
+                    "rkrwDhrq": "2017-04-10T02:49:09.278Z",
+                    "rkrwDbd": "string",
+                    "rkrwCys": "string",
+                    "rkrwCph": "string",
+                    "rkrwSjxm": "string",
+                    "rkrwDh": "string",
+                    "rkrwStatus": "1"
+         *      }
          *      参数说明
          *          rkrwId      id
          *          rkrwNo      入库任务号     系统自动生成格式为当前日期例:入库2017-03-14-16-17-01
@@ -1032,19 +1044,6 @@
              *          rkrwSjxm    司机姓名
              *          rkrwDh      司机电话
              *          rkrwStatus  任务状态
-
-
-
-
-             * rkrwCph      车牌号
-             *              订单数--数据库中没有该字段，但是在页面中显示
-             *              品项数--数据库中没有该字段，但是在页面中显示
-             * rkrwSjxm     司机姓名
-             * rkrwDhrq     预计到货日期
-             * rkrwDbd      调拨地
-             * rkrwCys      承运商
-             * rkrwDh       司机电话
-             * rkrwNo       任务号
              */
             /**
              *  TODO 1 打印收货标签
