@@ -1,10 +1,11 @@
 [
   {
-    "bcCname":"张三",
-    "bcCaddr":"山东济南",
-    "bcCtel":"13056420968",
-    "bcStatus":1,
-    "bcCjsj":"2016-09-02 19:52:10"
+    "bcClientId":"客户id",
+    "bcCname":"客户名称",
+    "bcCaddr":"客户地址",
+    "bcCtel":"联系方式",
+    "bcStatus":"状态0 软删除 1 可用",
+    "bcCjsj":"创建时间"
   },
    {
     "bcCname":"李四",
