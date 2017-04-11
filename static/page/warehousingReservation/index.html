@@ -193,6 +193,10 @@
                                 </el-date-picker>
                                 <button @click="newInput" class="btn btn-add"><i class="icon add"></i><span>添加</span>
                                 </button>
+                                <button @click="newImport" class="btn btn-import"><i class="icon add"></i><span>导入Excel接口设置</span>
+                                </button>
+
+
                                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                                         class="icon sel"></i><span>多选</span>
                                 </button>
@@ -873,6 +877,10 @@
 //                });
 
             },                                              //按钮 新建入库单
+            newImport: function () {
+//                this.dialogFormVisible = true;
+            },                                              //TODO 按钮 导入
+
 
             expandChange: function (row, expanded) {
 //                if (typeof (row.history) == 'undefined') {
