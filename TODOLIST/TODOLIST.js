@@ -843,8 +843,7 @@
     /**TODO 入库预约 warehousingReservation
     */
         /**
-         *      TODO 0 入库预约 POST /mfunrkRwDoc/add (预约详细)
-         *      TODO 参数 该参数测试有问题，新增不成功，参数需要超哥回来确定
+         *      TODO 0 入库预约 POST /mfunrkRwDoc/add (预约详细)，(新增暂时失败)
          *      {
          *          "rkrwId": 1,
                     "rkrwNo": "string",
@@ -877,58 +876,577 @@
                                     可以手动将欠货标记为收货完成需要输入原因以及补发单号
          **/
         /**
-         *      TODO 1 组合      mfunrkRwDoc
-         *          rkArehouseId    所属仓库(仓库id(外键)
-         *          rkRkdjNo        入库单号(WMS单号)
-         *          rkCreatetime    下单时间(创建时间)
-         *          rkType          订单类型
-         *                              0.采购订单
-         *                              1.仓间调拨
-         *                              2.退货入库
-         *          rkStatus        入库状态
-         *                              1.原始状态
-         *                              21.部分分配
-         *                              22.全部分配
-         *                              31.部分收货
-         *                              32.完全收货
-         *          rksCount        入库数量
-         *          bgGoodsId       入库体积( bgGoodsTj)
-         *          rkZdfs          制作方式
-         *                              1.手动
-         *                              2.excel
-         *                              3.接口
-         *          
+         * TODO   1 组合      mfunrkRwDoc
+         *      参数
+         *      {
+         *          "rkrwId": 1,
+                    "rkrwNo": "string",
+                    "rkrwDhrq": "2017-04-10T02:49:09.278Z",
+                    "rkrwDbd": "string",
+                    "rkrwCys": "string",
+                    "rkrwCph": "string",
+                    "rkrwSjxm": "string",
+                    "rkrwDh": "string",
+                    "rkrwStatus": "1",
+
+                    "rkRkdjId": 0,
+                    "rkRkdjNo": "string",
+                    "rkErpNo": "string",
+                    "rkType": "string",
+                    "rkGysmc": "string",
+                    "rkRemarks": "string",
+                    "rkUserId": 0,
+                    "rkSjsj": "2017-04-11T09:16:45.378Z",
+                    "rkBjsj": "2017-04-11T09:16:45.378Z",
+                    "rkCreatetime": "2017-04-11T09:16:45.378Z",
+                    "rkCreateUserId": 0,
+                    "rkZdfs": 0,
+                    "rkStartwith": 0,
+                    "rkStatus": 0,
+                    "rkArehouseId": 0,
+                    "rkEndTime": "2017-04-11T09:16:45.378Z",
+                    "rkPrintcount": 0,
+                    "rkRwId": 0,
+                    "rkRwStatus": "string",
+                    "rkQhWjyy": "string",
+                    "rkQhBfdh": "string",
+                    "rmsUser": {
+                      "ruUserId": 0,
+                      "ruUserName": "string",
+                      "ruLoginName": "string",
+                      "ruLoginPassword": "string",
+                      "ruPhone": "string",
+                      "ruTelephone": "string",
+                      "ruEmail": "string",
+                      "ruSex": true,
+                      "ruBirthday": "2017-04-11T09:16:45.378Z",
+                      "ruHomeaddress": "string",
+                      "ruQicq": "string",
+                      "ruCreateTime": "2017-04-11T09:16:45.381Z",
+                      "ruLastModifiedTime": "2017-04-11T09:16:45.381Z",
+                      "ruStatus": 0,
+                      "ruSalt": "string",
+                      "ruUserType": 0,
+                      "ruUserZyq": "string",
+                      "ruRemarks": "string",
+                      "ruIspda": true,
+                      "ruPortrait": "string"
+                    },
+                    "rkDocsList": [
+                      {
+                        "rksRkmxId": 0,
+                        "rksGoodsId": 0,
+                        "rksDwid": 0,
+                        "rksCount": 0,
+                        "rksStatus": 0,
+                        "rksRkdjId": 0,
+                        "baseGoods": {
+                          "bgGoodsId": 0,
+                          "bgGoodsNo": "string",
+                          "bgGoodsName": "string",
+                          "bgNamejc": "string",
+                          "bgT": 0,
+                          "bgI": 0,
+                          "bgHsl": 0,
+                          "bgZxdw": 0,
+                          "bgSzdw": 0,
+                          "bgStatus": 0,
+                          "bgArehouseId": 0,
+                          "bgClientId": 0,
+                          "bgGoodsType": "string",
+                          "bgGoodsTj": 0,
+                          "bgGoodsZl": 0,
+                          "bgGoodsPrice": 0,
+                          "bgCreatetime": "2017-04-11T09:16:45.381Z",
+                          "bgRemarks": "string",
+                          "bgGoodsGg": "string"
+                        },
+                        "baseDw": {
+                          "bdDwId": 0,
+                          "bdName": "string",
+                          "bdStatus": 0,
+                          "bdIsdel": true,
+                          "bdCreatetime": "2017-04-11T09:16:45.381Z"
+                        }
+                      }
+                    ],
+                    "allCount": 0,
+                    "allTj": 0
+
+         *      }
+         *      参数说明
+         *      rkrwId      id
+         *          rkrwNo      入库任务号     系统自动生成格式为当前日期例:入库2017-03-14-16-17-01
+         *          rkrwDhrq    预计到货日期   精确到分钟
+         *          rkrwDbd     调拨地
+         *          rkrwCys     承运商
+         *          rkrwCph     车牌号
+         *          rkrwSjxm    司机姓名
+         *          rkrwDh      司机电话
+         *          rkrwStatus  任务状态
+                                    1.初始(创建入库任务后的状态)
+                                    2.已下发任务(下达任务后的状态)
+                                    3.已开始收货(打印收货标签后的状态)
+                                    4.收货中(上架第一个库位后的状态)
+                                    5.
+                                    1.部分收货(任务下所有订单有一个部分收货整个任务为部分收货)
+                                    2.全部收货(任务下所有订单状态为全部收货整个任务状态为全部收货)
+                                    6.收货完成/欠货(全部收货状态下导出台帐为收货完成,部分收货状态下导出台帐为欠货)
+                                    可以手动将欠货标记为收货完成需要输入原因以及补发单号
+                rkRkdjId        主键id
+         *      rkRkdjNo        入库单号
+         *      rkErpNo         外部单号(ERP单号)
+         *      rkType          单据类型 0： 采购订单 1：仓间调拨 2：退货入库
+         *      rkGysmc         供应商名称
+         *      rkRemarks       备注
+         *      rkUserId        编辑人账户ID
+         *      rkSjsj          入库时间(上架)
+         *      rkBjsj          编辑时间
+         *      rkCreatetime    创建时间
+         *      rkCreateUserId  创建人账户ID
+         *      rkZdfs          制单方式(1:手动 2:excel 3接口)
+         *      rkStartwith     1电脑端2pda
+         *      rkStatus        入库状态1原始状态 21部分分配 22全部分配 31部分收货 32 完全收货
+         *      rkArehouseId    仓库id(外键)
+         *      rkEndTime       pda结束时间
+         *      rkPrintcount    打印收货标签次数(X)
+         *      rkRwId          入库任务ID
+         *      rkRwStatus      任务状态:
+                                     1.初始(创建入库任务后的状态)
+                                     2.已下发任务(下发任务后的状态)
+                                     3.已开始收货(打印收货标签后的状态)
+                                     4.收货中(分配库位后的状态)
+                                     5.1.部分收货(任务下所有订单有一个部分收货整个任务为部分收货)
+                                     5.2.全部收货(任务下所有订单状态为全部收货整个任务状态为全部收货)
+                                     61.收货完成
+                                     62 欠货
+                                     收货完成/欠货(全部收货状态下导出台帐为收货完成,部分收货状态下导出台帐为欠货)
+         *      rkQhWjyy        欠货完结原因
+         *      rkQhBfdh        欠货补发单号
+         *      rmsUser{
+                       ruUserId            用户主键id
+                       ruUserName          用户昵称/名
+                       ruLoginName         登录账户
+                       ruLoginPassword     密码
+                       ruPhone             手机
+                       ruTelephone         电话
+                       ruEmail             邮箱地址
+                       ruSex               性别1男 0 女  json数据中1对应true 0对应false
+                       ruBirthday          生日
+                       ruHomeaddress       家庭住址
+                       ruQicq              qq
+                       ruCreateTime        创建时间
+                       ruLastModifiedTime  最后修改时间
+                       ruStatus            状态
+                       ruSalt              随机掩码
+                       ruUserType          用户类型(0:普通 1堆高车 2高位叉车)
+                       ruUserZyq           高位叉车作业区域
+                       ruRemarks           备注
+                       ruIspda             是否允许登陆pda 1是 0否
+                       ruPortrait          头像保存路径
+               }
+         *      rkDocsList[
+         *           rksRkmxId   入库明细id
+         *           rksGoodsId  货品id
+         *           rksDwid     单位id
+         *           rksCount    数量
+         *           rksStatus   收货（入库明细）状态(1:初始状态 21:部分分配 22:完全分配 31:部分收货 32: 完全收货)
+         *           rksRkdjId   入库明单据id
+         *      ]
+         *       baseGoods{
+                          bgGoodsId     货品id
+                          bgGoodsNo     货品编号
+                          bgGoodsName   货品名称
+                          bgNamejc      货品简称
+                          bgT           货品t值
+                          bgI           货品i值
+                          bgHsl         货品换算量
+                          bgZxdw        整箱单位
+                          bgSzdw        散支单位
+                          bgStatus      状态
+                          bgArehouseId  仓库id(外键)
+                          bgClientId    客户id(外键)
+                          bgGoodsType   货品类型
+                          bgGoodsTj     货品体积
+                          bgGoodsZl     货品重量
+                          bgGoodsPrice  单价
+                          bgCreatetime  创建时间
+                          bgRemarks     备注
+                          bgGoodsGg     规格
+                        },
+         baseDw{
+                          bdDwId        单位id
+                          bdName        单位名称
+                          bdStatus      1整箱单位 2散支单位
+                          bdIsdel       0软删除 1可用
+                          bdCreatetime  创建时间
+                        }
+         *   allCount 总数量
+         *   allTj 总体积
+         *
          **/
         /**
-         *      TODO 2 新增/添加入库明细
-         *          rksGoodsId  货品id(货品编号)
-         *          rksCount    数量  (货品数量)
-         *          rksGoodsId  货品id(货品名称)
-         *          rksGoodsId  货品id(货品单位)
-         **/
-        /**
-         *      TODO 3 编辑入库基础信息
-         *          rkRkdjNo    入库单号(WMS单号)
-         *          rkType      订单类型
-         *                          0.采购订单
-         *                          1.仓间调拨
-         *                          2.退货入库
-         *          rkRemarks   入库备注
-         *          rkStatus    入库状态
-         *                          1.原始状态
-         *                          21.部分分配
-         *                          22.全部分配
-         *                          31.部分收货
-         *                          32.完全收货
-         *          rksCount    入库数量
-         *          bgGoodsId   入库体积( bgGoodsTj)
-         *          rkZdfs      制作方式
-         *                          1.手动
-         *                          2.excel
-         *                          3.接口
+         *   TODO 2 新增/添加入库明细
+         *  参数
+         *      {
+                    "rkRkdjId": 0,
+                    "rkRkdjNo": "string",
+                    "rkErpNo": "string",
+                    "rkType": "string",
+                    "rkGysmc": "string",
+                    "rkRemarks": "string",
+                    "rkUserId": 0,
+                    "rkSjsj": "2017-04-11T09:16:45.378Z",
+                    "rkBjsj": "2017-04-11T09:16:45.378Z",
+                    "rkCreatetime": "2017-04-11T09:16:45.378Z",
+                    "rkCreateUserId": 0,
+                    "rkZdfs": 0,
+                    "rkStartwith": 0,
+                    "rkStatus": 0,
+                    "rkArehouseId": 0,
+                    "rkEndTime": "2017-04-11T09:16:45.378Z",
+                    "rkPrintcount": 0,
+                    "rkRwId": 0,
+                    "rkRwStatus": "string",
+                    "rkQhWjyy": "string",
+                    "rkQhBfdh": "string",
+                    "rmsUser": {
+                      "ruUserId": 0,
+                      "ruUserName": "string",
+                      "ruLoginName": "string",
+                      "ruLoginPassword": "string",
+                      "ruPhone": "string",
+                      "ruTelephone": "string",
+                      "ruEmail": "string",
+                      "ruSex": true,
+                      "ruBirthday": "2017-04-11T09:16:45.378Z",
+                      "ruHomeaddress": "string",
+                      "ruQicq": "string",
+                      "ruCreateTime": "2017-04-11T09:16:45.381Z",
+                      "ruLastModifiedTime": "2017-04-11T09:16:45.381Z",
+                      "ruStatus": 0,
+                      "ruSalt": "string",
+                      "ruUserType": 0,
+                      "ruUserZyq": "string",
+                      "ruRemarks": "string",
+                      "ruIspda": true,
+                      "ruPortrait": "string"
+                    },
+                    "rkDocsList": [
+                      {
+                        "rksRkmxId": 0,
+                        "rksGoodsId": 0,
+                        "rksDwid": 0,
+                        "rksCount": 0,
+                        "rksStatus": 0,
+                        "rksRkdjId": 0,
+                        "baseGoods": {
+                          "bgGoodsId": 0,
+                          "bgGoodsNo": "string",
+                          "bgGoodsName": "string",
+                          "bgNamejc": "string",
+                          "bgT": 0,
+                          "bgI": 0,
+                          "bgHsl": 0,
+                          "bgZxdw": 0,
+                          "bgSzdw": 0,
+                          "bgStatus": 0,
+                          "bgArehouseId": 0,
+                          "bgClientId": 0,
+                          "bgGoodsType": "string",
+                          "bgGoodsTj": 0,
+                          "bgGoodsZl": 0,
+                          "bgGoodsPrice": 0,
+                          "bgCreatetime": "2017-04-11T09:16:45.381Z",
+                          "bgRemarks": "string",
+                          "bgGoodsGg": "string"
+                        },
+                        "baseDw": {
+                          "bdDwId": 0,
+                          "bdName": "string",
+                          "bdStatus": 0,
+                          "bdIsdel": true,
+                          "bdCreatetime": "2017-04-11T09:16:45.381Z"
+                        }
+                      }
+                    ],
+                    "allCount": 0,
+                    "allTj": 0
+                 }
+            参数说明
+                rkRkdjId        主键id
+         *      rkRkdjNo        入库单号
+         *      rkErpNo         外部单号(ERP单号)
+         *      rkType          单据类型 0： 采购订单 1：仓间调拨 2：退货入库
+         *      rkGysmc         供应商名称
+         *      rkRemarks       备注
+         *      rkUserId        编辑人账户ID
+         *      rkSjsj          入库时间(上架)
+         *      rkBjsj          编辑时间
+         *      rkCreatetime    创建时间
+         *      rkCreateUserId  创建人账户ID
+         *      rkZdfs          制单方式(1:手动 2:excel 3接口)
+         *      rkStartwith     1电脑端2pda
+         *      rkStatus        入库状态1原始状态 21部分分配 22全部分配 31部分收货 32 完全收货
+         *      rkArehouseId    仓库id(外键)
+         *      rkEndTime       pda结束时间
+         *      rkPrintcount    打印收货标签次数(X)
+         *      rkRwId          入库任务ID
+         *      rkRwStatus      任务状态:
+                                    1.初始(创建入库任务后的状态)
+                                    2.已下发任务(下发任务后的状态)
+                                    3.已开始收货(打印收货标签后的状态)
+                                    4.收货中(分配库位后的状态)
+                                    5.1.部分收货(任务下所有订单有一个部分收货整个任务为部分收货)
+                                    5.2.全部收货(任务下所有订单状态为全部收货整个任务状态为全部收货)
+                                    61.收货完成
+                                    62 欠货
+                                    收货完成/欠货(全部收货状态下导出台帐为收货完成,部分收货状态下导出台帐为欠货)
+         *      rkQhWjyy        欠货完结原因
+         *      rkQhBfdh        欠货补发单号
+         *      rmsUser{
+                       ruUserId            用户主键id
+                       ruUserName          用户昵称/名
+                       ruLoginName         登录账户
+                       ruLoginPassword     密码
+                       ruPhone             手机
+                       ruTelephone         电话
+                       ruEmail             邮箱地址
+                       ruSex               性别1男 0 女  json数据中1对应true 0对应false
+                       ruBirthday          生日
+                       ruHomeaddress       家庭住址
+                       ruQicq              qq
+                       ruCreateTime        创建时间
+                       ruLastModifiedTime  最后修改时间
+                       ruStatus            状态
+                       ruSalt              随机掩码
+                       ruUserType          用户类型(0:普通 1堆高车 2高位叉车)
+                       ruUserZyq           高位叉车作业区域
+                       ruRemarks           备注
+                       ruIspda             是否允许登陆pda 1是 0否
+                       ruPortrait          头像保存路径
+               }
+         *      rkDocsList[
+         *           rksRkmxId   入库明细id
+         *           rksGoodsId  货品id
+         *           rksDwid     单位id
+         *           rksCount    数量
+         *           rksStatus   收货（入库明细）状态(1:初始状态 21:部分分配 22:完全分配 31:部分收货 32: 完全收货)
+         *           rksRkdjId   入库明单据id
+         *      ]
+         *       baseGoods{
+                          bgGoodsId     货品id
+                          bgGoodsNo     货品编号
+                          bgGoodsName   货品名称
+                          bgNamejc      货品简称
+                          bgT           货品t值
+                          bgI           货品i值
+                          bgHsl         货品换算量
+                          bgZxdw        整箱单位
+                          bgSzdw        散支单位
+                          bgStatus      状态
+                          bgArehouseId  仓库id(外键)
+                          bgClientId    客户id(外键)
+                          bgGoodsType   货品类型
+                          bgGoodsTj     货品体积
+                          bgGoodsZl     货品重量
+                          bgGoodsPrice  单价
+                          bgCreatetime  创建时间
+                          bgRemarks     备注
+                          bgGoodsGg     规格
+                        },
+                baseDw{
+                          bdDwId        单位id
+                          bdName        单位名称
+                          bdStatus      1整箱单位 2散支单位
+                          bdIsdel       0软删除 1可用
+                          bdCreatetime  创建时间
+                        }
+         *   allCount 总数量
+         *   allTj 总体积
          */
         /**
-         *      TODO 4 编辑入库明细
+         *  TODO  3 编辑入库基础信息/入库明细
+                参数
+                    {
+                        "rkRkdjId": 0,
+                        "rkRkdjNo": "string",
+                        "rkErpNo": "string",
+                        "rkType": "string",
+                        "rkGysmc": "string",
+                        "rkRemarks": "string",
+                        "rkUserId": 0,
+                        "rkSjsj": "2017-04-11T09:16:45.376Z",
+                        "rkBjsj": "2017-04-11T09:16:45.376Z",
+                        "rkCreatetime": "2017-04-11T09:16:45.376Z",
+                        "rkCreateUserId": 0,
+                        "rkZdfs": 0,
+                        "rkStartwith": 0,
+                        "rkStatus": 0,
+                        "rkArehouseId": 0,
+                        "rkEndTime": "2017-04-11T09:16:45.376Z",
+                        "rkPrintcount": 0,
+                        "rkRwId": 0,
+                        "rkRwStatus": "string",
+                        "rkQhWjyy": "string",
+                        "rkQhBfdh": "string",
+                        "rmsUser": {
+                          "ruUserId": 0,
+                          "ruUserName": "string",
+                          "ruLoginName": "string",
+                          "ruLoginPassword": "string",
+                          "ruPhone": "string",
+                          "ruTelephone": "string",
+                          "ruEmail": "string",
+                          "ruSex": true,
+                          "ruBirthday": "2017-04-11T09:16:45.376Z",
+                          "ruHomeaddress": "string",
+                          "ruQicq": "string",
+                          "ruCreateTime": "2017-04-11T09:16:45.377Z",
+                          "ruLastModifiedTime": "2017-04-11T09:16:45.377Z",
+                          "ruStatus": 0,
+                          "ruSalt": "string",
+                          "ruUserType": 0,
+                          "ruUserZyq": "string",
+                          "ruRemarks": "string",
+                          "ruIspda": true,
+                          "ruPortrait": "string"
+                        },
+                        "rkDocsList": [
+                          {
+                            "rksRkmxId": 0,
+                            "rksGoodsId": 0,
+                            "rksDwid": 0,
+                            "rksCount": 0,
+                            "rksStatus": 0,
+                            "rksRkdjId": 0,
+                            "baseGoods": {
+                              "bgGoodsId": 0,
+                              "bgGoodsNo": "string",
+                              "bgGoodsName": "string",
+                              "bgNamejc": "string",
+                              "bgT": 0,
+                              "bgI": 0,
+                              "bgHsl": 0,
+                              "bgZxdw": 0,
+                              "bgSzdw": 0,
+                              "bgStatus": 0,
+                              "bgArehouseId": 0,
+                              "bgClientId": 0,
+                              "bgGoodsType": "string",
+                              "bgGoodsTj": 0,
+                              "bgGoodsZl": 0,
+                              "bgGoodsPrice": 0,
+                              "bgCreatetime": "2017-04-11T09:16:45.377Z",
+                              "bgRemarks": "string",
+                              "bgGoodsGg": "string"
+                            },
+                            "baseDw": {
+                              "bdDwId": 0,
+                              "bdName": "string",
+                              "bdStatus": 0,
+                              "bdIsdel": true,
+                              "bdCreatetime": "2017-04-11T09:16:45.377Z"
+                            }
+                          }
+                        ],
+                        "allCount": 0,
+                        "allTj": 0
+                     }
+         参数说明
+                rkRkdjId        主键id
+         *      rkRkdjNo        入库单号
+         *      rkErpNo         外部单号(ERP单号)
+         *      rkType          单据类型 0： 采购订单 1：仓间调拨 2：退货入库
+         *      rkGysmc         供应商名称
+         *      rkRemarks       备注
+         *      rkUserId        编辑人账户ID
+         *      rkSjsj          入库时间(上架)
+         *      rkBjsj          编辑时间
+         *      rkCreatetime    创建时间
+         *      rkCreateUserId  创建人账户ID
+         *      rkZdfs          制单方式(1:手动 2:excel 3接口)
+         *      rkStartwith     1电脑端2pda
+         *      rkStatus        入库状态1原始状态 21部分分配 22全部分配 31部分收货 32 完全收货
+         *      rkArehouseId    仓库id(外键)
+         *      rkEndTime       pda结束时间
+         *      rkPrintcount    打印收货标签次数(X)
+         *      rkRwId          入库任务ID
+         *      rkRwStatus      任务状态:
+                                     1.初始(创建入库任务后的状态)
+                                     2.已下发任务(下发任务后的状态)
+                                     3.已开始收货(打印收货标签后的状态)
+                                     4.收货中(分配库位后的状态)
+                                     5.1.部分收货(任务下所有订单有一个部分收货整个任务为部分收货)
+                                     5.2.全部收货(任务下所有订单状态为全部收货整个任务状态为全部收货)
+                                     61.收货完成
+                                     62 欠货
+                                     收货完成/欠货(全部收货状态下导出台帐为收货完成,部分收货状态下导出台帐为欠货)
+         *      rkQhWjyy        欠货完结原因
+         *      rkQhBfdh        欠货补发单号
+         *      rmsUser{
+                       ruUserId            用户主键id
+                       ruUserName          用户昵称/名
+                       ruLoginName         登录账户
+                       ruLoginPassword     密码
+                       ruPhone             手机
+                       ruTelephone         电话
+                       ruEmail             邮箱地址
+                       ruSex               性别1男 0 女  json数据中1对应true 0对应false
+                       ruBirthday          生日
+                       ruHomeaddress       家庭住址
+                       ruQicq              qq
+                       ruCreateTime        创建时间
+                       ruLastModifiedTime  最后修改时间
+                       ruStatus            状态
+                       ruSalt              随机掩码
+                       ruUserType          用户类型(0:普通 1堆高车 2高位叉车)
+                       ruUserZyq           高位叉车作业区域
+                       ruRemarks           备注
+                       ruIspda             是否允许登陆pda 1是 0否
+                       ruPortrait          头像保存路径
+               }
+         *      rkDocsList[
+         *           rksRkmxId   入库明细id
+         *           rksGoodsId  货品id
+         *           rksDwid     单位id
+         *           rksCount    数量
+         *           rksStatus   收货（入库明细）状态(1:初始状态 21:部分分配 22:完全分配 31:部分收货 32: 完全收货)
+         *           rksRkdjId   入库明单据id
+         *      ]
+         *       baseGoods{
+                          bgGoodsId     货品id
+                          bgGoodsNo     货品编号
+                          bgGoodsName   货品名称
+                          bgNamejc      货品简称
+                          bgT           货品t值
+                          bgI           货品i值
+                          bgHsl         货品换算量
+                          bgZxdw        整箱单位
+                          bgSzdw        散支单位
+                          bgStatus      状态
+                          bgArehouseId  仓库id(外键)
+                          bgClientId    客户id(外键)
+                          bgGoodsType   货品类型
+                          bgGoodsTj     货品体积
+                          bgGoodsZl     货品重量
+                          bgGoodsPrice  单价
+                          bgCreatetime  创建时间
+                          bgRemarks     备注
+                          bgGoodsGg     规格
+                        },
+                    baseDw{
+                          bdDwId        单位id
+                          bdName        单位名称
+                          bdStatus      1整箱单位 2散支单位
+                          bdIsdel       0软删除 1可用
+                          bdCreatetime  创建时间
+                        }
+         *   allCount 总数量
+         *   allTj 总体积
+         */
+        /**
+         *      TODO 4 编辑入库明细 (在3中体现)
          *          rkRkdjNo    入库单号(WMS单号)
          *          rkType      订单类型
          *                          0.采购订单
@@ -948,44 +1466,98 @@
          *                          3.接口
          *     */
         /**
-         *  TODO 5 删除
+         *  TODO  删除 入库过程 通过入库单据id删除入库单据  DELETE /mfunrkDoc/{rkdoc_id}
          */
         /**
-         *  TODO 6 入库单号不能重复
+         *  TODO 6 入库单号不能重复（暂无）
          */
         /**
-         *      TODO 7 新增/添加入库基础信息
-         *          rkRkdjNo    入库单号(WMS单号)
-         *          rkType      订单类型
-         *                          0.采购订单
-         *                          1.仓间调拨
-         *                          2.退货入库
-         *          rkRemarks   入库备注
-         *          rkStatus    入库状态
-         *                          1.原始状态
-         *                          21.部分分配
-         *                          22.全部分配
-         *                          31.部分收货
-         *                          32.完全收货
-         *          rksCount    入库数量
-         *          bgGoodsId   入库体积( bgGoodsTj)
-         *          rkZdfs      制作方式
-         *                          1.手动
-         *                          2.excel
-         *                          3.接口
-         **/
+         *  TODO 7 入库预约的分页查询  入库过程 分页获取入库单据  POST /mfunrkDoc
+         * 参数
+         * {
+         *    "draw": 1,
+              "rkno": "",
+              "startTimeParam": "",
+              "endTimeParam": "",
+              "pageNum": 1,
+              "pageSize": 1,
+              "status": 31
+         * }
+         * 参数说明
+         *      rkRkdjId        主键id
+         *      rkRkdjNo        入库单号
+         *      rkErpNo         外部单号(ERP单号)
+         *      rkType          单据类型 0： 采购订单 1：仓间调拨 2：退货入库
+         *      rkGysmc         供应商名称
+         *      rkRemarks       备注
+         *      rkUserId        编辑人账户ID
+         *      rkSjsj          入库时间(上架)
+         *      rkBjsj          编辑时间
+         *      rkCreatetime    创建时间
+         *      rkCreateUserId  创建人账户ID
+         *      rkZdfs          制单方式(1:手动 2:excel 3接口)
+         *      rkStartwith     1电脑端2pda
+         *      rkStatus        入库状态1原始状态 21部分分配 22全部分配 31部分收货 32 完全收货
+         *      rkArehouseId    仓库id(外键)
+         *      rkEndTime       pda结束时间
+         *      rkPrintcount    打印收货标签次数(X)
+         *      rkRwId          入库任务ID
+         *      rkRwStatus      任务状态:
+                                    1.初始(创建入库任务后的状态)
+                                    2.已下发任务(下发任务后的状态)
+                                    3.已开始收货(打印收货标签后的状态)
+                                    4.收货中(分配库位后的状态)
+                                    5.1.部分收货(任务下所有订单有一个部分收货整个任务为部分收货)
+                                    5.2.全部收货(任务下所有订单状态为全部收货整个任务状态为全部收货)
+                                    61.收货完成
+                                    62 欠货
+                                    收货完成/欠货(全部收货状态下导出台帐为收货完成,部分收货状态下导出台帐为欠货)
+         *      rkQhWjyy        欠货完结原因
+         *      rkQhBfdh        欠货补发单号
+         *      rmsUser{
+             *              ruUserId            用户主键id
+             *              ruUserName          用户昵称/名
+             *              ruLoginName         登录账户
+             *              ruLoginPassword     密码
+             *              ruPhone             手机
+             *              ruTelephone         电话
+             *              ruEmail             邮箱地址
+             *              ruSex               性别1男 0 女  json数据中1对应true 0对应false
+             *              ruBirthday          生日
+             *              ruHomeaddress       家庭住址
+             *              ruQicq              qq
+             *              ruCreateTime        创建时间
+             *              ruLastModifiedTime  最后修改时间
+             *              ruStatus            状态
+             *              ruSalt              随机掩码
+             *              ruUserType          用户类型(0:普通 1堆高车 2高位叉车)
+             *              ruUserZyq           高位叉车作业区域
+             *              ruRemarks           备注
+             *              ruIspda             是否允许登陆pda 1是 0否
+             *              ruPortrait          头像保存路径
+             *      }
+         *      rkDocsList[
+         *           rksRkmxId   入库明细id
+         *           rksGoodsId  货品id
+         *           rksDwid     单位id
+         *           rksCount    数量
+         *           rksStatus   收货（入库明细）状态(1:初始状态 21:部分分配 22:完全分配 31:部分收货 32: 完全收货)
+         *           rksRkdjId   入库明单据id
+         *      ]
+         *   allCount 总数量
+         *   allTj 总体积
+         */
     /**
      *      TODO 入库任务 warehousingTask
-     */
+         */
         /**
-         * TODO 0 入库任务管理 分页获取入库任务单 POST /mfunrkRwDoc 待补充没有模糊查询
+         * TODO 0  入库任务管理 分页获取入库任务单 POST /mfunrkRwDoc
          *   参数 --该分页不支持模糊查询 模糊查询的字段有6个
          *      {
-                    TODO "rkrw_no": "",
-                    TODO "rkrw_status": "",
-                    "pageNum": 1,
-                    "pageSize": 1
                      "draw": 1,
+                     "pageNum": 1,
+                     "pageSize": 1
+
          *      }
          *   参数说明
          *          rkrwId     id
@@ -1058,11 +1630,9 @@
         * TODO 开始收货 startReceiving
            */
             /**
-             * TODO 0 开始收货主页面 POST /mfunrkRwDoc 待补充没有模糊查询
+             * 0 开始收货分页查询 POST /mfunrkRwDoc
              参数 --该分页不支持模糊查询 模糊查询的字段有6个
              *      {
-                    TODO "rkrw_no": "",
-                    TODO "rkrw_status": "",
                     "pageNum": 1,
                     "pageSize": 1
                      "draw": 1,
@@ -1084,16 +1654,13 @@
         /**
          *  TODO 入库操作   inputOperation
          */
-            /**TODO 0 入库操作主页面  入库过程 分页获取入库单据 POST /mfunrkDoc (待超哥补充)没有模糊查询
+            /**TODO 0  入库操作分页查询 入库过程 分页获取入库单据 POST /mfunrkDoc
              * 参数{
-             *      TODO "rkno": "string",
-                    TODO "startTimeParam": "string",
-                    TODO "endTimeParam": "string",
-                    TODO "status": 0
-             *     "draw": 1,
+                    "draw": 1,
                     "pageNum": 1,
                     "pageSize": 1,
-             * }
+                    "status": 31
+                  }
              * 参数说明
              *      rkRkdjId        主键id
              *      rkRkdjNo        入库单号
@@ -1653,7 +2220,6 @@
  * TODO 挑选数据
  * TODO 激活数据
  * TODO 出库操作
- *
  * TODO 出库发运
  * TODO 回收存档
  * TODO 库内管理
@@ -1679,6 +2245,5 @@
  * TODO 动碰盘点
  * TODO 循环盘点
  * TODO 全面盘点
-
  **/
 

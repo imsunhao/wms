@@ -8,14 +8,15 @@
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
-                <button @click="multiSelectClick" class="btn btn-multiSelect"><i class="icon sel"></i><span>多选</span>
-                </button>
                 <button
                         class="btn btn-edit"
-                        @click="handleDelete" v-show="multiSelect">制作台账
+                        @click="handleDelete">制作台账
 
 
                 </button>
+                <button @click="multiSelectClick" class="btn btn-multiSelect"><i class="icon sel"></i><span>多选</span>
+                </button>
+
                 <button
                         class="btn btn-distribution"
                         @click="distributionBtn" v-show="multiSelect">导出
