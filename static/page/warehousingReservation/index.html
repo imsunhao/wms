@@ -164,6 +164,21 @@
         margin-left: -8px !important;
     }
 </style>
+<style>
+    #warehousingReservation .bgGoodsName {
+        max-height: 36px;
+        display: inline-block;
+        overflow: hidden;
+    }
+
+    #warehousingReservation .bgGoodsNameLocation {
+        max-height: 14px;
+        display: inline-block;
+        font-size: 14px;
+        line-height: 15px;
+        overflow: hidden;
+    }
+</style>
 <div id="warehousingReservation">
     <!--页面调整-->
     <el-row v-loading="showLoading"
@@ -259,15 +274,15 @@
                                                         <span>{{ props.row.rkStatus }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="入库数量">
-                                                        <span>{{ props.row.number }}</span>
+                                                        <span>{{ props.row.allCount }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="入库体积">
-                                                        <span>{{ props.row.volume }}</span>
+                                                        <span>{{ props.row.allTj    }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="制作方式">
                                                         <span>{{ props.row.rkZdfs }}</span>
                                                     </el-form-item>
-                                                    <el-form-item label="可用操作" v-if="props.row.zdfs==='手动'">
+                                                    <el-form-item label="可用操作" v-if="props.row.rkZdfs==='手动'">
                                                         <el-button
                                                                 size="small"
                                                                 icon="edit"
@@ -314,12 +329,7 @@
                                         width="80"
                                         align="center"
                                         prop="rkSjsj"
-                                        sortable
                                         label="时间">
-                                    <template scope="scope">
-                                        <el-icon name="time"></el-icon>
-                                        <span style="margin-left: 10px">{{ scope.row.rkSjsj }}</span>
-                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                         type="selection"
@@ -365,12 +375,7 @@
                                         width="80"
                                         align="center"
                                         prop="rkSjsj"
-                                        sortable
                                         label="时间">
-                                    <template scope="scope">
-                                        <el-icon name="time"></el-icon>
-                                        <span style="margin-left: 10px">{{ scope.row.rkSjsj }}</span>
-                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                         v-if="multiSelect"
@@ -489,10 +494,8 @@
                             <el-form-item
                                     label="入库单号"
                                     prop="rkRkdjNo"
-                                    :rules="{ validator: validateRkRkdjNo, trigger: 'blur' }"
                                     :label-width="formLabelWidth">
                                 <el-input
-                                        type="rkRkdjNo"
                                         v-model="form.rkRkdjNo"
                                         auto-complete="off"></el-input>
                             </el-form-item>
@@ -513,16 +516,16 @@
                         </el-col>
                         <el-col :span="12" :offset="2">
                             <el-form-item label="入库状态">
-                                {{form.rkStatus}}
+                                {{form.rkrkStatus}}
                             </el-form-item>
                             <el-form-item label="入库数量">
                                 {{form.rksCount}}
                             </el-form-item>
                             <el-form-item label="入库体积">
-                                {{form.volume }}
+                                {{form.allTj }}
                             </el-form-item>
                             <el-form-item label="制作方式">
-                                {{form.rkZdfs }}
+                                {{form.rkrkZdfs }}
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -535,8 +538,8 @@
                         <el-col :span="12">
                             <el-form-item label="货品编号" :label-width="formLabelWidth">
                                 <el-autocomplete
-                                        v-model="form.bgGoodsNo"
                                         :fetch-suggestions="querySearchAsync"
+                                        v-model="form.selectGood.baseGoods.bgGoodsNo"
                                         @select="GoodSelect"
                                         auto-complete="off"></el-autocomplete>
                             </el-form-item>
@@ -544,13 +547,10 @@
                         <el-col :span="12">
                             <el-form-item
                                     label="货品数量"
-                                    :label-width="formLabelWidth"
-                                    prop="selectGood.count"
-                                    :rules="{ type: 'number', message: '货品数量必须为数字值'}">
+                                    :label-width="formLabelWidth">
                                 <el-input
-                                        type="count"
                                         :disabled="form.selectGood.value==''"
-                                        v-model.number="form.selectGood.count"
+                                        v-model.number="form.selectGood.rksCount"
                                         auto-complete="off"></el-input>
                             </el-form-item>
                         </el-col>
@@ -558,55 +558,70 @@
                     <el-row>
                         <el-col :span="8">
                             <el-form-item label="货品编号" :label-width="formLabelWidth">
-                                <strong>{{form.selectGood.value}}</strong>
+                                <strong>{{form.selectGood.baseGoods.bgGoodsNo}}</strong>
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
                             <el-form-item label="货品名称" :label-width="formLabelWidth">
-                                <strong>{{form.selectGood.bgGoodsName}}</strong>
+                                <el-tooltip class="item" effect="dark"
+                                            :content="form.selectGood.baseGoods.bgGoodsName"
+                                            placement="top">
+                                    <strong class="bgGoodsName">{{form.selectGood.baseGoods.bgGoodsName}}</strong>
+                                </el-tooltip>
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
                             <el-form-item label="货品数量" :label-width="formLabelWidth">
-                                <strong>{{form.selectGood.count}}</strong>
+                                <strong>{{form.selectGood.rksCount}}</strong>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row>
                         <el-col :span="8" :offset="16">
-                            <el-button size="small" @click="saveARkDocsList"
-                                       :disabled="form.saveARkDocsList||form.bgGoodsNo!=form.selectGood.value">保存明细
+                            <el-button size="small" @click="saveDocsList"
+                                       :disabled="form.saveARkDocsList">保存明细
                             </el-button>
                             <el-button size="small" @click="deleteARkDocsList" :disabled="form.deleteARkDocsList"
                                        type="danger">删除明细
                             </el-button>
                         </el-col>
                     </el-row>
+
                     <el-row>
                         <el-col :span="24" style="margin-top: 5px">
                             <el-table
+                                    @row-click="GoodClick"
                                     height="200"
-                                    :data="form.rkDocsList"
-                                    @row-click="GoodClick">
+                                    :data="form.rkDocsList">
                                 <el-table-column
                                         type="index"
                                         width="55">
                                 </el-table-column>
                                 <el-table-column
-                                        property="value"
-                                        label="货品编号">
+                                        label="货品编号"
+                                        width="140"
+                                        show-overflow-tooltip
+                                        align="center"
+                                        prop="baseGoods.bgGoodsNo">
                                 </el-table-column>
                                 <el-table-column
-                                        property="bgGoodsName"
+                                        align="center"
+                                        prop="baseGoods.bgGoodsName"
+                                        show-overflow-tooltip
                                         label="货品名称">
                                 </el-table-column>
                                 <el-table-column
-                                        property="bgDw"
-                                        label="货品单位">
+                                        label="单位"
+                                        width="80"
+                                        prop="baseDw.bdName"
+                                        align="center">
                                 </el-table-column>
                                 <el-table-column
-                                        property="count"
-                                        label="货品数量">
+                                        label="数量"
+                                        width="100"
+                                        show-overflow-tooltip
+                                        prop="rksCount"
+                                        align="center">
                                 </el-table-column>
                             </el-table>
                         </el-col>
@@ -625,6 +640,22 @@
     </el-dialog>
 </div>
 <script>
+
+
+    function selectGood() {
+        return {
+            baseGoods: {
+                bgGoodsNo: '',
+                bgGoodsName: ''
+            },
+            baseDw: {
+                bdName: ''
+            },
+            rksCount: 0,
+            bgGoodsId: ''
+        }
+    }
+
     function form() {
         return {
             title: '新建入库单',
@@ -633,16 +664,12 @@
             rkRemarks: '',
             rkDocsList: [],
             bgGoodsNo: '',
-            selectGood: {
-                value: '',
-                bgGoodsName: '',
-                count: 0,
-                bgGoodsId: ''
-            },
+            selectGood: selectGood(),
             saveARkDocsList: true,
             deleteARkDocsList: true
-        }
+        };
     }
+
     var validateRule = {
         a: new RegExp("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", "g")
     };
@@ -728,19 +755,24 @@
             Edit: function (index, row) {
                 var obj = this;
                 var step = form();
-                allPrposCb(step,function (obj,index) {
-                    console.log(row[index],index)
-                    if(typeof row[index]!=='undefined') step[index]=row[index];
+                allPrposCb(step, function (obj, index) {
+                    if (typeof row[index] !== 'undefined') step[index] = row[index];
                 });
-                console.log(step);
+                /*<debug>*/
                 console.log(row);
-//                row.title = '编辑';
-//                this.form = row;
-//                this.dialogFormActive = 1;
-//                postGoods(obj, {rkRkdjNo: row.rkRkdjNo}, function (json) {
-//                    obj.form.rkDocsList=json;
-//                    obj.dialogFormVisible = true;
-//                });
+                console.log(step);
+                /*</debug>*/
+                step.title = '编辑';
+                this.form = step;
+                this.dialogFormActive = 0;
+                if (typeof (this.form.rkDocsList) === 'undefined') {
+                    postGoods(obj, {rkRkdjNo: row.rkRkdjNo}, function (json) {
+                        obj.form.rkDocsList = json;
+                        obj.dialogFormVisible = true;
+                    });
+                } else {
+                    obj.dialogFormVisible = true;
+                }
             },                                        //行内按钮-编辑
             deleteOlder: function (index, row) {
                 var _this = this;
@@ -965,22 +997,7 @@
                         type: 'success'
                     });
                     _this.dialogFormVisible = false;
-                    _this.form = {
-                        title: '新建入库单',
-                        rkRkdjNo: '',
-                        rkType: '',
-                        rkRemarks: '',
-                        rkDocsList: [],
-                        bgGoodsNo: '',
-                        selectGood: {
-                            value: '',
-                            bgGoodsName: '',
-                            count: 0,
-                            bgGoodsId: ''
-                        },
-                        saveARkDocsList: true,
-                        deleteARkDocsList: true
-                    };
+                    _this.form = form();
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
                     post(warehousingReservation);
@@ -1011,29 +1028,32 @@
             GoodSelect: function (item) {
                 this.form.saveARkDocsList = false;
                 this.form.deleteARkDocsList = true;
-                this.form.selectGood = item;
+                this.form.selectGood = {
+                    baseGoods: {
+                        bgGoodsNo: item.data.bgGoodsNo,
+                        bgGoodsName: item.data.bgGoodsName
+                    },
+                    baseDw: {
+                        bdName: item.data.bgZxdw
+                    },
+                    rksCount: 0,
+                    bgGoodsId: item.data.bgGoodsId,
+                    data: item.data
+                };
             },                                        //货品明细控制 选中下拉菜单中的货品
             GoodClick: function (item) {
                 this.form.saveARkDocsList = true;
                 this.form.deleteARkDocsList = false;
                 this.form.selectGood = item;
             },                                         //货品明细控制 选中form中的货品
-            saveARkDocsList: function () {
+            saveDocsList: function () {
                 this.form.rkDocsList.push(this.form.selectGood);
-                this.form.selectGood = {
-                    value: '',
-                    bgGoodsName: '',
-                    count: 0
-                };
+                this.form.selectGood = selectGood();
                 this.form.saveARkDocsList = true;
             },                                       //货品明细控制 保存
             deleteARkDocsList: function () {
                 remove(this.form.selectGood, this.form.rkDocsList);
-                this.form.selectGood = {
-                    value: '',
-                    bgGoodsName: '',
-                    count: 0
-                };
+                this.form.selectGood = selectGood();
             },                                     //货品明细控制 删除
 
             selectSubmit: function () {
@@ -1058,16 +1078,6 @@
         }
     });
     // 高级 监视器的 使用方法
-    warehousingReservation.$watch('form.selectGood.count', function () {
-        if (!this.form.deleteARkDocsList)return;
-        var valid = false;
-        warehousingReservation.$refs['newForm'].validate(function (_valid) {
-            valid = _valid;
-        });
-        valid ?
-            this.form.saveARkDocsList = false :
-            this.form.saveARkDocsList = true
-    });
     warehousingReservation.$watch('date', function () {
         if (!this.option.dateStart)return;
         /*<debug>*/
@@ -1102,12 +1112,12 @@
             },
             success: function (json) {
                 for (var i = 0; i < json.data.length; i++) {
-                    var type = {
+                    var rkType = {
                         "0": "采购订单",
                         "1": "仓间挑拨",
                         "2": "退货入库"
                     };
-                    var status = {
+                    var rkStatus = {
                         "31": "初始状态",
                         "32": "部分分配",
                         "33": "全部分配",
@@ -1119,13 +1129,12 @@
                         "2": "excel",
                         "3": "接口"
                     };
-                    // TODO imzhangxing  记得修改下这里
-                    json.data[i].type = type[i % 3];
-                    json.data[i].sjsj = changeDate(json.data[i].sjsj);
-                    json.data[i].status = status[json.data[i].status];
-                    json.data[i].zdfs = method[json.data[i].zdfs];
-                    json.data[i].number = 10120 + i;
-                    json.data[i].volume = 200.0234 + i;
+                    json.data[i].rkType = rkType[i % 3];
+                    json.data[i].rkSjsj = changeDate(json.data[i].rkSjsj);
+                    json.data[i].rkStatus = rkStatus[json.data[i].rkStatus];
+                    json.data[i].rkZdfs = method[json.data[i].rkZdfs];
+                    json.data[i].allCount = 10120 + i;
+                    json.data[i].allTj = 200.0234 + i;
                     json.data[i].historyLoading = false;              //维护 history 的加载层
                 }
                 warehousingReservation.$data.warehousingReservation = json.data;
@@ -1173,6 +1182,7 @@
             }
         });
     }
+
     function postGoods(obj, option, cb) {
         //TODO 此处应为AJAX请求,待完善 querySearchAsync
 
@@ -1193,15 +1203,11 @@
 
             },
             success: function (json) {
+                json = json.data;
                 var step = [];
                 var length = json.length > 20 ? 20 : json.length;
                 for (var i = 0; i < length; i++) {
-                    step.push({
-                        bgGoodsId: json[i].bgGoodsId,
-                        value: json[i].bgGoodsNo,
-                        bgGoodsName: json[i].bgGoodsName,
-                        count: 0
-                    });
+                    step.push({data: json[i], value: json[i].bgGoodsNo})
                 }
                 cb(step);
             },
@@ -1269,7 +1275,7 @@
     function allPrposCb(obj, cb) {
         for (var p in obj) {
             if (typeof(obj[p]) !== "function") {
-                cb(obj[p],p)
+                cb(obj[p], p)
             }
         }
     }

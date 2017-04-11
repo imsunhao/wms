@@ -500,8 +500,6 @@
                     </el-row>
                 </el-carousel-item>
             </el-carousel>
-
-
             <el-dialog
                     :modal="false"
                     size="small"
@@ -541,7 +539,6 @@
                     <el-button type="primary" @click="locationSubmit" :loading="locationLoading">关联</el-button>
                 </div>
             </el-dialog>
-
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="prev" v-show="dialogFormActive && !dialogDistributionForm">上一步
@@ -1261,6 +1258,7 @@
     //    }
 
     post(inputOperation);
+
     function post(obj, option) {
         obj.showLoading = true;
 
