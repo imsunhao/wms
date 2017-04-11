@@ -188,10 +188,6 @@
             <button @click="newInput" class="btn btn-add"><i
                     class="icon add"></i><span>新增</span>
             </button>
-
-            <button @click="multiSelectClick" class="btn btn-multiSelect"><i
-                    class="icon sel"></i><span>多选</span>
-            </button>
             <button
                     class="btn"
                     v-show="multiSelect&&multipleSelection.length==1"
@@ -261,6 +257,12 @@
                                             icon="edit"
                                             @click="inlineEdit(props.$index, props.row)">
                                     </el-button>
+                                    <el-button
+                                            size="small"
+                                            icon="delete"
+                                            type="danger"
+                                            @click="deleteOlder(props.$index, props.row)">删除
+                                    </el-button>
                                 </el-form-item>
                             </el-form>
                         </el-col>
@@ -276,35 +278,21 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    label="货品编号"
+                    label="编号"
                     align="center">
                 <template scope="scope">
                     <span>{{ scope.row.bgGoodsNo}}</span>
                 </template>
             </el-table-column>
             <el-table-column
-                    label="货品简称"
+                    label="简称"
                     align="center">
                 <template scope="scope">
                     <span>{{ scope.row.bgNameJc}}</span>
                 </template>
             </el-table-column>
             <el-table-column
-                    label="货品体积"
-                    align="center">
-                <template scope="scope">
-                    <span>{{ scope.row.bgGoodsTj}}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="货品重量"
-                    align="center">
-                <template scope="scope">
-                    <span>{{ scope.row.bgGoodsZl}}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="货品单价"
+                    label="单价"
                     align="center">
                 <template scope="scope">
                     <span>{{ scope.row.bgGoodsPrice}}</span>
@@ -464,25 +452,11 @@
                         </el-col>
                     </el-row>
                 </el-carousel-item>
-                <el-carousel-item>
-                    <el-row>
-
-                    </el-row>
-                </el-carousel-item>
-                <el-carousel-item>
-                    <el-row>
-
-                    </el-row>
-                </el-carousel-item>
             </el-carousel>
         </el-form>
 
         <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="submit" :loading="submitLoading"
-                       v-show="dialogFormActive >= 2">保存
-            </el-button>
-            <el-button type="primary" @click="submit" :loading="submitLoading"
-                       v-show="dialogFormActive >= 2">取消
+            <el-button type="primary" @click="submit" :loading="submitLoading">保存
             </el-button>
         </div>
     </el-dialog>
@@ -511,7 +485,7 @@
     var form = function () {
         return {
             arehouseId: 1,          //仓库id
-            title: "新建仓库",
+            title: "新建货品",
             Name: '',               //仓库名称
             Addr: '',               //仓库地址
             Scontacts: '',          //联系人/负责人
@@ -592,7 +566,24 @@
                     goodsManage.$refs.carousel.setActiveItem(0);
                 });
             },                                  //TODO 行内按钮-编辑
-
+            deleteOlder: function (index, row) {
+                var _this = this;
+                _this.$confirm('此操作将永久删除该货品单, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.warehousingReservation);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },                                 //TODO 行内按钮-删除
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
