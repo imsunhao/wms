@@ -716,18 +716,17 @@
                 var obj = this;
                 var step = form();
                 allPrposCb(step,function (obj,index) {
-                    console.log(row[index])
+                    console.log(row[index],index)
                     if(typeof row[index]!=='undefined') step[index]=row[index];
                 });
                 console.log(step);
                 console.log(row);
+//                row.title = '编辑';
 //                this.form = row;
-//                this.form.title = '编辑';
 //                this.dialogFormActive = 1;
 //                postGoods(obj, {rkRkdjNo: row.rkRkdjNo}, function (json) {
 //                    obj.form.rkDocsList=json;
 //                    obj.dialogFormVisible = true;
-//                    console.log(index, row);
 //                });
             },                                        //行内按钮-编辑
             deleteOlder: function (index, row) {

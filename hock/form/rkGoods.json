@@ -1,467 +1,406 @@
-[
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "16cvb547",
-    "bgGoodsName": "爱是冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "16zx547",
-    "bgGoodsName": "爱是2冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1asdg6547",
-    "bgGoodsName": "爱是3冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1654asdgf7",
-    "bgGoodsName": "爱是4冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1zxcv6547",
-    "bgGoodsName": "爱是5冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1a6547",
-    "bgGoodsName": "爱是6冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是7冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是8冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "16zx547",
-    "bgGoodsName": "爱是2冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1asdg6547",
-    "bgGoodsName": "爱是3冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1654asdgf7",
-    "bgGoodsName": "爱是4冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1zxcv6547",
-    "bgGoodsName": "爱是5冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1a6547",
-    "bgGoodsName": "爱是6冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是7冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是8冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "16zx547",
-    "bgGoodsName": "爱是2冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1asdg6547",
-    "bgGoodsName": "爱是3冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1654asdgf7",
-    "bgGoodsName": "爱是4冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1zxcv6547",
-    "bgGoodsName": "爱是5冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1a6547",
-    "bgGoodsName": "爱是6冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是7冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是8冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "16zx547",
-    "bgGoodsName": "爱是2冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1asdg6547",
-    "bgGoodsName": "爱是3冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1654asdgf7",
-    "bgGoodsName": "爱是4冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1zxcv6547",
-    "bgGoodsName": "爱是5冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1a6547",
-    "bgGoodsName": "爱是6冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是7冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是8冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "16zx547",
-    "bgGoodsName": "爱是2冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1asdg6547",
-    "bgGoodsName": "爱是3冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1654asdgf7",
-    "bgGoodsName": "爱是4冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1zxcv6547",
-    "bgGoodsName": "爱是5冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1a6547",
-    "bgGoodsName": "爱是6冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是7冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是8冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "16zx547",
-    "bgGoodsName": "爱是2冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1asdg6547",
-    "bgGoodsName": "爱是3冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1654asdgf7",
-    "bgGoodsName": "爱是4冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1zxcv6547",
-    "bgGoodsName": "爱是5冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1a6547",
-    "bgGoodsName": "爱是6冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是7冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是8冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "16zx547",
-    "bgGoodsName": "爱是2冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1asdg6547",
-    "bgGoodsName": "爱是3冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1654asdgf7",
-    "bgGoodsName": "爱是4冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1zxcv6547",
-    "bgGoodsName": "爱是5冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1a6547",
-    "bgGoodsName": "爱是6冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是7冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是8冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "16zx547",
-    "bgGoodsName": "爱是2冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1asdg6547",
-    "bgGoodsName": "爱是3冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1654asdgf7",
-    "bgGoodsName": "爱是4冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1zxcv6547",
-    "bgGoodsName": "爱是5冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1a6547",
-    "bgGoodsName": "爱是6冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是7冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是8冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "16zx547",
-    "bgGoodsName": "爱是2冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1asdg6547",
-    "bgGoodsName": "爱是3冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1654asdgf7",
-    "bgGoodsName": "爱是4冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1zxcv6547",
-    "bgGoodsName": "爱是5冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1a6547",
-    "bgGoodsName": "爱是6冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是7冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是8冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "16zx547",
-    "bgGoodsName": "爱是2冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1asdg6547",
-    "bgGoodsName": "爱是3冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1654asdgf7",
-    "bgGoodsName": "爱是4冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1zxcv6547",
-    "bgGoodsName": "爱是5冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1a6547",
-    "bgGoodsName": "爱是6冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是7冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是8冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "16zx547",
-    "bgGoodsName": "爱是2冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1asdg6547",
-    "bgGoodsName": "爱是3冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1654asdgf7",
-    "bgGoodsName": "爱是4冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1zxcv6547",
-    "bgGoodsName": "爱是5冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1a6547",
-    "bgGoodsName": "爱是6冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是7冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是8冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "16zx547",
-    "bgGoodsName": "爱是2冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1asdg6547",
-    "bgGoodsName": "爱是3冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1654asdgf7",
-    "bgGoodsName": "爱是4冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1zxcv6547",
-    "bgGoodsName": "爱是5冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1a6547",
-    "bgGoodsName": "爱是6冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是7冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是8冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "16zx547",
-    "bgGoodsName": "爱是2冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1asdg6547",
-    "bgGoodsName": "爱是3冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1654asdgf7",
-    "bgGoodsName": "爱是4冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1zxcv6547",
-    "bgGoodsName": "爱是5冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1a6547",
-    "bgGoodsName": "爱是6冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是7冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1wq6547",
-    "bgGoodsName": "爱是8冬季"
-  },
-  {
-    "bgGoodsId": 1,
-    "bgGoodsNo": "1af65gg47",
-    "bgGoodsName": "爱是9冬季"
-  }
-]
+{
+  "data": [
+    {
+      "bgGoodsId": 1,
+      "bgGoodsNo": "jiuyangNo",
+      "bgGoodsName": "九阳电磁炉",
+      "bgNamejc": "电磁炉",
+      "bgT": 50,
+      "bgI": 10,
+      "bgHsl": 5,
+      "bgZxdw": 1,
+      "bgSzdw": 1,
+      "bgStatus": 1,
+      "bgArehouseId": 1,
+      "bgClientId": 0,
+      "bgGoodsType": "1",
+      "bgGoodsTj": 9,
+      "bgGoodsZl": 10,
+      "bgGoodsPrice": 70,
+      "bgCreatetime": 1489643786000,
+      "bgRemarks": "九阳电磁炉",
+      "bgGoodsGg": "bg_goods_gg"
+    },
+    {
+      "bgGoodsId": 2,
+      "bgGoodsNo": "string",
+      "bgGoodsName": "string",
+      "bgNamejc": "string",
+      "bgT": 0,
+      "bgI": 0,
+      "bgHsl": 0,
+      "bgZxdw": 0,
+      "bgSzdw": 0,
+      "bgStatus": 0,
+      "bgArehouseId": 0,
+      "bgClientId": 0,
+      "bgGoodsType": "string",
+      "bgGoodsTj": 0,
+      "bgGoodsZl": 0,
+      "bgGoodsPrice": 0,
+      "bgCreatetime": 1491526301000,
+      "bgRemarks": "string",
+      "bgGoodsGg": "string"
+    },
+    {
+      "bgGoodsId": 3,
+      "bgGoodsNo": "zhifeiji",
+      "bgGoodsName": "纸飞机",
+      "bgNamejc": "纸飞机",
+      "bgT": 56.77,
+      "bgI": 22.22,
+      "bgHsl": 3,
+      "bgZxdw": 8,
+      "bgSzdw": 2,
+      "bgStatus": 1,
+      "bgArehouseId": 2,
+      "bgClientId": 1,
+      "bgGoodsType": "type",
+      "bgGoodsTj": 33.22,
+      "bgGoodsZl": 43.22,
+      "bgGoodsPrice": 22.34,
+      "bgCreatetime": 1488102118000,
+      "bgRemarks": "remarks",
+      "bgGoodsGg": "goodsgg"
+    },
+    {
+      "bgGoodsId": 4,
+      "bgGoodsNo": "A001",
+      "bgGoodsName": "九阳豆浆机",
+      "bgNamejc": "九阳",
+      "bgT": 45,
+      "bgI": 1,
+      "bgHsl": 3,
+      "bgZxdw": 8,
+      "bgSzdw": 3,
+      "bgStatus": 1,
+      "bgArehouseId": 2,
+      "bgClientId": 1,
+      "bgGoodsType": "九阳豆浆机",
+      "bgGoodsTj": 44,
+      "bgGoodsZl": 46,
+      "bgGoodsPrice": 67,
+      "bgCreatetime": 1487394972000,
+      "bgRemarks": "九阳豆浆机",
+      "bgGoodsGg": "九阳豆浆机"
+    },
+    {
+      "bgGoodsId": 5,
+      "bgGoodsNo": "ttt",
+      "bgGoodsName": "通天塔",
+      "bgNamejc": "ttt",
+      "bgT": 360,
+      "bgI": 36,
+      "bgHsl": 3,
+      "bgZxdw": 8,
+      "bgSzdw": 4,
+      "bgStatus": 1,
+      "bgArehouseId": 1,
+      "bgClientId": 3,
+      "bgGoodsType": "通天塔",
+      "bgGoodsTj": 111,
+      "bgGoodsZl": 111,
+      "bgGoodsPrice": 1111,
+      "bgCreatetime": 1487135807000,
+      "bgRemarks": "ggg",
+      "bgGoodsGg": "nnn"
+    },
+    {
+      "bgGoodsId": 6,
+      "bgGoodsNo": "10201005678",
+      "bgGoodsName": "原木纸巾",
+      "bgNamejc": "纸巾",
+      "bgT": 100,
+      "bgI": 5,
+      "bgHsl": 2,
+      "bgZxdw": 8,
+      "bgSzdw": 1,
+      "bgStatus": 1,
+      "bgArehouseId": 1,
+      "bgClientId": 2,
+      "bgGoodsType": "type",
+      "bgGoodsTj": 33,
+      "bgGoodsZl": 34,
+      "bgGoodsPrice": 11,
+      "bgCreatetime": 1488356013000,
+      "bgRemarks": "remarks",
+      "bgGoodsGg": "gg"
+    },
+    {
+      "bgGoodsId": 7,
+      "bgGoodsNo": "13701003003",
+      "bgGoodsName": "电热锅、JK-30R2（30R2-A）、红色+黑色+不锈钢一体、3L、220V、2100W、50HZ、内销、I类结构",
+      "bgNamejc": "电热锅、JK-30R2（30R2-A）、红色+黑色+不锈钢一体、3L、220V、2100W、50HZ、内销、I类结构",
+      "bgT": null,
+      "bgI": null,
+      "bgHsl": 4,
+      "bgZxdw": 8,
+      "bgSzdw": 1,
+      "bgStatus": 1,
+      "bgArehouseId": 1,
+      "bgClientId": 2,
+      "bgGoodsType": "",
+      "bgGoodsTj": 21.59,
+      "bgGoodsZl": 0,
+      "bgGoodsPrice": null,
+      "bgCreatetime": 1488941606000,
+      "bgRemarks": "",
+      "bgGoodsGg": ""
+    },
+    {
+      "bgGoodsId": 8,
+      "bgGoodsNo": "13701002009",
+      "bgGoodsName": "电火锅、JK-40H8（40H8-A）、浅咖色、φ31cm、1300W、220V、50Hz、内销、I类结构",
+      "bgNamejc": "电火锅、JK-40H8（40H8-A）、浅咖色、φ31cm、1300W、220V、50Hz、内销、I类结构",
+      "bgT": null,
+      "bgI": null,
+      "bgHsl": 5,
+      "bgZxdw": 8,
+      "bgSzdw": 1,
+      "bgStatus": 1,
+      "bgArehouseId": 1,
+      "bgClientId": 2,
+      "bgGoodsType": "",
+      "bgGoodsTj": 45.65,
+      "bgGoodsZl": 0,
+      "bgGoodsPrice": null,
+      "bgCreatetime": 1488941891000,
+      "bgRemarks": "",
+      "bgGoodsGg": ""
+    },
+    {
+      "bgGoodsId": 9,
+      "bgGoodsNo": "13701003001",
+      "bgGoodsName": "电热锅、JK-32R1（32R1-A）、黑色+拉丝不锈钢、32CM、2100W、220V、50Hz、内销、Ⅰ类结构",
+      "bgNamejc": "电热锅、JK-32R1（32R1-A）、黑色+拉丝不锈钢、32CM、2100W、220V、50Hz、内销、Ⅰ类结构",
+      "bgT": null,
+      "bgI": null,
+      "bgHsl": 2,
+      "bgZxdw": 8,
+      "bgSzdw": 1,
+      "bgStatus": 1,
+      "bgArehouseId": 1,
+      "bgClientId": 2,
+      "bgGoodsType": "",
+      "bgGoodsTj": 20.57,
+      "bgGoodsZl": 0,
+      "bgGoodsPrice": null,
+      "bgCreatetime": 1488942458000,
+      "bgRemarks": "",
+      "bgGoodsGg": ""
+    },
+    {
+      "bgGoodsId": 10,
+      "bgGoodsNo": "13701002001",
+      "bgGoodsName": "电火锅、JK-45H01(45H01-A)、红色、L30cm、W30cm、1360W、220V、50Hz、内销、I类结构",
+      "bgNamejc": "电火锅、JK-45H01(45H01-A)、红色、L30cm、W30cm、1360W、220V、50Hz、内销、I类结构",
+      "bgT": null,
+      "bgI": null,
+      "bgHsl": 5,
+      "bgZxdw": 8,
+      "bgSzdw": 1,
+      "bgStatus": 1,
+      "bgArehouseId": 1,
+      "bgClientId": 2,
+      "bgGoodsType": "",
+      "bgGoodsTj": 41.05,
+      "bgGoodsZl": 0,
+      "bgGoodsPrice": null,
+      "bgCreatetime": 1488942499000,
+      "bgRemarks": "",
+      "bgGoodsGg": ""
+    },
+    {
+      "bgGoodsId": 11,
+      "bgGoodsNo": "13701002005",
+      "bgGoodsName": "电火锅、JK-50H03(50H03-A)、红色、φ31cm、1600W、220V、50Hz、内销、I类结构",
+      "bgNamejc": "电火锅、JK-50H03(50H03-A)、红色、φ31cm、1600W、220V、50Hz、内销、I类结构",
+      "bgT": null,
+      "bgI": null,
+      "bgHsl": 4,
+      "bgZxdw": 8,
+      "bgSzdw": 1,
+      "bgStatus": 1,
+      "bgArehouseId": 1,
+      "bgClientId": 2,
+      "bgGoodsType": "",
+      "bgGoodsTj": 35.31,
+      "bgGoodsZl": 0,
+      "bgGoodsPrice": null,
+      "bgCreatetime": 1488942549000,
+      "bgRemarks": "",
+      "bgGoodsGg": ""
+    },
+    {
+      "bgGoodsId": 12,
+      "bgGoodsNo": "13701002007",
+      "bgGoodsName": "电火锅、JK-30H06（30H06-A）、咖啡色、φ26cm、1200W、220V、50Hz、内销、I类结构",
+      "bgNamejc": "电火锅、JK-30H06（30H06-A）、咖啡色、φ26cm、1200W、220V、50Hz、内销、I类结构",
+      "bgT": null,
+      "bgI": null,
+      "bgHsl": 4,
+      "bgZxdw": 8,
+      "bgSzdw": 1,
+      "bgStatus": 1,
+      "bgArehouseId": 1,
+      "bgClientId": 2,
+      "bgGoodsType": "",
+      "bgGoodsTj": 44.7168,
+      "bgGoodsZl": 0,
+      "bgGoodsPrice": null,
+      "bgCreatetime": 1488942592000,
+      "bgRemarks": "",
+      "bgGoodsGg": ""
+    },
+    {
+      "bgGoodsId": 13,
+      "bgGoodsNo": "13701003002",
+      "bgGoodsName": "电热锅、JK-28R2（28R2-A）、红色+黑色+不锈钢一体、3L、220V、2100W、50HZ、内销、I类结构",
+      "bgNamejc": "电热锅、JK-28R2（28R2-A）、红色+黑色+不锈钢一体、3L、220V、2100W、50HZ、内销、I类结构",
+      "bgT": null,
+      "bgI": null,
+      "bgHsl": 4,
+      "bgZxdw": 8,
+      "bgSzdw": 1,
+      "bgStatus": 1,
+      "bgArehouseId": 1,
+      "bgClientId": 2,
+      "bgGoodsType": "",
+      "bgGoodsTj": 23.83,
+      "bgGoodsZl": 0,
+      "bgGoodsPrice": null,
+      "bgCreatetime": 1488942628000,
+      "bgRemarks": "",
+      "bgGoodsGg": ""
+    },
+    {
+      "bgGoodsId": 14,
+      "bgGoodsNo": "chabei",
+      "bgGoodsName": "茶杯",
+      "bgNamejc": "cb",
+      "bgT": 67.57,
+      "bgI": 78.09,
+      "bgHsl": 367.9,
+      "bgZxdw": 4,
+      "bgSzdw": 2,
+      "bgStatus": 1,
+      "bgArehouseId": 1,
+      "bgClientId": 0,
+      "bgGoodsType": "good_type",
+      "bgGoodsTj": 22.09,
+      "bgGoodsZl": 35.9,
+      "bgGoodsPrice": 334.9,
+      "bgCreatetime": 1489041956000,
+      "bgRemarks": "备注",
+      "bgGoodsGg": "goods_gg"
+    },
+    {
+      "bgGoodsId": 15,
+      "bgGoodsNo": "chabei",
+      "bgGoodsName": "茶杯",
+      "bgNamejc": "cb",
+      "bgT": 67.57,
+      "bgI": 78.09,
+      "bgHsl": 367.9,
+      "bgZxdw": 4,
+      "bgSzdw": 2,
+      "bgStatus": 1,
+      "bgArehouseId": 1,
+      "bgClientId": 0,
+      "bgGoodsType": "good_type",
+      "bgGoodsTj": 22.09,
+      "bgGoodsZl": 35.9,
+      "bgGoodsPrice": 334.9,
+      "bgCreatetime": 1489041956000,
+      "bgRemarks": "备注",
+      "bgGoodsGg": "goods_gg"
+    },
+    {
+      "bgGoodsId": 16,
+      "bgGoodsNo": "1221",
+      "bgGoodsName": "11",
+      "bgNamejc": "111",
+      "bgT": 1,
+      "bgI": 1,
+      "bgHsl": 1,
+      "bgZxdw": 1,
+      "bgSzdw": 1,
+      "bgStatus": 1,
+      "bgArehouseId": 1,
+      "bgClientId": 0,
+      "bgGoodsType": "1",
+      "bgGoodsTj": 1,
+      "bgGoodsZl": 1,
+      "bgGoodsPrice": 1,
+      "bgCreatetime": 1489643786000,
+      "bgRemarks": "1",
+      "bgGoodsGg": "1"
+    },
+    {
+      "bgGoodsId": 17,
+      "bgGoodsNo": "123",
+      "bgGoodsName": "13131",
+      "bgNamejc": "111",
+      "bgT": 1,
+      "bgI": 1,
+      "bgHsl": 1,
+      "bgZxdw": 1,
+      "bgSzdw": 1,
+      "bgStatus": 1,
+      "bgArehouseId": 1,
+      "bgClientId": 0,
+      "bgGoodsType": "1",
+      "bgGoodsTj": 1,
+      "bgGoodsZl": 1,
+      "bgGoodsPrice": 1,
+      "bgCreatetime": 1489643786000,
+      "bgRemarks": "1",
+      "bgGoodsGg": "1"
+    },
+    {
+      "bgGoodsId": 18,
+      "bgGoodsNo": "43123",
+      "bgGoodsName": "孙颢",
+      "bgNamejc": "111",
+      "bgT": 1,
+      "bgI": 1,
+      "bgHsl": 1,
+      "bgZxdw": 1,
+      "bgSzdw": 1,
+      "bgStatus": 1,
+      "bgArehouseId": 1,
+      "bgClientId": 0,
+      "bgGoodsType": "1",
+      "bgGoodsTj": 1,
+      "bgGoodsZl": 1,
+      "bgGoodsPrice": 1,
+      "bgCreatetime": 1489643786000,
+      "bgRemarks": "1",
+      "bgGoodsGg": "1"
+    },
+    {
+      "bgGoodsId": 19,
+      "bgGoodsNo": "1541lp",
+      "bgGoodsName": "孙",
+      "bgNamejc": "111",
+      "bgT": 1,
+      "bgI": 1,
+      "bgHsl": 1,
+      "bgZxdw": 1,
+      "bgSzdw": 1,
+      "bgStatus": 1,
+      "bgArehouseId": 1,
+      "bgClientId": 0,
+      "bgGoodsType": "1",
+      "bgGoodsTj": 1,
+      "bgGoodsZl": 1,
+      "bgGoodsPrice": 1,
+      "bgCreatetime": 1489643786000,
+      "bgRemarks": "1",
+      "bgGoodsGg": "1"
+    }
+  ],
+  "draw": 1,
+  "recordsTotal": 19,
+  "recordsFiltered": 19
+}
