@@ -22,20 +22,12 @@
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i class="icon sel"></i><span>多选</span>
                 </button>
                 <button
-                        class="btn btn-edit"
-                        @click="handleDelete" v-show="multiSelect">编辑
-                </button>
-                <button
                         class="btn btn-distribution"
                         @click="distributionBtn" v-show="multiSelect">分配
                 </button>
                 <button
                         class="btn btn-receipt"
                         @click="handleDelete" v-show="multiSelect">再次收货
-                </button>
-                <button
-                        class="btn btn-print"
-                        @click="handleDelete" v-show="multiSelect">打印
                 </button>
             </div>
             <el-table
@@ -106,25 +98,14 @@
                                                 <span>{{ props.row.zdfs }}</span>
                                             </el-form-item>
                                             <el-form-item label="可用操作">
+
                                                 <el-button
                                                         size="small"
-                                                        @click="handleEdit(props.$index, props.row)">分配
-                                                </el-button>
-                                                <el-button
-                                                        size="small"
-                                                        @click="handleDelete(props.$index, props.row)">编辑
+                                                        @click="handleEdit(props.$index, props.row)">编辑
                                                 </el-button>
                                                 <el-button
                                                         size="small"
                                                         @click="deleteOlder(props.$index, props.row)">删除
-                                                </el-button>
-                                                <el-button
-                                                        size="small"
-                                                        @click="handleDelete(props.$index, props.row)">再次收货
-                                                </el-button>
-                                                <el-button
-                                                        size="small"
-                                                        @click="handleDelete(props.$index, props.row)">打印
                                                 </el-button>
                                             </el-form-item>
                                             <el-form-item label="入库备注">

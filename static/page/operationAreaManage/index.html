@@ -183,14 +183,12 @@
             <button @click="newInput" class="btn btn-add"><i
                     class="icon add"></i><span>新增</span>
             </button>
-            <button @click="multiSelectClick" class="btn btn-multiSelect"><i
-                    class="icon sel"></i><span>多选</span>
-            </button>
             <button
                     class="btn"
                     v-show="multiSelect&&multipleSelection.length==1"
                     @click="multiOperationEdit">编辑
             </button>
+
         </div>
         <el-table
                 :data="operationAreaManage"
@@ -221,6 +219,14 @@
                                             icon="edit"
                                             @click="inlineEdit(props.$index, props.row)">
                                     </el-button>
+
+                                    <el-button
+                                            size="small"
+                                            icon="delete"
+                                            type="danger"
+                                            @click="deleteOlder(props.$index, props.row)">删除
+                                    </el-button>
+
                                 </el-form-item>
                             </el-form>
                         </el-col>
@@ -298,6 +304,10 @@
 
             </el-carousel>
         </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="submitRole" :loading="loadingWarehouse">保存
+            </el-button>
+        </div>
 
     </el-dialog>
 
@@ -373,7 +383,24 @@
                     operationAreaManage.$refs.carousel.setActiveItem(0);
                 });
             },                                  //TODO 行内按钮-编辑
-
+            deleteOlder: function (index, row) {
+                var _this = this;
+                _this.$confirm('此操作将永久删除该作业区管理, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.warehousingReservation);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },                                 //TODO 行内按钮-删除
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护

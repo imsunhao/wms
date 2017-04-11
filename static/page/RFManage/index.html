@@ -185,9 +185,6 @@
                     v-model="ruUserZyq"
                     icon="search"
                     placeholder="作业区"></el-input>
-            <button @click="multiSelectClick" class="btn btn-multiSelect"><i
-                    class="icon sel"></i><span>多选</span>
-            </button>
             <button
                     class="btn"
                     v-show="multiSelect&&multipleSelection.length==1"
@@ -230,6 +227,11 @@
                                             size="small"
                                             icon="edit"
                                             @click="inlineEdit(props.$index, props.row)">
+                                    </el-button>
+                                    <el-button
+                                            size="small"
+                                            icon="relation"
+                                            @click="inlineRelation(props.$index, props.row)">关联作业区
                                     </el-button>
                                 </el-form-item>
                             </el-form>
@@ -376,7 +378,6 @@
                 </el-radio>
             </el-row>
         </el-form>
-
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="submitRole" :loading="loadingWarehouse">保存
             </el-button>
@@ -463,7 +464,16 @@
                     RFManage.$refs.carousel.setActiveItem(0);
                 });
             },                                  //TODO 行内按钮-编辑
-
+            inlineRelation: function (index, row) {
+                this.form.title = '关联作业区';
+//                this.form.ruLoginName = row.ruLoginName;
+//                this.form.ruLoginName = row.ruLoginName;
+                this.dialogFormVisible = true;
+//                this.dialogFormActive = 0;
+//                Vue.nextTick(function () {
+//                    RFManage.$refs.carousel.setActiveItem(0);
+//                });
+            },                             //TODO 行内按钮-关联作业区
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
