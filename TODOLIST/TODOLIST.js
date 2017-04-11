@@ -1547,19 +1547,17 @@
          *   allCount 总数量
          *   allTj 总体积
          */
-
-/**
- *      TODO 入库任务 warehousingTask
-     */
+    /**
+     *      TODO 入库任务 warehousingTask
+         */
         /**
-         * TODO 0 入库任务管理 分页获取入库任务单 POST /mfunrkRwDoc 待补充没有模糊查询
+         * TODO 0  入库任务管理 分页获取入库任务单 POST /mfunrkRwDoc
          *   参数 --该分页不支持模糊查询 模糊查询的字段有6个
          *      {
-                    TODO "rkrw_no": "",
-                    TODO "rkrw_status": "",
-                    "pageNum": 1,
-                    "pageSize": 1
                      "draw": 1,
+                     "pageNum": 1,
+                     "pageSize": 1
+
          *      }
          *   参数说明
          *          rkrwId     id

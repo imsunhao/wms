@@ -16,12 +16,8 @@ router.get('/', function (req, res, next) {
         json: true,
         body: {//写好参数后 运行  失败后找亚伟 成功后这样操作
             "draw": 1,
-            "rkno": "",
-            "startTimeParam": "",
-            "endTimeParam": "",
             "pageNum": 1,
-            "pageSize": 1,
-            "status": 31
+            "pageSize": 1
         },
         url: 'http://192.168.5.14:8080/wms_cg_web/mfunrkDoc',
         headers: {"Content-Type": 'application/json'}
