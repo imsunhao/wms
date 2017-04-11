@@ -1,399 +1,107 @@
 {
-  "data":[
+  "data": [
     {
-      "rkdjId": "编号iD",
-      "rkdjNo": "123456789123",
-      "erpNo": "外部单号",
-      "gysmc": "供应商名称",
-      "remarks": "备注",
-      "userId": "编辑人账户ID",
-      "sjsj": 1486054744000,
-      "bjsj": 1487141149000,
-      "createtime": 1486968354000,
-      "createUserId": 1,
-      "zdfs": 1,
-      "startwith": 2,
-      "status": 35,
-      "arehouseId": 1,
-      "endTime": 1487141185000,
-      "rkdocsList":[
+      "rkRkdjId": 8,
+      "rkRkdjNo": "L0197167",
+      "rkErpNo": "erp_10001",
+      "rkType": 1,
+      "rkGysmc": "供应商001",
+      "rkRemarks": "备注",
+      "rkUserId": 1,
+      "rkSjsj": 1490947153000,
+      "rkBjsj": 1487141149000,
+      "rkCreatetime": 1486968354000,
+      "rkCreateUserId": 1,
+      "rkZdfs": 1,
+      "rkStartwith": 2,
+      "rkStatus": 31,
+      "rkArehouseId": 1,
+      "rkEndTime": 1491019196000,
+      "rkPrintcount": null,
+      "rkRwId": 1,
+      "rkRwStatus": 51,
+      "rkQhWjyy": "",
+      "rkQhBfdh": "",
+      "rmsUser": null,
+      "rkDocsList": [
         {
-          "rkmxId": "1 入库明细ID",
-          "goodsId": "1 入库货品ID",
-          "dwid": "单位id",
-          "count": "8 数量",
-          "status": "31 收货状态(1:初始状态 2:部分分配 3:完全分配 4部分收货 5 完全收货)",
-          "rkdjId": "1 入库明单据id"
+          "rksRkmxId": 73,
+          "rksGoodsId": 9,
+          "rksDwid": 1,
+          "rksCount": 100,
+          "rksStatus": 1,
+          "rksRkdjId": 8,
+          "baseGoods": {
+            "bgGoodsId": 9,
+            "bgGoodsNo": "13701003001",
+            "bgGoodsName": "电热锅、JK-32R1（32R1-A）、黑色+拉丝不锈钢、32CM、2100W、220V、50Hz、内销、Ⅰ类结构",
+            "bgNamejc": "电热锅、JK-32R1（32R1-A）、黑色+拉丝不锈钢、32CM、2100W、220V、50Hz、内销、Ⅰ类结构",
+            "bgT": null,
+            "bgI": null,
+            "bgHsl": 2,
+            "bgZxdw": 8,
+            "bgSzdw": 1,
+            "bgStatus": 1,
+            "bgArehouseId": 1,
+            "bgClientId": 2,
+            "bgGoodsType": null,
+            "bgGoodsTj": 20.57,
+            "bgGoodsZl": 0,
+            "bgGoodsPrice": null,
+            "bgCreatetime": 1488942458000,
+            "bgRemarks": null,
+            "bgGoodsGg": null
+          },
+          "baseDw": {
+            "bdDwId": 1,
+            "bdName": "hhhh",
+            "bdStatus": 2,
+            "bdIsdel": true,
+            "bdCreatetime": 1488786104000
+          }
         },
         {
-          "rkmxId": 24,
-          "goodsId": 3,
-          "dwid": 3,
-          "count": 30,
-          "status": 31,
-          "rkdjId": 1
-        },
-        {
-          "rkmxId": 25,
-          "goodsId": 4,
-          "dwid": 4,
-          "count": 40,
-          "status": 31,
-          "rkdjId": 1
+          "rksRkmxId": 74,
+          "rksGoodsId": 10,
+          "rksDwid": 1,
+          "rksCount": 100,
+          "rksStatus": 1,
+          "rksRkdjId": 8,
+          "baseGoods": {
+            "bgGoodsId": 10,
+            "bgGoodsNo": "13701002001",
+            "bgGoodsName": "电火锅、JK-45H01(45H01-A)、红色、L30cm、W30cm、1360W、220V、50Hz、内销、I类结构",
+            "bgNamejc": "电火锅、JK-45H01(45H01-A)、红色、L30cm、W30cm、1360W、220V、50Hz、内销、I类结构",
+            "bgT": null,
+            "bgI": null,
+            "bgHsl": 5,
+            "bgZxdw": 8,
+            "bgSzdw": 1,
+            "bgStatus": 1,
+            "bgArehouseId": 1,
+            "bgClientId": 2,
+            "bgGoodsType": null,
+            "bgGoodsTj": 41.05,
+            "bgGoodsZl": 0,
+            "bgGoodsPrice": null,
+            "bgCreatetime": 1488942499000,
+            "bgRemarks": null,
+            "bgGoodsGg": null
+          },
+          "baseDw": {
+            "bdDwId": 1,
+            "bdName": "hhhh",
+            "bdStatus": 2,
+            "bdIsdel": true,
+            "bdCreatetime": 1488786104000
+          }
         }
-      ]
-    },
-    {
-      "rkdjId": 2,
-      "rkdjNo": "1z23452123461212",
-      "erpNo": "erp_10002",
-      "gysmc": "供应商002",
-      "remarks": "备注",
-      "userId": 1,
-      "sjsj": 1487144744000,
-      "bjsj": 1487141149000,
-      "createtime": 1486968354000,
-      "createUserId": 1,
-      "zdfs": 1,
-      "startwith": 2,
-      "status": 32,
-      "arehouseId": 1,
-      "endTime": 1487141185000,
-      "rkdocsList":[
-        {
-          "rkmxId": 22,
-          "goodsId": 1,
-          "dwid": 1,
-          "count": 10,
-          "status": 31,
-          "rkdjId": 1
-        },
-        {
-          "rkmxId": 24,
-          "goodsId": 3,
-          "dwid": 3,
-          "count": 30,
-          "status": 31,
-          "rkdjId": 1
-        },
-        {
-          "rkmxId": 25,
-          "goodsId": 4,
-          "dwid": 4,
-          "count": 40,
-          "status": 31,
-          "rkdjId": 1
-        }
-      ]
-    },
-    {
-      "rkdjId":3,
-      "rkdjNo": "12121213",
-      "erpNo": "erp_10003",
-      "gysmc": "供应商003",
-      "remarks": "备注",
-      "userId": 1,
-      "sjsj": 1487022744000,
-      "bjsj": 1487141149000,
-      "createtime": 1486968354000,
-      "createUserId": 1,
-      "zdfs": 1,
-      "startwith": 2,
-      "status": 34,
-      "arehouseId": 1,
-      "endTime": 1487141185000,
-      "rkdocsList":[
-        {
-          "rkmxId": 22,
-          "goodsId": 1,
-          "dwid": 1,
-          "count": 10,
-          "status": 31,
-          "rkdjId": 1
-        },
-        {
-          "rkmxId": 24,
-          "goodsId": 3,
-          "dwid": 3,
-          "count": 30,
-          "status": 31,
-          "rkdjId": 1
-        },
-        {
-          "rkmxId": 25,
-          "goodsId": 4,
-          "dwid": 4,
-          "count": 40,
-          "status": 31,
-          "rkdjId": 1
-        }
-      ]
-    },
-    {
-      "rkdjId": 4,
-      "rkdjNo": "12121212",
-      "erpNo": "erp_10004",
-      "gysmc": "供应商004",
-      "remarks": "备注",
-      "userId": 1,
-      "sjsj": 1484325742000,
-      "bjsj": 1487141149000,
-      "createtime": 1486968354000,
-      "createUserId": 1,
-      "zdfs": 2,
-      "startwith": 2,
-      "status": 31,
-      "arehouseId": 1,
-      "endTime": 1487141185000,
-      "rkdocsList":[
-        {
-          "rkmxId": 22,
-          "goodsId": 1,
-          "dwid": 1,
-          "count": 10,
-          "status": 31,
-          "rkdjId": 1
-        },
-        {
-          "rkmxId": 24,
-          "goodsId": 3,
-          "dwid": 3,
-          "count": 30,
-          "status": 31,
-          "rkdjId": 1
-        },
-        {
-          "rkmxId": 25,
-          "goodsId": 4,
-          "dwid": 4,
-          "count": 40,
-          "status": 31,
-          "rkdjId": 1
-        }
-      ]
-    },
-    {
-      "rkdjId": 5,
-      "rkdjNo": "12xcb121sdgzxcb212",
-      "erpNo": "erp_10005",
-      "gysmc": "供应商005",
-      "remarks": "备注超级长的备注备注超级长的备注备注超级长的备注备 注超级长的备注备注 超级长的备注备注超 级长的备注备注超级 长的备注备注超级长的备注备注超级 长的备注备注超级长的备注备注 超级长的备注备注超级长的备注备注超级长的备注备注超级长的备注",
-      "userId": 1,
-      "sjsj": 1487054744000,
-      "bjsj": 1487141149000,
-      "createtime": 1486968354000,
-      "createUserId": 1,
-      "zdfs": 3,
-      "startwith": 2,
-      "status": 31,
-      "arehouseId": 1,
-      "endTime": 1487141185000,
-      "rkdocsList":[
-        {
-          "rkmxId": 22,
-          "goodsId": 1,
-          "dwid": 1,
-          "count": 10,
-          "status": 31,
-          "rkdjId": 1
-        },
-        {
-          "rkmxId": 24,
-          "goodsId": 3,
-          "dwid": 3,
-          "count": 30,
-          "status": 31,
-          "rkdjId": 1
-        },
-        {
-          "rkmxId": 25,
-          "goodsId": 4,
-          "dwid": 4,
-          "count": 40,
-          "status": 31,
-          "rkdjId": 1
-        }
-      ]
-    },
-    {
-      "rkdjId": "6",
-      "rkdjNo": "入库单号",
-      "erpNo": "外部单号",
-      "gysmc": "供应商名称",
-      "remarks": "备注",
-      "userId": "编辑人账户ID",
-      "sjsj": 1487054744000,
-      "bjsj": 1487141149000,
-      "createtime": 1486968354000,
-      "createUserId": 1,
-      "zdfs": 1,
-      "startwith": 2,
-      "status": 32,
-      "arehouseId": 1,
-      "endTime": 1487141185000,
-      "rkdocsList":[
-        {
-          "rkmxId": "1 入库明细ID",
-          "goodsId": "1 入库货品ID",
-          "dwid": "单位id",
-          "count": "8 数量",
-          "status": "31 收货状态(1:初始状态 2:部分分配 3:完全分配 4部分收货 5 完全收货)",
-          "rkdjId": "1 入库明单据id"
-        },
-        {
-          "rkmxId": 24,
-          "goodsId": 3,
-          "dwid": 3,
-          "count": 30,
-          "status": 31,
-          "rkdjId": 1
-        },
-        {
-          "rkmxId": 25,
-          "goodsId": 4,
-          "dwid": 4,
-          "count": 40,
-          "status": 31,
-          "rkdjId": 1
-        }
-      ]
-    },
-    {
-      "rkdjId": 7,
-      "rkdjNo": "12121212",
-      "erpNo": "erp_10002",
-      "gysmc": "供应商002",
-      "remarks": "备注",
-      "userId": 1,
-      "sjsj": 1487054744000,
-      "bjsj": 1487141149000,
-      "createtime": 1486968354000,
-      "createUserId": 1,
-      "zdfs": 1,
-      "startwith": 2,
-      "status": 32,
-      "arehouseId": 1,
-      "endTime": 1487141185000,
-      "rkdocsList":[
-        {
-          "rkmxId": 22,
-          "goodsId": 1,
-          "dwid": 1,
-          "count": 10,
-          "status": 31,
-          "rkdjId": 1
-        },
-        {
-          "rkmxId": 24,
-          "goodsId": 3,
-          "dwid": 3,
-          "count": 30,
-          "status": 31,
-          "rkdjId": 1
-        },
-        {
-          "rkmxId": 25,
-          "goodsId": 4,
-          "dwid": 4,
-          "count": 40,
-          "status": 31,
-          "rkdjId": 1
-        }
-      ]
-    },
-    {
-      "rkdjId":8,
-      "rkdjNo": "12121213",
-      "erpNo": "erp_10003",
-      "gysmc": "供应商003",
-      "remarks": "备注",
-      "userId": 1,
-      "sjsj": 1487054744000,
-      "bjsj": 1487141149000,
-      "createtime": 1486968354000,
-      "createUserId": 1,
-      "zdfs": 1,
-      "startwith": 2,
-      "status": 31,
-      "arehouseId": 1,
-      "endTime": 1487141185000,
-      "rkdocsList":[
-        {
-          "rkmxId": 22,
-          "goodsId": 1,
-          "dwid": 1,
-          "count": 10,
-          "status": 31,
-          "rkdjId": 1
-        },
-        {
-          "rkmxId": 24,
-          "goodsId": 3,
-          "dwid": 3,
-          "count": 30,
-          "status": 31,
-          "rkdjId": 1
-        },
-        {
-          "rkmxId": 25,
-          "goodsId": 4,
-          "dwid": 4,
-          "count": 40,
-          "status": 31,
-          "rkdjId": 1
-        }
-      ]
-    },
-    {
-      "rkdjId": 9,
-      "rkdjNo": "12121212",
-      "erpNo": "erp_10004",
-      "gysmc": "供应商004",
-      "remarks": "备注",
-      "userId": 1,
-      "sjsj": 1487054744000,
-      "bjsj": 1487141149000,
-      "createtime": 1486968354000,
-      "createUserId": 1,
-      "zdfs": 2,
-      "startwith": 2,
-      "status": 33,
-      "arehouseId": 1,
-      "endTime": 1487141185000,
-      "rkdocsList":[
-        {
-          "rkmxId": 22,
-          "goodsId": 1,
-          "dwid": 1,
-          "count": 10,
-          "status": 31,
-          "rkdjId": 1
-        },
-        {
-          "rkmxId": 24,
-          "goodsId": 3,
-          "dwid": 3,
-          "count": 30,
-          "status": 31,
-          "rkdjId": 1
-        },
-        {
-          "rkmxId": 25,
-          "goodsId": 4,
-          "dwid": 4,
-          "count": 40,
-          "status": 31,
-          "rkdjId": 1
-        }
-      ]
+      ],
+      "allCount": 400,
+      "allTj": 14164.68
     }
-
   ],
   "draw": 1,
-  "recordsTotal": 5,
-  "recordsFiltered": 5
+  "recordsTotal": 1,
+  "recordsFiltered": 1
 }
-
-
-
-

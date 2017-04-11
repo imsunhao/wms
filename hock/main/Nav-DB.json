@@ -28,7 +28,6 @@
           "url":"page/operationAreaManage",
           "bmMenuIcon":"e5"
         }
-
       ]
     },
     {
@@ -136,7 +135,6 @@
           "label": "库存冻结/解冻",
           "url":"page/stockFrozenThaw",
           "bmMenuIcon":"d5"
-
         }
       ]
     },
@@ -191,8 +189,6 @@
           "label": "库存查询",
           "url":"page/stockSelect",
           "bmMenuIcon":"b4"
-
-
         },
         {
           "id":30,
