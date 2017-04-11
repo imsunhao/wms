@@ -179,7 +179,6 @@
                     <el-row>
                         <el-col :span="24">
                             <div class="inner btn-nav">
-
                                 <el-input
                                         v-model="rkRkdjNo"
                                         icon="search"
@@ -243,17 +242,17 @@
                                             <el-col :span="24">
                                                 <el-form label-position="left" inline class="demo-table-expand">
                                                     <el-form-item label="入库单号">
-                                                        <span>{{ props.row.rkdjNo }}</span>
+                                                        <span>{{ props.row.rkRkdjNo }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="下单时间">
                                                         <el-icon name="time"></el-icon>
-                                                        <span style="margin-left: 10px">{{ props.row.sjsj }}</span>
+                                                        <span style="margin-left: 10px">{{ props.row.rkSjsj }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="订单类型">
-                                                        <span>{{ props.row.type }}</span>
+                                                        <span>{{ props.row.rkType }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="入库状态">
-                                                        <span>{{ props.row.status }}</span>
+                                                        <span>{{ props.row.rkStatus }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="入库数量">
                                                         <span>{{ props.row.number }}</span>
@@ -262,7 +261,7 @@
                                                         <span>{{ props.row.volume }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="制作方式">
-                                                        <span>{{ props.row.zdfs }}</span>
+                                                        <span>{{ props.row.rkZdfs }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="可用操作" v-if="props.row.zdfs==='手动'">
                                                         <el-button
@@ -279,9 +278,9 @@
                                                     </el-form-item>
                                                     <el-form-item label="入库备注">
                                                         <el-tooltip class="item" effect="dark"
-                                                                    :content="props.row.remarks"
+                                                                    :content="props.row.rkRemarks"
                                                                     placement="top">
-                                                            <span class="remark">{{ props.row.remarks }}</span>
+                                                            <span class="remark">{{ props.row.rkRemarks }}</span>
                                                         </el-tooltip>
                                                     </el-form-item>
                                                 </el-form>
@@ -291,7 +290,8 @@
                                 </el-table-column>
                                 <el-table-column
                                         label="所属仓库"
-                                        align="center">
+                                        align="center"
+                                        prop="rkRkdjId">
                                     <template scope="scope">
                                         <el-tag
                                                 type="success"
@@ -304,14 +304,18 @@
                                         label="入库单号"
                                         show-overflow-tooltip
                                         align="center"
-                                        prop="rkdjNo">
+                                        prop="rkRkdjNo">
                                 </el-table-column>
                                 <el-table-column
                                         width="80"
                                         align="center"
-                                        prop="sjsj"
+                                        prop="rkSjsj"
+                                        sortable
                                         label="时间">
-                                    <template scope="scope">{{ scope.row.sjsj }}</template>
+                                    <template scope="scope">
+                                        <el-icon name="time"></el-icon>
+                                        <span style="margin-left: 10px">{{ scope.row.rkSjsj }}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                         type="selection"
@@ -337,7 +341,8 @@
                                 </el-table-column>
                                 <el-table-column
                                         label="所属仓库"
-                                        align="center">
+                                        align="center"
+                                        prop="rkRkdjId">
                                     <template scope="scope">
                                         <el-tag
                                                 type="success"
@@ -350,14 +355,18 @@
                                         label="入库单号"
                                         show-overflow-tooltip
                                         align="center"
-                                        prop="rkdjNo">
+                                        prop="rkRkdjNo">
                                 </el-table-column>
                                 <el-table-column
                                         width="80"
                                         align="center"
-                                        prop="sjsj"
+                                        prop="rkSjsj"
+                                        sortable
                                         label="时间">
-                                    <template scope="scope">{{ scope.row.sjsj }}</template>
+                                    <template scope="scope">
+                                        <el-icon name="time"></el-icon>
+                                        <span style="margin-left: 10px">{{ scope.row.rkSjsj }}</span>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                         v-if="multiSelect"
