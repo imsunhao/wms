@@ -748,7 +748,7 @@
         }
     }
 
-    function location() {
+    function newLocation() {
         return {
             "blLocationId": 0,
             "blLname": "",
@@ -771,7 +771,7 @@
             rkDocsList: [],
             bgGoodsNo: '',
             selectGood: selectGood(),
-            location: location(),
+            location: newLocation(),
             saveARkDocsList: true,
             deleteARkDocsList: true
         };
@@ -970,7 +970,7 @@
                         if (typeof _this.form.location[index] !== 'undefined') step[index] = _this.form.location[index];
                     });
                     _this.location.push(step);
-                    _this.form.location = location();
+                    _this.form.location = newLocation();
                     _this.dialogLocationVisible = false;
                 }, 250);
             },                                        //关联 表单提交
