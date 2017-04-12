@@ -1,0 +1,42 @@
+[
+  {
+    "mdtUserId": "1",
+    "mdtSjsj": "作业时间",
+    "bgGoodsTj": "体积",
+    "rkCreatetime": "下单时间",
+    "rkRkdjNo": "下单单号",
+    "rkrkSjsj": "上架开始时间",
+    "rkEndTime": "上架结束时间",
+    "rkStatus": "入库状态",
+    "rksGoodsId": "123",
+    "rksGoodsId": "123",
+    "rksCount": "应收数量",
+    "mdtCount": "上架数量",
+    "mdtLocationId": "上架库位",
+    "rkZdfs": "制作方式",
+    "rkStartwith": "操作方式"
+  },
+  {
+    "mdtUserId": "张三",
+    "mdtSjsj": "20170412",
+    "bgGoodsTj": "12",
+    "rkRkdjNo": "RK20170412",
+    "rkCreatetime": "20170412",
+    "rkrkSjsj": "20170412",
+    "rkEndTime": "20170412",
+    "rkStatus": "1",
+    "rksGoodsId": "bh001",
+    "rksGoodsId": "货品名称",
+    "rksCount": "12",
+    "mdtCount": "12",
+    "mdtLocationId": "A01",
+    "rkZdfs": "1",
+    "rkStartwith": "1"
+  }
+
+
+]
+
+
+
+
