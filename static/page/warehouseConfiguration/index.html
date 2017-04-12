@@ -725,7 +725,9 @@
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
-    post(warehouseConfiguration, warehouseConfiguration.option);
+
+//    post(warehouseConfiguration, warehouseConfiguration.option);
+
     function post(obj, option) {
         obj.showLoading = true;
 
@@ -749,12 +751,44 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                warehouseConfiguration.warehouseConfiguration = json;
+                console.log(json);
+//                warehouseConfiguration.warehouseConfiguration = json;
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
-    }
+    }           //TODO 0 分页获取 仓库详情
+    function postEdit(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url =
+            "../../hock/warehouseConfiguration/warehouseConfiguration.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/warehouseConfiguration/0";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                console.log(json);
+//                warehouseConfiguration.warehouseConfiguration = json;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }       //TODO 1 编辑
 
 </script>
