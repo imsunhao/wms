@@ -363,6 +363,11 @@
                 </el-carousel-item>
             </el-carousel>
         </el-form>
+
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="submitRole" :loading="loadingRole">保存
+            </el-button>
+        </div>
     </el-dialog>
     <el-dialog
             size="small"
