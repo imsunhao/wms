@@ -67,9 +67,12 @@
                                             <el-form-item label="入库单号">
                                                 <span>{{ props.row.rkRkdjNo }}</span>
                                             </el-form-item>
-                                            <el-form-item label="下单时间">
-                                                <el-icon name="time"></el-icon>
-                                                <span style="margin-left: 10px">{{ props.row.rkSjsj }}</span>
+                                            <el-form-item label="所属仓库">
+                                                <el-tag
+                                                        type="success"
+                                                        close-transition>
+                                                    {{auto_rkArehouseId(props.row.rkArehouseId)}}
+                                                </el-tag>
                                             </el-form-item>
                                             <el-form-item label="订单类型">
                                                 <span>{{ props.row.rkType }}</span>
@@ -289,6 +292,12 @@
                                 <el-input
                                         v-model="form.rkRkdjNo"
                                         auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item label="所属仓库" :label-width="formLabelWidth">
+                                <el-select v-model="form.rkArehouseId" placeholder="请选择所属仓库">
+                                    <el-option :label="obj.baName" :value="obj.baArehouseId"
+                                               v-for="obj of baseArehouses"></el-option>
+                                </el-select>
                             </el-form-item>
                             <el-form-item label="订单类型" :label-width="formLabelWidth">
                                 <el-select v-model="form.rkType" placeholder="请选择单据类型">
@@ -720,6 +729,13 @@
 </style>
 <script>
 
+    /*<debug>*/
+    (function () {
+        window.dbmessage = {};
+        window.dbmessage.baseArehouses = JSON.parse('[{"baArehouseId":4,"baName":"无限极济阳仓A91","baAddr":"济南市济阳县","baScity":"齐河","baScontacts":"联系人1","baPhone":"13112345678","baAcreage":"222","baCtype":"22","baHumidity":"222","baFax":"2222","baPostoffice":"test","baIsti":1,"baStatus":1,"baClientId":3,"baRemarks":"test","baCreatetime":1487233193000,"baPgroupinfo":"eeeeeeeeeeeee","arehouseKqs":[]},{"baArehouseId":5,"baName":"九阳济南仓A02","baAddr":"济南市济阳278号","baScity":"齐河","baScontacts":"联系人1","baPhone":"13012345678","baAcreage":"222","baCtype":"111","baHumidity":"222","baFax":"2222","baPostoffice":"test","baIsti":2,"baStatus":1,"baClientId":1,"baRemarks":"test","baCreatetime":1487838047000,"baPgroupinfo":"eeeeeeeeeeeee","arehouseKqs":[]}]');
+    })();
+    /*</debug>*/
+
     function locationFather() {
         return {
             selectGood: {
@@ -770,6 +786,7 @@
             rkRemarks: '',
             rkDocsList: [],
             bgGoodsNo: '',
+            rkArehouseId: '',
             selectGood: selectGood(),
             location: newLocation(),
             saveARkDocsList: true,
@@ -782,6 +799,7 @@
         prop: {},
         data: function () {
             return {
+                baseArehouses: window.dbmessage.baseArehouses,
                 validateRkRkdjNo: function (rule, value, callback) {
                     if (validateRule.a.exec(value)) {
                         callback(new Error('不允许存在特殊字符!'));
@@ -1149,7 +1167,7 @@
                     _this.dialogFormActive = 0;
                     this.dialogDistributionForm = false;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(inputOperation);
+                    //post(inputOperation);
                 }, 1500);
             },                                                //新建 表单提交
             formValidateField: function (formName) {
@@ -1222,7 +1240,29 @@
                         message: '已取消删除'
                     });
                 });
-            }
+            },
+            auto_rkArehouseId: function (data, set) {
+                /*<debug>*/
+                //console.log(rkArehouseId);
+                /*</debug>*/
+                var baArehouse = window.dbmessage.baseArehouses;
+                var i;
+                if (typeof set !== 'undefined') {
+                    for (i = 0; i < baArehouse.length; i++) {
+                        if (baArehouse[i].baName === data) {
+                            return baArehouse[i].baArehouseId
+                        }
+                    }
+                    return errorTip(this, '不应出现未知的情况仓库');
+                } else {
+                    for (i = 0; i < baArehouse.length; i++) {
+                        if (baArehouse[i].baArehouseId == data) {
+                            return baArehouse[i].baName
+                        }
+                    }
+                    return '未知的仓库'
+                }
+            },                            //入库仓库id 自动匹配
 
         },
         watch: {

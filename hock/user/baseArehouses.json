@@ -1,0 +1,42 @@
+[
+  {
+    "baArehouseId": 4,
+    "baName": "无限极济阳仓A91",
+    "baAddr": "济南市济阳县",
+    "baScity": "齐河",
+    "baScontacts": "联系人1",
+    "baPhone": "13112345678",
+    "baAcreage": "222",
+    "baCtype": "22",
+    "baHumidity": "222",
+    "baFax": "2222",
+    "baPostoffice": "test",
+    "baIsti": 1,
+    "baStatus": 1,
+    "baClientId": 3,
+    "baRemarks": "test",
+    "baCreatetime": 1487233193000,
+    "baPgroupinfo": "eeeeeeeeeeeee",
+    "arehouseKqs": []
+  },
+  {
+    "baArehouseId": 5,
+    "baName": "九阳济南仓A02",
+    "baAddr": "济南市济阳278号",
+    "baScity": "齐河",
+    "baScontacts": "联系人1",
+    "baPhone": "13012345678",
+    "baAcreage": "222",
+    "baCtype": "111",
+    "baHumidity": "222",
+    "baFax": "2222",
+    "baPostoffice": "test",
+    "baIsti": 2,
+    "baStatus": 1,
+    "baClientId": 1,
+    "baRemarks": "test",
+    "baCreatetime": 1487838047000,
+    "baPgroupinfo": "eeeeeeeeeeeee",
+    "arehouseKqs": []
+  }
+]
