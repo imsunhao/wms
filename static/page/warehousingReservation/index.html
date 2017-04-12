@@ -208,7 +208,10 @@
                                 </el-date-picker>
                                 <button @click="newInput" class="btn btn-add"><i class="icon add"></i><span>添加</span>
                                 </button>
-                                <button @click="newImport" class="btn btn-import"><i class="icon add"></i><span>导入Excel接口设置</span>
+                                <button @click="importExcel" class="btn btn-import"><i class="icon add"></i><span>导入Excel</span>
+                                </button>
+                                <button @click="setInterface" class="btn btn-import"><i
+                                        class="icon add"></i><span>接口设置</span>
                                 </button>
 
 
@@ -310,12 +313,12 @@
                                 <el-table-column
                                         label="所属仓库"
                                         align="center"
-                                        prop="rkRkdjId">
+                                        prop="rkArehouseId">
                                     <template scope="scope">
                                         <el-tag
                                                 type="success"
                                                 close-transition>
-                                            九阳21号仓库
+                                            {{auto_rkArehouseId(scope.row.rkArehouseId)}}
                                         </el-tag>
                                     </template>
                                 </el-table-column>
@@ -356,12 +359,12 @@
                                 <el-table-column
                                         label="所属仓库"
                                         align="center"
-                                        prop="rkRkdjId">
+                                        prop="rkArehouseId">
                                     <template scope="scope">
                                         <el-tag
                                                 type="success"
                                                 close-transition>
-                                            九阳21号仓库
+                                            {{auto_rkArehouseId(scope.row.rkArehouseId)}}
                                         </el-tag>
                                     </template>
                                 </el-table-column>
@@ -400,6 +403,7 @@
                                         :label-width="formLabelWidth">
                                     <el-input
                                             v-model="warehousingReservationCombinationDetails.rkrwNo"
+                                            :disabled="true"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
                                 <el-form-item label="调拨地" :label-width="formLabelWidth">
@@ -440,7 +444,6 @@
                         </el-form>
                     </el-row>
                 </el-carousel-item>
-
             </el-carousel>
             <el-row class="formBottom">
                 <el-col :span="18" :offset="1">
@@ -498,6 +501,12 @@
                                 <el-input
                                         v-model="form.rkRkdjNo"
                                         auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item label="所属仓库" :label-width="formLabelWidth">
+                                <el-select v-model="form.rkArehouseId" placeholder="请选择所属仓库">
+                                    <el-option :label="obj.baName" :value="obj.baArehouseId"
+                                               v-for="obj of baseArehouses"></el-option>
+                                </el-select>
                             </el-form-item>
                             <el-form-item label="订单类型" :label-width="formLabelWidth">
                                 <el-select v-model="form.rkType" placeholder="请选择单据类型">
@@ -586,7 +595,6 @@
                             </el-button>
                         </el-col>
                     </el-row>
-
                     <el-row>
                         <el-col :span="24" style="margin-top: 5px">
                             <el-table
@@ -642,6 +650,28 @@
 <script>
 
 
+    /*<debug>*/
+    var id = 0;
+    (function () {
+        window.dbmessage = {};
+        window.dbmessage.baseArehouses = JSON.parse('[{"baArehouseId":4,"baName":"无限极济阳仓A91","baAddr":"济南市济阳县","baScity":"齐河","baScontacts":"联系人1","baPhone":"13112345678","baAcreage":"222","baCtype":"22","baHumidity":"222","baFax":"2222","baPostoffice":"test","baIsti":1,"baStatus":1,"baClientId":3,"baRemarks":"test","baCreatetime":1487233193000,"baPgroupinfo":"eeeeeeeeeeeee","arehouseKqs":[]},{"baArehouseId":5,"baName":"九阳济南仓A02","baAddr":"济南市济阳278号","baScity":"齐河","baScontacts":"联系人1","baPhone":"13012345678","baAcreage":"222","baCtype":"111","baHumidity":"222","baFax":"2222","baPostoffice":"test","baIsti":2,"baStatus":1,"baClientId":1,"baRemarks":"test","baCreatetime":1487838047000,"baPgroupinfo":"eeeeeeeeeeeee","arehouseKqs":[]}]');
+    })();
+    /*</debug>*/
+
+    function CombinationDetails() {
+        return {
+            rkrwId: '',         //id
+            rkrwNo: '',         //入库任务号
+            rkrwDhrq: '',       //预计到货日期
+            rkrwDbd: '',        //调拨地
+            rkrwCys: '',        //承运商
+            rkrwCph: '',        //车牌号
+            rkrwSjxm: '',       //司机姓名
+            rkrwDh: '',         //司机电话
+            rkrwStatus: ''      //任务状态
+        }
+    }
+
     function selectGood() {
         return {
             baseGoods: {
@@ -664,6 +694,7 @@
             rkRemarks: '',
             rkDocsList: [],
             bgGoodsNo: '',
+            rkArehouseId: '',
             selectGood: selectGood(),
             saveARkDocsList: true,
             deleteARkDocsList: true
@@ -673,23 +704,15 @@
     var validateRule = {
         a: new RegExp("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", "g")
     };
+
     var warehousingReservation = new Vue({
         el: '#warehousingReservation',
         prop: {},
         data: function () {
             return {
+                baseArehouses: window.dbmessage.baseArehouses,
                 warehousingReservation: [],
-                warehousingReservationCombinationDetails: {
-                    rkrwId: '',         //id
-                    rkrwNo: '',         //入库任务号
-                    rkrwDhrq: '',       //预计到货日期
-                    rkrwDbd: '',        //调拨地
-                    rkrwCys: '',        //承运商
-                    rkrwCph: '',        //车牌号
-                    rkrwSjxm: '',       //司机姓名
-                    rkrwDh: '',         //司机电话
-                    rkrwStatus: ''      //任务状态
-                },
+                warehousingReservationCombinationDetails: CombinationDetails(),
                 warehousingReservationCombination: [],
                 multipleSelection: [],
                 multipleSelectionCombination: [],
@@ -735,7 +758,7 @@
 
                 formActive: 0,                 //form steps 当前进度
 
-                select: {},                    //搜索 弹出层 信息集合,
+                select: {},                    //搜索 弹出层 信息集合
                 dialogSelectVisible: false,
                 selectLoading: false
             }
@@ -792,50 +815,6 @@
                     });
                 });
             },                                 //行内按钮-删除
-
-            filterStatus: function (value, row) {
-                return row.status == value;
-            },                                //状态 过滤函数
-            statusWatch: function (status) {
-                var str = '';
-                switch (status) {
-                    case '初始状态':
-                        str = 'info';
-                        break;
-                    case '部分分配':
-                        str = 'danger';
-                        break;
-                    case '全部分配':
-                        str = 'warning';
-                        break;
-                    case '部分收货':
-                        str = 'success';
-                        break;
-                    case '全部收货':
-                        str = 'primary';
-                        break;
-                }
-                return str;
-            },                                     //状态 标签颜色
-
-            typeWatch: function (type) {
-                var str = '';
-                switch (type) {
-                    case '采购订单':
-                        str = 'warning';
-                        break;
-                    case '仓间挑拨':
-                        str = 'success';
-                        break;
-                    case '退货入库':
-                        str = 'default';
-                        break;
-                }
-                return str;
-            },                                         //单据 标签颜色
-            filterType: function (value, row) {
-                return row.type == value;
-            },                                  //单据 过滤函数
 
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
@@ -909,10 +888,12 @@
 //                });
 
             },                                              //按钮 新建入库单
-            newImport: function () {
+            importExcel: function () {
 //                this.dialogFormVisible = true;
-            },                                              //TODO 按钮 导入
-
+            },                                           //TODO 按钮 导入Excel
+            setInterface: function () {
+//                this.dialogFormVisible = true;
+            },                                          //TODO 按钮 接口设置
 
             expandChange: function (row, expanded) {
 //                if (typeof (row.history) == 'undefined') {
@@ -925,12 +906,15 @@
 //                console.log(selected)
             },                             //选中 当前行
 
-
             prevForm: function () {
                 this.formActive--;
                 this.$refs.carouselWaiting.prev();
             },                                              //form 前一个
             nextForm: function () {
+                if (this.warehousingReservationCombinationDetails.rkrwNo === "") {
+                    postCombinationDetails(this);
+                }
+                this.warehousingReservationCombinationDetails.rkrwDhrq = new Date();
                 this.formActive++;
                 this.$refs.carouselWaiting.next();
             },                                              //form 后一个
@@ -947,17 +931,7 @@
                         type: 'success'
                     });
 //                    _this.$refs['warehousingReservationCombinationDetails'].resetFields();
-                    _this.warehousingReservationCombinationDetails = {
-                        rkrwId: '',         //id
-                        rkrwNo: '',         //入库任务号
-                        rkrwDhrq: '',       //预计到货日期
-                        rkrwDbd: '',        //调拨地
-                        rkrwCys: '',        //承运商
-                        rkrwCph: '',        //车牌号
-                        rkrwSjxm: '',       //司机姓名
-                        rkrwDh: '',         //司机电话
-                        rkrwStatus: ''      //任务状态
-                    };
+                    _this.warehousingReservationCombinationDetails = CombinationDetails();
                     _this.warehousingReservationCombination = [];
                     _this.multipleSelection = [];
                     _this.multipleSelectionCombination = [];
@@ -1010,7 +984,7 @@
                 else {
                     callback();
                 }
-            },                  //validate 入库单号
+            },                 //validate 入库单号
             formValidateField: function (formName) {
 //                console.log(warehousingReservation.$refs[formName]);
 //                console.log(warehousingReservation.$refs);
@@ -1021,7 +995,6 @@
 //                    })
 //                },0);
             },                             //表单 string验证
-
             querySearchAsync: function (queryString, cb) {
                 postGoods(this, {bgGoodsNo: queryString}, cb);
             },                       //货品异步查询
@@ -1050,7 +1023,7 @@
                 this.form.rkDocsList.push(this.form.selectGood);
                 this.form.selectGood = selectGood();
                 this.form.saveARkDocsList = true;
-            },                                       //货品明细控制 保存
+            },                                          //货品明细控制 保存
             deleteARkDocsList: function () {
                 remove(this.form.selectGood, this.form.rkDocsList);
                 this.form.selectGood = selectGood();
@@ -1059,6 +1032,29 @@
             selectSubmit: function () {
                 this.dialogSelectVisible = false;
             },                                          //详细查询 查询提交
+
+            auto_rkArehouseId: function (data, set) {
+                /*<debug>*/
+                //console.log(rkArehouseId);
+                /*</debug>*/
+                var baArehouse = window.dbmessage.baseArehouses;
+                var i;
+                if (typeof set !== 'undefined') {
+                    for (i = 0; i < baArehouse.length; i++) {
+                        if (baArehouse[i].baName === data) {
+                            return baArehouse[i].baArehouseId
+                        }
+                    }
+                    return errorTip(this, '不应出现未知的情况仓库');
+                } else {
+                    for (i = 0; i < baArehouse.length; i++) {
+                        if (baArehouse[i].baArehouseId == data) {
+                            return baArehouse[i].baName
+                        }
+                    }
+                    return '未知的仓库'
+                }
+            },                            //入库仓库id 自动匹配
         },
         watch: {
             warehousingReservation: function () {
@@ -1077,6 +1073,8 @@
             }
         }
     });
+
+
     // 高级 监视器的 使用方法
     warehousingReservation.$watch('date', function () {
         if (!this.option.dateStart)return;
@@ -1182,7 +1180,39 @@
             }
         });
     }
+    function postCombinationDetails(obj) {
+        obj.showLoading = true;
+        /*<debug>*/
+        var json = {
+            model: 'RK' + dateFormat(new Date(), "yyyyMMdd") + '-' + (++id)
+        };
+        console.log(json);
+        setTimeout(function () {
+            obj.warehousingReservationCombinationDetails.rkrwNo = json.model;
+            obj.showLoading = false;
+        }, 500);
+        /*</debug>*/
 
+        /*<prod>*/
+        url = "/route/warehousingReservation/1";
+
+        $.ajax(url, {
+            type: "GET",
+            data: option | {
+                "id": 1                        //* 入库单号id
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                obj.warehousingReservationCombinationDetails.rkrwNo = json.model;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+        /*</prod>*/
+    }
     function postGoods(obj, option, cb) {
         //TODO 此处应为AJAX请求,待完善 querySearchAsync
 
