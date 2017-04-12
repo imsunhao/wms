@@ -726,7 +726,43 @@
     //        post(this, this.option);
     //    }, {deep: true});
 
-//    post(warehouseConfiguration, warehouseConfiguration.option);
+    postEdit(warehouseConfiguration, {
+        "baArehouseId": 2,
+        "baName": "000",
+        "baAddr": "000",
+        "baScity": "222",
+        "baScontacts": "string",
+        "baPhone": "string",
+        "baAcreage": "string",
+        "baCtype": "string",
+        "baHumidity": "string",
+        "baFax": "string",
+        "baPostoffice": "string",
+        "baIsti": 0,
+        "baStatus": 0,
+        "baClientId": 1,
+        "baRemarks": "string",
+        "baCreatetime": "2017-04-06T06:05:11.379Z",
+        "baPgroupinfo": "string",
+        "arehouseKqs": [
+            {
+                "baqKqId": 1,
+                "baqArehouseId": 1,
+                "baqKqName": "string",
+                "baqIsdel": 0,
+                "baqStatus": 0,
+                "baseRegions": [
+                    {
+                        "brgRegionId": 1,
+                        "brgArehouseId": 0,
+                        "brgRegionNo": "string",
+                        "brgKqId": 0,
+                        "brgRegionStatus": 0
+                    }
+                ]
+            }
+        ]
+    });
 
     function post(obj, option) {
         obj.showLoading = true;
@@ -752,7 +788,7 @@
             },
             success: function (json) {
                 console.log(json);
-//                warehouseConfiguration.warehouseConfiguration = json;
+                warehouseConfiguration.warehouseConfiguration = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
@@ -768,7 +804,7 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/warehouseConfiguration/0";//post
+        url = "/route/warehouseConfiguration/1";//post
         /*</prod>*/
 
         $.ajax(url, {
@@ -783,12 +819,12 @@
             },
             success: function (json) {
                 console.log(json);
-//                warehouseConfiguration.warehouseConfiguration = json;
+                //warehouseConfiguration.warehouseConfiguration = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
-    }       //TODO 1 编辑
+    }      //TODO 1 编辑
 
 </script>

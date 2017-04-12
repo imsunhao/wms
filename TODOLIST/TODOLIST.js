@@ -375,6 +375,65 @@
                 baCreatetime    创建时间
                 baPgroupinfo    平面图信息
          */
+        /**  2 新增 POST /arehouse
+         * 参数
+         * {
+                        "baArehouseId": 0,
+                        "baName": "23221",
+                        "baAddr": "122",
+                        "baScity": "122",
+                        "baScontacts": "string",
+                        "baPhone": "string",
+                        "baAcreage": "string",
+                        "baCtype": "string",
+                        "baHumidity": "string",
+                        "baFax": "string",
+                        "baPostoffice": "string",
+                        "baIsti": 0,
+                        "baStatus": 0,
+                        "baClientId": 0,
+                        "baRemarks": "string",
+                        "baCreatetime": "2017-04-06T06:05:11.376Z",
+                        "baPgroupinfo": "string",
+                        "arehouseKqs": [
+                            {
+                                "baqKqId": 8,
+                                "baqArehouseId": 0,
+                                "baqKqName": "string",
+                                "baqIsdel": 0,
+                                "baqStatus": 0,
+                                "baseRegions": [
+                                    {
+                                        "brgRegionId": 8,
+                                        "brgArehouseId": 0,
+                                        "brgRegionNo": "string",
+                                        "brgKqId": 0,
+                                        "brgRegionStatus": 0
+                                     }
+                                ]
+                               }
+                           ]
+                    }
+         参数说明
+         baArehouseId    仓库id 主键
+         baName          仓库名称
+         baAddr          仓库地址
+         baScity         所在地市
+         baScontacts     联系人
+         baPhone         电话
+         baAcreage       面积
+         baCtype         仓库类型
+         baHumidity      相对湿度
+         baFax           传真
+         baPostoffice    邮编
+         baIsti          是否需要维护ti值 1:存在ti 2:不存在ti
+         baStatus        状态1可用 0软删除
+         baClientId      客户id
+         baRemarks       备注
+         baCreatetime    创建时间
+         baPgroupinfo    平面图信息
+         *
+         */
         /**  3 仓库管理 通过client_id查询部分仓库的信息(被客户id绑定的) GET /arehouse/findByClientId/{client_id}
         *          */
         /**  4 仓库管理 通过role_id查询部分仓库的信息(被角色id绑定的 GET /arehouse/findByRoleId/{role_id}
