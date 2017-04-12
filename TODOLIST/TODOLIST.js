@@ -2225,8 +2225,6 @@
  * TODO 库内管理
  * TODO 库位转移
  * TODO 库存转移确认
- * TODO 库存调整
- * TODO 库存调整确认
  * TODO 库存冻结/解冻
  * TODO 入库日报
  * TODO 出库日报
@@ -2236,7 +2234,6 @@
  * TODO 出库单据查询
  * TODO 进出合并查询
  * TODO 库位转移查询
- * TODO 库存调整查询
  * TODO 库位冻结查询
  * TODO 动碰盘点查询
  * TODO 循环盘点查询
