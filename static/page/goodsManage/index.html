@@ -732,13 +732,14 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                goodsManage.goodsManage = json;
+                console.log(json);
+               goodsManage.goodsManage = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
-    }                       //TODO 货品管理主页面
+    }                       //TODO 货品管理分页查询接口(测试完成)
     function postRuUserName(obj, option) {
         obj.showLoading = true;
 
