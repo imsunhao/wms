@@ -225,7 +225,6 @@
          *     bcCname      客户名称
          *     bcClientId   客户id
          **/
-
     /** 仓库管理/配置   warehouseConfiguration
      *
      */

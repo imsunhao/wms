@@ -205,7 +205,7 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '入库任务管理-加载入库任务管理页面';
-                        req = autoUrl(req, 't', "POST", function (json) {
+                        req = autoUrl(req, '/mfunrkRwDoc', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -404,6 +404,48 @@ router.param('_url', function (req, res, next, url) {
                     case 0:
                         urlName = '仓库配置-加载仓库配置页面';
                         req = autoUrl(req, '/arehouse/page', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '编辑';
+                        req = autoUrl(req, '/arehouse', "PUT", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '编辑';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '查看';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 4:
+                        urlName = '删除';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 5:
+                        urlName = '库位名称不允许重复';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
+                }
+                break;
+             case 'startReceiving':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '开始收货-加载开始收货页面';
+                        req = autoUrl(req, '/mfunrkRwDoc', "POST", function (json) {
                             res.send(json);
                         });
                         break;
