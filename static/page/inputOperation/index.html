@@ -1298,21 +1298,21 @@
     //    }
 
     post(inputOperation,inputOperation.option);
-
     function post(obj, option) {
         obj.showLoading = true;
 
         /*<debug>*/
-        url = "/hock/form/inputOption.json";
+        url =
+            "/hock/form/inputOption.json";
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/inputOperation/0" ;
+        url = "/route/inputOperation/0";//post
         /*</prod>*/
 
         $.ajax(url, {
             type: "GET",
-            data: option | {
+            data: option || {
                 "draw": 1,                      //* 没有意义
                 "pageNum": 1,                   //* 当前页
                 "pageSize": 10                  //* 每页大小
@@ -1321,40 +1321,14 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-//                for (var i = 0; i < json.data.length; i++) {
-//                    var rkType = {
-//                        "0": "采购订单",
-//                        "1": "仓间挑拨",
-//                        "2": "退货入库"
-//                    };
-//                    var rkStatus = {
-//                        "31": "初始状态",
-//                        "32": "部分分配",
-//                        "33": "全部分配",
-//                        "34": "部分收货",
-//                        "35": "全部收货"
-//                    };
-//                    var method = {
-//                        "1": "手动",
-//                        "2": "excel",
-//                        "3": "接口"
-//                    };
-//                    json.data[i].rkType = rkType[i % 3];
-//                    json.data[i].rkSjsj = changeDate(json.data[i].rkSjsj);
-//                    json.data[i].rkStatus = rkStatus[json.data[i].rkStatus];
-//                    json.data[i].rkZdfs = method[json.data[i].rkZdfs];
-//                    json.data[i].allCount = 10120 + i;
-//                    json.data[i].allTj = 200.0234 + i;
-//                    json.data[i].historyLoading = false;              //维护 history 的加载层
-//                }
                 console.log(json);
-               // inputOperation.$data.inputOperation = json.data;
+                inputOperation.inputOperation = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
-    }                   //TODO 入库操作(测试有问题)
+    }           //TODO 0 分页获取 入库操作详情 (测试通过)
 
     function postHistory(obj, option) {
         obj.historyLoading = true;

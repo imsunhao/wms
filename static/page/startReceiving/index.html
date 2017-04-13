@@ -637,11 +637,13 @@
     //        post(this, this.option);
     //    }, {deep: true});
     post(startReceiving,startReceiving.option);
+
     function post(obj, option) {
         obj.showLoading = true;
 
         /*<debug>*/
-        url = "/hock/startReceiving/page.json";
+        url =
+            url = "/hock/startReceiving/page.json";
         /*</debug>*/
 
         /*<prod>*/
@@ -650,7 +652,7 @@
 
         $.ajax(url, {
             type: "GET",
-            data: option | {
+            data: option || {
                 "draw": 1,                      //* 没有意义
                 "pageNum": 1,                   //* 当前页
                 "pageSize": 10                  //* 每页大小
@@ -660,15 +662,13 @@
             },
             success: function (json) {
                 console.log(json);
-                //startReceiving.$data.startReceiving = json.data;
-
-
+                startReceiving.startReceiving = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
-    }                        //TODO 开始收货分页查询的接口(API测试通过，页面中报错)
+    }           ///TODO 开始收货分页查询的接口
 
     function postRkrwNo(obj, option, resolve) {
         /*<debug>*/
