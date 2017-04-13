@@ -528,7 +528,7 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/0";//post
+        url = "/route/operationAreaManage/0";//post
         /*</prod>*/
 
         $.ajax(url, {
@@ -543,13 +543,14 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                operationAreaManage.operationAreaManage = json;
+                    console.log(json);
+                operationAreaManage.operationAreaManage = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
-    }                       //TODO 作业区管理主页面
+    }                       //TODO 作业区管理分页查询接口（测试通过）
     function errorTip(obj, error) {                    // 错误提示
         /*<debug>*/
         console.log(error);

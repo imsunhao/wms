@@ -361,7 +361,7 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '作业区管理-加载作业区管理页面';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/locations/page', "POST", function (json) {
                             res.send(json);
                         });
                         break;
