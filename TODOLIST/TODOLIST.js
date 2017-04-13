@@ -830,8 +830,11 @@
         /**
          * 3  RF管理 判断主作业区是否重复 GET /user/isRepeatByFirstZyq/{firstZyq}
          **/
-    /**
-         *      TODO 作业区管理 operationAreaManage
+        /**
+         *  4 编辑
+         */
+/**
+ *      TODO 作业区管理 operationAreaManage
          *      **/
         /**
          *  0 (作业区管理主页面) 储位组管理 POST请求查询储位组信息 POST /locations/page
@@ -1671,7 +1674,7 @@
              *          rkRemarks       备注
              */
             /**
-             * TODO 3 新增入库单 入库任务管理 新增入库任务单据 POST /mfunrkRwDoc/add  有问题
+             * TODO 3 新增入库单 入库任务管理 新增入库任务单据 POST /mfunrkRwDoc/add  有问题 传入list
              * 参数
              *
              *

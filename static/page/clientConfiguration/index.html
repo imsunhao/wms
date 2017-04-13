@@ -169,7 +169,6 @@
         width: 100%;
     }
 </style>
-
 <div id="clientConfiguration">
     <!--页面调整-->
     <el-row
@@ -389,7 +388,6 @@
         </div>
     </el-dialog>
 </div>
-
 <script>
     var form = function () {
         return {
@@ -699,8 +697,17 @@
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
-    post(clientConfiguration, clientConfiguration.option);
-    postRoles(clientConfiguration);
+
+
+   // post(clientConfiguration, clientConfiguration.option);
+    postEdit(clientConfiguration,{
+        "bcClientId": 1,
+        "bcCname": "",
+        "bcCaddr": "",
+        "bcCtel": "",
+        "bcStatus": 1,
+        "bcCjsj": ""
+    });
     function post(obj, option) {
         obj.showLoading = true;
 
@@ -730,152 +737,69 @@
                 obj.showLoading = false;
             }
         });
-    }                       //TODO 请求 客户配置分页查询 (测试完成)
-    function postAdd(obj) {
+    }                       //TODO 0 请求 客户配置分页查询(测试完成)
+    function postAdd(obj, option) {
         obj.showLoading = true;
 
         /*<debug>*/
-        url = "../../hock/client/add.json";
+        url = "../../hock/client/client.json";
         /*</debug>*/
 
         /*<prod>*/
-        url = "route/client/1";//post
+        url = "/route/clientConfiguration/1";//post
         /*</prod>*/
 
         $.ajax(url, {
             type: "GET",
-            data: {
+            data: option || {
                 "draw": 1,                      //* 没有意义
                 "pageNum": 1,                   //* 当前页
-                "pageSize": 999                 //* 每页大小
+                "pageSize": 10                  //* 每页大小
             },
             error: function (error) {
                 errorTip(obj, error);
             },
             success: function (json) {
-                clientConfiguration.$data.role = json.data;
+                console.log(json);
+                //clientConfiguration.$data.clientConfiguration = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
-    }                             //TODO 请求 新增-配置货品-配置仓库
-    function postGodds(obj) {
+    }                   //TODO 1 请求 新增-配置货品-配置仓库 (测试完成)
+    function postEdit(obj, option) {
         obj.showLoading = true;
 
         /*<debug>*/
-        url = "../../hock/client/add.json";
+        url = "../../hock/client/client.json";
         /*</debug>*/
 
         /*<prod>*/
-        url = "route//client/clientAddGoods/2";//post
+        url = "/route/clientConfiguration/4";//post
         /*</prod>*/
 
         $.ajax(url, {
             type: "GET",
-            data: {
+            data: option || {
                 "draw": 1,                      //* 没有意义
                 "pageNum": 1,                   //* 当前页
-                "pageSize": 999                 //* 每页大小
+                "pageSize": 10                  //* 每页大小
             },
             error: function (error) {
                 errorTip(obj, error);
             },
             success: function (json) {
-                clientConfiguration.$data.role = json.data;
+                console.log(json);
+                //clientConfiguration.$data.clientConfiguration = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
-    }                        //TODO 请求 配置货品
-    function postClient(obj) {
-        obj.showLoading = true;
+    }                   //TODO 4 请求 编辑 (测试完成)
 
-        /*<debug>*/
-        url = "../../hock/client/add.json";
-        /*</debug>*/
 
-        /*<prod>*/
-        url = "route//client/clientAddArehouses/3";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 999                 //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                clientConfiguration.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                          //TODO 请求 配置仓库
-    function postAdd(obj) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/client/add.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "route/client/4";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 999                 //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                clientConfiguration.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                          //TODO 请求  编辑
-    function postNoRepeat(obj) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/client/add.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "route/client/5";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 999                 //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                clientConfiguration.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                          //TODO 请求  客户名称不重复
     function errorTip(obj, error) {                    // 错误提示
         /*<debug>*/
         console.log(error);
