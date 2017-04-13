@@ -3,7 +3,6 @@ var router = express.Router();
 var request = require('request');
 var server = require('../serverConfig/server/wmsServerHost.json');
 
-
 router.param('_url', function (req, res, next, url) {
     if (typeof req.session.user !== 'undefined') {
 
@@ -367,13 +366,13 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '新增';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/locations', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
                         urlName = '编辑';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/locations', "PUT", function (json) {
                             res.send(json);
                         });
                         break;

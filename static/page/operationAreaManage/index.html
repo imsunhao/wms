@@ -519,7 +519,15 @@
     //        post(this, this.option);
     //    }, {deep: true});
 
-    post(operationAreaManage, operationAreaManage.option);
+   // post(operationAreaManage, operationAreaManage.option);
+    postEdit(operationAreaManage, {
+        "blsLocationsId": 1,
+        "blsName": "string",
+        "blsCjsj": "2017-04-10T05:52:25.431Z",
+        "blsArehouseId": 1,
+        "blsUserId": 1,
+        "blsRemarks": "string"
+    });
     function post(obj, option) {
         obj.showLoading = true;
 
@@ -550,7 +558,69 @@
                 obj.showLoading = false;
             }
         });
-    }                       //TODO 作业区管理分页查询接口（测试通过）
+    }                       //TODO 0作业区管理分页查询接口（测试通过）
+    function postAdd(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/operationAreaManage/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/operationAreaManage/1";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+                type: "GET",
+
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                    console.log(json);
+                //operationAreaManage.operationAreaManage = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                   //TODO 1 作业区管理新增接口（测试通过）
+    function postEdit(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/operationAreaManage/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/operationAreaManage/2";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+                type: "GET",
+
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                    console.log(json);
+                //operationAreaManage.operationAreaManage = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                   //TODO 2 作业区管理更新/编辑接口（测试通过）
     function errorTip(obj, error) {                    // 错误提示
         /*<debug>*/
         console.log(error);
