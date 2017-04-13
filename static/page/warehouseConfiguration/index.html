@@ -725,45 +725,53 @@
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
+   // post(warehouseConfiguration, warehouseConfiguration.option);
 
-    postEdit(warehouseConfiguration, {
-        "baArehouseId": 2,
-        "baName": "000",
-        "baAddr": "000",
-        "baScity": "222",
-        "baScontacts": "string",
-        "baPhone": "string",
-        "baAcreage": "string",
-        "baCtype": "string",
-        "baHumidity": "string",
-        "baFax": "string",
-        "baPostoffice": "string",
-        "baIsti": 0,
-        "baStatus": 0,
-        "baClientId": 1,
-        "baRemarks": "string",
-        "baCreatetime": "2017-04-06T06:05:11.379Z",
-        "baPgroupinfo": "string",
-        "arehouseKqs": [
-            {
-                "baqKqId": 1,
-                "baqArehouseId": 1,
-                "baqKqName": "string",
-                "baqIsdel": 0,
-                "baqStatus": 0,
-                "baseRegions": [
-                    {
-                        "brgRegionId": 1,
-                        "brgArehouseId": 0,
-                        "brgRegionNo": "string",
-                        "brgKqId": 0,
-                        "brgRegionStatus": 0
-                    }
-                ]
-            }
-        ]
-    });
 
+    //post(warehouseConfiguration,warehouseConfiguration.option);//TODO 分页查询
+//       postAdd(warehouseConfiguration, {
+//           "baName": "23221",
+//           "baAddr": "122",
+//           "baScity": "122",
+//           "baScontacts": "string",
+//           "baPhone": "string",
+//           "baAcreage": "string",
+//           "baCtype": "string",
+//           "baHumidity": "string",
+//           "baFax": "string",
+//           "baPostoffice": "string",
+//           "baIsti": 0,
+//           "baStatus": 0,
+//           "baClientId": 0,
+//           "baRemarks": "string",
+//           "baCreatetime": "2017-04-06T06:05:11.376Z",
+//           "baPgroupinfo": "string",
+//           "arehouseKqs": [
+//               {
+//                   "baqKqId": 8,
+//                   "baqArehouseId": 0,
+//                   "baqKqName": "string",
+//                   "baqIsdel": 0,
+//                   "baqStatus": 0,
+//                   "baseRegions": [
+//                       {
+//                           "brgRegionId": 8,
+//                           "brgArehouseId": 0,
+//                           "brgRegionNo": "string",
+//                           "brgKqId": 0,
+//                           "brgRegionStatus": 0
+//                       }
+//                   ]
+//               }
+//           ]
+//      }); //TODO 测试编辑
+    postDelete(warehouseConfiguration, {
+        "id": 1,
+        "ids": [
+        1
+    ]
+
+    }); //TODO 测试删除
     function post(obj, option) {
         obj.showLoading = true;
 
@@ -794,7 +802,7 @@
                 obj.showLoading = false;
             }
         });
-    }           //TODO 0 分页获取 仓库详情
+    }           //TODO 0 分页获取 仓库详情 (测试通过)
     function postEdit(obj, option) {
         obj.showLoading = true;
 
@@ -825,6 +833,69 @@
                 obj.showLoading = false;
             }
         });
-    }      //TODO 1 编辑
+    }      //TODO 1 编辑(测试通过)
+    function postAdd(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url =
+            "../../hock/warehouseConfiguration/warehouseConfiguration.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/warehouseConfiguration/2";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                console.log(json);
+                //warehouseConfiguration.warehouseConfiguration = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }      //TODO 2 新增(测试通过)
+    function postDelete(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url =
+            "../../hock/warehouseConfiguration/warehouseConfiguration.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/warehouseConfiguration/9";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                console.log(json);
+                //warehouseConfiguration.warehouseConfiguration = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }      //TODO 9 删除(测试通过)
+
 
 </script>

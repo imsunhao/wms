@@ -377,7 +377,7 @@
         /**  2 新增 POST /arehouse
          * 参数
          * {
-                        "baArehouseId": 0,
+
                         "baName": "23221",
                         "baAddr": "122",
                         "baScity": "122",
@@ -448,6 +448,12 @@
          *
          */
         /**  9 仓库管理 软删除多个或单个数据 POST /arehouse/deleteOfSoft
+         *      {
+                  "id": 1,
+                  "ids": [
+                    1
+                  ]
+                }
          *
          */
     /**
