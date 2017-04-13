@@ -1081,6 +1081,8 @@
         /*</debug>*/
         post(this, this.option);
     }, {deep: true});
+
+
     post(warehousingReservation, warehousingReservation.option);
     function post(obj, option) {
         obj.showLoading = true;
@@ -1107,39 +1109,41 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                for (var i = 0; i < json.data.length; i++) {
-                    var rkType = {
-                        "0": "采购订单",
-                        "1": "仓间挑拨",
-                        "2": "退货入库"
-                    };
-                    var rkStatus = {
-                        "31": "初始状态",
-                        "32": "部分分配",
-                        "33": "全部分配",
-                        "34": "部分收货",
-                        "35": "全部收货"
-                    };
-                    var method = {
-                        "1": "手动",
-                        "2": "excel",
-                        "3": "接口"
-                    };
-                    json.data[i].rkType = rkType[i % 3];
-                    json.data[i].rkSjsj = changeDate(json.data[i].rkSjsj);
-                    json.data[i].rkStatus = rkStatus[json.data[i].rkStatus];
-                    json.data[i].rkZdfs = method[json.data[i].rkZdfs];
-                    json.data[i].allCount = 10120 + i;
-                    json.data[i].allTj = 200.0234 + i;
-                    json.data[i].historyLoading = false;              //维护 history 的加载层
-                }
+//                for (var i = 0; i < json.data.length; i++) {
+//                    var rkType = {
+//                        "0": "采购订单",
+//                        "1": "仓间挑拨",
+//                        "2": "退货入库"
+//                    };
+//                    var rkStatus = {
+//                        "31": "初始状态",
+//                        "32": "部分分配",
+//                        "33": "全部分配",
+//                        "34": "部分收货",
+//                        "35": "全部收货"
+//                    };
+//                    var method = {
+//                        "1": "手动",
+//                        "2": "excel",
+//                        "3": "接口"
+//                    };
+//                    json.data[i].rkType = rkType[i % 3];
+//                    json.data[i].rkSjsj = changeDate(json.data[i].rkSjsj);
+//                    json.data[i].rkStatus = rkStatus[json.data[i].rkStatus];
+//                    json.data[i].rkZdfs = method[json.data[i].rkZdfs];
+//                    json.data[i].allCount = 10120 + i;
+//                    json.data[i].allTj = 200.0234 + i;
+//                    json.data[i].historyLoading = false;              //维护 history 的加载层
+//                }
+                console.log(json);
                 warehousingReservation.$data.warehousingReservation = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
-    }
+    }    // TODO 入库预约分页查询接口(测试通过)
+
     function postDelete(obj, option) {
         //TODO 删除后重新post
         if (option.id.length < 1)return;

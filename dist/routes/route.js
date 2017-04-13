@@ -3,7 +3,6 @@ var router = express.Router();
 var request = require('request');
 var server = require('../serverConfig/server/wmsServerHost.json');
 
-
 router.param('_url', function (req, res, next, url) {
     if (typeof req.session.user !== 'undefined') {
 
@@ -164,7 +163,7 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '客户管理-加载客户管理页面';
-                        req = autoUrl(req, '/client', "POST", function (json) {
+                        req = autoUrl(req, '/client/page', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -205,7 +204,7 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '入库任务管理-加载入库任务管理页面';
-                        req = autoUrl(req, 't', "POST", function (json) {
+                        req = autoUrl(req, '/mfunrkRwDoc', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -281,7 +280,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '编辑货品';
-                        req = autoUrl(req, '/goods', "POST", function (json) {
+                        req = autoUrl(req, '/goods', "PUT", function (json) {
                             res.send(json);
                         });
                         break;
@@ -310,8 +309,8 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 6:
-                        urlName = '货品管理 通过货品id查询货品';
-                        req = autoUrl(req, '/goods/{id}', " GET", function (json) {
+                        urlName = '货品管理 软删除多个或单个数据';
+                        req = autoUrl(req, '/goods/deleteOfSoft', " POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -339,7 +338,7 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = 'RF管理-加载RF页面';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/user/page', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -361,13 +360,164 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '作业区管理-加载作业区管理页面';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/locations/page', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 1:
                         urlName = '新增';
+                        req = autoUrl(req, '/locations', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '编辑';
+                        req = autoUrl(req, '/locations', "PUT", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '查看';
                         req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 4:
+                        urlName = '删除';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 5:
+                        urlName = '库位名称不允许重复';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
+                }
+                break;
+             case 'warehouseConfiguration':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '仓库配置-加载仓库配置页面';
+                        req = autoUrl(req, '/arehouse/page', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '编辑';
+                        req = autoUrl(req, '/arehouse', "PUT", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '新增';
+                        req = autoUrl(req, '/arehouse', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '通过client_id查询部分仓库的信息(被客户id绑定的)';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 4:
+                        urlName = '删除';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 5:
+                        urlName = '库位名称不允许重复';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 6:
+                        urlName = '库位名称不允许重复';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 7:
+                        urlName = '库位名称不允许重复';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 8:
+                        urlName = '库位名称不允许重复';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 9:
+                        urlName = '软删除多个或单个数据';
+                        req = autoUrl(req, '/arehouse/deleteOfSoft', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
+
+                }
+                break;
+             case 'startReceiving':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '开始收货-加载开始收货页面';
+                        req = autoUrl(req, '/mfunrkDoc', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '编辑';
+                        req = autoUrl(req, '/arehouse', "PUT", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '编辑';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '查看';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 4:
+                        urlName = '删除';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 5:
+                        urlName = '库位名称不允许重复';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
+                }
+                break;
+            case 'inputOperation':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '入库操作-加载入库操作页面';
+                        req = autoUrl(req, '/mfunrkDoc', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '编辑';
+                        req = autoUrl(req, '/arehouse', "PUT", function (json) {
                             res.send(json);
                         });
                         break;
@@ -400,7 +550,6 @@ router.param('_url', function (req, res, next, url) {
                 }
                 break;
         }
-
         console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + req.body.url);
         next();
     }

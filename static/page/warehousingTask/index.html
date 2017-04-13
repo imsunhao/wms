@@ -721,8 +721,7 @@
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
-
-    post(warehousingTask);
+    post(warehousingTask, warehousingTask.option);
     function post(obj, option) {
         obj.showLoading = true;
 
@@ -731,7 +730,7 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/data/inputOption/" + option;
+        url = "/route/warehousingTask/0";
         /*</prod>*/
 
         $.ajax(url, {
@@ -745,13 +744,14 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                warehousingTask.$data.warehousingTask = json;
+                console.log(json);
+                //warehousingTask.$data.warehousingTask = json;
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
-    }          //TODO 获取入库任务主页面
+    }          //TODO 入库任务分页查询接口
     function changeDate(date) {
         return dateFormat(new Date(date), 'MM-dd hh:mm');
     }
@@ -794,6 +794,7 @@
             }
         }
     }
+</script>
 </script>
 
 
