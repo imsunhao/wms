@@ -709,7 +709,12 @@
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
-    post(goodsManage, goodsManage.option);
+    //post(goodsManage, goodsManage.option);
+    postDelete(goodsManage ,{
+        "ids": [
+        1,2,3
+         ]
+    });
     function post(obj, option) {
         obj.showLoading = true;
 
@@ -739,7 +744,99 @@
                 obj.showLoading = false;
             }
         });
-    }                       //TODO 货品管理分页查询接口(测试完成)
+    }                       //TODO 0 货品管理分页查询接口(测试完成)
+    function postEdit(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/goodsManage/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/goodsManage/1";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                console.log(json);
+               //goodsManage.goodsManage = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                       //TODO 1 货品管理更新/编辑接口(测试)
+    function postAdd(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/goodsManage/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/goodsManage/2";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                console.log(json);
+                //goodsManage.goodsManage = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                       //TODO 2 货品管理新增接口(测试完成)
+    function postDelete(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "../../hock/goodsManage/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/goodsManage/6";//post
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                console.log(json);
+                //goodsManage.goodsManage = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                       //TODO 6 货品删除接口(测试)
+
+
     function postRuUserName(obj, option) {
         obj.showLoading = true;
 

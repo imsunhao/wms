@@ -667,8 +667,8 @@
         /**
             *   1 更新/编辑货品 PUT /goods
          *      参数
-         *      {
-         *          "bgGoodsId": 2,
+                {
+                    "bgGoodsId": 2,
                     "bgGoodsNo": "string",
                     "bgGoodsName": "string",
                     "bgNameJc": "string",
@@ -687,7 +687,16 @@
                     "bgCreatetime": "2017-04-07T00:51:41.219Z",
                     "bgRemarks": "string",
                     "bgGoodsGg": "string"
-         *      }
+                    "baseDws": [
+                            {
+                              "bdDwId": 0,
+                              "bdName": "string",
+                              "bdStatus": 0,
+                              "bdIsdel": true,
+                              "bdCreatetime": "2017-04-13T08:23:56.505Z"
+                            }
+                     ]
+              }
          *      参数说明
                     bgGoodsId       货品id
                     bgGoodsNo       货品编号
@@ -708,6 +717,17 @@
                     bgCreatetime    创建时间
                     bgRemarks       备注
                     bgGoodsGg       规格
+                    baseDws[
+                    {
+                      bdDwId        单位id
+                      bdName        单位名称
+                      bdStatus      1整箱单位 2散支单位
+                      bdIsdel       0软删除 1可用
+                      bdCreatetime  创建时间
+                    }
+                    ]
+
+
             **/
         /**
          *   2 新增货品 POST /goods/add
@@ -731,6 +751,15 @@
                 "bgCreatetime": "2017-04-07T03:05:33.291Z",
                 "bgRemarks": "string",
                 "bgGoodsGg": "string"
+                "baseDws": [
+                            {
+                              "bdDwId": 0,
+                              "bdName": "string",
+                              "bdStatus": 0,
+                              "bdIsdel": true,
+                              "bdCreatetime": "2017-04-13T08:23:56.505Z"
+                            }
+                     ]
          *  }
          *      参数说明
                 bgGoodsNo       货品编号
@@ -751,6 +780,15 @@
                 bgCreatetime    创建时间
                 bgRemarks       备注
                 bgGoodsGg       规格
+                baseDws[
+                {
+                  bdDwId        单位id
+                  bdName        单位名称
+                  bdStatus      1整箱单位 2散支单位
+                  bdIsdel       0软删除 1可用
+                  bdCreatetime  创建时间
+                }
+                ]
          */
         /**
          *   3 货品管理 通过客户id查询一些货品数据 GET /goods/findByClientId/{client_id}
@@ -768,7 +806,7 @@
          *  {
          *      "id": 0,
                 "ids": [
-                     1
+                     1,2
                 ]
          *  }
          *  参数说明：
