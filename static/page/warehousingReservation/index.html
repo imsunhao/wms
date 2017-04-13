@@ -1081,6 +1081,8 @@
         /*</debug>*/
         post(this, this.option);
     }, {deep: true});
+
+
     post(warehousingReservation, warehousingReservation.option);
     function post(obj, option) {
         obj.showLoading = true;
@@ -1141,6 +1143,7 @@
             }
         });
     }    // TODO 入库预约分页查询接口(测试通过)
+
     function postDelete(obj, option) {
         //TODO 删除后重新post
         if (option.id.length < 1)return;

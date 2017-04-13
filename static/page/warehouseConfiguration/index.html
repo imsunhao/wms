@@ -728,50 +728,7 @@
    // post(warehouseConfiguration, warehouseConfiguration.option);
 
 
-    //post(warehouseConfiguration,warehouseConfiguration.option);//TODO 分页查询
-//       postAdd(warehouseConfiguration, {
-//           "baName": "23221",
-//           "baAddr": "122",
-//           "baScity": "122",
-//           "baScontacts": "string",
-//           "baPhone": "string",
-//           "baAcreage": "string",
-//           "baCtype": "string",
-//           "baHumidity": "string",
-//           "baFax": "string",
-//           "baPostoffice": "string",
-//           "baIsti": 0,
-//           "baStatus": 0,
-//           "baClientId": 0,
-//           "baRemarks": "string",
-//           "baCreatetime": "2017-04-06T06:05:11.376Z",
-//           "baPgroupinfo": "string",
-//           "arehouseKqs": [
-//               {
-//                   "baqKqId": 8,
-//                   "baqArehouseId": 0,
-//                   "baqKqName": "string",
-//                   "baqIsdel": 0,
-//                   "baqStatus": 0,
-//                   "baseRegions": [
-//                       {
-//                           "brgRegionId": 8,
-//                           "brgArehouseId": 0,
-//                           "brgRegionNo": "string",
-//                           "brgKqId": 0,
-//                           "brgRegionStatus": 0
-//                       }
-//                   ]
-//               }
-//           ]
-//      }); //TODO 测试编辑
-    postDelete(warehouseConfiguration, {
-        "id": 1,
-        "ids": [
-        1
-    ]
-
-    }); //TODO 测试删除
+    post(warehouseConfiguration,warehouseConfiguration.option );
     function post(obj, option) {
         obj.showLoading = true;
 
@@ -896,6 +853,5 @@
             }
         });
     }      //TODO 9 删除(测试通过)
-
 
 </script>

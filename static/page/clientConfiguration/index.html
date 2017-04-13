@@ -699,15 +699,8 @@
     //    }, {deep: true});
 
 
-   // post(clientConfiguration, clientConfiguration.option);
-    postEdit(clientConfiguration,{
-        "bcClientId": 1,
-        "bcCname": "",
-        "bcCaddr": "",
-        "bcCtel": "",
-        "bcStatus": 1,
-        "bcCjsj": ""
-    });
+    post(clientConfiguration,clientConfiguration.option);
+
     function post(obj, option) {
         obj.showLoading = true;
 
