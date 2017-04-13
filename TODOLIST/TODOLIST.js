@@ -785,15 +785,10 @@
          *  0 (RF管理主页面) 分页查询RF管理详情 POST /user/page
          * 参数
          * {
-         *    "ruUserName": "",
-              "ruLoginName": "",
-              "ruUserType": 0,
-              "ruUserZyq": "",
-              "ruStatus": 1,
-              "pageNum": 1,
-              "pageSize": 1,
-              "draw": 1
-         * }
+                "pageNum": 1,
+                "pageSize": 1,
+                "draw": 1
+            }
          *
          * 参数说明
                 ruUserId            用户主键id

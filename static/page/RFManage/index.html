@@ -622,13 +622,14 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                RFManage.RFManage = json;
+                console.log(json);
+                RFManage.RFManage = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
-    }                       //TODO RF管理主页面
+    }                       //TODO RF管理分页查询接口(测试完成)
     function postRuUserName(obj, option) {
         obj.showLoading = true;
 
@@ -651,7 +652,8 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                RFManage.$data.role = json.data;
+                console.log(json);
+                //RFManage.$data.role = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
@@ -666,7 +668,7 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/role/page/0";//post
+        url = "/route/RFManage/0";//post
         /*</prod>*/
 
         $.ajax(url, {
@@ -680,7 +682,8 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                RFManage.$data.role = json.data;
+                console.log(json);
+                //RFManage.$data.role = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
