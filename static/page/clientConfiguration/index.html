@@ -709,7 +709,7 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/client/0";//post
+        url = "/route/clientConfiguration/0";//post
         /*</prod>*/
 
         $.ajax(url, {
@@ -723,13 +723,14 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                clientConfiguration.$data.clientConfiguration = json
+                console.log(json);
+                clientConfiguration.$data.clientConfiguration = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
-    }                       //TODO 请求 客户配置主页面
+    }                       //TODO 请求 客户配置分页查询 (测试完成)
     function postAdd(obj) {
         obj.showLoading = true;
 
