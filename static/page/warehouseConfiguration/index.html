@@ -178,18 +178,17 @@
         <div class="inner btn-nav">
 
             <el-input
-                    v-model="a"
+                    v-model="baName"
                     icon="search"
                     placeholder="仓库名称"></el-input>
             <el-input
-                    v-model="a"
+                    v-model="baScontacts"
                     icon="search"
                     placeholder="仓库负责人"></el-input>
-            <el-input
-                    v-model="a"
-                    icon="search"
-                    placeholder="仓库平面仓"></el-input>
-
+            <el-select v-model="baCtype" placeholder="请选择">
+            <el-option :value="0">平面仓</el-option>
+            <el-option :value="1">立体仓</el-option>
+            </el-select>
 
             <button @click="newInput" class="btn btn-add"><i
                     class="icon add"></i><span>新增</span>
@@ -357,7 +356,6 @@
                 <el-step title="配置仓库"></el-step>
             </el-steps>
         </div>
-
         <el-form :model="form" ref="newForm">
             <el-row>
                 <el-col :span="10">
@@ -447,7 +445,6 @@
                 </el-col>
             </el-row>
         </el-form>
-
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="warehouseManage" v-show="dialogFormActive < 1">配置仓库</el-button>
 
@@ -1196,16 +1193,14 @@
                 warehouseConfiguration: [],         //主页面 信息集合
                 multipleSelection: [],              //主页面 多选集合
                 multiSelect: false,                 //主页面 多选状态 维护
+                baName: '',                  //主页面 仓库名称    搜索
+                baScontacts: '',                 //主页面 仓库负责人  搜索
+                baCtype: '',                 //主页面 仓库平面仓  搜索
 
-                a: '',                              //主页面 仓库名称    搜索
-                a2: '',                             //主页面 仓库负责人  搜索
-                a3: '',                             //主页面 仓库平面仓  搜索
-
-                showLoading: false,                 //主页面 加载 维护
-
-                currentPage: 1,                     //分页 当前页
-                currentTotal: 1,                    //分页 总页数
-                pageSize: 10,                       //分页 分页大小
+                showLoading: false,              //主页面 加载 维护
+                currentPage: 1,                  //分页 当前页
+                currentTotal: 1,                 //分页 总页数
+                pageSize: 10,                    //分页 分页大小
 
                 formLabelWidth: '120px',            //表单 配置
 
@@ -1231,7 +1226,11 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
+                    "pageSize": this.pageSize,
+                    "baName": this.baName.trim(),
+                    "baScontacts": this.baScontacts.trim(),
+                    "baCtype": this.baCtype.trim()
+
                 }
             },           //主页面 post 0
         },
@@ -1374,7 +1373,13 @@
                 /*</debug>*/
                 post(this, this.option);
             },
-            baAddr: function () {
+            baScontacts : function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                post(this, this.option);
+            },
+            baCtype : function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
@@ -1519,6 +1524,6 @@
                 obj.showLoading = false;
             }
         });
-    }     //TODO 9 删除(测试通过)
-
+    }      //TODO 9 删除(测试通过)
 </script>
+
