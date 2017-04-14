@@ -733,8 +733,7 @@
         obj.showLoading = true;
 
         /*<debug>*/
-        url =
-            "../../hock/warehouseConfiguration/warehouseConfiguration.json";
+        url = "../../hock/warehouseConfiguration/warehouseConfiguration.json";
         /*</debug>*/
 
         /*<prod>*/
@@ -753,7 +752,9 @@
             },
             success: function (json) {
                 console.log(json);
-                warehouseConfiguration.warehouseConfiguration = json.data;
+                obj.warehouseConfiguration = json.data;
+                obj.currentTotal=json.recordsFiltered;
+
             },
             complete: function () {
                 obj.showLoading = false;
