@@ -152,7 +152,19 @@ router.param('_url', function (req, res, next, url) {
             case 'warehousingReservation':
                 switch (parseInt(req.params._status)) {
                     case 0:
-                        urlName = '入库预约-加载入库单号';
+                        urlName = '入库预约-新增-入库预约';
+                        req = autoUrl(req, '/mfunrkRwDoc/add', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '入库预约-新增-入库单';
+                        req = autoUrl(req, '/mfunrkDoc/add', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 7:
+                        urlName = '入库预约-查询-入库单';
                         req = autoUrl(req, '/mfunrkDoc', "POST", function (json) {
                             res.send(json);
                         });
@@ -398,7 +410,7 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
-             case 'warehouseConfiguration':
+            case 'warehouseConfiguration':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '仓库配置-加载仓库配置页面';
@@ -436,25 +448,25 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-                      case 6:
+                    case 6:
                         urlName = '库位名称不允许重复';
                         req = autoUrl(req, '', "POST", function (json) {
                             res.send(json);
                         });
                         break;
-                      case 7:
+                    case 7:
                         urlName = '库位名称不允许重复';
                         req = autoUrl(req, '', "POST", function (json) {
                             res.send(json);
                         });
                         break;
-                      case 8:
+                    case 8:
                         urlName = '库位名称不允许重复';
                         req = autoUrl(req, '', "POST", function (json) {
                             res.send(json);
                         });
                         break;
-                      case 9:
+                    case 9:
                         urlName = '软删除多个或单个数据';
                         req = autoUrl(req, '/arehouse/deleteOfSoft', "POST", function (json) {
                             res.send(json);
@@ -462,10 +474,9 @@ router.param('_url', function (req, res, next, url) {
                         break;
 
 
-
                 }
                 break;
-             case 'startReceiving':
+            case 'startReceiving':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '开始收货-加载开始收货页面';

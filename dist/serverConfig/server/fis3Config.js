@@ -38,7 +38,7 @@
  //        运行前，先删除 dist 文件夹下 public 与 views
 --------------------------------
 
- cd E:\work\02\wms\
+ cd C:\project\work\12
 
  fis3 release test -d ./dist/public -wl
 
@@ -47,7 +47,7 @@
 打开一个新的 cmd 窗口
 ----
 
- cd E:\work\02\wms\dist
+ cd C:\project\work\12\dist
 
  fis3 release -d ../server -wl
 
