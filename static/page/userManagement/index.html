@@ -950,8 +950,8 @@
                     };
                     json.data[i].ruUserType = ruUserType[json.data[i].ruUserType];
                 }
-                userManagement.$data.userManagement = json.data;
-                userManagement.$data.currentTotal = json.recordsFiltered;
+                obj.$data.userManagement = json.data;
+                obj.$data.currentTotal = json.recordsFiltered;
             },
             complete: function () {
                 obj.showLoading = false;
