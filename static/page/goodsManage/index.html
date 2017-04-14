@@ -541,7 +541,9 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
+                    "pageSize": this.pageSize,
+                    "bgGoodsName":this.bgGoodsName.trim(),
+                    "bgGoodsNo":this.bgGoodsNo.trim()
                 }
             },           //主页面 post 0
         },
@@ -687,13 +689,13 @@
 
         },
         watch: {
-            Name: function () {
+            bgGoodsName: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
                 post(this, this.option);
             },
-            Addr: function () {
+            bgGoodsNo: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
@@ -734,7 +736,8 @@
             },
             success: function (json) {
                 console.log(json);
-               goodsManage.goodsManage = json.data;
+                obj.$data.goodsManage = json.data;
+                obj.$data.currentTotal = json.recordsFiltered;
             },
             complete: function () {
                 obj.showLoading = false;

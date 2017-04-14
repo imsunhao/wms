@@ -184,7 +184,11 @@
             <el-input
                     v-model="ruUserZyq"
                     icon="search"
-                    placeholder="作业区"></el-input>
+                    placeholder="主要作业区"></el-input>
+            <el-input
+                    v-model="ruUserZyq"
+                    icon="search"
+                    placeholder="次要作业区"></el-input>
             <button
                     class="btn"
                     v-show="multiSelect&&multipleSelection.length==1"
@@ -446,7 +450,9 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
+                    "pageSize": this.pageSize,
+                    "ruLoginName":this.ruLoginName.trim(),
+                    "ruUserZyq":this.ruUserZyq.trim()
                 }
             },           //主页面 post 0
         },
@@ -577,13 +583,13 @@
 
         },
         watch: {
-            Name: function () {
+            ruLoginName: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
                 post(this, this.option);
             },
-            Addr: function () {
+            ruUserZyq: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
@@ -623,7 +629,8 @@
             },
             success: function (json) {
                 console.log(json);
-                RFManage.RFManage = json.data;
+                obj.$data.RFManage = json.data;
+                obj.$data.currentTotal = json.recordsFiltered;
             },
             complete: function () {
                 obj.showLoading = false;

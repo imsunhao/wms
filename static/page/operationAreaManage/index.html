@@ -331,9 +331,7 @@
                 operationAreaManage: [],      //主页面 信息集合
                 multipleSelection: [],           //主页面 多选集合
                 multiSelect: false,              //主页面 多选状态 维护
-
                 blsName: '',                  //TODO 主页面 作业区名称    搜索
-
                 showLoading: false,              //主页面 加载 维护
 
                 currentPage: 1,                  //分页 当前页
@@ -367,7 +365,8 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
+                    "pageSize": this.pageSize,
+                    "blsName":this.blsName.trim()
                 }
             },           //主页面 post 0
         },
@@ -495,18 +494,13 @@
 
         },
         watch: {
-            Name: function () {
-                /*<debug>*/
-                console.log(this.option);
-                /*</debug>*/
-                post(this, this.option);
-            },
-            Addr: function () {
+            blsName: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
                 post(this, this.option);
             }
+
         }
     });
 
@@ -544,7 +538,8 @@
             },
             success: function (json) {
                     console.log(json);
-                operationAreaManage.operationAreaManage = json.data;
+                obj.$data.operationAreaManage = json.data;
+                obj.$data.currentTotal = json.recordsFiltered;
             },
             complete: function () {
                 obj.showLoading = false;
