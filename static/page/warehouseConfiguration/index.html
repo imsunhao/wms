@@ -178,18 +178,17 @@
         <div class="inner btn-nav">
 
             <el-input
-                    v-model="a"
+                    v-model="baName"
                     icon="search"
                     placeholder="仓库名称"></el-input>
             <el-input
-                    v-model="a"
+                    v-model="baScontacts"
                     icon="search"
                     placeholder="仓库负责人"></el-input>
-            <el-input
-                    v-model="a"
-                    icon="search"
-                    placeholder="仓库平面仓"></el-input>
-
+            <el-select v-model="baCtype" placeholder="请选择">
+            <el-option :value="0">平面仓</el-option>
+            <el-option :value="1">立体仓</el-option>
+            </el-select>
 
             <button @click="newInput" class="btn btn-add"><i
                     class="icon add"></i><span>新增</span>
@@ -414,60 +413,10 @@
                                 <el-radio class="radio" v-model="form.baCtype " :label="false">女</el-radio>
                             </el-form-item>
                         </el-col>
-                        <el-col :span="10" :offset="2">
-                            <el-form-item
-                                    label="状态"
-                                    :label-width="formLabelWidth">
-                                <el-select v-model="a" placeholder="请选择">
-                                    <el-option :value="0">普通</el-option>
-                                    <el-option :value="1">堆高车</el-option>
-                                    <el-option :value="2">高位叉车</el-option>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item
-                                    label="维护ti值"
-                                    :label-width="formLabelWidth">
-
-                                <el-radio class="radio" v-model="form.baIsti " :label="true">是</el-radio>
-                                <el-radio class="radio" v-model="form.baIsti " :label="false">否</el-radio>
-                            </el-form-item>
-                            <el-form-item
-                                    label="备注"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.Remarks              "
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="电话号"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.baPhone         "
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="邮箱"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.baAcreage            "
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                </el-carousel-item>
-                <el-carousel-item>
-                    <el-row>
-
-                    </el-row>
-                </el-carousel-item>
-                <el-carousel-item>
-                    <el-row>
-
                     </el-row>
                 </el-carousel-item>
             </el-carousel>
         </el-form>
-
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="prev" v-show="dialogFormActive">上一步</el-button>
             <el-button type="primary" @click="next" v-show="dialogFormActive < 2">下一步</el-button>
@@ -523,12 +472,11 @@
                 multipleSelection: [],           //主页面 多选集合
                 multiSelect: false,              //主页面 多选状态 维护
 
-                a: '',                  //主页面 仓库名称    搜索
-                a2: '',                 //主页面 仓库负责人  搜索
-                a3: '',                 //主页面 仓库平面仓  搜索
+                baName: '',                  //主页面 仓库名称    搜索
+                baScontacts: '',                 //主页面 仓库负责人  搜索
+                baCtype: '',                 //主页面 仓库平面仓  搜索
 
                 showLoading: false,              //主页面 加载 维护
-
                 currentPage: 1,                  //分页 当前页
                 currentTotal: 1,                 //分页 总页数
                 pageSize: 10,                    //分页 分页大小
@@ -560,7 +508,11 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
+                    "pageSize": this.pageSize,
+                    "baName": this.baName.trim(),
+                    "baScontacts": this.baScontacts.trim(),
+                    "baCtype": this.baCtype.trim()
+
                 }
             },           //主页面 post 0
         },
@@ -708,7 +660,13 @@
                 /*</debug>*/
                 post(this, this.option);
             },
-            baAddr : function () {
+            baScontacts : function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                post(this, this.option);
+            },
+            baCtype : function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
@@ -854,5 +812,4 @@
             }
         });
     }      //TODO 9 删除(测试通过)
-
 </script>
