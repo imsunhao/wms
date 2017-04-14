@@ -1,3 +1,7 @@
+<div id="aa">
+    <plan :observer="false"
+          :warehouse_id="1"></plan>
+</div>
 <style>
     .clearfix:after {
         content: " ";
@@ -17,7 +21,7 @@
         padding: 0;
     }
 
-    #plan li ,#plan .sign .sign__block{
+    #plan li, #plan .sign .sign__block {
         float: left;
         width: 50px;
         height: 50px;
@@ -89,6 +93,7 @@
     #plan .btnGroup {
 
     }
+
     #plan .btn {
         display: inline-block;
         border: 1px solid #999999;
@@ -102,45 +107,52 @@
         margin: 0;
     }
 
-    #plan .signGroup{
-        height:44px;
-        margin-top:16px;
+    #plan .signGroup {
+        height: 44px;
+        margin-top: 16px;
         font-size: 16px;
         color: #333333;
     }
-    #plan .sign{
-        margin-right:10px;
+
+    #plan .sign {
+        margin-right: 10px;
         display: inline-block;
         float: left;
     }
-    #plan .sign .sign__block{
+
+    #plan .sign .sign__block {
         width: 20px;
         height: 20px;
         border-radius: 2px;
     }
-    #plan .sign .sign__block:before{
+
+    #plan .sign .sign__block:before {
         display: none;
     }
-    #plan .sign .sign__label{
+
+    #plan .sign .sign__label {
         float: left;
-        margin-top:3px;
+        margin-top: 3px;
         margin-left: 4px;
     }
-    #plan .HouseStructureGroup{
+
+    #plan .HouseStructureGroup {
 
     }
 
-    #plan .HouseStructureGroup .HouseStructure{
+    #plan .HouseStructureGroup .HouseStructure {
         float: left;
         width: 48%;
     }
-    #plan .HouseStructureGroup .HouseStructure .el-textarea__inner{
-        height:60px;
+
+    #plan .HouseStructureGroup .HouseStructure .el-textarea__inner {
+        height: 60px;
         background: #FFFFFF;
         border: 1px solid #CCCCCC;
         border-radius: 2px;
     }
-    #plan .HouseStructureGroup .HouseStructure__label{
+
+    #plan .HouseStructureGroup .HouseStructure__label {
         float: left;
         display: block;
         width: 47%;
@@ -151,86 +163,18 @@
         border-radius: 2px;
         padding: 0 1%;
     }
-    #plan .HouseStructureGroup{
+
+    #plan .HouseStructureGroup {
         margin-top: 30px;
     }
-    #plan .btnGroup .el-row{
+
+    #plan .btnGroup .el-row {
         margin: 10px 0;
     }
 
 
 </style>
-
-<div id="plan">
-    <div class="inner" >
-        <div class="HouseStructureGroup clearfix" v-show="HouseStructure">
-            <el-input type="textarea" v-model="desc"  class="HouseStructure"></el-input>
-            <div class="HouseStructure__label">
-                <p>库区代码结构, 可点击右侧图标显示！</p>
-            </div>
-        </div>
-        <div class="signGroup">
-            <div class="sign"><span class="sign__block undefined"></span><span class="sign__label">未定义</span></div>
-            <div class="sign"><span class="sign__block storageArea"></span><span class="sign__label">存储区</span></div>
-            <div class="sign"><span class="sign__block sortingArea"></span><span class="sign__label">分拣区</span></div>
-            <div class="sign"><span class="sign__block temporaryStorageArea"></span><span class="sign__label">暂存区</span></div>
-            <div class="sign"><span class="sign__block unqualifiedArea"></span><span class="sign__label">不合格区</span></div>
-            <div class="sign"><span class="sign__block selectedState"></span><span class="sign__label">选中状态</span></div>
-            <div class="sign"><span class="sign__block aisle"></span><span class="sign__label">过道</span></div>
-        </div>
-        <div id="tag" style="max-height:350px;">
-            <ul v-for="a of list" :style="{width:listWidth}" class="clearfix">
-                <plan-block
-                        v-for="a1 of a"
-                        :clc="eClick"
-                        :dclc="eDoubleClick"
-                        :element="a1">
-                </plan-block>
-            </ul>
-        </div>
-        <p>快速选择库区</p>
-        <el-checkbox-group v-model="checkList" @change="checkListChange" class="checkList">
-            <el-checkbox :label="big.id" v-for="big of bigKuQu"></el-checkbox>
-        </el-checkbox-group>
-        <div class="btnGroup">
-            <!--TODO 按钮等待效果-->
-            <el-row>
-                <el-col :span="4"><button class="btn storageArea" @click="set(2)">设为存储区</button></el-col>
-                <el-col :span="4"><button class="btn temporaryStorageArea" @click="set(4)">设为暂存区</button></el-col>
-                <el-col :span="4"><button class="btn undefined" @click="set(1)">设为未设定区</button></el-col>
-                <!--TODO 查看所有库区是什么鬼？-->
-                <el-col :span="4"><button class="btn " @click="">查看所有库区</button></el-col>
-                <el-col :span="4"><button class="btn resetSelect" @click="resetSelect">重置选择</button></el-col>
-                <el-col :span="4"><button class="btn resetHouse" @click="resetHouse">调整仓库结构</button></el-col>
-            </el-row>
-            <el-row>
-                <el-col :span="4"><button class="btn sortingArea" @click="set(3)">设为分拣区</button></el-col>
-                <el-col :span="4"><button class="btn unqualifiedArea" @click="set(5)">设为不合格区</button></el-col>
-                <el-col :span="4" :offset="8"><button class="btn unqualifiedArea" @click="">保存修改</button></el-col>
-            </el-row>
-
-            <!--TODO 删除库区与添加库区-->
-            <!--<button class="btn deleteArea" @click="deleteArea">删除库区</button>-->
-
-            <!--TODO 显示库区区色-->
-            <!--<button class="btn resetHouse" @click="resetHouse">显示库区区色</button>-->
-        </div>
-        <el-dialog
-                title="新建入库单"
-                @open="dialogOpen"
-                v-model="dialogTableVisible">
-            <el-table :data="dialogData">
-                <el-table-column property="row" label="row" width="150"></el-table-column>
-                <el-table-column property="col" label="col" width="200"></el-table-column>
-                <el-table-column property="status" label="status"></el-table-column>
-            </el-table>
-            <div id="dialogECharts" style="width: 600px;height:400px;"></div>
-        </el-dialog>
-    </div>
-</div>
-
 <script>
-    //TODO 制作平面图解析功能
     /*<prod>*/
     console.log('线上版本');
     /*</prod>*/
@@ -280,11 +224,11 @@
             clc: '',
             dclc: ''
         },
-        methods:{
-            kuQuColor:function (kuQu) {
+        methods: {
+            kuQuColor: function (kuQu) {
                 // 适配颜色 在 http://www.bootcss.com/p/websafecolors/ 中挑选26种颜色，最好这些颜色还得兼容咱们的五种区域色 imzhangxing
                 // 待测试
-                switch (kuQu){
+                switch (kuQu) {
                     case 'A':
                         return '#000099';
                     case 'B':
@@ -344,40 +288,98 @@
         }
     });
 
-    var isdb = false;                              //维护单击与双击事件
-
-    var plan = new Vue({
-        el: '#plan',
-        prop: {},
+    Vue.component('plan', {
+        template: '\
+    <div id="plan">\
+        <div class="inner">\
+        <div class="HouseStructureGroup clearfix" v-show="HouseStructure" v-if="!observer">\
+        <el-input type="textarea" v-model="desc" class="HouseStructure"></el-input>\
+        <div class="HouseStructure__label">\
+        <p>库区代码结构, 可点击右侧图标显示！</p>\
+    </div>\
+    </div>\
+    <div class="signGroup" v-if="!observer">\
+        <div class="sign"><span class="sign__block undefined"></span><span class="sign__label">未定义</span></div>\
+        <div class="sign"><span class="sign__block storageArea"></span><span class="sign__label">存储区</span></div>\
+        <div class="sign"><span class="sign__block sortingArea"></span><span class="sign__label">分拣区</span></div>\
+        <div class="sign"><span class="sign__block temporaryStorageArea"></span><span class="sign__label">暂存区</span>\
+        </div>\
+        <div class="sign"><span class="sign__block unqualifiedArea"></span><span class="sign__label">不合格区</span>\
+        </div>\
+        <div class="sign"><span class="sign__block selectedState"></span><span class="sign__label">选中状态</span></div>\
+        <div class="sign"><span class="sign__block aisle"></span><span class="sign__label">过道</span></div>                     \
+        </div>\
+        <div id="tag" style="max-height:350px;">\
+        <ul v-for="a of list" :style="{width:listWidth}" class="clearfix">\
+        <plan-block\
+    v-for="a1 of a"\
+        :clc="eClick"\
+    :dclc="eDoubleClick"\
+    :element="a1">\
+        </plan-block>\
+        </ul>\
+        </div>\
+        <p v-if="!observer">快速选择库区</p>\
+        <el-checkbox-group v-model="checkList" @change="checkListChange" class="checkList">\
+        <el-checkbox :label="big.id" v-for="big of bigKuQu"></el-checkbox>\
+        </el-checkbox-group>\
+        <div class="btnGroup" v-if="!observer">\
+        <el-row>\
+        <el-col :span="4">\
+        <button class="btn storageArea" @click="set(2)">设为存储区</button>\
+        </el-col>\
+        <el-col :span="4">\
+        <button class="btn temporaryStorageArea" @click="set(4)">设为暂存区</button>\
+        </el-col>\
+        <el-col :span="4">\
+        <button class="btn undefined" @click="set(1)">设为未设定区</button>\
+        </el-col>\
+        <el-col :span="4">\
+        <button class="btn " @click="">查看所有库区</button>\
+        </el-col>\
+        <el-col :span="4">\
+        <button class="btn resetSelect" @click="resetSelect">重置选择</button>\
+        </el-col>\
+        <el-col :span="4">\
+        <button class="btn resetHouse" @click="resetHouse">调整仓库结构</button>\
+        </el-col>\
+        </el-row>\
+        <el-row>\
+        <el-col :span="4">\
+        <button class="btn sortingArea" @click="set(3)">设为分拣区</button>\
+        </el-col>\
+        <el-col :span="4">\
+        <button class="btn unqualifiedArea" @click="set(5)">设为不合格区</button>\
+        </el-col>\
+        <el-col :span="4" :offset="8">\
+        <button class="btn unqualifiedArea" @click="">保存修改</button>\
+        </el-col>\
+        </el-row>\
+        </div>\
+        <el-dialog\
+    :title="form.title"\
+    @open="dialogOpen"\
+    v-model="dialogTableVisible">\
+        <el-table :data="form.tableData">\
+        <el-table-column property="row" label="row" width="150"></el-table-column>\
+        <el-table-column property="col" label="col" width="200"></el-table-column>\
+        <el-table-column property="status" label="status"></el-table-column>\
+        </el-table>\
+        <div id="dialogECharts" style="width: 600px;height:400px;"></div>\
+        </el-dialog>\
+        </div>\
+        </div>\
+    ',
+        props: {observer: null, warehouse_id: null},
         data: function () {
             return {
-                desc: '',
-                // TODO 平面图 总数据信息 (未解析)
+                isdb: false,
+                desc: '',                        // TODO 平面图 总数据信息 (未解析)
                 kuQu: [[]],                      // 库区
                 bigKuQu: {},                     // 库区组
 
                 oldKuQu: [],                     // 旧的库区备份
-
-                eClick: function (e) {
-                    isdb = false;
-                    window.setTimeout(function () {
-                        if (isdb != false)return;
-                        plan.selectedKuQu(e);
-                    }, 300);
-                },      // 单击库区 选中
-                eDoubleClick: function (e) {
-                    //TODO 模拟弹出层 完整版
-                    isdb = true;
-//                    console.log(e);
-                    plan.$data.dialogData = [e];
-//                    console.log(plan.$data.dialogData);
-                    plan.$data.dialogTableVisible = true;
-                },// 双击库区 查看详细信息
-                dialogData: {
-                    row: 0,
-                    col: 0,
-                    status: 0
-                },               // 弹出层 基础数据
+                form: this.new_form(),           // 弹出层 基础数据
                 dialogTableVisible: false,       // 弹出层 维护
                 dialogECharts: {
                     title: {
@@ -417,6 +419,7 @@
                         }
                     ]
                 },            // 弹出层 图表
+
                 checkList: [],                   // 快捷多选 维护
                 selected: [],                    // 被选中的库区
                 HouseStructure: false            // 库区结构
@@ -431,7 +434,7 @@
                 var col = 1;
                 var step = {};
 
-                var ifAisle=false;
+                var ifAisle = false;
 
                 for (var i = 0; i < this.desc.length; i++) {
                     switch (this.desc[i]) {
@@ -440,17 +443,17 @@
                             break;
                         case '\n':      //换行
                             rRow++;
-                            if(!ifAisle){
+                            if (!ifAisle) {
 
-                            }else {
+                            } else {
                                 row++;
-                                ifAisle=false;
+                                ifAisle = false;
                             }
                             col = 1;
                             obj.push([]);
                             break;
                         default:        //仓库
-                            ifAisle=true;
+                            ifAisle = true;
                             if (typeof kuQu[this.desc[i]] == 'undefined') {
                                 kuQu[this.desc[i]] = {color: '', src: [], id: this.desc[i].toUpperCase()};
                             }
@@ -460,7 +463,7 @@
                                 statusColor: [false, true, false, false, false, false],
                                 status: 1,
 //                                id: kuQu[this.desc[i]].id + kuQu[this.desc[i]].src.length,
-                                id: kuQu[this.desc[i]].id + (row+1)+'-'+(col-1),
+                                id: kuQu[this.desc[i]].id + (row + 1) + '-' + (col - 1),
 //                                id: (row+1) + '-' + (col-1) + '-' + kuQu[this.desc[i]].id
                                 click: function () {
                                     return this;
@@ -494,13 +497,14 @@
                 }
             },
             dialogOpen: function () {
+                var obj = this;
                 Vue.nextTick(function () {
                     var myChart = echarts.init(document.getElementById('dialogECharts'));
-                    myChart.setOption(plan.$data.dialogECharts);
+                    myChart.setOption(obj.$data.dialogECharts);
                 });
             },
             checkListChange: function () {
-                resetSelectC(this.kuQu);
+                this.resetSelectC(this.kuQu);
                 this.selected = [];
                 for (var b = 0; b < this.checkList.length; b++) {
                     var step = this.checkList[b].toLowerCase();
@@ -515,11 +519,24 @@
                 if (e.select) {
                     this.selected.push(e);
                 } else {
-                    remove(e,this.selected);
+                    (function (obj, data) {
+                        for (var i = 0; i < data.length; i++) {
+                            var temp = data[i];
+                            if (!isNaN(obj)) {
+                                temp = i;
+                            }
+                            if (temp == obj) {
+                                for (var j = i; j < data.length; j++) {
+                                    data[j] = data[j + 1];
+                                }
+                                data.pop();
+                            }
+                        }
+                    })(e, this.selected);
                 }
             },
             resetSelect: function () {
-                resetSelectC(this.kuQu);
+                this.resetSelectC(this.kuQu);
                 this.checkList = [];
                 this.selected = [];
             },
@@ -536,99 +553,146 @@
             deleteArea: function () {
 
             },
+
+            eClick: function (e) {
+                var obj = this;
+                obj.isdb = false;
+                window.setTimeout(function () {
+                    if (obj.isdb != false)return;
+                    obj.selectedKuQu(e);
+                }, 300);
+            },      // 单击库区 选中
+            eDoubleClick: function (e) {
+                //TODO 模拟弹出层 完整版
+                this.isdb = true;
+                var obj = this;
+//                    console.log(e);
+                if (this.selected.length < 2) {
+                    obj.$data.form.tableData = [e];
+                    obj.$data.form.title = e.id;
+                } else {
+                    obj.$data.form.tableData = this.selected;
+                    obj.$data.form.title = '选中区域信息';
+                }
+                obj.$data.dialogTableVisible = true;
+            },// 双击库区 查看详细信息
+
             resetHouse: function () {
                 this.HouseStructure = !this.HouseStructure;
+            },
+            resetSelectC: function (kuQu) {
+                for (var b = 0; b < kuQu.length; b++) {
+                    for (var i = 0; i < kuQu[b].length; i++) {
+                        kuQu[b][i].select = false;
+                    }
+                }
+            },
+
+            new_form: function () {
+                return {
+                    title: '查看\tA1-1',
+                    tableData: this.new_tableData()
+                }
+            },
+
+            new_tableData: function () {
+                return {
+                    row: 0,
+                    col: 0,
+                    status: 0
+                }
+            },
+            init: function () {
+                var obj = this;
+                var complie = 0;                                //统计页面是否全部完成
+                var end = 1;
+                app.$data.fullscreenLoading = true;             //显示加载
+
+                function Loading() {
+                    complie++;
+                    if (complie >= end) {
+                        app.$data.fullscreenLoading = false; //结束加载
+                    }
+                }
+
+                //------------------------- 加载 kuQu      -----------------------
+
+                (function () {
+                    /*<debug>*/
+                    url = 'hock/warehouse/id.json';
+                    /*</debug>*/
+
+                    /*<prod>*/
+                    // TODO 配置 kuQu 获取地址
+                    url = 'hock/warehouse/id';
+                    /*</prod>*/
+
+                    $.ajax(url, {
+                        type: "GET",
+                        data: {},
+                        error: function () {
+                        },
+                        success: function (json) {
+                            obj.$data.desc = json.desc;
+                            setTimeout(function () {
+                                (function (json) {
+                                    for (var i = 0; i < json.length; i++) {
+                                        for (var b = 0; b < json[i].length; b++) {
+                                            if (typeof obj.$data.kuQu[i][b] === 'undefined') continue;
+                                            obj.$data.kuQu[i][b].row = json[i][b].row;
+                                            obj.$data.kuQu[i][b].col = json[i][b].col;
+                                            obj.$data.kuQu[i][b].statusColor = json[i][b].statusColor;
+                                            obj.$data.kuQu[i][b].status = json[i][b].status;
+                                            obj.$data.kuQu[i][b].select = json[i][b].select;
+                                        }
+                                    }
+                                })(json.kuQu);
+                                obj.$data.oldKuQu = json.kuQu;
+                            }, 0);
+                        },
+                        complete: function () {
+                            Loading();
+                        }
+                    });
+                })();
+
+                //------------------------- 是否启用 观察模式-----------------------
+                if (this.observer) obj.$data.observer = true;
             }
         },
+        mounted: function () {
+
+            /*<debug>*/
+            console.log(this.observer, this.warehouse_id);
+            /*</debug>*/
+            if(this.warehouse_id) this.init();
+        },
         watch: {
-            desc:function () {
-                if(plan.$data.oldKuQu.length!=0){
+            desc: function () {
+                var obj = this;
+                if (this.$data.oldKuQu.length != 0) {
                     setTimeout(function () {
-                        reset(plan.$data.oldKuQu);
-                    },0);
+                        (function (json) {
+                            for (var i = 0; i < json.length; i++) {
+                                for (var b = 0; b < json[i].length; b++) {
+                                    if (typeof obj.$data.kuQu[i][b] === 'undefined') continue;
+                                    obj.$data.kuQu[i][b].row = json[i][b].row;
+                                    obj.$data.kuQu[i][b].col = json[i][b].col;
+                                    obj.$data.kuQu[i][b].statusColor = json[i][b].statusColor;
+                                    obj.$data.kuQu[i][b].status = json[i][b].status;
+                                    obj.$data.kuQu[i][b].select = json[i][b].select;
+                                }
+                            }
+                        })(obj.$data.oldKuQu);
+                    }, 0);
                 }
             }
         }
     });
 
-    //TODO 工具函数调整
-    function resetSelectC(kuQu) {
-        for (var b = 0; b < kuQu.length; b++) {
-            for (var i = 0; i < kuQu[b].length; i++) {
-                kuQu[b][i].select = false;
-            }
-        }
-    }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-                }
-                data.pop();
-            }
-        }
-    }
-    function addId() {
-        var complie = 0;                                //统计页面是否全部完成
-        var end = 1;
-        app.$data.fullscreenLoading = true;             //显示加载
-
-        function Loading() {
-            complie++;
-            if (complie >= end) {
-                app.$data.fullscreenLoading = false; //结束加载
-            }
-        }
-
-        //------------------------- 加载 kuQu-----------------------
-        (function () {
-            /*<debug>*/
-            url='hock/warehouse/id.json';
-            /*</debug>*/
-
-            /*<prod>*/
-            // TODO 配置 kuQu 获取地址
-            url='hock/warehouse/id';
-            /*</prod>*/
-
-            $.ajax(url, {
-                type: "GET",
-                data: {},
-                error: function () {
-                },
-                success: function (json) {
-                    plan.$data.desc = json.desc;
-                    setTimeout(function () {
-                        reset(json.kuQu);
-                        plan.$data.oldKuQu = json.kuQu;
-                    },0);
-                },
-                complete: function () {
-                    Loading();
-                }
-            });
-        })();
-    }
-    function reset(json) {
-        for(var i=0;i<json.length;i++)
-        {
-            for (var b=0;b<json[i].length;b++){
-                if(typeof plan.$data.kuQu[i][b]=='undefined') continue;
-                plan.$data.kuQu[i][b].row = json[i][b].row;
-                plan.$data.kuQu[i][b].col = json[i][b].col;
-                plan.$data.kuQu[i][b].statusColor = json[i][b].statusColor;
-                plan.$data.kuQu[i][b].status = json[i][b].status;
-                plan.$data.kuQu[i][b].select = json[i][b].select;
-            }
-        }
-    }
-
-    addId(); //启用加载
-    // JSON.stringify(plan.$data.kuQu);
-
+    var vm = new Vue({
+        el: '#aa'
+    })
 </script>
+
+
