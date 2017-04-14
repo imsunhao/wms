@@ -400,7 +400,85 @@
             </el-button>
         </div>
     </el-dialog>
+    <el-dialog
+            v-model="dialogFormVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">{{form.title}}</span>
+        </div>
+        <el-form :model="form" ref="newForm">
+            <el-carousel
+                    ref="carousel"
+                    :autoplay="false"
+                    arrow="never"
+                    indicator-position="none"
+                    height="55vh">
+                <el-carousel-item>
+                    <el-row>
+                        <h3>基础信息</h3>
+                        <el-form-item
+                                label="角色名称"
+                                :label-width="formLabelWidth">
+                            <el-input
+                                    v-model.number="form.rrName       "
+                                    auto-complete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item
+                                label="备注"
+                                :label-width="formLabelWidth">
+                            <el-input
+                                    v-model.number="form.rrRemarks              "
+                                    auto-complete="off"></el-input>
+                        </el-form-item>
+                    </el-row>
+                    <el-row>
+                        <h3>配置仓库</h3>
+                        <el-checkbox-group v-model="form.arehouseIds">
+                            <el-checkbox :label="city.baName" :value="city.baArehouseId"
+                                         v-for="city in arehouseManagement"></el-checkbox>
+                        </el-checkbox-group>
+                    </el-row>
+                    <el-row>
+                        <h3>配置客户</h3>
+                        <el-radio v-for="city in clientManagement" v-model="form.bcClientId" :label="city.bcClientId">
+                            {{city.bcCname}}
+                        </el-radio>
+                    </el-row>
+                    <el-row>
+                        <h3>是否启用</h3>
+                        <el-radio class="radio" v-model="form.rrStatus" :label="1">是</el-radio>
+                        <el-radio class="radio" v-model="form.rrStatus" :label="0">否</el-radio>
+                    </el-row>
+                </el-carousel-item>
+                <el-carousel-item>
+                    <h3>配置菜单权限</h3>
+                    <el-row>
+                        <el-col :span="24"
+                                style="overflow: auto; max-height:500px">
+                            <el-tree
+                                    ref="dataBaseMenu"
+                                    :data="dataBaseMenu"
+                                    node-key="id"
+                                    show-checkbox
+                                    accordion
+                                    :expand-on-click-node="true"
+                                    :render-content="renderContent">
+                            </el-tree>
+                        </el-col>
+                    </el-row>
+                </el-carousel-item>
+            </el-carousel>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="prev" v-show="dialogFormActive">上一步</el-button>
+            <el-button type="primary" @click="next" v-show="dialogFormActive < 1">下一步</el-button>
+            <el-button type="primary" @click="submit" :loading="submitLoading" v-show="dialogFormActive >= 1">保存
+            </el-button>
+        </div>
+    </el-dialog>
 </div>
+
+
+
 <script>
     var form = function () {
         return {
