@@ -2,4 +2,19 @@
 
 /output
 
-/components
+.idea/
+
+DOC/
+
+UI/
+
+dist/log/
+dist/public/
+dist/views/
+dist/serverConfig/
+
+node_modules
+
+test/
+
+server/
