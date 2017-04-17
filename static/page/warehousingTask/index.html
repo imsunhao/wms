@@ -726,7 +726,7 @@
         obj.showLoading = true;
 
         /*<debug>*/
-        url = "/hock/warehousingTask/warehousingTask.json";
+        url = "/hock/warehousingTask/page.json";
         /*</debug>*/
 
         /*<prod>*/
@@ -745,7 +745,7 @@
             },
             success: function (json) {
                 console.log(json);
-                //warehousingTask.$data.warehousingTask = json;
+               obj.$data.$data.warehousingTask = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
