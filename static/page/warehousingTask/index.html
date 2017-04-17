@@ -745,7 +745,8 @@
             },
             success: function (json) {
                 console.log(json);
-               obj.$data.$data.warehousingTask = json.data;
+                obj.$data.warehousingTask = json.data;
+                obj.$data.currentTotal = json.recordsFiltered;
             },
             complete: function () {
                 obj.showLoading = false;
