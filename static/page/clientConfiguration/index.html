@@ -725,7 +725,7 @@
             },
             success: function (json) {
                 console.log(json);
-                clientConfiguration.$data.clientConfiguration = json.data;
+                obj.$data.clientConfiguration = json.data;
                 obj.$data.currentTotal = json.recordsFiltered;
 
             },

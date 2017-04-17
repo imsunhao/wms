@@ -1,32 +1,33 @@
-[
-  {
-    "bcClientId":"客户id",
-    "bcCname":"客户名称",
-    "bcCaddr":"客户地址",
-    "bcCtel":"联系方式",
-    "bcStatus":"状态0 软删除 1 可用",
-    "bcCjsj":"创建时间"
-  },
-   {
-    "bcCname":"李四",
-    "bcCaddr":"山东聊城",
-    "bcCtel":"13056420968",
-    "bcStatus":1,
-    "bcCjsj":"2016-09-02 19:52:10"
-  },
-   {
-    "bcCname":"王五",
-    "bcCaddr":"山东济南章丘",
-    "bcCtel":"13056420968",
-    "bcStatus":0,
-    "bcCjsj":"2016-09-02 19:52:10"
-  },
-   {
-    "bcCname":"赵六",
-    "bcCaddr":"山东济南",
-    "bcCtel":"13056420968",
-    "bcStatus":0,
-    "bcCjsj":"2016-09-02 19:52:10"
-  }
-
-]
+{
+  "data":[
+    {
+      "bcClientId":"客户id",
+      "bcCname":"客户名称",
+      "bcCaddr":"客户地址",
+      "bcCtel":"联系方式",
+      "bcStatus":"状态0 软删除 1 可用",
+      "bcCjsj":"创建时间"
+    },
+    {
+      "bcCname":"李四",
+      "bcCaddr":"山东聊城",
+      "bcCtel":"13056420968",
+      "bcStatus":1,
+      "bcCjsj":"2016-09-02 19:52:10"
+    },
+    {
+      "bcCname":"王五",
+      "bcCaddr":"山东济南章丘",
+      "bcCtel":"13056420968",
+      "bcStatus":0,
+      "bcCjsj":"2016-09-02 19:52:10"
+    },
+    {
+      "bcCname":"赵六",
+      "bcCaddr":"山东济南",
+      "bcCtel":"13056420968",
+      "bcStatus":0,
+      "bcCjsj":"2016-09-02 19:52:10"
+    }
+  ]
+}

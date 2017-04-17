@@ -662,7 +662,8 @@
             },
             success: function (json) {
                 console.log(json);
-                startReceiving.startReceiving = json.data;
+                obj.$data.startReceiving = json.data;
+                obj.$data.currentTotal = json.recordsFiltered;
             },
             complete: function () {
                 obj.showLoading = false;

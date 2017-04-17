@@ -1215,7 +1215,7 @@
         obj.showLoading = true;
 
         /*<debug>*/
-        url = "/hock/inputLedger/inputLedger.json";
+        url = "/hock/inputLedger/page.json";
         /*</debug>*/
 
         /*<prod>*/
@@ -1233,13 +1233,15 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                inputLedger.$data.inputLedger = json;
+                inputLedger.$data.inputLedger = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
     }               //TODO 入库台账的主页面
+
+
     function postDelete(obj, option) {
         //TODO 删除后重新post
         if (option.id.length < 1)return;
