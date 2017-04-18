@@ -186,8 +186,8 @@
                     icon="search"
                     placeholder="仓库负责人"></el-input>
             <el-select v-model="baCtype" placeholder="请选择">
-            <el-option :value="0">平面仓</el-option>
-            <el-option :value="1">立体仓</el-option>
+                <el-option :value="0">平面仓</el-option>
+                <el-option :value="1">立体仓</el-option>
             </el-select>
 
             <button @click="newInput" class="btn btn-add"><i
@@ -200,7 +200,7 @@
             <button
                     class="btn"
                     v-show="multiSelect&&multipleSelection.length==1"
-                    @click="multiOperationEdit">仓库配置
+                    @click="multiOperationEdit">仓库管理
             </button>
 
             <button
@@ -281,7 +281,7 @@
                                     <el-button
                                             size="small"
                                             type="primary"
-                                            @click="inlineRole(props.$index, props.row)">仓库配置
+                                            @click="inlineRole(props.$index, props.row)">仓库管理
                                     </el-button>
                                 </el-form-item>
                             </el-form>
@@ -344,6 +344,7 @@
         </div>
     </el-row>
     <el-dialog
+            size="large"
             v-model="dialogFormVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">{{form.title}}</span>
@@ -351,848 +352,126 @@
                     class="steps"
                     :space="120"
                     :active="dialogFormActive"
-                    finish-baStatus="success">
+                    finish-baStatus ="success">
                 <el-step title="基础信息"></el-step>
-                <el-step title="配置仓库"></el-step>
+                <el-step title="仓库结构"></el-step>
+                <el-step title="仓库预览"></el-step>
             </el-steps>
         </div>
         <el-form :model="form" ref="newForm">
-            <el-row>
-                <el-col :span="10">
-                    <el-form-item
-                            label="仓库名称"
-                            :label-width="formLabelWidth">
-                        <el-input
-                                v-model.number="form.baName        "
-                                auto-complete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item
-                            label="所在地市号"
-                            :label-width="formLabelWidth">
-                        <el-input
-                                v-model.number="form.baScity            "
-                                auto-complete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item
-                            label="相对湿度"
-                            :label-width="formLabelWidth">
-                        <el-date-picker
-                                v-model="form.baHumidity  "
-                                type="date"
-                                placeholder="选择日期"
-                                :picker-options="pickerOption">
-                        </el-date-picker>
-                    </el-form-item>
-                    <el-form-item
-                            label="传真"
-                            :label-width="formLabelWidth">
-                        <el-input
-                                v-model.number="form.baFax           "
-                                auto-complete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item
-                            label="邮编"
-                            :label-width="formLabelWidth">
-                        <el-input
-                                v-model.number="form.baPostoffice                  "
-                                auto-complete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item
-                            label="仓库类型"
-                            :label-width="formLabelWidth">
-                        <el-radio class="radio" v-model="form.baCtype " :label="true">男</el-radio>
-                        <el-radio class="radio" v-model="form.baCtype " :label="false">女</el-radio>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="10" :offset="2">
-                    <el-form-item
-                            label="状态"
-                            :label-width="formLabelWidth">
-                        <el-select v-model="a" placeholder="请选择">
-                            <el-option :value="0">普通</el-option>
-                            <el-option :value="1">堆高车</el-option>
-                            <el-option :value="2">高位叉车</el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item
-                            label="维护ti值"
-                            :label-width="formLabelWidth">
-
-                        <el-radio class="radio" v-model="form.baIsti " :label="true">是</el-radio>
-                        <el-radio class="radio" v-model="form.baIsti " :label="false">否</el-radio>
-                    </el-form-item>
-                    <el-form-item
-                            label="备注"
-                            :label-width="formLabelWidth">
-                        <el-input
-                                v-model.number="form.Remarks              "
-                                auto-complete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item
-                            label="电话号"
-                            :label-width="formLabelWidth">
-                        <el-input
-                                v-model.number="form.baPhone         "
-                                auto-complete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item
-                            label="邮箱"
-                            :label-width="formLabelWidth">
-                        <el-input
-                                v-model.number="form.baAcreage            "
-                                auto-complete="off"></el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row>
+            <el-carousel
+                    ref="carousel"
+                    :autoplay="false"
+                    arrow="never"
+                    indicator-position="none"
+                    height="55vh">
+                <el-carousel-item>
+                    <el-row>
+                        <el-col :span="10">
+                            <el-form-item
+                                    label="仓库名称"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.baName        "
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    label="所在地市号"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.baScity            "
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    label="相对湿度"
+                                    :label-width="formLabelWidth">
+                                <el-date-picker
+                                        v-model="form.baHumidity  "
+                                        type="date"
+                                        placeholder="选择日期"
+                                        :picker-options="pickerOption">
+                                </el-date-picker>
+                            </el-form-item>
+                            <el-form-item
+                                    label="传真"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.baFax           "
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    label="邮编"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.baPostoffice                  "
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    label="仓库类型"
+                                    :label-width="formLabelWidth">
+                                <el-radio class="radio" v-model="form.baCtype " :label="true">男</el-radio>
+                                <el-radio class="radio" v-model="form.baCtype " :label="false">女</el-radio>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                </el-carousel-item>
+            </el-carousel>
         </el-form>
         <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="warehouseManage" v-show="dialogFormActive < 1">配置仓库</el-button>
-
-            <el-button type="primary" @click="warehouseManage(true)" :loading="submitLoading"
-                       v-show="dialogFormActive >= 1">仓库预览
-            </el-button>
-
+            <el-button type="primary" @click="prev" v-show="dialogFormActive">上一步</el-button>
+            <el-button type="primary" @click="next" v-show="dialogFormActive < 2">下一步</el-button>
             <el-button type="primary" @click="submit" :loading="submitLoading"
-                       v-show="dialogFormActive >= 1">保存
+                       v-show="dialogFormActive >= 2">保存
             </el-button>
         </div>
     </el-dialog>
     <el-dialog
-            size="full"
-            v-model="dialogWarehouseVisible">
+            size="tiny"
+            v-model="dialogRoleVisible">
         <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">配置仓库</span>
+            <span class="el-dialog__title">配置角色</span>
         </div>
 
-        <plan :observer="warehouseForm.observer"
-              :warehouse_id="warehouseForm.warehouse_id"></plan>
+        <el-form :model="warehouseForm" ref="newRoleForm">
+            <el-row>
+                <el-radio v-for="city in role" v-model="warehouseForm.roleId" :label="city.rrRoleId">{{city.rrbaName}}
+                </el-radio>
+            </el-row>
+        </el-form>
 
         <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="submitWarehouse" :loading="loadingWarehouse">保存
+            <el-button type="primary" @click="submitRole" :loading="loadingWarehouse">保存
             </el-button>
         </div>
     </el-dialog>
-
 </div>
 
-<style>
-    .clearfix:after {
-        content: " ";
-        display: block;
-        height: 0;
-        clear: both;
-    }
-
-    /*IE/7/6*/
-    .clearfix {
-        *zoom: 1;
-    }
-
-    #plan ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-
-    #plan li, #plan .sign .sign__block {
-        float: left;
-        width: 50px;
-        height: 50px;
-        margin: 3px;
-        border: 1px solid #bbb;
-        color: #fff;
-        font-size: 12px;
-        line-height: 50px;
-        text-align: center;
-        position: relative;
-        border-radius: 10px;
-    }
-
-    #plan .aisle {
-        background-color: #bbb;
-        border-radius: 0;
-        border: 1px solid #fff;
-    }
-
-    #plan .aisle:before {
-        content: ' ';
-        position: absolute;
-        width: 58px;
-        height: 58px;
-        left: -3px;
-        top: -4px;
-        background-color: #ccc;
-        z-index: 3;
-    }
-
-    #plan .undefined {
-        background-color: #ccc;
-    }
-
-    #plan .storageArea {
-        background-color: #7ED321;
-    }
-
-    #plan .sortingArea {
-        background-color: #47D0B2;
-    }
-
-    #plan .temporaryStorageArea {
-        background-color: #F6A623;
-    }
-
-    #plan .unqualifiedArea {
-        background-color: #FF5066;
-    }
-
-    #plan .selectedState {
-        border: 2px solid #BD0FE1 !important;
-        margin: 2px !important;
-    }
-
-    #plan .inner {
-        margin: 0 20px;
-    }
-
-    #tag {
-        width: 100%;
-        overflow: scroll;
-    }
-
-    #plan .checkList {
-
-    }
-
-    #plan .btnGroup {
-
-    }
-
-    #plan .btn {
-        display: inline-block;
-        border: 1px solid #999999;
-        border-radius: 2px;
-        width: 120px;
-        height: 30px;
-        color: #fff;
-    }
-
-    #plan p {
-        margin: 0;
-    }
-
-    #plan .signGroup {
-        height: 44px;
-        margin-top: 16px;
-        font-size: 16px;
-        color: #333333;
-    }
-
-    #plan .sign {
-        margin-right: 10px;
-        display: inline-block;
-        float: left;
-    }
-
-    #plan .sign .sign__block {
-        width: 20px;
-        height: 20px;
-        border-radius: 2px;
-    }
-
-    #plan .sign .sign__block:before {
-        display: none;
-    }
-
-    #plan .sign .sign__label {
-        float: left;
-        margin-top: 3px;
-        margin-left: 4px;
-    }
-
-    #plan .HouseStructureGroup {
-
-    }
-
-    #plan .HouseStructureGroup .HouseStructure {
-        float: left;
-        width: 48%;
-    }
-
-    #plan .HouseStructureGroup .HouseStructure .el-textarea__inner {
-        height: 60px;
-        background: #FFFFFF;
-        border: 1px solid #CCCCCC;
-        border-radius: 2px;
-    }
-
-    #plan .HouseStructureGroup .HouseStructure__label {
-        float: left;
-        display: block;
-        width: 47%;
-        height: 58px;
-        margin-left: 2%;
-        background: #FCEFB3;
-        border: 1px solid #CCCCCC;
-        border-radius: 2px;
-        padding: 0 1%;
-    }
-
-    #plan .HouseStructureGroup {
-        margin-top: 30px;
-    }
-
-    #plan .btnGroup .el-row {
-        margin: 10px 0;
-    }
-
-
-</style>
-
 <script>
-
-    Vue.component('plan-block', {
-        render: function (h) {
-            // create kebabCase id
-            var e = this.element;
-            var click = this.clc;
-            var dClick = this.dclc;
-
-            return h('li', {
-                "class": {
-                    selectedState: e.select,
-                    aisle: e.statusColor[0],
-                    undefined: e.statusColor[1],
-                    storageArea: e.statusColor[2],
-                    sortingArea: e.statusColor[3],
-                    temporaryStorageArea: e.statusColor[4],
-                    unqualifiedArea: e.statusColor[5]
-                },
-                style: {
-                    color: this.kuQuColor(e.id[0])
-                },
-                attrs: {
-                    row: e.row,
-                    col: e.col,
-                    status: e.status
-                },
-                on: {
-                    click: function () {
-                        if (e.id == -1)return;
-                        click(e.click());
-                    },
-                    dblclick: function () {
-                        if (e.id == -1)return;
-                        dClick(e.click());
-                    }
-                }
-            }, e.id)
-        },
-        props: {
-            element: {
-                type: Object,
-                required: true
-            },
-            clc: '',
-            dclc: ''
-        },
-        methods: {
-            kuQuColor: function (kuQu) {
-                // 适配颜色 在 http://www.bootcss.com/p/websafecolors/ 中挑选26种颜色，最好这些颜色还得兼容咱们的五种区域色 imzhangxing
-                // 待测试
-                switch (kuQu) {
-                    case 'A':
-                        return '#000099';
-                    case 'B':
-                        return '#FFFFCC';
-                    case 'C':
-                        return '#990033';
-                    case 'D':
-                        return '#660066';
-                    case 'E':
-                        return '#666600';
-                    case 'F':
-                        return '#003300';
-                    case 'G':
-                        return '#006666';
-                    case 'H':
-                        return '#990066';
-                    case 'I':
-                        return '#00CCFF';
-                    case 'J':
-                        return '#3300FF';
-                    case 'K':
-                        return '#990066';
-                    case 'L':
-                        return '#330033';
-                    case 'M':
-                        return '#000033';
-                    case 'N':
-                        return '#000000';
-                    case 'O':
-                        return '#003333';
-                    case 'P':
-                        return '#00FF66';
-                    case 'Q':
-                        return '#330000';
-                    case 'R':
-                        return '#333300';
-                    case 'S':
-                        return '#660000';
-                    case 'T':
-                        return '#666633';
-                    case 'U':
-                        return '#990000';
-                    case 'V':
-                        return '#996666';
-                    case 'W':
-                        return '#999966';
-                    case 'X':
-                        return '#CC0000';
-                    case 'Y':
-                        return '#FF9900';
-                    case 'Z':
-                        return '#FFFFFF';
-                    default:
-                        return '#000'
-                }
-            }
-        }
-    });
-
-    Vue.component('plan', {
-        template: '\
-    <div id="plan">\
-        <div class="inner">\
-        <div class="HouseStructureGroup clearfix" v-show="HouseStructure" v-if="!observer">\
-        <el-input type="textarea" v-model="desc" class="HouseStructure"></el-input>\
-        <div class="HouseStructure__label">\
-        <p>库区代码结构, 可点击右侧图标显示！</p>\
-    </div>\
-    </div>\
-    <div class="signGroup" v-if="!observer">\
-        <div class="sign"><span class="sign__block undefined"></span><span class="sign__label">未定义</span></div>\
-        <div class="sign"><span class="sign__block storageArea"></span><span class="sign__label">存储区</span></div>\
-        <div class="sign"><span class="sign__block sortingArea"></span><span class="sign__label">分拣区</span></div>\
-        <div class="sign"><span class="sign__block temporaryStorageArea"></span><span class="sign__label">暂存区</span>\
-        </div>\
-        <div class="sign"><span class="sign__block unqualifiedArea"></span><span class="sign__label">不合格区</span>\
-        </div>\
-        <div class="sign"><span class="sign__block selectedState"></span><span class="sign__label">选中状态</span></div>\
-        <div class="sign"><span class="sign__block aisle"></span><span class="sign__label">过道</span></div>                     \
-        </div>\
-        <div id="tag" style="max-height:350px;">\
-        <ul v-for="a of list" :style="{width:listWidth}" class="clearfix">\
-        <plan-block\
-    v-for="a1 of a"\
-        :clc="eClick"\
-    :dclc="eDoubleClick"\
-    :element="a1">\
-        </plan-block>\
-        </ul>\
-        </div>\
-        <p v-if="!observer">快速选择库区</p>\
-        <el-checkbox-group v-model="checkList" @change="checkListChange" class="checkList">\
-        <el-checkbox :label="big.id" v-for="big of bigKuQu"></el-checkbox>\
-        </el-checkbox-group>\
-        <div class="btnGroup" v-if="!observer">\
-        <el-row>\
-        <el-col :span="4">\
-        <button class="btn storageArea" @click="set(2)">设为存储区</button>\
-        </el-col>\
-        <el-col :span="4">\
-        <button class="btn temporaryStorageArea" @click="set(4)">设为暂存区</button>\
-        </el-col>\
-        <el-col :span="4">\
-        <button class="btn undefined" @click="set(1)">设为未设定区</button>\
-        </el-col>\
-        <el-col :span="4">\
-        <button class="btn " @click="">查看所有库区</button>\
-        </el-col>\
-        <el-col :span="4">\
-        <button class="btn resetSelect" @click="resetSelect">重置选择</button>\
-        </el-col>\
-        <el-col :span="4">\
-        <button class="btn resetHouse" @click="resetHouse">调整仓库结构</button>\
-        </el-col>\
-        </el-row>\
-        <el-row>\
-        <el-col :span="4">\
-        <button class="btn sortingArea" @click="set(3)">设为分拣区</button>\
-        </el-col>\
-        <el-col :span="4">\
-        <button class="btn unqualifiedArea" @click="set(5)">设为不合格区</button>\
-        </el-col>\
-        <el-col :span="4" :offset="8">\
-        <button class="btn unqualifiedArea" @click="">保存修改</button>\
-        </el-col>\
-        </el-row>\
-        </div>\
-        <el-dialog\
-    :title="form.title"\
-    @open="dialogOpen"\
-    v-model="dialogTableVisible">\
-        <el-table :data="form.tableData">\
-        <el-table-column property="row" label="row" width="150"></el-table-column>\
-        <el-table-column property="col" label="col" width="200"></el-table-column>\
-        <el-table-column property="status" label="status"></el-table-column>\
-        </el-table>\
-        <div id="dialogECharts" style="width: 600px;height:400px;"></div>\
-        </el-dialog>\
-        </div>\
-        </div>\
-    ',
-        props: {observer: null, warehouse_id: null},
-        data: function () {
-            return {
-                isdb: false,
-                desc: '',                        // TODO 平面图 总数据信息 (未解析)
-                kuQu: [[]],                      // 库区
-                bigKuQu: {},                     // 库区组
-
-                oldKuQu: [],                     // 旧的库区备份
-                form: this.new_form(),           // 弹出层 基础数据
-                dialogTableVisible: false,       // 弹出层 维护
-                dialogECharts: {
-                    title: {
-                        text: '某站点用户访问来源',
-                        subtext: '纯属虚构',
-                        x: 'center'
-                    },
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
-                    legend: {
-                        orient: 'vertical',
-                        left: 'left',
-                        data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
-                    },
-                    series: [
-                        {
-                            name: '访问来源',
-                            type: 'pie',
-                            radius: '55%',
-                            center: ['50%', '60%'],
-                            data: [
-                                {value: 335, name: '直接访问'},
-                                {value: 310, name: '邮件营销'},
-                                {value: 234, name: '联盟广告'},
-                                {value: 135, name: '视频广告'},
-                                {value: 1548, name: '搜索引擎'}
-                            ],
-                            itemStyle: {
-                                emphasis: {
-                                    shadowBlur: 10,
-                                    shadowOffsetX: 0,
-                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                                }
-                            }
-                        }
-                    ]
-                },            // 弹出层 图表
-
-                checkList: [],                   // 快捷多选 维护
-                selected: [],                    // 被选中的库区
-                HouseStructure: false            // 库区结构
-            };
-        },
-        computed: {
-            list: function () {
-                var obj = [[]];
-                var kuQu = {};
-                var row = 0;
-                var rRow = 0;
-                var col = 1;
-                var step = {};
-
-                var ifAisle = false;
-
-                for (var i = 0; i < this.desc.length; i++) {
-                    switch (this.desc[i]) {
-                        case ' ':       //过道
-                            obj[rRow].push({id: -1, status: 0, statusColor: [true, false, false, false, false, false]});
-                            break;
-                        case '\n':      //换行
-                            rRow++;
-                            if (!ifAisle) {
-
-                            } else {
-                                row++;
-                                ifAisle = false;
-                            }
-                            col = 1;
-                            obj.push([]);
-                            break;
-                        default:        //仓库
-                            ifAisle = true;
-                            if (typeof kuQu[this.desc[i]] == 'undefined') {
-                                kuQu[this.desc[i]] = {color: '', src: [], id: this.desc[i].toUpperCase()};
-                            }
-                            step = {
-                                row: row,
-                                col: col++,
-                                statusColor: [false, true, false, false, false, false],
-                                status: 1,
-//                                id: kuQu[this.desc[i]].id + kuQu[this.desc[i]].src.length,
-                                id: kuQu[this.desc[i]].id + (row + 1) + '-' + (col - 1),
-//                                id: (row+1) + '-' + (col-1) + '-' + kuQu[this.desc[i]].id
-                                click: function () {
-                                    return this;
-                                },
-                                select: false
-                            };
-                            kuQu[this.desc[i]].src.push(step);                  //库区
-                            obj[rRow].push(step);
-                    }
-                }
-                this.bigKuQu = kuQu;
-                this.kuQu = obj;
-
-                return obj;
-            },           // list所有的储存区域
-            listWidth: function () {
-                var maxNumber = this.kuQu[0].length;
-                for (var i = 1; i < this.kuQu.length; i++) {
-                    if (this.kuQu[i].length > maxNumber)
-                        maxNumber = this.kuQu[i].length;
-                }
-                return maxNumber * 58 + 'px';
-            }       // 维护最大平面图宽度
-        },
-        methods: {
-            isAisle: function (id) {
-                if (id == -1) {
-
-                } else {
-
-                }
-            },
-            dialogOpen: function () {
-                var obj = this;
-                Vue.nextTick(function () {
-                    var myChart = echarts.init(document.getElementById('dialogECharts'));
-                    myChart.setOption(obj.$data.dialogECharts);
-                });
-            },
-            checkListChange: function () {
-                this.resetSelectC(this.kuQu);
-                this.selected = [];
-                for (var b = 0; b < this.checkList.length; b++) {
-                    var step = this.checkList[b].toLowerCase();
-                    for (var i = 0; i < this.bigKuQu[step].src.length; i++) {
-                        this.bigKuQu[step].src[i].select = true;
-                        this.selected.push(this.bigKuQu[step].src[i]);
-                    }
-                }
-            },
-            selectedKuQu: function (e) {
-                e.select = !e.select;
-                if (e.select) {
-                    this.selected.push(e);
-                } else {
-                    (function (obj, data) {
-                        for (var i = 0; i < data.length; i++) {
-                            var temp = data[i];
-                            if (!isNaN(obj)) {
-                                temp = i;
-                            }
-                            if (temp == obj) {
-                                for (var j = i; j < data.length; j++) {
-                                    data[j] = data[j + 1];
-                                }
-                                data.pop();
-                            }
-                        }
-                    })(e, this.selected);
-                }
-            },
-            resetSelect: function () {
-                this.resetSelectC(this.kuQu);
-                this.checkList = [];
-                this.selected = [];
-            },
-            set: function (number) {
-                //TODO 此处应有检查
-                for (var i = 0; i < this.selected.length; i++) {
-                    this.selected[i].statusColor[this.selected[i].status] = false;
-                    this.selected[i].statusColor[number] = true;
-                    this.selected[i].status = number;
-                }
-                //TODO 此处有应有post请求
-                this.resetSelect();
-            },
-            deleteArea: function () {
-
-            },
-
-            eClick: function (e) {
-                var obj = this;
-                obj.isdb = false;
-                window.setTimeout(function () {
-                    if (obj.isdb != false)return;
-                    obj.selectedKuQu(e);
-                }, 300);
-            },      // 单击库区 选中
-            eDoubleClick: function (e) {
-                //TODO 模拟弹出层 完整版
-                this.isdb = true;
-                var obj = this;
-//                    console.log(e);
-                if (this.selected.length < 2) {
-                    obj.$data.form.tableData = [e];
-                    obj.$data.form.title = e.id;
-                } else {
-                    obj.$data.form.tableData = this.selected;
-                    obj.$data.form.title = '选中区域信息';
-                }
-                obj.$data.dialogTableVisible = true;
-            },// 双击库区 查看详细信息
-
-            resetHouse: function () {
-                this.HouseStructure = !this.HouseStructure;
-            },
-            resetSelectC: function (kuQu) {
-                for (var b = 0; b < kuQu.length; b++) {
-                    for (var i = 0; i < kuQu[b].length; i++) {
-                        kuQu[b][i].select = false;
-                    }
-                }
-            },
-
-            new_form: function () {
-                return {
-                    title: '查看\tA1-1',
-                    tableData: this.new_tableData()
-                }
-            },
-
-            new_tableData: function () {
-                return {
-                    row: 0,
-                    col: 0,
-                    status: 0
-                }
-            },
-            init: function () {
-                var obj = this;
-                var complie = 0;                                //统计页面是否全部完成
-                var end = 1;
-                app.$data.fullscreenLoading = true;             //显示加载
-
-                function Loading() {
-                    complie++;
-                    if (complie >= end) {
-                        app.$data.fullscreenLoading = false; //结束加载
-                    }
-                }
-
-                //------------------------- 加载 kuQu      -----------------------
-
-                (function () {
-                    /*<debug>*/
-                    url = 'hock/warehouse/id.json';
-                    /*</debug>*/
-
-                    /*<prod>*/
-                    // TODO 配置 kuQu 获取地址
-                    url = 'hock/warehouse/id';
-                    /*</prod>*/
-
-                    $.ajax(url, {
-                        type: "GET",
-                        data: {},
-                        error: function () {
-                        },
-                        success: function (json) {
-                            obj.$data.desc = json.desc;
-                            setTimeout(function () {
-                                (function (json) {
-                                    for (var i = 0; i < json.length; i++) {
-                                        for (var b = 0; b < json[i].length; b++) {
-                                            if (typeof obj.$data.kuQu[i][b] === 'undefined') continue;
-                                            obj.$data.kuQu[i][b].row = json[i][b].row;
-                                            obj.$data.kuQu[i][b].col = json[i][b].col;
-                                            obj.$data.kuQu[i][b].statusColor = json[i][b].statusColor;
-                                            obj.$data.kuQu[i][b].status = json[i][b].status;
-                                            obj.$data.kuQu[i][b].select = json[i][b].select;
-                                        }
-                                    }
-                                })(json.kuQu);
-                                obj.$data.oldKuQu = json.kuQu;
-                            }, 0);
-                        },
-                        complete: function () {
-                            Loading();
-                        }
-                    });
-                })();
-
-                //------------------------- 是否启用 观察模式-----------------------
-                if (this.observer) obj.$data.observer = true;
-            }
-        },
-        mounted: function () {
-
-            /*<debug>*/
-            console.log(this.observer, this.warehouse_id);
-            /*</debug>*/
-            if (this.warehouse_id) this.init();
-        },
-        watch: {
-            desc: function () {
-                var obj = this;
-                if (this.$data.oldKuQu.length != 0) {
-                    setTimeout(function () {
-                        (function (json) {
-                            for (var i = 0; i < json.length; i++) {
-                                for (var b = 0; b < json[i].length; b++) {
-                                    if (typeof obj.$data.kuQu[i][b] === 'undefined') continue;
-                                    obj.$data.kuQu[i][b].row = json[i][b].row;
-                                    obj.$data.kuQu[i][b].col = json[i][b].col;
-                                    obj.$data.kuQu[i][b].statusColor = json[i][b].statusColor;
-                                    obj.$data.kuQu[i][b].status = json[i][b].status;
-                                    obj.$data.kuQu[i][b].select = json[i][b].select;
-                                }
-                            }
-                        })(obj.$data.oldKuQu);
-                    }, 0);
-                }
-            }
-        }
-    });
-
-
-    function form() {
+    var form = function () {
         return {
-            baArehouseId: 1,           //仓库id
+            baArehouseId: 1,          //仓库id
             title: "新建仓库",
-            baName: '',                //仓库名称
-            baAddr: '',               //仓库地址
-            baScontacts: '',          //联系人/负责人
-            baPhone: '',             //电话
-            Remarks: '',               //备注
-            baCtype: '',              //仓库类型
-            baHumidity: '',          //相对湿度
-            baPostoffice: '',         //邮编
-            baFax: '',                //传真
+            baName: '',               //仓库名称
+            baAddr : '',               //仓库地址
+            baScontacts : '',          //联系人/负责人
+            baPhone  : '',              //电话
+            Remarks: '',            //备注
+            baCtype : '',              //仓库类型
+            baHumidity  : '',           //相对湿度
+            baPostoffice : '',         //邮编
+            baFax : '',                //传真
         }
-    }               //弹出层 form 模板
-    function new_warehouseForm() {
-        return {
-            observer: false,
-            warehouse_id: 0
-        }
-    }
-
+    };               //弹出层 form 模板
 
     var warehouseConfiguration = new Vue({
         el: '#warehouseConfiguration',
         prop: {},
         data: function () {
             return {
-                warehouseConfiguration: [],         //主页面 信息集合
-                multipleSelection: [],              //主页面 多选集合
-                multiSelect: false,                 //主页面 多选状态 维护
+                warehouseConfiguration: [],      //主页面 信息集合
+                multipleSelection: [],           //主页面 多选集合
+                multiSelect: false,              //主页面 多选状态 维护
+
                 baName: '',                  //主页面 仓库名称    搜索
                 baScontacts: '',                 //主页面 仓库负责人  搜索
                 baCtype: '',                 //主页面 仓库平面仓  搜索
@@ -1202,23 +481,26 @@
                 currentTotal: 1,                 //分页 总页数
                 pageSize: 10,                    //分页 分页大小
 
-                formLabelWidth: '120px',            //表单 配置
+                formLabelWidth: '120px',         //表单 配置
 
-                form: form(),                       //新建 弹出层 信息集合
-                dialogFormActive: 0,                //新建 弹出层 steps 当前进度
-                dialogFormVisible: false,           //新建 弹出层 是否可见
-                submitLoading: false,               //新建 弹出层 提交等待
+                form: form(),                    //新建 弹出层 信息集合
+                dialogFormActive: 0,             //新建 弹出层 steps 当前进度
+                dialogFormVisible: false,        //新建 弹出层 是否可见
+                submitLoading: false,            //新建 弹出层 提交等待
 
                 pickerOption: {
                     disabledDate: function (time) {
                         return time.getTime() > Date.now();
                     }
-                },                //新建 弹出层 相对湿度选项
+                },             //新建 弹出层 相对湿度选项
 
-                dialogWarehouseVisible: false,      //仓库配置 弹出层 是否可见
-                loadingWarehouse: false,            //仓库配置 弹出层 提交等待
-                warehouse: [],                      //仓库配置 集合
-                warehouseForm: new_warehouseForm(), //仓库配置 弹出层 信息集合
+                dialogRoleVisible: false,        //仓库管理 弹出层 是否可见
+                loadingWarehouse: false,         //仓库管理 弹出层 提交等待
+                role: [],                        //仓库管理 集合
+                warehouseForm: {
+
+                },            //仓库管理 弹出层 信息集合
+
             }
         },
         computed: {
@@ -1239,29 +521,29 @@
                 this.form.title = '编辑';
                 this.form.ruUserId = row.ruUserId;
                 this.form.baName = row.baName;
-                this.form.baAddr = row.baAddr;
-                this.form.baScity = row.baScity;
-                this.form.baPhone = row.baPhone;
-                this.form.baAcreage = row.baAcreage;
-                this.form.baCtype = row.baCtype;
-                this.form.baHumidity = row.baHumidity;
-                this.form.baFax = row.baFax;
-                this.form.baPostoffice = row.baPostoffice;
-                switch (row.baStatus) {
+                this.form.baAddr  = row.baAddr ;
+                this.form.baScity  = row.baScity ;
+                this.form.baPhone   = row.baPhone  ;
+                this.form.baAcreage  = row.baAcreage ;
+                this.form.baCtype  = row.baCtype ;
+                this.form.baHumidity   = row.baHumidity  ;
+                this.form.baFax  = row.baFax ;
+                this.form.baPostoffice  = row.baPostoffice ;
+                switch (row.baStatus ) {
                     case '普通':
-                        this.form.baStatus = 0;
+                        this.form.baStatus  = 0;
                         break;
                     case '堆高车':
-                        this.form.baStatus = 1;
+                        this.form.baStatus  = 1;
                         break;
                     case '高位叉车':
-                        this.form.baStatus = 2;
+                        this.form.baStatus  = 2;
                         break;
                 }
-                this.form.baClientId = row.baClientId;
-                this.form.baIsti = row.baIsti;
+                this.form.baClientId  = row.baClientId ;
+                this.form.baIsti  = row.baIsti ;
                 this.form.Remarks = row.Remarks;
-                this.form.rubaStatus = parseInt(row.rubaStatus);
+                this.form.rubaStatus  = parseInt(row.rubaStatus );
                 this.dialogFormVisible = true;
                 this.dialogFormActive = 0;
                 Vue.nextTick(function () {
@@ -1302,29 +584,14 @@
                     warehouseConfiguration.$refs.carousel.setActiveItem(0);
                 });
             },                                              //按钮 新建入库单
-            submitWarehouse: function () {
-                var _this = this;
-                this.loadingWarehouse = true;
-
-                /*<prod>*/
-                //TODO
-                postModify(this, this.form);
-                /*</prod>*/
-                /*<debug>*/
-                setTimeout(function () {
-                    _this.loadingWarehouse = false;
-                    _this.dialogWarehouseVisible = false;
-                    _this.$notify({
-                        title: '成功',
-                        message: '仓库配置成功！',
-                        type: 'success'
-                    });
-                }, 1500);
-                /*</debug>*/
-            },                                       //新建 仓库提交
-            warehouseManage: function (observer, warehouseId) {
-                this.dialogWarehouseVisible = !this.dialogWarehouseVisible;
-            },                  //按钮 仓库配置 TODO
+            warehouseManage: function () {
+                this.form = form();
+                this.dialogFormVisible = true;
+                this.dialogFormActive = 0;
+                Vue.nextTick(function () {
+                    warehouseConfiguration.$refs.carousel.setActiveItem(0);
+                });
+            },                                       //按钮 仓库管理 TODO
 
             prev: function () {
                 this.dialogFormActive--;
@@ -1364,6 +631,26 @@
                 /*</debug>*/
             },                                                //新建 表单提交
 
+            submitRole: function () {
+                var _this = this;
+                this.loadingWarehouse = true;
+
+                /*<prod>*/
+                //TODO
+                postModify(this, this.form);
+                /*</prod>*/
+                /*<debug>*/
+                setTimeout(function () {
+                    _this.loadingWarehouse = false;
+                    _this.dialogRoleVisible = false;
+                    _this.$notify({
+                        title: '成功',
+                        message: '更换仓库管理成功！',
+                        type: 'success'
+                    });
+                }, 1500);
+                /*</debug>*/
+            },                                            //新建 表单提交
 
         },
         watch: {
@@ -1399,7 +686,7 @@
     // post(warehouseConfiguration, warehouseConfiguration.option);
 
 
-    post(warehouseConfiguration, warehouseConfiguration.option);
+    post(warehouseConfiguration,warehouseConfiguration.option );
     function post(obj, option) {
         obj.showLoading = true;
 
@@ -1424,7 +711,7 @@
             success: function (json) {
                 console.log(json);
                 obj.warehouseConfiguration = json.data;
-                obj.currentTotal = json.recordsFiltered;
+                obj.currentTotal=json.recordsFiltered;
 
             },
             complete: function () {
@@ -1462,7 +749,7 @@
                 obj.showLoading = false;
             }
         });
-    }       //TODO 1 编辑(测试通过)
+    }      //TODO 1 编辑(测试通过)
     function postAdd(obj, option) {
         obj.showLoading = true;
 
@@ -1493,7 +780,7 @@
                 obj.showLoading = false;
             }
         });
-    }        //TODO 2 新增(测试通过)
+    }      //TODO 2 新增(测试通过)
     function postDelete(obj, option) {
         obj.showLoading = true;
 
@@ -1517,8 +804,8 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-//                console.log(json);
-                warehouseConfiguration.warehouseConfiguration = json;
+                console.log(json);
+                //warehouseConfiguration.warehouseConfiguration = json.data;
             },
             complete: function () {
                 obj.showLoading = false;
@@ -1526,4 +813,3 @@
         });
     }      //TODO 9 删除(测试通过)
 </script>
-
