@@ -72,30 +72,37 @@
         },
         {
           "id":7,
+          "label": "出库任务",
+          "url":"page/outboundTask",
+          "bmMenuIcon":"aa5"
+        },
+
+        {
+          "id":8,
           "label": "挑选单据",
           "url":"page/chooseBill",
           "bmMenuIcon":"aa6"
         },
         {
-          "id":8,
+          "id":9,
           "label": "激活单据",
           "url":"page/activationBill",
           "bmMenuIcon":"aa7"
         },
         {
-          "id":9,
+          "id":10,
           "label": "出库操作",
           "url":"page/outputOperation",
           "bmMenuIcon":"a3"
         },
         {
-          "id":10,
+          "id":11,
           "label": "出库发运",
           "url":"page/outputShipment",
           "bmMenuIcon":"aa8"
         },
         {
-          "id":11,
+          "id":12,
           "label": "回收存档",
           "url":"page/recoveryArchive",
           "bmMenuIcon":"aa9"
@@ -108,7 +115,7 @@
       "children": [
         {
           "id":20,
-          "label": "库位转移",
+          "label": "库存转移",
           "url":"page/aLibraryTransfer",
           "bmMenuIcon":"d1"
         },
@@ -118,20 +125,9 @@
           "url":"page/stockTransferConfirm",
           "bmMenuIcon":"d2"
         },
-        {
-          "id":22,
-          "label": "库存调整",
-          "url":"page/stockAdjustment",
-          "bmMenuIcon":"d3"
-        },
+
         {
           "id":23,
-          "label": "库存调整确认",
-          "url":"page/stockAdjustmentConfirm",
-          "bmMenuIcon":"d4"
-        },
-        {
-          "id":24,
           "label": "库存冻结/解冻",
           "url":"page/stockFrozenThaw",
           "bmMenuIcon":"d5"
@@ -144,20 +140,20 @@
       "children": [
         {
           "id":37,
-          "label": "动碰盘点查询",
-          "url":"page/dynamicTouchInventorySelect",
+          "label": "动碰盘点",
+          "url":"page/dynamicTouchInventory",
           "bmMenuIcon":"b12"
         },
         {
           "id":38,
-          "label": "循环盘点查询",
-          "url":"page/loopInventorySelect",
+          "label": "循环盘点",
+          "url":"page/loopInventory",
           "bmMenuIcon":"b13"
         },
         {
           "id":39,
-          "label": "全面盘点查询",
-          "url":"page/comprehensiveInventorySelect",
+          "label": "全面盘点",
+          "url":"page/comprehensiveInventory",
           "bmMenuIcon":"b14"
         }
       ]
@@ -180,52 +176,61 @@
         },
         {
           "id":28,
-          "label": "动碰查询",
-          "url":"page/dynamicTouchSelect",
-          "bmMenuIcon":"b3"
-        },
-        {
-          "id":29,
           "label": "库存查询",
           "url":"page/stockSelect",
           "bmMenuIcon":"b4"
         },
         {
-          "id":30,
+          "id":29,
           "label": "入库单据查询",
           "url":"page/inputSelect",
           "bmMenuIcon":"b5"
         },
         {
-          "id":31,
+          "id":30,
           "label": "出库单据查询",
           "url":"page/outputSelect",
           "bmMenuIcon":"b6"
         },
         {
+          "id":31,
+          "label": "货品流向查询",
+          "url":"page/goodsFlowSelect",
+          "bmMenuIcon":"b9"
+        },
+        {
           "id":32,
-          "label": "发货装车清单",
-          "url":"page/deliverGoodsLoadingDetailedList",
-          "bmMenuIcon":"b7"
-        },
-        {
-          "id":33,
-          "label": "进出合并查询",
-          "url":"page/importMergeSelect",
-          "bmMenuIcon":"b8"
-        },
-        {
-          "id":34,
           "label": "库位转移查询",
           "url":"page/aLibraryTransferSelect",
           "bmMenuIcon":"b9"
         },
         {
+          "id":33,
+          "label": "库位冻结查询",
+          "url":"page/aLibraryFrozenSelect",
+          "bmMenuIcon":"b9"
+        },
+        {
+          "id":34,
+          "label": "动碰盘点查询",
+          "url":"page/dynamicTouchInventorySelect",
+          "bmMenuIcon":"b9"
+        },
+        {
           "id":35,
-          "label": "库存调整查询",
-          "url":"page/stockAdjustmentSelect",
-          "bmMenuIcon":"b10"
+          "label": "循环盘点查询",
+          "url":"page/loopInventorySelect",
+          "bmMenuIcon":"b9"
+        },
+        {
+          "id":36,
+          "label": "全面盘点查询",
+          "url":"page/comprehensiveInventorySelect",
+          "bmMenuIcon":"b9"
         }
+
+
+
       ]
     },
     {
@@ -250,7 +255,6 @@
           "url":"page/moduleManagement",
           "bmMenuIcon":"f3"
         },
-
         {
           "id":44,
           "label": "仓库配置",
