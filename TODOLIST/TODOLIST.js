@@ -2106,43 +2106,54 @@
 
              **/
             /**
-             * TODO 0 分页获取出库预约单
-             * 参数说明
-             * ckCkdjId         出库Id
-             * ckCkdjNo         出库单号
-             * ckErpNo          ERP单号
-             * ckCkdjType       单据类型 0正常单据1挂起单据2滞留单据
-             * ckCkdjClientno   客户编号
-             * ckCkdjClientname 客户名称
-             * ckContacts       联系人
-             * ckTel            联系电话
-             * ckAdress         地址
-             * ckXdsj           下单时间
-             * 总体积
-             * 总数量
-             * ckStatus         发货状态
-             * ckRemarks        备注
-             */
-            /** TODO 1 查询
-             *
+             * TODO 0  出库单管理 根据分页要求获取没有出库任务的出库单信息 POST /mfunck/selectMfunckDocByPage
+             * 参数
+             * {
+             *    ckCkdjId : 2
+                  ckCkdjNo : "jy33333"
+                  ckErpNo : "testerp_no"
+                  ckCkdjType : 0
+                  ckCkdjClientno : "ckdanju"
+                  ckCkdjClientname : "高新区银座超市"
+                  ckContacts : "郭靖"
+                  ckTel : "15689878987"
+                  ckAdress : "高新区银座超市"
+                  ckXdsj : 1486531654000
+                  ckBjsj : 1487741258000
+                  ckYfhsj : 1487827662000
+                  ckRemarks : "rrrrrrr"
+                  ckStatus : 1
+                  ckIsauto : 1
+                  ckCksj : 1486445274000
+                  ckStartwith : 0
+                  ckIsyadan : 1
+                  ckIsqianhuo : 1
+                  ckArehouseId : 1
+                  ckClientId : 2
+                  ckEndtime : 1487050087000
+                  ckRwStatus : 1
+                  ckQhStatus : 3
+                  ckZlStatus : 1
+                  ckGqStatus : 1
+                  ckrwId : 0
+                  mfunckDocs []
+                  allCount : null
+                  allTj : null
+                  allHeight : null
+                }
              */
             /**
-             * TODO 2 新增
-             * 参数说明
-             * 出库单号
-             * 客户名称
-             * 联系人
-             * 联系电话
-             * 客户地址
-             * 备注
-             * 总数量(不能输入)
-             * 总体积(不能输入)
-             * 总重量(不能输入)
-             * -----明细
-             * 货品名称
-             * 货品编号
-             * 货品数量
-             * 货品单位
+             * TODO 1 出库单管理 新增出库单据/包含出库单明细 POST /mfunck/add
+             * 参数
+             * {
+             *
+             * }
+             */
+        /**
+         * TODO 出库任务
+         */
+            /**
+             * TODO  出库单管理 根据分页要求获取没有出库任务的出库单信息 POST /mfunck/selectMfunckDocByPage
              */
 /*
  * TODO 挑选数据

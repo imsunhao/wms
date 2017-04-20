@@ -1,0 +1,24 @@
+{
+  "data":[
+  {
+    "pdId":"1",
+    "pdType":"1",
+    "pdYdBeginTime":"20170418001",
+    "pdYdEndTime":"0418001",
+    "pdZyBeginTime":"0418002",
+    "pdZyEndTime":"0418002",
+    "pdCreateTime":"0418001",
+    "pdCreateUserId":"1",
+    "pdQrsj":"0418001",
+    "pdQrUserId":"1",
+    "pdZfsj":"0418001",
+    "pdZfUserId":"1",
+    "pdStatus":"1",
+    "pdChargePerson":"张三",
+    "pdOperator":"李四",
+    "pdArehouseId":"1",
+    "pdDiffStatus":"1"
+  }
+]
+
+}
