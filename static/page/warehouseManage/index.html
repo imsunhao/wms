@@ -1,5 +1,6 @@
 <div id="aa">
     <plan :observer="false"
+          :new_role="false"
           :warehouse_id="1"></plan>
 </div>
 <style>
@@ -33,6 +34,17 @@
         text-align: center;
         position: relative;
         border-radius: 10px;
+    }
+
+    #plan .btn {
+        cursor: pointer;
+        background: #e4e4e4;
+        display: inline-block;
+        border: 1px solid #999999;
+        border-radius: 2px;
+        width: 120px;
+        height: 30px;
+        color: #fff;
     }
 
     #plan .aisle {
@@ -94,14 +106,6 @@
 
     }
 
-    #plan .btn {
-        display: inline-block;
-        border: 1px solid #999999;
-        border-radius: 2px;
-        width: 120px;
-        height: 30px;
-        color: #fff;
-    }
 
     #plan p {
         margin: 0;
@@ -341,7 +345,7 @@
         <button class="btn resetSelect" @click="resetSelect">重置选择</button>\
         </el-col>\
         <el-col :span="4">\
-        <button class="btn resetHouse" @click="resetHouse">调整仓库结构</button>\
+        <button class="btn resetHouse" v-if="!new_role" @click="resetHouse">调整仓库结构</button>\
         </el-col>\
         </el-row>\
         <el-row>\
@@ -352,12 +356,13 @@
         <button class="btn unqualifiedArea" @click="set(5)">设为不合格区</button>\
         </el-col>\
         <el-col :span="4" :offset="8">\
-        <button class="btn unqualifiedArea" @click="">保存修改</button>\
+        <button class="btn unqualifiedArea" v-if="!new_role" @click="">保存修改</button>\
         </el-col>\
         </el-row>\
         </div>\
         <el-dialog\
     :title="form.title"\
+    :modal="false"\
     @open="dialogOpen"\
     v-model="dialogTableVisible">\
         <el-table :data="form.tableData">\
@@ -370,7 +375,7 @@
         </div>\
         </div>\
     ',
-        props: {observer: null, warehouse_id: null},
+        props: {observer: null, warehouse_id: null, new_role: null},
         data: function () {
             return {
                 isdb: false,
@@ -665,7 +670,8 @@
             /*<debug>*/
             console.log(this.observer, this.warehouse_id);
             /*</debug>*/
-            if(this.warehouse_id) this.init();
+            if (this.warehouse_id) this.init();
+            if(this.new_role) this.resetHouse();
         },
         watch: {
             desc: function () {
@@ -694,5 +700,3 @@
         el: '#aa'
     })
 </script>
-
-

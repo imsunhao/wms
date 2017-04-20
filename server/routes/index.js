@@ -2,6 +2,7 @@
 
 var express = require('express');
 var router = express.Router();
+var statusCode = require('../serverConfig/statusConfig');
 
 router.param('_id', function (req, res, next, id) {
     console.log('CALLED ONLY ONCE' + id);
@@ -25,7 +26,8 @@ router.get('/', function (req, res, next) {
     // req.session.user=data.rmsUser;
     res.render('index', {
         title: '主页',
-        data: req.session.user
+        data: req.session.user,
+        statusCode: statusCode
     });
 });
 

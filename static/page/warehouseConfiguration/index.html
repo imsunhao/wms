@@ -168,6 +168,10 @@
     .el-date-editor.el-input {
         width: 100%;
     }
+
+    #warehouseConfiguration .warehouseDialog {
+        background: #F8FAFB;
+    }
 </style>
 
 <div id="warehouseConfiguration">
@@ -186,8 +190,8 @@
                     icon="search"
                     placeholder="仓库负责人"></el-input>
             <el-select v-model="baCtype" placeholder="请选择">
-            <el-option :value="0">平面仓</el-option>
-            <el-option :value="1">立体仓</el-option>
+                <el-option :value="0">平面仓</el-option>
+                <el-option :value="1">立体仓</el-option>
             </el-select>
 
             <button @click="newInput" class="btn btn-add"><i
@@ -459,12 +463,14 @@
     </el-dialog>
     <el-dialog
             size="full"
+            custom-class="warehouseDialog"
             v-model="dialogWarehouseVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">配置仓库</span>
         </div>
 
         <plan :observer="warehouseForm.observer"
+              :new_role="true"
               :warehouse_id="warehouseForm.warehouse_id"></plan>
 
         <div slot="footer" class="dialog-footer">
@@ -472,7 +478,6 @@
             </el-button>
         </div>
     </el-dialog>
-
 </div>
 
 <style>
@@ -506,6 +511,17 @@
         text-align: center;
         position: relative;
         border-radius: 10px;
+    }
+
+    #plan .btn {
+        cursor: pointer;
+        background: #e4e4e4;
+        display: inline-block;
+        border: 1px solid #999999;
+        border-radius: 2px;
+        width: 120px;
+        height: 30px;
+        color: #fff;
     }
 
     #plan .aisle {
@@ -565,15 +581,6 @@
 
     #plan .btnGroup {
 
-    }
-
-    #plan .btn {
-        display: inline-block;
-        border: 1px solid #999999;
-        border-radius: 2px;
-        width: 120px;
-        height: 30px;
-        color: #fff;
     }
 
     #plan p {
@@ -760,6 +767,7 @@
     });
 
     Vue.component('plan', {
+        props: {observer: null, warehouse_id: null, new_role: null},
         template: '\
     <div id="plan">\
         <div class="inner">\
@@ -812,7 +820,7 @@
         <button class="btn resetSelect" @click="resetSelect">重置选择</button>\
         </el-col>\
         <el-col :span="4">\
-        <button class="btn resetHouse" @click="resetHouse">调整仓库结构</button>\
+        <button class="btn resetHouse" v-if="!new_role" @click="resetHouse">调整仓库结构</button>\
         </el-col>\
         </el-row>\
         <el-row>\
@@ -823,12 +831,13 @@
         <button class="btn unqualifiedArea" @click="set(5)">设为不合格区</button>\
         </el-col>\
         <el-col :span="4" :offset="8">\
-        <button class="btn unqualifiedArea" @click="">保存修改</button>\
+        <button class="btn unqualifiedArea" v-if="!new_role" @click="">保存修改</button>\
         </el-col>\
         </el-row>\
         </div>\
         <el-dialog\
     :title="form.title"\
+    :modal="false"\
     @open="dialogOpen"\
     v-model="dialogTableVisible">\
         <el-table :data="form.tableData">\
@@ -841,7 +850,6 @@
         </div>\
         </div>\
     ',
-        props: {observer: null, warehouse_id: null},
         data: function () {
             return {
                 isdb: false,
@@ -1137,6 +1145,7 @@
             console.log(this.observer, this.warehouse_id);
             /*</debug>*/
             if (this.warehouse_id) this.init();
+            if (this.new_role) this.resetHouse();
         },
         watch: {
             desc: function () {
@@ -1161,7 +1170,6 @@
         }
     });
 
-
     function form() {
         return {
             baArehouseId: 1,           //仓库id
@@ -1183,7 +1191,6 @@
             warehouse_id: 0
         }
     }
-
 
     var warehouseConfiguration = new Vue({
         el: '#warehouseConfiguration',
@@ -1373,13 +1380,13 @@
                 /*</debug>*/
                 post(this, this.option);
             },
-            baScontacts : function () {
+            baScontacts: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
                 post(this, this.option);
             },
-            baCtype : function () {
+            baCtype: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
@@ -1397,7 +1404,6 @@
     //        post(this, this.option);
     //    }, {deep: true});
     // post(warehouseConfiguration, warehouseConfiguration.option);
-
 
     post(warehouseConfiguration, warehouseConfiguration.option);
     function post(obj, option) {
