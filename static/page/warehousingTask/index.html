@@ -54,7 +54,7 @@
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="到货日期">
-                                        <span>{{ props.row.rkrwDhrq }}</span>
+                                        <span>{{auto_rkrwDhrq(props.row.rkrwDhrq) }}</span>
                                     </el-form-item>
                                     <el-form-item label="承运商">
                                         <span>{{ props.row.rkrwCys }}</span>
@@ -643,7 +643,6 @@
             moreOperationIssued: function () {
 
             },                                   //TODO 多选 下发
-
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -658,12 +657,10 @@
                 this.currentPage = val;
                 post(this, this.option);
             },                                //分页 当前页
-
             newInput: function () {
                 this.dialogFormVisible = true;
 
             },                                              //按钮 新建入库单
-
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -709,6 +706,10 @@
                 this.dialogSelectVisible = !this.dialogSelectVisible;
                 post(this, {});
             },                                          //详细查询 提交
+            auto_rkrwDhrq:function (value,bool) {
+                if(!bool)return dateFormat(new Date(value),'yyyy年 MM月 dd日');
+                    else return dateFormat(new Data(value),'MMdd');
+            }
         },
         watch: {}
     });
