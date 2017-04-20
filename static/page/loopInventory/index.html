@@ -1,10 +1,827 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<style>
+    #loopInventory {
+        width: 100%;
+        min-width: 890px;
+        position: relative;
+    }
 
-</body>
-</html>
+    #loopInventory .demo-table-expand {
+        font-size: 0;
+    }
+
+    #loopInventory .demo-table-expand label {
+        width: 90px;
+        color: #99a9bf;
+    }
+
+    #loopInventory .demo-table-expand .el-form-item {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 80%;
+    }
+
+    #loopInventory .el-table__expand-column .el-table__expand-icon {
+        height: 39px;
+    }
+
+    #loopInventory .table {
+        transition: 1s all;
+    }
+
+    #loopInventory .el-carousel__container {
+        height: 440px;
+    }
+
+    .el-tooltip__popper {
+        max-width: 400px;
+    }
+
+    .el-step__main {
+        max-width: calc(100% - 60px);
+    }
+
+    #loopInventory .loopInventoryTable {
+        width: 95% !important;
+        margin: 20px auto;
+    }
+
+    #loopInventory .datePicker {
+        width: 140px !important;
+        height: 24px !important;
+        margin-top: 29px;
+        margin-right: 18px;
+        float: left;
+    }
+
+    #loopInventory .datePicker .el-input__inner {
+        border-radius: 2px !important;
+        height: 24px !important;
+    }
+
+    #loopInventory .add {
+        background: url("/static/images/add.png") no-repeat center;
+    }
+
+    #loopInventory .del {
+        background: url("/static/images/del.png") no-repeat center;
+    }
+
+    #loopInventory .search {
+        background: url("/static/images/search.png") no-repeat center;
+    }
+
+    #loopInventory .sel {
+        background: url("/static/images/sel.png") no-repeat center;
+    }
+
+    #loopInventory .icon {
+        float: left;
+    }
+
+    #loopInventory .btn span {
+        float: left;
+        margin-top: 4px;
+        margin-left: 2px;
+    }
+
+    #loopInventory .btn {
+        height: 24px;
+        line-height: 1;
+        border: none;
+        background: #f8fafb;
+        outline: none;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        float: left;
+        font-size: 14px;
+        color: #1f2d3d;
+        margin-top: 29px;
+        margin-right: 16px;
+    }
+
+    #loopInventory .btn-print {
+        margin-right: 0;
+    }
+
+    #loopInventory .btn:hover {
+        color: #5468ee;
+    }
+
+    #loopInventory .inner {
+        margin: 0 20px;
+    }
+
+    #loopInventory .btn-nav {
+        height: 60px;
+        overflow: hidden;
+    }
+
+    #loopInventory .btn-nav .el-input .el-input__inner {
+        height: 24px;
+    }
+
+    #loopInventory .btn-nav .el-input {
+        float: left;
+        margin-top: 29px;
+        margin-right: 18px;
+        width: 140px;
+        height: 24px;
+    }
+</style>
+<style>
+    .steps {
+        position: absolute;
+        bottom: 10px;
+        left: 30px;
+        margin: auto;
+    }
+
+    .el-dialog__headerbtn {
+        position: absolute;
+        right: 25px;
+        top: 15px;
+    }
+
+    .el-step__main {
+        margin-left: -8px !important;
+    }
+</style>
+<style>
+    .select {
+
+    }
+
+    .select .input {
+        width: 70%;
+    }
+</style>
+<div id="loopInventory">
+    <!--页面调整-->
+    <el-row v-loading="showLoading"
+            element-loading-text="拼命加载中">
+        <el-col :span="24">
+            <div class="inner btn-nav">
+                <button @click="newInput" class="btn btn-add"><i
+                        class="icon add"></i><span>新增盘点计划</span>
+                </button>
+            </div>
+            <el-table
+                    :data="loopInventory"
+                    :default-sort="{prop: 'sjsj', order: 'descending'}"
+                    :max-height="570"
+                    ref="table"
+                    class="loopInventoryTable"
+                    @selection-change='multiSelectionChange'
+                    style="width: 100%">
+                <el-table-column
+                        type="expand">
+                    <template scope="props">
+                        <el-row>
+                            <h3 style="margin-top: 0; margin-left: -15px;">动碰盘点详细</h3>
+                        </el-row>
+                        <el-form label-position="left" inline class="demo-table-expand">
+                            <el-row>
+                                <el-col :span="10">
+                                    <el-form-item label="创建时间">
+                                        <span>{{ props.row.pdCreateTime }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="盘点类型">
+                                        <span>{{ props.row.pdType }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="异动开始">
+                                        <span>{{props.row.pdYdBeginTime}}</span>
+                                    </el-form-item>
+                                    <el-form-item label="异动结束">
+                                        <span>{{props.row.pdYdEndTime}}</span>
+                                    </el-form-item>
+                                    <el-form-item label="盘点状态">
+                                        <span>{{ props.row.pdStatus	 }}</span>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="10" :offset="2">
+
+                                    <el-form-item label="负责人">
+                                        <span>{{ props.row.pdChargePerson }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="经办人">
+                                        <span>{{ props.row.pdOperator }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="差异状态">
+                                        <span>{{ props.row.pdDiffStatus }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="可用操作">
+                                        <el-button
+                                                size="small"
+                                                icon="edit"
+                                                @click="inlineEdit(props.$index, props.row)">
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                @click="inlineEdit(props.$index, props.row)">分配任务
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                @click="inlineEdit(props.$index, props.row)">盘点详情
+                                        </el-button>
+
+
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                        </el-form>
+                    </template>
+                </el-table-column>
+                <!--<el-table-column-->
+                <!--type="index"-->
+                <!--width="55">-->
+                <!--</el-table-column>-->
+                <el-table-column
+                        label="创建时间"
+                        show-overflow-tooltip
+                        prop="pdCreateTime"
+                        align="center">
+                </el-table-column>
+                <el-table-column
+                        label="盘点类型"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="pdYdBeginTime">
+                </el-table-column>
+                <el-table-column
+                        label="异动开始时间"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="pdYdBeginTime">
+                </el-table-column>
+                <el-table-column
+                        label="异动结束时间"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="pdYdEndTime">
+                </el-table-column>
+                <el-table-column
+                        label="负责人"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="pdChargePerson">
+                </el-table-column>
+                <el-table-column
+                        label="经办人"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="pdOperator">
+                </el-table-column>
+                <el-table-column
+                        label="盘点状态"
+                        prop="pdStatus"
+                        align="center"
+                        width="100">
+                    <template scope="scope">
+                        <el-tag
+                                close-transition>{{scope.row.pdStatus}}
+                        </el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        v-if="multiSelect"
+                        type="selection"
+                        width="60">
+                </el-table-column>
+            </el-table>
+            <div class="block">
+                <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="1"
+                        :page-sizes="[5, 10, 15, 20]"
+                        :page-size="pageSize"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="loopInventory.length">
+                </el-pagination>
+            </div>
+        </el-col>
+    </el-row>
+    <el-dialog
+            size="large"
+            v-model="dialogFormVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">{{form.title}}</span>
+            <el-steps
+                    class="steps"
+                    :space="120"
+                    :active="dialogFormActive"
+                    finish-status="success">
+            </el-steps>
+        </div>
+        <el-form :model="form" ref="newForm">
+            <el-carousel
+                    ref="carousel"
+                    :autoplay="false"
+                    arrow="never"
+                    indicator-position="none"
+                    height="55vh">
+                <el-carousel-item>
+                    <el-row>
+                        <el-col :span="10">
+                            <el-form-item
+                                    label="创建时间"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.pdCreateTime"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    label="盘点类型"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.pdType"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+
+                            <el-form-item
+                                    label="异动开始时间"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.pdYdBeginTime"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    label="异动结束时间"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.pdYdEndTime"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+
+                        </el-col>
+                        <el-col :span="10" :offset="2">
+                            <el-form-item
+                                    label="盘点状态"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.pdStatus"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    label="负责人"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.pdChargePerson"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    label="经办人"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.pdOperator"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+
+                            <el-form-item
+                                    label="差异状态"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="form.pdDiffStatus"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                </el-carousel-item>
+            </el-carousel>
+        </el-form>
+
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="submit" :loading="submitLoading">保存
+            </el-button>
+        </div>
+    </el-dialog>
+</div>
+<script>
+    function form() {
+        return {
+            zyCreateTime:'',
+            zyMentionUserName:'',
+            zyCreateUserName:'',
+            zyConfirmUserName:'',
+            zyReason:'',
+            zyConfirmTime:'',
+            zyStatus:''
+        }
+    }
+    var loopInventory = new Vue({
+        el: '#loopInventory',
+        prop: {},
+        data: function () {
+            return {
+                loopInventory: [],
+                multipleSelection: [],
+                multiSelect: false,
+                pickerOptions: {
+                    shortcuts: [{
+                        text: '最近一周',
+                        onClick: function (picker) {
+                            var end = new Date();
+                            var start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                            picker.$emit('pick', [start, end]);
+                        }
+                    }, {
+                        text: '最近一个月',
+                        onClick: function (picker) {
+                            var end = new Date();
+                            var start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                            picker.$emit('pick', [start, end]);
+                        }
+                    }, {
+                        text: '最近三个月',
+                        onClick: function (picker) {
+                            var end = new Date();
+                            var start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                            picker.$emit('pick', [start, end]);
+                        }
+                    }]
+                },
+                showLoading: false,
+                currentPage: 1,
+                pageSize: 10,
+
+                date: [null, null],                 //主页面 选择日期 搜索
+                rkRkdjNo: '',                       //主页面 入库单号 搜索
+
+                formLabelWidth: '120px',            //表单 配置
+                form: form(),                           //表单 弹出层 信息集合
+                dialogFormActive: 0,                //新建 弹出层 steps 当前进度
+                dialogFormVisible: false,           //新建 弹出层 是否可见
+                submitLoading: false,               //新建 弹出层 提交等待
+
+                select: form(),                         //搜索 弹出层 信息集合,
+                printf: [],                         //搜索 弹出层 信息集合,
+                dialogSelectVisible: false,
+                dialogPrintfVisible: false,
+                selectLoading: false,
+                printfLoading: false,
+
+                printDatas: [],          // 打印数据
+            }
+        },
+        computed: {
+            // TODO 表格提交
+            option: function () {
+                return {
+                    "draw": 1,
+                    "pageNum": this.currentPage,
+                    "pageSize": this.pageSize
+                }
+            },
+            search: function () {
+                return {
+                    "draw": 1,
+                    "pageNum": this.currentPage,
+                    "pageSize": this.pageSize,
+                    "rkrwN": this.form.rkrwN,
+                    "rkrwCph": this.form.rkrwCph,
+                    "dds": this.form.dds,
+                    "pxs": this.form.pxs,
+                    "rkrwSjxm": this.form.rkrwSjxm,
+                    "rkrwDhrq": this.form.rkrwDhrq,
+                    "rkrwDbd": this.form.rkrwDbd,
+                    "rkrwCys": this.form.rkrwCys,
+                    "rkrwDh": this.form.rkrwDh,
+                    "rkrwStatus": this.form.rkrwStatus
+                }
+            },
+            distributionForm: function () {
+                return {
+                    distribution: this.distribution
+                }
+            },                                      //分配 表单
+        },
+        methods: {
+            inlineEdit: function (index, row) {
+                this.form.title = '编辑';
+                this.form.zyCreateTime = row.zyCreateTime;
+                this.form.zyMentionUserName = row.zyMentionUserName;
+                this.form.zyCreateUserName = row.zyCreateUserName;
+                this.form.zyConfirmUserName = row.zyConfirmUserName;
+                this.form.zyReason=row.zyReason;
+                this.form.zyConfirmTime=row.zyConfirmTime;
+                this.form.zyStatus=row.zyStatus;
+                this.dialogFormVisible = true;
+                this.dialogFormActive = 0;
+                Vue.nextTick(function () {
+                    loopInventory.$refs.carousel.setActiveItem(0);
+                });
+            },                                  //TODO 行内按钮-编辑
+            inlineModify: function (index, row) {
+                this.multipleSelection = [row];
+                printfCompile(this);
+                this.dialogPrintfVisible = !this.dialogPrintfVisible;
+            },                                //行内按钮 打印标签页
+
+            multiSelectClick: function () {
+                this.multiSelect = !this.multiSelect;
+            },                                      //多选 状态维护
+            multiSelectionChange: function (val) {
+                /*<debug>*/
+                console.log(this.multipleSelection);
+                /*</debug>*/
+                this.multipleSelection = val;
+            },                               //多选 选中控制
+            moreOperationDelete: function () {
+                /*<debug>*/
+                console.log('选中的删除');
+                /*</debug>*/
+                for (i = 0; i < this.multipleSelectionCombination.length; i++) {
+                    remove(this.multipleSelectionCombination[i], this.warehousingReservationCombination);
+                }
+            },                                   //多选 删除
+            newInput: function () {
+                this.form = form();
+                this.dialogFormVisible = true;
+                this.dialogFormActive = 0;
+                Vue.nextTick(function () {
+                    loopInventory.$refs.carousel.setActiveItem(0);
+                });
+            },
+
+            handleSizeChange: function (val) {
+                /*<debug>*/
+                console.log('每页' + val + '条');
+                /*</debug>*/
+                this.pageSize = val;
+                post(this, this.option);
+            },                                   //分页 Size
+            handleCurrentChange: function (val) {
+                /*<debug>*/
+                console.log('当前第' + val + '页');
+                /*</debug>*/
+                this.currentPage = val;
+                post(this, this.option);
+            },                                //分页 当前页
+
+
+            prev: function () {
+                this.dialogFormActive--;
+                this.$refs.carousel.prev();
+            },                                                  //新建 弹出层banner控制 前一个
+            next: function () {
+                this.dialogFormActive++;
+                this.$refs.carousel.next();
+            },                                                  //新建 弹出层banner控制 后一个
+            submit: function () {
+                var _this = this;
+                this.dialogFormActive++;
+                this.submitLoading = true;
+                //TODO 此处应是ajax请求
+                setTimeout(function () {
+                    _this.submitLoading = false;
+                    _this.$notify({
+                        title: '成功',
+                        message: '保存成功！',
+                        type: 'success'
+                    });
+                    _this.dialogFormVisible = false;
+                    _this.form = {
+                        rkRkdjNo: '',
+                        rkType: '',
+                        rkRemarks: '',
+                        rkDocsList: [],
+                        bgGoodsNo: '',
+                        selectGood: {
+                            value: '',
+                            bgGoodsName: '',
+                            count: 0,
+                            bgGoodsId: ''
+                        },
+                        saveARkDocsList: true,
+                        deleteARkDocsList: true
+                    };
+                    _this.dialogFormActive = 0;
+                    _this.$refs.carousel.setActiveItem(0);
+                    post(loopInventory);
+                }, 1500);
+            },                                                //新建 表单提交
+
+            selectSubmit: function () {
+                this.dialogSelectVisible = !this.dialogSelectVisible;
+                post(this, {});
+            },                                          //详细查询 提交
+
+            printfSubmit: function () {
+                var datas=[];
+                var checkData=loopInventory.$refs.printf.getCheckedNodes();
+                for(var i in checkData){
+                    if(typeof checkData[i].val2!=='undefined'){
+                        datas.push(checkData[i]);
+                    }
+                }
+                this.printDatas=datas;
+                this.dialogPelectVisible = !this.dialogPrintfVisible;
+                wap.print(this);
+            },                                          //打印 提交
+            printfCheckChange: function () {
+
+            },                                     //打印 选中维护
+            printfLoadNode: function (node, resolve) {
+                console.log(node.data);
+                switch (node.level) {
+                    case 0:
+                        return resolve(this.printf);
+                    case 1:
+                        postRkrwNo(this, {
+                            rkrwNo:node.data.rkrwNo,
+                            rkrwDhrq:node.data.rkrwDhrq
+                        }, resolve);
+                        break;
+                    case 2:
+                        console.log(node.data.name);
+                        postRkdjId(this, {
+                            rkrwNo:node.data.rkrwNo,
+                            rkrwDhrq:node.data.rkrwDhrq
+                        }, resolve);
+                        break;
+                    case 3:
+                        return resolve([]);
+                }
+            }
+        }
+    });
+
+    // 高级 监视器的 使用方法
+    //    loopInventory.$watch('date', function () {
+    //        if (!this.option.dateStart)return;
+    //        /*<debug>*/
+    //        console.log(this.option);
+    //        /*</debug>*/
+    //        post(this, this.option);
+    //    }, {deep: true});
+    post(loopInventory,loopInventory.option);
+
+    function post(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url =
+            url = "/hock/loopInventory/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/loopInventory/0";
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                console.log(json);
+                obj.$data.loopInventory = json.data;
+                obj.$data.currentTotal = json.recordsFiltered;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }           ///TODO 库存转移分页查询的接口
+
+    function postRkrwNo(obj, option, resolve) {
+        /*<debug>*/
+        url = "/hock/loopInventory/rkrwNo.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/data/inputOption/" + option;
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option | {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                var resoleveStep = [];
+                for (var i = 0; i < json.data.length; i++) {
+                    resoleveStep.push({
+                        name: json.data[i].rkdjId,
+                        rkrwNo:option.rkrwNo,
+                        rkrwDhrq:option.rkrwDhrq});
+                }
+                return resolve(resoleveStep);
+            },
+            complete: function () {
+
+            }
+        });
+    }          //TODO 获取任务单号中详细信息
+    function postRkdjId(obj, option, resolve) {
+        /*<debug>*/
+        url = "/hock/loopInventory/rkdjId.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/data/inputOption/" + option;
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option | {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                var resoleveStep = [];
+                for (var i = 0; i < json.length; i++) {
+                    resoleveStep.push({
+                        name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgNamejc,
+                        val2:json[i].baseGoods.bgGoodsNo,
+                        val:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
+                        rwdh:option.rkrwNo,
+                        dhrq:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
+                        dysj:changeDate(new Date())
+                    });
+                }
+                return resolve(resoleveStep);
+            },
+            complete: function () {
+
+            }
+        });
+    }          //TODO 获取入库单号中详细信息
+    function changeDate(date) {
+        return dateFormat(new Date(date), 'MM-dd hh:mm');
+    }
+    function errorTip(obj, error) {                    // 错误提示
+        /*<debug>*/
+        console.log(error);
+        /*</debug>*/
+        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
+    }
+    function dateFormat(date, fmt) {
+        var o = {
+            "M+": date.getMonth() + 1,                 //月份
+            "d+": date.getDate(),                    //日
+            "h+": date.getHours(),                   //小时
+            "m+": date.getMinutes(),                 //分
+            "s+": date.getSeconds(),                 //秒
+            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
+            "S": date.getMilliseconds()             //毫秒
+        };
+        if (/(y+)/.test(fmt))
+            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt))
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+    function remove(obj, data) {
+        for (var i = 0; i < data.length; i++) {
+            var temp = data[i];
+            if (!isNaN(obj)) {
+                temp = i;
+            }
+            if (temp == obj) {
+                for (var j = i; j < data.length; j++) {
+                    data[j] = data[j + 1];
+
+                    console.log(temp);
+                }
+                data.pop();
+            }
+        }
+    }
+    function printfCompile(obj) {
+        var resoleveStep = [];
+        for (var i = 0; i < obj.multipleSelection.length; i++) {
+            resoleveStep.push({
+                name: obj.multipleSelection[i].rkrwNo,
+                rkrwNo:obj.multipleSelection[i].rkrwNo,
+                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
+            });
+        }
+        obj.printf = resoleveStep;
+    }
+
+</script>
+
+
+
+
+

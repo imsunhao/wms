@@ -1,0 +1,36 @@
+{
+  "data":[
+    {
+      "ckrwId":"出库任务id",
+      "ckrwNo":"任务号",
+      "ckrwYjdcsj":"预计到车时间",
+      "ckrwCph":"车牌号",
+      "ckrwSjdcsj":"实际到车时间",
+      "ckrwStatus":"任务状态",
+      "ckrwQhStatus":"欠货状态",
+      "ckrwZlStatus":"滞留状态",
+      "ckrwWls":"物流商",
+      "ckrwArehouseId":"仓库id",
+      "ckrwClientId":"客户id",
+      "dds":"订单数",
+      "pxs":"品项数"
+    },
+    {
+      "ckrwId":"ck2017",
+      "ckrwNo":"ck05001",
+      "ckrwYjdcsj":"20170519",
+      "ckrwCph":"鲁SS201",
+      "ckrwSjdcsj":"20170520",
+      "ckrwStatus":"2",
+      "ckrwQhStatus":"2",
+      "ckrwZlStatus":"2",
+      "ckrwWls":"济南济阳",
+      "ckrwArehouseId":"1",
+      "ckrwClientId":"1",
+      "dds":"2",
+      "pxs":"3"
+
+    }
+
+  ]
+}

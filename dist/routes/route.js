@@ -157,6 +157,13 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                      case 1:
+                        urlName = '入库预约-组合';
+                        req = autoUrl(req, '/mfunrkDoc', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
                 }
                 break;
             case 'clientConfiguration':

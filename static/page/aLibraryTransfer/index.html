@@ -168,12 +168,15 @@
                 <button @click="newInput" class="btn btn-add"><i
                         class="icon add"></i><span>新增</span>
                 </button>
-                <button @click="multiSelectClick" class="btn btn-multiSelect"><i
-                        class="icon sel"></i><span>多选</span>
-                </button>
-                <button @click="moreOperationDelete" class="btn btn-del" v-show="multiSelect"><i
-                        class="icon del"></i><span>批量删除</span>
-                </button>
+                    <button @click="multiSelectClick" class="btn btn-multiSelect"><i
+                            class="icon sel"></i><span>多选</span>
+                    </button>
+                    <!--<button @click="moreOperationModify" class="btn btn-modify" v-show="multiSelect"><i-->
+                    <!--class="icon modify"></i><span>删除</span>-->
+                    <!--</button>-->
+                    <button @click="moreOperationDelete" class="btn btn-del" v-show="multiSelect"><i
+                            class="icon del"></i><span>批量删除</span>
+                    </button>
             </div>
             <el-table
                     :data="aLibraryTransfer"
@@ -426,6 +429,7 @@
         </div>
     </el-dialog>
 </div>
+
 <script>
     function form() {
         return {

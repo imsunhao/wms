@@ -15,15 +15,26 @@ router.get('/', function (req, res, next) {
         method: "POST",
         json: true,
         body: {//写好参数后 运行  失败后找亚伟 成功后这样操作
-            "draw": 1,
-            "rkno": "",
-            "startTimeParam": "",
-            "endTimeParam": "",
-            "pageNum": 1,
-            "pageSize": 1,
-            "status": 31
+        "draw": 0,
+        "ckCkdjNo": "string",
+        "startTimeParam": "string",
+        "endTimeParam": "string",
+        "pageNum": 0,
+        "pageSize": 0,
+        "ckStatus": 0,
+        "ckCkdjClientno": "string",
+        "ckCkdjClientname": "string",
+        "ckrwCph": "string",
+        "ckrwWls": "string",
+        "ckCkdjType": 0,
+        "ckArehouseId": 0,
+        "ckClientId": 0,
+        "mhStartCreateTime": "string",
+        "mhEndCreateTime": "string",
+        "ckStartXdsj": "string",
+        "ckEndXdsj": "string"
         },
-        url: 'http://192.168.5.14:8080/wms_cg_web/mfunrkDoc',
+        url: 'http://192.168.5.14:8080/wms_cg_web/mfunck/selectMfunckDocByPage',
         headers: {"Content-Type": 'application/json'}
     }, function (error, response, json) {
         res.send(response);
