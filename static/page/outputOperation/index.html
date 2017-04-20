@@ -106,10 +106,7 @@
                                                 <span>{{ props.row.ckIsauto }}</span>
                                             </el-form-item>
                                             <el-form-item label="可用操作">
-                                                <el-button
-                                                        size="small"
-                                                        @click="handleEdit(props.$index, props.row)">编辑
-                                                </el-button>
+
                                                   <el-button
                                                         size="small"
                                                         @click="printSortingList(props.$index, props.row)">打印分拣单
@@ -963,30 +960,6 @@
             },                                      //分配 表单
         },
         methods: {
-            handleEdit: function (index, row) {
-                var obj = this;
-                var step = form();
-                allPrposCb(step, function (obj, index) {
-                    if (typeof row[index] !== 'undefined') step[index] = row[index];
-                });
-                /*<debug>*/
-                console.log(row);
-                console.log(step);
-                /*</debug>*/
-                step.title = '编辑';
-                this.form = step;
-                this.dialogFormActive = 0;
-                this.dialogDistributionForm = false;
-                if (typeof (this.form.rkDocsList) === 'undefined') {
-                    postGoods(obj, {rkRkdjNo: row.rkRkdjNo}, function (json) {
-                        obj.form.rkDocsList = json;
-                        obj.dialogFormVisible = true;
-                    });
-                } else {
-                    obj.dialogFormVisible = true;
-                }
-            },                                  //编辑 行内按钮
-
             distributionBtn: function (index, row) {
                 var obj = this;
                 var step = form();
