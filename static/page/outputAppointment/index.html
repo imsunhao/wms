@@ -405,6 +405,14 @@
                                 ref="outputAppointmentCombinationDetails"
                                 :data="outputAppointmentCombinationDetails">
                             <el-col :span="10">
+                                <el-form-item
+                                        label="出库任务单号"
+                                        :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model="outputAppointmentCombinationDetails.ckrwNo"
+                                            :disabled="true"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
                                 <el-form-item label="预计到车时间" :label-width="formLabelWidth">
                                     <el-date-picker
                                             v-model="outputAppointmentCombinationDetails.ckrwYjdcsj"
