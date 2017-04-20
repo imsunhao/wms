@@ -268,7 +268,7 @@
                                                     </el-form-item>
                                                     <el-form-item label="下单时间">
                                                         <el-icon name="time"></el-icon>
-                                                        <span style="margin-left: 10px">{{ props.row.rkCreatetime }}</span>
+                                                        <span style="margin-left: 10px">{{ auto_rkCreatetime(props.row.rkCreatetime) }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="订单类型">
                                                         <span>{{ props.row.rkType }}</span>
@@ -331,8 +331,10 @@
                                 <el-table-column
                                         width="80"
                                         align="center"
-                                        prop="rkCreatetime"
                                         label="时间">
+                                    <template scope="scope">
+                                        {{auto_rkCreatetime(scope.row.rkCreatetime,true)}}
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                         type="selection"
@@ -377,8 +379,10 @@
                                 <el-table-column
                                         width="80"
                                         align="center"
-                                        prop="rkCreatetime"
                                         label="时间">
+                                    <template scope="scope">
+                                        {{auto_rkCreatetime(scope.row.rkCreatetime,true)}}
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                         v-if="multiSelect"
@@ -832,7 +836,8 @@
                     "dateStart": this.date[0],
                     "dateStop": this.date[1]
                 }
-            }
+            },
+
         },
         methods: {
             Edit: function (index, row) {
@@ -1171,6 +1176,12 @@
                     return '未知的仓库'
                 }
             },                            //入库仓库id 自动匹配
+
+            auto_rkCreatetime: function (value, bool) {
+                if (!bool) return dateFormat(new Date(value), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(value), 'MM-dd');
+            },
+
         },
         watch: {
             warehousingReservation: function () {
@@ -1200,7 +1211,6 @@
         post(this, this.option);
     }, {deep: true});
 
-
     var id = 0;
 
     post(warehousingReservation, warehousingReservation.option);
@@ -1228,12 +1238,21 @@
             success: function (json) {
                 obj.dialogFormVisible = false;
                 obj.submitLoading = false;
-                if (json.status === 20002) {
+                if (json.status > 19999 && json.status < 30000) {
+                    /*<debug>*/
                     obj.$notify({
                         title: '成功',
-                        message: '保存成功！',
+                        message: '保存成功',
                         type: 'success'
                     });
+                    /*</debug>*/
+                    /*<prod>*/
+                    obj.$notify({
+                        title: '成功',
+                        message: window.statusConfig[json.status],
+                        type: 'success'
+                    });
+                    /*</prod>*/
                     obj.warehousingReservationCombinationDetails = CombinationDetails();
                     obj.warehousingReservationCombination = [];
                     obj.multipleSelection = [];
@@ -1242,7 +1261,22 @@
                     obj.formActive = 0;
                     obj.$refs.carouselWaiting.setActiveItem(0);
                     post(warehousingReservation, warehousingReservation.option);
-                } else {}
+                } else {
+                    /*<debug>*/
+                    obj.$notify({
+                        title: '失败',
+                        message: '保存失败',
+                        type: 'error'
+                    });
+                    /*</debug>*/
+                    /*<prod>*/
+                    obj.$notify({
+                        title: '失败',
+                        message: window.statusConfig[json.status],
+                        type: 'error'
+                    });
+                    /*</prod>*/
+                }
             },
             complete: function () {
                 obj.showLoading = false;
@@ -1284,7 +1318,7 @@
                     obj.$refs.carousel.setActiveItem(0);
                     post(obj, obj.option);
                 } else {
-//                    obj.$alert(json.code + '\n' + json.msg, '网络异常');
+
                 }
             },
             complete: function () {
@@ -1419,7 +1453,9 @@
 //                    json.data[i].allTj = 200.0234 + i;
 //                    json.data[i].historyLoading = false;              //维护 history 的加载层
 //                }
+                /*<debug>*/
                 console.log(json);
+                /*</debug>*/
                 warehousingReservation.$data.warehousingReservation = json.data;
             },
             complete: function () {
