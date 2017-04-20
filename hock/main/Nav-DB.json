@@ -74,7 +74,7 @@
           "id":7,
           "label": "出库任务",
           "url":"page/outboundTask",
-          "bmMenuIcon":"aa5"
+          "bmMenuIcon":""
         },
 
         {
@@ -202,31 +202,31 @@
           "id":32,
           "label": "库位转移查询",
           "url":"page/aLibraryTransferSelect",
-          "bmMenuIcon":"b9"
+          "bmMenuIcon":""
         },
         {
           "id":33,
           "label": "库位冻结查询",
           "url":"page/aLibraryFrozenSelect",
-          "bmMenuIcon":"b9"
+          "bmMenuIcon":""
         },
         {
           "id":34,
           "label": "动碰盘点查询",
           "url":"page/dynamicTouchInventorySelect",
-          "bmMenuIcon":"b9"
+          "bmMenuIcon":""
         },
         {
           "id":35,
           "label": "循环盘点查询",
           "url":"page/loopInventorySelect",
-          "bmMenuIcon":"b9"
+          "bmMenuIcon":""
         },
         {
           "id":36,
           "label": "全面盘点查询",
           "url":"page/comprehensiveInventorySelect",
-          "bmMenuIcon":"b9"
+          "bmMenuIcon":""
         }
 
 
