@@ -1,4 +1,4 @@
-<div id="outboundTask">
+<div id="recoveryArchive">
     <!--页面调整-->
     <el-row v-loading="showLoading"
             element-loading-text="拼命加载中">
@@ -19,11 +19,11 @@
 
             </div>
             <el-table
-                    :data="outboundTask"
+                    :data="recoveryArchive"
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
                     :max-height="570"
                     ref="table"
-                    class="outboundTaskTable"
+                    class="recoveryArchiveTable"
                     style="width: 100%">
                 <el-table-column
                         type="expand">
@@ -77,11 +77,6 @@
                                     </el-form-item>
                                     <el-form-item
                                             label="可用操作">
-                                        <el-button
-                                                size="small"
-                                                icon="edit"
-                                                @click="inlineEdit(props.$index, props.row)">
-                                        </el-button>
                                         <el-button
                                                 size="small"
                                                 @click="outstandingInformation(props.$index, props.row)">欠货补发信息
@@ -156,7 +151,7 @@
                         :page-sizes="[5, 10, 15, 20]"
                         :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="outboundTask.length">
+                        :total="recoveryArchive.length">
                 </el-pagination>
             </div>
         </el-col>
@@ -326,36 +321,36 @@
     </el-dialog>
 </div>
 <style>
-    #outboundTask {
+    #recoveryArchive {
         width: 100%;
         min-width: 890px;
         position: relative;
     }
 
-    #outboundTask .demo-table-expand {
+    #recoveryArchive .demo-table-expand {
         font-size: 0;
     }
 
-    #outboundTask .demo-table-expand label {
+    #recoveryArchive .demo-table-expand label {
         width: 90px;
         color: #99a9bf;
     }
 
-    #outboundTask .demo-table-expand .el-form-item {
+    #recoveryArchive .demo-table-expand .el-form-item {
         margin-right: 0;
         margin-bottom: 0;
         width: 80%;
     }
 
-    #outboundTask .el-table__expand-column .el-table__expand-icon {
+    #recoveryArchive .el-table__expand-column .el-table__expand-icon {
         height: 39px;
     }
 
-    #outboundTask .table {
+    #recoveryArchive .table {
         transition: 1s all;
     }
 
-    #outboundTask .el-carousel__container {
+    #recoveryArchive .el-carousel__container {
         height: 440px;
     }
 
@@ -367,12 +362,12 @@
         max-width: calc(100% - 60px);
     }
 
-    #outboundTask .outboundTaskTable {
+    #recoveryArchive .recoveryArchiveTable {
         width: 95% !important;
         margin: 20px auto;
     }
 
-    #outboundTask .datePicker {
+    #recoveryArchive .datePicker {
         width: 140px !important;
         height: 24px !important;
         margin-top: 29px;
@@ -380,38 +375,38 @@
         float: left;
     }
 
-    #outboundTask .datePicker .el-input__inner {
+    #recoveryArchive .datePicker .el-input__inner {
         border-radius: 2px !important;
         height: 24px !important;
     }
 
-    #outboundTask .add {
+    #recoveryArchive .add {
         background: url("/static/images/add.png") no-repeat center;
     }
 
-    #outboundTask .del {
+    #recoveryArchive .del {
         background: url("/static/images/del.png") no-repeat center;
     }
 
-    #outboundTask .search {
+    #recoveryArchive .search {
         background: url("/static/images/search.png") no-repeat center;
     }
 
-    #outboundTask .sel {
+    #recoveryArchive .sel {
         background: url("/static/images/sel.png") no-repeat center;
     }
 
-    #outboundTask .icon {
+    #recoveryArchive .icon {
         float: left;
     }
 
-    #outboundTask .btn span {
+    #recoveryArchive .btn span {
         float: left;
         margin-top: 4px;
         margin-left: 2px;
     }
 
-    #outboundTask .btn {
+    #recoveryArchive .btn {
         height: 24px;
         line-height: 1;
         border: none;
@@ -427,28 +422,28 @@
         margin-right: 16px;
     }
 
-    #outboundTask .btn-print {
+    #recoveryArchive .btn-print {
         margin-right: 0;
     }
 
-    #outboundTask .btn:hover {
+    #recoveryArchive .btn:hover {
         color: #5468ee;
     }
 
-    #outboundTask .inner {
+    #recoveryArchive .inner {
         margin: 0 20px;
     }
 
-    #outboundTask .btn-nav {
+    #recoveryArchive .btn-nav {
         height: 60px;
         overflow: hidden;
     }
 
-    #outboundTask .btn-nav .el-input .el-input__inner {
+    #recoveryArchive .btn-nav .el-input .el-input__inner {
         height: 24px;
     }
 
-    #outboundTask .btn-nav .el-input {
+    #recoveryArchive .btn-nav .el-input {
         float: left;
         margin-top: 29px;
         margin-right: 18px;
@@ -500,12 +495,12 @@
             rkrwStatus: ''
         }
     };
-    var outboundTask = new Vue({
-        el: '#outboundTask',
+    var recoveryArchive = new Vue({
+        el: '#recoveryArchive',
         prop: {},
         data: function () {
             return {
-                outboundTask: [],
+                recoveryArchive: [],
                 multipleSelection: [],
                 multiSelect: false,
                 pickerOptions: {
@@ -602,7 +597,7 @@
                 this.dialogFormVisible = true;
                 this.dialogFormActive = 0;
                 Vue.nextTick(function () {
-                    outboundTask.$refs.carousel.setActiveItem(0);
+                    recoveryArchive.$refs.carousel.setActiveItem(0);
                 });
             },                                  //TODO 行内按钮-编辑
             cancelTask: function (index, row) {
@@ -612,7 +607,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.outboundTask);
+                    remove(row, _this.recoveryArchive);
                     postDelete(_this, {
                         id: [row.rkdjNo]
                     });
@@ -702,7 +697,7 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(outboundTask);
+                    post(recoveryArchive);
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
@@ -714,23 +709,23 @@
     });
 
     // 高级 监视器的 使用方法
-    //    outboundTask.$watch('date', function () {
+    //    recoveryArchive.$watch('date', function () {
     //        if (!this.option.dateStart)return;
     //        /*<debug>*/
     //        console.log(this.option);
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
-    post(outboundTask, outboundTask.option);
+    post(recoveryArchive, recoveryArchive.option);
     function post(obj, option) {
         obj.showLoading = true;
 
         /*<debug>*/
-        url = "/hock/outboundTask/page.json";
+        url = "/hock/recoveryArchive/page.json";
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/outboundTask/0";
+        url = "/route/recoveryArchive/0";
         /*</prod>*/
 
         $.ajax(url, {
@@ -745,7 +740,7 @@
             },
             success: function (json) {
                 console.log(json);
-                obj.$data.outboundTask = json.data;
+                obj.$data.recoveryArchive = json.data;
                 obj.$data.currentTotal = json.recordsFiltered;
             },
             complete: function () {

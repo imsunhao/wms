@@ -106,10 +106,7 @@
                                                 <span>{{ props.row.ckIsauto }}</span>
                                             </el-form-item>
                                             <el-form-item label="可用操作">
-                                                <el-button
-                                                        size="small"
-                                                        @click="handleEdit(props.$index, props.row)">编辑
-                                                </el-button>
+
                                                   <el-button
                                                         size="small"
                                                         @click="printSortingList(props.$index, props.row)">打印分拣单
@@ -580,71 +577,6 @@
             </el-button>
         </div>
     </el-dialog>
-    <!--出库操作的详细查询-->
-    <!--<el-dialog-->
-            <!--size="tiny"-->
-            <!--class="select"-->
-            <!--v-model="dialogSelectVisible">-->
-        <!--<div class="dialog-title clearfix" slot="title">-->
-            <!--<span class="el-dialog__title">详细查询</span>-->
-        <!--</div>-->
-        <!--<el-form :model="select">-->
-            <!--<el-form-item label="车牌号"-->
-                          <!--:label-width="formLabelWidth">-->
-                <!--<el-input-->
-                        <!--class="input"-->
-                        <!--v-model="select.ckrwCph"-->
-                        <!--icon="search"-->
-                        <!--placeholder="车牌号"></el-input>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="任务号"-->
-                          <!--:label-width="formLabelWidth">-->
-                <!--<el-input-->
-                        <!--v-model="select.ckrwNo"-->
-                        <!--class="input"-->
-                        <!--icon="search"-->
-                        <!--placeholder="任务号"></el-input>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="制作时间"-->
-                          <!--:label-width="formLabelWidth">-->
-                <!--<el-date-picker-->
-                        <!--v-model="select.ckrwHistoryCzsj"-->
-                        <!--type="daterange"-->
-                        <!--align="right"-->
-                        <!--placeholder="制作时间"-->
-                        <!--class="input"-->
-                        <!--:picker-options="pickerOptions">-->
-                <!--</el-date-picker>-->
-            <!--</el-form-item>-->
-            <!--&lt;!&ndash;<el-select v-model="baCtype" placeholder="请选择">&ndash;&gt;-->
-            <!--&lt;!&ndash;<el-option :value="1">欠货</el-option>&ndash;&gt;-->
-            <!--&lt;!&ndash;<el-option :value="2">未欠货</el-option>&ndash;&gt;-->
-            <!--&lt;!&ndash;</el-select>&ndash;&gt;-->
-            <!--&lt;!&ndash;<el-select v-model="baCtype" placeholder="请选择">&ndash;&gt;-->
-            <!--&lt;!&ndash;<el-option :value="1">滞留</el-option>&ndash;&gt;-->
-            <!--&lt;!&ndash;<el-option :value="2">未滞留</el-option>&ndash;&gt;-->
-            <!--&lt;!&ndash;</el-select>&ndash;&gt;-->
-        <!--</el-form>-->
-        <!--<div slot="footer" class="dialog-footer">-->
-            <!--<el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>-->
-        <!--</div>-->
-    <!--</el-dialog>-->
-
-
-
-            <!--&lt;!&ndash;<el-select v-model="baCtype" placeholder="请选择">&ndash;&gt;-->
-            <!--&lt;!&ndash;<el-option :value="1">欠货</el-option>&ndash;&gt;-->
-            <!--&lt;!&ndash;<el-option :value="2">未欠货</el-option>&ndash;&gt;-->
-            <!--&lt;!&ndash;</el-select>&ndash;&gt;-->
-            <!--&lt;!&ndash;<el-select v-model="baCtype" placeholder="请选择">&ndash;&gt;-->
-            <!--&lt;!&ndash;<el-option :value="1">滞留</el-option>&ndash;&gt;-->
-            <!--&lt;!&ndash;<el-option :value="2">未滞留</el-option>&ndash;&gt;-->
-            <!--&lt;!&ndash;</el-select>&ndash;&gt;-->
-        <!--</el-form>-->
-        <!--<div slot="footer" class="dialog-footer">-->
-            <!--<el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>-->
-        <!--</div>-->
-    <!--</el-dialog>-->
 </div>
 <style>
     #inputOperation {
@@ -963,30 +895,6 @@
             },                                      //分配 表单
         },
         methods: {
-            handleEdit: function (index, row) {
-                var obj = this;
-                var step = form();
-                allPrposCb(step, function (obj, index) {
-                    if (typeof row[index] !== 'undefined') step[index] = row[index];
-                });
-                /*<debug>*/
-                console.log(row);
-                console.log(step);
-                /*</debug>*/
-                step.title = '编辑';
-                this.form = step;
-                this.dialogFormActive = 0;
-                this.dialogDistributionForm = false;
-                if (typeof (this.form.rkDocsList) === 'undefined') {
-                    postGoods(obj, {rkRkdjNo: row.rkRkdjNo}, function (json) {
-                        obj.form.rkDocsList = json;
-                        obj.dialogFormVisible = true;
-                    });
-                } else {
-                    obj.dialogFormVisible = true;
-                }
-            },                                  //编辑 行内按钮
-
             distributionBtn: function (index, row) {
                 var obj = this;
                 var step = form();

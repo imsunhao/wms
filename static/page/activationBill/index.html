@@ -69,11 +69,6 @@
                                             label="可用操作">
                                         <el-button
                                                 size="small"
-                                                icon="edit"
-                                                @click="inlineEdit(props.$index, props.row)">
-                                        </el-button>
-                                        <el-button
-                                                size="small"
                                                 type="success"
                                                 @click="supplementaryDistribution(props.$index, props.row)">追加分拣
                                         </el-button>
@@ -618,25 +613,6 @@
             },                                      //分配 表单
         },
         methods: {
-            inlineEdit: function (index, row) {
-                this.form.title = '编辑';
-                this.form.ckrwWls=row.ckrwWls;
-                this.form.ckrwNo = row.ckrwNo;
-                this.form.ckrwCph=row.ckrwCph;
-                this.form.dds = row.dds;
-                this.form.pxs = row.pxs;
-                this.form.ckrwYjdcsj = row.ckrwYjdcsj;
-                this.form.ckrwSjdcsj=row.ckrwSjdcsj;
-                this.form.ckrwStatus=row.ckrwStatus;
-                this.form.ckrwQhStatus=row.ckrwQhStatus;
-                this.form.ckrwZlStatus=row.ckrwZlStatus;
-                this.form.rkrwStatus = parseInt(row.rkrwStatus);
-                this.dialogFormVisible = true;
-                this.dialogFormActive = 0;
-                Vue.nextTick(function () {
-                    activationBill.$refs.carousel.setActiveItem(0);
-                });
-            },                                  //TODO 行内按钮-编辑
             cancelTask: function (index, row) {
                 var _this = this;
                 _this.$confirm('此操作将取消该任务单的任务, 是否继续?', '提示', {

@@ -299,15 +299,20 @@
                                                     <el-form-item label="总体积">
                                                         <span>{{ props.row.allTj    }}</span>
                                                     </el-form-item>
-                                                    <el-form-item label="发货状态">
+
+                                                    <el-form-item label="制单方式">
+                                                        <span>{{ props.row.ckIsauto    }}</span>
+                                                    </el-form-item>
+                                                     <el-form-item label="发货状态">
                                                         <span>{{ props.row.ckStatus    }}</span>
                                                     </el-form-item>
+
                                                     <el-form-item label="备注">
                                                         <span>{{ props.row.ckRemarks    }}</span>
                                                     </el-form-item>
 
 
-                                                    <el-form-item label="可用操作" v-if="props.row.rkZdfs==='手动'">
+                                                    <el-form-item label="可用操作" v-if="props.row.ckIsauto==='手动'">
                                                         <el-button
                                                                 size="small"
                                                                 icon="edit"
@@ -405,6 +410,14 @@
                                 ref="outputAppointmentCombinationDetails"
                                 :data="outputAppointmentCombinationDetails">
                             <el-col :span="10">
+                                <el-form-item
+                                        label="出库任务单号"
+                                        :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model="outputAppointmentCombinationDetails.ckrwNo"
+                                            :disabled="true"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
                                 <el-form-item label="预计到车时间" :label-width="formLabelWidth">
                                     <el-date-picker
                                             v-model="outputAppointmentCombinationDetails.ckrwYjdcsj"
@@ -522,11 +535,11 @@
                                         auto-complete="off"></el-input>
                             </el-form-item>
 
-                            <el-form-item label="入库备注" :label-width="formLabelWidth">
+                            <el-form-item label="出库备注" :label-width="formLabelWidth">
                                 <el-input
                                         type="textarea"
                                         :rows="2"
-                                        v-model="form.rkRemarks"
+                                        v-model="form.ckRemarks"
                                         auto-complete="off"></el-input>
                             </el-form-item>
 
