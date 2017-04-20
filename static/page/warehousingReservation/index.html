@@ -271,7 +271,7 @@
                                                         <span style="margin-left: 10px">{{ auto_rkCreatetime(props.row.rkCreatetime) }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="订单类型">
-                                                        <span>{{ props.row.rkType }}</span>
+                                                        <span>{{ auto_rkType(props.row.rkType) }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="入库状态">
                                                         <span>{{ props.row.rkStatus }}</span>
@@ -1182,6 +1182,24 @@
                 else return dateFormat(new Date(value), 'MM-dd');
             },
 
+
+            auto_rkType: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        0: '采购订单',
+                        1: '仓间调拨',
+                        2: '退货入库'
+                    }
+                } else {
+                    temp = {
+                        '采购订单': 0,
+                        '仓间调拨': 1,
+                        '退货入库': 2
+                    }
+                }
+                return temp[value];
+            }
         },
         watch: {
             warehousingReservation: function () {
