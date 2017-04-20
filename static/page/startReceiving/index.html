@@ -671,78 +671,78 @@
         });
     }           ///TODO 开始收货分页查询的接口
 
-//    function postRkrwNo(obj, option, resolve) {
-//        /*<debug>*/
-//        url = "/hock/startReceiving/rkrwNo.json";
-//        /*</debug>*/
-//
-//        /*<prod>*/
-//        url = "/data/inputOption/" + option;
-//        /*</prod>*/
-//
-//        $.ajax(url, {
-//            type: "GET",
-//            data: option | {
-//                "draw": 1,                      //* 没有意义
-//                "pageNum": 1,                   //* 当前页
-//                "pageSize": 10                  //* 每页大小
-//            },
-//            error: function (error) {
-//                errorTip(obj, error);
-//            },
-//            success: function (json) {
-//                var resoleveStep = [];
-//                for (var i = 0; i < json.data.length; i++) {
-//                    resoleveStep.push({
-//                        name: json.data[i].rkdjId,
-//                        rkrwNo:option.rkrwNo,
-//                        rkrwDhrq:option.rkrwDhrq});
-//                }
-//                return resolve(resoleveStep);
-//            },
-//            complete: function () {
-//
-//            }
-//        });
-//    }          //TODO 获取任务单号中详细信息
-//    function postRkdjId(obj, option, resolve) {
-//        /*<debug>*/
-//        url = "/hock/startReceiving/rkdjId.json";
-//        /*</debug>*/
-//
-//        /*<prod>*/
-//        url = "/data/inputOption/" + option;
-//        /*</prod>*/
-//
-//        $.ajax(url, {
-//            type: "GET",
-//            data: option | {
-//                "draw": 1,                      //* 没有意义
-//                "pageNum": 1,                   //* 当前页
-//                "pageSize": 10                  //* 每页大小
-//            },
-//            error: function (error) {
-//                errorTip(obj, error);
-//            },
-//            success: function (json) {
-//                var resoleveStep = [];
-//                for (var i = 0; i < json.length; i++) {
-//                    resoleveStep.push({
-//                        name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgNamejc,
-//                        val2:json[i].baseGoods.bgGoodsNo,
-//                        val:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-//                        rwdh:option.rkrwNo,
-//                        dhrq:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-//                        dysj:changeDate(new Date())
-//                    });
-//                }
-//                return resolve(resoleveStep);
-//            },
-//            complete: function () {
-//
-//            }
-//        });
-//    }          //TODO 获取入库单号中详细信息
+    function postRkrwNo(obj, option, resolve) {
+        /*<debug>*/
+        url = "/hock/startReceiving/rkrwNo.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/data/inputOption/" + option;
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option | {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                var resoleveStep = [];
+                for (var i = 0; i < json.data.length; i++) {
+                    resoleveStep.push({
+                        name: json.data[i].rkdjId,
+                        rkrwNo:option.rkrwNo,
+                        rkrwDhrq:option.rkrwDhrq});
+                }
+                return resolve(resoleveStep);
+            },
+            complete: function () {
+
+            }
+        });
+    }          //TODO 获取任务单号中详细信息
+    function postRkdjId(obj, option, resolve) {
+        /*<debug>*/
+        url = "/hock/startReceiving/rkdjId.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/data/inputOption/" + option;
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option | {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                var resoleveStep = [];
+                for (var i = 0; i < json.length; i++) {
+                    resoleveStep.push({
+                        name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgNamejc,
+                        val2:json[i].baseGoods.bgGoodsNo,
+                        val:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
+                        rwdh:option.rkrwNo,
+                        dhrq:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
+                        dysj:changeDate(new Date())
+                    });
+                }
+                return resolve(resoleveStep);
+            },
+            complete: function () {
+
+            }
+        });
+    }          //TODO 获取入库单号中详细信息
     function changeDate(date) {
         return dateFormat(new Date(date), 'MM-dd hh:mm');
     }
