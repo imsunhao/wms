@@ -2038,8 +2038,8 @@
             /**
              *         TODO 0 入库台账主页面
              *             rkCreatetime    始发日期
-             *             rkrwDhrq        到货日期
-             *             rk_Sjsj         收货日期
+             *             rkSjsj        到货日期
+             *             rkSjsj         收货日期
              *             rkrwDbd         调拨地点
              *             rkrwCys         承运商
              *             rkrwCph         车牌号
