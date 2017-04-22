@@ -270,27 +270,28 @@
                                                 <el-form label-position="left" inline class="demo-table-expand">
                                                     <el-form-item label="下单时间">
                                                         <el-icon name="time"></el-icon>
+                                                        <!--<span style="margin-left: 10px">{{ auto_ckXdsj(props.row.ckXdsj) }}</span>-->
                                                         <span style="margin-left: 10px">{{ props.row.ckXdsj }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="出库单号">
                                                         <span>{{ props.row.ckCkdjNo }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="单据类型">
-                                                        <span>{{ props.row.ckCkdjType }}</span>
+                                                        <span>{{auto_ckCkdjType(props.row.ckCkdjType) }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="客户编号">
                                                         <span>{{ props.row.ckCkdjClientno }}</span>
                                                     </el-form-item>
-                                                     <el-form-item label="客户名称">
+                                                    <el-form-item label="客户名称">
                                                         <span>{{ props.row.ckCkdjClientname }}</span>
                                                     </el-form-item>
-                                                     <el-form-item label="联系人">
+                                                    <el-form-item label="联系人">
                                                         <span>{{ props.row.ckContacts }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="联系电话">
                                                         <span>{{ props.row.ckTel }}</span>
                                                     </el-form-item>
-                                                     <el-form-item label="地址">
+                                                    <el-form-item label="地址">
                                                         <span>{{ props.row.ckAdress }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="总数量">
@@ -299,20 +300,19 @@
                                                     <el-form-item label="总体积">
                                                         <span>{{ props.row.allTj    }}</span>
                                                     </el-form-item>
-
                                                     <el-form-item label="制单方式">
-                                                        <span>{{ props.row.ckIsauto    }}</span>
-                                                    </el-form-item>
-                                                     <el-form-item label="发货状态">
-                                                        <span>{{ props.row.ckStatus    }}</span>
+                                                        <span>{{auto_ckIsauto(props.row.ckIsauto)   }}</span>
                                                     </el-form-item>
 
+                                                    <el-form-item label="发货状态">
+                                                        <span>{{auto_ckStatus(props.row.ckStatus)    }}</span>
+                                                    </el-form-item>
                                                     <el-form-item label="备注">
                                                         <span>{{ props.row.ckRemarks    }}</span>
                                                     </el-form-item>
 
 
-                                                    <el-form-item label="可用操作" v-if="props.row.ckIsauto==='手动'">
+                                                    <el-form-item label="可用操作" v-if="props.row.rkZdfs==='手动'">
                                                         <el-button
                                                                 size="small"
                                                                 icon="edit"
@@ -331,24 +331,32 @@
                                     </template>
                                 </el-table-column>
                                 <el-table-column
+                                        label="所属仓库"
+                                        align="center"
+                                        prop="ckArehouseId">
+                                    <template scope="scope">
+                                        <el-tag
+                                                type="success"
+                                                close-transition>
+                                            {{auto_ckArehouseId(scope.row.ckArehouseId)}}
+                                        </el-tag>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column
                                         label="出库单号"
                                         show-overflow-tooltip
                                         align="center"
                                         prop="ckCkdjNo">
                                 </el-table-column>
-                                <el-table-column
-                                        label="单据类型"
-                                        align="center"
-                                        prop="ckCkdjType">
-                                    <template scope="scope">
-                                    </template>
-                                </el-table-column>
 
                                 <el-table-column
                                         width="80"
                                         align="center"
-                                        prop="ckXdsj"
                                         label="时间">
+                                    <template scope="scope">
+                                        {{scope.row.ckXdsj}}
+                                        <!--{{auto_ckXdsj(scope.row.ckXdsj)}}-->
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                         type="selection"
@@ -380,17 +388,19 @@
                                 </el-table-column>
                                 <el-table-column
                                         label="单据类型"
-                                        align="center"
-                                        prop="ckCkdjType">
+                                        align="center">
                                     <template scope="scope">
+                                        {{auto_ckCkdjType(scope.row.ckCkdjType)}}
                                     </template>
                                 </el-table-column>
-
                                 <el-table-column
                                         width="80"
                                         align="center"
-                                        prop="ckXdsj"
                                         label="时间">
+                                    <template scope="scope">
+                                        <!--{{auto_ckXdsj(scope.row.ckXdsj)}}-->
+                                        {{scope.row.ckXdsj}}
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                         v-if="multiSelect"
@@ -510,31 +520,19 @@
                                         v-model="form.ckCkdjNo"
                                         auto-complete="off"></el-input>
                             </el-form-item>
-                            <el-form-item
-                                    label="客户名称"
-                                    prop="ckCkdjClientname"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model="form.ckCkdjClientname"
-                                        auto-complete="off"></el-input>
+                            <el-form-item label="所属仓库" :label-width="formLabelWidth">
+                                <el-select v-model="form.ckArehouseId" placeholder="请选择所属仓库">
+                                    <el-option :label="obj.baName" :value="obj.baArehouseId"
+                                               v-for="obj of baseArehouses"></el-option>
+                                </el-select>
                             </el-form-item>
-                            <el-form-item
-                                    label="联系人"
-                                    prop="ckContacts"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model="form.ckContacts"
-                                        auto-complete="off"></el-input>
+                            <el-form-item label="单据类型" :label-width="formLabelWidth">
+                                <el-select v-model="form.ckCkdjType" placeholder="请选择单据类型">
+                                    <el-option label="正常单据" :value="0"></el-option>
+                                    <el-option label="挂起单据" :value="1"></el-option>
+                                    <el-option label="滞留单据" :value="2"></el-option>
+                                </el-select>
                             </el-form-item>
-                            <el-form-item
-                                    label="联系电话"
-                                    prop="ckTel"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model="form.ckTel"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-
                             <el-form-item label="出库备注" :label-width="formLabelWidth">
                                 <el-input
                                         type="textarea"
@@ -542,7 +540,6 @@
                                         v-model="form.ckRemarks"
                                         auto-complete="off"></el-input>
                             </el-form-item>
-
                         </el-col>
                         <el-col :span="12" :offset="2">
                             <el-form-item label="发货状态">
@@ -680,7 +677,6 @@
         window.dbmessage.baseArehouses = JSON.parse('[{"baArehouseId":4,"baName":"无限极济阳仓A91","baAddr":"济南市济阳县","baScity":"齐河","baScontacts":"联系人1","baPhone":"13112345678","baAcreage":"222","baCtype":"22","baHumidity":"222","baFax":"2222","baPostoffice":"test","baIsti":1,"baStatus":1,"baClientId":3,"baRemarks":"test","baCreatetime":1487233193000,"baPgroupinfo":"eeeeeeeeeeeee","arehouseKqs":[]},{"baArehouseId":5,"baName":"九阳济南仓A02","baAddr":"济南市济阳278号","baScity":"齐河","baScontacts":"联系人1","baPhone":"13012345678","baAcreage":"222","baCtype":"111","baHumidity":"222","baFax":"2222","baPostoffice":"test","baIsti":2,"baStatus":1,"baClientId":1,"baRemarks":"test","baCreatetime":1487838047000,"baPgroupinfo":"eeeeeeeeeeeee","arehouseKqs":[]}]');
     })();
     /*</debug>*/
-
     function CombinationDetails() {
         return {
             rkrwId: '',         //id
@@ -694,7 +690,6 @@
             rkrwStatus: ''      //任务状态
         }
     }
-
     function selectGood() {
         return {
             baseGoods: {
@@ -708,7 +703,6 @@
             bgGoodsId: ''
         }
     }
-
     function form() {
         return {
             title: '新建出库单',
@@ -723,11 +717,9 @@
             deleteARkDocsList: true
         };
     }
-
     var validateRule = {
         a: new RegExp("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", "g")
     };
-
     var outputAppointment = new Vue({
         el: '#outputAppointment',
         prop: {},
@@ -838,7 +830,6 @@
                     });
                 });
             },                                 //行内按钮-删除
-
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -897,7 +888,6 @@
                     remove(this.multipleSelectionCombination[i], this.outputAppointmentCombination);
                 }
             },                           //TODO 多选 滞留入库
-
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -912,7 +902,6 @@
                 this.currentPage = val;
                 post(this, this.option);
             },                                //分页 当前页
-
             newInput: function () {
                 this.dialogFormVisible = true;
 //                this.$msgbox({
@@ -933,18 +922,15 @@
             setInterface: function () {
 //                this.dialogFormVisible = true;
             },                                          //TODO 按钮 接口设置
-
             expandChange: function (row, expanded) {
 //                if (typeof (row.history) == 'undefined') {
 //                    postHistory(row);
 //                }
 //                console.log(row);
             },                             //下拉 选择
-
             rowSelection: function (row, selected) {
 //                console.log(selected)
             },                             //选中 当前行
-
             prevForm: function () {
                 this.formActive--;
                 this.$refs.carouselWaiting.prev();
@@ -980,7 +966,6 @@
                     post(outputAppointment);
                 }, 1500);
             },                                            //form 表单提交
-
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -1067,14 +1052,12 @@
                 remove(this.form.selectGood, this.form.rkDocsList);
                 this.form.selectGood = selectGood();
             },                                     //货品明细控制 删除
-
             selectSubmit: function () {
                 this.dialogSelectVisible = false;
             },                                          //详细查询 查询提交
-
-            auto_rkArehouseId: function (data, set) {
+            auto_ckArehouseId: function (data, set) {
                 /*<debug>*/
-                //console.log(rkArehouseId);
+                //console.log(ckArehouseId);
                 /*</debug>*/
                 var baArehouse = window.dbmessage.baseArehouses;
                 var i;
@@ -1094,6 +1077,70 @@
                     return '未知的仓库'
                 }
             },                            //入库仓库id 自动匹配
+            auto_ckXdsj: function (value, bool) {
+                if (!bool) return dateFormat(new Date(value), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(value), 'MM-dd');
+            },                               //下单时间
+            auto_ckCkdjType:function(value){
+                var temp={};
+                if(!isNaN(value)){
+                    temp={
+                        0:'正常单据',
+                        1:'挂起单据',
+                        2:'滞留单据'
+                    }
+                }else{
+                    temp={
+                        '正常单据': 0,
+                        '挂起单据': 1,
+                        '滞留单据': 2
+                    }
+                }
+                return temp[value];
+            },                                      //单据类型
+            auto_ckIsauto:function(value){
+                var temp={};
+                if(!isNaN(value)){
+                    temp={
+                        1:'手动',
+                        2:'导入',
+                        3:'接口'
+                    }
+                }else{
+                    temp={
+                        '手动': 1,
+                        '导入': 2,
+                        '接口': 3
+                    }
+                }
+                return temp[value];
+            },                                      //制单方式
+            auto_ckStatus:function(value){
+                var temp={};
+                if(!isNaN(value)){
+                    temp={
+                        1:'初始',
+                        21:'部分分拣',
+                        22:'部分下架',
+                        31:'全部分拣',
+                        32:'全部下架',
+                        50:'作废'
+                    }
+                }else{
+                    temp={
+                        '初始': 1,
+                        '部分分拣': 21,
+                        '部分下架': 22,
+                        '全部分拣': 31,
+                        '全部下架': 32,
+                        '作废': 50
+
+                    }
+                }
+                return temp[value];
+            }                                      //单据状态
+
+
         },
         watch: {
             outputAppointment: function () {
@@ -1112,8 +1159,6 @@
             }
         }
     });
-
-
     // 高级 监视器的 使用方法
     outputAppointment.$watch('date', function () {
         if (!this.option.dateStart)return;
@@ -1122,12 +1167,11 @@
         /*</debug>*/
         post(this, this.option);
     }, {deep: true});
-
-
     post(outputAppointment, outputAppointment.option);
     function post(obj, option) {
         obj.showLoading = true;
 
+        /*<debug>*/
         /*<debug>*/
         //url = "../../hock/form/inputOption.json";
         url = "../../hock/outputAppointment/page.json";
@@ -1186,7 +1230,6 @@
             }
         });
     }    // TODO 入库预约分页查询接口(测试通过)
-
     function postDelete(obj, option) {
         //TODO 删除后重新post
         if (option.id.length < 1)return;
@@ -1341,7 +1384,6 @@
         }
         return false;
     }
-
     /*
      * 用来遍历指定对象所有的属性名称和值
      * obj 需要遍历的对象

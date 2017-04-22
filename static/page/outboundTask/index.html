@@ -48,22 +48,23 @@
                                         <span>{{props.row.pxs}}</span>
                                     </el-form-item>
                                     <el-form-item label="任务状态">
-                                        <span>{{ props.row.ckrwStatus }}</span>
+                                        <span>{{auto_ckrwStatus(props.row.ckrwStatus) }}</span>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="预计到车">
-                                        <span>{{ props.row.ckrwYjdcsj }}</span>
+                                        <span>{{ auto_ckrwYjdcsj(props.row.ckrwYjdcsj) }}</span>
+                                        <!--<span>{{ props.row.ckrwYjdcsj }}</span>-->
                                     </el-form-item>
                                     <el-form-item label="实际到车">
-                                        <span>{{ props.row.ckrwSjdcsj }}</span>
+                                        <span>{{ auto_ckrwSjdcsj(props.row.ckrwSjdcsj) }}</span>
                                     </el-form-item>
 
                                     <el-form-item label="欠货状态">
-                                        <span>{{ props.row.ckrwQhStatus }}</span>
+                                        <span>{{ auto_ckrwQhStatus(props.row.ckrwQhStatus) }}</span>
                                     </el-form-item>
                                     <el-form-item label="滞留状态">
-                                        <span>{{ props.row.ckrwZlStatus }}</span>
+                                        <span>{{ auto_ckrwZlStatus(props.row.ckrwZlStatus) }}</span>
                                     </el-form-item>
                                     <el-form-item
                                             label="可用操作">
@@ -75,8 +76,6 @@
                                                 size="small"
                                                 @click="modifyTask(props.$index, props.row)">修改任务
                                         </el-button>
-
-
                                         <el-button
                                                 size="small"
                                                 type="success"
@@ -99,9 +98,6 @@
                                                 type="success"
                                                 @click="inlineIssued(props.$index, props.row)">取消挂起
                                         </el-button>
-
-
-
                                     </el-form-item>
 
                                 </el-col>
@@ -145,34 +141,31 @@
                 </el-table-column>
                 <el-table-column
                         label="任务状态"
-                        prop="status1"
                         align="center"
                         width="100">
                     <template scope="scope">
                         <el-tag
-                                close-transition>{{scope.row.ckrwStatus}}
+                                close-transition>{{auto_ckrwStatus(scope.row.ckrwStatus)}}
                         </el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column
                         label="欠货状态"
-                        prop="status"
                         align="center"
                         width="100">
                     <template scope="scope">
                         <el-tag
-                                close-transition>{{scope.row.ckrwQhStatus}}
+                                close-transition>{{auto_ckrwQhStatus(scope.row.ckrwQhStatus)}}
                         </el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column
                         label="滞留状态"
-                        prop="status"
                         align="center"
                         width="100">
                     <template scope="scope">
                         <el-tag
-                                close-transition>{{scope.row.ckrwZlStatus}}
+                                close-transition>{{auto_ckrwZlStatus(scope.row.ckrwZlStatus)}}
                         </el-tag>
                     </template>
                 </el-table-column>
@@ -667,8 +660,6 @@
                     });
                 });
             },                                //TODO 行内按钮  取消任务
-
-
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -684,7 +675,6 @@
             moreOperationIssued: function () {
 
             },                                   //TODO 多选 下发
-
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -699,12 +689,10 @@
                 this.currentPage = val;
                 post(this, this.option);
             },                                //分页 当前页
-
             newInput: function () {
                 this.dialogFormVisible = true;
 
             },                                              //按钮 新建入库单
-
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -750,6 +738,73 @@
                 this.dialogSelectVisible = !this.dialogSelectVisible;
                 post(this, {});
             },                                          //详细查询 提交
+            auto_ckrwStatus:function(value){
+                var temp={};
+                if(!isNaN(value)){
+                    temp={
+                        10:'初始',
+                        11:'下发',
+                        21:'已挑选',
+                        31:'已激活',
+                        41:'部分出库',
+                        42:'全部出库',
+                        51:'部分发运',
+                        52:'部分发运'
+                    }
+                }else{
+                    temp={
+                       '初始'   :10,
+                       '下发'    :11,
+                       '已挑选'  :21  ,
+                       '已激活'  :31 ,
+                       '部分出库':41 ,
+                       '全部出库':42 ,
+                       '部分发运':51 ,
+                       '部分发运':52
+                    }
+                }
+                return temp[value];
+            },                                      //任务状态
+            auto_ckrwQhStatus:function(value){
+                var temp={};
+                if(!isNaN(value)){
+                    temp={
+                        1:'欠货',
+                        2:'未欠货'
+                    }
+                }else{
+                    temp={
+                       '欠货'   : 1 ,
+                       '未欠货' : 2
+
+                    }
+                }
+                return temp[value];
+            },                                      //欠货状态
+            auto_ckrwZlStatus:function(value){
+                var temp={};
+                if(!isNaN(value)){
+                    temp={
+                        1:'滞留',
+                        2:'未滞留'
+                    }
+                }else{
+                    temp={
+                       '滞留'   : 1 ,
+                       '未滞留' : 2
+
+                    }
+                }
+                return temp[value];
+            },                                      //滞留状态
+            auto_ckrwYjdcsj:function(value,bool){
+                if(!bool) return dateFormat(new Date(value),'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(value),'MM-dd');
+            },                                  //预计到货时间
+            auto_ckrwSjdcsj:function(value,bool){
+                if(!bool) return dateFormat(new Date(value),'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(value),'MM-dd');
+            },                                  //实际到货时间
         },
         watch: {}
     });
