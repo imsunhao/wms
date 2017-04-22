@@ -1,0 +1,26 @@
+{
+  "data":[
+    {
+      "rkRkdjId":"id",
+      "rkRkdjNo":"20170417",
+      "rkErpNo":"170417",
+      "rkType":"类型",
+      "rkGysmc":"供应商名称",
+      "rkRemarks":"备注",
+      "rkUserId":"",
+      "rkSjsj":"创建",
+      "rkBjsj":"",
+      "rkCreatetime":"",
+      "rkCreateUserId":"",
+      "rkZdfs":"",
+      "rkStartwith":"",
+      "rkStatus":"",
+      "rkArehouseId":"",
+      "rkEndTime":"",
+      "rkPrintcount":"",
+      "rkRwId":"",
+      "rkRwStatus  ":""
+
+    }
+  ]
+}

@@ -86,6 +86,10 @@
                                             <el-form-item label="入库体积">
                                                 <span>{{ props.row.allTj }}</span>
                                             </el-form-item>
+                                             <el-form-item label="下单时间">
+                                                <span>{{ auto_rkCreatetime(props.row.rkCreatetime,true) }}</span>
+                                            </el-form-item>
+
                                             <el-form-item label="制作方式">
                                                 <span>{{ props.row.rkZdfs }}</span>
                                             </el-form-item>
@@ -165,12 +169,12 @@
                 <el-table-column
                         width="150"
                         align="center"
-                        prop="rkSjsj"
+                        prop="rkCreatetime"
                         sortable
                         label="下单时间">
                     <template scope="scope">
                         <el-icon name="time"></el-icon>
-                        <span style="margin-left: 10px">{{ scope.row.rkSjsj }}</span>
+                        <span style="margin-left: 10px">{{ auto_rkCreatetime(scope.row.rkCreatetime) }}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -967,7 +971,6 @@
                     _this.dialogLocationVisible = false;
                 }, 250);
             },                                        //关联 表单提交
-
             locationSelect: function (item) {
                 this.form.saveARkDocsList = false;
                 this.form.deleteARkDocsList = true;
@@ -991,7 +994,6 @@
                 this.form.selectGood = item;
                 console.log(item);
             },
-
             dialogFormActiveOpen: function () {
                 var obj = this;
                 if (this.dialogFormActive !== 0) {
@@ -1007,7 +1009,6 @@
             handleDelete: function (index, row) {
                 console.log(index, row);
             },                                //测试 行内按钮
-
             filteRrkStatus: function (value, row) {
                 return row.rkStatus == value;
             },                              //状态 过滤函数
@@ -1032,7 +1033,6 @@
                 }
                 return str;
             },                                 //状态 标签颜色
-
             typeWatch: function (type) {
                 var str = '';
                 switch (type) {
@@ -1051,7 +1051,6 @@
             filterType: function (value, row) {
                 return row.type == value;
             },                                  //单据 过滤函数
-
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -1075,7 +1074,6 @@
                 })
 
             },                                   //多选 删除
-
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -1090,7 +1088,6 @@
                 this.currentPage = val;
                 post(this, this.option);
             },                                //分页 当前页
-
             newInput: function () {
                 this.dialogFormVisible = true;
 //                this.$msgbox({
@@ -1105,18 +1102,15 @@
 //                });
 
             },                                              //按钮 新建入库单
-
             expandChange: function (row, expanded) {
                 if (typeof (row.history) == 'undefined') {
                     postHistory(row);
                 }
                 console.log(row);
             },                             //下拉 选择
-
             rowSelection: function (row, selected) {
 //                console.log(selected)
             },                             //选中 当前行
-
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -1155,7 +1149,6 @@
 //                    })
 //                },0);
             },                             //表单 string验证
-
             querySearchAsync: function (queryString, cb) {
                 postGoods(this, {bgGoodsNo: queryString}, cb);
             },
@@ -1193,7 +1186,6 @@
                 remove(this.form.selectGood, this.form.rkDocsList);
                 this.form.selectGood = selectGood();
             },
-
             selectSubmit: function () {
                 this.dialogSelectVisible = false;
                 console.log('select!');
@@ -1238,7 +1230,10 @@
                     return '未知的仓库'
                 }
             },                            //入库仓库id 自动匹配
-
+            auto_rkCreatetime:function (value, bool) {
+                if(!bool) return dateFormat(new Date(value),'yyyy-MM-dd');
+                else return dateFormat(new Date(value),'yyyy年-MM月-dd日');
+            }                            // 下单时间
         },
         watch: {
             rkRkdjNo: function () {

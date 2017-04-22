@@ -4,19 +4,15 @@
             element-loading-text="拼命加载中">
         <el-col :span="24">
             <div class="inner btn-nav">
-                </button>
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
                 <button
                         class="btn btn-edit"
                         @click="handleDelete">制作台账
-
-
                 </button>
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i class="icon sel"></i><span>多选</span>
                 </button>
-
                 <button
                         class="btn btn-distribution"
                         @click="distributionBtn" v-show="multiSelect">导出
@@ -25,8 +21,6 @@
                         class="btn btn-receipt"
                         @click="handleDelete" v-show="multiSelect">欠货完结
                 </button>
-
-
             </div>
             <el-table
                     :data="inputLedger"
@@ -50,7 +44,7 @@
                                 <el-col :span="11">
                                     <el-form-item label="始发日期">
                                         <el-icon name="time"></el-icon>
-                                        <span style="margin-left: 10px">{{ props.row.rkCreatetime }}</span>
+                                        <span style="margin-left: 10px">{{ auto_rkCreatetime(props.row.rkCreatetime) }}</span>
                                     </el-form-item>
                                     <el-form-item label="调拨地点">
                                         <span>{{ props.row.rkrwDbd }}</span>
@@ -98,11 +92,11 @@
                                 <el-col :span="11" :offset="2">
                                     <el-form-item label="到货日期">
                                         <el-icon name="time"></el-icon>
-                                        <span style="margin-left: 10px">{{ props.row.rkrwDhrq  }}</span>
+                                        <span style="margin-left: 10px">{{auto_rkSjsj(props.row.rkSjsj)  }}</span>
                                     </el-form-item>
                                     <el-form-item label="收货日期">
                                         <el-icon name="time"></el-icon>
-                                        <span style="margin-left: 10px">{{ props.row.rkSjsj }}</span>
+                                        <span style="margin-left: 10px">{{ auto_rkSjsj(props.row.rkSjsj) }}</span>
                                     </el-form-item>
                                     <el-form-item label="破损/台数">
                                         <span>{{ props.row.rksPsts }}</span>
@@ -149,11 +143,6 @@
                                         </el-button>
                                         <el-button
                                                 size="small"
-                                                type="info"
-                                                @click="handleDelete(props.$index, props.row)">制作
-                                        </el-button>
-                                        <el-button
-                                                size="small"
                                                 type="success"
                                                 @click="handleDelete(props.$index, props.row)">完结
                                         </el-button>
@@ -177,22 +166,28 @@
                         label="始发日期"
                         width="120"
                         show-overflow-tooltip
-                        align="center"
-                        prop="rkCreatetime">
+                        align="center">
+                    <template scope="scope">
+                        {{auto_rkCreatetime(scope.row.rkCreatetime,true)}}
+                    </template>
                 </el-table-column>
                 <el-table-column
-                        label="到账日期"
+                        label="到货日期"
                         width="120"
                         show-overflow-tooltip
-                        align="center"
-                        prop="rkrwDhrq">
+                        align="center">
+                    <template scope="scope">
+                        {{auto_rkSjsj(scope.row.rkSjsj,true)}}
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="收货日期"
                         width="120"
                         show-overflow-tooltip
-                        align="center"
-                        prop="rkSjsj">
+                        align="center">
+                    <template scope="scope">
+                        {{auto_rkSjsj(scope.row.rkSjsj,true)}}
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="调拨地点"
@@ -220,154 +215,6 @@
                         align="center"
                         prop="ruUserName">
                 </el-table-column>
-                <!--<el-table-column-->
-                <!--label="收货仓库"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="baName">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="单号"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="rkRkdjNo">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="调拨单号"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="rkErpNo">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="承运件数(台)"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="承运件数(箱)"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="方数"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="物料编码"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="bgGoodsNo">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="物料描述"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="bgGoodsName">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="台数"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="件数"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="方数"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="破损/台数"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="rksPsts">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="调拨破损外包"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="rksDbPswb">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="源头破损外包"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="rksYtPswb">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="调拨破损内保"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="rksDbPsnb">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="源头破损内保"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="rksYtPsnb">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="泡沫"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="rksPm">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="缺机/台"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="rksQhsl">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="异常原因"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="rksYcyy">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="处理结果"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="rksCljg">-->
-                <!--</el-table-column>-->
-                <!--<el-table-column-->
-                <!--label="结算时间"-->
-                <!--width="170"-->
-                <!--show-overflow-tooltip-->
-                <!--align="center"-->
-                <!--prop="rksJssj">-->
-                <!--</el-table-column>-->
-
                 <el-table-column
                         v-if="multiSelect"
                         type="selection"
@@ -938,7 +785,6 @@
                 }
                 return str;
             },                                     //状态 标签颜色
-
             typeWatch: function (type) {
                 var str = '';
                 switch (type) {
@@ -957,7 +803,6 @@
             filterType: function (value, row) {
                 return row.type == value;
             },                                  //单据 过滤函数
-
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -1037,7 +882,6 @@
                 this.currentPage = val;
                 post(this, this.option);
             },                                //分页 当前页
-
             newInput: function () {
                 this.dialogFormVisible = true;
 //                this.$msgbox({
@@ -1052,14 +896,12 @@
 //                });
 
             },                                              //按钮 新建入库单
-
             expandChange: function (row, expanded) {
                 if (typeof (row.history) == 'undefined') {
                     postHistory(row);
                 }
                 console.log(row);
             },                             //下拉 选择
-
             rowSelection: function (row, selected) {
 //                console.log(selected)
             },                             //选中 当前行
@@ -1070,7 +912,6 @@
 //                console.log(event);
 //                console.log(column);
             },                               //测试 函数 --> 选中 当前行
-
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -1152,12 +993,9 @@
                     count: 0
                 };
             },
-
-
             distributionBtn: function () {
                 this.dialogDistributionVisible = !this.dialogDistributionVisible;
             },                                       //分配 控制按钮
-
             selectSubmit: function () {
                 this.dialogSelectVisible = false;
                 console.log('select!');
@@ -1179,8 +1017,19 @@
                         message: '已取消删除'
                     });
                 });
-            }
-
+            },
+            auto_rkCreatetime:function (value,bool) {
+                if(!bool) return dateFormat(new Date(value),'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(value),'yyyy-MM-dd')
+            },                             //始发日期
+            auto_rkSjsj:function (value,bool) {
+                if(!bool) return dateFormat(new Date(value),'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(value),'yyyy-MM-dd')
+            },                                  //到货日期
+            auto_rkSjsj:function (value,bool) {
+                if(!bool) return dateFormat(new Date(value),'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(value),'yyyy-MM-dd')
+            }                                   //收货日期
 
         },
         watch: {

@@ -376,6 +376,7 @@
                                         align="center"
                                         prop="rkRkdjNo">
                                 </el-table-column>
+
                                 <el-table-column
                                         width="80"
                                         align="center"
@@ -1178,9 +1179,46 @@
             },                            //入库仓库id 自动匹配
 
             auto_rkCreatetime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(value), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(value), 'MM-dd');
+                if (!bool) return dateFormat(new Date(value),'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(value),'MM-dd');
             },
+            auto_rkType:function(value){
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        0:'采购订单',
+                        1:'仓间调拨',
+                        2:'退货入库'
+                    }
+                }else{
+                    temp={
+                        '采购订单':0,
+                        '仓间调拨':1,
+                        '退货入库':2
+                    }
+                }
+                return temp[value];
+            },
+            auto_rkStatus:function(value){
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        1:'原始状态',
+                        21:'部分分配',
+                        22:'全部分配',
+                        31:'部分收货',
+                        32:'完全收货',
+                    }
+                }else{
+                    temp={
+                        '采购订单':0,
+                        '仓间调拨':1,
+                        '退货入库':2
+                    }
+                }
+                return temp[value];
+            }
+
 
 
             auto_rkType: function (value) {
@@ -1531,7 +1569,6 @@
         }
         return false;
     }
-
     /*
      * 用来遍历指定对象所有的属性名称和值
      * obj 需要遍历的对象
