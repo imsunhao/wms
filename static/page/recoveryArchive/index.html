@@ -70,10 +70,10 @@
                                         <span>{{ props.row.ckYfhsj }}</span>
                                     </el-form-item>
                                     <el-form-item label="制作方式">
-                                        <span>{{ props.row.ckAdress }}</span>
+                                        <span>{{ auto_ckIsauto(props.row.ckIsauto) }}</span>
                                     </el-form-item>
                                      <el-form-item label="备注">
-                                        <span>{{ props.row. ckRemarks }}</span>
+                                        <span>{{ props.row.ckRemarks }}</span>
                                     </el-form-item>
                                     <el-form-item
                                             label="可用操作">
@@ -105,7 +105,7 @@
                         label="下单时间"
                         show-overflow-tooltip
                         align="center"
-                        prop="">
+                        prop="ckXdsj">
                 </el-table-column>
                 <el-table-column
                         label="客户编号"
@@ -135,7 +135,7 @@
                         label="地址"
                         show-overflow-tooltip
                         align="center"
-                        prop="地址">
+                        prop="ckAdress">
                 </el-table-column>
                 <el-table-column
                         v-if="multiSelect"
@@ -618,8 +618,6 @@
                     });
                 });
             },                                //TODO 行内按钮  取消任务
-
-
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -637,8 +635,6 @@
             },                                   //TODO 多选 导出欠货
             exportRetention: function () {
             },                                   //TODO 多选 导出滞留
-
-
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -653,12 +649,10 @@
                 this.currentPage = val;
                 post(this, this.option);
             },                                //分页 当前页
-
             newInput: function () {
                 this.dialogFormVisible = true;
 
             },                                              //按钮 新建入库单
-
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -704,6 +698,24 @@
                 this.dialogSelectVisible = !this.dialogSelectVisible;
                 post(this, {});
             },                                          //详细查询 提交
+            auto_ckIsauto:function(value){
+                var temp={};
+                if(!isNaN(value)){
+                    temp={
+                        1:'手动',
+                        2:'导入',
+                        3:'接口'
+                    }
+                }else{
+                    temp={
+                        '手动': 1,
+                        '导入': 2,
+                        '接口': 3
+                    }
+                }
+                return temp[value];
+            },                                      //制单方式
+
         },
         watch: {}
     });
