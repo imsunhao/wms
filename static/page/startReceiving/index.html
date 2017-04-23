@@ -61,7 +61,7 @@
                                         <span>{{ props.row.rkrwDh }}</span>
                                     </el-form-item>
                                     <el-form-item label="任务状态">
-                                        <span>{{ props.row.rkrwStatus }}</span>
+                                        <span>{{ auto_rkrwStatus(props.row.rkrwStatus) }}</span>
                                     </el-form-item>
                                     <el-form-item
                                             v-if="props.row.rkrwStatus<52"
@@ -124,7 +124,7 @@
                         width="100">
                     <template scope="scope">
                         <el-tag
-                                close-transition>{{scope.row.rkrwStatus}}
+                                close-transition>{{auto_rkrwStatus(scope.row.rkrwStatus)}}
                         </el-tag>
                     </template>
                 </el-table-column>
@@ -620,9 +620,35 @@
                 }
             },
             auto_rkrwDhrq:function(value, bool){
-                if(!bool) return dateFormat(new Date(value),"yyyy年 MM月 dd日");
+                if(!bool) return dateFormat(new Date(value),"yyyy年-MM月-dd日");
                 else return dateFormat(new Date(value),"MM-dd")
-            }                                                           //预计到货时间
+            },                                   //预计到货时间
+            auto_rkrwStatus:function(value){
+                if(!isNaN(value)){
+                    temp={
+                        1:'初始',
+                        2:'已下发任务',
+                        3:'已开始收货',
+                        4:'收货中',
+                        51:'部分收货',
+                        52:'全部收货',
+                        61:'收货完成',
+                        62:'收货完成'
+                    }
+                }else{
+                    temp={
+                        '初始': 1,
+                        '已下发任务': 2 ,
+                        '已开始收货': 3 ,
+                        '收货中': 4 ,
+                        '部分收货': 51,
+                        '全部收货': 52,
+                        '收货完成': 61,
+                        '收货完成': 62
+                    }
+                }
+                return temp[value];
+            },                                     //任务状态
         }
     });
 
