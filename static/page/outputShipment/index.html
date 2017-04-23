@@ -53,10 +53,10 @@
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="预计到车">
-                                        <span>{{ props.row.ckrwYjdcsj }}</span>
+                                        <span>{{ auto_ckrwYjdcsj(props.row.ckrwYjdcsj) }}</span>
                                     </el-form-item>
                                     <el-form-item label="实际到车">
-                                        <span>{{ props.row.ckrwSjdcsj }}</span>
+                                        <span>{{ auto_ckrwSjdcsj(props.row.ckrwSjdcsj) }}</span>
                                     </el-form-item>
 
                                     <el-form-item label="欠货状态">
@@ -721,6 +721,14 @@
                 this.dialogSelectVisible = !this.dialogSelectVisible;
                 post(this, {});
             },                                          //详细查询 提交
+            auto_ckrwYjdcsj: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+            },                                  //预计到车时间
+            auto_ckrwSjdcsj: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+            },                                 //实际到车时间
             auto_ckrwStatus:function(value){
                 var temp={};
                 if(!isNaN(value)){
