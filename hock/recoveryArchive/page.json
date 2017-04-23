@@ -1,33 +1,35 @@
-{
-  "data":[
+{"data":[
     {
-      "ckCkdjId":"2",
-      "ckCkdjNo":"mm3333321",
-      "ckErpNo":"testerp_n",
+      "ckCkdjId":"id",
+      "ckCkdjNo":"CK20170421",
+      "ckErpNo":"erp_170421",
       "ckCkdjType":"0",
-      "ckCkdjClientno":"ck",
+      "ckCkdjClientno":"kehu001",
       "ckCkdjClientname":"张三",
-      "ckContacts":"郭靖test",
-      "ckTel":"15689878987",
-      "ckAdress":"高新区银座超市",
-      "ckXdsj":"14865316540",
-      "ckBjsj":"14877412580",
-      "ckYfhsj":"1487827662",
-      "ckRemarks":"备注",
+      "ckContacts":"郭靖",
+      "ckTel":"15689878",
+      "ckAdress":"高新区银座",
+      "ckXdsj":"1486968354000",
+      "ckBjsj":"14877412",
+      "ckYfhsj":"1487827",
+      "ckRemarks":"rrrr",
       "ckStatus":"1",
       "ckIsauto":"1",
-      "ckCksj":"14864452740",
+      "ckCksj":"14864452",
       "ckStartwith":"0",
       "ckIsyadan":"1",
       "ckIsqianhuo":"1",
       "ckArehouseId":"1",
       "ckClientId":"2",
-      "ckEndtime":"14870500",
+      "ckEndtime":"14870",
       "ckRwStatus":"1",
-      "ckQhStatus":"1",
+      "ckQhStatus":"3",
       "ckZlStatus":"1",
       "ckGqStatus":"1",
-      "ckrwId":"1"
+      "ckrwWls":"济南章丘",
+      "ckrwNo":"20170423",
+      "ckrwCph":"闽DS23132"
+
     }
   ]
 }

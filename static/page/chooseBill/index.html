@@ -51,20 +51,20 @@
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="任务状态">
-                                        <span>{{ props.row.ckrwStatus }}</span>
+                                        <span>{{ auto_ckrwStatus(props.row.ckrwStatus) }}</span>
                                     </el-form-item>
                                     <el-form-item label="预计到车">
-                                        <span>{{ props.row.ckrwYjdcsj }}</span>
+                                        <span>{{props.row.ckrwYjdcsj }}</span>
                                     </el-form-item>
                                     <el-form-item label="实际到车">
                                         <span>{{ props.row.ckrwSjdcsj }}</span>
                                     </el-form-item>
 
                                     <el-form-item label="欠货状态">
-                                        <span>{{ props.row.ckrwQhStatus }}</span>
+                                        <span>{{ auto_ckrwQhStatus(props.row.ckrwQhStatus) }}</span>
                                     </el-form-item>
                                     <el-form-item label="滞留状态">
-                                        <span>{{ props.row.ckrwZlStatus }}</span>
+                                        <span>{{ auto_ckrwZlStatus(props.row.ckrwZlStatus) }}</span>
                                     </el-form-item>
 
                                 </el-col>
@@ -113,7 +113,7 @@
                         width="100">
                     <template scope="scope">
                         <el-tag
-                                close-transition>{{scope.row.ckrwStatus}}
+                                close-transition>{{auto_ckrwStatus(scope.row.ckrwStatus)}}
                         </el-tag>
                     </template>
                 </el-table-column>
@@ -124,7 +124,7 @@
                         width="100">
                     <template scope="scope">
                         <el-tag
-                                close-transition>{{scope.row.ckrwQhStatus}}
+                                close-transition>{{auto_ckrwQhStatus(scope.row.ckrwQhStatus)}}
                         </el-tag>
                     </template>
                 </el-table-column>
@@ -135,7 +135,7 @@
                         width="100">
                     <template scope="scope">
                         <el-tag
-                                close-transition>{{scope.row.ckrwZlStatus}}
+                                close-transition>{{auto_ckrwZlStatus(scope.row.ckrwZlStatus)}}
                         </el-tag>
                     </template>
                 </el-table-column>
@@ -227,89 +227,6 @@
                     arrow="never"
                     indicator-position="none"
                     height="55vh">
-                <!--<el-carousel-item>-->
-                    <!--<el-row>-->
-                        <!--<el-col :span="10">-->
-                            <!--<el-form-item-->
-                                    <!--label="物流商111"-->
-                                    <!--:label-width="formLabelWidth">-->
-                                <!--<el-input-->
-                                        <!--v-model.number="form.ckrwWls"-->
-                                        <!--auto-complete="off"></el-input>-->
-                            <!--</el-form-item>-->
-                            <!--<el-form-item-->
-                                    <!--label="任务号"-->
-                                    <!--:label-width="formLabelWidth">-->
-                                <!--<el-input-->
-                                        <!--v-model.number="form.ckrwNo"-->
-                                        <!--auto-complete="off"></el-input>-->
-                            <!--</el-form-item>-->
-                            <!--<el-form-item-->
-                                    <!--label="车牌号"-->
-                                    <!--:label-width="formLabelWidth">-->
-                                <!--<el-input-->
-                                        <!--v-model.number="form.ckrwCph"-->
-                                        <!--auto-complete="off"></el-input>-->
-                            <!--</el-form-item>-->
-                            <!--<el-form-item-->
-                                    <!--label="订单数"-->
-                                    <!--:label-width="formLabelWidth">-->
-                                <!--<el-input-->
-                                        <!--v-model.number="form.dds"-->
-                                        <!--auto-complete="off"></el-input>-->
-                            <!--</el-form-item>-->
-                            <!--<el-form-item-->
-                                    <!--label="品项数"-->
-                                    <!--:label-width="formLabelWidth">-->
-                                <!--<el-input-->
-                                        <!--v-model.number="form.pxs"-->
-                                        <!--auto-complete="off"></el-input>-->
-                            <!--</el-form-item>-->
-                        <!--</el-col>-->
-                        <!--<el-col :span="10" :offset="2">-->
-                            <!--<el-form-item-->
-                                    <!--label="预计到车时间"-->
-                                    <!--:label-width="formLabelWidth">-->
-                                <!--<el-input-->
-                                        <!--v-model.number="form.ckrwYjdcsj"-->
-                                        <!--auto-complete="off"></el-input>-->
-                            <!--</el-form-item>-->
-                            <!--<el-form-item-->
-                                    <!--label="实际到车时间"-->
-                                    <!--:label-width="formLabelWidth">-->
-                                <!--<el-input-->
-                                        <!--v-model.number="form.ckrwSjdcsj"-->
-                                        <!--auto-complete="off"></el-input>-->
-                            <!--</el-form-item>-->
-                            <!--<el-form-item-->
-                                    <!--label="任务状态"-->
-                                    <!--:label-width="formLabelWidth">-->
-                                <!--<el-input-->
-                                        <!--v-model.number="form.ckrwStatus"-->
-                                        <!--auto-complete="off"></el-input>-->
-                            <!--</el-form-item>-->
-                            <!--<el-form-item-->
-                                    <!--label="欠货状态"-->
-                                    <!--:label-width="formLabelWidth">-->
-                                <!--<el-input-->
-                                        <!--v-model.number="form.ckrwQhStatus"-->
-                                        <!--auto-complete="off"></el-input>-->
-                            <!--</el-form-item>-->
-                            <!--<el-form-item-->
-                                    <!--label="滞留状态"-->
-                                    <!--:label-width="formLabelWidth">-->
-                                <!--<el-input-->
-                                        <!--v-model.number="form.ckrwZlStatus"-->
-                                        <!--v-model.number="form.ckrwZlStatus"-->
-                                        <!--auto-complete="off"></el-input>-->
-                            <!--</el-form-item>-->
-
-
-
-
-                        <!--</el-col>-->
-                    <!--</el-row>-->
-                <!--</el-carousel-item>-->
             </el-carousel>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -597,8 +514,6 @@
                     });
                 });
             },                                //TODO 行内按钮  取消任务
-
-
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -614,7 +529,6 @@
             moreOperationIssued: function () {
 
             },                                   //TODO 多选 下发
-
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -629,12 +543,10 @@
                 this.currentPage = val;
                 post(this, this.option);
             },                                //分页 当前页
-
             newInput: function () {
                 this.dialogFormVisible = true;
 
             },                                              //按钮 新建入库单
-
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -680,6 +592,67 @@
                 this.dialogSelectVisible = !this.dialogSelectVisible;
                 post(this, {});
             },                                          //详细查询 提交
+            auto_ckrwStatus:function(value){
+                var temp={};
+                if(!isNaN(value)){
+                    temp={
+                        10:'初始',
+                        11:'下发',
+                        21:'已挑选',
+                        31:'已激活',
+                        41:'部分出库',
+                        42:'全部出库',
+                        51:'部分发运',
+                        52:'部分发运'
+                    }
+                }else{
+                    temp={
+                        '初始'   :10,
+                        '下发'    :11,
+                        '已挑选'  :21  ,
+                        '已激活'  :31 ,
+                        '部分出库':41 ,
+                        '全部出库':42 ,
+                        '部分发运':51 ,
+                        '部分发运':52
+                    }
+                }
+                return temp[value];
+            },                                      //任务状态
+            auto_ckrwQhStatus:function(value){
+                var temp={};
+                if(!isNaN(value)){
+                    temp={
+                        1:'欠货',
+                        2:'未欠货'
+                    }
+                }else{
+                    temp={
+                        '欠货'   : 1 ,
+                        '未欠货' : 2
+
+                    }
+                }
+                return temp[value];
+            },                                      //欠货状态
+            auto_ckrwZlStatus:function(value){
+                var temp={};
+                if(!isNaN(value)){
+                    temp={
+                        1:'滞留',
+                        2:'未滞留'
+                    }
+                }else{
+                    temp={
+                        '滞留'   : 1 ,
+                        '未滞留' : 2
+
+                    }
+                }
+                return temp[value];
+            },                                      //滞留状态
+
+
         },
         watch: {}
     });
@@ -723,7 +696,7 @@
                 obj.showLoading = false;
             }
         });
-    }          //TODO 入库任务分页查询接口
+    }          //TODO 挑选数据分页查询接口
     function changeDate(date) {
         return dateFormat(new Date(date), 'MM-dd hh:mm');
     }
