@@ -98,7 +98,7 @@
                                                 <span>{{ props.row.ckCkdjNo }}</span>
                                             </el-form-item>
                                             <el-form-item label="下单时间">
-                                                <span>{{ props.row.ckXdsj }}</span>
+                                                <span>{{ auto_ckXdsj(props.row.ckXdsj) }}</span>
                                             </el-form-item>
                                             <el-form-item label="客户名称">
                                                 <span>{{ props.row.ckCkdjClientname }}</span>
@@ -206,7 +206,7 @@
                         label="下单时间">
                     <template scope="scope">
                         <el-icon name="time"></el-icon>
-                        <span style="margin-left: 10px">{{ scope.row.ckXdsj }}</span>
+                        <span style="margin-left: 10px">{{ auto_ckXdsj(scope.row.ckXdsj,true) }}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -1257,6 +1257,10 @@
                     return '未知的仓库'
                 }
             },                            //入库仓库id 自动匹配
+            auto_ckXdsj: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+            },                                  //下单时间
             auto_ckStatus:function(value){
                 var temp={};
                 if(!isNaN(value)){
