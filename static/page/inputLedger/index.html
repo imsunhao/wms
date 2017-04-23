@@ -52,6 +52,7 @@
                                     <el-form-item label="承运商">
                                         <span>{{ props.row.rkrwCys }}</span>
                                     </el-form-item>
+                                    </el-form-item>
                                     <el-form-item label="车牌号">
                                         <span>{{ props.row.rkrwCph }}</span>
                                     </el-form-item>
@@ -1018,18 +1019,18 @@
                     });
                 });
             },
-            auto_rkCreatetime:function (value,bool) {
-                if(!bool) return dateFormat(new Date(value),'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(value),'yyyy-MM-dd')
-            },                             //始发日期
-            auto_rkSjsj:function (value,bool) {
-                if(!bool) return dateFormat(new Date(value),'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(value),'yyyy-MM-dd')
+            auto_rkCreatetime: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+            },                                  //始发日期
+            auto_rkSjsj: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
             },                                  //到货日期
-            auto_rkSjsj:function (value,bool) {
-                if(!bool) return dateFormat(new Date(value),'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(value),'yyyy-MM-dd')
-            }                                   //收货日期
+            auto_rkSjsj: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+            },                                  //收货日期
 
         },
         watch: {
