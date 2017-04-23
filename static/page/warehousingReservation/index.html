@@ -1220,6 +1220,24 @@
             }
 
 
+
+            auto_rkType: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        0: '采购订单',
+                        1: '仓间调拨',
+                        2: '退货入库'
+                    }
+                } else {
+                    temp = {
+                        '采购订单': 0,
+                        '仓间调拨': 1,
+                        '退货入库': 2
+                    }
+                }
+                return temp[value];
+            }
         },
         watch: {
             warehousingReservation: function () {
