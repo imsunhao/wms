@@ -19,9 +19,9 @@
             </div>
             <el-table
                     :data="warehousingTask"
-                    :default-sort="{prop: 'sjsj', order: 'descending'}"
                     :max-height="570"
                     ref="table"
+                    @expand="expandChange"
                     class="warehousingTaskTable"
                     style="width: 100%">
                 <el-table-column
@@ -30,6 +30,60 @@
                         <el-row>
                             <h3 style="margin-top: 0; margin-left: -15px;">入库任务详细</h3>
                         </el-row>
+                        <el-carousel
+                                arrow="hover"
+                                height="240px"
+                                indicator-position="none"
+                                :autoplay="false">
+                            <el-carousel-item>
+                                <el-form label-position="left" inline class="demo-table-expand">
+                                    <el-row>
+                                        <el-col :span="10">
+                                            <el-form-item label="任务号">
+                                                <span>{{ props.row.rkrwNo }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="车牌号">
+                                                <span>{{ props.row.rkrwCph }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="订单数">
+                                                <span>{{props.row.dds}}</span>
+                                            </el-form-item>
+                                            <el-form-item label="品项数">
+                                                <span>{{props.row.pxs}}</span>
+                                            </el-form-item>
+                                            <el-form-item label="司机姓名">
+                                                <span>{{ props.row.rkrwSjxm }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="调拨地">
+                                                <span>{{ props.row.rkrwDbd }}</span>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :span="10" :offset="2">
+                                            <el-form-item label="到货日期">
+                                                <span>{{auto_rkrwDhrq(props.row.rkrwDhrq) }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="承运商">
+                                                <span>{{ props.row.rkrwCys }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="司机电话">
+                                                <span>{{ props.row.rkrwDh }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="任务状态">
+                                                <span>{{ props.row.rkrwStatus }}</span>
+                                            </el-form-item>
+                                            <el-form-item
+                                                    label="可用操作">
+                                                <el-button
+                                                        size="small"
+                                                        icon="edit"
+                                                        @click="inlineEdit(props.$index, props.row)">
+                                                </el-button>
+                                                <el-button
+                                                        size="small"
+                                                        type="success"
+                                                        @click="inlineIssued(props.$index, props.row)">下发
+                                                </el-button>
+                                            </el-form-item>
                         <el-form label-position="left" inline class="demo-table-expand">
                             <el-row>
                                 <el-col :span="10">
@@ -79,15 +133,102 @@
                                         </el-button>
                                     </el-form-item>
 
-                                </el-col>
-                            </el-row>
-                        </el-form>
+                                        </el-col>
+                                    </el-row>
+                                </el-form>
+                            </el-carousel-item>
+                            <el-carousel-item>
+                                <el-table
+                                        :data="props.row.inputOperation"
+                                        :max-height="240">
+                                    <el-table-column
+                                            type="expand">
+                                        <template scope="props">
+                                            <h3>入库明细</h3>
+                                            <el-table
+                                                    :data="props.row.rkDocsList"
+                                                    highlight-current-row
+                                                    style="width: 100%">
+                                                <el-table-column
+                                                        label="货品编号"
+                                                        width="140"
+                                                        show-overflow-tooltip
+                                                        align="center"
+                                                        prop="baseGoods.bgGoodsNo">
+                                                </el-table-column>
+                                                <el-table-column
+                                                        align="center"
+                                                        prop="baseGoods.bgGoodsName"
+                                                        show-overflow-tooltip
+                                                        label="货品名称">
+                                                </el-table-column>
+                                                <el-table-column
+                                                        label="单位"
+                                                        width="80"
+                                                        prop="baseDw.bdName"
+                                                        align="center">
+                                                </el-table-column>
+                                                <el-table-column
+                                                        label="数量"
+                                                        width="100"
+                                                        show-overflow-tooltip
+                                                        prop="rksCount"
+                                                        align="center">
+                                                </el-table-column>
+                                            </el-table>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="入库单号"
+                                            width="170"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="rkRkdjNo">
+                                    </el-table-column>
+                                    <el-table-column
+                                            width="150"
+                                            align="center"
+                                            prop="rkCreatetime"
+                                            label="下单时间">
+                                        <template scope="scope">
+                                            <el-icon name="time"></el-icon>
+                                            <span style="margin-left: 10px">{{ auto_rkCreatetime(scope.row.rkCreatetime) }}</span>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="类型"
+                                            prop="rkType"
+                                            align="center"
+                                            width="100">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="状态"
+                                            prop="rkStatus"
+                                            align="center"
+                                            width="100">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="总数量"
+                                            align="center"
+                                            show-overflow-tooltip
+                                            prop="allCount">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="总体积"
+                                            align="center"
+                                            show-overflow-tooltip
+                                            prop="allTj">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="备注"
+                                            show-overflow-tooltip
+                                            prop="rkRemarks">
+                                    </el-table-column>
+                                </el-table>
+                            </el-carousel-item>
+                        </el-carousel>
                     </template>
                 </el-table-column>
-                <!--<el-table-column-->
-                <!--type="index"-->
-                <!--width="55">-->
-                <!--</el-table-column>-->
                 <el-table-column
                         label="任务号"
                         show-overflow-tooltip
@@ -249,7 +390,7 @@
                                         v-model.number="form.rkrwNo"
                                         auto-complete="off"></el-input>
                             </el-form-item>
-                          <el-form-item
+                            <el-form-item
                                     label="车牌号"
                                     :label-width="formLabelWidth">
                                 <el-input
@@ -315,8 +456,6 @@
                                         v-model.number="form.rkrwStatus"
                                         auto-complete="off"></el-input>
                             </el-form-item>
-
-
 
 
                         </el-col>
@@ -505,7 +644,7 @@
             rkrwDh: '',
             rkrwStatus: ''
         }
-    };
+    }
     var warehousingTask = new Vue({
         el: '#warehousingTask',
         prop: {},
@@ -650,6 +789,15 @@
                 this.pageSize = val;
                 post(this, this.option);
             },                                   //分页 Size
+            expandChange: function (row, expanded) {
+                if (typeof (row.inputOperation) === 'undefined' && expanded) {
+                    postInputOperation(this, row);
+                }
+                /*<debug>*/
+                console.log(row);
+                console.log(expanded);
+                /*</debug>*/
+            },                             //下拉 选择
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
@@ -742,13 +890,13 @@
     });
 
     // 高级 监视器的 使用方法
-    //    warehousingTask.$watch('date', function () {
-    //        if (!this.option.dateStart)return;
-    //        /*<debug>*/
-    //        console.log(this.option);
-    //        /*</debug>*/
-    //        post(this, this.option);
-    //    }, {deep: true});
+    //        warehousingTask.$watch('warehousingTask.inputOperation', function () {
+    //            if (!this.option.dateStart)return;
+    //            /*<debug>*/
+    //            console.log(this.option);
+    //            /*</debug>*/
+    //            post(this, this.option);
+    //        }, {deep: true});
     post(warehousingTask, warehousingTask.option);
     function post(obj, option) {
         obj.showLoading = true;
@@ -780,7 +928,41 @@
                 obj.showLoading = false;
             }
         });
-    }          //TODO 入库任务分页查询接口
+    }              //TODO 入库任务分页查询接口
+
+    function postInputOperation(obj, row) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "/hock/form/inputOption.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/warehousingTask/0";
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                /*<debug>*/
+                console.log(json);
+                /*</debug>*/
+                row.inputOperation = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }   //TODO 请求入库任务中详细信息
+
     function changeDate(date) {
         return dateFormat(new Date(date), 'MM-dd hh:mm');
     }
@@ -823,7 +1005,6 @@
             }
         }
     }
-</script>
 </script>
 
 
