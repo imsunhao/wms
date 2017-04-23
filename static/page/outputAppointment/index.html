@@ -270,8 +270,7 @@
                                                 <el-form label-position="left" inline class="demo-table-expand">
                                                     <el-form-item label="下单时间">
                                                         <el-icon name="time"></el-icon>
-                                                        <!--<span style="margin-left: 10px">{{ auto_ckXdsj(props.row.ckXdsj) }}</span>-->
-                                                        <span style="margin-left: 10px">{{ props.row.ckXdsj }}</span>
+                                                        <span style="margin-left: 10px">{{ auto_ckXdsj(props.row.ckXdsj) }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="出库单号">
                                                         <span>{{ props.row.ckCkdjNo }}</span>
@@ -354,8 +353,7 @@
                                         align="center"
                                         label="时间">
                                     <template scope="scope">
-                                        {{scope.row.ckXdsj}}
-                                        <!--{{auto_ckXdsj(scope.row.ckXdsj)}}-->
+                                        {{auto_ckXdsj(scope.row.ckXdsj)}}
                                     </template>
                                 </el-table-column>
                                 <el-table-column
@@ -543,7 +541,7 @@
                         </el-col>
                         <el-col :span="12" :offset="2">
                             <el-form-item label="发货状态">
-                                {{form.ckStatus}}
+                                {{auto_ckStatus(form.ckStatus)}}
                             </el-form-item>
                             <el-form-item label="出库数量">
                                 {{form.cksGoodsCount}}
@@ -1078,9 +1076,9 @@
                 }
             },                            //入库仓库id 自动匹配
             auto_ckXdsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(value), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(value), 'MM-dd');
-            },                               //下单时间
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+            },                                //下单时间
             auto_ckCkdjType:function(value){
                 var temp={};
                 if(!isNaN(value)){
@@ -1139,8 +1137,6 @@
                 }
                 return temp[value];
             }                                      //单据状态
-
-
         },
         watch: {
             outputAppointment: function () {
