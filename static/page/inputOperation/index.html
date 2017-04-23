@@ -246,8 +246,6 @@
             v-model="dialogSelectVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
-
-
         </div>
         <el-form :model="select">
 
@@ -853,7 +851,6 @@
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
 
-
                 dialogDistributionForm: false,      //分配 弹出层 是否可见
                 dialogLocationVisible: false,       //关联 弹出层 是否可见
                 select: {},                         //搜索 弹出层 信息集合
@@ -1272,8 +1269,7 @@
         obj.showLoading = true;
 
         /*<debug>*/
-        url =
-            "/hock/form/inputOption.json";
+        url = "/hock/form/inputOption.json";
         /*</debug>*/
 
         /*<prod>*/
