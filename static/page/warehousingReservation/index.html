@@ -274,7 +274,7 @@
                                                         <span>{{ auto_rkType(props.row.rkType) }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="入库状态">
-                                                        <span>{{ props.row.rkStatus }}</span>
+                                                        <span>{{ auto_rkStatus(props.row.rkStatus) }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="入库数量">
                                                         <span>{{ props.row.allCount }}</span>
@@ -283,7 +283,7 @@
                                                         <span>{{ props.row.allTj    }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="制作方式">
-                                                        <span>{{ props.row.rkZdfs }}</span>
+                                                        <span>{{ auto_rkZdfs(props.row.rkZdfs) }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="可用操作" v-if="props.row.rkZdfs==='手动'">
                                                         <el-button
@@ -1181,7 +1181,7 @@
             auto_rkCreatetime: function (value, bool) {
                 if (!bool) return dateFormat(new Date(value),'yyyy年-MM月-dd日');
                 else return dateFormat(new Date(value),'MM-dd');
-            },
+            },                          //下单时间
             auto_rkType:function(value){
                 var temp={}
                 if(!isNaN(value)){
@@ -1198,7 +1198,7 @@
                     }
                 }
                 return temp[value];
-            },
+            },                                          //订单类型
             auto_rkStatus:function(value){
                 var temp={}
                 if(!isNaN(value)){
@@ -1217,27 +1217,25 @@
                     }
                 }
                 return temp[value];
-            }
-
-
-
-            auto_rkType: function (value) {
-                var temp = {};
-                if (!isNaN(value)) {
-                    temp = {
-                        0: '采购订单',
-                        1: '仓间调拨',
-                        2: '退货入库'
+            },                                         //入库状态
+            auto_rkZdfs:function(value){
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        1:'手动',
+                        2:'导入',
+                        3:'接口'
                     }
-                } else {
-                    temp = {
-                        '采购订单': 0,
-                        '仓间调拨': 1,
-                        '退货入库': 2
+                }else{
+                    temp={
+                        '手动':1,
+                        '导入':2,
+                        '接口':3
                     }
                 }
                 return temp[value];
-            }
+            },                                         //制单方式
+
         },
         watch: {
             warehousingReservation: function () {
