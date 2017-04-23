@@ -13,7 +13,7 @@
                 <button @click="exportOutstanding" class="btn btn-Issued" v-show="multiSelect"><i
                         class="icon issued1"></i><span>导出欠货</span>
                 </button>
-                 <button @click="exportRetention" class="btn btn-Issued" v-show="multiSelect"><i
+                <button @click="exportRetention" class="btn btn-Issued" v-show="multiSelect"><i
                         class="icon issued1"></i><span>导出滞留</span>
                 </button>
 
@@ -72,7 +72,7 @@
                                     <el-form-item label="制作方式">
                                         <span>{{ auto_ckIsauto(props.row.ckIsauto) }}</span>
                                     </el-form-item>
-                                     <el-form-item label="备注">
+                                    <el-form-item label="备注">
                                         <span>{{ props.row.ckRemarks }}</span>
                                     </el-form-item>
                                     <el-form-item
@@ -196,7 +196,6 @@
             </el-form-item>
 
 
-
             <!--<el-select v-model="baCtype" placeholder="请选择">-->
             <!--<el-option :value="1">欠货</el-option>-->
             <!--<el-option :value="2">未欠货</el-option>-->
@@ -305,8 +304,6 @@
                                         v-model.number="form.ckrwZlStatus"
                                         auto-complete="off"></el-input>
                             </el-form-item>
-
-
 
 
                         </el-col>
@@ -481,7 +478,7 @@
 <script>
     function form() {
         return {
-            rkrwId:'',
+            rkrwId: '',
             title: "新建入库任务",
             rkrwN: '',
             rkrwCph: '',
@@ -583,16 +580,16 @@
         methods: {
             inlineEdit: function (index, row) {
                 this.form.title = '编辑';
-                this.form.ckrwWls=row.ckrwWls;
+                this.form.ckrwWls = row.ckrwWls;
                 this.form.ckrwNo = row.ckrwNo;
-                this.form.ckrwCph=row.ckrwCph;
+                this.form.ckrwCph = row.ckrwCph;
                 this.form.dds = row.dds;
                 this.form.pxs = row.pxs;
                 this.form.ckrwYjdcsj = row.ckrwYjdcsj;
-                this.form.ckrwSjdcsj=row.ckrwSjdcsj;
-                this.form.ckrwStatus=row.ckrwStatus;
-                this.form.ckrwQhStatus=row.ckrwQhStatus;
-                this.form.ckrwZlStatus=row.ckrwZlStatus;
+                this.form.ckrwSjdcsj = row.ckrwSjdcsj;
+                this.form.ckrwStatus = row.ckrwStatus;
+                this.form.ckrwQhStatus = row.ckrwQhStatus;
+                this.form.ckrwZlStatus = row.ckrwZlStatus;
                 this.form.rkrwStatus = parseInt(row.rkrwStatus);
                 this.dialogFormVisible = true;
                 this.dialogFormActive = 0;
@@ -698,16 +695,16 @@
                 this.dialogSelectVisible = !this.dialogSelectVisible;
                 post(this, {});
             },                                          //详细查询 提交
-            auto_ckIsauto:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        1:'手动',
-                        2:'导入',
-                        3:'接口'
+            auto_ckIsauto: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '手动',
+                        2: '导入',
+                        3: '接口'
                     }
-                }else{
-                    temp={
+                } else {
+                    temp = {
                         '手动': 1,
                         '导入': 2,
                         '接口': 3
@@ -716,8 +713,8 @@
                 return temp[value];
             },                                      //制单方式
             auto_ckXdsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(value),'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(value),'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
             },
 
 
@@ -807,7 +804,6 @@
             }
         }
     }
-</script>
 </script>
 
 
