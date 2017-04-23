@@ -104,8 +104,13 @@
                 <el-table-column
                         label="下单时间"
                         show-overflow-tooltip
-                        align="center"
-                        prop="ckXdsj">
+                        align="center">
+                    <template scope="scope">
+                        {{auto_ckXdsj(scope.row.ckXdsj,true)}}
+                    </template>
+                </el-table-column>
+
+
                 </el-table-column>
                 <el-table-column
                         label="客户编号"

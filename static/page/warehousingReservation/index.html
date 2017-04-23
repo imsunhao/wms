@@ -1177,11 +1177,10 @@
                     return '未知的仓库'
                 }
             },                            //入库仓库id 自动匹配
-
             auto_rkCreatetime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(value),'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(value),'MM-dd');
-            },
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+            },                                  //下单方式/创建方式
             auto_rkType:function(value){
                 var temp={}
                 if(!isNaN(value)){

@@ -353,7 +353,7 @@
                                         align="center"
                                         label="时间">
                                     <template scope="scope">
-                                        {{auto_ckXdsj(scope.row.ckXdsj)}}
+                                        {{auto_ckXdsj(scope.row.ckXdsj,true)}}
                                     </template>
                                 </el-table-column>
                                 <el-table-column
@@ -396,8 +396,7 @@
                                         align="center"
                                         label="时间">
                                     <template scope="scope">
-                                        <!--{{auto_ckXdsj(scope.row.ckXdsj)}}-->
-                                        {{scope.row.ckXdsj}}
+                                        {{auto_ckXdsj(scope.row.ckXdsj,true)}}
                                     </template>
                                 </el-table-column>
                                 <el-table-column
