@@ -84,6 +84,54 @@
                                                         @click="inlineIssued(props.$index, props.row)">下发
                                                 </el-button>
                                             </el-form-item>
+                        <el-form label-position="left" inline class="demo-table-expand">
+                            <el-row>
+                                <el-col :span="10">
+                                    <el-form-item label="任务号">
+                                        <span>{{ props.row.rkrwNo }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="车牌号">
+                                        <span>{{ props.row.rkrwCph }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="订单数">
+                                        <span>{{props.row.dds}}</span>
+                                    </el-form-item>
+                                    <el-form-item label="品项数">
+                                        <span>{{props.row.pxs}}</span>
+                                    </el-form-item>
+                                    <el-form-item label="司机姓名">
+                                        <span>{{ props.row.rkrwSjxm }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="调拨地">
+                                        <span>{{ props.row.rkrwDbd }}</span>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="10" :offset="2">
+                                    <el-form-item label="到货日期">
+                                        <span>{{auto_rkrwDhrq(props.row.rkrwDhrq) }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="承运商">
+                                        <span>{{ props.row.rkrwCys }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="司机电话">
+                                        <span>{{ props.row.rkrwDh }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="任务状态">
+                                        <span>{{ auto_rkrwStatus(props.row.rkrwStatus) }}</span>
+                                    </el-form-item>
+                                    <el-form-item
+                                            label="可用操作">
+                                        <el-button
+                                                size="small"
+                                                icon="edit"
+                                                @click="inlineEdit(props.$index, props.row)">
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                type="success"
+                                                @click="inlineIssued(props.$index, props.row)">下发
+                                        </el-button>
+                                    </el-form-item>
 
                                         </el-col>
                                     </el-row>
@@ -218,7 +266,7 @@
                         width="100">
                     <template scope="scope">
                         <el-tag
-                                close-transition>{{scope.row.rkrwStatus}}
+                                close-transition>{{auto_rkrwStatus(scope.row.rkrwStatus)}}
                         </el-tag>
                     </template>
                 </el-table-column>
@@ -583,7 +631,7 @@
 <script>
     function form() {
         return {
-            rkrwId: '',
+            rkrwId:'',
             title: "新建入库任务",
             rkrwN: '',
             rkrwCph: '',
@@ -640,12 +688,12 @@
                 rkRkdjNo: '',                       //主页面 入库单号 搜索
 
                 formLabelWidth: '120px',            //表单 配置
-                form: form(),                       //表单 弹出层 信息集合
+                form: form(),                           //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
 
-                select: form(),                     //搜索 弹出层 信息集合,
+                select: form(),                         //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 selectLoading: false
             }
@@ -686,14 +734,14 @@
             inlineEdit: function (index, row) {
                 this.form.title = '编辑';
                 this.form.rkrwNo = row.rkrwNo;
-                this.form.rkrwCph = row.rkrwCph;
+                this.form.rkrwCph=row.rkrwCph;
                 this.form.dds = row.dds;
                 this.form.pxs = row.pxs;
                 this.form.rkrwSjxm = row.rkrwSjxm;
-                this.form.rkrwDhrq = row.rkrwDhrq;
-                this.form.rkrwDbd = row.rkrwDbd;
-                this.form.rkrwCys = row.rkrwCys;
-                this.form.rkrwDh = row.rkrwDh;
+                this.form.rkrwDhrq=row.rkrwDhrq;
+                this.form.rkrwDbd=row.rkrwDbd;
+                this.form.rkrwCys=row.rkrwCys;
+                this.form.rkrwDh=row.rkrwDh;
                 this.form.rkrwStatus = parseInt(row.rkrwStatus);
                 this.dialogFormVisible = true;
                 this.dialogFormActive = 0;
@@ -806,14 +854,37 @@
                 this.dialogSelectVisible = !this.dialogSelectVisible;
                 post(this, {});
             },                                          //详细查询 提交
-            auto_rkrwDhrq: function (value, bool) {
-                if (!bool)return dateFormat(new Date(value), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Data(value), 'MMdd');
-            },
-            auto_rkCreatetime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(value), 'yyyy-MM-dd');
-                else return dateFormat(new Date(value), 'yyyy年-MM月-dd日');
-            },                          //入库任务中详细信息 - 入库时间
+            auto_rkrwDhrq:function (value,bool) {
+                if(!bool)return dateFormat(new Date(value),'yyyy年-MM月-dd日');
+                    else return dateFormat(new Data(value),'MMdd');
+            },                                //预计到货日期
+            auto_rkrwStatus:function(value){
+
+                if(!isNaN(value)){
+                    temp={
+                        1:'初始',
+                        2:'已下发任务',
+                        3:'已开始收货',
+                        4:'收货中',
+                        51:'部分收货',
+                        52:'全部收货',
+                        61:'收货完成',
+                        62:'收货完成'
+                    }
+                }else{
+                    temp={
+                        '初始': 1,
+                        '已下发任务': 2 ,
+                        '已开始收货': 3 ,
+                        '收货中': 4 ,
+                       '部分收货': 51,
+                       '全部收货': 52,
+                       '收货完成': 61,
+                       '收货完成': 62
+                    }
+                }
+                return temp[value];
+            },                                     //任务状态
         },
         watch: {}
     });

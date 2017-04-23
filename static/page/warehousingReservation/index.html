@@ -274,7 +274,7 @@
                                                         <span>{{ auto_rkType(props.row.rkType) }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="入库状态">
-                                                        <span>{{ props.row.rkStatus }}</span>
+                                                        <span>{{ auto_rkStatus(props.row.rkStatus) }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="入库数量">
                                                         <span>{{ props.row.allCount }}</span>
@@ -283,7 +283,7 @@
                                                         <span>{{ props.row.allTj    }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="制作方式">
-                                                        <span>{{ props.row.rkZdfs }}</span>
+                                                        <span>{{ auto_rkZdfs(props.row.rkZdfs) }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="可用操作">
                                                         <el-button
@@ -1217,7 +1217,25 @@
                     }
                 }
                 return temp[value];
-            },
+            },                                         //入库状态
+            auto_rkZdfs:function(value){
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        1:'手动',
+                        2:'导入',
+                        3:'接口'
+                    }
+                }else{
+                    temp={
+                        '手动':1,
+                        '导入':2,
+                        '接口':3
+                    }
+                }
+                return temp[value];
+            },                                         //制单方式
+
         },
         watch: {
             warehousingReservation: function () {
