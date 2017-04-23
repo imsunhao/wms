@@ -75,10 +75,10 @@
                                                 </el-tag>
                                             </el-form-item>
                                             <el-form-item label="订单类型">
-                                                <span>{{ props.row.rkType }}</span>
+                                                <span>{{ auto_rkType(props.row.rkType) }}</span>
                                             </el-form-item>
                                             <el-form-item label="入库状态">
-                                                <span>{{ props.row.rkStatus }}</span>
+                                                <span>{{ auto_rkStatus(props.row.rkStatus) }}</span>
                                             </el-form-item>
                                             <el-form-item label="入库数量">
                                                 <span>{{ props.row.allCount }}</span>
@@ -91,7 +91,7 @@
                                             </el-form-item>
 
                                             <el-form-item label="制作方式">
-                                                <span>{{ props.row.rkZdfs }}</span>
+                                                <span>{{ auto_rkZdfs(props.row.rkZdfs) }}</span>
                                             </el-form-item>
                                             <el-form-item label="可用操作">
 
@@ -187,7 +187,7 @@
                     <template scope="scope">
                         <el-tag
                                 :type="typeWatch(scope.row.type)"
-                                close-transition>{{scope.row.rkType}}
+                                close-transition>{{auto_rkType(scope.row.rkType)}}
                         </el-tag>
                     </template>
                 </el-table-column>
@@ -201,7 +201,7 @@
                     <template scope="scope">
                         <el-tag
                                 :type="rkStatusWatch(scope.row.rkStatus)"
-                                close-transition>{{scope.row.rkStatus}}
+                                close-transition>{{auto_rkStatus(scope.row.rkStatus)}}
                         </el-tag>
                     </template>
                 </el-table-column>
@@ -1233,7 +1233,61 @@
             auto_rkCreatetime:function (value, bool) {
                 if(!bool) return dateFormat(new Date(value),'yyyy-MM-dd');
                 else return dateFormat(new Date(value),'yyyy年-MM月-dd日');
-            }                            // 下单时间
+            },                            // 下单时间
+            auto_rkType:function(value){
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        0:'采购订单',
+                        1:'仓间调拨',
+                        2:'退货入库'
+                    }
+                }else{
+                    temp={
+                        '采购订单':0,
+                        '仓间调拨':1,
+                        '退货入库':2
+                    }
+                }
+                return temp[value];
+            },                                          //订单类型
+            auto_rkStatus:function(value){
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        1:'原始状态',
+                        21:'部分分配',
+                        22:'全部分配',
+                        31:'部分收货',
+                        32:'完全收货',
+                    }
+                }else{
+                    temp={
+                        '采购订单':0,
+                        '仓间调拨':1,
+                        '退货入库':2
+                    }
+                }
+                return temp[value];
+            },                                         //入库状态
+            auto_rkZdfs:function(value){
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        1:'手动',
+                        2:'导入',
+                        3:'接口'
+                    }
+                }else{
+                    temp={
+                        '手动':1,
+                        '导入':2,
+                        '接口':3
+                    }
+                }
+                return temp[value];
+            },                                        //制单方式
+
         },
         watch: {
             rkRkdjNo: function () {
