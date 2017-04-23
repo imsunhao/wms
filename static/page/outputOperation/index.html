@@ -100,10 +100,10 @@
                                                 <span>{{ props.row.ckAdress }}</span>
                                             </el-form-item>
                                             <el-form-item label="状态">
-                                                <span>{{ props.row.ckStatus }}</span>
+                                                <span>{{ auto_ckStatus(props.row.ckStatus) }}</span>
                                             </el-form-item>
                                             <el-form-item label="制作方式">
-                                                <span>{{ props.row.ckIsauto }}</span>
+                                                <span>{{ auto_ckIsauto(props.row.ckIsauto) }}</span>
                                             </el-form-item>
                                             <el-form-item label="可用操作">
 
@@ -227,13 +227,10 @@
                     <template scope="scope">
                         <el-tag
                                 :type="typeWatch(scope.row.type)"
-                                close-transition>{{scope.row.ckStatus}}
+                                close-transition>{{auto_ckStatus(scope.row.ckStatus)}}
                         </el-tag>
                     </template>
                 </el-table-column>
-
-
-
                 <el-table-column
                         label="备注"
                         show-overflow-tooltip
@@ -985,7 +982,6 @@
                     _this.dialogLocationVisible = false;
                 }, 250);
             },                                        //关联 表单提交
-
             locationSelect: function (item) {
                 this.form.saveARkDocsList = false;
                 this.form.deleteARkDocsList = true;
@@ -1009,7 +1005,6 @@
                 this.form.selectGood = item;
                 console.log(item);
             },
-
             dialogFormActiveOpen: function () {
                 var obj = this;
                 if (this.dialogFormActive !== 0) {
@@ -1025,7 +1020,6 @@
             handleDelete: function (index, row) {
                 console.log(index, row);
             },                                //测试 行内按钮
-
             filteRrkStatus: function (value, row) {
                 return row.rkStatus == value;
             },                              //状态 过滤函数
@@ -1050,7 +1044,6 @@
                 }
                 return str;
             },                                 //状态 标签颜色
-
             typeWatch: function (type) {
                 var str = '';
                 switch (type) {
@@ -1069,7 +1062,6 @@
             filterType: function (value, row) {
                 return row.type == value;
             },                                  //单据 过滤函数
-
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -1079,7 +1071,6 @@
             offTheShelf:function () {
                 this.multiSelect = !this.multiSelect;
             },
-
             handleSelectionChange: function (val) {
                 /*<debug>*/
                 console.log(this.multipleSelection);
@@ -1100,7 +1091,6 @@
                 })
 
             },                                   //多选 删除
-
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -1115,7 +1105,6 @@
                 this.currentPage = val;
                 post(this, this.option);
             },                                //分页 当前页
-
             newInput: function () {
                 this.dialogFormVisible = true;
 //                this.$msgbox({
@@ -1130,18 +1119,15 @@
 //                });
 
             },                                              //按钮 新建入库单
-
             expandChange: function (row, expanded) {
                 if (typeof (row.history) == 'undefined') {
                     postHistory(row);
                 }
                 console.log(row);
             },                             //下拉 选择
-
             rowSelection: function (row, selected) {
 //                console.log(selected)
             },                             //选中 当前行
-
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -1180,7 +1166,6 @@
 //                    })
 //                },0);
             },                             //表单 string验证
-
             querySearchAsync: function (queryString, cb) {
                 postGoods(this, {bgGoodsNo: queryString}, cb);
             },
@@ -1218,7 +1203,6 @@
                 remove(this.form.selectGood, this.form.rkDocsList);
                 this.form.selectGood = selectGood();
             },
-
             selectSubmit: function () {
                 this.dialogSelectVisible = false;
                 console.log('select!');
@@ -1263,6 +1247,47 @@
                     return '未知的仓库'
                 }
             },                            //入库仓库id 自动匹配
+            auto_ckStatus:function(value){
+                var temp={};
+                if(!isNaN(value)){
+                    temp={
+                        1:'初始',
+                        21:'部分分拣',
+                        22:'部分下架',
+                        31:'全部分拣',
+                        32:'全部下架',
+                        50:'作废'
+                    }
+                }else{
+                    temp={
+                        '初始': 1,
+                        '部分分拣': 21,
+                        '部分下架': 22,
+                        '全部分拣': 31,
+                        '全部下架': 32,
+                        '作废': 50
+
+                    }
+                }
+                return temp[value];
+            },                                      //单据状态
+            auto_ckIsauto:function(value){
+                var temp={};
+                if(!isNaN(value)){
+                    temp={
+                        1:'手动',
+                        2:'导入',
+                        3:'接口'
+                    }
+                }else{
+                    temp={
+                        '手动': 1,
+                        '导入': 2,
+                        '接口': 3
+                    }
+                }
+                return temp[value];
+            },                                      //制单方式
 
         },
         watch: {
