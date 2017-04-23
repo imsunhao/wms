@@ -82,8 +82,18 @@
                                         </el-row>
                                     </el-col>
                                     <el-col :span="14">
-                                        <h3>出库详细</h3>
+                                        <h3>出库操作详细</h3>
                                         <el-form label-position="left" inline class="demo-table-expand">
+                                            <el-form-item label="物流商">
+                                                <span>{{ props.row.ckrwWls	 }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="任务号">
+                                                <span>{{ props.row.ckrwNo }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="车牌号">
+                                                <span>{{ props.row.ckrwCph}}</span>
+                                            </el-form-item>
+
                                             <el-form-item label="出库单号">
                                                 <span>{{ props.row.ckCkdjNo }}</span>
                                             </el-form-item>
