@@ -530,7 +530,7 @@
                         </el-col>
                         <el-col :span="12" :offset="2">
                             <el-form-item label="入库状态">
-                                {{form.rkrkStatus}}
+                                {{auto_rkStatus(form.rkStatus)}}
                             </el-form-item>
                             <el-form-item label="入库数量">
                                 {{form.rksCount}}
@@ -539,7 +539,7 @@
                                 {{form.allTj }}
                             </el-form-item>
                             <el-form-item label="制作方式">
-                                {{form.rkrkZdfs }}
+                                {{auto_rkStatus(form.rkZdfs) }}
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -651,6 +651,20 @@
             </el-button>
         </div>
     </el-dialog>
+    <el-dialog
+            size="tiny"
+            v-model="dialogExcelVisible">
+        <el-upload
+                class="upload-demo"
+                ref="upload"
+                action=""
+                :file-list="fileList"
+                :auto-upload="false">
+            <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+            <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+            <div slot="tip" class="el-upload__tip">只能上传Excel文件，且不超过10mb</div>
+        </el-upload>
+    </el-dialog>
 </div>
 <script>
     /*<debug>*/
@@ -701,11 +715,9 @@
             rkArehouseId: '',
             rkType: '',
 
-
             rkUserId: app.rmsUser.ruUserId,
             rkCreatetime: '',
             rkCreateUserId: app.rmsUser.ruUserId,
-
 
             "rkStatus": 1,
             "rkRwStatus": 1,
@@ -821,11 +833,15 @@
                 dialogFormVisible: false,      //新建 弹出层 是否可见
                 submitLoading: false,          //新建 弹出层 提交等待
 
+                dialogExcelVisible: false,     //Excel 弹出层 是否可见
+                excelLoading: false,           //Excel 弹出层 提交等待
+
                 formActive: 0,                 //form steps 当前进度
 
                 select: {},                    //搜索 弹出层 信息集合
                 dialogSelectVisible: false,
-                selectLoading: false
+                selectLoading: false,
+                fileList:[]
             }
         },
         computed: {
@@ -955,7 +971,7 @@
 
             },                                              //按钮 新建入库单
             importExcel: function () {
-//                this.dialogFormVisible = true;
+                this.dialogExcelVisible = true;
             },                                           //TODO 按钮 导入Excel
             setInterface: function () {
 //                this.dialogFormVisible = true;
@@ -1033,6 +1049,10 @@
 
 
             },                                            //组合 表单提交
+
+            submitUpload:function () {
+                console.log('提交')
+            },
 
             prev: function () {
                 this.dialogFormActive--;
@@ -1180,7 +1200,7 @@
             auto_rkCreatetime: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },                                  //下单方式/创建方式
+            },                          //下单方式/创建方式
             auto_rkType:function(value){
                 var temp={}
                 if(!isNaN(value)){
@@ -1197,7 +1217,7 @@
                     }
                 }
                 return temp[value];
-            },
+            },                                         //
             auto_rkStatus:function(value){
                 var temp={}
                 if(!isNaN(value)){
@@ -1220,7 +1240,7 @@
                     }
                 }
                 return temp[value];
-            },                                         //入库状态
+            },                                       //入库状态
             auto_rkZdfs:function(value){
                 var temp={}
                 if(!isNaN(value)){
