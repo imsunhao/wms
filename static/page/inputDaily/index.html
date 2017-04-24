@@ -244,16 +244,17 @@
             <el-form-item label="入库状态"
                           :label-width="formLabelWidth">
                 <el-select v-model="rkStatus" placeholder="请选择">
-                    <el-option :value="1">原始状态</el-option>
+                    <el-option :value="0">全部</el-option>
                     <el-option :value="21">部分分配</el-option>
                     <el-option :value="22">全部分配</el-option>
-                    <el-option :value="31">部分收货</el-option>
-                    <el-option :value="32">完全收货</el-option>
+                    <el-option :value="31">部分上架</el-option>
+                    <el-option :value="32">全部上架</el-option>
                 </el-select>
             </el-form-item>
               <el-form-item label="制单方式"
                           :label-width="formLabelWidth">
                 <el-select v-model="rkZdfs" placeholder="请选择">
+                    <el-option :value="0">全部</el-option>
                     <el-option :value="1">手动</el-option>
                     <el-option :value="2">导入</el-option>
                     <el-option :value="3">接口</el-option>
