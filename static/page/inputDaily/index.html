@@ -781,7 +781,9 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                inputDaily.$data.inputDaily = json;
+                console.log(json);
+                obj.$data.inputDaily = json.data;
+                obj.$data.currentTotal = json.recordsFiltered;
             },
             complete: function () {
                 obj.showLoading = false;
