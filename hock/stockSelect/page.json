@@ -1,5 +1,6 @@
 [
   {
+    "mrArehouseId":"仓库id",
     "mrLocationId":"库位名称 ",
     "mrGoodsId":"货品编号 ",
     "mrGoodsId":"货品名称 ",
@@ -12,6 +13,7 @@
     "kysl":"可用数量 "
   },
   {
+    "mrArehouseId":"1",
     "mrLocationId":"A103 ",
     "mrGoodsId":"电子秤 ",
     "mrGoodsId":"C11 ",
