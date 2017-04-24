@@ -26,11 +26,15 @@
                         type="expand">
                     <template scope="props">
                         <el-row>
-                            <h3 style="margin-top: 0; margin-left: -15px;">入库日报详细</h3>
+                            <h3 style="margin-top: 0; margin-left: -15px;">库存查询详细</h3>
                         </el-row>
                         <el-form label-position="left" inline class="demo-table-expand">
                             <el-row>
                                 <el-col :span="10">
+                                    <el-form-item label="仓库">
+                                        <span>{{ props.row.mrArehouseId }}</span>
+                                    </el-form-item>
+
                                     <el-form-item label="库位名称">
                                         <span>{{ props.row.mrLocationId }}</span>
                                     </el-form-item>
@@ -62,7 +66,7 @@
                                         <span>{{ props.row.mrDjCount }}</span>
                                     </el-form-item>
                                     <el-form-item label="异动时间">
-                                        <span>{{ props.row.mrKcydsj }}</span>
+                                        <span>{{ auto_mrKcydsj(props.row.mrKcydsj) }}</span>
                                     </el-form-item>
                                     <el-form-item
                                             label="可用操作">
@@ -114,8 +118,12 @@
                 <el-table-column
                         label="异动时间"
                         show-overflow-tooltip
-                        align="center"
-                        prop="mrKcydsj">
+                        align="center">
+                    <template scope="scope">
+                        {{auto_mrKcydsj(scope.row.mrKcydsj,true)}}
+                    </template>
+                </el-table-column>
+
                 </el-table-column>
                 <el-table-column
                         v-if="multiSelect"
@@ -188,29 +196,12 @@
                         icon="search"
                         placeholder="货品批次"></el-input>
             </el-form-item>
-            <el-form-item label="入库状态"
+            <el-form-item label="仓库"
                           :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="select.rkStatus"
-                        icon="search"
-                        placeholder="状态"></el-input>
-            </el-form-item>
-            <el-form-item label="制单方式"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="select.rkZdfs"
-                        icon="search"
-                        placeholder="制单方式"></el-input>
-            </el-form-item>
-            <el-form-item label="操作方式"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="select.rkStartwith"
-                        icon="search"
-                        placeholder="操作方式"></el-input>
+                <el-select v-model="mr_arehouse_id" placeholder="请选择">
+                    <el-option :value="0">全部</el-option>
+                    <el-option :value="1">角色下所有的仓库</el-option>
+                </el-select>
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -509,7 +500,6 @@
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
             },                                //行内按钮 打印标签页
-
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -523,7 +513,6 @@
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
             },                                   //多选 打印标签页
-
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -538,8 +527,6 @@
                 this.currentPage = val;
                 post(this, this.option);
             },                                //分页 当前页
-
-
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -581,12 +568,10 @@
                     post(stockSelect);
                 }, 1500);
             },                                                //新建 表单提交
-
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
                 post(this, {});
             },                                          //详细查询 提交
-
             printfSubmit: function () {
                 var datas=[];
                 var checkData=stockSelect.$refs.printf.getCheckedNodes();
@@ -623,7 +608,11 @@
                     case 3:
                         return resolve([]);
                 }
-            }
+            },
+            auto_mrKcydsj: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(parseInt(value)), 'MM-dd');             //异动时间
+            },
         }
     });
 

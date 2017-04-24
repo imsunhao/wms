@@ -26,7 +26,7 @@
                         type="expand">
                     <template scope="props">
                         <el-row>
-                            <h3 style="margin-top: 0; margin-left: -15px;">入库日报详细</h3>
+                            <h3 style="margin-top: 0; margin-left: -15px;">出库日报详细</h3>
                         </el-row>
                         <el-form label-position="left" inline class="demo-table-expand">
                             <el-row>
@@ -35,34 +35,34 @@
                                         <span>{{ props.row.msxXjry }}</span>
                                     </el-form-item>
                                     <el-form-item label="作业时间">
-                                        <span>{{ props.row.msxQrsj }}</span>
+                                        <span>{{ auto_msxQrsj(props.row.msxQrsj) }}</span>
                                     </el-form-item>
                                     <el-form-item label="作业体积">
                                         <span>{{ props.row.bgGoodsTj }}</span>
                                     </el-form-item>
                                     <el-form-item label="下架时间">
-                                        <span>{{ props.row.ckXdsj }}</span>
+                                        <span>{{ auto_ckXdsj(props.row.ckXdsj) }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架结束">
-                                        <span>{{ props.row.ckEndtime }}</span>
+                                        <span>{{ auto_ckEndtime(props.row.ckEndtime) }}</span>
                                     </el-form-item>
                                     <el-form-item label="出库单号">
-                                        <span>{{props.row.ckCkdjNo}}</span>
+                                        <span>{{ props.row.ckCkdjNo}}</span>
                                     </el-form-item>
-                                    <el-form-item label="出库单状态">
-                                        <span>{{props.row.ckStatus}}</span>
+                                    <el-form-item label="出库状态">
+                                        <span>{{ auto_ckStatus(props.row.ckStatus)}}</span>
                                     </el-form-item>
                                     <el-form-item label="欠货状态">
-                                        <span>{{ props.row.ckQhStatus }}</span>
+                                        <span>{{ auto_cksQhStatus(props.row.cksQhStatus) }}</span>
                                     </el-form-item>
                                     <el-form-item label="滞留状态">
-                                        <span>{{ props.row.ckZlStatus }}</span>
+                                        <span>{{ auto_cksZlStatus(props.row.cksZlStatus) }}</span>
                                     </el-form-item>
                                     <el-form-item label="下架开始">
-                                        <span>{{ props.row.ckCksj }}</span>
+                                        <span>{{ auto_ckCksj(props.row.ckCksj) }}</span>
                                     </el-form-item>
                                     <el-form-item label="下架结束">
-                                        <span>{{ props.row.ckEndtime }}</span>
+                                        <span>{{ auto_ckEndtime(props.row.ckEndtime) }}</span>
                                     </el-form-item>
                                     <el-form-item label="货品编号">
                                         <span>{{ props.row.cksGoodsId }}</span>
@@ -73,6 +73,10 @@
                                     <el-form-item label="货品名称">
                                         <span>{{ props.row.cksGoodsId }}</span>
                                     </el-form-item>
+                                    <el-form-item label="货品批次">
+                                        <span>{{ props.row.msxHpkcid }}</span>
+                                    </el-form-item>
+
                                     <el-form-item label="下架库位">
                                         <span>{{ props.row.msxHpkcid }}</span>
                                     </el-form-item>
@@ -83,10 +87,10 @@
                                         <span>{{ props.row.msxMxCount }}</span>
                                     </el-form-item>
                                     <el-form-item label="制作方式">
-                                        <span>{{ props.row.ckIsauto }}</span>
+                                        <span>{{ auto_ckIsauto(props.row.ckIsauto) }}</span>
                                     </el-form-item>
                                     <el-form-item label="操作方式">
-                                        <span>{{ props.row.ckStartwith }}</span>
+                                        <span>{{ auto_ckStartwith(props.row.ckStartwith) }}</span>
                                     </el-form-item>
                                     <el-form-item label="客户编号">
                                         <span>{{ props.row.ckCkdjClientno }}</span>
@@ -130,8 +134,10 @@
                 <el-table-column
                         label="作业时间"
                         show-overflow-tooltip
-                        align="center"
-                        prop="msxQrsj">
+                        align="center">
+                    <template scope="scope">
+                        {{auto_msxQrsj(scope.row.msxQrsj,true)}}
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="出库单号"
@@ -153,14 +159,11 @@
                 </el-table-column>
                 <el-table-column
                         label="状态"
-                        prop="ckStatus"
                         align="center"
                         width="100">
-                    <template scope="scope">
-                        <el-tag
-                                close-transition>{{scope.row.ckStatus}}
-                        </el-tag>
-                    </template>
+                        <template scope="scope">
+                            {{auto_ckStatus(scope.row.ckStatus)}}
+                        </template>
                 </el-table-column>
                 <el-table-column
                         v-if="multiSelect"
@@ -233,45 +236,49 @@
                         :picker-options="pickerOptions">
                 </el-date-picker>
             </el-form-item>
-            <el-form-item label="出库数据状态"
+            <el-form-item label="出库状态"
                           :label-width="formLabelWidth">
-                <el-input
-                        v-model="select.ckStatus"
-                        class="input"
-                        icon="search"
-                        placeholder="出库数据状态"></el-input>
+                <el-select v-model="ckStatus" placeholder="请选择">
+                    <el-option :value="0">全部</el-option>
+                    <el-option :value="21">部分分拣</el-option>
+                    <el-option :value="31">全部分拣</el-option>
+                    <el-option :value="23">部分出库</el-option>
+                    <el-option :value="32">全部出库</el-option>
+                </el-select>
             </el-form-item>
             <el-form-item label="是否滞留"
                           :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="select.ckZlStatus"
-                        icon="search"
-                        placeholder="是否滞留"></el-input>
+                <el-select v-model="cksZlStatus" placeholder="请选择">
+                    <el-option :value="0">全部</el-option>
+                    <el-option :value="1">未到车滞留</el-option>
+                    <el-option :value="2">到车滞留</el-option>
+                    <el-option :value="3">未滞留</el-option>
+                </el-select>
             </el-form-item>
             <el-form-item label="制作方式"
                           :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="select.ckIsauto"
-                        icon="search"
-                        placeholder="制作方式"></el-input>
+                <el-select v-model="ckIsauto" placeholder="请选择">
+                    <el-option :value="0">全部</el-option>
+                    <el-option :value="1">手工</el-option>
+                    <el-option :value="2">导入</el-option>
+                    <el-option :value="3">接口</el-option>
+                </el-select>
             </el-form-item>
             <el-form-item label="操作方式"
                           :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="select.ckStartwith"
-                        icon="search"
-                        placeholder="操作方式"></el-input>
+                <el-select v-model="ckStartwith" placeholder="请选择">
+                    <el-option :value="0">全部</el-option>
+                    <el-option :value="1">电脑</el-option>
+                    <el-option :value="2">PDA</el-option>
+                </el-select>
             </el-form-item>
             <el-form-item label="是否欠货"
                           :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="select.ckQhStatus"
-                        icon="search"
-                        placeholder="是否欠货"></el-input>
+                <el-select v-model="cksQhStatus" placeholder="请选择">
+                    <el-option :value="0">全部</el-option>
+                    <el-option :value="2">部分欠货</el-option>
+                    <el-option :value="3">未欠货</el-option>
+                </el-select>
             </el-form-item>
             <el-form-item label="联系电话"
                           :label-width="formLabelWidth">
@@ -650,7 +657,6 @@
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
             },                                //行内按钮 打印标签页
-
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -664,7 +670,6 @@
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
             },                                   //多选 打印标签页
-
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -679,8 +684,6 @@
                 this.currentPage = val;
                 post(this, this.option);
             },                                //分页 当前页
-
-
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -722,12 +725,10 @@
                     post(outputDaily);
                 }, 1500);
             },                                                //新建 表单提交
-
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
                 post(this, {});
             },                                          //详细查询 提交
-
             printfSubmit: function () {
                 var datas=[];
                 var checkData=outputDaily.$refs.printf.getCheckedNodes();
@@ -764,7 +765,120 @@
                     case 3:
                         return resolve([]);
                 }
-            }
+            },
+            auto_msxQrsj: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+            },                                  //操作时间
+            auto_ckXdsj: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+            },                                  //下单时间
+            auto_ckCksj: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+            },                                  //下架开始时间
+            auto_ckEndtime: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+            },                                  //下架结束时间                                                                             //下架结束时间
+            auto_ckStatus:function(value){
+                var temp={};
+                if(!isNaN(value)){
+                    temp={
+                        1:'初始',
+                        21:'部分分拣',
+                        22:'部分下架',
+                        31:'全部分拣',
+                        32:'全部下架',
+                        50:'作废'
+                    }
+                }else{
+                    temp={
+                        '初始': 1,
+                        '部分分拣': 21,
+                        '部分下架': 22,
+                        '全部分拣': 31,
+                        '全部下架': 32,
+                        '作废': 50
+
+                    }
+                }
+                return temp[value];
+            },                                           //出库状态
+            auto_cksZlStatus:function(value){
+                var temp={};
+                if(!isNaN(value)){
+                    temp={
+                        1:'未到车滞留',
+                        2:'到车滞留',
+                        3:'未滞留',
+                    }
+                }else{
+                    temp={
+                        '未到车滞留': 1,
+                        '到车滞留': 2,
+                        '未滞留': 3,
+                    }
+                }
+                return temp[value];
+            },                                           //滞留状态
+            auto_cksQhStatus:function(value){
+                var temp={};
+                if(!isNaN(value)){
+                    temp={
+                        1:'全部欠货',
+                        2:'部分欠货',
+                        3:'未欠货',
+                    }
+                }else{
+                    temp={
+                        '全部欠货': 1,
+                        '部分欠货': 2,
+                        '未欠货': 3,
+                    }
+                }
+                return temp[value];
+            },                                           //欠货状态
+            auto_ckIsauto:function(value){
+                var temp={};
+                if(!isNaN(value)){
+                    temp={
+                        1:'手动',
+                        2:'导入',
+                        3:'接口',
+                    }
+                }else{
+                    temp={
+                        '手动': 1,
+                        '导入': 2,
+                        '接口': 3,
+                    }
+                }
+                return temp[value];
+            },                                           //制作方式
+            auto_ckStartwith:function(value){
+                var temp={};
+                if(!isNaN(value)){
+                    temp={
+                        1:'电脑端',
+                        2:'PDA',
+                    }
+                }else{
+                    temp={
+                        '电脑端': 1,
+                        'PDA': 2,
+                    }
+                }
+                return temp[value];
+            }                                           //操作方式
+
+
+
+
+
+
+
         }
     });
 
@@ -800,7 +914,9 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                outputDaily.$data.outputDaily = json;
+                console.log(json);
+                obj.$data.outputDaily = json.data;
+                obj.$data.currentTotal = json.recordsFiltered;
             },
             complete: function () {
                 obj.showLoading = false;
