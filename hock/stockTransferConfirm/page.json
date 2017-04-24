@@ -1,0 +1,38 @@
+{"data":[
+  {
+    "zyCreateTime":"创建时间",
+    "zyMentionUserName":"提起人 ",
+    "zyCreateUserName":"创建人 ",
+    "zyConfirmUserName":"确认人 ",
+    "zyReason":"转移原因",
+    "zyConfirmTime":"确认时间",
+    "zyStatus":"转移状态"
+  },
+  {
+    "zyCreateTime":"20170417",
+    "zyMentionUserName":"张三 ",
+    "zyCreateUserName":"李四 ",
+    "zyConfirmUserName":"王五 ",
+    "zyReason":"库存不够",
+    "zyConfirmTime":"20170417",
+    "zyStatus":"0"
+  },
+  {
+    "zyCreateTime":"20170417",
+    "zyMentionUserName":"张三 ",
+    "zyCreateUserName":"李四 ",
+    "zyConfirmUserName":"王五 ",
+    "zyReason":"库存不够",
+    "zyConfirmTime":"20170417",
+    "zyStatus":"1"
+  },
+  {
+    "zyCreateTime":"20170417",
+    "zyMentionUserName":"张三 ",
+    "zyCreateUserName":"李四 ",
+    "zyConfirmUserName":"王五 ",
+    "zyReason":"库存不够",
+    "zyConfirmTime":"20170417",
+    "zyStatus":"2"
+  }
+]}
