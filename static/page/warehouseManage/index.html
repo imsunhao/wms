@@ -356,7 +356,7 @@
         <button class="btn unqualifiedArea" @click="set(5)">设为不合格区</button>\
         </el-col>\
         <el-col :span="4" :offset="8">\
-        <button class="btn unqualifiedArea" v-if="!new_role" @click="">保存修改</button>\
+        <button class="btn unqualifiedArea" v-if="!new_role" @click="submit" >保存修改</button>\
         </el-col>\
         </el-row>\
         </div>\
@@ -663,6 +663,16 @@
 
                 //------------------------- 是否启用 观察模式-----------------------
                 if (this.observer) obj.$data.observer = true;
+            },
+            submit:function () {
+                if(typeof this.warehouse_id==='undefined'){
+
+                }else{
+
+                }
+            },
+            post:function () {
+
             }
         },
         mounted: function () {
