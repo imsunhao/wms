@@ -238,9 +238,6 @@
             </el-form-item>
 
 
-
-
-
             <!--<el-select v-model="baCtype" placeholder="请选择">-->
             <!--<el-option :value="1">欠货</el-option>-->
             <!--<el-option :value="2">未欠货</el-option>-->
@@ -351,8 +348,6 @@
                             </el-form-item>
 
 
-
-
                         </el-col>
                     </el-row>
                 </el-carousel-item>
@@ -360,6 +355,174 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="submit" :loading="submitLoading">保存
+            </el-button>
+        </div>
+    </el-dialog>
+
+    <el-dialog
+            title="修改发运数量"
+            v-model="dialogChangeVisible">
+        <el-form :model="change">
+            <el-carousel
+                    ref="carouselChange"
+                    :autoplay="false"
+                    arrow="never"
+                    indicator-position="none"
+                    height="55vh">
+                <el-carousel-item>
+                    <el-row>
+                        <el-col :span="24"><h3>出库单据</h3></el-col>
+                    </el-row>
+                    <el-row>
+                        <el-table
+                                :data="inputOperation"
+                                :max-height="570"
+                                @cell-dblclick="cellDblClick"
+                                style="width: 100%">
+                            <el-table-column
+                                    type="index"
+                                    width="55">
+                            </el-table-column>
+                            <el-table-column
+                                    label="出库单号"
+                                    width="170"
+                                    show-overflow-tooltip
+                                    align="center"
+                                    prop="ckCkdjNo">
+                            </el-table-column>
+                            <el-table-column
+                                    width="150"
+                                    align="center"
+                                    prop="rkSjsj"
+                                    label="下单时间">
+                                <template scope="scope">
+                                    <el-icon name="time"></el-icon>
+                                    <span style="margin-left: 10px">{{ auto_ckXdsj(scope.row.ckXdsj,true) }}</span>
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                    label="客户名称"
+                                    align="center"
+                                    show-overflow-tooltip
+                                    prop="ckCkdjClientname">
+                            </el-table-column>
+                            <el-table-column
+                                    label="联系人"
+                                    align="center"
+                                    show-overflow-tooltip
+                                    prop="ckContacts">
+                            </el-table-column>
+                            <el-table-column
+                                    label="地址"
+                                    align="center"
+                                    show-overflow-tooltip
+                                    prop="ckAdress">
+                            </el-table-column>
+                            <el-table-column
+                                    label="状态"
+                                    prop="rkType"
+                                    align="center"
+                                    width="100">
+                                <template scope="scope">
+                                    <el-tag
+                                            :type="typeWatch(scope.row.type)"
+                                            close-transition>{{auto_ckStatus(scope.row.ckStatus)}}
+                                    </el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                    label="备注"
+                                    show-overflow-tooltip
+                                    prop="ckRemarks">
+                            </el-table-column>
+                        </el-table>
+                    </el-row>
+                </el-carousel-item>
+                <el-carousel-item>
+                    <el-row>
+                        <el-col :span="24"><h3>出库明细</h3></el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="8">
+                            <el-form-item label="货品编号" :label-width="formLabelWidth">
+                                <strong>{{change.selectGood.baseGoods.bgGoodsNo}}</strong>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-form-item label="货品名称" :label-width="formLabelWidth">
+                                <el-tooltip class="item" effect="dark"
+                                            :content="change.selectGood.baseGoods.bgGoodsName"
+                                            placement="top">
+                                    <strong class="bgGoodsName">{{change.selectGood.baseGoods.bgGoodsName}}</strong>
+                                </el-tooltip>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-form-item label="货品数量" :label-width="formLabelWidth">
+                                <el-input v-model.number="change.selectGood.rksCount"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="24" style="margin-top: 5px">
+                            <el-table
+                                    @row-click="GoodClick"
+                                    height="400"
+                                    :data="change.rkDocsList">
+                                <el-table-column
+                                        type="index"
+                                        width="55">
+                                </el-table-column>
+                                <el-table-column
+                                        label="货品编号"
+                                        width="140"
+                                        show-overflow-tooltip
+                                        align="center"
+                                        prop="baseGoods.bgGoodsNo">
+                                </el-table-column>
+                                <el-table-column
+                                        align="center"
+                                        prop="baseGoods.bgGoodsName"
+                                        show-overflow-tooltip
+                                        label="货品名称">
+                                </el-table-column>
+                                <el-table-column
+                                        label="单位"
+                                        width="80"
+                                        prop="baseDw.bdName"
+                                        align="center">
+                                </el-table-column>
+                                <el-table-column
+                                        label="数量"
+                                        width="100"
+                                        show-overflow-tooltip
+                                        prop="rksCount"
+                                        align="center">
+                                </el-table-column>
+                                <el-table-column
+                                        label="到货日期"
+                                        width="100"
+                                        show-overflow-tooltip
+                                        prop=""
+                                        align="center">
+                                </el-table-column>
+                                <el-table-column
+                                        label="库位"
+                                        width="100"
+                                        show-overflow-tooltip
+                                        prop=""
+                                        align="center">
+                                </el-table-column>
+                            </el-table>
+                        </el-col>
+                    </el-row>
+                </el-carousel-item>
+            </el-carousel>
+        </el-form>
+
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="prev" v-show="dialogFormActive">返回</el-button>
+            <el-button type="primary" @click="submit" :loading="submitLoading" v-show="dialogFormActive >= 1">保存
             </el-button>
         </div>
     </el-dialog>
@@ -523,9 +686,41 @@
     }
 </style>
 <script>
+
+
+    function selectGood() {
+        return {
+            baseGoods: {
+                bgGoodsNo: '',
+                bgGoodsName: ''
+            },
+            baseDw: {
+                bdName: ''
+            },
+            rksCount: 0,
+            bgGoodsId: ''
+        }
+    }
+    function changeForm() {
+        return {
+            ckCkdjNo: '',
+            rkType: '',
+            rkRemarks: '',
+
+            rkDocsList: [],
+            bgGoodsNo: '',
+            rkArehouseId: '',
+
+
+            selectGood: selectGood(),
+            saveARkDocsList: true,
+            deleteARkDocsList: true
+        };
+    }
+
     function form() {
         return {
-            rkrwId:'',
+            rkrwId: '',
             title: "新建入库任务",
             rkrwN: '',
             rkrwCph: '',
@@ -538,7 +733,8 @@
             rkrwDh: '',
             rkrwStatus: ''
         }
-    };
+    }
+
     var outputShipment = new Vue({
         el: '#outputShipment',
         prop: {},
@@ -578,16 +774,23 @@
                 currentPage: 1,
                 pageSize: 10,
 
-                date: [null, null],                 //主页面 选择日期 搜索
-                rkRkdjNo: '',                       //主页面 入库单号 搜索
+                date: [null, null],                     //主页面 选择日期 搜索
+                rkRkdjNo: '',                           //主页面 入库单号 搜索
 
-                formLabelWidth: '120px',            //表单 配置
+                formLabelWidth: '120px',                //表单 配置
                 form: form(),                           //表单 弹出层 信息集合
-                dialogFormActive: 0,                //新建 弹出层 steps 当前进度
-                dialogFormVisible: false,           //新建 弹出层 是否可见
-                submitLoading: false,               //新建 弹出层 提交等待
 
-                select: form(),                         //搜索 弹出层 信息集合,
+                dialogFormActive: 0,                    //新建 弹出层 steps 当前进度
+                dialogFormVisible: false,               //新建 弹出层 是否可见
+                submitLoading: false,                   //新建 弹出层 提交等待
+
+
+                select: form(),                         //搜索 弹出层 信息集合
+
+                dialogChangeVisible: false,             //新建 弹出层 是否可见
+                change: changeForm(),                   //搜索 弹出层 信息集合
+                changeInputOperation: [],
+
                 dialogSelectVisible: false,
                 selectLoading: false
             }
@@ -625,24 +828,6 @@
             },                                      //分配 表单
         },
         methods: {
-            cancelTask: function (index, row) {
-                var _this = this;
-                _this.$confirm('此操作将取消该任务单的任务, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(function () {
-                    remove(row, _this.outputShipment);
-                    postDelete(_this, {
-                        id: [row.rkdjNo]
-                    });
-                }).catch(function () {
-                    _this.$message({
-                        type: 'info',
-                        message: '已取消下发'
-                    });
-                });
-            },                                //TODO 行内按钮  取消任务
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -652,12 +837,22 @@
                 /*</debug>*/
                 this.multipleSelection = val;
             },                               //多选 选中控制
+
+            arriveCar: function (index, row) {
+                console.log(row);
+//                postChange(this,{id:row.});
+                this.dialogChangeVisible = true;
+            },                                   //TODO 行内按钮-修改发运数量
+            modifyTask: function (index, row) {
+
+            },                                  //TODO 行内按钮-打印承运协议
+
             moreOperationModify: function () {
 
             },                                   //TODO 多选 修改
             Shipment: function () {
 
-            },                                   //TODO 多选 发运
+            },                                              //TODO 多选 发运
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -721,73 +916,79 @@
                 this.dialogSelectVisible = !this.dialogSelectVisible;
                 post(this, {});
             },                                          //详细查询 提交
+
+            cellDblClick: function (row, column, cell, event) {
+                console.log(row, column, cell, event);
+            },
+
+
             auto_ckrwYjdcsj: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },                                  //预计到车时间
+            },                            //预计到车时间
             auto_ckrwSjdcsj: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },                                 //实际到车时间
-            auto_ckrwStatus:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        10:'初始',
-                        11:'下发',
-                        21:'已挑选',
-                        31:'已激活',
-                        41:'部分出库',
-                        42:'全部出库',
-                        51:'部分发运',
-                        52:'部分发运'
+            },                            //实际到车时间
+            auto_ckrwStatus: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        10: '初始',
+                        11: '下发',
+                        21: '已挑选',
+                        31: '已激活',
+                        41: '部分出库',
+                        42: '全部出库',
+                        51: '部分发运',
+                        52: '部分发运'
                     }
-                }else{
-                    temp={
-                        '初始'   :10,
-                        '下发'    :11,
-                        '已挑选'  :21  ,
-                        '已激活'  :31 ,
-                        '部分出库':41 ,
-                        '全部出库':42 ,
-                        '部分发运':51 ,
-                        '部分发运':52
+                } else {
+                    temp = {
+                        '初始': 10,
+                        '下发': 11,
+                        '已挑选': 21,
+                        '已激活': 31,
+                        '部分出库': 41,
+                        '全部出库': 42,
+                        '部分发运': 51,
+                        '部分发运': 52
                     }
                 }
                 return temp[value];
-            },                                      //任务状态
-            auto_ckrwQhStatus:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        1:'欠货',
-                        2:'未欠货'
+            },                                  //任务状态
+            auto_ckrwQhStatus: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '欠货',
+                        2: '未欠货'
                     }
-                }else{
-                    temp={
-                        '欠货'   : 1 ,
-                        '未欠货' : 2
+                } else {
+                    temp = {
+                        '欠货': 1,
+                        '未欠货': 2
 
                     }
                 }
                 return temp[value];
-            },                                      //欠货状态
-            auto_ckrwZlStatus:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        1:'滞留',
-                        2:'未滞留'
+            },                                //欠货状态
+            auto_ckrwZlStatus: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '滞留',
+                        2: '未滞留'
                     }
-                }else{
-                    temp={
-                        '滞留'   : 1 ,
-                        '未滞留' : 2
+                } else {
+                    temp = {
+                        '滞留': 1,
+                        '未滞留': 2
 
                     }
                 }
                 return temp[value];
-            },                                      //滞留状态
+            },                                //滞留状态
         },
         watch: {}
     });
@@ -802,6 +1003,37 @@
     //    }, {deep: true});
     post(outputShipment, outputShipment.option);
     function post(obj, option) {
+        obj.showLoading = true;
+
+        /*<debug>*/
+        url = "/hock/outputShipment/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/outputShipment/0";
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option | {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                console.log(json);
+                obj.$data.outputShipment = json.data;
+                obj.$data.currentTotal = json.recordsFiltered;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }          //TODO 入库任务分页查询接口
+    function postChange(obj, option) {
         obj.showLoading = true;
 
         /*<debug>*/
@@ -874,7 +1106,6 @@
             }
         }
     }
-</script>
 </script>
 
 
