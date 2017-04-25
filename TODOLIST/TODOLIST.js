@@ -2310,8 +2310,39 @@
          *
          *
          */
+    /**
+     * TODO 货品流向查询 goodsFlowSelect
+     */
+        /**
+         *  分页查询
+         *  搜索条件
+         *  {
+                    仓库              ckArehouseId
+                    TODO 货品名称    msxHpkid（关联货品库存表再关联货品表）
+                    TODO 货品编号    msxHpkid（关联货品库存表再关联货品表）
+                    客户名称          ckCkdjClientname
+                    客户地址          ckAdress
+                    联系人            ckContacts
+                    联系电话          ckTel
+                    客户编号          ckCkdjClientno
+                    出库单号          ckCkdjNo
+            }
+         *  分页查询的字段
+         *  {
+                TODO 仓库        ckArehouseId
+                出库单号           ckCkdjNo
+                客户编号           ckCkdjClientno
+                客户名称           ckCkdjClientname
+                联系人             ckContacts
+                联系电话           ckTel
+                TODO 货品名称    msxHpkid（关联货品库存表再关联货品表）
+                TODO 货品编号    msxHpkid（关联货品库存表再关联货品表）
+                货品数量          msxMxCount
+                TODO 货品体积   msxMxCount*base_goods：bg_goods_tj(暂用hptj)
+                客户地址         ckAdress
+            }
+         */
 /*
- * TODO 出库单据查询
  * TODO 进出合并查询
  * TODO 库位转移查询
  * TODO 库位冻结查询
