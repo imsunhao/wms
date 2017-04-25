@@ -147,6 +147,18 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 11:
+                        urlName = '角色管理-查询指定角色菜单';
+                        req = autoUrl(req, '/menu/findByRoleId/' + req.query.roleId, "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 12:
+                        urlName = '角色管理-查询指定角色菜单';
+                        req = autoUrl(req, '/arehouse/findByRoleId/' + req.query.roleId, "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
                 }
                 break;
             case 'warehousingReservation':
@@ -169,7 +181,7 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-                      case 1:
+                    case 1:
                         urlName = '入库预约-组合';
                         req = autoUrl(req, '/mfunrkDoc', "POST", function (json) {
                             res.send(json);
