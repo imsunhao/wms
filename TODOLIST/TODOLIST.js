@@ -2342,9 +2342,48 @@
                 客户地址         ckAdress
             }
          */
+    /**
+     * TODO 库位转移查询
+     *
+     */
+    /**
+     * 分页查询
+     * 搜索条件
+     *  {
+            创建时间    zyCreateTime
+            确认时间    zyConfirmTime
+            TODO 仓库        zyArehouseId
+            TODO 创建人     zyCreateUserId
+            TODO 确认人     zyConfirmUserId
+            TODO 提起人     zyMentionUserId
+            转移状态        zyStatus 转移状态0 初始 1 确认 2 作废
+        }
+     查询的字段
+     一级(库存转移主表)显示列
+     {
+            创建时间    zyCreateTime
+            确认时间    zyConfirmTime
+            仓库       zyArehouseId
+            创建人     zyCreateUserId
+            确认人     zyConfirmUserId
+            提起人     zyMentionUserId
+            转移状态    zyStatus
+            转移原因    zyReason
+     }
+     二级(库存转移明细表)显示列
+     {
+            货品编号    zysRepertoryId(关联货品表)
+            货品名称    zysRepertoryId(关联货品表)
+            货品批次    zysRepertoryId
+            转移前库位   zysZyBeforeLocationId
+            转移后库位   zysZyAfterLocationId
+            转移数量     zysZyCount
+     }
+
+
+
+     */
 /*
- * TODO 进出合并查询
- * TODO 库位转移查询
  * TODO 库位冻结查询
  * TODO 动碰盘点查询
  * TODO 循环盘点查询
