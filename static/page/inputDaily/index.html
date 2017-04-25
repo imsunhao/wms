@@ -64,7 +64,7 @@
                                     <el-form-item label="货品名称">
                                         <span>{{ props.row.rksGoodsId }}</span>
                                     </el-form-item>
-                                     <el-form-item label="货品批次">
+                                    <el-form-item label="货品批次">
                                         <span>{{ props.row.mdtBatch }}</span>
                                     </el-form-item>
 
@@ -137,9 +137,9 @@
                         prop="rkStatus"
                         align="center"
                         width="100">
-                        <template scope="scope">
-                            {{auto_rkStatus(scope.row.rkStatus)}}
-                        </template>
+                    <template scope="scope">
+                        {{auto_rkStatus(scope.row.rkStatus)}}
+                    </template>
                 </el-table-column>
                 <el-table-column
                         v-if="multiSelect"
@@ -251,7 +251,7 @@
                     <el-option :value="32">全部上架</el-option>
                 </el-select>
             </el-form-item>
-              <el-form-item label="制单方式"
+            <el-form-item label="制单方式"
                           :label-width="formLabelWidth">
                 <el-select v-model="rkZdfs" placeholder="请选择">
                     <el-option :value="0">全部</el-option>
