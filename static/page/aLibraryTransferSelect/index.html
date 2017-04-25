@@ -11,10 +11,7 @@
                         class="icon sel"></i><span>多选</span>
                 </button>
                 <button @click="moreOperationModify" class="btn btn-modify" v-show="multiSelect"><i
-                        class="icon modify"></i><span>修改</span>
-                </button>
-                <button @click="moreOperationIssued" class="btn btn-Issued" v-show="multiSelect"><i
-                        class="icon issued"></i><span>下发</span>
+                        class="icon modify"></i><span>导出</span>
                 </button>
             </div>
             <el-table
@@ -69,13 +66,8 @@
                                                     label="可用操作">
                                                 <el-button
                                                         size="small"
-                                                        icon="edit"
-                                                        @click="inlineEdit(props.$index, props.row)">
-                                                </el-button>
-                                                <el-button
-                                                        size="small"
                                                         type="success"
-                                                        @click="inlineIssued(props.$index, props.row)">下发
+                                                        @click="inlineIssued(props.$index, props.row)">导出
                                                 </el-button>
                                             </el-form-item>
 
@@ -89,40 +81,40 @@
                                         :max-height="240">
                                     <el-table-column
                                             type="expand">
-                                        <template scope="props">
-                                            <h3>入库明细</h3>
-                                            <el-table
-                                                    :data="props.row.rkDocsList"
-                                                    highlight-current-row
-                                                    style="width: 100%">
-                                                <el-table-column
-                                                        label="货品编号"
-                                                        width="140"
-                                                        show-overflow-tooltip
-                                                        align="center"
-                                                        prop="baseGoods.bgGoodsNo">
-                                                </el-table-column>
-                                                <el-table-column
-                                                        align="center"
-                                                        prop="baseGoods.bgGoodsName"
-                                                        show-overflow-tooltip
-                                                        label="货品名称">
-                                                </el-table-column>
-                                                <el-table-column
-                                                        label="单位"
-                                                        width="80"
-                                                        prop="baseDw.bdName"
-                                                        align="center">
-                                                </el-table-column>
-                                                <el-table-column
-                                                        label="数量"
-                                                        width="100"
-                                                        show-overflow-tooltip
-                                                        prop="rksCount"
-                                                        align="center">
-                                                </el-table-column>
-                                            </el-table>
-                                        </template>
+                                        <!--<template scope="props">-->
+                                            <!--<h3>入库明细</h3>-->
+                                            <!--<el-table-->
+                                                    <!--:data="props.row.rkDocsList"-->
+                                                    <!--highlight-current-row-->
+                                                    <!--style="width: 100%">-->
+                                                <!--<el-table-column-->
+                                                        <!--label="货品编号"-->
+                                                        <!--width="140"-->
+                                                        <!--show-overflow-tooltip-->
+                                                        <!--align="center"-->
+                                                        <!--prop="baseGoods.bgGoodsNo">-->
+                                                <!--</el-table-column>-->
+                                                <!--<el-table-column-->
+                                                        <!--align="center"-->
+                                                        <!--prop="baseGoods.bgGoodsName"-->
+                                                        <!--show-overflow-tooltip-->
+                                                        <!--label="货品名称">-->
+                                                <!--</el-table-column>-->
+                                                <!--<el-table-column-->
+                                                        <!--label="单位"-->
+                                                        <!--width="80"-->
+                                                        <!--prop="baseDw.bdName"-->
+                                                        <!--align="center">-->
+                                                <!--</el-table-column>-->
+                                                <!--<el-table-column-->
+                                                        <!--label="数量"-->
+                                                        <!--width="100"-->
+                                                        <!--show-overflow-tooltip-->
+                                                        <!--prop="rksCount"-->
+                                                        <!--align="center">-->
+                                                <!--</el-table-column>-->
+                                            <!--</el-table>-->
+                                        <!--</template>-->
                                     </el-table-column>
                                     <el-table-column
                                             label="货品编号"
@@ -697,22 +689,7 @@
                 });
             },                                  //TODO 行内按钮-编辑
             inlineIssued: function (index, row) {
-                var _this = this;
-                _this.$confirm('此操作下发入库任务单, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(function () {
-                    remove(row, _this.aLibraryTransferSelect);
-                    postDelete(_this, {
-                        id: [row.rkdjNo]
-                    });
-                }).catch(function () {
-                    _this.$message({
-                        type: 'info',
-                        message: '已取消下发'
-                    });
-                });
+
             },                                //TODO 行内按钮  下发
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
