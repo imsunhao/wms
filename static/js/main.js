@@ -279,8 +279,8 @@ $(function () {
                     function combinationNode(tree) {
                         var data = [];
                         for (var i = 0; i < tree[0].children.length; i++) {
-                            tree[tree[0].children[i].bmMenuId].head = tree[0].children[i].bmMenuName;
-                            data.push(tree[tree[0].children[i].bmMenuId]);
+                            tree[tree[0].children[i].bmOrderNumber].head = tree[0].children[i].bmMenuName;
+                            data.push(tree[tree[0].children[i].bmOrderNumber]);
                         }
                         return data;
                     }

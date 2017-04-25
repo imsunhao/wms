@@ -289,6 +289,16 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
+            case 'moduleManagement':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '模块管理-新增菜单';
+                        req = autoUrl(req, '/menu', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
             case 'goodsManage':
                 switch (parseInt(req.params._status)) {
                     case 0:

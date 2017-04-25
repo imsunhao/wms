@@ -477,8 +477,6 @@
     </el-dialog>
 </div>
 
-
-
 <script>
     var form = function () {
         return {
@@ -542,8 +540,8 @@
                                     'margin-right': '20px'
                                 }
                             }, [h('button', {
-                                style:{
-                                    display:'none'
+                                style: {
+                                    display: 'none'
                                 },
                                 on: {
                                     click: function (e) {
@@ -557,8 +555,8 @@
                                     'addHidden': typeof data.children === 'undefined'
                                 }
                             }, '添加'), h('button', {
-                                style:{
-                                    display:'none'
+                                style: {
+                                    display: 'none'
                                 },
                                 on: {
                                     click: function (e) {
@@ -1279,13 +1277,16 @@
     }              // 10 查询所有客户
 
 
-    function getUserMenu(obj) {
+    function getUserMenu(obj, option) {
         var step = [];
-
-        for (var i = 0; i < app.$data.nav.length; i++) {
-            for (var b = 0; b < app.$data.nav[i].children.length; b++) {
-                step.push(app.$data.nav[i].children[b])
+        if (!option) {
+            for (var i = 0; i < app.$data.nav.length; i++) {
+                for (var b = 0; b < app.$data.nav[i].children.length; b++) {
+                    step.push(app.$data.nav[i].children[b])
+                }
             }
+        }else{
+
         }
         Vue.nextTick(function () {
             obj.$refs.dataBaseMenu.setCheckedNodes(step);
@@ -1323,8 +1324,8 @@
         /*</debug>*/
 
         /*<prod>*/
-        obj.$data.dataBaseMenu=app.$data.nav;
-        getUserMenu(obj);
+        obj.$data.dataBaseMenu = app.$data.nav;
+        getUserMenu(obj, option);
         /*</prod>*/
 
 
