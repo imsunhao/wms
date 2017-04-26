@@ -477,8 +477,6 @@
     </el-dialog>
 </div>
 
-
-
 <script>
     var form = function () {
         return {
@@ -542,8 +540,8 @@
                                     'margin-right': '20px'
                                 }
                             }, [h('button', {
-                                style:{
-                                    display:'none'
+                                style: {
+                                    display: 'none'
                                 },
                                 on: {
                                     click: function (e) {
@@ -557,8 +555,8 @@
                                     'addHidden': typeof data.children === 'undefined'
                                 }
                             }, '添加'), h('button', {
-                                style:{
-                                    display:'none'
+                                style: {
+                                    display: 'none'
                                 },
                                 on: {
                                     click: function (e) {
@@ -585,7 +583,6 @@
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
                     "rrName": this.rrName.trim(),
-
                 }
             }
         },
@@ -606,6 +603,8 @@
 //                });
 //                console.log(step);
 //                console.log(row);
+
+                postBaseMenu(this, {roleId: step.rrRoleId});
 
                 step.title = '编辑';
                 obj.form = step;
@@ -1277,19 +1276,42 @@
             }
         });
     }              // 10 查询所有客户
+    function postRoleMenu() {
 
+    }                   // 11 查询指定角色 菜单
+    function postRoleArehouse() {
 
-    function getUserMenu(obj) {
+    }               // 12 查询指定角色 仓库
+
+    function getUserMenu(obj, option) {
         var step = [];
-
-        for (var i = 0; i < app.$data.nav.length; i++) {
-            for (var b = 0; b < app.$data.nav[i].children.length; b++) {
-                step.push(app.$data.nav[i].children[b])
-            }
+        var nav = [];
+        if (!option) {
+            nav = app.$data.nav;
+            getUserMenuInner();
+        } else {
+            $.ajax('/route/roleManagement/11', {
+                type: "GET",
+                data: option,
+                success: function (json) {
+                    if(json.length!==0){
+                        nav = generateNode(json);
+                    }
+                    getUserMenuInner();
+                }//TODO 异常问题
+            })
         }
-        Vue.nextTick(function () {
-            obj.$refs.dataBaseMenu.setCheckedNodes(step);
-        });
+        function getUserMenuInner() {
+            for (var i = 0; i < nav.length; i++) {
+                for (var b = 0; b < nav[i].children.length; b++) {
+                    step.push(nav[i].children[b])
+                }
+            }
+            obj.$refs.dataBaseMenu.setCheckedKeys([]);
+            Vue.nextTick(function () {
+                obj.$refs.dataBaseMenu.setCheckedNodes(step);
+            });
+        }
     }
     function appendMenu(store, data) {
         store.append({id: id++, label: 'testtest'}, data);
@@ -1302,7 +1324,7 @@
         /*<debug>*/
         obj.$data.showLoading = true;
         url = "/hock/main/Nav-DB.json";
-        $.ajax(url, {
+        $.ajax('/route/roleManagement/11', {
             type: "GET",
             data: option | {
                 "draw": 1,                      //* 没有意义
@@ -1323,8 +1345,8 @@
         /*</debug>*/
 
         /*<prod>*/
-        obj.$data.dataBaseMenu=app.$data.nav;
-        getUserMenu(obj);
+        obj.$data.dataBaseMenu = app.$data.nav;
+        getUserMenu(obj, option);
         /*</prod>*/
 
 

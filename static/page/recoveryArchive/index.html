@@ -626,9 +626,9 @@
                 reissue: formReissue(),               //欠货补发信息 弹出层 信息集合
                 dialogReissueVisible: false,          //欠货补发信息 弹出层 是否可见
 
-
                 retention: formRetention(),           //滞留补发信息 弹出层 信息集合
                 dialogRetentionVisible: false,        //滞留补发信息 弹出层 是否可见
+
 
 
                 select: form(),                       //搜索 弹出层 信息集合,
@@ -705,7 +705,7 @@
                         message: '已取消下发'
                     });
                 });
-            },                                //TODO 行内按钮  取消任务
+            },                                  //TODO 行内按钮-取消任务
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -720,9 +720,9 @@
             },                                   //TODO 多选 修改
             exportOutstanding: function () {
 
-            },                                   //TODO 多选 导出欠货
+            },                                     //TODO 多选 导出欠货
             exportRetention: function () {
-            },                                   //TODO 多选 导出滞留
+            },                                       //TODO 多选 导出滞留
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -794,10 +794,10 @@
             },                                          //详细查询 提交
             reissueSubmit: function () {
 
-            },
+            },                                         //TODO 欠货补发信息-保存
             retentionSubmit: function () {
 
-            },
+            },                                       //TODO 滞留补发信息-保存
             auto_ckIsauto: function (value) {
                 var temp = {};
                 if (!isNaN(value)) {

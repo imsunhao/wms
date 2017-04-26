@@ -225,6 +225,22 @@
          *     bcCname      客户名称
          *     bcClientId   客户id
          **/
+        /** 11 查询指定角色 菜单   GET /menu/findByRoleId/ + req.query.roleId
+         * 参数
+         * {
+                roleId
+            }
+         * 参数说明
+         *     roleId   角色id
+         **/
+        /** 12 查询指定角色 仓库   GET /arehouse/findByRoleId/ + req.query.roleId
+         * 参数
+         * {
+                roleId
+            }
+         * 参数说明
+         *     roleId   角色id
+         **/
     /** 仓库管理/配置   warehouseConfiguration
      *
      */
