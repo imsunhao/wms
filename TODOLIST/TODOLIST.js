@@ -2107,7 +2107,20 @@
              *          TODO 3 导出按钮
              */
             /**
-             *  TODO 4 欠货完结
+             *  TODO 4 欠货完结    /test   POST
+             *
+             *  参数：
+             *
+             *     user:    //用户名
+             *     userId:    //用户id
+             *
+             *
+             *
+             *  返回
+             *
+             *
+             *
+             *
              *  rkQhWjyy    欠货完结原因/完结原因
              *  rkQhBfdh  (欠货补发单号)
              */
