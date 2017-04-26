@@ -2383,8 +2383,44 @@
 
 
      */
+    /**
+ * 库位冻结查询
+ */
+       /**
+        * 分页查询
+        * 搜索条件
+        * {
+               创建时间     djCreateTime
+               解冻时间     djJdTime
+               创建人       djCreateUserId
+               解冻人       djJdUserId
+               仓库         djArehouseId
+               冻结状态     djStatus 0 冻结 1 解冻   2 作废
+       }
+        一级页面(库存冻结主表)显示列
+        {
+               创建时间     djCreateTime
+               解冻时间     djJdTime
+               创建人      djCreateUserId
+               解冻人      djJdUserId
+               仓库       djArehouseId
+               冻结状态   djStatus
+               作废人员   djZfUserId
+               作废时间   djZfTime
+        }
+        二级页面(库存冻结明细表)显示列
+        {
+              库位名称    djsRepertory
+              货品编号    djsRepertory
+              货品名称    djsRepertory
+              货品批次    djsRepertory
+              状态        djsStatus 0.已冻结 1.未冻结(可用)
+              冻结数量    djsRepertory
+        }
+
+
+        */
 /*
- * TODO 库位冻结查询
  * TODO 动碰盘点查询
  * TODO 循环盘点查询
  * TODO 全面盘点查询
