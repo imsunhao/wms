@@ -629,6 +629,8 @@
                 retention: formRetention(),           //滞留补发信息 弹出层 信息集合
                 dialogRetentionVisible: false,        //滞留补发信息 弹出层 是否可见
 
+
+
                 select: form(),                       //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 selectLoading: false
@@ -735,15 +737,12 @@
                 this.currentPage = val;
                 post(this, this.option);
             },                                //分页 当前页
-
             outstandingInformation: function () {
                 this.dialogReissueVisible = true;
             },                                //行内按钮-欠货补发信息
             retentionInformation: function () {
                 this.dialogRetentionVisible = true;
             },                                  //行内按钮-滞留补发信息
-
-
             newInput: function () {
                 this.dialogFormVisible = true;
 

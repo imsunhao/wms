@@ -1,0 +1,55 @@
+{
+  "data":[
+    {
+      "ckArehouseId":" 仓库  ",
+      "ckCkdjNo":" 出库单号",
+      "ckCkdjType":" 单据类型",
+      "ckStatus":" 单据状态",
+      "ckQhStatus":" 欠货状态",
+      "ckZlStatus":" 滞留状态",
+      "allSL":"  总数量 ",
+      "allTJ":" TODO 总体积 ",
+      "xjsl":" TODO 下架数量",
+      "xjtj":" TODO 下架体积",
+      "qhsl":" TODO 欠货数量",
+      "qhtj":" TODO 欠货体积",
+      "cksZlCount":" 滞留数量     ",
+      "zltj":" TODO 滞留体积",
+      "ckCkdjClientno":" 客户编号",
+      "ckCkdjClientname":" 客户名称",
+      "ckAdress":" 客户地址",
+      "ckTel":" 联系电话",
+      "ckIsauto":" 制作方式",
+      "ckStartwith":" 操作方式",
+      "ckrwHistoryOperator":" 激活人员",
+      "msUserId":"备货人员",
+      "msxXjry":"下架人员"
+    },
+    {
+      "ckArehouseId":"1",
+      "ckCkdjNo":"CK0425001",
+      "ckCkdjType":"1",
+      "ckStatus":"1",
+      "ckQhStatus":"3",
+      "ckZlStatus":"2",
+      "allSL":"10",
+      "allTJ":"10 ",
+      "xjsl":"1",
+      "xjtj":"3",
+      "qhsl":"4",
+      "qhtj":"5",
+      "cksZlCount":"5",
+      "zltj":"3",
+      "ckCkdjClientno":"1",
+      "ckCkdjClientname":"张三",
+      "ckAdress":"济南章丘",
+      "ckTel":" 13063046859",
+      "ckIsauto":"1",
+      "ckStartwith":"2",
+      "ckrwHistoryOperator":"李四",
+      "msUserId":"赵六",
+      "msxXjry":"王毅"
+    }
+  ]
+}
+

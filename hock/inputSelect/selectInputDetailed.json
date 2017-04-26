@@ -1,0 +1,30 @@
+{
+  "data":
+  [
+    {
+      "rksGoodsId":"货品编号   ",
+      "rksGoodsId":"货品名称   ",
+      "mdtBatch":"货品批次   ",
+      "rksCount":"货品数量   ",
+      "bgGoodsTj":"货品体积   ",
+      "sssl":"实收数量   ",
+      "sstj":"实收体积   ",
+      "rksStatus":"入库明细状态 ",
+      "mdtUserId":"上架人员   "
+    },
+    {
+      "rksGoodsId":"hp001   ",
+      "rksGoodsId":"小馒头   ",
+      "mdtBatch":"hp0425   ",
+      "rksCount":"10   ",
+      "bgGoodsTj":"60   ",
+      "sssl":"50   ",
+      "sstj":"180   ",
+      "rksStatus":"1",
+      "mdtUserId":"1   "
+    }
+  ]
+}
+
+
+

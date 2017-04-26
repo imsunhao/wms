@@ -1,0 +1,43 @@
+{
+  "data":
+  [
+    {
+      "cksGoodsId":"货品编号",
+      "cksGoodsId":"货品名称",
+      "cksGoodsCount":"货品数量",
+      "hptj":"货品体积 ",
+      "msxMxCount":"下架数量",
+      "xjtj":"下架体积 ",
+      "cksQhCounts":"欠货数量",
+      "qhtj":"欠货体积",
+      "cksZlCount":"滞留数量",
+      "zltj":"滞留体积",
+      "cksBfNo":"欠货(补发)单号",
+      "cksZlbfInfo":"滞留任务号",
+      "cksFyCount":"发运数量",
+      "fytj":"发运体积 ",
+      "cksQhRemarks":" 欠货备注",
+      "cksBfStatus":" 补发状态"
+    },
+    {
+      "cksGoodsId":"hp001",
+      "cksGoodsId":"标签纸",
+      "cksGoodsCount":"10",
+      "hptj":"1 ",
+      "msxMxCount":"3",
+      "xjtj":"4 ",
+      "cksQhCounts":"5",
+      "qhtj":"6",
+      "cksZlCount":"1",
+      "zltj":"1",
+      "cksBfNo":"qh001",
+      "cksZlbfInfo":"0425001",
+      "cksFyCount":"1",
+      "fytj":"1 ",
+      "cksQhRemarks":"备注",
+      "cksBfStatus":"1"
+    }
+  ]
+}
+
+

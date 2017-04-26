@@ -1,32 +1,71 @@
-[
-  {
-    "rkRkdjNo":"入库单号",
-    "rkStatus":"收货状态",
-    "allCount":"总数量",
-    "shCount":"实收数量",
-    "rkCreatetime":"下单时间",
-    "rkrkSjsj":"上架开始时间",
-    "rkEndTime":"上架结束时间",
-    "mdtUserId":"上架人员",
-    "rkZdfs":"制作方式",
-    "rkStartwith":"操作方式"
-  },
-  {
-    "rksGoodsId":"货品编号",
-    "rksGoodsId":"货品名称",
-    "mdtBatch":"货品批次",
-    "rksCount":"货品数量",
-    "shCount1":"实收数量",
-    "rksStatus":"入库明细状态",
-    "mdtUserId":"上架人员"
-  },
-  {
-    "rksGoodsId":"货品编号",
-    "rksGoodsId":"货品名称",
-    "mdtBatch":"货品批次",
-    "mdtLocationId":"上架库位",
-    "mdtCount":"上架数量",
-    "mdtUserId":"上架人员",
-    "mdtSjsj":"上架时间"
-  }
-]
+{
+  "data":[
+    {
+      "rkArehouseId":"仓库",
+      "rkCreatetime":"下单时间",
+      "rkrkSjsj":"上架开始时间",
+      "rkEndTime":"上架结束时间",
+      "rkStatus":"入库状态",
+      "rkRkdjNo":"入库单号",
+      "rkZdfs":"制作方式",
+      "rkStartwith":"操作方式",
+      "allSL":"总数量",
+      "allTJ":"总体积",
+      "sssl":"实收数量",
+      "sstj":"实收体积",
+      "mdtUserId":"上架人员"
+    },
+    {
+      "rkArehouseId":"1",
+      "rkCreatetime":"20170424",
+      "rkrkSjsj":"20170424",
+      "rkEndTime":"20170424",
+      "rkStatus":"1",
+      "rkRkdjNo":"RK001",
+      "rkZdfs":"2",
+      "rkStartwith":"1",
+      "allSL":"30",
+      "allTJ":"30",
+      "sssl":"10",
+      "sstj":"10",
+      "mdtUserId":"1"
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

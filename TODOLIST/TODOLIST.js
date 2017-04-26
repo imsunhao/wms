@@ -2195,7 +2195,138 @@
  * TODO 出库日报
  * TODO 动碰查询
  * TODO 库存查询
- * TODO 入库单据查询
+    /**
+    * TODO 入库单据查询
+    */
+        /**
+     *  TODO 分页查询
+         "rkArehouseId":"仓库",
+         "rkCreatetime":"下单时间",
+         "rkrkSjsj":"上架开始时间",
+         "rkEndTime":"上架结束时间",
+         "rkStatus":"入库状态",
+         "rkRkdjNo":"入库单号",
+         "rkZdfs":"制作方式",
+         "rkStartwith":"操作方式",
+         "allSL":"总数量",
+         "allTJ":"总体积",
+         "sssl":"实收数量",
+         "sstj":"实收体积",
+         "mdtUserId":"上架人员"
+     */
+        /**
+         * TODO 查看入库明细信息
+         货品编号       rksGoodsId(关联货品表)
+         货品名称       rksGoodsId(关联货品表)
+         货品批次       mdtBatch
+         货品数量       rksCount
+         货品体积       bgGoodsTj
+         实收数量       sum(mdt_count)(暂用sssl)
+         实收体积       (暂用sstj)
+         入库明细状态   rksStatus
+         上架人员       mdtUserId(多个上架人员,在一列显示逗号隔开)
+         */
+        /**
+         * TODO 查看入库储位信息
+         货品编号    rksGoodsId(关联货品表)
+         货品名称    rksGoodsId(关联货品表)
+         货品批次    mdtBatch
+         上架库位    mdtLocationId
+         上架数量    mdtCount
+         实收体积    (暂用shtj)
+         上架人员    mdtUserId(多个上架人员,在一列显示逗号隔开)
+         上架时间    mdtSjsj
+         */
+    /**
+ * TODO 出库单据查询
+ */
+        /**
+         *  TODO 分页查询
+         *  搜索条件的字段
+                仓库             ckArehouseId
+                下单时间         ckXdsj
+                激活时间         mhCreatetime
+                下架开始时间     ckCksj
+                下架结束时间     ckEndtime
+                出库单据状态     ckStatus  出库单据状态(1初始 21部分分拣，未下架状态 22部分出库，已下架 31全部分拣，未下架 32全部出库，下架完成 50作废)
+                是否欠货         ckQhStatus 欠货状态
+                                 1.整单欠货(明细欠货状态全部为"全部欠货"出库单状态为"整单欠货")
+                                 2.部分欠货(明细欠货状态存在"未欠货","部分欠货"出库单状态为"部分欠货")
+                                 3.未欠货(明细欠货状态全部为"未欠货",出库单据为"未欠货")
+                是否滞留         ckZlStatus  滞留状态
+                                 1.未到车滞留(出库单据明细滞留状态全部为"未到车滞留"出库单据滞留状态为"未到车滞留")
+                                 2.到车滞留(出库单据明细滞留状态存在"到车滞留"出库单据滞留状态为"到车滞留")
+                                 3.未滞留(出库单据明细滞留状态全部为"未滞留",出库单据滞留状态为"未滞留")
+                联系电话         ckTel
+                联系人           ckContacts
+                客户编号         ckCkdjClientno
+                客户名称         ckCkdjClientname
+                出库单号         ckCkdjNo
+                客户地址         ckAdress
+                制作方式         ckIsauto制单方式(1手动 2excel/导入 3接口)
+                操作方式         ckStartwith 1电脑端 2PDA
+                单据类型         ckCkdjType 出库 单据类型 0正常单据 1挂起单据    2滞留单据
+         一级菜单：出库单
+         {
+                TODO 仓库        ckArehouseId
+                出库单号            ckCkdjNo
+                单据类型            ckCkdjType
+                单据状态            ckStatus    1:'初始',  21:'部分分拣'  22:'部分出库', 31:'全部分拣', 32:'全部出库 50:'作废',
+                欠货状态            ckQhStatus
+                滞留状态            ckZlStatus
+                TODO 总数量       sum(cksGoodsCount)(暂用allSL)
+                TODO 总体积       (暂用allTJ)
+                TODO 下架数量     sum(msxMxCount)(暂用xjsl)
+                TODO 下架体积     (暂用xjtj)
+                TODO 欠货数量     sum(cksQhCount)(暂用qhsl)
+                TODO 欠货体积     cksQhCount*bgGoodsTj(暂用qhtj)
+                滞留数量            cksZlCount
+                TODO 滞留体积     cksZlCount*bgGoodsTj(暂用zltj)
+                客户编号            ckCkdjClientno
+                客户名称            ckCkdjClientname
+                客户地址            ckAdress
+                联系电话            ckTel
+                制作方式            ckIsauto
+                操作方式            ckStartwith
+                激活人员            ckrwHistoryOperator
+                TODO 备货人员      msUserId
+                下架人员            msxXjry（多个）
+          }
+         二级菜单：出库明细
+         {
+                TODO 货品编号     cksGoodsId(关联货品表)
+                TODO 货品名称     cksGoodsId（关联货品表）
+                货品数量            cksGoodsCount
+                TODO 货品体积     cksGoodsCount*bgGoodsTj(暂用hptj)
+                下架数量            msxMxCount
+                TODO 下架体积     msxMxCount*bgGoodsTj(暂用xjtj)
+                欠货数量            cksQhCounts
+                TODO 欠货体积     cksQhCounts*bgGoodsTj(暂用qhtj)
+                滞留数量            cksZlCount
+                TODO 滞留体积     cksZlCount*bgGoodsTj(暂用zltj)
+                欠货(补发)单号      cksBfNo
+                滞留任务号          cksZlbfInfo
+                发运数量            cksFyCount
+                TODO 发运体积     cksFyCount*bgGoddsTj(暂用fytj)
+                欠货备注            cksQhRemarks
+                补发状态            cksBfStatus
+         }
+         三级菜单： 分拣明细
+         {
+                TODO 货品编号   msxHpkcid（关联货品库存表再关键货品表）
+                TODO 货品名称   msxHpkcid（关联货品库存表再关联货品表）
+                TODO 下架库位   msxHpkcid（关联货品库存表再关联库位表）
+                下架数量         msxMxCount
+                TODO 下架体积   msxMxCount*bgGoodsTj(暂用xjtj)
+                TODO 下架批次   msx_hpkcid（关联货品库存表取mr_good_batch）
+                操作人员         msxXjry
+                操作时间         msxQrsj
+                修改分拣数量原因 msxWt
+         }
+         *
+         *
+         */
+/*
  * TODO 出库单据查询
  * TODO 进出合并查询
  * TODO 库位转移查询
