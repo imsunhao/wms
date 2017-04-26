@@ -2184,8 +2184,152 @@
             /**
              * TODO  出库单管理 根据分页要求获取没有出库任务的出库单信息 POST /mfunck/selectMfunckDocByPage
              */
-/*
+    /**
+     * TODO 激活数据
+     */
+        /**
+         * TODO 2 激活任务   POST /mfunck/rwJiHuo
+         *      参数 setModel
+         *          {
+                 *              "ids" : [6,7],   出库任务ID（多个）
+                 *              "useId" : 1     操作员ID
+                 *          }
+         */
+        /**
+         * TODO 3 追加分拣  GET /mfunck/bujianById/{ckdjId}/{userId}
+         *        "ckdjId" : 出库单据ID
+         *        "userId" : 操作员ID
+         */
+        /**
+         *  TODO 4 修改分拣方式 POST /mfunck/editCkDocsFJFSByCkmxId
+         *      参数名称 paramsModel  （同凯哥出库任务的修改分拣方式）
+         */
+        /**
+         *  TODO 5 挂起确认 GET  /mfunck/guaQiById/{ckdjId}
+         *      "ckdjId" : 出库单据ID
+         */
+        /**
+         *  TODO 6 激活单据 GET /mfunck/fenjianById/{ckdjId}/{userId}
+         *      "ckdjId" : 出库单据ID
+         *      "userId" : 操作员ID
+         */
+        /**
+         *  TODO 7 修改出库明细分拣数量 GET /mfunck/xiugaifenjian/{msxMxId}/{mxCount}/{userId}
+         *      "msxMxId" ： 出库单明细ID
+         *      "mxCount" :  修改后的数量（小于分拣数量）
+         *      "userId" :   操作员ID
+         */
+    /**
+     * TODO 出库操作
+     */
+        /**
+        * TODO 2 打印分拣单 GET /mfunck/dayinfenjiandan/{pageNum}/{pageSize}/{draw}/{ckdjId}
+        *      "pageNum" :  第几页
+        *      "pageSize" : 每一页多少条数据
+        *      "draw" :    请求次数
+        *      "ckdjId" : 出库单ID
+         *      */
+        /**
+        *TODO 3 打印组合分拣单 GET /mfunck/dayinzuhedan/{pageNum}/{pageSize}/{draw}/{ckdjIds}
+        *       "pageNum" : 第几页
+        *       "pageSize" :  每一页多少条数据
+        *       "draw" : 请求次数
+        *       "ckdjIds" : 出库单ID(多个)
+         *   */
+        /**
+        * TODO 4 打印追加分拣单 GET /mfunck/dayinzuijiadan/{pageNum}/{pageSize}/{draw}/{ckdjId}
+        *         "pageNum" : 第几页
+        *         "pageSize" : 每一页多少条数据
+        *         "draw" : 请求次数
+        *         "ckdjId" : 出库单ID
+        */
+        /**
+        * TODO 5 下架 GET /mfunck/xiajiaById
+        *          参数名称 ：serModel
+        *          {
+                *              "ids" : [32,33]  多个出库单ID
+                *          }
+        *
+        */
+    /**
+     *  TODO 出库发运页面
+     */
+        /**
+         * TODO 2 发运 POST /mfunck/ckFayunRw
+         *      参数名称：setModel
+         *      {
+                 *          "ids" :[6,7],   出库任务ID(多个)
+                 *          "useId" : 1    操作员Id
+                 *      }
+         */
+        /**
+         * TODO 3 修改发运数量 POST /mfunck/updateFysl
+         *      {
+                 *          "cksCkmxId"　： 出库明细ID
+                 *          "cksGoodsId" : 货品ID
+                 *          "cksGoodsCount" : 货品数量
+                 *          "cksDwid" : 单位ID
+                 *          "cksCkfs" :  出库方式（分拣方式）
+                 *          "cksLocationId" : 货品库存ID
+                 *          "cksStatus" :  出库单明细 发货状态
+                 *          "cksCkdjId" : 出库单据ID
+                 *          "cksFyCount" : 修改后的发运数量
+                 *      }
+         *
+         */
+    /**
+     * TODO 回收存档
+     */
+        /**
+         * TODO 1 欠货补发信息(整单) POST /mfunck/QianHuoBuFaZd
+         *      参数名称 ckCdDocsParam
+         *      {
+                 *          "ckdjId" : 出库单据ID
+                 *          "cksBfNo" :补发单号
+                 *          "cksQhbfInfo" : 补发情况
+                 *          "cksQhRemarks" : 欠货备注
+                 *          "cksBfStatus" :补发状态
+                 *      }
+         */
+        /**
+            * TODO 2 欠货补发信息（明细） POST  /mfunck/QianHuoBuFaMx
+            *      参数名称 ckCdDocsParam
+            *      {
+                    *          "cksCkmxId" : 出库单明细ID
+                    *          "cksBfNo" :补发单号
+                    *          "cksQhbfInfo" : 补发情况
+                    *          "cksQhRemarks" : 欠货备注
+                    *          "cksBfStatus" :补发状态
+                    *      }
+         */
+        /**
+         * * TODO 3 滞留补发信息 POST /mfunck/zhiLiuBuFa
+          *         参数名称 ckCdDocsParam
+         *         {
+
+                  *              "ckrwNo" :"dddddfff", 补发单号
+
+                  *              "ckdjIds" :[34,35]   出库单据ID （多个）
+
+                  *         }
+         */
+        /**
+ *      TODO 4  滞留导出 POST /mfunck/exportZldocByExcel
+ *          参数名称 setModel
+ *          {
+         *              "ids" :[32,33,34]  出库单据ID(多个)
+         *          }
+         */
+        /**
+ *         TODO 5  欠货导出 POST /mfunck/exportQhdocByExcel
+ *          参数名称 setModel
+ *          {
+         *              "ids" :[31,32,33] 出库单据ID（多个）
+         *          }
+         */
+            /*
  * TODO 挑选数据
+
  * TODO 激活数据
  * TODO 出库操作
  * TODO 出库发运
