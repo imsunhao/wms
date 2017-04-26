@@ -1,0 +1,32 @@
+{
+  "data":[
+    {
+      "ckArehouseId":"仓库    ",
+      "ckCkdjNo":"出库单号  ",
+      "ckCkdjClientno":"客户编号  ",
+      "ckCkdjClientname":"客户名称  ",
+      "ckContacts":"联系人   ",
+      "ckTel":"联系电话  ",
+      "msxHpkid":"货品名称  ",
+      "msxHpkid":"货品编号  ",
+      "msxMxCount":"货品数量  ",
+      "hptj":"货品体积  ",
+      "ckAdress":"客户地址  "
+    },
+    {
+      "ckArehouseId":"1    ",
+      "ckCkdjNo":"CK001  ",
+      "ckCkdjClientno":"001  ",
+      "ckCkdjClientname":"张三  ",
+      "ckContacts":"李四   ",
+      "ckTel":"13053253837  ",
+      "msxHpkid":"1  ",
+      "msxHpkid":"1  ",
+      "msxMxCount":"10  ",
+      "hptj":"10 ",
+      "ckAdress":"1  "
+    }
+  ]
+}
+
+

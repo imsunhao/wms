@@ -1,0 +1,26 @@
+{
+  "data":
+    [
+  {
+    "zyCreateTime":" 创建时间 ",
+    "zyConfirmTime":"确认时间 ",
+    "zyArehouseId":  "仓库 ",
+    "zyCreateUserId":"创建人",
+    "zyConfirmUserId":"确认人",
+    "zyMentionUserId":"提起人",
+    "zyStatus":"转移状态",
+    "zyReason":"转移原因"
+},
+  { "zyCreateTime":" 20170425 ",
+    "zyConfirmTime":"20170425 ",
+    "zyArehouseId":  "1 ",
+    "zyCreateUserId":"张三",
+    "zyConfirmUserId":"李四",
+    "zyMentionUserId":"王五",
+    "zyStatus":"1",
+    "zyReason":"原因"
+  }
+
+]
+}
+
