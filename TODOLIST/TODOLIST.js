@@ -2123,53 +2123,141 @@
              **/
             /**
              * TODO 0  出库单管理 根据分页要求获取没有出库任务的出库单信息 POST /mfunck/selectMfunckDocByPage
-             * 参数
+             * 参数：查询条件 ckDocPageModel（参数对象）
              * {
-             *    ckCkdjId : 2
-                  ckCkdjNo : "jy33333"
-                  ckErpNo : "testerp_no"
-                  ckCkdjType : 0
-                  ckCkdjClientno : "ckdanju"
-                  ckCkdjClientname : "高新区银座超市"
-                  ckContacts : "郭靖"
-                  ckTel : "15689878987"
-                  ckAdress : "高新区银座超市"
-                  ckXdsj : 1486531654000
-                  ckBjsj : 1487741258000
-                  ckYfhsj : 1487827662000
-                  ckRemarks : "rrrrrrr"
-                  ckStatus : 1
-                  ckIsauto : 1
-                  ckCksj : 1486445274000
-                  ckStartwith : 0
-                  ckIsyadan : 1
-                  ckIsqianhuo : 1
-                  ckArehouseId : 1
-                  ckClientId : 2
-                  ckEndtime : 1487050087000
-                  ckRwStatus : 1
-                  ckQhStatus : 3
-                  ckZlStatus : 1
-                  ckGqStatus : 1
-                  ckrwId : 0
-                  mfunckDocs []
-                  allCount : null
-                  allTj : null
-                  allHeight : null
+                  "draw": 0,
+                  "ckCkdjNo": "",                  出库单号（支持模糊查询）
+                  "startTimeParam": "2017-01-01",  下单开始时间
+                  "endTimeParam": "2017-05-01",    下单结束时间
+                  "pageNum": 1,                    页数
+                  "pageSize": 10,                  页面条数
+                  "ckStatus": 1,                   出库状态
+                  "ckCkdjClientname",              客户名称（支持模糊查询）
+                  "ckCkdjType": 0,                 单据类型
+                  "ckArehouseId": 1               （如果是调度员就不传，如果是别的角色就传）
+                }
+             *
+             *
+             *
+             * {
+             *    ckCkdjId : 2                              出库单ID
+                  ckCkdjNo : "jy33333"                      出库单号
+                  ckErpNo : "testerp_no"                    erp单号
+                  ckCkdjType : 0                            单据类型
+                  ckCkdjClientno : "ckdanju"                客户编号
+                  ckCkdjClientname : "高新区银座超市"        客户名称
+                  ckContacts : "郭靖"                        联系人
+                  ckTel : "15689878987"                     电话
+                  ckAdress : "高新区银座超市"                地址
+                  ckXdsj : 1486531654000                    下单时间
+                  ckBjsj : 1487741258000                    编辑时间
+                  ckYfhsj : 1487827662000                   预发货时间
+                  ckRemarks : "rrrrrrr"                     备注
+                  ckStatus : 1                              出库单状态
+                  ckIsauto : 1                              制单方式
+                  ckCksj : 1486445274000                    出库时间
+                  ckStartwith : 0                           设备端
+                  ckIsyadan : 1                             是否压单
+                  ckIsqianhuo : 1                           是否欠货
+                  ckArehouseId : 1                          仓库ID
+                  ckClientId : 2                            客户ID
+                  ckEndtime : 1487050087000                 pda结束时间
+                  ckRwStatus : 1                            出库任务状态
+                  ckQhStatus : 3                            欠货状态
+                  ckZlStatus : 1                            滞留状态
+                  ckGqStatus : 1                            挂起状态
+                  ckrwId : 0                                出库任务ID
+                  mfunckDocs []                             出库明细对象
+                  allCount : null                           总数量
+                  allTj : null                              总体积
+                  allHeight : null                          总重量
                 }
              */
             /**
              * TODO 1 出库单管理 新增出库单据/包含出库单明细 POST /mfunck/add
              * 参数
              * {
+                  "ckCkdjNo": "CK1482398743793",（必填）
+                  "ckErpNo": "hk45645",
+                  "ckCkdjClientno": "hlcs2001",（必填）
+                  "ckCkdjClientname": "济南华联超市王舍人店",（必填）
+                  "ckContacts": "张三丰",（必填）
+                  "ckTel": "18856568985",（必填）
+                  "ckAdress": "济南市历城区工业北路",（必填）
+                  "ckYfhsj": "2017-04-17T05:46:21.260Z",
+                  "ckRemarks": "备注",
+                  "ckArehouseId": 1,（必填）
+                  "ckClientId": 1,（必填）
+                  "mfunckDocs": [
+                    {
+                      "cksGoodsId": 1,（必填）
+                      "cksGoodsCount": 50,（必填）
+                      "cksDwid": 1,（必填）
+                      "cksCkfs": "先进先出",（必填）
+                      "cksZdpc": "X",(根据出库方式选填)
+                      "cksLocationId": 1 (根据出库方式选填)
+                    },
+                    {
+                      "cksGoodsId": 2,
+                      "cksGoodsCount": 100,
+                      "cksDwid": 2,
+                      "cksCkfs": "先进先出",
+                      "cksZdpc": "X",
+                      "cksLocationId": 1
+                    }
+                  ]
+                }
+              ckDoc           出库单对象
+             * {
+             * ckCkdjNo           出库单号（必填）
+             * ckErpNo            erp单号
+             * ckCkdjClientno     客户编号
+             * ckCkdjClientname   客户名称（必填）
+             * ckContacts         联系人（必填）
+             * ckTel              电话（必填）
+             * ckAdress           地址（必填）
+             * ckYfhsj            预约发货时间
+             * ckRemarks          备注
+             * ckArehouseId       仓库id（必填）
+             * ckClientId         客户id（必填）
+             * mfunckDocs[        货品明细对象
+             *  cksGoodsId        货品id（必填）
+             *  cksDwid           单位id（必填）
+             *  cksGoodsCount     货品数量（必填）
+             *  cksCkfs           出库方式（必填）
+             *  cksZdpc           指定批次
+             *  cksLocationId     指定库位
              *
+             * ]
              * }
              */
         /**
          * TODO 出库任务
          */
             /**
-             * TODO  出库单管理 根据分页要求获取没有出库任务的出库单信息 POST /mfunck/selectMfunckDocByPage
+             * TODO  出库任务管理 分页查询所有任务状态下的出库任务 POST /mfunck/insertCkrw
+             * 参数：查询条件
+             * {
+                  "ckrwNo": "CK20170418-04",                 出库任务单号（系统自动生成 必填）
+                  "ckrwYjdcsj": "2017-04-18T03:45:44.353Z",  预计到车时间
+                  "ckrwCph": "鲁A56895",
+                  "ckrwQhStatus": "1",
+                  "ckrwZlStatus": "1",
+                  "ckrwWls": "佳怡物流",
+                  "ckrwArehouseId": 1,
+                  "ckrwClientId": 1,
+                  "ckCkdjIds": [
+                    28,
+                    29
+                  ]
+                }
+             *
+             *
+             *
+             *
+             *
+             *
+             *
              */
 /*
  * TODO 挑选数据
