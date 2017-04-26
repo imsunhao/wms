@@ -69,7 +69,7 @@
                                         <el-button
                                                 size="small"
                                                 type="info"
-                                                @click="inlineModify(props.$index, props.row)">导出
+                                                @click="inlineModify(props.$index, props.row)">打印标签页
                                         </el-button>
                                     </el-form-item>
                                     <el-form-item label="入库备注">
@@ -399,6 +399,7 @@
         width: 70%;
     }
 </style>
+
 <script>
     function from() {
         return {
@@ -622,7 +623,7 @@
             auto_rkrwDhrq: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日-hh:mm:ss');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },                                  //预计到货时间
+            },                              //预计到货时间
             auto_rkrwStatus:function(value){
                 if(!isNaN(value)){
                     temp={
@@ -798,7 +799,7 @@
             if (!isNaN(obj)) {
                 temp = i;
             }
-            if (temp == obj) {
+            if (temp === obj) {
                 for (var j = i; j < data.length; j++) {
                     data[j] = data[j + 1];
 

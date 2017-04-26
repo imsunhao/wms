@@ -71,7 +71,7 @@ $(function () {
                 },
 
                 rmsUser: {
-                    ruUserName:''
+                    ruUserName: ''
                 },                        //User信息
                 dialogUserVisible: false,
                 userLoading: false
@@ -194,7 +194,8 @@ $(function () {
             }
         }
     });
-    app.$watch('rmsUser', function () {}, {deep: true});
+    app.$watch('rmsUser', function () {
+    }, {deep: true});
 
     //维护 权限验证
     (function (app) {
@@ -253,39 +254,6 @@ $(function () {
 
             /*<prod>*/
             (function (json) {
-                function generateNode(tree) {
-                    var formatTree = formatTreeData(tree);
-                    return combinationNode(formatTree);
-                    function formatTreeData(tree) {
-                        if (!tree)return;
-                        var formatTree = {};
-                        for (var i = 0; i < tree.length; i++) {
-                            if (formatTree[tree[i].bmParentMenuId]) {
-                                tree[i].label = tree[i].bmMenuName;
-                                tree[i].id = tree[i].bmMenuId;
-                                formatTree[tree[i].bmParentMenuId].children.push(tree[i]);
-                            }
-                            else {
-                                formatTree[tree[i].bmParentMenuId] = {};
-                                formatTree[tree[i].bmParentMenuId].children = [];
-                                tree[i].id = tree[i].bmMenuId;
-                                tree[i].label = tree[i].bmMenuName;
-                                formatTree[tree[i].bmParentMenuId].children.push(tree[i]);
-                            }
-                        }
-                        return formatTree;
-                    }
-
-                    function combinationNode(tree) {
-                        var data = [];
-                        for (var i = 0; i < tree[0].children.length; i++) {
-                            tree[tree[0].children[i].bmMenuId].head = tree[0].children[i].bmMenuName;
-                            data.push(tree[tree[0].children[i].bmMenuId]);
-                        }
-                        return data;
-                    }
-                }
-
                 app.$data.nav = generateNode(json);
                 //加载header-Nav
                 (function () {
@@ -370,3 +338,35 @@ $(function () {
         /*</prod>*/
     })(app);
 });
+function generateNode(tree) {
+    var formatTree = formatTreeData(tree);
+    return combinationNode(formatTree);
+    function formatTreeData(tree) {
+        if (!tree)return;
+        var formatTree = {};
+        for (var i = 0; i < tree.length; i++) {
+            if (formatTree[tree[i].bmParentMenuId]) {
+                tree[i].label = tree[i].bmMenuName;
+                tree[i].id = tree[i].bmMenuId;
+                formatTree[tree[i].bmParentMenuId].children.push(tree[i]);
+            }
+            else {
+                formatTree[tree[i].bmParentMenuId] = {};
+                formatTree[tree[i].bmParentMenuId].children = [];
+                tree[i].id = tree[i].bmMenuId;
+                tree[i].label = tree[i].bmMenuName;
+                formatTree[tree[i].bmParentMenuId].children.push(tree[i]);
+            }
+        }
+        return formatTree;
+    }
+
+    function combinationNode(tree) {
+        var data = [];
+        for (var i = 0; i < tree[0].children.length; i++) {
+            tree[tree[0].children[i].bmOrderNumber].head = tree[0].children[i].bmMenuName;
+            data.push(tree[tree[0].children[i].bmOrderNumber]);
+        }
+        return data;
+    }
+}

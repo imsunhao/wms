@@ -40,10 +40,35 @@
             </el-tree>
         </el-col>
     </el-row>
+    <el-row>
+        <el-button type="success">导入菜单</el-button>
+        <el-button type="warning">导出菜单</el-button>
+        <el-button type="danger">删除现有菜单</el-button>
+        <el-button type="info" @click="submit">保存更改</el-button>
+    </el-row>
 </div>
 
 <script>
     var id = 1000;
+
+    function menuForm() {
+        return {
+            "bmMenuId": "",
+            "bmMenuIcon": "",
+            "bmParentMenuId": 0,
+            "bmMenuName": "",
+            "bmOrderNumber": 1,
+            "bmMenuLevel": 2,
+            "bmMenuUrl": "",
+
+            "bmCreateTime": new Date().toJSON(),
+            "bmModifyTime": new Date().toJSON(),
+            "bmStatus": 1,
+            "bmRemarks": "",
+            "bmMenuCode": "",
+            "bmMenuType": "",
+        }
+    }
 
     var menu = new Vue({
         el: "#menu",
@@ -71,8 +96,12 @@
                                     'margin-right': '20px'
                                 }
                             }, [h('button', {
-                                style:{
-                                  display:'none'
+                                style: {
+
+                                    /*<prod>*/
+                                    display: 'none'
+                                    /*</prod>*/
+
                                 },
                                 on: {
                                     click: function (e) {
@@ -86,8 +115,8 @@
                                     'addHidden': typeof data.children === 'undefined'
                                 }
                             }, '添加'), h('button', {
-                                style:{
-                                    display:'none'
+                                style: {
+                                    display: 'none'
                                 },
                                 on: {
                                     click: function (e) {
@@ -106,7 +135,48 @@
                 }
             }
         },
-        methods: {}
+        methods: {
+            submit: function () {
+                var menuStep = {};
+                var step = [];
+                for (var i = 0; i < this.dataBaseMenu.length; i++) {
+                    menuStep = menuForm();
+                    menuStep.bmMenuName = this.dataBaseMenu[i].head;
+                    menuStep.bmMenuLevel = 1;
+                    menuStep.bmOrderNumber = i + 1;
+                    step.push(menuStep);
+                    for (var b = 0; b < this.dataBaseMenu[i].children.length; b++) {
+                        menuStep = menuForm();
+                        menuStep.bmMenuName = this.dataBaseMenu[i].children[b].label;
+                        menuStep.bmMenuUrl = this.dataBaseMenu[i].children[b].url;
+                        menuStep.bmMenuIcon = this.dataBaseMenu[i].children[b].bmMenuIcon;
+                        menuStep.bmParentMenuId = i + 1;
+                        menuStep.bmOrderNumber = b + 1;
+                        step.push(menuStep);
+                    }
+                }
+
+                /*<debug>*/
+                console.log(JSON.stringify(step));
+                /*</debug>*/
+
+                /*<prod>*/
+
+                for (i = 0; i < step.length; i++) {
+                    (function (i) {
+                        $.ajax('/moduleManagement/0', {
+                            type: "GET",
+                            data: step[i],
+                            success: function () {
+                                console.log(step[i].bmMenuName + '已经成功添加！');
+                            }
+                        })
+                    })(i);   //模块管理-新增菜单
+                }
+
+                /*</prod>*/
+            }
+        }
     });
 
     menuInit();
@@ -149,7 +219,6 @@
                 "pageSize": 10                  //* 每页大小
             },
             error: function (error) {
-                errorTip(obj, error);
             },
             success: function (json) {
                 menu.$data.dataBaseMenu = json.data;
@@ -162,10 +231,19 @@
         /*</debug>*/
 
         /*<prod>*/
-        menu.$data.dataBaseMenu=app.$data.nav;
+        menu.$data.dataBaseMenu = app.$data.nav;
         getUserMenu();
         /*</prod>*/
 
 
     }
+
+    function allPrposCb(obj, cb) {
+        for (var p in obj) {
+            if (typeof(obj[p]) !== "function") {
+                cb(obj[p], p)
+            }
+        }
+    }
+
 </script>
