@@ -2449,13 +2449,46 @@
 
 
         */
-/*
- * TODO 动碰盘点查询
- * TODO 循环盘点查询
- * TODO 全面盘点查询
- * TODO 盘点作业
- * TODO 动碰盘点
- * TODO 循环盘点
- * TODO 全面盘点
- **/
+    /**
+     * TODO 盘点查询
+      */
+/**
+ * TODO 盘点查询
+ * 搜索条件
+ * {
+        创建时间    pdCreateTime
+        创建人      pdCreateUserId
+        经办人      pdOperator
+        盘点状态    pdStatus 0 初始 1 盘点确认 2 作废
+        差异状态    pdDiffStatus 0 无差异 1 有差异
+        仓库        pdArehouseId
+        盘点类型    pdType 盘点计划类型 0 异动盘点 1 货品盘点 2 全仓盘点
+    }
+
+ 一级页面(盘点计划主表)显示列
+     {
+            仓库              pdArehouseId
+            创建时间          pdCreateTime
+            盘点类型          pdType
+            异动开始时间      pdYdBeginTime
+            异动结束时间      pdYdEndTime
+            盘点状态          pdStatus
+            负责人            pdChargePerson
+            经办人            pdOperator
+            差异状态          pdDiffStatus
+     }
+     二级页面(盘点计划明细表)显示列
+     {
+            库位名称    pdsRepertoryId(关联)
+            货品编号    pdsGoodsId
+            货品名称    pdsGoodsId
+            计划数量    pdsRepertoryCount
+            盘点数量    pdsPdCount
+     }
+
+
+
+
+ */
+
 
