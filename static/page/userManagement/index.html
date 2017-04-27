@@ -1349,31 +1349,4 @@
             }
         });
     }                          // 12 请求 所有角色 执行一次
-    function errorTip(obj, error) {
-        console.log(error);
-    }                    // 错误提示
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-
-//                    console.log(temp);
-                }
-                data.pop();
-            }
-        }
-    }
-    function addOrDelete(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            if (data[i] == obj) {
-                return true;
-            }
-        }
-        return false;
-    }
 </script>
