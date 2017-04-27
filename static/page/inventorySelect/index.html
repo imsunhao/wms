@@ -1,4 +1,4 @@
-<div id="dynamicTouchInventorySelect">
+<div id="inventorySelect">
     <!--页面调整-->
     <el-row v-loading="showLoading"
             element-loading-text="拼命加载中">
@@ -15,11 +15,11 @@
                 <!--</button>-->
             </div>
             <el-table
-                    :data="dynamicTouchInventorySelect"
+                    :data="inventorySelect"
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
                     :max-height="570"
                     ref="table"
-                    class="dynamicTouchInventorySelectTable"
+                    class="inventorySelectTable"
                     @selection-change='multiSelectionChange'
                     style="width: 100%">
                 <el-table-column
@@ -149,7 +149,7 @@
                         :page-sizes="[5, 10, 15, 20]"
                         :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="dynamicTouchInventorySelect.length">
+                        :total="inventorySelect.length">
                 </el-pagination>
             </div>
         </el-col>
@@ -283,36 +283,36 @@
 </div>
 
 <style>
-    #dynamicTouchInventorySelect {
+    #inventorySelect {
         width: 100%;
         min-width: 890px;
         position: relative;
     }
 
-    #dynamicTouchInventorySelect .demo-table-expand {
+    #inventorySelect .demo-table-expand {
         font-size: 0;
     }
 
-    #dynamicTouchInventorySelect .demo-table-expand label {
+    #inventorySelect .demo-table-expand label {
         width: 90px;
         color: #99a9bf;
     }
 
-    #dynamicTouchInventorySelect .demo-table-expand .el-form-item {
+    #inventorySelect .demo-table-expand .el-form-item {
         margin-right: 0;
         margin-bottom: 0;
         width: 80%;
     }
 
-    #dynamicTouchInventorySelect .el-table__expand-column .el-table__expand-icon {
+    #inventorySelect .el-table__expand-column .el-table__expand-icon {
         height: 39px;
     }
 
-    #dynamicTouchInventorySelect .table {
+    #inventorySelect .table {
         transition: 1s all;
     }
 
-    #dynamicTouchInventorySelect .el-carousel__container {
+    #inventorySelect .el-carousel__container {
         height: 440px;
     }
 
@@ -324,12 +324,12 @@
         max-width: calc(100% - 60px);
     }
 
-    #dynamicTouchInventorySelect .dynamicTouchInventorySelectTable {
+    #inventorySelect .inventorySelectTable {
         width: 95% !important;
         margin: 20px auto;
     }
 
-    #dynamicTouchInventorySelect .datePicker {
+    #inventorySelect .datePicker {
         width: 140px !important;
         height: 24px !important;
         margin-top: 29px;
@@ -337,38 +337,38 @@
         float: left;
     }
 
-    #dynamicTouchInventorySelect .datePicker .el-input__inner {
+    #inventorySelect .datePicker .el-input__inner {
         border-radius: 2px !important;
         height: 24px !important;
     }
 
-    #dynamicTouchInventorySelect .add {
+    #inventorySelect .add {
         background: url("/static/images/add.png") no-repeat center;
     }
 
-    #dynamicTouchInventorySelect .del {
+    #inventorySelect .del {
         background: url("/static/images/del.png") no-repeat center;
     }
 
-    #dynamicTouchInventorySelect .search {
+    #inventorySelect .search {
         background: url("/static/images/search.png") no-repeat center;
     }
 
-    #dynamicTouchInventorySelect .sel {
+    #inventorySelect .sel {
         background: url("/static/images/sel.png") no-repeat center;
     }
 
-    #dynamicTouchInventorySelect .icon {
+    #inventorySelect .icon {
         float: left;
     }
 
-    #dynamicTouchInventorySelect .btn span {
+    #inventorySelect .btn span {
         float: left;
         margin-top: 4px;
         margin-left: 2px;
     }
 
-    #dynamicTouchInventorySelect .btn {
+    #inventorySelect .btn {
         height: 24px;
         line-height: 1;
         border: none;
@@ -384,28 +384,28 @@
         margin-right: 16px;
     }
 
-    #dynamicTouchInventorySelect .btn-print {
+    #inventorySelect .btn-print {
         margin-right: 0;
     }
 
-    #dynamicTouchInventorySelect .btn:hover {
+    #inventorySelect .btn:hover {
         color: #5468ee;
     }
 
-    #dynamicTouchInventorySelect .inner {
+    #inventorySelect .inner {
         margin: 0 20px;
     }
 
-    #dynamicTouchInventorySelect .btn-nav {
+    #inventorySelect .btn-nav {
         height: 60px;
         overflow: hidden;
     }
 
-    #dynamicTouchInventorySelect .btn-nav .el-input .el-input__inner {
+    #inventorySelect .btn-nav .el-input .el-input__inner {
         height: 24px;
     }
 
-    #dynamicTouchInventorySelect .btn-nav .el-input {
+    #inventorySelect .btn-nav .el-input {
         float: left;
         margin-top: 29px;
         margin-right: 18px;
@@ -465,12 +465,12 @@
         }
     }
 
-    var dynamicTouchInventorySelect = new Vue({
-        el: '#dynamicTouchInventorySelect',
+    var inventorySelect = new Vue({
+        el: '#inventorySelect',
         prop: {},
         data: function () {
             return {
-                dynamicTouchInventorySelect: [],
+                inventorySelect: [],
                 multipleSelection: [],
                 multiSelect: false,
                 pickerOptions: {
@@ -630,7 +630,7 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(dynamicTouchInventorySelect);
+                    post(inventorySelect);
                 }, 1500);
             },                                                //新建 表单提交
 
@@ -646,7 +646,7 @@
             },
             printfSubmit: function () {
                 var datas=[];
-                var checkData=dynamicTouchInventorySelect.$refs.printf.getCheckedNodes();
+                var checkData=inventorySelect.$refs.printf.getCheckedNodes();
                 for(var i in checkData){
                     if(typeof checkData[i].val2!=='undefined'){
                         datas.push(checkData[i]);
@@ -752,7 +752,7 @@
     });
 
     // 高级 监视器的 使用方法
-    //    dynamicTouchInventorySelect.$watch('date', function () {
+    //    inventorySelect.$watch('date', function () {
     //        if (!this.option.dateStart)return;
     //        /*<debug>*/
     //        console.log(this.option);
@@ -760,12 +760,12 @@
     //        post(this, this.option);
     //    }, {deep: true});
 
-    post(dynamicTouchInventorySelect);
+    post(inventorySelect);
     function post(obj, option) {
         obj.showLoading = true;
 
         /*<debug>*/
-        url = "/hock/dynamicTouchInventorySelect/page.json";
+        url = "/hock/inventorySelect/page.json";
         /*</debug>*/
 
         /*<prod>*/
@@ -784,7 +784,7 @@
             },
             success: function (json) {
                 console.log(json);
-                obj.$data.dynamicTouchInventorySelect = json.data;
+                obj.$data.inventorySelect = json.data;
                 obj.$data.currentTotal = json.recordsFiltered;
             },
             complete: function () {
@@ -794,7 +794,7 @@
     }                        //TODO 获取入库日报主页面
     function postRkrwNo(obj, option, resolve) {
         /*<debug>*/
-        url = "/hock/dynamicTouchInventorySelect/rkrwNo.json";
+        url = "/hock/inventorySelect/rkrwNo.json";
         /*</debug>*/
 
         /*<prod>*/
@@ -828,7 +828,7 @@
     }          //TODO 获取任务单号中详细信息
     function postRkdjId(obj, option, resolve) {
         /*<debug>*/
-        url = "/hock/dynamicTouchInventorySelect/rkdjId.json";
+        url = "/hock/inventorySelect/rkdjId.json";
         /*</debug>*/
 
         /*<prod>*/

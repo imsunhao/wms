@@ -212,25 +212,10 @@
         },
         {
           "id":34,
-          "label": "动碰盘点查询",
-          "url":"page/dynamicTouchInventorySelect",
-          "bmMenuIcon":""
-        },
-        {
-          "id":35,
-          "label": "循环盘点查询",
-          "url":"page/loopInventorySelect",
-          "bmMenuIcon":""
-        },
-        {
-          "id":36,
-          "label": "全面盘点查询",
-          "url":"page/comprehensiveInventorySelect",
+          "label": "盘点查询",
+          "url":"page/inventorySelect",
           "bmMenuIcon":""
         }
-
-
-
       ]
     },
     {
