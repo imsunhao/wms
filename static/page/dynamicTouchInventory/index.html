@@ -593,15 +593,12 @@
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
-                assignment:[],                         //查看入库明细信息 弹出层 信息集合(表单格式)
-                dialogAssignmentVisible: false,    //查看入库明细信息 弹出层 是否可见
-                details:[],                         //查看入库明细信息 弹出层 信息集合(表单格式)
-                dialogDetailsVisible: false,    //查看入库明细信息 弹出层 是否可见
-
-
-
-                select: form(),                       //搜索 弹出层 信息集合,
-                printf: [],                           //搜索 弹出层 信息集合,
+                assignment:[],                       //查看 分配任务 弹出层 信息集合(表单格式)
+                dialogAssignmentVisible: false,    //查看 分配任务 弹出层 是否可见
+                details:[],                           //查看 盘点详情 弹出层 信息集合(表单格式)
+                dialogDetailsVisible: false,        //查看 盘点详情 弹出层 是否可见
+                select: form(),                        //搜索 弹出层 信息集合,
+                printf: [],                            //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 dialogPrintfVisible: false,
                 selectLoading: false,
@@ -662,11 +659,6 @@
                     });
                 });
             },                     //行内按钮-盘点确认
-            inlineModify: function (index, row) {
-                this.multipleSelection = [row];
-                printfCompile(this);
-                this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                //行内按钮 打印标签页
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
