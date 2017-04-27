@@ -1340,16 +1340,23 @@
                 errorTip(obj, error);
             },
             success: function (json) {
+
+                /*<debug>*/
                 console.log(json);
-                var temp=[];
-                for(var i=0;i<json.data.length;i++){
-                    temp[i]=json.data[i];
-                    temp[i].history=[];
-                    temp[i].historyLoading=false;
-                    temp[i].historyLength=0;
+                /*</debug>*/
+                if(json.code!==500){
+                    var temp=[];
+                    for(var i=0;i<json.data.length;i++){
+                        temp[i]=json.data[i];
+                        temp[i].history=[];
+                        temp[i].historyLoading=false;
+                        temp[i].historyLength=0;
+                    }
+                    obj.$data.inputOperation = json.data;
+                    obj.$data.currentTotal = json.recordsFiltered;
+                }else{
+                    errorTip(obj,json);
                 }
-                obj.$data.inputOperation = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
             },
             complete: function () {
                 obj.showLoading = false;
@@ -1553,8 +1560,3 @@
         }
     }
 </script>
-
-
-
-
-

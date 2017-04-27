@@ -370,3 +370,62 @@ function generateNode(tree) {
         return data;
     }
 }
+function errorTip(obj, error) {                    // 错误提示
+    /*<debug>*/
+    console.log(error);
+    /*</debug>*/
+    obj.$alert(error.status + '\n' + error.statusText, '网络异常');
+}
+function dateFormat(date, fmt) {
+    var o = {
+        "M+": date.getMonth() + 1,                 //月份
+        "d+": date.getDate(),                    //日
+        "h+": date.getHours(),                   //小时
+        "m+": date.getMinutes(),                 //分
+        "s+": date.getSeconds(),                 //秒
+        "q+": Math.floor((date.getMonth() + 3) / 3), //季度
+        "S": date.getMilliseconds()             //毫秒
+    };
+    if (/(y+)/.test(fmt))
+        fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt))
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+function remove(obj, data) {
+    for (var i = 0; i < data.length; i++) {
+        var temp = data[i];
+        if (!isNaN(obj)) {
+            temp = i;
+        }
+        if (temp == obj) {
+            for (var j = i; j < data.length; j++) {
+                data[j] = data[j + 1];
+
+//                    console.log(temp);
+            }
+            data.pop();
+        }
+    }
+}
+function addOrDelete(obj, data) {
+    for (var i = 0; i < data.length; i++) {
+        if (data[i] == obj) {
+            return true;
+        }
+    }
+    return false;
+}
+/*
+ * 用来遍历指定对象所有的属性名称和值
+ * obj 需要遍历的对象
+ * cb 回调函数  1. 子属性 2.子属性名
+ */
+function allPrposCb(obj, cb) {
+    for (var p in obj) {
+        if (typeof(obj[p]) !== "function") {
+            cb(obj[p], p)
+        }
+    }
+}
