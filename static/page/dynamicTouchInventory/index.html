@@ -222,15 +222,15 @@
                                     <el-form-item label="可用操作">
                                          <el-button
                                                 size="small"
-                                                @click="assignment(props.$index, props.row)">分配任务
+                                                @click="inlineAssignment(props.$index, props.row)">分配任务
                                         </el-button>
                                          <el-button
                                                 size="small"
-                                                @click="inventoryDetails(props.$index, props.row)">盘点详情
+                                                @click="inlineInventoryDetails(props.$index, props.row)">盘点详情
                                         </el-button>
                                          <el-button
                                                 size="small"
-                                                @click="inventoryConfirm(props.$index, props.row)">盘点确认
+                                                @click="inlineInventoryConfirm(props.$index, props.row)">盘点确认
                                         </el-button>
                                     </el-form-item>
                                 </el-col>
@@ -416,7 +416,7 @@
     </el-dialog>
     <el-dialog
             size="large"
-            title="入库明细信息"
+            title="分配任务"
             v-model="dialogAssignmentVisible">
         <el-table
                 :data="assignment"
@@ -447,33 +447,81 @@
                     prop="pdsGoodsId">
             </el-table-column>
             <el-table-column
-                    label="数量"
-                    width="140"
+                    label="库存数量"
                     show-overflow-tooltip
                     align="center"
-                    prop="bgGoodsTj">
+                    prop="pdsRepertoryCount">
             </el-table-column>
             <el-table-column
-                    label="实收体积"
-                    width="140"
+                    label="操作"
+                    prop="rksCount"
+                    align="center">
+                <template scope="scope">
+                    <el-button
+                            size="small"
+                            type="danger"
+                            icon="assignment"
+                            @click="assignmentInlineOperation(scope.$index, scope.row)">分配
+                    </el-button>
+                </template>
+            </el-table-column>
+
+
+        </el-table>
+    </el-dialog>
+    <el-dialog
+            size="large"
+            title="盘点详情"
+            v-model="dialogDetailsVisible">
+        <el-table
+                :data="details"
+                highlight-current-row
+                style="width: 100%">
+            <el-table-column
+                    label="库位名称"
                     show-overflow-tooltip
                     align="center"
-                    prop="shtj">
+                    prop="pdsLocationId">
             </el-table-column>
             <el-table-column
-                    label="入库明细状态"
-                    width="140"
+                    label="货品编号"
                     show-overflow-tooltip
                     align="center"
-                    prop="rksStatus">
+                    prop="pdsGoodsId">
             </el-table-column>
             <el-table-column
-                    label="上架人员"
-                    width="140"
+                    label="货品名称"
                     show-overflow-tooltip
                     align="center"
-                    prop="mdtUserId">
+                    prop="pdsGoodsId">
             </el-table-column>
+            <el-table-column
+                    label="库存数量"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="pdsRepertoryCount">
+            </el-table-column>
+            <el-table-column
+                    label="盘点数量"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="pdsPdCount">
+            </el-table-column>
+            <el-table-column
+                    label="操作"
+                    prop="rksCount"
+                    align="center">
+                <template scope="scope">
+                    <el-button
+                            size="small"
+                            type="danger"
+                            icon="assignment"
+                            @click="heavyPlateInlineOperation(scope.$index, scope.row)">重盘
+                    </el-button>
+                </template>
+            </el-table-column>
+
+
         </el-table>
     </el-dialog>
 
@@ -490,6 +538,24 @@
             zyStatus:''
         }
     }
+    function formAssignment() {
+        return {
+            pdsLocationId: '',          // 库位名称
+            pdsGoodsId: '',             // 货品编号
+            pdsGoodsId: '',             // 货品名称
+            pdsGoodsId: '',             // 货品批次
+            pdsRepertoryCount:'',       //库存数量
+        }
+    }//分配任务
+    function formDetails() {
+        return {
+            pdsLocationId: '',          // 库位名称
+            pdsGoodsId: '',             // 货品编号
+            pdsGoodsId: '',             // 货品名称
+            pdsRepertoryCount:'',      // 库存数量
+            pdsPdCount:'',              // 盘点数量
+        }
+    }//盘点详情
     var dynamicTouchInventory = new Vue({
         el: '#dynamicTouchInventory',
         prop: {},
@@ -533,6 +599,13 @@
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
+                assignment:[],                         //查看入库明细信息 弹出层 信息集合(表单格式)
+                dialogAssignmentVisible: false,    //查看入库明细信息 弹出层 是否可见
+                details:[],                         //查看入库明细信息 弹出层 信息集合(表单格式)
+                dialogDetailsVisible: false,    //查看入库明细信息 弹出层 是否可见
+
+
+
                 select: form(),                       //搜索 弹出层 信息集合,
                 printf: [],                           //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
@@ -574,11 +647,27 @@
             },                                      //分配 表单
         },
         methods: {
-            assignment: function () {
-                this.dialogReissueVisible = true;
-            },                                           //行内按钮-分配任务
-            inventoryDetails:function(){},                                            //行内按钮-盘点详情
-            inventoryConfirm:function(){},                                            //行内按钮-盘点确认
+            inlineAssignment: function () {
+                this.dialogAssignmentVisible = true;
+            },                                     //行内按钮-分配任务
+            inlineInventoryDetails:function(){
+                this.dialogDetailsVisible = true;
+            },                                  //行内按钮-盘点详情
+            inlineInventoryConfirm: function (index, row) {
+                var obj = this;
+                obj.$confirm('确认此盘点计划, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    postPassword(userManagement, {ids: row.ruUserId});
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                     //行内按钮-盘点确认
             inlineModify: function (index, row) {
                 this.multipleSelection = [row];
                 printfCompile(this);
@@ -769,7 +858,6 @@
             },                                   //差异状态
         }
     });
-
     // 高级 监视器的 使用方法
     //    dynamicTouchInventory.$watch('date', function () {
     //        if (!this.option.dateStart)return;
@@ -810,7 +898,7 @@
                 obj.showLoading = false;
             }
         });
-    }                       //TODO 动碰盘点接口
+    }                         //TODO 动碰盘点接口
     function postRkrwNo(obj, option, resolve) {
         /*<debug>*/
         url = "/hock/dynamicTouchInventory/rkrwNo.json";
