@@ -2352,6 +2352,27 @@
      * TODO  TODO 库存冻结/解冻
      */
         /**
+         *  TODO 1 分页查询库存冻结
+                djId                库存冻结主键
+                djReason            冻结原因/备注
+                djStatus            冻结状态0 冻结 1 解冻  2 作废
+                djCreateUserId      创建人员ID
+                djCreateTime        创建时间
+                djJdUserId          解冻人员ID
+                djJdTime            解冻时间
+                djDjTime            冻结时间
+                djZfUserId          作废人员ID
+                djZfTime            作废时间
+                djArehouseId        仓库ID
+                djDocsList[
+                        djsId           库存冻结明细主键
+                        djsDjId         库存冻结ID
+                        djsRepertoryId; 库存ID
+                        djsStatus;      0.已冻结 1.未冻结(可用)
+                ]
+
+
+/**
          *  TODO 库存冻结分拣查询信息
          *
          */
