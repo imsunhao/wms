@@ -2048,6 +2048,157 @@
             /**
              * TODO 5 入库过程 通过入库单据id获取一条入库单据 GET /mfunrkDoc/{rkdoc_id}
              */
+            /**
+             * 6 入库过程 通过入库单据id获取  历史记录 GET /history/{id}/{type}
+             *
+             *
+             *
+             *    参数：
+             *
+             *       {
+             *          id:1,
+             *          type:1
+             *       }
+             *
+             *    参数说明：
+             *
+             *       id  主键id
+             *
+             *       type
+             *           1. 入库标识
+             *           2. 出库标识
+             *
+             *     结果：
+             *
+             *
+             *
+             *     [
+                     {
+                       "mhDjhistoryId": 122,
+                       "mhStatus": 1,
+                       "mhCreatetime": 1492521873000,
+                       "mhUserId": 1,
+                       "mhRkdjId": 0,
+                       "mhCkdjId": 31,
+                       "rmsUser": {
+                         "ruUserId": 1,
+                         "ruUserName": "超级管理员",
+                         "ruLoginName": "admin",
+                         "ruLoginPassword": "d135f41faa533e92dcff73f9179670bc",
+                         "ruPhone": "15098879708",
+                         "ruTelephone": "1234567",
+                         "ruEmail": "infchd@hotmail.com",
+                         "ruSex": true,
+                         "ruBirthday": 1488873925000,
+                         "ruHomeaddress": "",
+                         "ruQicq": "",
+                         "ruCreateTime": 1474165944000,
+                         "ruLastModifiedTime": 1474301742000,
+                         "ruStatus": 1,
+                         "ruSalt": "HKJID",
+                         "ruUserType": 0,
+                         "ruUserZyq": "1,2",
+                         "ruRemarks": "",
+                         "ruIspda": true,
+                         "ruPortrait": "static/images/users/00.jpg"
+                       }
+                     },
+                     {
+                       "mhDjhistoryId": 121,
+                       "mhStatus": 1,
+                       "mhCreatetime": 1492521834000,
+                       "mhUserId": 1,
+                       "mhRkdjId": 0,
+                       "mhCkdjId": 30,
+                       "rmsUser": {
+                         "ruUserId": 1,
+                         "ruUserName": "超级管理员",
+                         "ruLoginName": "admin",
+                         "ruLoginPassword": "d135f41faa533e92dcff73f9179670bc",
+                         "ruPhone": "15098879708",
+                         "ruTelephone": "1234567",
+                         "ruEmail": "infchd@hotmail.com",
+                         "ruSex": true,
+                         "ruBirthday": 1488873925000,
+                         "ruHomeaddress": "",
+                         "ruQicq": "",
+                         "ruCreateTime": 1474165944000,
+                         "ruLastModifiedTime": 1474301742000,
+                         "ruStatus": 1,
+                         "ruSalt": "HKJID",
+                         "ruUserType": 0,
+                         "ruUserZyq": "1,2",
+                         "ruRemarks": "",
+                         "ruIspda": true,
+                         "ruPortrait": "static/images/users/00.jpg"
+                       }
+                     },
+                     {
+                       "mhDjhistoryId": 120,
+                       "mhStatus": 7,
+                       "mhCreatetime": 1491019196000,
+                       "mhUserId": 1,
+                       "mhRkdjId": 8,
+                       "mhCkdjId": 0,
+                       "rmsUser": {
+                         "ruUserId": 1,
+                         "ruUserName": "超级管理员",
+                         "ruLoginName": "admin",
+                         "ruLoginPassword": "d135f41faa533e92dcff73f9179670bc",
+                         "ruPhone": "15098879708",
+                         "ruTelephone": "1234567",
+                         "ruEmail": "infchd@hotmail.com",
+                         "ruSex": true,
+                         "ruBirthday": 1488873925000,
+                         "ruHomeaddress": "",
+                         "ruQicq": "",
+                         "ruCreateTime": 1474165944000,
+                         "ruLastModifiedTime": 1474301742000,
+                         "ruStatus": 1,
+                         "ruSalt": "HKJID",
+                         "ruUserType": 0,
+                         "ruUserZyq": "1,2",
+                         "ruRemarks": "",
+                         "ruIspda": true,
+                         "ruPortrait": "static/images/users/00.jpg"
+                       }
+                     },
+                     {
+                       "mhDjhistoryId": 119,
+                       "mhStatus": 7,
+                       "mhCreatetime": 1491019176000,
+                       "mhUserId": 1,
+                       "mhRkdjId": 8,
+                       "mhCkdjId": 0,
+                       "rmsUser": {
+                         "ruUserId": 1,
+                         "ruUserName": "超级管理员",
+                         "ruLoginName": "admin",
+                         "ruLoginPassword": "d135f41faa533e92dcff73f9179670bc",
+                         "ruPhone": "15098879708",
+                         "ruTelephone": "1234567",
+                         "ruEmail": "infchd@hotmail.com",
+                         "ruSex": true,
+                         "ruBirthday": 1488873925000,
+                         "ruHomeaddress": "",
+                         "ruQicq": "",
+                         "ruCreateTime": 1474165944000,
+                         "ruLastModifiedTime": 1474301742000,
+                         "ruStatus": 1,
+                         "ruSalt": "HKJID",
+                         "ruUserType": 0,
+                         "ruUserZyq": "1,2",
+                         "ruRemarks": "",
+                         "ruIspda": true,
+                         "ruPortrait": "static/images/users/00.jpg"
+                       }
+                     }
+                     ]
+             */
+
+
+
+
     /**
      *      TODO 入库台账       inputLedger
          */
@@ -2767,8 +2918,3 @@
 
 
  */
-
-
-
-
-//在这里修改了
