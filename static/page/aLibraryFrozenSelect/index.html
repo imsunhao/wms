@@ -1,4 +1,4 @@
-<div id="aLibraryTransferSelect">
+<div id="aLibraryFrozenSelect">
     <!--页面调整-->
     <el-row v-loading="showLoading"
             element-loading-text="拼命加载中">
@@ -15,11 +15,11 @@
                 </button>
             </div>
             <el-table
-                    :data="aLibraryTransferSelect"
+                    :data="aLibraryFrozenSelect"
                     :max-height="570"
                     ref="table"
                     @expand="expandChange"
-                    class="aLibraryTransferSelectTable"
+                    class="aLibraryFrozenSelectTable"
                     style="width: 100%">
                 <el-table-column
                         type="expand">
@@ -189,14 +189,19 @@
                 <el-table-column
                         label="解冻时间"
                         show-overflow-tooltip
-                        align="center"
-                        prop="djJdTime">
+                        align="center">
+                    <template scope="scope">
+                        {{auto_djJdTime(scope.row.djJdTime,true)}}
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="冻结状态"
                         prop="djStatus"
                         align="center"
                         width="100">
+                    <template scope="scope">
+                        {{auto_djStatus(scope.row.djStatus)}}
+                    </template>
                 </el-table-column>
                 <el-table-column
                         v-if="multiSelect"
@@ -212,7 +217,7 @@
                         :page-sizes="[5, 10, 15, 20]"
                         :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="aLibraryTransferSelect.length">
+                        :total="aLibraryFrozenSelect.length">
                 </el-pagination>
             </div>
         </el-col>
@@ -400,36 +405,36 @@
     </el-dialog>
 </div>
 <style>
-    #aLibraryTransferSelect {
+    #aLibraryFrozenSelect {
         width: 100%;
         min-width: 890px;
         position: relative;
     }
 
-    #aLibraryTransferSelect .demo-table-expand {
+    #aLibraryFrozenSelect .demo-table-expand {
         font-size: 0;
     }
 
-    #aLibraryTransferSelect .demo-table-expand label {
+    #aLibraryFrozenSelect .demo-table-expand label {
         width: 90px;
         color: #99a9bf;
     }
 
-    #aLibraryTransferSelect .demo-table-expand .el-form-item {
+    #aLibraryFrozenSelect .demo-table-expand .el-form-item {
         margin-right: 0;
         margin-bottom: 0;
         width: 80%;
     }
 
-    #aLibraryTransferSelect .el-table__expand-column .el-table__expand-icon {
+    #aLibraryFrozenSelect .el-table__expand-column .el-table__expand-icon {
         height: 39px;
     }
 
-    #aLibraryTransferSelect .table {
+    #aLibraryFrozenSelect .table {
         transition: 1s all;
     }
 
-    #aLibraryTransferSelect .el-carousel__container {
+    #aLibraryFrozenSelect .el-carousel__container {
         height: 440px;
     }
 
@@ -441,12 +446,12 @@
         max-width: calc(100% - 60px);
     }
 
-    #aLibraryTransferSelect .aLibraryTransferSelectTable {
+    #aLibraryFrozenSelect .aLibraryFrozenSelectTable {
         width: 95% !important;
         margin: 20px auto;
     }
 
-    #aLibraryTransferSelect .datePicker {
+    #aLibraryFrozenSelect .datePicker {
         width: 140px !important;
         height: 24px !important;
         margin-top: 29px;
@@ -454,38 +459,38 @@
         float: left;
     }
 
-    #aLibraryTransferSelect .datePicker .el-input__inner {
+    #aLibraryFrozenSelect .datePicker .el-input__inner {
         border-radius: 2px !important;
         height: 24px !important;
     }
 
-    #aLibraryTransferSelect .add {
+    #aLibraryFrozenSelect .add {
         background: url("/static/images/add.png") no-repeat center;
     }
 
-    #aLibraryTransferSelect .del {
+    #aLibraryFrozenSelect .del {
         background: url("/static/images/del.png") no-repeat center;
     }
 
-    #aLibraryTransferSelect .search {
+    #aLibraryFrozenSelect .search {
         background: url("/static/images/search.png") no-repeat center;
     }
 
-    #aLibraryTransferSelect .sel {
+    #aLibraryFrozenSelect .sel {
         background: url("/static/images/sel.png") no-repeat center;
     }
 
-    #aLibraryTransferSelect .icon {
+    #aLibraryFrozenSelect .icon {
         float: left;
     }
 
-    #aLibraryTransferSelect .btn span {
+    #aLibraryFrozenSelect .btn span {
         float: left;
         margin-top: 4px;
         margin-left: 2px;
     }
 
-    #aLibraryTransferSelect .btn {
+    #aLibraryFrozenSelect .btn {
         height: 24px;
         line-height: 1;
         border: none;
@@ -501,28 +506,28 @@
         margin-right: 16px;
     }
 
-    #aLibraryTransferSelect .btn-print {
+    #aLibraryFrozenSelect .btn-print {
         margin-right: 0;
     }
 
-    #aLibraryTransferSelect .btn:hover {
+    #aLibraryFrozenSelect .btn:hover {
         color: #5468ee;
     }
 
-    #aLibraryTransferSelect .inner {
+    #aLibraryFrozenSelect .inner {
         margin: 0 20px;
     }
 
-    #aLibraryTransferSelect .btn-nav {
+    #aLibraryFrozenSelect .btn-nav {
         height: 60px;
         overflow: hidden;
     }
 
-    #aLibraryTransferSelect .btn-nav .el-input .el-input__inner {
+    #aLibraryFrozenSelect .btn-nav .el-input .el-input__inner {
         height: 24px;
     }
 
-    #aLibraryTransferSelect .btn-nav .el-input {
+    #aLibraryFrozenSelect .btn-nav .el-input {
         float: left;
         margin-top: 29px;
         margin-right: 18px;
@@ -574,12 +579,12 @@
             rkrwStatus: ''
         }
     }
-    var aLibraryTransferSelect = new Vue({
-        el: '#aLibraryTransferSelect',
+    var aLibraryFrozenSelect = new Vue({
+        el: '#aLibraryFrozenSelect',
         prop: {},
         data: function () {
             return {
-                aLibraryTransferSelect: [],
+                aLibraryFrozenSelect: [],
                 multipleSelection: [],
                 multiSelect: false,
                 pickerOptions: {
@@ -675,7 +680,7 @@
                 this.dialogFormVisible = true;
                 this.dialogFormActive = 0;
                 Vue.nextTick(function () {
-                    aLibraryTransferSelect.$refs.carousel.setActiveItem(0);
+                    aLibraryFrozenSelect.$refs.carousel.setActiveItem(0);
                 });
             },                                  //TODO 行内按钮-编辑
             inlineIssued: function (index, row) {
@@ -761,63 +766,66 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(aLibraryTransferSelect);
+                    post(aLibraryFrozenSelect);
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
                 post(this, {});
-            }, //详细查询 提交
-
-            auto_zyCreateTime: function (value, bool) {
+            },                                          //详细查询 提交
+            auto_djCreateTime: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },//创建时间
-            auto_zyConfirmTime: function (value, bool) {
+            },                         //创建时间
+            auto_djJdTime: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },//确认时间
-            auto_zyStatus: function (value) {
+            },                              //解冻时间
+            auto_djZfTime: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+            },                              //作废时间
+            auto_djStatus: function (value) {
 
                 if (!isNaN(value)) {
                     temp = {
-                        0: '初始',
-                        1: '确认',
+                        0: '冻结',
+                        1: '解冻',
                         2: '作废'
 
                     }
                 } else {
                     temp = {
-                        '初始': 0,
-                        '确认': 1,
+                        '冻结': 0,
+                        '解冻': 1,
                         '作废': 2,
                     }
                 }
                 return temp[value];
-            },                                    //任务状态,
+            },                                    //解冻状态
 
         },
         watch: {}
     });
 
     // 高级 监视器的 使用方法
-    //        aLibraryTransferSelect.$watch('aLibraryTransferSelect.inputOperation', function () {
+    //        aLibraryFrozenSelect.$watch('aLibraryFrozenSelect.inputOperation', function () {
     //            if (!this.option.dateStart)return;
     //            /*<debug>*/
     //            console.log(this.option);
     //            /*</debug>*/
     //            post(this, this.option);
     //        }, {deep: true});
-    post(aLibraryTransferSelect, aLibraryTransferSelect.option);
+    post(aLibraryFrozenSelect, aLibraryFrozenSelect.option);
     function post(obj, option) {
         obj.showLoading = true;
 
         /*<debug>*/
-        url = "/hock/aLibraryTransferSelect/page.json";
+        url = "/hock/aLibraryFrozenSelect/page.json";
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/aLibraryTransferSelect/0";
+        url = "/route/aLibraryFrozenSelect/0";
         /*</prod>*/
 
         $.ajax(url, {
@@ -832,7 +840,7 @@
             },
             success: function (json) {
                 console.log(json);
-                obj.$data.aLibraryTransferSelect = json.data;
+                obj.$data.aLibraryFrozenSelect = json.data;
                 obj.$data.currentTotal = json.recordsFiltered;
             },
             complete: function () {
@@ -848,7 +856,7 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/aLibraryTransferSelect/0";
+        url = "/route/aLibraryFrozenSelect/0";
         /*</prod>*/
 
         $.ajax(url, {
