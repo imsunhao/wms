@@ -2131,9 +2131,9 @@
                   "endTimeParam": "2017-05-01",    下单结束时间
                   "pageNum": 1,                    页数
                   "pageSize": 10,                  页面条数
-                  "ckStatus": 1,                   出库状态
+                  "ckStatus": 1,                   出库状态（1初始 21部分分拣，未下架状态 22部分出库，已下架 31全部分拣，未下架 32全部出库，下架完成41已挂起， 50作废）
                   "ckCkdjClientname",              客户名称（支持模糊查询）
-                  "ckCkdjType": 0,                 单据类型
+                  "ckCkdjType": 0,                 单据类型（0正常单据，1挂起单据，2滞留单据）
                   "ckArehouseId": 1               （如果是调度员就不传，如果是别的角色就传）
                 }
              *
@@ -2143,7 +2143,7 @@
              *    ckCkdjId : 2                              出库单ID
                   ckCkdjNo : "jy33333"                      出库单号
                   ckErpNo : "testerp_no"                    erp单号
-                  ckCkdjType : 0                            单据类型
+                  ckCkdjType : 0                            单据类型（0正常单据，1挂起单据，2滞留单据）
                   ckCkdjClientno : "ckdanju"                客户编号
                   ckCkdjClientname : "高新区银座超市"        客户名称
                   ckContacts : "郭靖"                        联系人
@@ -2153,19 +2153,19 @@
                   ckBjsj : 1487741258000                    编辑时间
                   ckYfhsj : 1487827662000                   预发货时间
                   ckRemarks : "rrrrrrr"                     备注
-                  ckStatus : 1                              出库单状态
-                  ckIsauto : 1                              制单方式
+                  ckStatus : 1                              出库单状态（1初始 21部分分拣，未下架状态 22部分出库，已下架 31全部分拣，未下架 32全部出库，下架完成41已挂起， 50作废）
+                  ckIsauto : 1                              制单方式（1手动 2 excel 3接口）
                   ckCksj : 1486445274000                    出库时间
-                  ckStartwith : 0                           设备端
-                  ckIsyadan : 1                             是否压单
-                  ckIsqianhuo : 1                           是否欠货
+                  ckStartwith : 0                           设备端（1电脑端 2PDA）
+                  ckIsyadan : 1                             是否压单（1是2否）
+                  ckIsqianhuo : 1                           是否欠货（1是2否）
                   ckArehouseId : 1                          仓库ID
                   ckClientId : 2                            客户ID
                   ckEndtime : 1487050087000                 pda结束时间
-                  ckRwStatus : 1                            出库任务状态
-                  ckQhStatus : 3                            欠货状态
-                  ckZlStatus : 1                            滞留状态
-                  ckGqStatus : 1                            挂起状态
+                  ckRwStatus : 1                            出库任务状态（任务状态10.初始，11.下发 21.已挑选，31.已激活，41部分出库，42全部出库，51部分发运，52全部发运）
+                  ckQhStatus : 3                            欠货状态（1.整单欠货(明细欠货状态全部为"全部欠货"出库单状态为"整单欠货"，2.部分欠货(明细欠货状态存在"未欠货","部分欠货"出库单状态为"部分欠货"，3.未欠货(明细欠货状态全部为"未欠货",出库单据为"未欠货"）
+                  ckZlStatus : 1                            滞留状态（1.未到车滞留(出库单据明细滞留状态全部为"未到车滞留"出库单据滞留状态为"未到车滞留"，2.到车滞留(出库单据明细滞留状态存在"到车滞留"出库单据滞留状态为"到车滞留"，3.未滞留(出库单据明细滞留状态全部为"未滞留",出库单据滞留状态为"未滞留"）
+                  ckGqStatus : 1                            挂起状态（1.未挂起，2.已挂起）
                   ckrwId : 0                                出库任务ID
                   mfunckDocs []                             出库明细对象
                   allCount : null                           总数量
@@ -2193,7 +2193,7 @@
                       "cksGoodsId": 1,（必填）
                       "cksGoodsCount": 50,（必填）
                       "cksDwid": 1,（必填）
-                      "cksCkfs": "先进先出",（必填）
+                      "cksCkfs": "先进先出",（必填）（先进先出,指定批次,指定库位(x：p：k) 默认x）
                       "cksZdpc": "X",(根据出库方式选填)
                       "cksLocationId": 1 (根据出库方式选填)
                     },
@@ -2235,36 +2235,321 @@
          * TODO 出库任务
          */
             /**
-             * TODO  出库任务管理 分页查询所有任务状态下的出库任务 POST /mfunck/insertCkrw
-             * 参数：查询条件
+             * TODO  出库任务管理 分页查询所有任务状态下的出库任务 POST /mfunck/selectMfunckRwByPage
+             * 参数：查询条件 ckRwDocPageParam(参数对象)
              * {
-                  "ckrwNo": "CK20170418-04",                 出库任务单号（系统自动生成 必填）
-                  "ckrwYjdcsj": "2017-04-18T03:45:44.353Z",  预计到车时间
-                  "ckrwCph": "鲁A56895",
-                  "ckrwQhStatus": "1",
-                  "ckrwZlStatus": "1",
-                  "ckrwWls": "佳怡物流",
-                  "ckrwArehouseId": 1,
-                  "ckrwClientId": 1,
-                  "ckCkdjIds": [
-                    28,
-                    29
-                  ]
+                  "draw": 0,
+                  "ckrwNo": "CK20170418-04",           任务单号
+                  "ckrwCph": "鲁A",                    车牌号
+                  "ckrwWls": "佳怡物流",                物流商
+                  "ckrwQhStatus": "",                  欠货状态（欠货状态：1.欠货(出库单据中存在"整单欠货"/"部分欠货"出库任务状态为"欠货" 2.未欠货(出库单据欠货状态全部为"未欠货"出库任务状态为"未欠货"）
+                  "ckrwZlStatus": "",                  滞留状态（滞留状态1.滞留，2.未滞留）
+                  "ckrwStartGreatTime": "2017-01-01",  制作开始时间
+                  "ckrwEndGreatTime": "2017-05-01",    制作结束时间
+                  "ckrwStatus": 0,                     任务状态（任务状态10.初始，11.下发 21.已挑选，31.已激活，41部分出库，42全部出库，51部分发运，52全部发运）
+                  "pageNum": 1,                        页数
+                  "pageSize": 10                       页面条数
                 }
-             *
-             *
+             *出库任务对象（mfunckRwDoc）
+             * {
+                  "ckrwId": 1,                         出库任务ID
+                  "ckrwNo": "ckrw_no",                 出库任务号
+                  "ckrwYjdcsj": 1489550217000,         预计到车时间
+                  "ckrwCph": "CPH",                    车牌号
+                  "ckrwSjdcsj": 1492150687000,         实际到车时间
+                  "ckrwStatus": 10,                    出库任务状态（任务状态10.初始，11.下发 21.已挑选，31.已激活，41部分出库，42全部出库，51部分发运，52全部发运）
+                  "ckrwQhStatus": 2,                   欠货状态（欠货状态：1.欠货(出库单据中存在"整单欠货"/"部分欠货"出库任务状态为"欠货" 2.未欠货(出库单据欠货状态全部为"未欠货"出库任务状态为"未欠货"）
+                  "ckrwZlStatus": 2,                   滞留状态（滞留状态1.滞留，2.未滞留）
+                  "ckrwWls": "jinan",                  物流商
+                  "ckrwArehouseId": 1,                 仓库id（基本没用）
+                  "ckrwClientId": 1,                   客户ID
+                  "orderNum": 0,                       订单数
+                  "goodsTypeNum": 0,                   品项数
+               }
              *
              *
              *
              *
              *
              */
+/**
+ * TODO 点击新增系统自动生成出库单号 POST /mfunck/greatCkrwNo
+ * 返回参数 jsonModel  ckCkrwNo(任务单号)
+ */
+/**
+ * TODO 新增出库任务及明细 POST /mfunck/insertCkrw
+ * {
+      "ckrwNo": "CK20170418-04",                  任务单号（自动生成）
+      "ckrwYjdcsj": "2017-04-18T03:45:44.353Z",   预计到车时间（必填）
+      "ckrwCph": "鲁A56895",                      车牌号（必填）
+      "ckrwWls": "佳怡物流",                      物流商（必填）
+      "ckrwClientId": 1,                          客户id（必填）
+      "ckCkdjIds": [                              出库单号（可批量）
+        28,
+        29
+      ]
+    }
+ 返回 jsonModel  20002成功 50002失败
+ */
+/**
+ * TODO 根据任务ID查看出库任务详情 GET /mfunck/checkCkrwInfoByCkrwId/{ckrwId}
+ *
+ */
+/**
+ * TODO 修改出库任务 POST /mfunck/editCkrw
+ * 参数，出库任务对象mfunckRwDoc
+ * {
+      "ckrwNo": "CK20170418-04",                  任务单号（不可修改）
+      "ckrwYjdcsj": "2017-04-18T03:45:44.353Z",   预计到车时间（可修改）
+      "ckrwCph": "鲁A56895",                      车牌号（可修改）
+      "ckrwWls": "佳怡物流",                      物流商（可修改）
+      "ckrwClientId": 1,                          客户id
+      "ckCkdjIds": [                              出库单号（可批量）
+        28,
+        29
+      ]
+    }
+ */
+/**
+ * TODO 根据任务ID取消出库任务 GET /mfunck/cancelCkrwByCkrwId/{ckrwId}
+ * 参数 出库任务ID ckrwId
+ * 返回 jsonModel  20002成功 50002失败
+ */
+/**
+ * TODO 根据出库单id挂起单据 POST /mfunck/hangUpCkdocByCkdjId
+ * 参数 setModel 对象
+ * {
+ *  "ids":[     出库单ID
+ *     12,
+  *    13
+ *  ]
+ * }
+ * 返回 jsonModel  20002成功 50002失败
+ */
+/**
+ * TODO 根据出库单id取消挂起单据 GET /mfunck/cancelHangUpCkdocByCkdjId/{ckCkdjId}
+ * 参数 出库单ID ckCkdjId
+ * 返回 jsonModel  20002成功 50002失败
+ */
+/**
+ * TODO 根据出库明细id修改分拣方式 POST /mfunck/editCkDocsFJFSByCkmxId
+ * 参数 参数对象：paramsModel
+ * {
+ *   "cksCkmxId": ,     出库明细id
+ *   "cksCkfs": "",     分拣方式 先进先出,指定批次,指定库位(x：p：k)
+ *   "cksZdpc": "",     指定批次（x,k时为空，不用传）
+ *   "cksLocationId":   指定库位（x,p时为空，不用传）
+ * }
+ * 返回 jsonModel  20002成功 50002失败
+ */
+/**
+ * TODO 根据任务ID填写实际到车时间
+ */
+/**
+ * TODO 根据任务Id下发任务 POST /mfunck/issuedCkrw
+ * 参数 参数对象：setModel
+ * {
+ *  "ids": [   任务ID集合
+ *     1,
+ *     2
+ *   ]
+ * }
+ * 返回 jsonModel  20002成功 50002失败
+ */
+/**
+ * TODO 挑选任务单据分页查询 POST /mfunck/selectChooseCkrwByPage
+ * 参数：参数对象：ckRwDocPageParam
+ * {
+      "draw": 0,
+      "ckrwNo": "",               任务单号（可模糊查询）
+      "ckrwCph": "",              车牌号（可模糊查询）
+      "ckrwWls": "",              物流商（可模糊查询）
+      "ckrwStartGreatTime": "",   制作开始时间
+      "ckrwEndGreatTime": "",     制作结束时间
+      "pageNum": 1,               页码
+      "pageSize": 10              当页条数
+    }
+    出库任务对象 mfunckRwDoc
+    {
+       "ckrwId": 1,                         出库任务ID
+       "ckrwNo": "ckrw_no",                 出库任务号
+       "ckrwYjdcsj": 1489550217000,         预计到车时间
+       "ckrwCph": "CPH",                    车牌号
+       "ckrwSjdcsj": 1492150687000,         实际到车时间
+       "ckrwStatus": 10,                    出库任务状态（任务状态10.初始，11.下发 21.已挑选，31.已激活，41部分出库，42全部出库，51部分发运，52全部发运）
+       "ckrwQhStatus": 2,                   欠货状态（欠货状态：1.欠货(出库单据中存在"整单欠货"/"部分欠货"出库任务状态为"欠货" 2.未欠货(出库单据欠货状态全部为"未欠货"出库任务状态为"未欠货"）
+       "ckrwZlStatus": 2,                   滞留状态（滞留状态1.滞留，2.未滞留）
+       "ckrwWls": "jinan",                  物流商
+       "ckrwArehouseId": 1,                 仓库id（基本没用）
+       "ckrwClientId": 1,                   客户ID
+       "orderNum": 0,                       订单数
+       "goodsTypeNum": 0,                   品项数
+     }
+ */
+
+ /**
+ * TODO 激活数据 激活任务单据分页查询 POST /mfunck/selectActivatedCkrwByPage
+  * 参数：查询参数对象：ckRwDocPageParam
+  * {
+      "draw": 0,
+      "ckrwNo": "",                任务单号（可模糊查询）
+      "ckrwCph": "",               车牌号（可模糊查询）
+      "ckrwWls": "",               物流商（可模糊查询）
+      "ckrwStartYjdcsj": "",       预计开始到车时间
+      "ckrwEndYjdcsj": "",         预计结束到车时间
+      "ckrwStartGreatTime": "",    制作开始时间
+      "ckrwEndGreatTime": "",      制作结束时间
+      "pageNum": 1,                页码
+      "pageSize": 10               当页条数
+    }
+  出库任务对象 mfunckRwDoc
+    {
+       "ckrwId": 1,                         出库任务ID
+       "ckrwNo": "ckrw_no",                 出库任务号
+       "ckrwYjdcsj": 1489550217000,         预计到车时间
+       "ckrwCph": "CPH",                    车牌号
+       "ckrwSjdcsj": 1492150687000,         实际到车时间
+       "ckrwStatus": 10,                    出库任务状态（任务状态10.初始，11.下发 21.已挑选，31.已激活，41部分出库，42全部出库，51部分发运，52全部发运）
+       "ckrwQhStatus": 2,                   欠货状态（欠货状态：1.欠货(出库单据中存在"整单欠货"/"部分欠货"出库任务状态为"欠货" 2.未欠货(出库单据欠货状态全部为"未欠货"出库任务状态为"未欠货"）
+       "ckrwZlStatus": 2,                   滞留状态（滞留状态1.滞留，2.未滞留）
+       "ckrwWls": "jinan",                  物流商
+       "ckrwArehouseId": 1,                 仓库id（基本没用）
+       "ckrwClientId": 1,                   客户ID
+       "orderNum": 0,                       订单数
+       "goodsTypeNum": 0,                   品项数
+     }
+ */
+/**
+ * TODO 出库操作 操作出库单据分页查询 POST /mfunck/selectOperateCkDocByPage
+ * 参数 查询参数对象：ckDocPageModel
+ * {
+      "draw": 0,
+      "ckCkdjNo": "",               出库单号（可模糊查询）
+      "pageNum": 1,                 页码
+      "pageSize": 10,               当页条数
+      "ckStatus": 1,                出库单状态  21部分分拣，未下架状态 22部分出库，已下架 31全部分拣，未下架 32全部出库，下架完成
+      "ckCkdjClientname": "",       客户名称（可模糊查询）
+      "ckrwCph": "",                车牌号（可模糊查询）
+      "ckrwWls": "",                物流商（可模糊查询）
+      "mhStartCreateTime": "",      制作开始时间
+      "mhEndCreateTime": "",        制作结束时间
+      "ckStartXdsj": "",            下单开始时间
+      "ckEndXdsj": ""               下单结束时间
+    }
+ * {
+      ckCkdjId : 2                              出库单ID
+      ckCkdjNo : "jy33333"                      出库单号
+      ckErpNo : "testerp_no"                    erp单号
+      ckCkdjType : 0                            单据类型（0正常单据，1挂起单据，2滞留单据）
+      ckCkdjClientno : "ckdanju"                客户编号
+      ckCkdjClientname : "高新区银座超市"        客户名称
+      ckContacts : "郭靖"                        联系人
+      ckTel : "15689878987"                     电话
+      ckAdress : "高新区银座超市"                地址
+      ckXdsj : 1486531654000                    下单时间
+      ckBjsj : 1487741258000                    编辑时间
+      ckYfhsj : 1487827662000                   预发货时间
+      ckRemarks : "rrrrrrr"                     备注
+      ckStatus : 1                              出库单状态（1初始 21部分分拣，未下架状态 22部分出库，已下架 31全部分拣，未下架 32全部出库，下架完成41已挂起， 50作废）
+      ckIsauto : 1                              制单方式（1手动 2 excel 3接口）
+      ckCksj : 1486445274000                    出库时间
+      ckStartwith : 0                           设备端（1电脑端 2PDA）
+      ckIsyadan : 1                             是否压单（1是2否）
+      ckIsqianhuo : 1                           是否欠货（1是2否）
+      ckArehouseId : 1                          仓库ID
+      ckClientId : 2                            客户ID
+      ckEndtime : 1487050087000                 pda结束时间
+      ckRwStatus : 1                            出库任务状态（任务状态10.初始，11.下发 21.已挑选，31.已激活，41部分出库，42全部出库，51部分发运，52全部发运）
+      ckQhStatus : 3                            欠货状态（1.整单欠货(明细欠货状态全部为"全部欠货"出库单状态为"整单欠货"，2.部分欠货(明细欠货状态存在"未欠货","部分欠货"出库单状态为"部分欠货"，3.未欠货(明细欠货状态全部为"未欠货",出库单据为"未欠货"）
+      ckZlStatus : 1                            滞留状态（1.未到车滞留(出库单据明细滞留状态全部为"未到车滞留"出库单据滞留状态为"未到车滞留"，2.到车滞留(出库单据明细滞留状态存在"到车滞留"出库单据滞留状态为"到车滞留"，3.未滞留(出库单据明细滞留状态全部为"未滞留",出库单据滞留状态为"未滞留"）
+      ckGqStatus : 1                            挂起状态（1.未挂起，2.已挂起）
+      ckrwId : 0                                出库任务ID
+      mfunckDocs []                             出库明细对象
+      allCount : null                           总数量
+      allTj : null                              总体积
+      allHeight : null                          总重量
+      }
+ */
+/**
+ * TODO 出库发运 出库任务发运单据分页查询 POST /mfunck/selectDespatchCkrwByPage
+ * 参数：查询参数对象：ckRwDocPageParam
+ * {
+      "draw": 0,
+      "ckrwNo": "",                任务单号（可模糊查询）
+      "ckrwCph": "",               车牌号（可模糊查询）
+      "ckrwWls": "",               物流商（可模糊查询）
+      "ckrwStartYjdcsj": "",       预计开始到车时间
+      "ckrwEndYjdcsj": "",         预计结束到车时间
+      "ckrwStartSjdcsj": "",       实际开始到车时间
+      "ckrwEndSjdcsj": "",         实际结束到车时间
+      "ckrwStartGreatTime": "",    制作开始时间
+      "ckrwEndGreatTime": "",      制作结束时间
+      "pageNum": 1,                页码
+      "pageSize": 10               当页条数
+    }
+ 出库任务对象 mfunckRwDoc
+     {
+        "ckrwId": 1,                         出库任务ID
+        "ckrwNo": "ckrw_no",                 出库任务号
+        "ckrwYjdcsj": 1489550217000,         预计到车时间
+        "ckrwCph": "CPH",                    车牌号
+        "ckrwSjdcsj": 1492150687000,         实际到车时间
+        "ckrwStatus": 10,                    出库任务状态（任务状态10.初始，11.下发 21.已挑选，31.已激活，41部分出库，42全部出库，51部分发运，52全部发运）
+        "ckrwQhStatus": 2,                   欠货状态（欠货状态：1.欠货(出库单据中存在"整单欠货"/"部分欠货"出库任务状态为"欠货" 2.未欠货(出库单据欠货状态全部为"未欠货"出库任务状态为"未欠货"）
+        "ckrwZlStatus": 2,                   滞留状态（滞留状态1.滞留，2.未滞留）
+        "ckrwWls": "jinan",                  物流商
+        "ckrwArehouseId": 1,                 仓库id（基本没用）
+        "ckrwClientId": 1,                   客户ID
+        "orderNum": 0,                       订单数
+        "goodsTypeNum": 0,                   品项数
+      }
+ */
+/**
+ * TODO 回收存档 回收存档出库单据分页查询 POST /mfunck/selectConserveCkDocByPage
+ * 参数 查询参数对象：ckDocPageModel
+ * {
+      "draw": 0,
+      "ckCkdjNo": "",               出库单号（可模糊查询）
+      "mhStartCreateTime": "",      制作开始时间
+      "mhEndCreateTime": "",        制作结束时间
+      "ckStartXdsj": "",            下单开始时间
+      "ckEndXdsj": ""               下单结束时间
+    }
+ * {
+      ckCkdjId : 2                              出库单ID
+      ckCkdjNo : "jy33333"                      出库单号
+      ckErpNo : "testerp_no"                    erp单号
+      ckCkdjType : 0                            单据类型（0正常单据，1挂起单据，2滞留单据）
+      ckCkdjClientno : "ckdanju"                客户编号
+      ckCkdjClientname : "高新区银座超市"        客户名称
+      ckContacts : "郭靖"                        联系人
+      ckTel : "15689878987"                     电话
+      ckAdress : "高新区银座超市"                地址
+      ckXdsj : 1486531654000                    下单时间
+      ckBjsj : 1487741258000                    编辑时间
+      ckYfhsj : 1487827662000                   预发货时间
+      ckRemarks : "rrrrrrr"                     备注
+      ckStatus : 1                              出库单状态（1初始 21部分分拣，未下架状态 22部分出库，已下架 31全部分拣，未下架 32全部出库，下架完成41已挂起， 50作废）
+      ckIsauto : 1                              制单方式（1手动 2 excel 3接口）
+      ckCksj : 1486445274000                    出库时间
+      ckStartwith : 0                           设备端（1电脑端 2PDA）
+      ckIsyadan : 1                             是否压单（1是2否）
+      ckIsqianhuo : 1                           是否欠货（1是2否）
+      ckArehouseId : 1                          仓库ID
+      ckClientId : 2                            客户ID
+      ckEndtime : 1487050087000                 pda结束时间
+      ckRwStatus : 1                            出库任务状态（任务状态10.初始，11.下发 21.已挑选，31.已激活，41部分出库，42全部出库，51部分发运，52全部发运）
+      ckQhStatus : 3                            欠货状态（1.整单欠货(明细欠货状态全部为"全部欠货"出库单状态为"整单欠货"，2.部分欠货(明细欠货状态存在"未欠货","部分欠货"出库单状态为"部分欠货"，3.未欠货(明细欠货状态全部为"未欠货",出库单据为"未欠货"）
+      ckZlStatus : 1                            滞留状态（1.未到车滞留(出库单据明细滞留状态全部为"未到车滞留"出库单据滞留状态为"未到车滞留"，2.到车滞留(出库单据明细滞留状态存在"到车滞留"出库单据滞留状态为"到车滞留"，3.未滞留(出库单据明细滞留状态全部为"未滞留",出库单据滞留状态为"未滞留"）
+      ckGqStatus : 1                            挂起状态（1.未挂起，2.已挂起）
+      ckrwId : 0                                出库任务ID
+      mfunckDocs []                             出库明细对象
+      allCount : null                           总数量
+      allTj : null                              总体积
+      allHeight : null                          总重量
+      }
+ */
 /*
- * TODO 挑选数据
- * TODO 激活数据
- * TODO 出库操作
- * TODO 出库发运
- * TODO 回收存档
  *  TODO 欠货补发信息
  *   补发单号
  *   补发情况
