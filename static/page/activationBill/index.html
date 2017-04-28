@@ -53,10 +53,16 @@
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="预计到车">
-                                        <span>{{ auto_ckrwYjdcsj(props.row.ckrwYjdcsj) }}</span>
+                                        <span>
+                                             <el-icon name="time"></el-icon>
+                                            {{ auto_ckrwYjdcsj(props.row.ckrwYjdcsj) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="实际到车">
-                                        <span>{{ auto_ckrwSjdcsj(props.row.ckrwSjdcsj) }}</span>
+                                        <span>
+                                             <el-icon name="time"></el-icon>
+                                            {{ auto_ckrwSjdcsj(props.row.ckrwSjdcsj) }}
+                                        </span>
                                     </el-form-item>
 
                                     <el-form-item label="欠货状态">
