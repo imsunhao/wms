@@ -196,7 +196,10 @@
                             <el-row>
                                 <el-col :span="10">
                                     <el-form-item label="创建时间">
-                                        <span>{{auto_zyCreateTime(props.row.zyCreateTime) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{auto_zyCreateTime(props.row.zyCreateTime) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="提起人">
                                         <span>{{ props.row.zyMentionUserName }}</span>
@@ -213,7 +216,10 @@
                                         <span>{{ props.row.zyReason	 }}</span>
                                     </el-form-item>
                                     <el-form-item label="确认时间">
-                                        <span>{{ auto_zyConfirmTime(props.row.zyConfirmTime) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_zyConfirmTime(props.row.zyConfirmTime) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="转移状态">
                                         <span>{{ auto_zyStatus(props.row.zyStatus) }}</span>
