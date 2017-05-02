@@ -35,19 +35,31 @@
                                         <span>{{ props.row.mdtUserId }}</span>
                                     </el-form-item>
                                     <el-form-item label="作业时间">
-                                        <span>{{ auto_mdtSjsj(props.row.mdtSjsj) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_mdtSjsj(props.row.mdtSjsj) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="体积">
                                         <span>{{ props.row.bgGoodsTj }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架开始">
-                                        <span>{{ auto_rkrkSjsj(props.row.rkrkSjsj) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_rkrkSjsj(props.row.rkrkSjsj) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="上架结束">
-                                        <span>{{ auto_rkEndTime(props.row.rkEndTime) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_rkEndTime(props.row.rkEndTime) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="下单时间">
-                                        <span>{{auto_rkCreatetime(props.row.rkCreatetime)}}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{auto_rkCreatetime(props.row.rkCreatetime)}}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="入库单号">
                                         <span>{{props.row.rkRkdjNo}}</span>
