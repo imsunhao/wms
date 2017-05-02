@@ -35,16 +35,25 @@
                                         <span>{{ props.row.msxXjry }}</span>
                                     </el-form-item>
                                     <el-form-item label="作业时间">
-                                        <span>{{ auto_msxQrsj(props.row.msxQrsj) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_msxQrsj(props.row.msxQrsj) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="作业体积">
                                         <span>{{ props.row.bgGoodsTj }}</span>
                                     </el-form-item>
                                     <el-form-item label="下架时间">
-                                        <span>{{ auto_ckXdsj(props.row.ckXdsj) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_ckXdsj(props.row.ckXdsj) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="上架结束">
-                                        <span>{{ auto_ckEndtime(props.row.ckEndtime) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_ckEndtime(props.row.ckEndtime) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="出库单号">
                                         <span>{{ props.row.ckCkdjNo}}</span>
@@ -59,10 +68,16 @@
                                         <span>{{ auto_cksZlStatus(props.row.cksZlStatus) }}</span>
                                     </el-form-item>
                                     <el-form-item label="下架开始">
-                                        <span>{{ auto_ckCksj(props.row.ckCksj) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_ckCksj(props.row.ckCksj) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="下架结束">
-                                        <span>{{ auto_ckEndtime(props.row.ckEndtime) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_ckEndtime(props.row.ckEndtime) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="货品编号">
                                         <span>{{ props.row.cksGoodsId }}</span>
@@ -162,7 +177,9 @@
                         align="center"
                         width="100">
                         <template scope="scope">
-                            {{auto_ckStatus(scope.row.ckStatus)}}
+                            <el-tag
+                                    close-transition>{{auto_ckStatus(scope.row.ckStatus)}}
+                            </el-tag>
                         </template>
                 </el-table-column>
                 <el-table-column
@@ -387,7 +404,6 @@
         </div>
     </el-dialog>
 </div>
-
 <style>
     #outputDaily {
         width: 100%;
@@ -767,20 +783,20 @@
                 }
             },
             auto_msxQrsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                                  //操作时间
             auto_ckXdsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                                  //下单时间
             auto_ckCksj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                                  //下架开始时间
             auto_ckEndtime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                                  //下架结束时间                                                                             //下架结束时间
             auto_ckStatus:function(value){
                 var temp={};

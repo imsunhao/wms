@@ -245,7 +245,7 @@
                                     <span>{{ props.row.baAcreage           }}</span>
                                 </el-form-item>
                                 <el-form-item label="仓库类型">
-                                    <span>{{ props.row.baCtype  == 0 ? '女' : '男'   }}</span>
+                                    <span>{{ auto_baCtype(props.row.baCtype) }}</span>
                                 </el-form-item>
                                 <el-form-item label="备注">
                                     <el-tooltip class="item" effect="dark"
@@ -325,9 +325,11 @@
             <el-table-column
                     label="仓库类型"
                     align="center">
-                <template scope="scope">
-                    <span>{{ scope.row.baCtype ?'女':'男'}}</span>
-                </template>
+                    <template scope="scope">
+                        <el-tag
+                                close-transition>{{auto_baCtype(scope.row.baCtype)}}
+                        </el-tag>
+                    </template>
             </el-table-column>
             <el-table-column
                     v-if="multiSelect"
@@ -1275,7 +1277,6 @@
                     warehouseConfiguration.$refs.carousel.setActiveItem(0);
                 });
             },                                  //行内按钮-编辑
-
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -1285,7 +1286,6 @@
             multiOperationEdit: function () {
                 this.inlineEdit(1, this.multipleSelection[0]);
             },                                    //多选 编辑
-
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -1300,7 +1300,6 @@
                 this.currentPage = val;
                 post(this, this.option);
             },                                //分页 当前页
-
             newInput: function () {
                 this.form = form();
                 this.dialogFormVisible = true;
@@ -1332,7 +1331,6 @@
             warehouseManage: function (observer, warehouseId) {
                 this.dialogWarehouseVisible = !this.dialogWarehouseVisible;
             },                  //按钮 仓库配置 TODO
-
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -1370,6 +1368,21 @@
                 }, 1500);
                 /*</debug>*/
             },                                                //新建 表单提交
+            auto_baCtype:function(value){
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        1:'立体仓',
+                        2:'平面仓',
+                    }
+                }else{
+                    temp={
+                        '立体仓':1,
+                        '平面仓':2
+                    }
+                }
+                return temp[value];
+            },                                         //仓库类型
 
 
         },
