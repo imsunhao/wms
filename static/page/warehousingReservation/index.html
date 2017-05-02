@@ -505,7 +505,7 @@
                     <el-row>
                         <el-col :span="10">
                             <el-form-item
-                                    label="入库单号"
+                                    label="出库单号"
                                     prop="rkRkdjNo"
                                     :label-width="formLabelWidth">
                                 <el-input
@@ -527,12 +527,12 @@
                                         :disabled="watchView"
                                         v-model="form.rkType"
                                         placeholder="请选择单据类型">
-                                    <el-option label="采购订单" :value="0"></el-option>
-                                    <el-option label="仓间挑拨" :value="1"></el-option>
-                                    <el-option label="退货入库" :value="2"></el-option>
+                                    <el-option label="采购订单" :value.number="0"></el-option>
+                                    <el-option label="仓间挑拨" :value.number="1"></el-option>
+                                    <el-option label="退货入库" :value.number="2"></el-option>
                                 </el-select>
                             </el-form-item>
-                            <el-form-item label="入库备注" :label-width="formLabelWidth">
+                            <el-form-item label="出库备注" :label-width="formLabelWidth">
                                 <el-input
                                         :disabled="watchView"
                                         type="textarea"
@@ -542,13 +542,13 @@
                             </el-form-item>
                         </el-col>
                         <el-col :span="12" :offset="2">
-                            <el-form-item label="入库状态">
-                                {{auto_rkStatus(form.rkStatus)}}
+                            <el-form-item label="出库状态">
+                                {{auto_rkStatus(form.ckStatus)}}
                             </el-form-item>
-                            <el-form-item label="入库数量">
-                                {{form.rksCount}}
+                            <el-form-item label="出库数量">
+                                {{form.cksCount}}
                             </el-form-item>
-                            <el-form-item label="入库体积">
+                            <el-form-item label="出库体积">
                                 {{form.allTj }}
                             </el-form-item>
                             <el-form-item label="制作方式">
@@ -886,6 +886,7 @@
                 console.log(step);
                 /*</debug>*/
                 step.title = '查看';
+                if (typeof this.$refs.carousel !== 'undefined') this.$refs.carousel.setActiveItem(0);
                 this.form = step;
                 this.dialogFormActive = 0;
                 if (typeof (this.form.rkDocsList) === 'undefined') {
@@ -908,6 +909,7 @@
                 console.log(step);
                 /*</debug>*/
                 step.title = '编辑';
+                if (typeof this.$refs.carousel !== 'undefined') this.$refs.carousel.setActiveItem(0);
                 this.form = step;
                 this.dialogFormActive = 0;
                 if (typeof (this.form.rkDocsList) === 'undefined') {
@@ -1116,15 +1118,18 @@
                         if (typeof _this.form[index] !== 'undefined') form[index] = _this.form[index];
                     });
 
-                    var form_rkDocsList = post_form_rkDocsList();
-                    for (var i = 0; i < _this.form.rkDocsList.length; i++) {
-                        allPrposCb(form_rkDocsList, function (obj, index) {
+                    var form_rkDocsList = {};
+                    for (var i = 0; i < form.rkDocsList.length; i++) {
+                        form_rkDocsList = post_form_rkDocsList();
+                        allPrposCb(form_rkDocsList, function ( val,index) {
                             if (typeof _this.form.rkDocsList[0][index] !== 'undefined') form_rkDocsList[index] = _this.form.rkDocsList[0][index];
                         });
                         form.rkDocsList.push(form_rkDocsList);
                     }
 
-                    console.log(form);
+//
+//                    console.log(JSON.stringify( form));
+//                    console.log(JSON.stringify( _this.form.rkDocsList));
 
 
                     postNewInput(this, form);
@@ -1151,7 +1156,7 @@
                 /*</debug>*/
 
             },                                                //新建 表单提交
-            submitWatchView:function () {
+            submitWatchView: function () {
                 this.dialogFormActive++;
                 this.dialogFormVisible = false;
                 this.form = form();
@@ -1326,7 +1331,6 @@
         }
     });
 
-
     // 高级 监视器的 使用方法
     warehousingReservation.$watch('date', function () {
         if (!this.option.dateStart)return;
@@ -1340,7 +1344,6 @@
         else this.watchView = false;
     }, {deep: true});
 
-    var id = 0;
 
     post(warehousingReservation, warehousingReservation.option);
     function postNewInputRW(obj, option) {
@@ -1499,7 +1502,7 @@
 //            }
 //        });
         /*</prod>*/
-    }
+    }         //
     function postGoods(obj, option, cb) {
         //TODO 此处应为AJAX请求,待完善 querySearchAsync
 
@@ -1592,7 +1595,4 @@
             }
         });
     }                   // 7 入库预约分页查询接口
-    function changeDate(date) {
-        return dateFormat(new Date(date), 'MM-dd hh:mm');
-    }
 </script>
