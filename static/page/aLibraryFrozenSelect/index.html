@@ -40,7 +40,9 @@
                                                 <span>{{ props.row.djArehouseId }}</span>
                                             </el-form-item>
                                             <el-form-item label="创建时间">
-                                                <span>{{ auto_djCreateTime(props.row.djCreateTime) }}</span>
+                                                <span>
+                                                    <el-icon name="time"></el-icon>
+                                                    {{ auto_djCreateTime(props.row.djCreateTime) }}</span>
                                             </el-form-item>
                                             <el-form-item label="创建人">
                                                 <span>{{props.row.djCreateUserId}}</span>
@@ -51,7 +53,9 @@
                                         </el-col>
                                         <el-col :span="10" :offset="2">
                                             <el-form-item label="解冻时间">
-                                                <span>{{auto_djJdTime(props.row.djJdTime) }}</span>
+                                                <span>
+                                                    <el-icon name="time"></el-icon>
+                                                    {{auto_djJdTime(props.row.djJdTime) }}</span>
                                             </el-form-item>
                                             <el-form-item label="冻结状态">
                                                 <span>{{ auto_djStatus(props.row.djStatus) }}</span>
@@ -60,7 +64,9 @@
                                                 <span>{{ (props.row.djZfUserId) }}</span>
                                             </el-form-item>
                                             <el-form-item label="作废时间">
-                                                <span>{{ auto_djZfTime(props.row.djZfTime) }}</span>
+                                                <span>
+                                                    <el-icon name="time"></el-icon>
+                                                    {{ auto_djZfTime(props.row.djZfTime) }}</span>
                                             </el-form-item>
                                             <el-form-item
                                                     label="可用操作">
@@ -81,40 +87,6 @@
                                         :max-height="240">
                                     <el-table-column
                                             type="expand">
-                                        <!--<template scope="props">-->
-                                        <!--<h3>入库明细</h3>-->
-                                        <!--<el-table-->
-                                        <!--:data="props.row.rkDocsList"-->
-                                        <!--highlight-current-row-->
-                                        <!--style="width: 100%">-->
-                                        <!--<el-table-column-->
-                                        <!--label="货品编号"-->
-                                        <!--width="140"-->
-                                        <!--show-overflow-tooltip-->
-                                        <!--align="center"-->
-                                        <!--prop="baseGoods.bgGoodsNo">-->
-                                        <!--</el-table-column>-->
-                                        <!--<el-table-column-->
-                                        <!--align="center"-->
-                                        <!--prop="baseGoods.bgGoodsName"-->
-                                        <!--show-overflow-tooltip-->
-                                        <!--label="货品名称">-->
-                                        <!--</el-table-column>-->
-                                        <!--<el-table-column-->
-                                        <!--label="单位"-->
-                                        <!--width="80"-->
-                                        <!--prop="baseDw.bdName"-->
-                                        <!--align="center">-->
-                                        <!--</el-table-column>-->
-                                        <!--<el-table-column-->
-                                        <!--label="数量"-->
-                                        <!--width="100"-->
-                                        <!--show-overflow-tooltip-->
-                                        <!--prop="rksCount"-->
-                                        <!--align="center">-->
-                                        <!--</el-table-column>-->
-                                        <!--</el-table>-->
-                                        <!--</template>-->
                                     </el-table-column>
                                     <el-table-column
                                             label="库位名称"
@@ -200,7 +172,10 @@
                         align="center"
                         width="100">
                     <template scope="scope">
-                        {{auto_djStatus(scope.row.djStatus)}}
+                        <el-tag
+                                close-transition>{{auto_djStatus(scope.row.djStatus)}}
+                        </el-tag>
+
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -774,16 +749,16 @@
                 post(this, {});
             },                                          //详细查询 提交
             auto_djCreateTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                         //创建时间
             auto_djJdTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                              //解冻时间
             auto_djZfTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                              //作废时间
             auto_djStatus: function (value) {
 
