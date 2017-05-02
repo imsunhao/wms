@@ -205,7 +205,7 @@
                                         class="datePicker"
                                         :picker-options="pickerOptions">
                                 </el-date-picker>
-                                <el-select v-model="baCtype" placeholder="请选择">
+                                <el-select v-model="ckCkdjType" placeholder="请选择">
                                     <el-option :value="0">正常单据</el-option>
                                     <el-option :value="1">挂起单据</el-option>
                                     <el-option :value="2">滞留单据</el-option>
@@ -516,16 +516,16 @@
                                         auto-complete="off"></el-input>
                             </el-form-item>
                             <el-form-item label="所属仓库" :label-width="formLabelWidth">
-                                <el-select v-model="form.ckArehouseId" placeholder="请选择所属仓库">
+                                <el-select v-model.number="form.ckArehouseId" placeholder="请选择所属仓库">
                                     <el-option :label="obj.baName" :value="obj.baArehouseId"
                                                v-for="obj of baseArehouses"></el-option>
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="单据类型" :label-width="formLabelWidth">
-                                <el-select v-model="form.ckCkdjType" placeholder="请选择单据类型">
-                                    <el-option label="正常单据" :value="0"></el-option>
-                                    <el-option label="挂起单据" :value="1"></el-option>
-                                    <el-option label="滞留单据" :value="2"></el-option>
+                                <el-select v-model.number="form.ckCkdjType" placeholder="请选择单据类型">
+                                    <el-option label="正常单据" :value.number="0"></el-option>
+                                    <el-option label="挂起单据" :value.number="1"></el-option>
+                                    <el-option label="滞留单据" :value.number="2"></el-option>
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="出库备注" :label-width="formLabelWidth">
@@ -673,15 +673,7 @@
     /*</debug>*/
     function CombinationDetails() {
         return {
-            rkrwId: '',         //id
-            rkrwNo: '',         //入库任务号
-            rkrwDhrq: '',       //预计到货日期
-            rkrwDbd: '',        //调拨地
-            rkrwCys: '',        //承运商
-            rkrwCph: '',        //车牌号
-            rkrwSjxm: '',       //司机姓名
-            rkrwDh: '',         //司机电话
-            rkrwStatus: ''      //任务状态
+
         }
     }
     function selectGood() {
@@ -700,12 +692,35 @@
     function form() {
         return {
             title: '新建出库单',
+
+            ckCkdjId: '',
             ckCkdjNo: '',
-            rkType: '',
-            rkRemarks: '',
-            rkDocsList: [],
-            bgGoodsNo: '',
-            rkArehouseId: '',
+            ckErpNo: '',
+            ckCkdjType: '',
+            ckCkdjClientno: '',
+            ckCkdjClientname: '',
+            ckContacts: '',
+            ckTel: '',
+            ckAdress: '',
+            ckXdsj: '',
+            ckBjsj: '',
+            ckYfhsj: '',
+            ckRemarks: '',
+            ckStatus: '',
+            ckIsauto: '',
+            ckCksj: '',
+            ckStartwith: '',
+            ckIsyadan: '',
+            ckIsqianhuo: '',
+            ckArehouseId: '',
+            ckClientId: '',
+            ckEndtime: '',
+            ckRwStatus: '',
+            ckQhStatus: '',
+            ckZlStatus: '',
+
+            rkDocsList: [], //TODO
+
             selectGood: selectGood(),
             saveARkDocsList: true,
             deleteARkDocsList: true
@@ -726,8 +741,11 @@
                 multipleSelection: [],
                 multipleSelectionCombination: [],
                 multiSelect: false,
+
                 date: [null, null],           //主页面 下单时间 搜索
                 ckCkdjNo: '',                 //主页面 出库单号 搜索
+                ckCkdjType: '',               //主页面 出库类型 搜索
+
                 pickerOptions: {
                     shortcuts: [{
                         text: '最近一周',

@@ -505,7 +505,7 @@
                     <el-row>
                         <el-col :span="10">
                             <el-form-item
-                                    label="入库单号"
+                                    label="出库单号"
                                     prop="rkRkdjNo"
                                     :label-width="formLabelWidth">
                                 <el-input
@@ -527,12 +527,12 @@
                                         :disabled="watchView"
                                         v-model="form.rkType"
                                         placeholder="请选择单据类型">
-                                    <el-option label="采购订单" :value="0"></el-option>
-                                    <el-option label="仓间挑拨" :value="1"></el-option>
-                                    <el-option label="退货入库" :value="2"></el-option>
+                                    <el-option label="采购订单" :value.number="0"></el-option>
+                                    <el-option label="仓间挑拨" :value.number="1"></el-option>
+                                    <el-option label="退货入库" :value.number="2"></el-option>
                                 </el-select>
                             </el-form-item>
-                            <el-form-item label="入库备注" :label-width="formLabelWidth">
+                            <el-form-item label="出库备注" :label-width="formLabelWidth">
                                 <el-input
                                         :disabled="watchView"
                                         type="textarea"
@@ -542,13 +542,13 @@
                             </el-form-item>
                         </el-col>
                         <el-col :span="12" :offset="2">
-                            <el-form-item label="入库状态">
-                                {{auto_rkStatus(form.rkStatus)}}
+                            <el-form-item label="出库状态">
+                                {{auto_rkStatus(form.ckStatus)}}
                             </el-form-item>
-                            <el-form-item label="入库数量">
-                                {{form.rksCount}}
+                            <el-form-item label="出库数量">
+                                {{form.cksCount}}
                             </el-form-item>
-                            <el-form-item label="入库体积">
+                            <el-form-item label="出库体积">
                                 {{form.allTj }}
                             </el-form-item>
                             <el-form-item label="制作方式">
@@ -886,6 +886,7 @@
                 console.log(step);
                 /*</debug>*/
                 step.title = '查看';
+                if (typeof this.$refs.carousel !== 'undefined') this.$refs.carousel.setActiveItem(0);
                 this.form = step;
                 this.dialogFormActive = 0;
                 if (typeof (this.form.rkDocsList) === 'undefined') {
@@ -908,6 +909,7 @@
                 console.log(step);
                 /*</debug>*/
                 step.title = '编辑';
+                if (typeof this.$refs.carousel !== 'undefined') this.$refs.carousel.setActiveItem(0);
                 this.form = step;
                 this.dialogFormActive = 0;
                 if (typeof (this.form.rkDocsList) === 'undefined') {
@@ -1151,7 +1153,7 @@
                 /*</debug>*/
 
             },                                                //新建 表单提交
-            submitWatchView:function () {
+            submitWatchView: function () {
                 this.dialogFormActive++;
                 this.dialogFormVisible = false;
                 this.form = form();
@@ -1340,7 +1342,6 @@
         else this.watchView = false;
     }, {deep: true});
 
-    var id = 0;
 
     post(warehousingReservation, warehousingReservation.option);
     function postNewInputRW(obj, option) {
@@ -1499,7 +1500,7 @@
 //            }
 //        });
         /*</prod>*/
-    }
+    }         //
     function postGoods(obj, option, cb) {
         //TODO 此处应为AJAX请求,待完善 querySearchAsync
 
@@ -1592,66 +1593,4 @@
             }
         });
     }                   // 7 入库预约分页查询接口
-    function changeDate(date) {
-        return dateFormat(new Date(date), 'MM-dd hh:mm');
-    }
-    function errorTip(obj, error) {                    // 错误提示
-        /*<debug>*/
-        console.log(error);
-        /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
-    function dateFormat(date, fmt) {
-        var o = {
-            "M+": date.getMonth() + 1,                 //月份
-            "d+": date.getDate(),                    //日
-            "h+": date.getHours(),                   //小时
-            "m+": date.getMinutes(),                 //分
-            "s+": date.getSeconds(),                 //秒
-            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-            "S": date.getMilliseconds()             //毫秒
-        };
-        if (/(y+)/.test(fmt))
-            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-
-//                    console.log(temp);
-                }
-                data.pop();
-            }
-        }
-    }
-    function addOrDelete(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            if (data[i] == obj) {
-                return true;
-            }
-        }
-        return false;
-    }
-    /*
-     * 用来遍历指定对象所有的属性名称和值
-     * obj 需要遍历的对象
-     * cb 回调函数  1. 子属性 2.子属性名
-     */
-    function allPrposCb(obj, cb) {
-        for (var p in obj) {
-            if (typeof(obj[p]) !== "function") {
-                cb(obj[p], p)
-            }
-        }
-    }
 </script>
