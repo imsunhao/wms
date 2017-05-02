@@ -196,7 +196,7 @@
                             <el-row>
                                 <el-col :span="10">
                                     <el-form-item label="创建时间">
-                                        <span>{{ props.row.zyCreateTime }}</span>
+                                        <span>{{auto_zyCreateTime(props.row.zyCreateTime) }}</span>
                                     </el-form-item>
                                     <el-form-item label="提起人">
                                         <span>{{ props.row.zyMentionUserName }}</span>
@@ -213,10 +213,10 @@
                                         <span>{{ props.row.zyReason	 }}</span>
                                     </el-form-item>
                                     <el-form-item label="确认时间">
-                                        <span>{{ props.row.zyConfirmTime }}</span>
+                                        <span>{{ auto_zyConfirmTime(props.row.zyConfirmTime) }}</span>
                                     </el-form-item>
                                     <el-form-item label="转移状态">
-                                        <span>{{ props.row.zyStatus }}</span>
+                                        <span>{{ auto_zyStatus(props.row.zyStatus) }}</span>
                                     </el-form-item>
                                     <el-form-item label="可用操作">
                                         <el-button
@@ -237,8 +237,13 @@
                 <el-table-column
                         label="创建时间"
                         show-overflow-tooltip
-                        prop="zyCreateTime"
                         align="center">
+                    <template scope="scope">
+                        <span>
+                            {{auto_zyCreateTime(scope.row.zyCreateTime,true)}}
+                        </span>
+                    </template>
+
                 </el-table-column>
                 <el-table-column
                         label="提起人"
@@ -271,7 +276,7 @@
                         width="100">
                     <template scope="scope">
                         <el-tag
-                                close-transition>{{scope.row.zyStatus}}
+                                close-transition>{{auto_zyStatus(scope.row.zyStatus)}}
                         </el-tag>
                     </template>
                 </el-table-column>
@@ -429,7 +434,6 @@
         </div>
     </el-dialog>
 </div>
-
 <script>
     function form() {
         return {
@@ -553,7 +557,6 @@
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
             },                                //行内按钮 打印标签页
-
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -579,7 +582,6 @@
                     aLibraryTransfer.$refs.carousel.setActiveItem(0);
                 });
             },
-
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -594,8 +596,6 @@
                 this.currentPage = val;
                 post(this, this.option);
             },                                //分页 当前页
-
-
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -637,12 +637,10 @@
                     post(aLibraryTransfer);
                 }, 1500);
             },                                                //新建 表单提交
-
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
                 post(this, {});
             },                                          //详细查询 提交
-
             printfSubmit: function () {
                 var datas=[];
                 var checkData=aLibraryTransfer.$refs.printf.getCheckedNodes();
@@ -679,7 +677,34 @@
                     case 3:
                         return resolve([]);
                 }
-            }
+            },
+            auto_zyCreateTime: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+            },                           //创建时间
+            auto_zyConfirmTime: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+            },                           //确认时间
+            auto_zyStatus:function(value){
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        0:'初始',
+                        1:'确认',
+                        2:'作废',
+                    }
+                }else{
+                    temp={
+                        '初始':0,
+                        '确认':1,
+                        '作废':2
+                    }
+                }
+                return temp[value];
+            },                                        //转移状态
+
+
         }
     });
 
