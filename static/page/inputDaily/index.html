@@ -185,7 +185,7 @@
             <el-form-item label="下单时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.rkCreatetime"
+                        v-model="form.rkCreatetime"
                         type="daterange"
                         align="right"
                         placeholder="下单时间"
@@ -196,7 +196,7 @@
             <el-form-item label="上架时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.rkrkSjsj"
+                        v-model="form.rkrkSjsj"
                         type="daterange"
                         align="right"
                         placeholder="上架时间"
@@ -207,7 +207,7 @@
             <el-form-item label="作业时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.mdtSjsj"
+                        v-model="form.mdtSjsj"
                         type="daterange"
                         align="right"
                         placeholder="作业时间"
@@ -218,7 +218,7 @@
             <el-form-item label="作业人员"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.ruUserName"
+                        v-model="form.ruUserName"
                         class="input"
                         icon="search"
                         placeholder="作业人员"></el-input>
@@ -227,7 +227,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.bgGoodsNo"
+                        v-model="form.bgGoodsNo"
                         icon="search"
                         placeholder="货品编号"></el-input>
             </el-form-item>
@@ -235,7 +235,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.bgGoodsName"
+                        v-model="form.bgGoodsName"
                         icon="search"
                         placeholder="货品姓名"></el-input>
             </el-form-item>
@@ -243,7 +243,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.rkRkdjNo"
+                        v-model="form.rkRkdjNo"
                         icon="search"
                         placeholder="入库单号"></el-input>
             </el-form-item>
@@ -251,34 +251,34 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.blLname"
+                        v-model="form.blLname"
                         icon="search"
                         placeholder="库位"></el-input>
             </el-form-item>
             <el-form-item label="入库状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="rkStatus" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="21">部分分配</el-option>
-                    <el-option :value="22">全部分配</el-option>
-                    <el-option :value="31">部分上架</el-option>
-                    <el-option :value="32">全部上架</el-option>
+                <el-select v-model="form.rkStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="21" label="部分分配"></el-option>
+                    <el-option :value="22" label="全部分配"></el-option>
+                    <el-option :value="31" label="部分上架"></el-option>
+                    <el-option :value="32" label="全部上架"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="制单方式"
                           :label-width="formLabelWidth">
-                <el-select v-model="rkZdfs" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="1">手动</el-option>
-                    <el-option :value="2">导入</el-option>
-                    <el-option :value="3">接口</el-option>
+                <el-select v-model="form.rkZdfs" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="1" label="手动"></el-option>
+                    <el-option :value="2" label="导入"></el-option>
+                    <el-option :value="3" label="接口"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="操作方式"
                           :label-width="formLabelWidth">
-                <el-select v-model="rkStartwith" placeholder="请选择">
-                    <el-option :value="1">电脑端</el-option>
-                    <el-option :value="2">PDA</el-option>
+                <el-select v-model="form.rkStartwith" placeholder="请选择">
+                    <el-option :value="1" label="电脑端"></el-option>
+                    <el-option :value="2" label="PDA"></el-option>
                 </el-select>
             </el-form-item>
 
@@ -469,7 +469,7 @@
     }
 </style>
 <script>
-    function from() {
+    function form() {
         return {
             rkrwN: '',
             rkrwCph: '',
@@ -480,7 +480,28 @@
             rkrwDbd: '',
             rkrwCys: '',
             rkrwDh: '',
-            rkrwStatus: ''
+            rkrwStatus: '',
+            rkCreatetime:[null,null],//模糊查询--创建时间
+            rkrkSjsj:[null,null],    //模糊查询--上架时间
+            mdtSjsj:[null,null],     //模糊查询--作业时间
+            ruUserName:'',            //模糊查询--作业人员
+            bgGoodsNo:'',             //模糊查询--货品编号
+            bgGoodsName:'',           //模糊查询--货品名称
+            rkRkdjNo:'',              //模糊查询--入库单号
+            blLname:'',                //模糊查询--库位
+            rkStatus:'',               //模糊查询--入库状态
+            rkZdfs:'',                  //模糊查询--制单方式
+            rkStartwith:'',             //模糊查询--操作方式
+
+
+
+
+
+
+
+
+
+
         }
     }
     var inputDaily = new Vue({
@@ -526,12 +547,12 @@
                 rkRkdjNo: '',                       //主页面 入库单号 搜索
 
                 formLabelWidth: '120px',            //表单 配置
-                form: from(),                           //表单 弹出层 信息集合
+                form: form(),                         //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
 
-                select: from(),                         //搜索 弹出层 信息集合,
+                select: form(),                         //搜索 弹出层 信息集合,
                 printf: [],                         //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 dialogPrintfVisible: false,
