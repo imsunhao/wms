@@ -40,13 +40,13 @@
                                     <el-row>
                                         <el-col :span="10">
                                             <el-form-item label="创建时间">
-                                                <span>{{ props.row.djCreateTime }}</span>
+                                                <span>{{ auto_djCreateTime(props.row.djCreateTime) }}</span>
                                             </el-form-item>
                                             <el-form-item label="解冻日期">
-                                                <span>{{ props.row.djJdTime }}</span>
+                                                <span>{{ auto_djJdTime(props.row.djJdTime) }}</span>
                                             </el-form-item>
                                             <el-form-item label="冻结日期">
-                                                <span>{{props.row.djDjTime}}</span>
+                                                <span>{{auto_djDjTime(props.row.djDjTime)}}</span>
                                             </el-form-item>
 
                                         </el-col>
@@ -197,19 +197,20 @@
                         prop="djCreateUserId">
                 </el-table-column>
                 <el-table-column
-                        label="冻结状态"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="rkrwSjxm">
-                    <template scope="scope">
-                        {{auto_djStatus(scope.row.djStatus,true)}}
-                    </template>
-                </el-table-column>
-                <el-table-column
                         label="冻结原因"
                         show-overflow-tooltip
                         align="center"
                         prop="djReason">
+                </el-table-column>
+                <el-table-column
+                        label="冻结状态"
+                        show-overflow-tooltip
+                        align="center">
+                    <template scope="scope">
+                        <el-tag
+                                close-transition>{{auto_djStatus(scope.row.djStatus)}}
+                        </el-tag>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         v-if="multiSelect"
@@ -281,8 +282,8 @@
             </el-form-item>
             <el-form-item label="冻结状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="rkStatus" placeholder="请选择">
-                    <el-option :value="0.0">全部</el-option>
+                <el-select v-model="djStatus" placeholder="请选择">
+                    <el-option :value="-1">全部</el-option>
                     <el-option :value="0">冻结</el-option>
                     <el-option :value="1">解冻</el-option>
                     <el-option :value="2">作废</el-option>
@@ -291,85 +292,6 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
-        </div>
-    </el-dialog>
-    <el-dialog
-            size="large"
-            v-model="dialogFormVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">{{form.title}}</span>
-            <el-steps
-                    class="steps"
-                    :space="120"
-                    :active="dialogFormActive"
-                    finish-status="success">
-            </el-steps>
-        </div>
-        <el-form :model="form" ref="newForm">
-            <el-carousel
-                    ref="carousel"
-                    :autoplay="false"
-                    arrow="never"
-                    indicator-position="none"
-                    height="55vh">
-                <el-carousel-item>
-                    <el-row>
-                        <el-col :span="10">
-                            <el-form-item
-                                    label="创建时间"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.djCreateTime"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="解冻时间"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.djJdTime"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="冻结时间"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.djDjTime"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-
-                        </el-col>
-                        <el-col :span="10" :offset="2">
-                            <el-form-item
-                                    label="操作员"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.djCreateUserId"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-
-                            <el-form-item
-                                    label="冻结状态"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.djStatus"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="冻结原因"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.djReason"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                </el-carousel-item>
-            </el-carousel>
-        </el-form>
-
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="submit" :loading="submitLoading">保存
-            </el-button>
         </div>
     </el-dialog>
 </div>
@@ -532,7 +454,6 @@
     }
 </style>
 <script>
-
     function form() {
         return {
             djId: '',
@@ -688,7 +609,6 @@
                     remove(this.multipleSelectionCombination[i], this.warehousingReservationCombination);
                 }
             },                                   //多选 删除
-
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -761,18 +681,17 @@
                 this.dialogSelectVisible = !this.dialogSelectVisible;
                 post(this, {});
             },                                          //详细查询 提交
-
             auto_djCreateTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                          //创建时间
             auto_djJdTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                          //解冻时间
             auto_djDjTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                          //冻结时间
             auto_djStatus: function (value) {
                 if (!isNaN(value)) {
