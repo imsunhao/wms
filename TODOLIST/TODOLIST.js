@@ -2187,10 +2187,146 @@
  *     3.需跟进
  *  TODO 滞留补发信息
  *    任务号
- * TODO 库内管理
- * TODO 库位转移
- * TODO 库存转移确认
+ */
+
+ /** TODO 库内管理*/
+    /**
+     *TODO 库位转移
+     *
+    */
+        /**
+ * TODO 1 分页查询库位转移 /stockZyDoc/page
+         * {
+          "startTimeParam": "string",     开始时间
+          "endTimeParam": "string",       结束时间
+          "zyStatus": 0,                  转移状态
+          "zyMentionUserName": "string",  提起人
+          "zyCreateUserName": "string",   创建人
+          "pageNum": 0,
+          "pageSize": 0,
+          "draw": 0
+        }
+         *
+ */
+        /**
+        * TODO 2 新增   POST /stockZyDoc
+         * {
+            "zyMentionUserId": 1,                 提起人id
+            "zyMentionUserName": "string",        提起人名称
+            "zyReason": "string",                 转移原因
+            "zyStatus": "0",                      转移状态
+            "zyCreateUserId": 1,                  创建人id
+            "zyCreateUserName": "string",         创建人名称
+            "zyConfirmUserId": 1,                 确认人id
+            "zyConfirmUserName": "string",        确认人名称
+            "zyCancelUserId": 1,                  作废人id
+            "zyCancelUserName": "string",         作废人名称
+            "zyArehouseId": 1,                    仓库id
+            "zyDocsList": [            转移明细
+                {
+                    "zysRepertoryId": 176,        合并后的库存id
+                    "zysZyBeforeLocationId": 2,   转移前储位id
+                    "zysZyAfterLocationId": 1,    转移后储位id
+                    "zysZyBeforeKyCount": 190,    转移前的可用数量
+                    "zysZyCount": 90              转移数量
+                },
+                {
+                    "zysRepertoryId": 183,
+                    "zysZyBeforeLocationId": 3,
+                    "zysZyAfterLocationId": 1,
+                    "zysZyBeforeKyCount": 720,
+                    "zysZyCount": 100
+                }
+            ]
+        }
+        */
+            /**
+ * TODO 2-1 选择库存  POST /repertory/groupPage
+             *{
+              "bgGoodsNo": "",          货品编号
+              "bgGoodsName": "",        货品名称
+              "mrGoodsBatch": "",       货品批次
+              "blLname": "",            储位名称
+              "mrDjStatus": "",         冻结状态
+              "pageNum": 1,
+              "pageSize": 10,
+              "draw": 0
+            }
+ */
+        /**
+ *  TODO 3编辑    PUT /stockZyDoc
+         *  {
+            "zyId":9,                                 转移单id
+            "zyMentionUserId": 1,                     提起人id
+            "zyMentionUserName": "string",            提起人名称
+            "zyReason": "string",                     转移原因
+            "zyStatus": "0",                          转移状态
+            "zyCreateUserId": 1,                      创建人id
+            "zyCreateUserName": "string",             创建人名称
+            "zyCreateTime":"2017-04-20T11:56:42.597Z",创建时间
+            "zyConfirmUserId": 1,                     确认人id
+            "zyConfirmUserName": "string",            确认人名称
+            "zyCancelUserId": 1,                      作废人id
+            "zyCancelUserName": "string",             作废人名称
+            "zyArehouseId": 1,                        仓库id
+            "zyDocsList": [                           转移明细id
+                {
+                    "zysRepertoryId": 176,            合并后的库存id
+                    "zysZyBeforeLocationId": 2,       转移前库位id
+                    "zysZyAfterLocationId": 1,        转移后库位id
+                    "zysZyBeforeKyCount": 340,        转移前可用数量
+                    "zysZyCount": 150                 转移数量
+                },
+                {
+                    "zysRepertoryId": 183,
+                    "zysZyBeforeLocationId": 3,
+                    "zysZyAfterLocationId": 1,
+                    "zysZyBeforeKyCount": 720,
+                    "zysZyCount": 200
+                }
+            ]
+        }
+ */
+            /**
+ * TODO 3-1 选择库存  POST /repertory/groupPage
+             * {
+              "bgGoodsNo": "",          货品编号
+              "bgGoodsName": "",        货品名称
+              "mrGoodsBatch": "",       货品批次
+              "blLname": "",            储位名称
+              "mrDjStatus": "",         冻结状态
+              "pageNum": 1,
+              "pageSize": 10,
+              "draw": 0
+            }
+ */
+        /**
+        * TODO 4删除     POST /stockZyDoc/deleteOfSoft
+        */
+/**
+ * TODO 5 库存转移确认     GET /stockZyDoc/confirmZy/{zyId}
+ *
+ * /
+ /**
  * TODO 库存冻结/解冻
+ * /
+ /**
+ *TODO 新增
+ */
+/**
+ *TODO 新增
+ */
+/**
+ *TODO 新增
+ */
+/**
+ *TODO 新增
+ */
+
+
+
+
+ /**
  * TODO 入库日报
  * TODO 出库日报
  * TODO 动碰查询
