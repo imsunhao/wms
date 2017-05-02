@@ -65,15 +65,21 @@
                                         <span>{{props.row.sstj }}</span>
                                     </el-form-item>
                                     <el-form-item label="下单时间">
-                                        <span>{{auto_rkCreatetime(props.row.rkCreatetime)}}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{auto_rkCreatetime(props.row.rkCreatetime)}}</span>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="上架开始">
-                                        <span>{{ auto_rkrkSjsj(props.row.rkrkSjsj) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_rkrkSjsj(props.row.rkrkSjsj) }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架结束">
-                                        <span>{{ auto_rkEndTime(props.row.rkEndTime) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_rkEndTime(props.row.rkEndTime) }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架人员">
                                         <span>{{ props.row.mdtUserId }}</span>
@@ -136,7 +142,9 @@
                         align="center"
                         prop="rkZdfs">
                     <template scope="scope">
-                        {{auto_rkZdfs(scope.row.rkZdfs,true)}}
+                        <el-tag
+                                close-transition> {{auto_rkZdfs(scope.row.rkZdfs,true)}}
+                        </el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -145,7 +153,9 @@
                         align="center"
                         width="100">
                     <template scope="scope">
-                        {{auto_rkStatus(scope.row.rkStatus)}}
+                        <el-tag
+                                close-transition> {{auto_rkStatus(scope.row.rkStatus)}}
+                        </el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -829,20 +839,20 @@
                 }
             },
             auto_mdtSjsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                               //作业时间
             auto_rkrkSjsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                              //上架开始时间
             auto_rkEndTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                             //上架结束时间
             auto_rkCreatetime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                          //下单时间
             auto_rkStatus:function(value){
                 var temp={}
