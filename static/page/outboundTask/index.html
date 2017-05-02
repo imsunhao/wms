@@ -226,7 +226,7 @@
             </el-form-item>
             <el-form-item label="任务状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="ckrwStatus" placeholder="请选择">
+                <el-select v-model="select.ckrwStatus" placeholder="请选择">
                     <el-option :value="10">初始</el-option>
                     <el-option :value="11">下发</el-option>
                     <el-option :value="21">已挑选</el-option>
@@ -239,14 +239,14 @@
             </el-form-item>
             <el-form-item label="欠货状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="ckrwQhStatus" placeholder="请选择">
+                <el-select v-model="select.ckrwQhStatus" placeholder="请选择">
                 <el-option :value="1">欠货</el-option>
                 <el-option :value="2">未欠货</el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="滞留状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="ckrwZlStatus" placeholder="请选择">
+                <el-select v-model="select.ckrwZlStatus" placeholder="请选择">
                 <el-option :value="1">滞留</el-option>
                 <el-option :value="2">未滞留</el-option>
                 </el-select>
@@ -554,7 +554,7 @@
             rkrwDh: '',
             rkrwStatus: ''
         }
-    };
+    }
     var outboundTask = new Vue({
         el: '#outboundTask',
         prop: {},
@@ -658,7 +658,7 @@
                         message: '已取消下发'
                     });
                 });
-            },                                //TODO 行内按钮  取消任务
+            },                                  //TODO 行内按钮  取消任务
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -740,11 +740,11 @@
             auto_ckrwYjdcsj: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },                                  //预计到车时间
+            },                            //预计到车时间
             auto_ckrwSjdcsj: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },                                 //实际到车时间
+            },                            //实际到车时间
 
             auto_ckrwStatus:function(value){
                 var temp={};
@@ -772,7 +772,7 @@
                     }
                 }
                 return temp[value];
-            },                                      //任务状态
+            },                                     //任务状态
             auto_ckrwQhStatus:function(value){
                 var temp={};
                 if(!isNaN(value)){
@@ -788,7 +788,7 @@
                     }
                 }
                 return temp[value];
-            },                                      //欠货状态
+            },                                   //欠货状态
             auto_ckrwZlStatus:function(value){
                 var temp={};
                 if(!isNaN(value)){
@@ -804,7 +804,7 @@
                     }
                 }
                 return temp[value];
-            },                                      //滞留状态
+            },                                   //滞留状态
         },
         watch: {}
     });
@@ -891,7 +891,6 @@
             }
         }
     }
-</script>
 </script>
 
 
