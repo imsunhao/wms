@@ -2048,6 +2048,157 @@
             /**
              * TODO 5 入库过程 通过入库单据id获取一条入库单据 GET /mfunrkDoc/{rkdoc_id}
              */
+            /**
+             * 6 入库过程 通过入库单据id获取  历史记录 GET /history/{id}/{type}
+             *
+             *
+             *
+             *    参数：
+             *
+             *       {
+             *          id:1,
+             *          type:1
+             *       }
+             *
+             *    参数说明：
+             *
+             *       id  主键id
+             *
+             *       type
+             *           1. 入库标识
+             *           2. 出库标识
+             *
+             *     结果：
+             *
+             *
+             *
+             *     [
+                     {
+                       "mhDjhistoryId": 122,
+                       "mhStatus": 1,
+                       "mhCreatetime": 1492521873000,
+                       "mhUserId": 1,
+                       "mhRkdjId": 0,
+                       "mhCkdjId": 31,
+                       "rmsUser": {
+                         "ruUserId": 1,
+                         "ruUserName": "超级管理员",
+                         "ruLoginName": "admin",
+                         "ruLoginPassword": "d135f41faa533e92dcff73f9179670bc",
+                         "ruPhone": "15098879708",
+                         "ruTelephone": "1234567",
+                         "ruEmail": "infchd@hotmail.com",
+                         "ruSex": true,
+                         "ruBirthday": 1488873925000,
+                         "ruHomeaddress": "",
+                         "ruQicq": "",
+                         "ruCreateTime": 1474165944000,
+                         "ruLastModifiedTime": 1474301742000,
+                         "ruStatus": 1,
+                         "ruSalt": "HKJID",
+                         "ruUserType": 0,
+                         "ruUserZyq": "1,2",
+                         "ruRemarks": "",
+                         "ruIspda": true,
+                         "ruPortrait": "static/images/users/00.jpg"
+                       }
+                     },
+                     {
+                       "mhDjhistoryId": 121,
+                       "mhStatus": 1,
+                       "mhCreatetime": 1492521834000,
+                       "mhUserId": 1,
+                       "mhRkdjId": 0,
+                       "mhCkdjId": 30,
+                       "rmsUser": {
+                         "ruUserId": 1,
+                         "ruUserName": "超级管理员",
+                         "ruLoginName": "admin",
+                         "ruLoginPassword": "d135f41faa533e92dcff73f9179670bc",
+                         "ruPhone": "15098879708",
+                         "ruTelephone": "1234567",
+                         "ruEmail": "infchd@hotmail.com",
+                         "ruSex": true,
+                         "ruBirthday": 1488873925000,
+                         "ruHomeaddress": "",
+                         "ruQicq": "",
+                         "ruCreateTime": 1474165944000,
+                         "ruLastModifiedTime": 1474301742000,
+                         "ruStatus": 1,
+                         "ruSalt": "HKJID",
+                         "ruUserType": 0,
+                         "ruUserZyq": "1,2",
+                         "ruRemarks": "",
+                         "ruIspda": true,
+                         "ruPortrait": "static/images/users/00.jpg"
+                       }
+                     },
+                     {
+                       "mhDjhistoryId": 120,
+                       "mhStatus": 7,
+                       "mhCreatetime": 1491019196000,
+                       "mhUserId": 1,
+                       "mhRkdjId": 8,
+                       "mhCkdjId": 0,
+                       "rmsUser": {
+                         "ruUserId": 1,
+                         "ruUserName": "超级管理员",
+                         "ruLoginName": "admin",
+                         "ruLoginPassword": "d135f41faa533e92dcff73f9179670bc",
+                         "ruPhone": "15098879708",
+                         "ruTelephone": "1234567",
+                         "ruEmail": "infchd@hotmail.com",
+                         "ruSex": true,
+                         "ruBirthday": 1488873925000,
+                         "ruHomeaddress": "",
+                         "ruQicq": "",
+                         "ruCreateTime": 1474165944000,
+                         "ruLastModifiedTime": 1474301742000,
+                         "ruStatus": 1,
+                         "ruSalt": "HKJID",
+                         "ruUserType": 0,
+                         "ruUserZyq": "1,2",
+                         "ruRemarks": "",
+                         "ruIspda": true,
+                         "ruPortrait": "static/images/users/00.jpg"
+                       }
+                     },
+                     {
+                       "mhDjhistoryId": 119,
+                       "mhStatus": 7,
+                       "mhCreatetime": 1491019176000,
+                       "mhUserId": 1,
+                       "mhRkdjId": 8,
+                       "mhCkdjId": 0,
+                       "rmsUser": {
+                         "ruUserId": 1,
+                         "ruUserName": "超级管理员",
+                         "ruLoginName": "admin",
+                         "ruLoginPassword": "d135f41faa533e92dcff73f9179670bc",
+                         "ruPhone": "15098879708",
+                         "ruTelephone": "1234567",
+                         "ruEmail": "infchd@hotmail.com",
+                         "ruSex": true,
+                         "ruBirthday": 1488873925000,
+                         "ruHomeaddress": "",
+                         "ruQicq": "",
+                         "ruCreateTime": 1474165944000,
+                         "ruLastModifiedTime": 1474301742000,
+                         "ruStatus": 1,
+                         "ruSalt": "HKJID",
+                         "ruUserType": 0,
+                         "ruUserZyq": "1,2",
+                         "ruRemarks": "",
+                         "ruIspda": true,
+                         "ruPortrait": "static/images/users/00.jpg"
+                       }
+                     }
+                     ]
+             */
+
+
+
+
     /**
      *      TODO 入库台账       inputLedger
          */
@@ -2507,6 +2658,49 @@
          *
          */
 /**
+ *  TODO 盘点作业
+ * */
+    /**
+     * TODO 动碰盘点
+     */
+        /**
+         *  盘点主表mfunpd_doc
+                pdId            盘点计划主键id
+                pdType          盘点计划类型 0 异动盘点 1 货品盘点 2 全仓盘点
+                pdYdBeginTime   异动开始时间
+                pdYdEndTime     异动结束时间
+                pdZyBeginTime   盘点作业开始时间
+                pdZyEndTime     盘点作业结束时间
+                pdCreateTime    盘点计划创建时间
+                pdCreateUserId  盘点计划创建人员ID
+                pdQrsj          盘点计划确认时间
+                pdQrUserId      盘点计划确认人员ID
+                pdZfsj          盘点计划作废时间
+                pdZfUserId      盘点计划作废人员
+                pdStatus        盘点状态0 初始 1 盘点确认  2 作废
+                pdChargePerson  负责人
+                pdOperator      经办人(多人)盘点操作人
+                pdArehouseId    仓库ID
+                pdDiffStatus    盘点差异 0 无差异  1 有差异
+         盘点明细表mfunpd_docs
+                pdsId               盘点计划明细主键
+                pdsPdId             盘点计划主键ID
+                pdsGoodsId          货品ID
+                pdsLocationId       库位ID
+                pdsRepertoryCount   库存数量
+                pdsPdCount          盘点数量
+                pdsDiffStatus       差异状态 0 无差异 1 有差异
+                pdsStatus           盘点状态0 未盘点   1 已盘点
+                pdsUserId           盘点人员id
+                pdsPdTime           盘点时间
+        */
+    /**
+            * TODO 循环盘点
+        */
+    /**
+            * TODO 全面盘点
+        */
+    /**
  * TODO 入库日报
     *TODO 出库日报
 
@@ -2559,6 +2753,66 @@
  * TODO 出库单据查询
  */
         /**
+ * TODO 业务查询
+ */
+    /**
+         * TODO 入库日报
+         */
+        /**
+         * TODO 出库日报
+         */
+        /**
+         * TODO 库存查询
+         */
+        /**
+         * TODO 库存查询
+         */
+    /**
+        * TODO 入库单据查询
+        */
+            /**
+                TODO 分页查询
+                 "rkArehouseId":"仓库",
+                 "rkCreatetime":"下单时间",
+                 "rkrkSjsj":"上架开始时间",
+                 "rkEndTime":"上架结束时间",
+                 "rkStatus":"入库状态",
+                 "rkRkdjNo":"入库单号",
+                 "rkZdfs":"制作方式",
+                 "rkStartwith":"操作方式",
+                 "allSL":"总数量",
+                 "allTJ":"总体积",
+                 "sssl":"实收数量",
+                 "sstj":"实收体积",
+                 "mdtUserId":"上架人员"
+             */
+            /**
+             * TODO 查看入库明细信息
+             货品编号       rksGoodsId(关联货品表)
+             货品名称       rksGoodsId(关联货品表)
+             货品批次       mdtBatch
+             货品数量       rksCount
+             货品体积       bgGoodsTj
+             实收数量       sum(mdt_count)(暂用sssl)
+             实收体积       (暂用sstj)
+             入库明细状态   rksStatus
+             上架人员       mdtUserId(多个上架人员,在一列显示逗号隔开)
+             */
+            /**
+             * TODO 查看入库储位信息
+             货品编号    rksGoodsId(关联货品表)
+             货品名称    rksGoodsId(关联货品表)
+             货品批次    mdtBatch
+             上架库位    mdtLocationId
+             上架数量    mdtCount
+             实收体积    (暂用shtj)
+             上架人员    mdtUserId(多个上架人员,在一列显示逗号隔开)
+             上架时间    mdtSjsj
+             */
+    /**
+                 * TODO 出库单据查询
+             */
+            /**
          *  TODO 分页查询
          *  搜索条件的字段
                 仓库             ckArehouseId
@@ -2648,7 +2902,7 @@
      * TODO 货品流向查询 goodsFlowSelect
      */
         /**
-         *  分页查询
+         *  TODO 分页查询
          *  搜索条件
          *  {
                     仓库              ckArehouseId
@@ -2680,9 +2934,9 @@
      * TODO 库位转移查询
      *
      */
-    /**
-     * 分页查询
-     * 搜索条件
+        /**
+         * TODO 分页查询
+         * 搜索条件
      *  {
             创建时间    zyCreateTime
             确认时间    zyConfirmTime
@@ -2718,10 +2972,10 @@
 
      */
     /**
- * 库位冻结查询
- */
-       /**
-        * 分页查询
+        * TODO 库位冻结查询
+    */
+        /**
+        * TODO 分页查询
         * 搜索条件
         * {
                创建时间     djCreateTime
@@ -2755,48 +3009,43 @@
 
         */
     /**
-     * TODO 盘点查询
-      */
-/**
- * TODO 盘点查询
- * 搜索条件
- * {
-        创建时间    pdCreateTime
-        创建人      pdCreateUserId
-        经办人      pdOperator
-        盘点状态    pdStatus 0 初始 1 盘点确认 2 作废
-        差异状态    pdDiffStatus 0 无差异 1 有差异
-        仓库        pdArehouseId
-        盘点类型    pdType 盘点计划类型 0 异动盘点 1 货品盘点 2 全仓盘点
-    }
+         * TODO 盘点查询
+         */
+        /**
+             * TODO  分页查询
+                * 搜索条件
+                * {
+                       创建时间    pdCreateTime
+                       创建人      pdCreateUserId
+                       经办人      pdOperator
+                       盘点状态    pdStatus 0 初始 1 盘点确认 2 作废
+                       差异状态    pdDiffStatus 0 无差异 1 有差异
+                       仓库        pdArehouseId
+                       盘点类型    pdType 盘点计划类型 0 异动盘点 1 货品盘点 2 全仓盘点
+                   }
 
- 一级页面(盘点计划主表)显示列
-     {
-            仓库              pdArehouseId
-            创建时间          pdCreateTime
-            盘点类型          pdType
-            异动开始时间      pdYdBeginTime
-            异动结束时间      pdYdEndTime
-            盘点状态          pdStatus
-            负责人            pdChargePerson
-            经办人            pdOperator
-            差异状态          pdDiffStatus
-     }
-     二级页面(盘点计划明细表)显示列
-     {
-            库位名称    pdsRepertoryId(关联)
-            货品编号    pdsGoodsId
-            货品名称    pdsGoodsId
-            计划数量    pdsRepertoryCount
-            盘点数量    pdsPdCount
-     }
+                    一级页面(盘点计划主表)显示列
+                        {
+                               仓库              pdArehouseId
+                               创建时间          pdCreateTime
+                               盘点类型          pdType
+                               异动开始时间      pdYdBeginTime
+                               异动结束时间      pdYdEndTime
+                               盘点状态          pdStatus
+                               负责人            pdChargePerson
+                               经办人            pdOperator
+                               差异状态          pdDiffStatus
+                        }
+                        二级页面(盘点计划明细表)显示列
+                        {
+                               库位名称    pdsRepertoryId(关联)
+                               货品编号    pdsGoodsId
+                               货品名称    pdsGoodsId
+                               计划数量    pdsRepertoryCount
+                               盘点数量    pdsPdCount
+                        }
 
 
 
 
  */
-
-
-
-
-//在这里修改了

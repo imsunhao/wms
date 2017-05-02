@@ -191,8 +191,8 @@
             </el-form-item>
             <el-form-item label="盘点状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="pdStatus" placeholder="请选择">
-                    <el-option :value="0.1">全部</el-option>
+                <el-select v-model="select.pdStatus" placeholder="请选择">
+                    <el-option :value="-1">全部</el-option>
                     <el-option :value="0">初始</el-option>
                     <el-option :value="1">盘点确认</el-option>
                     <el-option :value="2">作废</el-option>
@@ -200,16 +200,16 @@
             </el-form-item>
             <el-form-item label="差异状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="pdDiffStatus" placeholder="请选择">
-                    <el-option :value="0.1">全部</el-option>
+                <el-select v-model="select.pdDiffStatus" placeholder="请选择">
+                    <el-option :value="-1">全部</el-option>
                     <el-option :value="1">无差异</el-option>
                     <el-option :value="2">有差异</el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="仓库"
                           :label-width="formLabelWidth">
-                <el-select v-model="pdArehouseId" placeholder="请选择">
-                    <el-option :value="全部"></el-option>
+                <el-select v-model="select.pdArehouseId" placeholder="请选择">
+                    <el-option :value="-1">全部</el-option>
                     <el-option :value="1">角色所包含的所有仓库</el-option>
                 </el-select>
             </el-form-item>
@@ -217,27 +217,6 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
-        </div>
-    </el-dialog>
-    <el-dialog
-            size="large"
-            class="printf"
-            class="printf"
-            v-model="dialogPrintfVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">打印标签页</span>
-        </div>
-        <el-tree
-                :data="printf"
-                :props="{label: 'name',children: 'children'}"
-                :load="printfLoadNode"
-                lazy
-                show-checkbox
-                ref="printf"
-                @check-change="printfCheckChange">
-        </el-tree>
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="printfSubmit" :loading="printfLoading">打印</el-button>
         </div>
     </el-dialog>
     <el-dialog
@@ -514,17 +493,14 @@
                 submitLoading: false,               //新建 弹出层 提交等待
 
 
-                inventory: formInventory(),              //查看盘点详情信息 弹出层 信息集合(表单格式)息 弹出层 信息集合
-                dialogInventoryVisible: false,            //查看盘点详情信息 弹出层 是否可见
+                inventory: [],                      //查看盘点详情信息 弹出层 信息集合(表单格式)息 弹出层 信息集合
+                dialogInventoryVisible: false,      //查看盘点详情信息 弹出层 是否可见
 
-                select: form(),                         //搜索 弹出层 信息集合,
-                printf: [],                         //搜索 弹出层 信息集合,
+                select: form(),                     //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 dialogPrintfVisible: false,
                 selectLoading: false,
                 printfLoading: false,
-
-                printDatas: [],          // 打印数据
             }
         },
         computed: {
@@ -560,11 +536,6 @@
             },                                      //分配 表单
         },
         methods: {
-            inlineModify: function (index, row) {
-                this.multipleSelection = [row];
-                printfCompile(this);
-                this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                //行内按钮 打印标签页
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -636,7 +607,7 @@
 
             inventoryDetails: function () {
                 this.dialogInventoryVisible = true;
-            },
+            },                                      //行内按钮 盘点详情
 
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
@@ -644,55 +615,19 @@
             },                                          //详细查询 提交
             inventorySubmit: function () {
             },
-            printfSubmit: function () {
-                var datas=[];
-                var checkData=inventorySelect.$refs.printf.getCheckedNodes();
-                for(var i in checkData){
-                    if(typeof checkData[i].val2!=='undefined'){
-                        datas.push(checkData[i]);
-                    }
-                }
-                this.printDatas=datas;
-                this.dialogPelectVisible = !this.dialogPrintfVisible;
-                wap.print(this);
-            },                                          //打印 提交
-            printfCheckChange: function () {
 
-            },                                     //打印 选中维护
-            printfLoadNode: function (node, resolve) {
-                console.log(node.data);
-                switch (node.level) {
-                    case 0:
-                        return resolve(this.printf);
-                    case 1:
-                        postRkrwNo(this, {
-                            rkrwNo:node.data.rkrwNo,
-                            rkrwDhrq:node.data.rkrwDhrq
-                        }, resolve);
-                        break;
-                    case 2:
-                        console.log(node.data.name);
-                        postRkdjId(this, {
-                            rkrwNo:node.data.rkrwNo,
-                            rkrwDhrq:node.data.rkrwDhrq
-                        }, resolve);
-                        break;
-                    case 3:
-                        return resolve([]);
-                }
-            },
             auto_pdCreateTime: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },                                  //创建时间
+            },                          //创建时间
             auto_pdYdBeginTime: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },                                  //异动开始时间
+            },                         //异动开始时间
             auto_pdYdEndTime: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },                                  //异动结束时间
+            },                           //异动结束时间
             auto_pdType:function(value){
                 var temp={}
                 if(!isNaN(value)){
@@ -728,7 +663,7 @@
                     }
                 }
                 return temp[value];
-            },                                         //盘点状态
+            },                                       //盘点状态
             auto_pdDiffStatus:function(value){
                 var temp={}
                 if(!isNaN(value)){
@@ -743,11 +678,7 @@
                     }
                 }
                 return temp[value];
-            },                                         //差异状态
-
-
-
-
+            },                                   //差异状态
         }
     });
 
@@ -783,7 +714,6 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                console.log(json);
                 obj.$data.inventorySelect = json.data;
                 obj.$data.currentTotal = json.recordsFiltered;
             },
@@ -791,7 +721,7 @@
                 obj.showLoading = false;
             }
         });
-    }                        //TODO 获取入库日报主页面
+    }                         //TODO 获取入库日报主页面
     function postRkrwNo(obj, option, resolve) {
         /*<debug>*/
         url = "/hock/inventorySelect/rkrwNo.json";
