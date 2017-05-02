@@ -1118,15 +1118,18 @@
                         if (typeof _this.form[index] !== 'undefined') form[index] = _this.form[index];
                     });
 
-                    var form_rkDocsList = post_form_rkDocsList();
-                    for (var i = 0; i < _this.form.rkDocsList.length; i++) {
-                        allPrposCb(form_rkDocsList, function (obj, index) {
+                    var form_rkDocsList = {};
+                    for (var i = 0; i < form.rkDocsList.length; i++) {
+                        form_rkDocsList = post_form_rkDocsList();
+                        allPrposCb(form_rkDocsList, function ( val,index) {
                             if (typeof _this.form.rkDocsList[0][index] !== 'undefined') form_rkDocsList[index] = _this.form.rkDocsList[0][index];
                         });
                         form.rkDocsList.push(form_rkDocsList);
                     }
 
-                    console.log(form);
+//
+//                    console.log(JSON.stringify( form));
+//                    console.log(JSON.stringify( _this.form.rkDocsList));
 
 
                     postNewInput(this, form);
@@ -1327,7 +1330,6 @@
             }
         }
     });
-
 
     // 高级 监视器的 使用方法
     warehousingReservation.$watch('date', function () {
