@@ -208,7 +208,7 @@
                                     <span>{{ props.row.ruLoginName        }}</span>
                                 </el-form-item>
                                 <el-form-item label="类型">
-                                    <span>{{ props.row.ruUserType        }}</span>
+                                    <span>{{ auto_ruUserType(props.row.ruUserType)        }}</span>
                                 </el-form-item>
                             </el-form>
                         </el-col>
@@ -251,7 +251,10 @@
                     label="类型"
                     align="center">
                 <template scope="scope">
-                    <span>{{ scope.row.ruUserType == 0 ? '普通' : '高位叉车'}}</span>
+                    <el-tag
+                            close-transition>{{auto_ruUserType(scope.row.ruUserType)}}
+                    </el-tag>
+                    <!--<span>{{ scope.row.ruUserType == 0 ? '普通' : '高位叉车'}}</span>-->
 
                 </template>
             </el-table-column>
@@ -485,7 +488,6 @@
             multiOperationEdit: function () {
                 this.inlineEdit(1, this.multipleSelection[0]);
             },                                    //多选 编辑
-
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -500,7 +502,6 @@
                 this.currentPage = val;
                 post(this, this.option);
             },                                //分页 当前页
-
             newInput: function () {
                 this.form = form();
                 this.dialogFormVisible = true;
@@ -516,8 +517,7 @@
                 Vue.nextTick(function () {
                     RFManage.$refs.carousel.setActiveItem(0);
                 });
-            },                                       //按钮 仓库管理 TODO
-
+            },                                       //TODO 按钮 仓库管理
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -555,7 +555,6 @@
                 }, 1500);
                 /*</debug>*/
             },                                                //新建 表单提交
-
             submitRole: function () {
                 var _this = this;
                 this.loadingWarehouse = true;
@@ -576,7 +575,23 @@
                 }, 1500);
                 /*</debug>*/
             },                                            //新建 表单提交
-
+            auto_ruUserType:function(value){
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        0:'普通',
+                        1:'堆高车',
+                        2:'高位叉车',
+                    }
+                }else{
+                    temp={
+                        '普通':0,
+                        '堆高车':1,
+                        '高位叉车':2
+                    }
+                }
+                return temp[value];
+            },                                      //类型
         },
         watch: {
             ruLoginName: function () {

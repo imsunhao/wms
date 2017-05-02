@@ -7,12 +7,6 @@
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
-                <!--<button @click="multiSelectClick" class="btn btn-multiSelect"><i-->
-                        <!--class="icon sel"></i><span>多选</span>-->
-                <!--</button>-->
-                <!--<button @click="moreOperationModify" class="btn btn-modify" v-show="multiSelect"><i-->
-                        <!--class="icon modify"></i><span>导出</span>-->
-                <!--</button>-->
             </div>
             <el-table
                     :data="inventorySelect"
@@ -35,23 +29,27 @@
                                         <span>{{ props.row.pdArehouseId }}</span>
                                     </el-form-item>
                                     <el-form-item label="创建时间">
-                                        <span>{{ auto_pdCreateTime(props.row.pdCreateTime) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_pdCreateTime(props.row.pdCreateTime) }}</span>
                                     </el-form-item>
                                     <el-form-item label="盘点类型">
-                                        <!--<span>{{ auto_pdType(props.row.pdType) }}</span>-->
-                                        <span>{{props.row.pdType }}</span>
+                                        <span>{{ auto_pdType(props.row.pdType) }}</span>
                                     </el-form-item>
                                     <el-form-item label="异动开始">
-                                        <span>{{ auto_pdYdBeginTime(props.row.pdYdBeginTime) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_pdYdBeginTime(props.row.pdYdBeginTime) }}</span>
                                     </el-form-item>
                                     <el-form-item label="异动结束">
-                                        <span>{{ auto_pdYdEndTime(props.row.pdYdEndTime) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_pdYdEndTime(props.row.pdYdEndTime) }}</span>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="盘点状态">
-                                        <!--<span>{{ auto_pdStatus(props.row.pdStatus) }}</span>-->
-                                        <span>{{ props.row.pdStatus }}</span>
+                                        <span>{{ auto_pdStatus(props.row.pdStatus) }}</span>
                                     </el-form-item>
                                     <el-form-item label="负责人">
                                         <span>{{ props.row.pdChargePerson }}</span>
@@ -61,8 +59,7 @@
                                         <span>{{ props.row.pdOperator }}</span>
                                     </el-form-item>
                                     <el-form-item label="差异状态">
-                                        <!--<span>{{ auto_pdDiffStatus(props.row.pdDiffStatus) }}</span>-->
-                                        <span>{{ props.row.pdDiffStatus }}</span>
+                                        <span>{{ auto_pdDiffStatus(props.row.pdDiffStatus) }}</span>
 
                                     </el-form-item>
                                     <el-form-item
@@ -105,8 +102,9 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        <!--{{auto_pdType(scope.row.pdType)}}-->
-                        {{scope.row.pdType}}
+                        <el-tag
+                                close-transition> {{auto_pdType(scope.row.pdType)}}
+                        </el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -131,8 +129,10 @@
                         align="center"
                         width="100">
                     <template scope="scope">
-                        <!--{{auto_pdStatus(scope.row.pdStatus)}}-->
-                        {{scope.row.pdStatus}}
+                        <el-tag
+                                close-transition>  {{auto_pdStatus(scope.row.pdStatus)}}
+                        </el-tag>
+
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -165,7 +165,7 @@
             <el-form-item label="创建时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.pdCreateTime"
+                        v-model="form.pdCreateTime"
                         type="daterange"
                         align="right"
                         placeholder="创建时间"
@@ -176,7 +176,7 @@
             <el-form-item label="创建人"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.pdCreateUserId"
+                        v-model="form.pdCreateUserId"
                         class="input"
                         icon="search"
                         placeholder="创建人"></el-input>
@@ -185,13 +185,13 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.pdOperator"
+                        v-model="form.pdOperator"
                         icon="search"
                         placeholder="经办人"></el-input>
             </el-form-item>
             <el-form-item label="盘点状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="select.pdStatus" placeholder="请选择">
+                <el-select v-model="form.pdStatus" placeholder="请选择">
                     <el-option :value="-1">全部</el-option>
                     <el-option :value="0">初始</el-option>
                     <el-option :value="1">盘点确认</el-option>
@@ -443,7 +443,6 @@
             pdsPdCount:''
         }
     }
-
     var inventorySelect = new Vue({
         el: '#inventorySelect',
         prop: {},
@@ -604,29 +603,26 @@
                     post(inventorySelect);
                 }, 1500);
             },                                                //新建 表单提交
-
             inventoryDetails: function () {
                 this.dialogInventoryVisible = true;
             },                                      //行内按钮 盘点详情
-
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
                 post(this, {});
             },                                          //详细查询 提交
             inventorySubmit: function () {
             },
-
             auto_pdCreateTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                          //创建时间
             auto_pdYdBeginTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                         //异动开始时间
             auto_pdYdEndTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                           //异动结束时间
             auto_pdType:function(value){
                 var temp={}
@@ -635,14 +631,12 @@
                         0:'异动盘点',
                         1:'货品盘点',
                         2:'全仓盘点',
-
                     }
                 }else{
                     temp={
                         '异动盘点':0,
                         '货品盘点':1,
                         '全仓盘点':2,
-
                     }
                 }
                 return temp[value];
@@ -681,7 +675,6 @@
             },                                   //差异状态
         }
     });
-
     // 高级 监视器的 使用方法
     //    inventorySelect.$watch('date', function () {
     //        if (!this.option.dateStart)return;
@@ -690,7 +683,6 @@
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
-
     post(inventorySelect);
     function post(obj, option) {
         obj.showLoading = true;
