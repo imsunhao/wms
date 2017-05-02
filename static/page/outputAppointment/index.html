@@ -93,7 +93,6 @@
         cursor: pointer;
         padding: 0;
         margin: 0;
-        float: left;
         font-size: 14px;
         color: #1f2d3d;
         margin-top: 29px;
@@ -206,10 +205,11 @@
                                         class="datePicker"
                                         :picker-options="pickerOptions">
                                 </el-date-picker>
-                                <el-select v-model="baCtype" placeholder="请选择">
-                                    <el-option :value="0">正常单据</el-option>
-                                    <el-option :value="1">挂起单据</el-option>
-                                    <el-option :value="2">滞留单据</el-option>
+                                <el-select v-model.number="ckCkdjType" placeholder="请选择">
+                                    <el-option :value.number="-1" label="全部"></el-option>
+                                    <el-option :value.number="0" label="正常单据"></el-option>
+                                    <el-option :value.number="1" label="挂起单据"></el-option>
+                                    <el-option :value.number="2" label="滞留单据"></el-option>
                                 </el-select>
                                 <button @click="newInput" class="btn btn-add"><i class="icon add"></i><span>添加</span>
                                 </button>
@@ -218,12 +218,6 @@
                                 </button>
                                 <button @click="moreOperationDelete" class="btn btn-del" v-show="multiSelect"><i
                                         class="icon del"></i><span>批量删除</span>
-                                </button>
-                                <button @click="moreOperationTovoid" class="btn btn-del" v-show="multiSelect"><i
-                                        class="icon del1"></i><span>作废</span>
-                                </button>
-                                <button @click="moreOperationRetentionInput" class="btn btn-del" v-show="multiSelect"><i
-                                        class="icon del1"></i><span>滞留入库</span>
                                 </button>
 
                                 <!--<button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i-->
@@ -315,13 +309,19 @@
                                                         <el-button
                                                                 size="small"
                                                                 icon="edit"
-                                                                @click="Edit(props.$index, props.row)">编辑
+                                                                @click="inlineEdit(props.$index, props.row)">
+                                                        </el-button>
+                                                        <el-button
+                                                                size="small"
+                                                                type="warning"
+                                                                @click="inlineRetentionInput(props.$index, props.row)">
+                                                            滞留
                                                         </el-button>
                                                         <el-button
                                                                 size="small"
                                                                 icon="delete"
                                                                 type="danger"
-                                                                @click="deleteOlder(props.$index, props.row)">删除
+                                                                @click="inlineDeleteOlder(props.$index, props.row)">作废
                                                         </el-button>
                                                     </el-form-item>
                                                 </el-form>
@@ -375,22 +375,21 @@
                                     class="outputAppointmentTable"
                                     style="width: 100%">
                                 <el-table-column
-                                        label="所属仓库"
-                                        align="center"
-                                        prop="ckArehouseId">
-                                    <template scope="scope">
-                                        <el-tag
-                                                type="success"
-                                                close-transition>
-                                            {{auto_ckArehouseId(scope.row.ckArehouseId)}}
-                                        </el-tag>
-                                    </template>
+                                        type="index"
+                                        width="55">
                                 </el-table-column>
                                 <el-table-column
                                         label="出库单号"
                                         show-overflow-tooltip
                                         align="center"
                                         prop="ckCkdjNo">
+                                </el-table-column>
+                                <el-table-column
+                                        label="单据类型"
+                                        align="center">
+                                    <template scope="scope">
+                                        {{auto_ckCkdjType(scope.row.ckCkdjType)}}
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                         width="80"
@@ -674,9 +673,7 @@
     })();
     /*</debug>*/
     function CombinationDetails() {
-        return {
-
-        }
+        return {}
     }
     function selectGood() {
         return {
@@ -799,7 +796,8 @@
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
                     "dateStart": this.date[0],
-                    "dateStop": this.date[1]
+                    "dateStop": this.date[1],
+                    "ckCkdjType":this.ckCkdjType
                 }
             }
         },
@@ -1169,6 +1167,12 @@
                 }
             },
             ckCkdjNo: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                post(this, this.option);
+            },
+            ckCkdjType:function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
