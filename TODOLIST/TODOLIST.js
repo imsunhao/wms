@@ -2732,44 +2732,38 @@
          *
          */
         /**
-         * TODO 1 对于仓库的区域 结构的修改
+         * TODO 1 对于仓库的区域的修改
          */
         /**
-         * TODO 3 将指定区域（单 多） 冻结区域
+         * TODO 2 对于仓库的区域的查看
          */
         /**
-         * TODO 4 将指定区域（单 多） 启用区域
+         * TODO 3 禁止
          */
         /**
-         * TODO 5 将指定区域（单 多） 设为存储区
+         * TODO 4 启用
          */
         /**
-         * TODO 6 将指定区域（单 多） 设为暂存区
+         * TODO 5 设为存储区
          */
         /**
-         * TODO 7 将指定区域（单 多） 设为未设定区
+         * TODO 6 设为暂存区
          */
         /**
-         * TODO 8 将指定区域（单 多） 设为分拣区
+         * TODO 7 设为未设定区
          */
         /**
-         * TODO 9 将指定区域（单 多） 设为不合格去区
+         * TODO 8 设为分拣区
          */
-        /** TODO 10 查看 指定区域（单 多） 区域中 储位信息
+        /**
+         * TODO 9 设为不合格去区
+         */
+        /** TODO 10 查看区域中库存明细
          *
          */
-        /** TODO 11 查看 指定储位 中 详细信息
-         *
-         */
-        /**
-         * TODO 12 将指定储位（单 多） 冻结储位
-         */
-        /**
-         * TODO 13 将指定储位（单 多） 启用储位
-         */
-    /**
-     * TODO 货品管理   goodsManage
-     **/
+/**
+ *       货品管理   goodsManage
+             **/
         /**
           0 分页查询货品详情 POST /goods
          参数
@@ -4400,7 +4394,7 @@
              *  参数：
              *
              *     user:    //用户名
-             *     userId:  //用户id
+             *     userId:    //用户id
              *
              *
              *
@@ -4420,7 +4414,7 @@
              */
 
         /**
-             TODO 出库预约 outputAppointment
+             TODO 出库预约
 
              **/
             /**
@@ -4540,6 +4534,7 @@
              *
              *
              * */
+
             /**
              * TODO 3 出库预约 新增 出库任务单
              *
@@ -4976,68 +4971,16 @@
     /**
             * TODO 全面盘点
         */
-    /**
- * TODO 入库日报
-    *TODO 出库日报
-
- * TODO 动碰查询
- * TODO 库存查询
- */
-    /**
-    * TODO 入库单据查询
-    */
-        /**
-     *  TODO 分页查询
-         "rkArehouseId":"仓库",
-         "rkCreatetime":"下单时间",
-         "rkrkSjsj":"上架开始时间",
-         "rkEndTime":"上架结束时间",
-         "rkStatus":"入库状态",
-         "rkRkdjNo":"入库单号",
-         "rkZdfs":"制作方式",
-         "rkStartwith":"操作方式",
-         "allSL":"总数量",
-         "allTJ":"总体积",
-         "sssl":"实收数量",
-         "sstj":"实收体积",
-         "mdtUserId":"上架人员"
-     */
-        /**
-         * TODO 查看入库明细信息
-         货品编号       rksGoodsId(关联货品表)
-         货品名称       rksGoodsId(关联货品表)
-         货品批次       mdtBatch
-         货品数量       rksCount
-         货品体积       bgGoodsTj
-         实收数量       sum(mdt_count)(暂用sssl)
-         实收体积       (暂用sstj)
-         入库明细状态   rksStatus
-         上架人员       mdtUserId(多个上架人员,在一列显示逗号隔开)
-         */
-        /**
-         * TODO 查看入库储位信息
-         货品编号    rksGoodsId(关联货品表)
-         货品名称    rksGoodsId(关联货品表)
-         货品批次    mdtBatch
-         上架库位    mdtLocationId
-         上架数量    mdtCount
-         实收体积    (暂用shtj)
-         上架人员    mdtUserId(多个上架人员,在一列显示逗号隔开)
-         上架时间    mdtSjsj
-         */
-    /**
- * TODO 出库单据查询
- */
-        /**
+/**
  * TODO 业务查询
  */
     /**
          * TODO 入库日报
          */
-        /**
+    /**
          * TODO 出库日报
          */
-        /**
+    /**
          * TODO 库存查询
          */
         /**
@@ -5288,18 +5231,17 @@
          * TODO 盘点查询
          */
         /**
-             * TODO  分页查询
+             * TODO 0  分页查询
                 * 搜索条件
                 * {
                        创建时间    pdCreateTime
                        创建人      pdCreateUserId
                        经办人      pdOperator
-                       盘点状态    pdStatus 0 初始 1 盘点确认 2 作废
-                       差异状态    pdDiffStatus 0 无差异 1 有差异
+                       盘点状态    pdStatus     0 初始     1 盘点确认 2 作废
+                       差异状态    pdDiffStatus 0 无差异   1 有差异
                        仓库        pdArehouseId
-                       盘点类型    pdType 盘点计划类型 0 异动盘点 1 货品盘点 2 全仓盘点
+                       盘点类型    pdType       0 异动盘点 1 货品盘点 2 全仓盘点
                    }
-
                     一级页面(盘点计划主表)显示列
                         {
                                仓库              pdArehouseId
@@ -5325,3 +5267,110 @@
 
 
  */
+        /**
+         * TODO 1 盘点详情(盘点明细表mfunpd_docs)
+                pdsId               盘点计划明细主键
+                pdsPdId             盘点计划主键ID
+                pdsGoodsId          货品ID
+                pdsLocationId       库位ID
+                pdsRepertoryCount   库存数量
+                pdsPdCount          盘点数量
+                pdsDiffStatus       差异状态 0 无差异  1 有差异
+                pdsStatus           盘点状态0 未盘点 1 已盘点
+                pdsUserId           盘点人员id
+                pdsPdTime           盘点时间
+         */
+/**
+     * TODO 库内管理
+     */
+    /**
+     * 库存转移
+     */
+        /**
+     *  TODO 库存管理 分页 根据货品id 库位id 仓库id 合并获取库存单据 POST /repertory/groupPage
+         {
+  "data": [
+    {
+      "mrRepertoryId": 107,
+      "mrLocationId": 3,
+      "mrGoodsId": 13,
+      "mrGoodsBatch": "2017-04-26",
+      "mrDwid": 1,
+      "mrCount": 40,
+      "mrDxjCount": 0,
+      "mrDjCount": 0,
+      "mrDjStatus": true,
+      "mrDzyCount": 0,
+      "mrKcydsj": 1493197331000,
+      "mrArehouseId": 1,
+      "kyCount": 40,
+      "baseLocation": {
+        "blLocationId": 3,
+        "blLname": "H16-39-A4",
+        "blRegionId": 1,
+        "blLtray": 21,
+        "blLorder": 3,
+        "blStatus": 1,
+        "blArehouseId": 1
+      },
+      "baseGoods": {
+        "bgGoodsId": 13,
+        "bgGoodsNo": "13701003002",
+        "bgGoodsName": "电热锅、JK-28R2（28R2-A）、红色+黑色+不锈钢一体、3L、220V、2100W、50HZ、内销、I类结构",
+        "bgNamejc": "电热锅、JK-28R2（28R2-A）、红色+黑色+不锈钢一体、3L、220V、2100W、50HZ、内销、I类结构",
+        "bgT": null,
+        "bgI": null,
+        "bgHsl": 4,
+        "bgZxdw": 8,
+        "bgSzdw": 1,
+        "bgStatus": 1,
+        "bgArehouseId": 1,
+        "bgClientId": 2,
+        "bgGoodsType": "",
+        "bgGoodsTj": 23.83,
+        "bgGoodsZl": 2,
+        "bgGoodsPrice": null,
+        "bgCreatetime": 1488942628000,
+        "bgRemarks": "",
+        "bgGoodsGg": "",
+        "baseDws": null
+      },
+      "baseDw": {
+        "bdDwId": 1,
+        "bdName": "台",
+        "bdStatus": 2,
+        "bdIsdel": true,
+        "bdCreatetime": 1488786104000
+      },
+      "baseArehouse": {
+        "baArehouseId": 1,
+        "baName": "九阳齐河仓",
+        "baAddr": "齐河",
+        "baScity": "济南",
+        "baScontacts": "联系人1",
+        "baPhone": "13267890789",
+        "baAcreage": "baAcreage",
+        "baCtype": "baCtype",
+        "baHumidity": "baHumidity",
+        "baFax": "baFax",
+        "baPostoffice": "baPostoffice",
+        "baIsti": 1,
+        "baStatus": 1,
+        "baClientId": 1,
+        "baRemarks": "baRemarks",
+        "baCreatetime": 1488092935000,
+        "baPgroupinfo": null,
+        "arehouseKqs": null
+      },
+      "baseArehouseKq": null
+    }
+  ],
+  "draw": 0,
+  "recordsTotal": 1,
+  "recordsFiltered": 1
+}
+
+     */
+
+
+
