@@ -199,14 +199,14 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckrwCph"
+                        v-model="form.ckrwCph"
                         icon="search"
                         placeholder="车牌号"></el-input>
             </el-form-item>
             <el-form-item label="任务号"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.ckrwNo"
+                        v-model="form.ckrwNo"
                         class="input"
                         icon="search"
                         placeholder="任务号"></el-input>
@@ -214,7 +214,7 @@
             <el-form-item label="制作时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.ckrwHistoryCzsj"
+                        v-model="form.ckrwHistoryCzsj"
                         type="daterange"
                         align="right"
                         placeholder="制作时间"
@@ -224,29 +224,29 @@
             </el-form-item>
             <el-form-item label="任务状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="select.ckrwStatus" placeholder="请选择">
-                    <el-option :value="10">初始</el-option>
-                    <el-option :value="11">下发</el-option>
-                    <el-option :value="21">已挑选</el-option>
-                    <el-option :value="31">已激活</el-option>
-                    <el-option :value="41">部分出库</el-option>
-                    <el-option :value="42">全部出库</el-option>
-                    <el-option :value="51">部分发运</el-option>
-                    <el-option :value="52">全部发运</el-option>
+                <el-select v-model="form.ckrwStatus" placeholder="请选择">
+                    <el-option :value="10" label="初始"></el-option>
+                    <el-option :value="11" label="下发"></el-option>
+                    <el-option :value="21" label="已挑选"></el-option>
+                    <el-option :value="31" label="已激活"></el-option>
+                    <el-option :value="41" label="部分出库"></el-option>
+                    <el-option :value="42" label="全部出库"></el-option>
+                    <el-option :value="51" label="部分发运"></el-option>
+                    <el-option :value="52" label="全部发运"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="欠货状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="select.ckrwQhStatus" placeholder="请选择">
-                <el-option :value="1">欠货</el-option>
-                <el-option :value="2">未欠货</el-option>
+                <el-select v-model="form.ckrwQhStatus" placeholder="请选择">
+                <el-option :value="1" label="欠货"></el-option>
+                <el-option :value="2" label="未欠货"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="滞留状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="select.ckrwZlStatus" placeholder="请选择">
-                <el-option :value="1">滞留</el-option>
-                <el-option :value="2">未滞留</el-option>
+                <el-select v-model="form.ckrwZlStatus" placeholder="请选择">
+                <el-option :value="1" label="滞留"></el-option>
+                <el-option :value="2" label="未滞留"></el-option>
                 </el-select>
             </el-form-item>
         </el-form>
@@ -567,7 +567,7 @@
 <script>
     function form() {
         return {
-            rkrwId:'',
+            rkrwId: '',
             title: "新建入库任务",
             rkrwN: '',
             rkrwCph: '',
@@ -578,7 +578,13 @@
             rkrwDbd: '',
             rkrwCys: '',
             rkrwDh: '',
-            rkrwStatus: ''
+            rkrwStatus: '',
+            ckrwCph: '',//模糊查询 --车牌号
+            ckrwNo: '',//模糊查询 --任务
+            ckrwHistoryCzsj: [null,null],//模糊查询--制作时间
+            ckrwStatus: '',//模糊查询--任务状态
+            ckrwQhStatus: '',//模糊查询--欠货状态
+            ckrwZlStatus: '',//模糊查询--滞留状态
         }
     };
     function formCar() {

@@ -199,14 +199,14 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckrwCph"
+                        v-model="form.ckrwCph"
                         icon="search"
                         placeholder="车牌号"></el-input>
             </el-form-item>
             <el-form-item label="任务号"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.ckrwNo"
+                        v-model="form.ckrwNo"
                         class="input"
                         icon="search"
                         placeholder="任务号"></el-input>
@@ -214,7 +214,7 @@
             <el-form-item label="制作时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.ckrwHistoryCzsj"
+                        v-model="form.ckrwHistoryCzsj"
                         type="daterange"
                         align="right"
                         placeholder="制作时间"
@@ -225,7 +225,7 @@
             <el-form-item label="预计到车时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.ckrwYjdcsj"
+                        v-model="form.ckrwYjdcsj"
                         type="daterange"
                         align="right"
                         placeholder="预计到车时间"
@@ -234,15 +234,6 @@
                 </el-date-picker>
             </el-form-item>
 
-
-            <!--<el-select v-model="baCtype" placeholder="请选择">-->
-            <!--<el-option :value="1">欠货</el-option>-->
-            <!--<el-option :value="2">未欠货</el-option>-->
-            <!--</el-select>-->
-            <!--<el-select v-model="baCtype" placeholder="请选择">-->
-            <!--<el-option :value="1">滞留</el-option>-->
-            <!--<el-option :value="2">未滞留</el-option>-->
-            <!--</el-select>-->
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
@@ -578,18 +569,22 @@
 <script>
     function form() {
         return {
-            rkrwId:'',
-            title: "新建入库任务",
-            rkrwN: '',
-            rkrwCph: '',
+            ckrwId: '',
+            title: "新建出库任务",
+            ckrwN: '',
+            ckrwCph: '',
             dds: '',
             pxs: '',
-            rkrwSjxm: '',
-            rkrwDhrq: '',
-            rkrwDbd: '',
-            rkrwCys: '',
-            rkrwDh: '',
-            rkrwStatus: ''
+            ckrwSjxm: '',
+            ckrwDhrq: '',
+            ckrwDbd: '',
+            ckrwCys: '',
+            ckrwDh: '',
+            ckrwStatus: '',
+            ckrwCph: '',                    //模糊查询--车牌号
+            ckrwNo: '',                     //模糊查询 --任务号
+            ckrwHistoryCzsj: [null, null],//模糊查询--制作时间
+            ckrwYjdcsj: [null, null],     //模糊查询--预计到车时间
         }
     };
     function formSortingMethod() {
