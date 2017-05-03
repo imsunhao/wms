@@ -158,7 +158,7 @@
             <el-form-item label="到货日期"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.rkrwDhrq"
+                        v-model="form.rkrwDhrq"
                         type="daterange"
                         align="right"
                         placeholder="到货日期"
@@ -169,7 +169,7 @@
             <el-form-item label="任务号"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.rkrwNo"
+                        v-model="form.rkrwNo"
                         class="input"
                         icon="search"
                         placeholder="任务号"></el-input>
@@ -178,7 +178,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.rkrwCph"
+                        v-model="form.rkrwCph"
                         icon="search"
                         placeholder="车牌号"></el-input>
             </el-form-item>
@@ -186,7 +186,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.rkrwCph"
+                        v-model="form.rkrwCph"
                         icon="search"
                         placeholder="司机姓名"></el-input>
             </el-form-item>
@@ -194,7 +194,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.rkrwCph"
+                        v-model="form.rkrwCph"
                         icon="search"
                         placeholder="调拨地"></el-input>
             </el-form-item>
@@ -202,18 +202,11 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.rkrwCys"
+                        v-model="form.rkrwCys"
                         icon="search"
                         placeholder="承运商"></el-input>
             </el-form-item>
-            <el-form-item label="状态"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="select.rkrwCys"
-                        icon="search"
-                        placeholder="状态"></el-input>
-            </el-form-item>
+
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
@@ -412,7 +405,13 @@
             rkrwDbd: '',
             rkrwCys: '',
             rkrwDh: '',
-            rkrwStatus: ''
+            rkrwStatus: '',
+            rkrwDhrq:'',//模糊查询--到车日期
+            rkrwNo:'',//模糊查询--任务号
+            rkrwCph:'',//模糊查询--车牌号
+            rkrwCph:'',//模糊查询--司机姓名
+            rkrwCph:'',//模糊查询--调拨地
+            rkrwCys:'',//模糊查询--承运商
         }
     }
     var startReceiving = new Vue({
