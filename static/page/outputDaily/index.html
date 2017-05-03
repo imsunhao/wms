@@ -212,7 +212,7 @@
             <el-form-item label="下单时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.ckXdsj"
+                        v-model="form.ckXdsj"
                         type="daterange"
                         align="right"
                         placeholder="下单时间"
@@ -223,7 +223,7 @@
             <el-form-item label="分拣时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.mhCreatetime"
+                        v-model="form.mhCreatetime"
                         type="daterange"
                         align="right"
                         placeholder="分拣时间"
@@ -234,7 +234,7 @@
             <el-form-item label="下架时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.ckCksj"
+                        v-model="form.ckCksj"
                         type="daterange"
                         align="right"
                         placeholder="下架时间"
@@ -245,7 +245,7 @@
             <el-form-item label="操作时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.msxQrsj"
+                        v-model="form.msxQrsj"
                         type="daterange"
                         align="right"
                         placeholder="操作时间"
@@ -255,53 +255,53 @@
             </el-form-item>
             <el-form-item label="出库状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="ckStatus" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="21">部分分拣</el-option>
-                    <el-option :value="31">全部分拣</el-option>
-                    <el-option :value="23">部分出库</el-option>
-                    <el-option :value="32">全部出库</el-option>
+                <el-select v-model="form.ckStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="21" label="部分分拣"></el-option>
+                    <el-option :value="31"label="全部分拣"></el-option>
+                    <el-option :value="23" label="部分出库"></el-option>
+                    <el-option :value="32" label="全部出库"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="是否滞留"
                           :label-width="formLabelWidth">
-                <el-select v-model="cksZlStatus" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="1">未到车滞留</el-option>
-                    <el-option :value="2">到车滞留</el-option>
-                    <el-option :value="3">未滞留</el-option>
+                <el-select v-model="form.cksZlStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="1" label="未到车滞留"></el-option>
+                    <el-option :value="2" label="到车滞留"></el-option>
+                    <el-option :value="3" label="未滞留"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="制作方式"
                           :label-width="formLabelWidth">
-                <el-select v-model="ckIsauto" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="1">手工</el-option>
-                    <el-option :value="2">导入</el-option>
-                    <el-option :value="3">接口</el-option>
+                <el-select v-model="form.ckIsauto" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="1" label="手工"></el-option>
+                    <el-option :value="2" label="导入"></el-option>
+                    <el-option :value="3" label="接口"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="操作方式"
                           :label-width="formLabelWidth">
-                <el-select v-model="ckStartwith" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="1">电脑</el-option>
-                    <el-option :value="2">PDA</el-option>
+                <el-select v-model="form.ckStartwith" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="1" label="电脑"></el-option>
+                    <el-option :value="2" label="PDA"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="是否欠货"
                           :label-width="formLabelWidth">
-                <el-select v-model="cksQhStatus" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="2">部分欠货</el-option>
-                    <el-option :value="3">未欠货</el-option>
+                <el-select v-model="form.cksQhStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="2" label="部分欠货"></el-option>
+                    <el-option :value="3" label="未欠货"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="联系电话"
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckTel"
+                        v-model="form.ckTel"
                         icon="search"
                         placeholder="联系电话"></el-input>
             </el-form-item>
@@ -309,7 +309,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckContacts"
+                        v-model="form.ckContacts"
                         icon="search"
                         placeholder="联系人"></el-input>
             </el-form-item>
@@ -317,7 +317,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckCkdjNo"
+                        v-model="form.ckCkdjNo"
                         icon="search"
                         placeholder="出库单号"></el-input>
             </el-form-item>
@@ -325,7 +325,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.cksGoodsId"
+                        v-model="form.cksGoodsId"
                         icon="search"
                         placeholder="货品名称"></el-input>
             </el-form-item>
@@ -333,7 +333,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.cksGoodsId"
+                        v-model="form.cksGoodsId"
                         icon="search"
                         placeholder="货品单号"></el-input>
             </el-form-item>
@@ -341,7 +341,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckCkdjClientno"
+                        v-model="form.ckCkdjClientno"
                         icon="search"
                         placeholder="客户编号"></el-input>
             </el-form-item>
@@ -349,7 +349,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckCkdjClientname"
+                        v-model="form.ckCkdjClientname"
                         icon="search"
                         placeholder="客户名称"></el-input>
             </el-form-item>
@@ -357,7 +357,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.msxXjry"
+                        v-model="form.msxXjry"
                         icon="search"
                         placeholder="作业人员"></el-input>
             </el-form-item>
@@ -365,7 +365,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.msxHpkcid"
+                        v-model="form.msxHpkcid"
                         icon="search"
                         placeholder="下架库位"></el-input>
             </el-form-item>
@@ -373,7 +373,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckAdress"
+                        v-model="form.ckAdress"
                         icon="search"
                         placeholder="客户地址"></el-input>
             </el-form-item>
@@ -563,7 +563,7 @@
     }
 </style>
 <script>
-    function from() {
+    function form() {
         return {
             rkrwN: '',
             rkrwCph: '',
@@ -574,7 +574,26 @@
             rkrwDbd: '',
             rkrwCys: '',
             rkrwDh: '',
-            rkrwStatus: ''
+            rkrwStatus: '',
+            ckXdsj:[null,null],         //模糊查询--下单时间
+            mhCreatetime:[null,null],  //模糊查询--分拣时间
+            ckCksj:[null,null],         //模糊查询--下架时间
+            msxQrsj:[null,null],        //模糊查询--操作时间
+            ckStatus:'',                 //模糊查询--出库状态
+            cksZlStatus:'',              //模糊查询--是否滞留
+            ckIsauto:'',                //模糊查询--制作方式
+            ckStartwith:'',             //模糊查询--操作方式
+            cksQhStatus:'',              //模糊查询--是否欠货
+            ckTel:'',                     //模糊查询--联系电话
+            ckContacts:'',              //模糊查询--联系人
+            ckCkdjNo:'',                 //模糊查询--出库单号
+            cksGoodsId:'',              //模糊查询--货品名称
+            cksGoodsId:'',              //模糊查询--货品编号
+            ckCkdjClientno:'',          //模糊查询--客户编号
+            ckCkdjClientname:'',        //模糊查询--客户名称
+            msxXjry:'',                  //模糊查询--作业人员
+            msxHpkcid:'',                //模糊查询--下架库位
+            ckAdress:''                  //模糊查询--客户地址
         }
     }
     var outputDaily = new Vue({
@@ -620,12 +639,12 @@
                 rkRkdjNo: '',                       //主页面 入库单号 搜索
 
                 formLabelWidth: '120px',            //表单 配置
-                form: from(),                           //表单 弹出层 信息集合
+                form: form(),                           //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
 
-                select: from(),                         //搜索 弹出层 信息集合,
+                select: form(),                         //搜索 弹出层 信息集合,
                 printf: [],                         //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 dialogPrintfVisible: false,
