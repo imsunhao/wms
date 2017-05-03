@@ -10,10 +10,7 @@
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                         class="icon sel"></i><span>多选</span>
                 </button>
-                <button @click="moreOperationModify" class="btn btn-modify" v-show="multiSelect"><i
-                        class="icon modify"></i><span>修改</span>
-                </button>
-                <button @click="moreOperationIssued" class="btn btn-Issued" v-show="multiSelect"><i
+                <button @click="multiOperationIssued" class="btn btn-Issued" v-show="multiSelect"><i
                         class="icon issued"></i><span>下发</span>
                 </button>
             </div>
@@ -696,7 +693,7 @@
             },                                  //TODO 行内按钮-编辑
             inlineIssued: function (index, row) {
                 var _this = this;
-                _this.$confirm('此操作下发入库任务单, 是否继续?', '提示', {
+                _this.$confirm('此操作将这单任务单据下发, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -721,12 +718,27 @@
                 /*</debug>*/
                 this.multipleSelection = val;
             },                               //多选 选中控制
-            moreOperationModify: function () {
+            multiOperationIssued: function () {
+                var obj = this;
+                obj.$confirm('此操作将这些任务单据下发, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                    var step = [];
+                    for (var i = 0; i < obj.multipleSelection.length; i++) {
+                        step.push(obj.multipleSelection[i].ruUserId);
+                    }
+                    postPassword(warehousingTask, {ids: step});
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
 
-            },                                   //TODO 多选 修改
-            moreOperationIssued: function () {
-
-            },                                   //TODO 多选 下发
+            },                                  //TODO 多选 下发
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
