@@ -27,8 +27,17 @@
 
                 </el-select>
 
-                <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
-                        class="icon search"></i><span>详细查询</span>
+                <!--<button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i-->
+                        <!--class="icon search"></i><span>详细查询</span>-->
+                <!--</button>-->
+                <button @click="multiSelectClick" class="btn btn-multiSelect"><i
+                        class="icon sel"></i><span>多选</span>
+                </button>
+                <button @click="multiOperationCancelAllocation" class="btn CancelAllocation" v-show="multiSelect"><i
+                        class="icon issued"></i><span>取消分配</span>
+                </button>
+                 <button @click="multiOperationGrounding" class="btn CancelAllocation" v-show="multiSelect"><i
+                        class="icon issued"></i><span>上架</span>
                 </button>
             </div>
             <el-table
@@ -1070,6 +1079,46 @@
                 /*</debug>*/
                 this.multipleSelection = val;
             },                              //多选 选中控制
+            multiOperationCancelAllocation:function(){
+                var obj = this;
+                obj.$confirm('此操作将这些入库单据取消分配, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                    var step = [];
+                    for (var i = 0; i < obj.multipleSelection.length; i++) {
+                        step.push(obj.multipleSelection[i].ruUserId);
+                    }
+                    postPassword(warehousingTask, {ids: step});
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                          //TODO 多选 取消分配
+            multiOperationGrounding:function(){
+                var obj = this;
+                obj.$confirm('此操作将这些入库单据上架, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                    var step = [];
+                    for (var i = 0; i < obj.multipleSelection.length; i++) {
+                        step.push(obj.multipleSelection[i].ruUserId);
+                    }
+                    postPassword(warehousingTask, {ids: step});
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                                  //TODO 多选 上架
             moreOperationDelete: function () {
                 /*<debug>*/
                 console.log('选中的删除');
