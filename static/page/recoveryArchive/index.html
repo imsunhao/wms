@@ -173,14 +173,14 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckCkdjNo"
+                        v-model="form.ckCkdjNo"
                         icon="search"
                         placeholder="出库单号"></el-input>
             </el-form-item>
             <el-form-item label="下单时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.ckXdsj"
+                        v-model="form.ckXdsj"
                         type="daterange"
                         align="right"
                         placeholder="下单时间"
@@ -191,7 +191,7 @@
             <el-form-item label="制作时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.ckrwHistoryCzsj"
+                        v-model="form.mhCreatetime"
                         type="daterange"
                         align="right"
                         placeholder="制作时间"
@@ -199,16 +199,6 @@
                         :picker-options="pickerOptions">
                 </el-date-picker>
             </el-form-item>
-
-
-            <!--<el-select v-model="baCtype" placeholder="请选择">-->
-            <!--<el-option :value="1">欠货</el-option>-->
-            <!--<el-option :value="2">未欠货</el-option>-->
-            <!--</el-select>-->
-            <!--<el-select v-model="baCtype" placeholder="请选择">-->
-            <!--<el-option :value="1">滞留</el-option>-->
-            <!--<el-option :value="2">未滞留</el-option>-->
-            <!--</el-select>-->
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
@@ -542,24 +532,26 @@
     }
 </style>
 <script>
-
     function form() {
         return {
-            rkrwId: '',
+            ckrwId: '',
             title: "新建入库任务",
-            rkrwN: '',
-            rkrwCph: '',
+            ckrwN: '',
+            ckrwCph: '',
             dds: '',
             pxs: '',
-            rkrwSjxm: '',
-            rkrwDhrq: '',
-            rkrwDbd: '',
-            rkrwCys: '',
-            rkrwDh: '',
-            rkrwStatus: ''
-        }
-    }
+            ckrwSjxm: '',
+            ckrwDhrq: '',
+            ckrwDbd: '',
+            ckrwCys: '',
+            ckrwDh: '',
+            ckrwStatus: '',
+            ckCkdjNo:'',                //模糊查询--出库单号
+            ckXdsj  :[null,null],       //模糊查询--下单时间
+            mhCreatetime:[null,null],   //模糊查询--制作时间
 
+    }
+    }
     function formReissue() {
         return {
             a: '',             //补发单号
@@ -568,13 +560,11 @@
             d: 0,              //补发状态  1.已补发  2.已赔付 3.需跟进
         }
     }
-
     function formRetention() {
         return {
             a: '',             //任务号
         }
     }
-
     var recoveryArchive = new Vue({
         el: '#recoveryArchive',
         prop: {},
@@ -824,7 +814,6 @@
         },
         watch: {}
     });
-
     // 高级 监视器的 使用方法
     //    recoveryArchive.$watch('date', function () {
     //        if (!this.option.dateStart)return;
