@@ -128,7 +128,7 @@
                                     </el-form-item>
                                     <el-form-item label="结算时间">
                                         <el-icon name="time"></el-icon>
-                                        <span style="margin-left: 10px">{{ props.row.rksJssj }}</span>
+                                        <span style="margin-left: 10px">{{ auto_rksJssj(props.row.rksJssj) }}</span>
                                     </el-form-item>
                                     <el-form-item label="可用操作">
                                         <el-button
@@ -443,7 +443,7 @@
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
             <el-date-picker
-                    v-model="date"
+                    v-model="form.rkCreatetime"
                     type="daterange"
                     align="right"
                     placeholder="始发日期"
@@ -451,7 +451,7 @@
                     :picker-options="pickerOptions">
             </el-date-picker>
             <el-date-picker
-                    v-model="date"
+                    v-model="form.rkSjsj"
                     type="daterange"
                     align="right"
                     placeholder="到货日期"
@@ -459,7 +459,7 @@
                     :picker-options="pickerOptions">
             </el-date-picker>
             <el-date-picker
-                    v-model="date"
+                    v-model="form.rkSjsj"
                     type="daterange"
                     align="right"
                     placeholder="收货日期"
@@ -467,31 +467,31 @@
                     :picker-options="pickerOptions">
             </el-date-picker>
             <el-input
-                    v-model="rkErpNo"
+                    v-model="form.rkErpNo"
                     icon="search"
                     placeholder="调拨单号"></el-input>
             <el-input
-                    v-model="rkrwDbd"
+                    v-model="form.rkrwDbd"
                     icon="search"
                     placeholder="调拨地"></el-input>
             <el-input
-                    v-model="rkrwCph"
+                    v-model="form.rkrwCph"
                     icon="search"
                     placeholder="车牌号"></el-input>
             <el-input
-                    v-model="ruUserName"
+                    v-model="form.ruUserName"
                     icon="search"
                     placeholder="收货人"></el-input>
             <el-input
-                    v-model="baName"
+                    v-model="form.baName"
                     icon="search"
                     placeholder="收货仓库"></el-input>
             <el-input
-                    v-model="bgGoodsNo"
+                    v-model="form.bgGoodsNo"
                     icon="search"
                     placeholder="物料编号"></el-input>
             <el-input
-                    v-model="bgGoodsName"
+                    v-model="form.bgGoodsName"
                     icon="search"
                     placeholder="物料描述"></el-input>
         </div>
@@ -654,6 +654,35 @@
     }
 </style>
 <script>
+    function form(){
+        return{
+            rkCreatetime:[null,null],//模糊查询--始发日期
+            rkSjsj:[null,null],//模糊查询--到货时间
+            rkSjsj:[null,null],//模糊查询--收货时间
+            rksJssj:[null,null],//模糊查询--结算时间
+            rkErpNo:'',//模糊查询--调拨单号
+            rkrwDbd:'',//模糊查询--调拨地
+            rkrwCph:'',//模糊查询--车牌号
+            ruUserName:'',//模糊查询--收货人
+            baName:'',//模糊查询--收货仓库
+            bgGoodsNo:'',//模糊查询--物料编号
+            bgGoodsName:'',//模糊查询--物料描述
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+    }
     var inputLedger = new Vue({
         el: '#inputLedger',
         prop: {},
@@ -1020,17 +1049,21 @@
                 });
             },
             auto_rkCreatetime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                                  //始发日期
             auto_rkSjsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                                  //到货日期
             auto_rkSjsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                                  //收货日期
+           auto_rksJssj: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+            },                                  //结算时间
 
         },
         watch: {
