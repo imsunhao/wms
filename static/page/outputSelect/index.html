@@ -200,7 +200,7 @@
             <el-form-item label="下单时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.ckXdsj"
+                        v-model="form.ckXdsj"
                         type="daterange"
                         align="right"
                         placeholder="下单时间"
@@ -211,7 +211,7 @@
             <el-form-item label="激活时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.mhCreatetime"
+                        v-model="form.mhCreatetime"
                         type="daterange"
                         align="right"
                         placeholder="激活时间"
@@ -222,7 +222,7 @@
             <el-form-item label="下架时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.ckCksj"
+                        v-model="form.ckCksj"
                         type="daterange"
                         align="right"
                         placeholder="下架时间"
@@ -234,7 +234,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckCkdjNo"
+                        v-model="form.ckCkdjNo"
                         icon="search"
                         placeholder="出库单号"></el-input>
             </el-form-item>
@@ -242,7 +242,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckCkdjClientno"
+                        v-model="form.ckCkdjClientno"
                         icon="search"
                         placeholder="客户编号"></el-input>
             </el-form-item>
@@ -250,7 +250,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckCkdjClientname"
+                        v-model="form.ckCkdjClientname"
                         icon="search"
                         placeholder="客户名称"></el-input>
             </el-form-item>
@@ -258,7 +258,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckAdress"
+                        v-model="form.ckAdress"
                         icon="search"
                         placeholder="客户地址"></el-input>
             </el-form-item>
@@ -266,7 +266,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckContacts"
+                        v-model="form.ckContacts"
                         icon="search"
                         placeholder="联系人"></el-input>
             </el-form-item>
@@ -274,68 +274,68 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckTel"
+                        v-model="form.ckTel"
                         icon="search"
                         placeholder="联系电话"></el-input>
             </el-form-item>
             <el-form-item label="单据状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="ckStatus" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="1">初始</el-option>
-                    <el-option :value="21">部分分拣</el-option>
-                    <el-option :value="32">全部分拣</el-option>
-                    <el-option :value="22">部分出库</el-option>
-                    <el-option :value="32">全部出库</el-option>
+                <el-select v-model="form.ckStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="1" label="初始"></el-option>
+                    <el-option :value="21" label="部分分拣"></el-option>
+                    <el-option :value="32" label="全部分拣"></el-option>
+                    <el-option :value="22" label="部分出库"></el-option>
+                    <el-option :value="32" label="全部出库"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="欠货状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="ckQhStatus" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="2">欠货</el-option>
-                    <el-option :value="3">未欠货</el-option>
+                <el-select v-model="form.ckQhStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="2" label="欠货"></el-option>
+                    <el-option :value="3" label="未欠货"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="滞留状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="ckZlStatus" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="2">滞留</el-option>
-                    <el-option :value="3">未滞留</el-option>
+                <el-select v-model="form.ckZlStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="2" label="滞留" ></el-option>
+                    <el-option :value="3" label="未滞留 "></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="单据类型"
                           :label-width="formLabelWidth">
-                <el-select v-model="ckZlStatus" placeholder="请选择">
-                    <el-option :value="0.0">全部</el-option>
-                    <el-option :value="0">正常数据</el-option>
-                    <el-option :value="1">挂起数据</el-option>
-                    <el-option :value="2">滞留数据</el-option>
+                <el-select v-model="form.ckStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="0" label="正常数据"></el-option>
+                    <el-option :value="0" label="正常数据"></el-option>
+                    <el-option :value="1" label="挂起数据"></el-option>
+                    <el-option :value="2" label="滞留数据"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="制单方式"
                           :label-width="formLabelWidth">
-                <el-select v-model="ckIsauto" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="1">手动</el-option>
-                    <el-option :value="2">导入</el-option>
-                    <el-option :value="3">接口</el-option>
+                <el-select v-model="form.ckIsauto" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="1" label="手动"></el-option>
+                    <el-option :value="2" label="导入"></el-option>
+                    <el-option :value="3" label="接口"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="操作方式"
                           :label-width="formLabelWidth">
-                <el-select v-model="ckStartwith" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="1">电脑端</el-option>
-                    <el-option :value="2">PDA</el-option>
+                <el-select v-model="form.ckStartwith" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="1" label="电脑端"></el-option>
+                    <el-option :value="2" label="PDA">PDA</el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="仓库"
                           :label-width="formLabelWidth">
                 <el-select v-model="ckArehouseId" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="1">角色下所有的仓库</el-option>
+                    <el-option :value="-1" label="全部"></el-option>
                 </el-select>
             </el-form-item>
         </el-form>
@@ -372,83 +372,6 @@
                 :data="detailed"
                 highlight-current-row
                 style="width: 100%">
-            <!--<el-table-column-->
-                    <!--type="expand">-->
-                <!--<template scope="props">-->
-                    <!--<el-row>-->
-                        <!--<h3 style="margin-top: 0; margin-left: -15px;">出库单据查询详细</h3>-->
-                    <!--</el-row>-->
-                    <!--<el-form label-position="left" inline class="demo-table-expand">-->
-                        <!--<el-row>-->
-                            <!--<el-col :span="10">-->
-                                <!--<el-form-item label="货品编号">-->
-                                    <!--<span>{{ props.row.cksGoodsId }}</span>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item label="货品名称">-->
-                                    <!--<span>{{ props.row.cksGoodsId }}</span>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item label="货品数量">-->
-                                    <!--<span>{{ props.row.cksGoodsCount }}</span>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item label="货品体积">-->
-                                    <!--<span>{{ props.row.hptj }}</span>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item label="下架数量">-->
-                                    <!--<span>{{ props.row.msxMxCount }}</span>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item label="下架体积">-->
-                                    <!--<span>{{ props.row.xjtj }}</span>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item label="欠货数量">-->
-                                    <!--<span>{{props.row.cksQhCounts }}</span>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item label="欠货体积">-->
-                                    <!--<span>{{ props.row.qhtj}}</span>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item label="滞留数量">-->
-                                    <!--<span>{{ props.row.cksZlCount }}</span>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item label="滞留体积">-->
-                                    <!--<span>{{props.row.zltj }}</span>-->
-                                <!--</el-form-item>-->
-
-                            <!--</el-col>-->
-                            <!--<el-col :span="10" :offset="2">-->
-                                <!--<el-form-item label="欠货单号">-->
-                                    <!--<span>{{props.row.cksBfNo}}</span>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item label="欠货体积">-->
-                                    <!--<span>{{props.row.qhtj}}</span>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item label="滞留数量">-->
-                                    <!--<span>{{props.row.cksZlCount}}</span>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item label="滞留体积">-->
-                                    <!--<span>{{props.row.zltj}}</span>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item label="欠货单号">-->
-                                    <!--<span>{{props.row.cksBfNo}}</span>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item label="滞留任务号">-->
-                                    <!--<span>{{props.row.cksZlbfInfo}}</span>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item label="发运数量">-->
-                                    <!--<span>{{props.row.cksFyCount}}</span>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item label="发运体积">-->
-                                    <!--<span>{{props.row.fytj}}</span>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item label="欠货备注">-->
-                                    <!--<span>{{ props.row.cksQhRemarks }}</span>-->
-                                <!--</el-form-item>-->
-                                <!--<el-form-item label="补发状态">-->
-                                    <!--<span>{{ (props.row.cksBfStatus }}</span>-->
-                                <!--</el-form-item>-->
-                            <!--</el-col>-->
-                        <!--</el-row>-->
-                    <!--</el-form>-->
-                <!--</template>-->
-            <!--</el-table-column>-->
             <el-table-column
                     label="货品编号"
                    
@@ -752,7 +675,22 @@
             rkrwDbd: '',
             rkrwCys: '',
             rkrwDh: '',
-            rkrwStatus: ''
+            rkrwStatus: '',
+            ckXdsj:'',//模糊查询--下单时间
+            mhCreatetime:'',//模糊查询--激活时间
+            ckCksj:'',//模糊查询--下架时间
+            ckCkdjNo:'',//模糊查询--出库单号
+            ckCkdjClientno:'',//模糊查询--客户编号
+            ckCkdjClientname:'',//模糊查询--客户名称
+            ckAdress:'',//模糊查询--客户地址
+            ckContacts:'',//模糊查询--联系人
+            ckTel:'',//模糊查询--联系电话
+            ckStatus:'',//--模糊查询--单据状态
+            ckQhStatus:'',//模糊查询--欠货状态
+            ckZlStatus:'',//模糊查询--滞留状态
+            ckZlStatus:'',//模糊查询--单据类型
+            ckIsauto:'',//模糊查询--制单方式
+            ckStartwith:'',//模糊查询--操作方式
         }
     }
     function formDetailed() {
@@ -1371,7 +1309,6 @@
     }
 
 </script>
-
 
 
 
