@@ -234,7 +234,10 @@
                                     <span>{{ props.row.rrName        }}</span>
                                 </el-form-item>
                                 <el-form-item label="创建时间">
-                                    <span>{{ props.row.rrCjsj }}</span>
+                                    <span>
+                                        <el-icon name="time"></el-icon>
+                                        {{ auto_rrCjsj(props.row.rrCjsj) }}
+                                    </span>
                                 </el-form-item>
                                 <el-form-item label="角色备注">
                                     <el-tooltip class="item" effect="dark"
@@ -294,7 +297,7 @@
                     label="创建时间"
                     align="center">
                 <template scope="scope">
-                    <span>{{ scope.row.rrCjsj}}</span>
+                    <span>{{ auto_rrCjsj(scope.row.rrCjsj)}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -695,7 +698,6 @@
                 /*</prod>*/
                 this.dialogRoleVisible = !this.dialogRoleVisible;
             },                                  //行内按钮-菜单
-
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -755,8 +757,6 @@
             multiMenu: function () {
                 this.multiMenu = !this.multiMenu;
             },                                             //多选 配置菜单
-
-
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -771,7 +771,6 @@
                 this.currentPage = val;
                 post(this, this.option);
             },                                //分页 当前页
-
             newInput: function () {
                 var obj = this;
 
@@ -783,7 +782,6 @@
                     obj.$refs.carousel.setActiveItem(0);
                 });
             },                                              //按钮 新建入库单
-
             prevForm: function () {
                 this.formActive--;
                 this.$refs.carouselWaiting.prev();
@@ -829,7 +827,6 @@
                     post(roleManagement);
                 }, 1500);
             },                                            //form 表单提交
-
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -867,6 +864,10 @@
                 }, 1500);
                 /*</debug>*/
             },                                                //新建 表单提交
+            auto_rrCjsj: function (value, bool) {
+        if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+        else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+    },                                //创建时间
         },
         watch: {
             rrName: function () {
@@ -1282,6 +1283,17 @@
     function postRoleArehouse() {
 
     }               // 12 查询指定角色 仓库
+    function printfCompile(obj) {
+        var resoleveStep = [];
+        for (var i = 0; i < obj.multipleSelection.length; i++) {
+            resoleveStep.push({
+                name: obj.multipleSelection[i].rkrwNo,
+                rkrwNo:obj.multipleSelection[i].rkrwNo,
+                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
+            });
+        }
+        obj.printf = resoleveStep;
+    }							//打印
 
     function getUserMenu(obj, option) {
         var step = [];

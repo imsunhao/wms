@@ -10,7 +10,7 @@
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                         class="icon sel"></i><span>多选</span>
                 </button>
-                <button @click="moreOperationIssued" class="btn btn-Issued" v-show="multiSelect"><i
+                <button @click="multiSelectActivateTask" class="btn btn-Issued" v-show="multiSelect"><i
                         class="icon issued1"></i><span>激活任务</span>
                 </button>
             </div>
@@ -53,10 +53,16 @@
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="预计到车">
-                                        <span>{{ auto_ckrwYjdcsj(props.row.ckrwYjdcsj) }}</span>
+                                        <span>
+                                             <el-icon name="time"></el-icon>
+                                            {{ auto_ckrwYjdcsj(props.row.ckrwYjdcsj) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="实际到车">
-                                        <span>{{ auto_ckrwSjdcsj(props.row.ckrwSjdcsj) }}</span>
+                                        <span>
+                                             <el-icon name="time"></el-icon>
+                                            {{ auto_ckrwSjdcsj(props.row.ckrwSjdcsj) }}
+                                        </span>
                                     </el-form-item>
 
                                     <el-form-item label="欠货状态">
@@ -70,21 +76,21 @@
                                         <el-button
                                                 size="small"
                                                 type="success"
-                                                @click="supplementaryDistribution(props.$index, props.row)">追加分拣
+                                                @click="inlineSupplementaryDistribution(props.$index, props.row)">追加分拣
                                         </el-button>
                                         <el-button
                                                 size="small"
-                                                @click="modifySorting(props.$index, props.row)">修改分拣方式
+                                                @click="inlineModifySorting(props.$index, props.row)">修改分拣方式
                                         </el-button>
                                         <el-button
                                                 size="small"
                                                 type="success"
-                                                @click="pendingConfirmation(props.$index, props.row)">挂起确认
+                                                @click="inlinePendingConfirmation(props.$index, props.row)">挂起确认
                                         </el-button>
                                          <el-button
                                                 size="small"
                                                 type="success"
-                                                @click="activateDocument(props.$index, props.row)">激活单据
+                                                @click="inlineActivateDocument(props.$index, props.row)">激活单据
 
                                         </el-button>
                                     </el-form-item>
@@ -351,6 +357,65 @@
             </el-button>
         </div>
     </el-dialog>
+    <el-dialog
+            size="large"
+            title="修改分拣方式"
+            v-model="dialogSortingMethodVisible">
+        <el-table
+                :data="sortingMethod"
+                highlight-current-row
+                style="width: 100%">
+            <el-table-column
+                    label="货品编号"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="ckhpbh">
+            </el-table-column>
+            <el-table-column
+                    label="货品名称"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="ckhpmc">
+            </el-table-column>
+            <el-table-column
+                    label="货品单位"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="ckhpszdw">
+            </el-table-column>
+            <el-table-column
+                    label="货品数量"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="ckTel">
+            </el-table-column>
+            <el-table-column
+                    label="批次"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="ckhppc">
+            </el-table-column>
+            <el-table-column
+                    label="库位"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="ckXdsj">
+            </el-table-column>
+            <el-table-column
+                    label="操作"
+                    prop="rksCount"
+                    align="center">
+                <template scope="scope">
+                    <el-button
+                            size="small"
+                            type="danger"
+                            icon="assignment"
+                            @click="deleteInlineOperation(scope.$index, scope.row)">更换
+                    </el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+    </el-dialog>
 </div>
 <style>
     #activationBill {
@@ -527,6 +592,17 @@
             rkrwStatus: ''
         }
     };
+    function formSortingMethod() {
+        return {
+            ckrwId:'',
+            ckhpbh:'',            //货品编号
+            ckhpjc:'',            //货品简称
+            ckhpszdw:'',         //货品单位(最小单位--散支单位)
+            //:'',                //货品数量
+            ckhppc:'',              //批次
+            //:'',                //库位
+        }
+    };  //TODO 修改分拣方式
     var activationBill = new Vue({
         el: '#activationBill',
         prop: {},
@@ -574,6 +650,8 @@
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
+                sortingMethod:[],                    //修改分拣方式信息  弹出层 信息集合
+                dialogSortingMethodVisible: false,//修改分拣方式信息  弹出层 是否可见
 
                 select: form(),                         //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
@@ -613,9 +691,9 @@
             },                                      //分配 表单
         },
         methods: {
-            cancelTask: function (index, row) {
+            inlineSupplementaryDistribution:function () {                           //TODO 行内按钮 追加分拣
                 var _this = this;
-                _this.$confirm('此操作将取消该任务单的任务, 是否继续?', '提示', {
+                _this.$confirm('此操作将追加分拣出库单, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -630,7 +708,46 @@
                         message: '已取消下发'
                     });
                 });
-            },                                //TODO 行内按钮  取消任务
+            },                      //TODO 行内按钮-追加分拣
+            inlineModifySorting:function(){
+                this.dialogSortingMethodVisible = true;
+            },                                    //TODO 行内按钮-修改分拣方式
+            inlinePendingConfirmation: function (index, row) {
+                var _this = this;
+                _this.$confirm('此操作将出库单挂起确认, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.activationBill);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消下发'
+                    });
+                });
+            },                 //TODO 行内按钮-挂起确认
+            inlineActivateDocument: function (index, row) {
+                var _this = this;
+                _this.$confirm('此操作将激活出库单, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.activationBill);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消下发'
+                    });
+                });
+            },                    //TODO 行内按钮-激活单据
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -640,12 +757,9 @@
                 /*</debug>*/
                 this.multipleSelection = val;
             },                               //多选 选中控制
-            moreOperationModify: function () {
+            multiSelectActivateTask: function () {
 
-            },                                   //TODO 多选 修改
-            moreOperationIssued: function () {
-
-            },                                   //TODO 多选 下发
+            },                               //TODO 多选 激活任务
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -710,13 +824,13 @@
                 post(this, {});
             },                                          //详细查询 提交
             auto_ckrwYjdcsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },                                  //预计到车时间
+            },                             //TODO 预计到车时间
             auto_ckrwSjdcsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },                                 //实际到车时间
+            },                             //TODO 实际到车时间
             auto_ckrwStatus:function(value){
                 var temp={};
                 if(!isNaN(value)){
@@ -743,7 +857,7 @@
                     }
                 }
                 return temp[value];
-            },                                      //任务状态
+            },                                      //TODO 任务状态
             auto_ckrwQhStatus:function(value){
                 var temp={};
                 if(!isNaN(value)){
@@ -759,7 +873,7 @@
                     }
                 }
                 return temp[value];
-            },                                      //欠货状态
+            },                                    //TODO 欠货状态
             auto_ckrwZlStatus:function(value){
                 var temp={};
                 if(!isNaN(value)){
@@ -775,7 +889,7 @@
                     }
                 }
                 return temp[value];
-            },                                      //滞留状态
+            },                                    //TODO 滞留状态
         },
         watch: {}
     });

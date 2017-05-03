@@ -1,0 +1,30 @@
+{
+  "data":[
+    {
+      "pdsId":"盘点计划明细主键",
+      "pdsPdId":"盘点计划主键ID",
+      "pdsGoodsId":"货品ID",
+      "pdsLocationId":"库位ID",
+      "pdsRepertoryCount":"库存数量",
+      "pdsPdCount":"盘点数量",
+      "pdsDiffStatus":"差异状态 0 无差异 1 有差异",
+      "pdsStatus":"盘点状态0 未盘点   1 已盘点",
+      "pdsUserId":"盘点人员id",
+      "pdsPdTime":"盘点时间"
+    },
+    {
+      "pdsId":"1",
+      "pdsPdId":"1",
+      "pdsGoodsId":"1",
+      "pdsLocationId":"1",
+      "pdsRepertoryCount":"10",
+      "pdsPdCount":"10",
+      "pdsDiffStatus":"1",
+      "pdsStatus":"0",
+      "pdsUserId":"1",
+      "pdsPdTime":"20170427"
+    }
+  ]
+}
+
+

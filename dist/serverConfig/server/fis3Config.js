@@ -33,11 +33,12 @@
 
  fis3 release debug -wl
 
+
 --------------------------------
  // 功能2 ：开启 后台调试(另外开启一个cmd)
  //        运行前，先删除 dist 文件夹下 public 与 views
 --------------------------------
- cd E:\work\02\wms\
+ cd E:\work\02\wms\dist
 
  fis3 release test -d ./dist/public -wl
 

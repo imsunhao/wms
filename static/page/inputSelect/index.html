@@ -65,15 +65,21 @@
                                         <span>{{props.row.sstj }}</span>
                                     </el-form-item>
                                     <el-form-item label="下单时间">
-                                        <span>{{auto_rkCreatetime(props.row.rkCreatetime)}}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{auto_rkCreatetime(props.row.rkCreatetime)}}</span>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="上架开始">
-                                        <span>{{ auto_rkrkSjsj(props.row.rkrkSjsj) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_rkrkSjsj(props.row.rkrkSjsj) }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架结束">
-                                        <span>{{ auto_rkEndTime(props.row.rkEndTime) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_rkEndTime(props.row.rkEndTime) }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架人员">
                                         <span>{{ props.row.mdtUserId }}</span>
@@ -136,7 +142,9 @@
                         align="center"
                         prop="rkZdfs">
                     <template scope="scope">
-                        {{auto_rkZdfs(scope.row.rkZdfs,true)}}
+                        <el-tag
+                                close-transition> {{auto_rkZdfs(scope.row.rkZdfs,true)}}
+                        </el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -145,7 +153,9 @@
                         align="center"
                         width="100">
                     <template scope="scope">
-                        {{auto_rkStatus(scope.row.rkStatus)}}
+                        <el-tag
+                                close-transition> {{auto_rkStatus(scope.row.rkStatus)}}
+                        </el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -178,7 +188,7 @@
             <el-form-item label="下单时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.rkCreatetime"
+                        v-model="form.rkCreatetime"
                         type="daterange"
                         align="right"
                         placeholder="下单时间"
@@ -189,7 +199,7 @@
             <el-form-item label="上架时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.rkrkSjsj"
+                        v-model="form.rkrkSjsj"
                         type="daterange"
                         align="right"
                         placeholder="上架时间"
@@ -202,38 +212,37 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.rkRkdjNo"
+                        v-model="form.rkRkdjNo"
                         icon="search"
                         placeholder="入库单号"></el-input>
             </el-form-item>
             <el-form-item label="入库状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="rkStatus" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="21">部分分配</el-option>
-                    <el-option :value="22">全部分配</el-option>
-                    <el-option :value="31">部分上架</el-option>
-                    <el-option :value="32">全部上架</el-option>
+                <el-select v-model="form.rkStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="21" label="部分分配"></el-option>
+                    <el-option :value="22" label="全部分配"></el-option>
+                    <el-option :value="31" label="部分上架"></el-option>
+                    <el-option :value="32" label="全部上架"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="制单方式"
                           :label-width="formLabelWidth">
-                <el-select v-model="rkZdfs" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="1">手动</el-option>
-                    <el-option :value="2">导入</el-option>
-                    <el-option :value="3">接口</el-option>
+                <el-select v-model="form.rkZdfs" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="1" label="手动"></el-option>
+                    <el-option :value="2" label="导入"></el-option>
+                    <el-option :value="3" label="接口"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="操作方式"
                           :label-width="formLabelWidth">
-                <el-select v-model="rkStartwith" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="1">电脑端</el-option>
-                    <el-option :value="2">PDA</el-option>
+                <el-select v-model="form.rkStartwith" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="1" label="电脑端"></el-option>
+                    <el-option :value="2" label="PDA"></el-option>
                 </el-select>
             </el-form-item>
-
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
@@ -564,7 +573,13 @@
             rkrwDbd: '',
             rkrwCys: '',
             rkrwDh: '',
-            rkrwStatus: ''
+            rkrwStatus: '',
+            rkCreatetime:[null,null],//模糊查询--下单时间
+            rkrkSjsj:[null,null],     //模糊查询--上架时间
+            rkRkdjNo:'',                //模糊查询--入库单号
+            rkStatus:'',                 //模糊查询--入库状态
+            rkZdfs:'',                   //模糊查询--制单方式
+            rkStartwith:'',              //模糊查询--操作方式
         }
     }
     function formDetailed() {
@@ -829,20 +844,20 @@
                 }
             },
             auto_mdtSjsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                               //作业时间
             auto_rkrkSjsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                              //上架开始时间
             auto_rkEndTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                             //上架结束时间
             auto_rkCreatetime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                          //下单时间
             auto_rkStatus:function(value){
                 var temp={}
