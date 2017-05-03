@@ -514,13 +514,13 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 1:
-                        urlName = '编辑';
-                        req = autoUrl(req, '/arehouse', "PUT", function (json) {
+                        urlName = '获取任务单号中详细信息';
+                        req = autoUrl(req, '/mfunrkDoc/byRwid', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
-                        urlName = '编辑';
+                        urlName = '获取入库单号中详细信息';
                         req = autoUrl(req, '', "POST", function (json) {
                             res.send(json);
                         });
@@ -556,7 +556,7 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 1:
-                        urlName = '编辑';
+                        urlName = '入库操作－历史记录';
                         req = autoUrl(req, '/arehouse', "PUT", function (json) {
                             res.send(json);
                         });

@@ -683,6 +683,7 @@
     </el-dialog>
 </div>
 <script>
+    var id = 0;
     /*<debug>*/
     var id = 0;
     (function () {
@@ -739,6 +740,7 @@
             "rkRwStatus": 1,
             "rkZdfs": 1,
             "rkStartwith": 1,
+
             bgGoodsNo: '',
             selectGood: selectGood(),
             saveARkDocsList: true,
@@ -788,8 +790,9 @@
             "rkrwSjxm": "string",
             "rkrwDh": "string",
             "rkrwStatus": "string",
-            "rkrwArehouseId": 1,
-            "rkrwClientId": 1,
+            "rkrwArehouseId": 0,
+            "rkrwClientId": 0,
+            "rkrwCreateUserid": app.rmsUser.ruUserId,
             docList: []
         }
     }
@@ -1054,9 +1057,9 @@
                 allPrposCb(Combination, function (obj, index) {
                     if (typeof _this.warehousingReservationCombinationDetails[index] !== 'undefined') Combination[index] = _this.warehousingReservationCombinationDetails[index];
                 });
-                Combination.rkDocsList = [];
+                Combination.docList = [];
                 for (var i = 0; i < warehousingReservation.warehousingReservationCombination.length; i++) {
-                    Combination.rkDocsList.push({rkRkdjId: warehousingReservation.warehousingReservationCombination[i].rkRkdjId});
+                    Combination.docList.push({rkRkdjId: warehousingReservation.warehousingReservationCombination[i].rkRkdjId});
                 }
 
                 Combination.rkrwDhrq = new Date(Combination.rkrwDhrq).toJSON();
