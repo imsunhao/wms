@@ -598,41 +598,2178 @@
      * TODO 仓库管理
      */
         /**
-         *TODO 0 对于仓库的区域的增加
-         */
-        /**
-         * TODO 1 对于仓库的区域的修改
-         */
-        /**
-         * TODO 2 对于仓库的区域的查看
-         */
-        /**
-         * TODO 3 禁止
-         */
-        /**
-         * TODO 4 启用
-         */
-        /**
-         * TODO 5 设为存储区
-         */
-        /**
-         * TODO 6 设为暂存区
-         */
-        /**
-         * TODO 7 设为未设定区
-         */
-        /**
-         * TODO 8 设为分拣区
-         */
-        /**
-         * TODO 9 设为不合格去区
-         */
-        /** TODO 10 查看区域中库存明细
+         * TODO 0 读取指定仓库的信息 包括 结构 区域具体信息
+         *
+         * 参考
+         *
+         * {
+              "kuQu": [
+                [
+                  {
+                    "row": 0,
+                    "col": 1,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "A1-1",
+                    "select": false
+                  },
+                  {
+                    "row": 0,
+                    "col": 2,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "A1",
+                    "select": false
+                  },
+                  {
+                    "row": 0,
+                    "col": 3,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "A2",
+                    "select": false
+                  },
+                  {
+                    "row": 0,
+                    "col": 4,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "A3",
+                    "select": false
+                  },
+                  {
+                    "id": -1,
+                    "status": 0,
+                    "statusColor": [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    "select": false
+                  },
+                  {
+                    "row": 0,
+                    "col": 5,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B0",
+                    "select": false
+                  },
+                  {
+                    "row": 0,
+                    "col": 6,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B1",
+                    "select": false
+                  },
+                  {
+                    "row": 0,
+                    "col": 7,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B2",
+                    "select": false
+                  },
+                  {
+                    "row": 0,
+                    "col": 8,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B3",
+                    "select": false
+                  },
+                  {
+                    "row": 0,
+                    "col": 9,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B4",
+                    "select": false
+                  },
+                  {
+                    "id": -1,
+                    "status": 0,
+                    "statusColor": [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    "select": false
+                  },
+                  {
+                    "row": 0,
+                    "col": 10,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    "status": 3,
+                    "id": "C0",
+                    "select": false
+                  },
+                  {
+                    "row": 0,
+                    "col": 11,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    "status": 3,
+                    "id": "C1",
+                    "select": false
+                  },
+                  {
+                    "row": 0,
+                    "col": 12,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    "status": 3,
+                    "id": "C2",
+                    "select": false
+                  },
+                  {
+                    "row": 0,
+                    "col": 13,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    "status": 3,
+                    "id": "C3",
+                    "select": false
+                  }
+                ],
+                [
+                  {
+                    "row": 1,
+                    "col": 1,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "A4",
+                    "select": false
+                  },
+                  {
+                    "row": 1,
+                    "col": 2,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "A5",
+                    "select": false
+                  },
+                  {
+                    "row": 1,
+                    "col": 3,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "A6",
+                    "select": false
+                  },
+                  {
+                    "row": 1,
+                    "col": 4,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "A7",
+                    "select": false
+                  },
+                  {
+                    "id": -1,
+                    "status": 0,
+                    "statusColor": [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    "select": false
+                  },
+                  {
+                    "row": 1,
+                    "col": 5,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B5",
+                    "select": false
+                  },
+                  {
+                    "row": 1,
+                    "col": 6,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B6",
+                    "select": false
+                  },
+                  {
+                    "row": 1,
+                    "col": 7,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B7",
+                    "select": false
+                  },
+                  {
+                    "row": 1,
+                    "col": 8,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B8",
+                    "select": false
+                  },
+                  {
+                    "row": 1,
+                    "col": 9,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B9",
+                    "select": false
+                  },
+                  {
+                    "id": -1,
+                    "status": 0,
+                    "statusColor": [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    "select": false
+                  },
+                  {
+                    "row": 1,
+                    "col": 10,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    "status": 3,
+                    "id": "C4",
+                    "select": false
+                  },
+                  {
+                    "row": 1,
+                    "col": 11,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    "status": 3,
+                    "id": "C5",
+                    "select": false
+                  },
+                  {
+                    "row": 1,
+                    "col": 12,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    "status": 3,
+                    "id": "C6",
+                    "select": false
+                  },
+                  {
+                    "row": 1,
+                    "col": 13,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    "status": 3,
+                    "id": "C7",
+                    "select": false
+                  }
+                ],
+                [
+                  {
+                    "row": 2,
+                    "col": 1,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "A8",
+                    "select": false
+                  },
+                  {
+                    "row": 2,
+                    "col": 2,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "A9",
+                    "select": false
+                  },
+                  {
+                    "row": 2,
+                    "col": 3,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "A10",
+                    "select": false
+                  },
+                  {
+                    "row": 2,
+                    "col": 4,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "A11",
+                    "select": false
+                  },
+                  {
+                    "id": -1,
+                    "status": 0,
+                    "statusColor": [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    "select": false
+                  },
+                  {
+                    "row": 2,
+                    "col": 5,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B10",
+                    "select": false
+                  },
+                  {
+                    "row": 2,
+                    "col": 6,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B11",
+                    "select": false
+                  },
+                  {
+                    "row": 2,
+                    "col": 7,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B12",
+                    "select": false
+                  },
+                  {
+                    "row": 2,
+                    "col": 8,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B13",
+                    "select": false
+                  },
+                  {
+                    "row": 2,
+                    "col": 9,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B14",
+                    "select": false
+                  },
+                  {
+                    "id": -1,
+                    "status": 0,
+                    "statusColor": [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    "select": false
+                  },
+                  {
+                    "row": 2,
+                    "col": 10,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    "status": 3,
+                    "id": "C8",
+                    "select": false
+                  },
+                  {
+                    "row": 2,
+                    "col": 11,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    "status": 3,
+                    "id": "C9",
+                    "select": false
+                  },
+                  {
+                    "row": 2,
+                    "col": 12,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    "status": 3,
+                    "id": "C10",
+                    "select": false
+                  },
+                  {
+                    "row": 2,
+                    "col": 13,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      true,
+                      false,
+                      false
+                    ],
+                    "status": 3,
+                    "id": "C11",
+                    "select": false
+                  }
+                ],
+                [
+                  {
+                    "row": 3,
+                    "col": 1,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    "status": 5,
+                    "id": "D0",
+                    "select": false
+                  },
+                  {
+                    "row": 3,
+                    "col": 2,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    "status": 5,
+                    "id": "D1",
+                    "select": false
+                  },
+                  {
+                    "row": 3,
+                    "col": 3,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    "status": 5,
+                    "id": "D2",
+                    "select": false
+                  },
+                  {
+                    "row": 3,
+                    "col": 4,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    "status": 5,
+                    "id": "D3",
+                    "select": false
+                  },
+                  {
+                    "id": -1,
+                    "status": 0,
+                    "statusColor": [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    "select": false
+                  },
+                  {
+                    "row": 3,
+                    "col": 5,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B15",
+                    "select": false
+                  },
+                  {
+                    "row": 3,
+                    "col": 6,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B16",
+                    "select": false
+                  },
+                  {
+                    "row": 3,
+                    "col": 7,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B17",
+                    "select": false
+                  },
+                  {
+                    "row": 3,
+                    "col": 8,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B18",
+                    "select": false
+                  },
+                  {
+                    "row": 3,
+                    "col": 9,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B19",
+                    "select": false
+                  },
+                  {
+                    "id": -1,
+                    "status": 0,
+                    "statusColor": [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    "select": false
+                  },
+                  {
+                    "row": 3,
+                    "col": 10,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "E0",
+                    "select": false
+                  },
+                  {
+                    "row": 3,
+                    "col": 11,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "E1",
+                    "select": false
+                  },
+                  {
+                    "row": 3,
+                    "col": 12,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "E2",
+                    "select": false
+                  },
+                  {
+                    "row": 3,
+                    "col": 13,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "E3",
+                    "select": false
+                  }
+                ],
+                [
+                  {
+                    "row": 4,
+                    "col": 1,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    "status": 5,
+                    "id": "D4",
+                    "select": false
+                  },
+                  {
+                    "row": 4,
+                    "col": 2,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    "status": 5,
+                    "id": "D5",
+                    "select": false
+                  },
+                  {
+                    "row": 4,
+                    "col": 3,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    "status": 5,
+                    "id": "D6",
+                    "select": false
+                  },
+                  {
+                    "row": 4,
+                    "col": 4,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      true
+                    ],
+                    "status": 5,
+                    "id": "D7",
+                    "select": false
+                  },
+                  {
+                    "id": -1,
+                    "status": 0,
+                    "statusColor": [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    "select": false
+                  },
+                  {
+                    "row": 4,
+                    "col": 5,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B20",
+                    "select": false
+                  },
+                  {
+                    "row": 4,
+                    "col": 6,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B21",
+                    "select": false
+                  },
+                  {
+                    "row": 4,
+                    "col": 7,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B22",
+                    "select": false
+                  },
+                  {
+                    "row": 4,
+                    "col": 8,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B23",
+                    "select": false
+                  },
+                  {
+                    "row": 4,
+                    "col": 9,
+                    "statusColor": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                      false
+                    ],
+                    "status": 4,
+                    "id": "B24",
+                    "select": false
+                  },
+                  {
+                    "id": -1,
+                    "status": 0,
+                    "statusColor": [
+                      true,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ],
+                    "select": false
+                  },
+                  {
+                    "row": 4,
+                    "col": 10,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "E4",
+                    "select": false
+                  },
+                  {
+                    "row": 4,
+                    "col": 11,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "E5",
+                    "select": false
+                  },
+                  {
+                    "row": 4,
+                    "col": 12,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "E6",
+                    "select": false
+                  },
+                  {
+                    "row": 4,
+                    "col": 13,
+                    "statusColor": [
+                      false,
+                      false,
+                      true,
+                      false,
+                      false,
+                      false
+                    ],
+                    "status": 2,
+                    "id": "E7",
+                    "select": false
+                  }
+                ]
+              ],
+              "bigKuQu":{
+                "a": {
+                  "color": "",
+                  "src": [
+                    {
+                      "row": 0,
+                      "col": 1,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "select": false
+                    },
+                    {
+                      "row": 0,
+                      "col": 2,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "id": "A1",
+                      "select": false
+                    },
+                    {
+                      "row": 0,
+                      "col": 3,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "id": "A2",
+                      "select": false
+                    },
+                    {
+                      "row": 0,
+                      "col": 4,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "id": "A3",
+                      "select": false
+                    },
+                    {
+                      "row": 1,
+                      "col": 1,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "id": "A4",
+                      "select": false
+                    },
+                    {
+                      "row": 1,
+                      "col": 2,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "id": "A5",
+                      "select": false
+                    },
+                    {
+                      "row": 1,
+                      "col": 3,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "id": "A6",
+                      "select": false
+                    },
+                    {
+                      "row": 1,
+                      "col": 4,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "id": "A7",
+                      "select": false
+                    },
+                    {
+                      "row": 2,
+                      "col": 1,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "id": "A8",
+                      "select": false
+                    },
+                    {
+                      "row": 2,
+                      "col": 2,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "id": "A9",
+                      "select": false
+                    },
+                    {
+                      "row": 2,
+                      "col": 3,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "id": "A10",
+                      "select": false
+                    },
+                    {
+                      "row": 2,
+                      "col": 4,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "id": "A11",
+                      "select": false
+                    }
+                  ],
+                  "id": "A"
+                },
+                "b": {
+                  "color": "",
+                  "src": [
+                    {
+                      "row": 0,
+                      "col": 5,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B0",
+                      "select": false
+                    },
+                    {
+                      "row": 0,
+                      "col": 6,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B1",
+                      "select": false
+                    },
+                    {
+                      "row": 0,
+                      "col": 7,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B2",
+                      "select": false
+                    },
+                    {
+                      "row": 0,
+                      "col": 8,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B3",
+                      "select": false
+                    },
+                    {
+                      "row": 0,
+                      "col": 9,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B4",
+                      "select": false
+                    },
+                    {
+                      "row": 1,
+                      "col": 5,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B5",
+                      "select": false
+                    },
+                    {
+                      "row": 1,
+                      "col": 6,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B6",
+                      "select": false
+                    },
+                    {
+                      "row": 1,
+                      "col": 7,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B7",
+                      "select": false
+                    },
+                    {
+                      "row": 1,
+                      "col": 8,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B8",
+                      "select": false
+                    },
+                    {
+                      "row": 1,
+                      "col": 9,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B9",
+                      "select": false
+                    },
+                    {
+                      "row": 2,
+                      "col": 5,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B10",
+                      "select": false
+                    },
+                    {
+                      "row": 2,
+                      "col": 6,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B11",
+                      "select": false
+                    },
+                    {
+                      "row": 2,
+                      "col": 7,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B12",
+                      "select": false
+                    },
+                    {
+                      "row": 2,
+                      "col": 8,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B13",
+                      "select": false
+                    },
+                    {
+                      "row": 2,
+                      "col": 9,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B14",
+                      "select": false
+                    },
+                    {
+                      "row": 3,
+                      "col": 5,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B15",
+                      "select": false
+                    },
+                    {
+                      "row": 3,
+                      "col": 6,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B16",
+                      "select": false
+                    },
+                    {
+                      "row": 3,
+                      "col": 7,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B17",
+                      "select": false
+                    },
+                    {
+                      "row": 3,
+                      "col": 8,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B18",
+                      "select": false
+                    },
+                    {
+                      "row": 3,
+                      "col": 9,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B19",
+                      "select": false
+                    },
+                    {
+                      "row": 4,
+                      "col": 5,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B20",
+                      "select": false
+                    },
+                    {
+                      "row": 4,
+                      "col": 6,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B21",
+                      "select": false
+                    },
+                    {
+                      "row": 4,
+                      "col": 7,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B22",
+                      "select": false
+                    },
+                    {
+                      "row": 4,
+                      "col": 8,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B23",
+                      "select": false
+                    },
+                    {
+                      "row": 4,
+                      "col": 9,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        true,
+                        false
+                      ],
+                      "status": 4,
+                      "id": "B24",
+                      "select": false
+                    }
+                  ],
+                  "id": "B"
+                },
+                "c": {
+                  "color": "",
+                  "src": [
+                    {
+                      "row": 0,
+                      "col": 10,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        true,
+                        false,
+                        false
+                      ],
+                      "status": 3,
+                      "id": "C0",
+                      "select": false
+                    },
+                    {
+                      "row": 0,
+                      "col": 11,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        true,
+                        false,
+                        false
+                      ],
+                      "status": 3,
+                      "id": "C1",
+                      "select": false
+                    },
+                    {
+                      "row": 0,
+                      "col": 12,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        true,
+                        false,
+                        false
+                      ],
+                      "status": 3,
+                      "id": "C2",
+                      "select": false
+                    },
+                    {
+                      "row": 0,
+                      "col": 13,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        true,
+                        false,
+                        false
+                      ],
+                      "status": 3,
+                      "id": "C3",
+                      "select": false
+                    },
+                    {
+                      "row": 1,
+                      "col": 10,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        true,
+                        false,
+                        false
+                      ],
+                      "status": 3,
+                      "id": "C4",
+                      "select": false
+                    },
+                    {
+                      "row": 1,
+                      "col": 11,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        true,
+                        false,
+                        false
+                      ],
+                      "status": 3,
+                      "id": "C5",
+                      "select": false
+                    },
+                    {
+                      "row": 1,
+                      "col": 12,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        true,
+                        false,
+                        false
+                      ],
+                      "status": 3,
+                      "id": "C6",
+                      "select": false
+                    },
+                    {
+                      "row": 1,
+                      "col": 13,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        true,
+                        false,
+                        false
+                      ],
+                      "status": 3,
+                      "id": "C7",
+                      "select": false
+                    },
+                    {
+                      "row": 2,
+                      "col": 10,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        true,
+                        false,
+                        false
+                      ],
+                      "status": 3,
+                      "id": "C8",
+                      "select": false
+                    },
+                    {
+                      "row": 2,
+                      "col": 11,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        true,
+                        false,
+                        false
+                      ],
+                      "status": 3,
+                      "id": "C9",
+                      "select": false
+                    },
+                    {
+                      "row": 2,
+                      "col": 12,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        true,
+                        false,
+                        false
+                      ],
+                      "status": 3,
+                      "id": "C10",
+                      "select": false
+                    },
+                    {
+                      "row": 2,
+                      "col": 13,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        true,
+                        false,
+                        false
+                      ],
+                      "status": 3,
+                      "id": "C11",
+                      "select": false
+                    }
+                  ],
+                  "id": "C"
+                },
+                "d": {
+                  "color": "",
+                  "src": [
+                    {
+                      "row": 3,
+                      "col": 1,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        true
+                      ],
+                      "status": 5,
+                      "id": "D0",
+                      "select": false
+                    },
+                    {
+                      "row": 3,
+                      "col": 2,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        true
+                      ],
+                      "status": 5,
+                      "id": "D1",
+                      "select": false
+                    },
+                    {
+                      "row": 3,
+                      "col": 3,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        true
+                      ],
+                      "status": 5,
+                      "id": "D2",
+                      "select": false
+                    },
+                    {
+                      "row": 3,
+                      "col": 4,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        true
+                      ],
+                      "status": 5,
+                      "id": "D3",
+                      "select": false
+                    },
+                    {
+                      "row": 4,
+                      "col": 1,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        true
+                      ],
+                      "status": 5,
+                      "id": "D4",
+                      "select": false
+                    },
+                    {
+                      "row": 4,
+                      "col": 2,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        true
+                      ],
+                      "status": 5,
+                      "id": "D5",
+                      "select": false
+                    },
+                    {
+                      "row": 4,
+                      "col": 3,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        true
+                      ],
+                      "status": 5,
+                      "id": "D6",
+                      "select": false
+                    },
+                    {
+                      "row": 4,
+                      "col": 4,
+                      "statusColor": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        true
+                      ],
+                      "status": 5,
+                      "id": "D7",
+                      "select": false
+                    }
+                  ],
+                  "id": "D"
+                },
+                "e": {
+                  "color": "",
+                  "src": [
+                    {
+                      "row": 3,
+                      "col": 10,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "id": "E0",
+                      "select": false
+                    },
+                    {
+                      "row": 3,
+                      "col": 11,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "id": "E1",
+                      "select": false
+                    },
+                    {
+                      "row": 3,
+                      "col": 12,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "id": "E2",
+                      "select": false
+                    },
+                    {
+                      "row": 3,
+                      "col": 13,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "id": "E3",
+                      "select": false
+                    },
+                    {
+                      "row": 4,
+                      "col": 10,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "id": "E4",
+                      "select": false
+                    },
+                    {
+                      "row": 4,
+                      "col": 11,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "id": "E5",
+                      "select": false
+                    },
+                    {
+                      "row": 4,
+                      "col": 12,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "id": "E6",
+                      "select": false
+                    },
+                    {
+                      "row": 4,
+                      "col": 13,
+                      "statusColor": [
+                        false,
+                        false,
+                        true,
+                        false,
+                        false,
+                        false
+                      ],
+                      "status": 2,
+                      "id": "E7",
+                      "select": false
+                    }
+                  ],
+                  "id": "E"
+                }
+              },
+              "desc": "aaaa bbbbb cccc\naaaa bbbbb cccc\naaaa bbbbb cccc\ndddd bbbbb eeee\ndddd bbbbb eeee",
+              "id":"123"
+            }
          *
          */
-/**
- *       货品管理   goodsManage
-             **/
+        /**
+         * TODO 1 对于仓库的区域 结构的修改
+         */
+        /**
+         * TODO 3 将指定区域（单 多） 冻结区域
+         */
+        /**
+         * TODO 4 将指定区域（单 多） 启用区域
+         */
+        /**
+         * TODO 5 将指定区域（单 多） 设为存储区
+         */
+        /**
+         * TODO 6 将指定区域（单 多） 设为暂存区
+         */
+        /**
+         * TODO 7 将指定区域（单 多） 设为未设定区
+         */
+        /**
+         * TODO 8 将指定区域（单 多） 设为分拣区
+         */
+        /**
+         * TODO 9 将指定区域（单 多） 设为不合格去区
+         */
+        /** TODO 10 查看 指定区域（单 多） 区域中 储位信息
+         *
+         */
+        /** TODO 11 查看 指定储位 中 详细信息
+         *
+         */
+        /**
+         * TODO 12 将指定储位（单 多） 冻结储位
+         */
+        /**
+         * TODO 13 将指定储位（单 多） 启用储位
+         */
+    /**
+     * TODO 货品管理   goodsManage
+     **/
         /**
           0 分页查询货品详情 POST /goods
          参数
@@ -2263,7 +4400,7 @@
              *  参数：
              *
              *     user:    //用户名
-             *     userId:    //用户id
+             *     userId:  //用户id
              *
              *
              *
@@ -2283,11 +4420,13 @@
              */
 
         /**
-             TODO 出库预约
+             TODO 出库预约 outputAppointment
 
              **/
             /**
-             * TODO 0 出库预约 出库单管理 根据分页要求获取没有出库任务的出库单信息 POST /mfunck/selectMfunckDocByPage
+             * 0 TODO 出库预约 获取 根据分页要求获取没有出库任务的出库单信息 POST /mfunck/selectMfunckDocByPage
+             *
+             *
              * 参数：查询条件 ckDocPageModel（参数对象）
              * {
                   "draw": 0,
@@ -2339,7 +4478,7 @@
                 }
              */
             /**
-             * TODO 1 出库预约 出库单管理 新增 出库单据/包含出库单明细 POST /mfunck/add
+             * 1 TODO 出库预约 新增 出库单据/包含出库单明细 POST /mfunck/add
              * 参数
              * {
                   "ckCkdjNo": "CK1482398743793",（必填）
@@ -2401,26 +4540,23 @@
              *
              *
              * */
-
             /**
              * TODO 3 出库预约 新增 出库任务单
              *
              *
              * */
-
             /**
              * TODO 4 出库预约 出库单 作废
              *
              *
              * */
             /**
-             * TODO 5 出库预约 出库单 滞留
+             * TODO 5 出库预约 出库单 取消滞留 （取消滞留）
              *
              *
              * */
             /**
-             * TODO 5 出库预约 出库单 滞留
-             *
+             * TODO 6 出库预约 出库单 滞留
              *
              * */
         /**
@@ -2625,6 +4761,146 @@
  *     3.需跟进
  *  TODO 滞留补发信息
  *    任务号
+ */
+
+ /** TODO 库内管理*/
+    /**
+     *TODO 库位转移
+     *
+    */
+        /**
+ * TODO 1 分页查询库位转移 /stockZyDoc/page
+         * {
+          "startTimeParam": "string",     开始时间
+          "endTimeParam": "string",       结束时间
+          "zyStatus": 0,                  转移状态
+          "zyMentionUserName": "string",  提起人
+          "zyCreateUserName": "string",   创建人
+          "pageNum": 0,
+          "pageSize": 0,
+          "draw": 0
+        }
+         *
+ */
+        /**
+        * TODO 2 新增   POST /stockZyDoc
+         * {
+            "zyMentionUserId": 1,                 提起人id
+            "zyMentionUserName": "string",        提起人名称
+            "zyReason": "string",                 转移原因
+            "zyStatus": "0",                      转移状态
+            "zyCreateUserId": 1,                  创建人id
+            "zyCreateUserName": "string",         创建人名称
+            "zyConfirmUserId": 1,                 确认人id
+            "zyConfirmUserName": "string",        确认人名称
+            "zyCancelUserId": 1,                  作废人id
+            "zyCancelUserName": "string",         作废人名称
+            "zyArehouseId": 1,                    仓库id
+            "zyDocsList": [            转移明细
+                {
+                    "zysRepertoryId": 176,        合并后的库存id
+                    "zysZyBeforeLocationId": 2,   转移前储位id
+                    "zysZyAfterLocationId": 1,    转移后储位id
+                    "zysZyBeforeKyCount": 190,    转移前的可用数量
+                    "zysZyCount": 90              转移数量
+                },
+                {
+                    "zysRepertoryId": 183,
+                    "zysZyBeforeLocationId": 3,
+                    "zysZyAfterLocationId": 1,
+                    "zysZyBeforeKyCount": 720,
+                    "zysZyCount": 100
+                }
+            ]
+        }
+        */
+            /**
+ * TODO 2-1 选择库存  POST /repertory/groupPage
+             *{
+              "bgGoodsNo": "",          货品编号
+              "bgGoodsName": "",        货品名称
+              "mrGoodsBatch": "",       货品批次
+              "blLname": "",            储位名称
+              "mrDjStatus": "",         冻结状态
+              "pageNum": 1,
+              "pageSize": 10,
+              "draw": 0
+            }
+ */
+        /**
+ *  TODO 3编辑    PUT /stockZyDoc
+         *  {
+            "zyId":9,                                 转移单id
+            "zyMentionUserId": 1,                     提起人id
+            "zyMentionUserName": "string",            提起人名称
+            "zyReason": "string",                     转移原因
+            "zyStatus": "0",                          转移状态
+            "zyCreateUserId": 1,                      创建人id
+            "zyCreateUserName": "string",             创建人名称
+            "zyCreateTime":"2017-04-20T11:56:42.597Z",创建时间
+            "zyConfirmUserId": 1,                     确认人id
+            "zyConfirmUserName": "string",            确认人名称
+            "zyCancelUserId": 1,                      作废人id
+            "zyCancelUserName": "string",             作废人名称
+            "zyArehouseId": 1,                        仓库id
+            "zyDocsList": [                           转移明细id
+                {
+                    "zysRepertoryId": 176,            合并后的库存id
+                    "zysZyBeforeLocationId": 2,       转移前库位id
+                    "zysZyAfterLocationId": 1,        转移后库位id
+                    "zysZyBeforeKyCount": 340,        转移前可用数量
+                    "zysZyCount": 150                 转移数量
+                },
+                {
+                    "zysRepertoryId": 183,
+                    "zysZyBeforeLocationId": 3,
+                    "zysZyAfterLocationId": 1,
+                    "zysZyBeforeKyCount": 720,
+                    "zysZyCount": 200
+                }
+            ]
+        }
+ */
+            /**
+ * TODO 3-1 选择库存  POST /repertory/groupPage
+             * {
+              "bgGoodsNo": "",          货品编号
+              "bgGoodsName": "",        货品名称
+              "mrGoodsBatch": "",       货品批次
+              "blLname": "",            储位名称
+              "mrDjStatus": "",         冻结状态
+              "pageNum": 1,
+              "pageSize": 10,
+              "draw": 0
+            }
+ */
+        /**
+        * TODO 4删除     POST /stockZyDoc/deleteOfSoft
+        */
+/**
+ * TODO 5 库存转移确认     GET /stockZyDoc/confirmZy/{zyId}
+ *
+ * /
+ /**
+ * TODO 库存冻结/解冻
+ * /
+ /**
+ *TODO 新增
+ */
+/**
+ *TODO 新增
+ */
+/**
+ *TODO 新增
+ */
+/**
+ *TODO 新增
+ */
+
+
+
+
+ /**
  * TODO 库内管理
  * TODO 库位转移
  * TODO 库存转移确认
@@ -2809,95 +5085,95 @@
              上架人员    mdtUserId(多个上架人员,在一列显示逗号隔开)
              上架时间    mdtSjsj
              */
-    /**
+            /**
                  * TODO 出库单据查询
              */
             /**
-         *  TODO 分页查询
-         *  搜索条件的字段
-                仓库             ckArehouseId
-                下单时间         ckXdsj
-                激活时间         mhCreatetime
-                下架开始时间     ckCksj
-                下架结束时间     ckEndtime
-                出库单据状态     ckStatus  出库单据状态(1初始 21部分分拣，未下架状态 22部分出库，已下架 31全部分拣，未下架 32全部出库，下架完成 50作废)
-                是否欠货         ckQhStatus 欠货状态
-                                 1.整单欠货(明细欠货状态全部为"全部欠货"出库单状态为"整单欠货")
-                                 2.部分欠货(明细欠货状态存在"未欠货","部分欠货"出库单状态为"部分欠货")
-                                 3.未欠货(明细欠货状态全部为"未欠货",出库单据为"未欠货")
-                是否滞留         ckZlStatus  滞留状态
-                                 1.未到车滞留(出库单据明细滞留状态全部为"未到车滞留"出库单据滞留状态为"未到车滞留")
-                                 2.到车滞留(出库单据明细滞留状态存在"到车滞留"出库单据滞留状态为"到车滞留")
-                                 3.未滞留(出库单据明细滞留状态全部为"未滞留",出库单据滞留状态为"未滞留")
-                联系电话         ckTel
-                联系人           ckContacts
-                客户编号         ckCkdjClientno
-                客户名称         ckCkdjClientname
-                出库单号         ckCkdjNo
-                客户地址         ckAdress
-                制作方式         ckIsauto制单方式(1手动 2excel/导入 3接口)
-                操作方式         ckStartwith 1电脑端 2PDA
-                单据类型         ckCkdjType 出库 单据类型 0正常单据 1挂起单据    2滞留单据
-         一级菜单：出库单
-         {
-                TODO 仓库        ckArehouseId
-                出库单号            ckCkdjNo
-                单据类型            ckCkdjType
-                单据状态            ckStatus    1:'初始',  21:'部分分拣'  22:'部分出库', 31:'全部分拣', 32:'全部出库 50:'作废',
-                欠货状态            ckQhStatus
-                滞留状态            ckZlStatus
-                TODO 总数量       sum(cksGoodsCount)(暂用allSL)
-                TODO 总体积       (暂用allTJ)
-                TODO 下架数量     sum(msxMxCount)(暂用xjsl)
-                TODO 下架体积     (暂用xjtj)
-                TODO 欠货数量     sum(cksQhCount)(暂用qhsl)
-                TODO 欠货体积     cksQhCount*bgGoodsTj(暂用qhtj)
-                滞留数量            cksZlCount
-                TODO 滞留体积     cksZlCount*bgGoodsTj(暂用zltj)
-                客户编号            ckCkdjClientno
-                客户名称            ckCkdjClientname
-                客户地址            ckAdress
-                联系电话            ckTel
-                制作方式            ckIsauto
-                操作方式            ckStartwith
-                激活人员            ckrwHistoryOperator
-                TODO 备货人员      msUserId
-                下架人员            msxXjry（多个）
-          }
-         二级菜单：出库明细
-         {
-                TODO 货品编号     cksGoodsId(关联货品表)
-                TODO 货品名称     cksGoodsId（关联货品表）
-                货品数量            cksGoodsCount
-                TODO 货品体积     cksGoodsCount*bgGoodsTj(暂用hptj)
-                下架数量            msxMxCount
-                TODO 下架体积     msxMxCount*bgGoodsTj(暂用xjtj)
-                欠货数量            cksQhCounts
-                TODO 欠货体积     cksQhCounts*bgGoodsTj(暂用qhtj)
-                滞留数量            cksZlCount
-                TODO 滞留体积     cksZlCount*bgGoodsTj(暂用zltj)
-                欠货(补发)单号      cksBfNo
-                滞留任务号          cksZlbfInfo
-                发运数量            cksFyCount
-                TODO 发运体积     cksFyCount*bgGoddsTj(暂用fytj)
-                欠货备注            cksQhRemarks
-                补发状态            cksBfStatus
-         }
-         三级菜单： 分拣明细
-         {
-                TODO 货品编号   msxHpkcid（关联货品库存表再关键货品表）
-                TODO 货品名称   msxHpkcid（关联货品库存表再关联货品表）
-                TODO 下架库位   msxHpkcid（关联货品库存表再关联库位表）
-                下架数量         msxMxCount
-                TODO 下架体积   msxMxCount*bgGoodsTj(暂用xjtj)
-                TODO 下架批次   msx_hpkcid（关联货品库存表取mr_good_batch）
-                操作人员         msxXjry
-                操作时间         msxQrsj
-                修改分拣数量原因 msxWt
-         }
-         *
-         *
-         */
+             *  TODO 分页查询
+             *  搜索条件的字段
+                    仓库             ckArehouseId
+                    下单时间         ckXdsj
+                    激活时间         mhCreatetime
+                    下架开始时间     ckCksj
+                    下架结束时间     ckEndtime
+                    出库单据状态     ckStatus  出库单据状态(1初始 21部分分拣，未下架状态 22部分出库，已下架 31全部分拣，未下架 32全部出库，下架完成 50作废)
+                    是否欠货         ckQhStatus 欠货状态
+                                     1.整单欠货(明细欠货状态全部为"全部欠货"出库单状态为"整单欠货")
+                                     2.部分欠货(明细欠货状态存在"未欠货","部分欠货"出库单状态为"部分欠货")
+                                     3.未欠货(明细欠货状态全部为"未欠货",出库单据为"未欠货")
+                    是否滞留         ckZlStatus  滞留状态
+                                     1.未到车滞留(出库单据明细滞留状态全部为"未到车滞留"出库单据滞留状态为"未到车滞留")
+                                     2.到车滞留(出库单据明细滞留状态存在"到车滞留"出库单据滞留状态为"到车滞留")
+                                     3.未滞留(出库单据明细滞留状态全部为"未滞留",出库单据滞留状态为"未滞留")
+                    联系电话         ckTel
+                    联系人           ckContacts
+                    客户编号         ckCkdjClientno
+                    客户名称         ckCkdjClientname
+                    出库单号         ckCkdjNo
+                    客户地址         ckAdress
+                    制作方式         ckIsauto制单方式(1手动 2excel/导入 3接口)
+                    操作方式         ckStartwith 1电脑端 2PDA
+                    单据类型         ckCkdjType 出库 单据类型 0正常单据 1挂起单据    2滞留单据
+             一级菜单：出库单
+             {
+                    TODO 仓库        ckArehouseId
+                    出库单号            ckCkdjNo
+                    单据类型            ckCkdjType
+                    单据状态            ckStatus    1:'初始',  21:'部分分拣'  22:'部分出库', 31:'全部分拣', 32:'全部出库 50:'作废',
+                    欠货状态            ckQhStatus
+                    滞留状态            ckZlStatus
+                    TODO 总数量       sum(cksGoodsCount)(暂用allSL)
+                    TODO 总体积       (暂用allTJ)
+                    TODO 下架数量     sum(msxMxCount)(暂用xjsl)
+                    TODO 下架体积     (暂用xjtj)
+                    TODO 欠货数量     sum(cksQhCount)(暂用qhsl)
+                    TODO 欠货体积     cksQhCount*bgGoodsTj(暂用qhtj)
+                    滞留数量            cksZlCount
+                    TODO 滞留体积     cksZlCount*bgGoodsTj(暂用zltj)
+                    客户编号            ckCkdjClientno
+                    客户名称            ckCkdjClientname
+                    客户地址            ckAdress
+                    联系电话            ckTel
+                    制作方式            ckIsauto
+                    操作方式            ckStartwith
+                    激活人员            ckrwHistoryOperator
+                    TODO 备货人员      msUserId
+                    下架人员            msxXjry（多个）
+              }
+             二级菜单：出库明细
+             {
+                    TODO 货品编号     cksGoodsId(关联货品表)
+                    TODO 货品名称     cksGoodsId（关联货品表）
+                    货品数量            cksGoodsCount
+                    TODO 货品体积     cksGoodsCount*bgGoodsTj(暂用hptj)
+                    下架数量            msxMxCount
+                    TODO 下架体积     msxMxCount*bgGoodsTj(暂用xjtj)
+                    欠货数量            cksQhCounts
+                    TODO 欠货体积     cksQhCounts*bgGoodsTj(暂用qhtj)
+                    滞留数量            cksZlCount
+                    TODO 滞留体积     cksZlCount*bgGoodsTj(暂用zltj)
+                    欠货(补发)单号      cksBfNo
+                    滞留任务号          cksZlbfInfo
+                    发运数量            cksFyCount
+                    TODO 发运体积     cksFyCount*bgGoddsTj(暂用fytj)
+                    欠货备注            cksQhRemarks
+                    补发状态            cksBfStatus
+             }
+             三级菜单： 分拣明细
+             {
+                    TODO 货品编号   msxHpkcid（关联货品库存表再关键货品表）
+                    TODO 货品名称   msxHpkcid（关联货品库存表再关联货品表）
+                    TODO 下架库位   msxHpkcid（关联货品库存表再关联库位表）
+                    下架数量         msxMxCount
+                    TODO 下架体积   msxMxCount*bgGoodsTj(暂用xjtj)
+                    TODO 下架批次   msx_hpkcid（关联货品库存表取mr_good_batch）
+                    操作人员         msxXjry
+                    操作时间         msxQrsj
+                    修改分拣数量原因 msxWt
+             }
+             *
+             *
+             */
     /**
      * TODO 货品流向查询 goodsFlowSelect
      */
@@ -2906,8 +5182,8 @@
          *  搜索条件
          *  {
                     仓库              ckArehouseId
-                    TODO 货品名称    msxHpkid（关联货品库存表再关联货品表）
-                    TODO 货品编号    msxHpkid（关联货品库存表再关联货品表）
+                    TODO 货品名称     msxHpkid（关联货品库存表再关联货品表）
+                    TODO 货品编号     msxHpkid（关联货品库存表再关联货品表）
                     客户名称          ckCkdjClientname
                     客户地址          ckAdress
                     联系人            ckContacts

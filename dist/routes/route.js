@@ -589,6 +589,24 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
+            case 'outputAppointment':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '出库预约 获取 根据分页要求获取没有出库任务的出库单信息';
+                        req = autoUrl(req, '/mfunck/selectMfunckDocByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '出库预约 新增 出库单据/包含出库单明细';
+                        req = autoUrl(req, '/mfunck/add', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
+                }
+                break;
         }
         console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + req.body.url);
         next();
