@@ -208,7 +208,7 @@
             <el-form-item label="创建时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.djCreateTime"
+                        v-model="form.djCreateTime"
                         type="daterange"
                         align="right"
                         placeholder="创建时间"
@@ -234,7 +234,7 @@
             <el-form-item label="创建人"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.djCreateUserId"
+                        v-model="form.djCreateUserId"
                         class="input"
                         icon="search"
                         placeholder="创建人"></el-input>
@@ -242,27 +242,25 @@
             <el-form-item label="解冻人"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.djJdUserId"
+                        v-model="form.djJdUserId"
                         class="input"
                         icon="search"
                         placeholder="解冻人"></el-input>
             </el-form-item>
             <el-form-item label="仓库"
                           :label-width="formLabelWidth">
-                <el-select v-model="djArehouseId" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="1">角色下所有的仓库</el-option>
+                <el-select v-model="form.djArehouseId" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+
                 </el-select>
             </el-form-item>
             <el-form-item label="冻结状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="djStatus" placeholder="请选择">
-                    <el-option :value="0.0">全部</el-option>
-                    <el-option :value="0">冻结</el-option>
-                    <el-option :value="1">解冻</el-option>
-                    <el-option :value="2">作废</el-option>
-
-
+                <el-select v-model="form.djStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="0" label="冻结"></el-option>
+                    <el-option :value="1"  label="解冻"></el-option>
+                    <el-option :value="2"  label="作废"></el-option>
                 </el-select>
             </el-form-item>
         </el-form>
@@ -551,7 +549,13 @@
             rkrwDbd: '',
             rkrwCys: '',
             rkrwDh: '',
-            rkrwStatus: ''
+            rkrwStatus: '',
+            djCreateTime:[null,null],//模糊查询--创建时间
+            djJdTime:[null,null],//模糊查询--解冻时间
+            djCreateUserId:'',//模糊查询--创建人
+            djJdUserId:'',//模糊查询--解冻人
+            djArehouseId:'',//模糊查询--仓库
+            djStatus:'',//模糊查询--冻结状态
         }
     }
     var aLibraryFrozenSelect = new Vue({
