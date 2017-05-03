@@ -4420,11 +4420,13 @@
              */
 
         /**
-             TODO 出库预约
+             TODO 出库预约 outputAppointment
 
              **/
             /**
-             * TODO 0 出库预约 获取 根据分页要求获取没有出库任务的出库单信息 POST /mfunck/selectMfunckDocByPage
+             * 0 TODO 出库预约 获取 根据分页要求获取没有出库任务的出库单信息 POST /mfunck/selectMfunckDocByPage
+             *
+             *
              * 参数：查询条件 ckDocPageModel（参数对象）
              * {
                   "draw": 0,
@@ -4476,7 +4478,7 @@
                 }
              */
             /**
-             * TODO 1 出库预约 新增 出库单据/包含出库单明细 POST /mfunck/add
+             * 1 TODO 出库预约 新增 出库单据/包含出库单明细 POST /mfunck/add
              * 参数
              * {
                   "ckCkdjNo": "CK1482398743793",（必填）
@@ -4555,7 +4557,6 @@
              * */
             /**
              * TODO 6 出库预约 出库单 滞留
-             *
              *
              * */
         /**
