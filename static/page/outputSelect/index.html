@@ -334,7 +334,7 @@
             </el-form-item>
             <el-form-item label="仓库"
                           :label-width="formLabelWidth">
-                <el-select v-model="ckArehouseId" placeholder="请选择">
+                <el-select v-model="form.ckArehouseId" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
                 </el-select>
             </el-form-item>
@@ -691,6 +691,7 @@
             ckZlStatus:'',//模糊查询--单据类型
             ckIsauto:'',//模糊查询--制单方式
             ckStartwith:'',//模糊查询--操作方式
+            ckArehouseId:'',//模糊查询--仓库
         }
     }
     function formDetailed() {
