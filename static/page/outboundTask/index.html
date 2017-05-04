@@ -9,16 +9,9 @@
                 </button>
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i class="icon sel"></i><span>多选</span>
                 </button>
-                <!--<button-->
-                        <!--class="btn btn-distribution"-->
-                        <!--@click="distributionBtn" v-show="multiSelect">导出-->
-                <!--</button>-->
-                <!--<button @click="multiSelectClick" class="btn btn-multiSelect"><i-->
-                        <!--class="icon sel"></i><span>多选</span>-->
-                <!--</button>-->
-                <!--<button @click="moreOperationIssued" class="btn btn-Issued" v-show="multiSelect"><i-->
-                        <!--class="icon issued1"></i><span>下发</span>-->
-                <!--</button>-->
+                <button @click="moreOperationIssued" class="btn btn-Issued" v-show="multiSelect"><i
+                        class="icon issued1"></i><span>下发</span>
+                </button>
             </div>
             <el-table
                     :data="outboundTask"
@@ -81,6 +74,11 @@
                                             label="可用操作">
                                         <el-button
                                                 size="small"
+                                                type="success"
+                                                @click="inlineIssued(props.$index, props.row)">下发
+                                        </el-button>
+                                        <el-button
+                                                size="small"
                                                 @click="inlineArriveCar(props.$index, props.row)">到车
                                         </el-button>
                                       <el-button
@@ -91,7 +89,6 @@
                                                 size="small"
                                                 type="success"
                                                 @click="inlineCancelTask(props.$index, props.row)">取消任务
-
                                         </el-button>
                                         <el-button
                                                 size="small"
@@ -712,6 +709,21 @@
             },                                      //分配 表单
         },
         methods: {
+            inlineIssued:function(){
+                var obj = this;
+                obj.$confirm('此操作将此单据下发, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    postPassword(userManagement, {ids: row.ruUserId});
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                                              //TODO 行内按钮-下发
             inlineArriveCar:function(){
                 this.dialogCarVisible = true;
             },                                           //TODO 行内按钮-到车
@@ -770,6 +782,7 @@
                 });
             },                                          //TODO 行内按钮-取消挂起
             multiSelectClick: function () {
+                this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
             multiSelectionChange: function (val) {
                 /*<debug>*/
@@ -778,7 +791,19 @@
                 this.multipleSelection = val;
             },                               //多选 选中控制
             moreOperationIssued: function () {
-                this.dialogDistributionVisible = !this.dialogDistributionVisible;
+                var obj = this;
+                obj.$confirm('此操作将此任务下发, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    postPassword(userManagement, {ids: row.ruUserId});
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
             },                                   //TODO 多选 下发
             handleSizeChange: function (val) {
                 /*<debug>*/
