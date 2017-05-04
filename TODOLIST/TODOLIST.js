@@ -598,2169 +598,1267 @@
      * TODO 仓库管理
      */
         /**
-         * TODO 0 读取指定仓库的信息 包括 结构 区域具体信息
+         * TODO 0 读取指定仓库的信息 包括 结构 区域具体信息    GET /arehouseKq/{id}
          *
          * 参考
          *
+         *
+         **
+
+         */
+        /**
+         * TODO 1 对于仓库的区域 结构的修改
+         *
          * {
-              "kuQu": [
-                [
-                  {
-                    "row": 0,
-                    "col": 1,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "A1-1",
-                    "select": false
-                  },
-                  {
-                    "row": 0,
-                    "col": 2,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "A1",
-                    "select": false
-                  },
-                  {
-                    "row": 0,
-                    "col": 3,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "A2",
-                    "select": false
-                  },
-                  {
-                    "row": 0,
-                    "col": 4,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "A3",
-                    "select": false
-                  },
-                  {
-                    "id": -1,
-                    "status": 0,
-                    "statusColor": [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    "select": false
-                  },
-                  {
-                    "row": 0,
-                    "col": 5,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B0",
-                    "select": false
-                  },
-                  {
-                    "row": 0,
-                    "col": 6,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B1",
-                    "select": false
-                  },
-                  {
-                    "row": 0,
-                    "col": 7,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B2",
-                    "select": false
-                  },
-                  {
-                    "row": 0,
-                    "col": 8,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B3",
-                    "select": false
-                  },
-                  {
-                    "row": 0,
-                    "col": 9,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B4",
-                    "select": false
-                  },
-                  {
-                    "id": -1,
-                    "status": 0,
-                    "statusColor": [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    "select": false
-                  },
-                  {
-                    "row": 0,
-                    "col": 10,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    "status": 3,
-                    "id": "C0",
-                    "select": false
-                  },
-                  {
-                    "row": 0,
-                    "col": 11,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    "status": 3,
-                    "id": "C1",
-                    "select": false
-                  },
-                  {
-                    "row": 0,
-                    "col": 12,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    "status": 3,
-                    "id": "C2",
-                    "select": false
-                  },
-                  {
-                    "row": 0,
-                    "col": 13,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    "status": 3,
-                    "id": "C3",
-                    "select": false
-                  }
-                ],
-                [
-                  {
-                    "row": 1,
-                    "col": 1,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "A4",
-                    "select": false
-                  },
-                  {
-                    "row": 1,
-                    "col": 2,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "A5",
-                    "select": false
-                  },
-                  {
-                    "row": 1,
-                    "col": 3,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "A6",
-                    "select": false
-                  },
-                  {
-                    "row": 1,
-                    "col": 4,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "A7",
-                    "select": false
-                  },
-                  {
-                    "id": -1,
-                    "status": 0,
-                    "statusColor": [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    "select": false
-                  },
-                  {
-                    "row": 1,
-                    "col": 5,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B5",
-                    "select": false
-                  },
-                  {
-                    "row": 1,
-                    "col": 6,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B6",
-                    "select": false
-                  },
-                  {
-                    "row": 1,
-                    "col": 7,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B7",
-                    "select": false
-                  },
-                  {
-                    "row": 1,
-                    "col": 8,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B8",
-                    "select": false
-                  },
-                  {
-                    "row": 1,
-                    "col": 9,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B9",
-                    "select": false
-                  },
-                  {
-                    "id": -1,
-                    "status": 0,
-                    "statusColor": [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    "select": false
-                  },
-                  {
-                    "row": 1,
-                    "col": 10,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    "status": 3,
-                    "id": "C4",
-                    "select": false
-                  },
-                  {
-                    "row": 1,
-                    "col": 11,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    "status": 3,
-                    "id": "C5",
-                    "select": false
-                  },
-                  {
-                    "row": 1,
-                    "col": 12,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    "status": 3,
-                    "id": "C6",
-                    "select": false
-                  },
-                  {
-                    "row": 1,
-                    "col": 13,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    "status": 3,
-                    "id": "C7",
-                    "select": false
-                  }
-                ],
-                [
-                  {
-                    "row": 2,
-                    "col": 1,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "A8",
-                    "select": false
-                  },
-                  {
-                    "row": 2,
-                    "col": 2,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "A9",
-                    "select": false
-                  },
-                  {
-                    "row": 2,
-                    "col": 3,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "A10",
-                    "select": false
-                  },
-                  {
-                    "row": 2,
-                    "col": 4,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "A11",
-                    "select": false
-                  },
-                  {
-                    "id": -1,
-                    "status": 0,
-                    "statusColor": [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    "select": false
-                  },
-                  {
-                    "row": 2,
-                    "col": 5,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B10",
-                    "select": false
-                  },
-                  {
-                    "row": 2,
-                    "col": 6,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B11",
-                    "select": false
-                  },
-                  {
-                    "row": 2,
-                    "col": 7,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B12",
-                    "select": false
-                  },
-                  {
-                    "row": 2,
-                    "col": 8,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B13",
-                    "select": false
-                  },
-                  {
-                    "row": 2,
-                    "col": 9,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B14",
-                    "select": false
-                  },
-                  {
-                    "id": -1,
-                    "status": 0,
-                    "statusColor": [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    "select": false
-                  },
-                  {
-                    "row": 2,
-                    "col": 10,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    "status": 3,
-                    "id": "C8",
-                    "select": false
-                  },
-                  {
-                    "row": 2,
-                    "col": 11,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    "status": 3,
-                    "id": "C9",
-                    "select": false
-                  },
-                  {
-                    "row": 2,
-                    "col": 12,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    "status": 3,
-                    "id": "C10",
-                    "select": false
-                  },
-                  {
-                    "row": 2,
-                    "col": 13,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      true,
-                      false,
-                      false
-                    ],
-                    "status": 3,
-                    "id": "C11",
-                    "select": false
-                  }
-                ],
-                [
-                  {
-                    "row": 3,
-                    "col": 1,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    "status": 5,
-                    "id": "D0",
-                    "select": false
-                  },
-                  {
-                    "row": 3,
-                    "col": 2,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    "status": 5,
-                    "id": "D1",
-                    "select": false
-                  },
-                  {
-                    "row": 3,
-                    "col": 3,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    "status": 5,
-                    "id": "D2",
-                    "select": false
-                  },
-                  {
-                    "row": 3,
-                    "col": 4,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    "status": 5,
-                    "id": "D3",
-                    "select": false
-                  },
-                  {
-                    "id": -1,
-                    "status": 0,
-                    "statusColor": [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    "select": false
-                  },
-                  {
-                    "row": 3,
-                    "col": 5,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B15",
-                    "select": false
-                  },
-                  {
-                    "row": 3,
-                    "col": 6,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B16",
-                    "select": false
-                  },
-                  {
-                    "row": 3,
-                    "col": 7,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B17",
-                    "select": false
-                  },
-                  {
-                    "row": 3,
-                    "col": 8,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B18",
-                    "select": false
-                  },
-                  {
-                    "row": 3,
-                    "col": 9,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B19",
-                    "select": false
-                  },
-                  {
-                    "id": -1,
-                    "status": 0,
-                    "statusColor": [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    "select": false
-                  },
-                  {
-                    "row": 3,
-                    "col": 10,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "E0",
-                    "select": false
-                  },
-                  {
-                    "row": 3,
-                    "col": 11,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "E1",
-                    "select": false
-                  },
-                  {
-                    "row": 3,
-                    "col": 12,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "E2",
-                    "select": false
-                  },
-                  {
-                    "row": 3,
-                    "col": 13,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "E3",
-                    "select": false
-                  }
-                ],
-                [
-                  {
-                    "row": 4,
-                    "col": 1,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    "status": 5,
-                    "id": "D4",
-                    "select": false
-                  },
-                  {
-                    "row": 4,
-                    "col": 2,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    "status": 5,
-                    "id": "D5",
-                    "select": false
-                  },
-                  {
-                    "row": 4,
-                    "col": 3,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    "status": 5,
-                    "id": "D6",
-                    "select": false
-                  },
-                  {
-                    "row": 4,
-                    "col": 4,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      true
-                    ],
-                    "status": 5,
-                    "id": "D7",
-                    "select": false
-                  },
-                  {
-                    "id": -1,
-                    "status": 0,
-                    "statusColor": [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    "select": false
-                  },
-                  {
-                    "row": 4,
-                    "col": 5,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B20",
-                    "select": false
-                  },
-                  {
-                    "row": 4,
-                    "col": 6,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B21",
-                    "select": false
-                  },
-                  {
-                    "row": 4,
-                    "col": 7,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B22",
-                    "select": false
-                  },
-                  {
-                    "row": 4,
-                    "col": 8,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B23",
-                    "select": false
-                  },
-                  {
-                    "row": 4,
-                    "col": 9,
-                    "statusColor": [
-                      false,
-                      false,
-                      false,
-                      false,
-                      true,
-                      false
-                    ],
-                    "status": 4,
-                    "id": "B24",
-                    "select": false
-                  },
-                  {
-                    "id": -1,
-                    "status": 0,
-                    "statusColor": [
-                      true,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ],
-                    "select": false
-                  },
-                  {
-                    "row": 4,
-                    "col": 10,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "E4",
-                    "select": false
-                  },
-                  {
-                    "row": 4,
-                    "col": 11,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "E5",
-                    "select": false
-                  },
-                  {
-                    "row": 4,
-                    "col": 12,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "E6",
-                    "select": false
-                  },
-                  {
-                    "row": 4,
-                    "col": 13,
-                    "statusColor": [
-                      false,
-                      false,
-                      true,
-                      false,
-                      false,
-                      false
-                    ],
-                    "status": 2,
-                    "id": "E7",
-                    "select": false
+-              "kuQu": [
+-                [
+-                  {
+-                    "row": 0,
+-                    "col": 1,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 2,
+-                    "id": "A1-1",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 0,
+-                    "col": 2,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 2,
+-                    "id": "A1",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 0,
+-                    "col": 3,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 2,
+-                    "id": "A2",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 0,
+-                    "col": 4,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 2,
+-                    "id": "A3",
+-                    "select": false
+-                  },
+-                  {
+-                    "id": -1,
+-                    "status": 0,
+-                    "statusColor": [
+-                      true,
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 0,
+-                    "col": 5,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B0",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 0,
+-                    "col": 6,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B1",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 0,
+-                    "col": 7,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B2",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 0,
+-                    "col": 8,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B3",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 0,
+-                    "col": 9,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B4",
+-                    "select": false
+-                  },
+-                  {
+-                    "id": -1,
+-                    "status": 0,
+-                    "statusColor": [
+-                      true,
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 0,
+-                    "col": 10,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 3,
+-                    "id": "C0",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 0,
+-                    "col": 11,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 3,
+-                    "id": "C1",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 0,
+-                    "col": 12,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 3,
+-                    "id": "C2",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 0,
+-                    "col": 13,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 3,
+-                    "id": "C3",
+-                    "select": false
+-                  }
+-                ],
+-                [
+-                  {
+-                    "row": 1,
+-                    "col": 1,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 2,
+-                    "id": "A4",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 1,
+-                    "col": 2,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 2,
+-                    "id": "A5",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 1,
+-                    "col": 3,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 2,
+-                    "id": "A6",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 1,
+-                    "col": 4,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 2,
+-                    "id": "A7",
+-                    "select": false
+-                  },
+-                  {
+-                    "id": -1,
+-                    "status": 0,
+-                    "statusColor": [
+-                      true,
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 1,
+-                    "col": 5,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B5",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 1,
+-                    "col": 6,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B6",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 1,
+-                    "col": 7,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B7",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 1,
+-                    "col": 8,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B8",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 1,
+-                    "col": 9,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B9",
+-                    "select": false
+-                  },
+-                  {
+-                    "id": -1,
+-                    "status": 0,
+-                    "statusColor": [
+-                      true,
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 1,
+-                    "col": 10,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 3,
+-                    "id": "C4",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 1,
+-                    "col": 11,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 3,
+-                    "id": "C5",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 1,
+-                    "col": 12,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 3,
+-                    "id": "C6",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 1,
+-                    "col": 13,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 3,
+-                    "id": "C7",
+-                    "select": false
+-                  }
+-                ],
+-                [
+-                  {
+-                    "row": 2,
+-                    "col": 1,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 2,
+-                    "id": "A8",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 2,
+-                    "col": 2,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 2,
+-                    "id": "A9",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 2,
+-                    "col": 3,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 2,
+-                    "id": "A10",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 2,
+-                    "col": 4,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 2,
+-                    "id": "A11",
+-                    "select": false
+-                  },
+-                  {
+-                    "id": -1,
+-                    "status": 0,
+-                    "statusColor": [
+-                      true,
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 2,
+-                    "col": 5,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B10",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 2,
+-                    "col": 6,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B11",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 2,
+-                    "col": 7,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B12",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 2,
+-                    "col": 8,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B13",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 2,
+-                    "col": 9,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B14",
+-                    "select": false
+-                  },
+-                  {
+-                    "id": -1,
+-                    "status": 0,
+-                    "statusColor": [
+-                      true,
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 2,
+-                    "col": 10,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 3,
+-                    "id": "C8",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 2,
+-                    "col": 11,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 3,
+-                    "id": "C9",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 2,
+-                    "col": 12,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 3,
+-                    "id": "C10",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 2,
+-                    "col": 13,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 3,
+-                    "id": "C11",
+-                    "select": false
+-                  }
+-                ],
+-                [
+-                  {
+-                    "row": 3,
+-                    "col": 1,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true
+-                    ],
+-                    "status": 5,
+-                    "id": "D0",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 3,
+-                    "col": 2,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true
+-                    ],
+-                    "status": 5,
+-                    "id": "D1",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 3,
+-                    "col": 3,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true
+-                    ],
+-                    "status": 5,
+-                    "id": "D2",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 3,
+-                    "col": 4,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true
+-                    ],
+-                    "status": 5,
+-                    "id": "D3",
+-                    "select": false
+-                  },
+-                  {
+-                    "id": -1,
+-                    "status": 0,
+-                    "statusColor": [
+-                      true,
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 3,
+-                    "col": 5,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B15",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 3,
+-                    "col": 6,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B16",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 3,
+-                    "col": 7,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B17",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 3,
+-                    "col": 8,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B18",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 3,
+-                    "col": 9,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B19",
+-                    "select": false
+-                  },
+-                  {
+-                    "id": -1,
+-                    "status": 0,
+-                    "statusColor": [
+-                      true,
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 3,
+-                    "col": 10,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 2,
+-                    "id": "E0",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 3,
+-                    "col": 11,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 2,
+-                    "id": "E1",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 3,
+-                    "col": 12,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 2,
+-                    "id": "E2",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 3,
+-                    "col": 13,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 2,
+-                    "id": "E3",
+-                    "select": false
+-                  }
+-                ],
+-                [
+-                  {
+-                    "row": 4,
+-                    "col": 1,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true
+-                    ],
+-                    "status": 5,
+-                    "id": "D4",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 4,
+-                    "col": 2,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true
+-                    ],
+-                    "status": 5,
+-                    "id": "D5",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 4,
+-                    "col": 3,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true
+-                    ],
+-                    "status": 5,
+-                    "id": "D6",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 4,
+-                    "col": 4,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true
+-                    ],
+-                    "status": 5,
+-                    "id": "D7",
+-                    "select": false
+-                  },
+-                  {
+-                    "id": -1,
+-                    "status": 0,
+-                    "statusColor": [
+-                      true,
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 4,
+-                    "col": 5,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B20",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 4,
+-                    "col": 6,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B21",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 4,
+-                    "col": 7,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B22",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 4,
+-                    "col": 8,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B23",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 4,
+-                    "col": 9,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      true,
+-                      false
+-                    ],
+-                    "status": 4,
+-                    "id": "B24",
+-                    "select": false
+-                  },
+-                  {
+-                    "id": -1,
+-                    "status": 0,
+-                    "statusColor": [
+-                      true,
+-                      false,
+-                      false,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 4,
+-                    "col": 10,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 2,
+-                    "id": "E4",
+-                    "select": false
+-                  },
+-                  {
+-                    "row": 4,
+-                    "col": 11,
+-                    "statusColor": [
+-                      false,
+-                      false,
+-                      true,
+-                      false,
+-                      false,
+-                      false
+-                    ],
+-                    "status": 2,
+-                    "id": "E5",
+-                    "select": false
+-                  }
+         *
+         *
+         * {
+              "status": 200,
+              "model": {
+                "baArehouseId": 1,                      仓库id
+                "baName": "九阳齐河仓",                 仓库名称
+                "baAddr": "齐河",                       仓库地址
+                "baScity": "济南",                      所在地市
+                "baScontacts": "联系人1",               联系人
+                "baPhone": "13267890789",               电话
+                "baAcreage": "baAcreage",               面积
+                "baCtype": "baCtype",                   仓库类型
+                "baHumidity": "baHumidity",             相对湿度
+                "baFax": "baFax",                       传真
+                "baPostoffice": "baPostoffice",         邮编
+                "baIsti": 1,                            是否需要维护ti值 1:存在ti 2:不存在ti
+                "baStatus": 1,                          状态1可用 0软删除
+                "baClientId": 1,                        客户id
+                "baRemarks": "baRemarks",               备注
+                "baCreatetime": 1488092935000,          创建时间
+                "baPgroupinfo": "aaaa bbbbb cccc\r\naaaa bbbbb cccc\r\naaaa bbbbb cccc\r\ndddd bbbbb eeee\r\ndddd bbbbb eeee",  平面图信息
+                "arehouseKqs": [
+                  {
+                    "baqKqId": 1,                       库区id
+                    "baqArehouseId": 1,                 仓库id
+                    "baqKqName": "库区名称",            库区名称
+                    "baqIsdel": 1,                      是否有效 0 删除
+                    "baqStatus": 1,                     1:存储区 2分拣区 3暂存区 4不合格 5其他
+                    "baseRegions": [
+                      {
+                        "brgRegionId": 1,               区域id
+                        "brgArehouseId": 1,             仓库id
+                        "brgRegionNo": "brgRegionNo",   区域编号
+                        "brgKqId": 1,                   库区id
+                        "brgRegionStatus": 1,           区域状态1:存储区 2分拣区 3暂存区 4不合格 5其他   与库区状态保持一致
+                        "baseLocationList": [
+                          {
+                            "blLocationId": 1,          储位id
+                            "blLname": "H11-28-A1",     储位名称
+                            "blRegionId": 1,            区域
+                            "blLtray": 25,              托盘数量
+                            "blLorder": 1,              储位优先级
+                            "blStatus": 1,              0:软删除 1可用
+                            "blArehouseId": 1           仓库id
+                          },
+                          {
+                            "blLocationId": 3,
+                            "blLname": "H16-39-A4",
+                            "blRegionId": 1,
+                            "blLtray": 21,
+                            "blLorder": 3,
+                            "blStatus": 1,
+                            "blArehouseId": 1
+                          },
+                          {
+                            "blLocationId": 8,
+                            "blLname": "blLname",
+                            "blRegionId": 1,
+                            "blLtray": 1,
+                            "blLorder": 1,
+                            "blStatus": 1,
+                            "blArehouseId": 1
+                          }
+                        ]
+                      },
+                      {
+                        "brgRegionId": 7,
+                        "brgArehouseId": 1,
+                        "brgRegionNo": "brgRegionTest",
+                        "brgKqId": 1,
+                        "brgRegionStatus": 2,
+                        "baseLocationList": [
+                          {
+                            "blLocationId": 7,
+                            "blLname": "blLname",
+                            "blRegionId": 7,
+                            "blLtray": 1,
+                            "blLorder": 1,
+                            "blStatus": 1,
+                            "blArehouseId": 1
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "baqKqId": 2,
+                    "baqArehouseId": 1,
+                    "baqKqName": "kucqu_name",
+                    "baqIsdel": 0,
+                    "baqStatus": 1,
+                    "baseRegions": [
+                      {
+                        "brgRegionId": 2,
+                        "brgArehouseId": 1,
+                        "brgRegionNo": "region_002",
+                        "brgKqId": 2,
+                        "brgRegionStatus": 2,
+                        "baseLocationList": [
+                          {
+                            "blLocationId": 2,
+                            "blLname": "H16-39-A2",
+                            "blRegionId": 2,
+                            "blLtray": 23,
+                            "blLorder": 2,
+                            "blStatus": 1,
+                            "blArehouseId": 1
+                          },
+                          {
+                            "blLocationId": 5,
+                            "blLname": "lname35",
+                            "blRegionId": 2,
+                            "blLtray": 11,
+                            "blLorder": 5,
+                            "blStatus": 1,
+                            "blArehouseId": 2
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
-              ],
-              "bigKuQu":{
-                "a": {
-                  "color": "",
-                  "src": [
-                    {
-                      "row": 0,
-                      "col": 1,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "select": false
-                    },
-                    {
-                      "row": 0,
-                      "col": 2,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "id": "A1",
-                      "select": false
-                    },
-                    {
-                      "row": 0,
-                      "col": 3,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "id": "A2",
-                      "select": false
-                    },
-                    {
-                      "row": 0,
-                      "col": 4,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "id": "A3",
-                      "select": false
-                    },
-                    {
-                      "row": 1,
-                      "col": 1,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "id": "A4",
-                      "select": false
-                    },
-                    {
-                      "row": 1,
-                      "col": 2,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "id": "A5",
-                      "select": false
-                    },
-                    {
-                      "row": 1,
-                      "col": 3,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "id": "A6",
-                      "select": false
-                    },
-                    {
-                      "row": 1,
-                      "col": 4,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "id": "A7",
-                      "select": false
-                    },
-                    {
-                      "row": 2,
-                      "col": 1,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "id": "A8",
-                      "select": false
-                    },
-                    {
-                      "row": 2,
-                      "col": 2,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "id": "A9",
-                      "select": false
-                    },
-                    {
-                      "row": 2,
-                      "col": 3,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "id": "A10",
-                      "select": false
-                    },
-                    {
-                      "row": 2,
-                      "col": 4,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "id": "A11",
-                      "select": false
-                    }
-                  ],
-                  "id": "A"
-                },
-                "b": {
-                  "color": "",
-                  "src": [
-                    {
-                      "row": 0,
-                      "col": 5,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B0",
-                      "select": false
-                    },
-                    {
-                      "row": 0,
-                      "col": 6,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B1",
-                      "select": false
-                    },
-                    {
-                      "row": 0,
-                      "col": 7,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B2",
-                      "select": false
-                    },
-                    {
-                      "row": 0,
-                      "col": 8,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B3",
-                      "select": false
-                    },
-                    {
-                      "row": 0,
-                      "col": 9,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B4",
-                      "select": false
-                    },
-                    {
-                      "row": 1,
-                      "col": 5,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B5",
-                      "select": false
-                    },
-                    {
-                      "row": 1,
-                      "col": 6,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B6",
-                      "select": false
-                    },
-                    {
-                      "row": 1,
-                      "col": 7,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B7",
-                      "select": false
-                    },
-                    {
-                      "row": 1,
-                      "col": 8,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B8",
-                      "select": false
-                    },
-                    {
-                      "row": 1,
-                      "col": 9,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B9",
-                      "select": false
-                    },
-                    {
-                      "row": 2,
-                      "col": 5,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B10",
-                      "select": false
-                    },
-                    {
-                      "row": 2,
-                      "col": 6,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B11",
-                      "select": false
-                    },
-                    {
-                      "row": 2,
-                      "col": 7,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B12",
-                      "select": false
-                    },
-                    {
-                      "row": 2,
-                      "col": 8,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B13",
-                      "select": false
-                    },
-                    {
-                      "row": 2,
-                      "col": 9,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B14",
-                      "select": false
-                    },
-                    {
-                      "row": 3,
-                      "col": 5,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B15",
-                      "select": false
-                    },
-                    {
-                      "row": 3,
-                      "col": 6,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B16",
-                      "select": false
-                    },
-                    {
-                      "row": 3,
-                      "col": 7,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B17",
-                      "select": false
-                    },
-                    {
-                      "row": 3,
-                      "col": 8,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B18",
-                      "select": false
-                    },
-                    {
-                      "row": 3,
-                      "col": 9,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B19",
-                      "select": false
-                    },
-                    {
-                      "row": 4,
-                      "col": 5,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B20",
-                      "select": false
-                    },
-                    {
-                      "row": 4,
-                      "col": 6,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B21",
-                      "select": false
-                    },
-                    {
-                      "row": 4,
-                      "col": 7,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B22",
-                      "select": false
-                    },
-                    {
-                      "row": 4,
-                      "col": 8,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B23",
-                      "select": false
-                    },
-                    {
-                      "row": 4,
-                      "col": 9,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false
-                      ],
-                      "status": 4,
-                      "id": "B24",
-                      "select": false
-                    }
-                  ],
-                  "id": "B"
-                },
-                "c": {
-                  "color": "",
-                  "src": [
-                    {
-                      "row": 0,
-                      "col": 10,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        true,
-                        false,
-                        false
-                      ],
-                      "status": 3,
-                      "id": "C0",
-                      "select": false
-                    },
-                    {
-                      "row": 0,
-                      "col": 11,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        true,
-                        false,
-                        false
-                      ],
-                      "status": 3,
-                      "id": "C1",
-                      "select": false
-                    },
-                    {
-                      "row": 0,
-                      "col": 12,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        true,
-                        false,
-                        false
-                      ],
-                      "status": 3,
-                      "id": "C2",
-                      "select": false
-                    },
-                    {
-                      "row": 0,
-                      "col": 13,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        true,
-                        false,
-                        false
-                      ],
-                      "status": 3,
-                      "id": "C3",
-                      "select": false
-                    },
-                    {
-                      "row": 1,
-                      "col": 10,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        true,
-                        false,
-                        false
-                      ],
-                      "status": 3,
-                      "id": "C4",
-                      "select": false
-                    },
-                    {
-                      "row": 1,
-                      "col": 11,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        true,
-                        false,
-                        false
-                      ],
-                      "status": 3,
-                      "id": "C5",
-                      "select": false
-                    },
-                    {
-                      "row": 1,
-                      "col": 12,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        true,
-                        false,
-                        false
-                      ],
-                      "status": 3,
-                      "id": "C6",
-                      "select": false
-                    },
-                    {
-                      "row": 1,
-                      "col": 13,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        true,
-                        false,
-                        false
-                      ],
-                      "status": 3,
-                      "id": "C7",
-                      "select": false
-                    },
-                    {
-                      "row": 2,
-                      "col": 10,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        true,
-                        false,
-                        false
-                      ],
-                      "status": 3,
-                      "id": "C8",
-                      "select": false
-                    },
-                    {
-                      "row": 2,
-                      "col": 11,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        true,
-                        false,
-                        false
-                      ],
-                      "status": 3,
-                      "id": "C9",
-                      "select": false
-                    },
-                    {
-                      "row": 2,
-                      "col": 12,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        true,
-                        false,
-                        false
-                      ],
-                      "status": 3,
-                      "id": "C10",
-                      "select": false
-                    },
-                    {
-                      "row": 2,
-                      "col": 13,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        true,
-                        false,
-                        false
-                      ],
-                      "status": 3,
-                      "id": "C11",
-                      "select": false
-                    }
-                  ],
-                  "id": "C"
-                },
-                "d": {
-                  "color": "",
-                  "src": [
-                    {
-                      "row": 3,
-                      "col": 1,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        false,
-                        true
-                      ],
-                      "status": 5,
-                      "id": "D0",
-                      "select": false
-                    },
-                    {
-                      "row": 3,
-                      "col": 2,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        false,
-                        true
-                      ],
-                      "status": 5,
-                      "id": "D1",
-                      "select": false
-                    },
-                    {
-                      "row": 3,
-                      "col": 3,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        false,
-                        true
-                      ],
-                      "status": 5,
-                      "id": "D2",
-                      "select": false
-                    },
-                    {
-                      "row": 3,
-                      "col": 4,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        false,
-                        true
-                      ],
-                      "status": 5,
-                      "id": "D3",
-                      "select": false
-                    },
-                    {
-                      "row": 4,
-                      "col": 1,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        false,
-                        true
-                      ],
-                      "status": 5,
-                      "id": "D4",
-                      "select": false
-                    },
-                    {
-                      "row": 4,
-                      "col": 2,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        false,
-                        true
-                      ],
-                      "status": 5,
-                      "id": "D5",
-                      "select": false
-                    },
-                    {
-                      "row": 4,
-                      "col": 3,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        false,
-                        true
-                      ],
-                      "status": 5,
-                      "id": "D6",
-                      "select": false
-                    },
-                    {
-                      "row": 4,
-                      "col": 4,
-                      "statusColor": [
-                        false,
-                        false,
-                        false,
-                        false,
-                        false,
-                        true
-                      ],
-                      "status": 5,
-                      "id": "D7",
-                      "select": false
-                    }
-                  ],
-                  "id": "D"
-                },
-                "e": {
-                  "color": "",
-                  "src": [
-                    {
-                      "row": 3,
-                      "col": 10,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "id": "E0",
-                      "select": false
-                    },
-                    {
-                      "row": 3,
-                      "col": 11,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "id": "E1",
-                      "select": false
-                    },
-                    {
-                      "row": 3,
-                      "col": 12,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "id": "E2",
-                      "select": false
-                    },
-                    {
-                      "row": 3,
-                      "col": 13,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "id": "E3",
-                      "select": false
-                    },
-                    {
-                      "row": 4,
-                      "col": 10,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "id": "E4",
-                      "select": false
-                    },
-                    {
-                      "row": 4,
-                      "col": 11,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "id": "E5",
-                      "select": false
-                    },
-                    {
-                      "row": 4,
-                      "col": 12,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "id": "E6",
-                      "select": false
-                    },
-                    {
-                      "row": 4,
-                      "col": 13,
-                      "statusColor": [
-                        false,
-                        false,
-                        true,
-                        false,
-                        false,
-                        false
-                      ],
-                      "status": 2,
-                      "id": "E7",
-                      "select": false
-                    }
-                  ],
-                  "id": "E"
-                }
-              },
-              "desc": "aaaa bbbbb cccc\naaaa bbbbb cccc\naaaa bbbbb cccc\ndddd bbbbb eeee\ndddd bbbbb eeee",
-              "id":"123"
+              }
             }
+         */
+        /**
+         * TODO 3 将指定区域（单 多） 冻结区域   //数据库没有冻结解冻字段
+         */
+        /**
+         * TODO 4 将指定区域（单 多） 启用区域   //数据库没有启用禁用字段
+         */
+        /**
+         * TODO 5 将指定库区（单 多） 设为存储区   POST /arehouseKq/modifyKqStatusByKqIds
+         *
+         * {
+              "status": 0,   //需要修改成的状态
+              "ids": [       //指定的单个或多个库区id
+                0
+              ]
+            }
+         */
+        /**
+         * TODO 6 将指定库区（单 多） 设为暂存区   POST /arehouseKq/modifyKqStatusByKqIds
+         */
+        /**
+         * TODO 7 将指定库区（单 多） 设为未设定区 POST /arehouseKq/modifyKqStatusByKqIds
+         */
+        /**
+         * TODO 8 将指定库区（单 多） 设为分拣区   POST /arehouseKq/modifyKqStatusByKqIds
+         */
+        /**
+         * TODO 9 将指定库区（单 多） 设为不合格区  POST /arehouseKq/modifyKqStatusByKqIds
+         */
+        /** TODO 10 查看 指定区域（单 多） 区域中 储位信息     //指定区域查看应该是单个点击区域块
+         *                                             POST /location/findByRegionId/{region_id}
          *
          */
-        /**
-         * TODO 1 对于仓库的区域的修改
+        /** TODO 11 查看 指定储位 中 详细信息
+         *                                             GET /location/findByRegionId/{region_id}
          */
         /**
-         * TODO 2 对于仓库的区域的查看
-         */
-        /**
-         * TODO 3 禁止
-         */
-        /**
-         * TODO 4 启用
-         */
-        /**
-         * TODO 5 设为存储区
-         */
-        /**
-         * TODO 6 设为暂存区
-         */
-        /**
-         * TODO 7 设为未设定区
-         */
-        /**
-         * TODO 8 设为分拣区
-         */
-        /**
-         * TODO 9 设为不合格去区
-         */
-        /** TODO 10 查看区域中库存明细
-         *
-         */
+         * TODO 12 将指定储位（单 多） 冻结储位    POST /location/deleteOfSoft
+
 /**
  *       货品管理   goodsManage
              **/
