@@ -5,6 +5,7 @@ var app;
 /*<debug>*/
 var hock = "../../hock";
 /*</debug>*/
+
 $(function () {
     Vue.directive('echarts', {
         bind: function (el, binding, vnode) {
@@ -338,3 +339,6 @@ $(function () {
         /*</prod>*/
     })(app);
 });
+
+
+

@@ -84,15 +84,62 @@ function addOrDelete(obj, data) {
     }
     return false;
 }     //判断是否重复
-/*
- * 用来遍历指定对象所有的属性名称和值
- * obj 需要遍历的对象
- * cb 回调函数  1. 子属性 2.子属性名
- */
 function allPrposCb(obj, cb) {
+    /*
+     * 用来遍历指定对象所有的属性名称和值
+     * obj 需要遍历的对象
+     * cb 回调函数  1. 子属性 2.子属性名
+     */
     for (var p in obj) {
         if (typeof(obj[p]) !== "function") {
             cb(obj[p], p)
         }
     }
 }        //继承核心
+function autoPost(option) {
+    function autoValue(obj) {
+        var temp = Object.create(null);
+        for (index in obj) {
+            temp[index] = Object.create(null);
+            temp[index].value = obj[index];
+            temp[index].configurable = true;
+            temp[index].enumerable = true;
+            temp[index].writable = true;
+        }
+        return temp;
+    }             //post核心 配置子类-自动转换参数
+
+    function postCore() {
+        /*<debug>*/
+        $.ajax(this.urlHock, this);
+        /*</debug>*/
+        /*<prod>*/
+        $.ajax(this.urlProd, this);
+        /*</prod>*/
+    }                 //post核心
+
+    var _post = {
+        type: 'POST',
+        urlHock: '',
+        urlProd: '',
+        data: {},
+        error: function (error) {
+            errorTip(app, error)
+        },
+        success: function (json) {
+            if (json.status > 19999 && json.status < 30000) {
+                this.success(json);
+            } else {
+                errorTip(app, json)
+            }
+        },
+        complete: function () {
+
+        },
+        post: function () {
+            postCore.call(this);
+        }
+    };          //post父类
+
+    return Object.create(_post, autoValue(option));
+}           //post核心

@@ -16,5 +16,9 @@ router.post('/aaa',function (req,res,next) {
     res.send(req.body);
 });
 
+router.get('/',function (req,res) {
+   res.send({imsunhao:123123123});
+});
+
 
 module.exports = router;
