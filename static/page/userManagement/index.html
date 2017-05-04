@@ -894,6 +894,16 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
+     // 1 用户
+    p[1] = autoPost({
+        urlHock: "",
+        urlProd: "/route/userManagement/1",
+        success: function (json) {
+
+        }
+    });
+
+
     // 2 用户 启用
     p[2] = autoPost({
         urlHock: "../../hock/form/inputOptoionDelete.json",
@@ -1017,6 +1027,15 @@
             userManagement.$data.role = json.data;
         }
     });
+
+
+
+
+
+
+
+
+
     function form() {
         return {
             ruUserId: '',
@@ -1051,6 +1070,7 @@
         if (this.form.title !== '新建用户') return;
         p[8].post(this, {loginName: this.form.ruLoginName.trim()});
     }, {deep: true});
+
     p[0].post(userManagement.option);
     p[12](userManagement);
     function postSubmit(obj, option) {
@@ -1142,38 +1162,15 @@
             }
         });
     }                 // 1 用户 新增
-
-
-
-
-    function postRoles(obj) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/roleControl/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/userManagement/12";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: {
-                "status": 1,
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 999                 //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                userManagement.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                          // 12 请求 所有角色 执行一次
+    function printfCompile(obj) {
+        var resoleveStep = [];
+        for (var i = 0; i < obj.multipleSelection.length; i++) {
+            resoleveStep.push({
+                name: obj.multipleSelection[i].rkrwNo,
+                rkrwNo:obj.multipleSelection[i].rkrwNo,
+                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
+            });
+        }
+        obj.printf = resoleveStep;
+    }				 //打印
 </script>
