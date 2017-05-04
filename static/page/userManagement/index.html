@@ -677,7 +677,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    p[2].post({ids: [row.ruUserId]});
+                    p[2].post( {ids: [row.ruUserId]});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -692,7 +692,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    p[6].post( {ids: [row.ruUserId]});
+                    p[6].post({ids: [row.ruUserId]});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -708,7 +708,7 @@
                 };
                 /*</debug>*/
                 /*<prod>*/
-                p[11].post(this, {id: row.ruUserId});
+                p[11].post({id: row.ruUserId});
                 this.roleForm.userId = row.ruUserId;
                 /*</prod>*/
                 this.dialogRoleVisible = !this.dialogRoleVisible;
@@ -738,7 +738,7 @@
                     for (var i = 0; i < obj.multipleSelection.length; i++) {
                         step.push(obj.multipleSelection[i].ruUserId);
                     }
-                    p[5].post({ids: step});
+                    p[5].post( {ids: step});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -757,7 +757,7 @@
                     for (var i = 0; i < obj.multipleSelection.length; i++) {
                         step.push(obj.multipleSelection[i].ruUserId);
                     }
-                    p[2].post({"ids": step});
+                    p[2].post( {"ids": step});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -776,7 +776,7 @@
                     for (var i = 0; i < obj.multipleSelection.length; i++) {
                         step.push(obj.multipleSelection[i].ruUserId);
                     }
-                    p[6].post({"ids": step});
+                    p[6].post( {"ids": step});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -790,14 +790,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                p[0].post(this.option);
+                p[0].post( this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                p[0].post(this.option);
+                p[0].post( this.option);
             },                                //分页 当前页
 
             newInput: function () {
@@ -852,7 +852,7 @@
                 this.loadingRole = true;
                 /*<prod>*/
                 //TODO
-                p[9].post(this, {id: this.roleForm.userId, ids: [this.roleForm.roleId]});
+                p[9].post({id: this.roleForm.userId, ids: [this.roleForm.roleId]});
                 /*</prod>*/
                 /*<debug>*/
                 setTimeout(function () {
@@ -873,18 +873,43 @@
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post( this.option);
             },
             ruLoginName: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post( this.option);
             }
         }
     });
-    var obj = userManagement;
-    var p = [];
+    function form() {
+        return {
+            ruUserId: '',
+            title: "新建用户",
+            ruUserName: '',
+            ruLoginName: '',
+            ruLoginPassword: '',
+            ruPhone: '',
+            ruZoneNo: '',
+            ruTelephone: '',
+            ruEmail: '',
+            ruSex: true,
+            ruBirthday: '',
+            ruHomeaddress: '',
+            ruQicq: '',
+            ruUserType: 0,
+            ruUserZyq: '',
+            ruIspda: false,
+            ruRemarks: '',
+
+            roleId: 1,
+
+            ruStatus: 1,
+        }
+    };               //弹出层 form 模板
+    var obj=userManagement;
+    var p=[];
     // 0 用户 分页查询
     p[0] = autoPost({
         urlHock: "../../hock/userControl/page.json",
@@ -894,9 +919,17 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-    // 2 用户 启用
+    // 1 用户 新增
+    p[1] = autoPost({
+        urlHock: "",
+        urlProd: "/route/userManagement/1",
+        success: function (json) {
+
+        }
+    });
+     // 2 用户 启用
     p[2] = autoPost({
-        urlHock: "../../hock/form/inputOptoionDelete.json",
+        urlHock: "/hock/form/inputOptoionDelete.json",
         urlProd: "/route/userManagement/2",
         success: function (json) {
             if (json.status === 20000) {
@@ -912,15 +945,24 @@
             }
         }
     });
-    // 4 用户 编辑
-    p[4] = autoPost({
-        urlHock: "../../hock/roleControl/page.json",
-        urlProd: "/route/role/page/4",
+     // 3 用户
+    p[3] = autoPost({
+        urlHock: "",
+        urlProd: "/route/userManagement/3",
         success: function (json) {
-            userManagement.$data.role = json.data;
+
         }
     });
-    // 5 用户 密码
+     // 4 用户 编辑
+    p[4] = autoPost({
+        urlHock: "../../hock/roleControl/page.json",
+        urlProd: "/route/userManagement/4",
+        success: function (json) {
+            obj.$data.userManagement = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+      // 5 用户 密码
     p[5] = autoPost({
         urlHock: "../../hock/roleControl/page.json",
         urlProd: "/route/userManagement/5",
@@ -937,9 +979,9 @@
             }
         }
     });
-    //6 用户 禁用
+      // 6 用户 禁用
     p[6] = autoPost({
-        urlHock: "../../hock/form/inputOptoionDelete.json",
+        urlHock: "/hock/form/inputOptoionDelete.json",
         urlProd: "/route/userManagement/6",
         success: function (json) {
             if (json.status === 20000) {
@@ -955,7 +997,7 @@
             }
         }
     });
-     //7 用户名 查看
+      //  7 用户名 查重
     p[7] = autoPost({
         urlHock: "../../hock/roleControl/page.json",
         urlProd: "/route/userManagement/7",
@@ -965,7 +1007,7 @@
             }
         }
     });
-    //8 登录名 查看
+      //  8 用户名 查重
     p[8] = autoPost({
         urlHock: "../../hock/roleControl/page.json",
         urlProd: "/route/userManagement/8",
@@ -975,7 +1017,7 @@
             }
         }
     });
-    //9 设置 用户 角色
+     //  9 设置 用户 角色
     p[9] = autoPost({
         urlHock: "../../hock/roleControl/page.json",
         urlProd: "/route/userManagement/9",
@@ -1001,68 +1043,43 @@
             }
         }
     });
-    //11 请求 用户 角色
+      //  10 设置 用户
+    p[10] = autoPost({
+        urlHock: "",
+        urlProd: "/route/userManagement/10",
+        success: function (json) {
+        }
+    });
+       //  11 设置 用户 角色
     p[11] = autoPost({
-        urlHock: "../../hock/roleControl/page.json",
+        urlHock: "",
         urlProd: "/route/userManagement/11",
         success: function (json) {
-            obj.roleForm.roleId = json[0].rrRoleId;
+            obj.$data.userManagement = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-     //12 请求 所有角色 执行一次
+        //  12 设置 用户 角色
     p[12] = autoPost({
-        urlHock: "../../hock/roleControl/page.json",
+        urlHock: "",
         urlProd: "/route/userManagement/12",
         success: function (json) {
-            userManagement.$data.role = json.data;
+            obj.$data.userManagement = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-
-
-
-
-
-
-
-
-
-    function form() {
-        return {
-            ruUserId: '',
-            title: "新建用户",
-            ruUserName: '',
-            ruLoginName: '',
-            ruLoginPassword: '',
-            ruPhone: '',
-            ruZoneNo: '',
-            ruTelephone: '',
-            ruEmail: '',
-            ruSex: true,
-            ruBirthday: '',
-            ruHomeaddress: '',
-            ruQicq: '',
-            ruUserType: 0,
-            ruUserZyq: '',
-            ruIspda: false,
-            ruRemarks: '',
-
-            roleId: 1,
-
-            ruStatus: 1,
-        }
-    }               //弹出层 form 模板
     // 高级 监视器的 使用方法
     userManagement.$watch('form.ruUserName', function () {
         if (this.form.title !== '新建用户') return;
-        p[7].post(this, {userName: this.form.ruUserName.trim()});
+        p[7].post({userName: this.form.ruUserName.trim()});
     }, {deep: true});
     userManagement.$watch('form.ruLoginName', function () {
         if (this.form.title !== '新建用户') return;
-        p[8].post(this, {loginName: this.form.ruLoginName.trim()});
+        p[8].post({loginName: this.form.ruLoginName.trim()});
     }, {deep: true});
 
-    p[0].post(userManagement.option);
-    p[](userManagement);
+    p[0].post( userManagement.option);
+    p[12].post();
     function postSubmit(obj, option) {
         obj.showLoading = true;
 
@@ -1089,7 +1106,7 @@
                     $ajax(url1, {
                         type: "GET",
                         data: {
-                            "ruLoginName": option.ruLoginName,
+                            "ruLoginName":option.ruLoginName,
                             "draw": 1,
                             "pageNum": 1,
                             "pageSize": 1
@@ -1152,38 +1169,15 @@
             }
         });
     }                 // 1 用户 新增
-
-
-
-
-    function postRoles(obj) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/roleControl/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/userManagement/12";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: {
-                "status": 1,
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 999                 //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                userManagement.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                          // 12 请求 所有角色 执行一次
+    function printfCompile(obj) {
+        var resoleveStep = [];
+        for (var i = 0; i < obj.multipleSelection.length; i++) {
+            resoleveStep.push({
+                name: obj.multipleSelection[i].rkrwNo,
+                rkrwNo:obj.multipleSelection[i].rkrwNo,
+                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
+            });
+        }
+        obj.printf = resoleveStep;
+    }				 //打印
 </script>
