@@ -135,8 +135,8 @@
                                         </el-button>
                                         <el-button
                                                 size="small"
-                                                icon="share"
-                                                @click="handleEdit(props.$index, props.row)">
+                                                type="success"
+                                                @click="inlineExport(props.$index, props.row)">导出
                                         </el-button>
                                         <el-button
                                                 size="small"
@@ -693,7 +693,7 @@
     function formEnd() {
         return {
             rksWjReason: '',             //完结原因
-            : '',             //补发单号
+            rksBfdh: '',             //补发单号
         }
     }
     var inputLedger = new Vue({
