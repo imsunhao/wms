@@ -2659,6 +2659,12 @@
          *   allCount 总数量
          *   allTj 总体积
          */
+        /** TODO 8 入库单 详细信息
+         *
+         *
+         * */
+
+
     /**
      *      TODO 入库任务 warehousingTask
          */
@@ -2799,6 +2805,7 @@
             /**
              * 6  入库任务管理 通过id获取一条入库任务单 GET /mfunrkRwDoc/{rkrw_id}
          * */
+
     /**
         * TODO 开始收货 startReceiving
            */

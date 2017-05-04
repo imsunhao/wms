@@ -169,9 +169,21 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 1:
+                        urlName = '入库预约-组合';
+                        req = autoUrl(req, '/mfunrkDoc', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
                     case 2:
                         urlName = '入库预约-新增-入库单';
                         req = autoUrl(req, '/mfunrkDoc/add', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '入库预约-修改-入库单';
+                        req = autoUrl(req, '/mfunrkDoc', "PUT", function (json) {
                             res.send(json);
                         });
                         break;
@@ -181,9 +193,9 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-                    case 1:
-                        urlName = '入库预约-组合';
-                        req = autoUrl(req, '/mfunrkDoc', "POST", function (json) {
+                    case 8:
+                        urlName = '入库预约-查询-入库单-详细';
+                        req = autoUrl(req, '/mfunrkDocs/byDoc/' + req.query.rkRkdjId, "GET", function (json) {
                             res.send(json);
                         });
                         break;
@@ -732,4 +744,3 @@ router.get('/:_url/:_status', java);
 router.post('/:_url/:_status', java);
 
 module.exports = router;
-

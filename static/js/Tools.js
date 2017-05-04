@@ -92,7 +92,7 @@ function allPrposCb(obj, cb) {
      */
     for (var p in obj) {
         if (typeof(obj[p]) !== "function") {
-            cb(obj[p], p)
+            cb(obj, p)
         }
     }
 }        //继承核心
@@ -119,27 +119,35 @@ function autoPost(option) {
     }                 //post核心
 
     var _post = {
-        type: 'POST',
+        type: 'GET',
         urlHock: '',
         urlProd: '',
-        data: {},
-        error: function (error) {
-            errorTip(app, error)
-        },
         success: function (json) {
             if (json.status > 19999 && json.status < 30000) {
-                this.success(json);
+
             } else {
                 errorTip(app, json)
             }
         },
+        data: {},
+        error: function (error) {
+            errorTip(app, error)
+        },
         complete: function () {
 
         },
-        post: function () {
+        post: function (data,call) {
+            if (typeof data !== 'undefined') this.data = data;
+            if (typeof call !== 'undefined') this.success = call;
             postCore.call(this);
         }
     };          //post父类
-
     return Object.create(_post, autoValue(option));
 }           //post核心
+function tsf_date(date) {
+    if (typeof date !== 'undefined' && date !== null) {
+        return date.toJSON()
+    } else {
+        return null;
+    }
+}
