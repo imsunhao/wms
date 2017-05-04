@@ -96,3 +96,47 @@ function allPrposCb(obj, cb) {
         }
     }
 }        //继承核心
+
+function autoValue(obj) {
+    var temp = {};
+    for (index in obj) {
+        temp[index] = {};
+        temp[index].value = obj[index];
+        temp[index].configurable = true;
+        temp[index].enumerable = true;
+        temp[index].writable = true;
+    }
+    return temp;
+}
+
+var postCore = {
+    method:'POST',
+    urlHock: '',
+    url: '',
+    option: {},
+    config: {
+        type: this.method,
+        data: this.option,
+        error: function (error) {
+            errorTip(app, error)
+        },
+        success: function (json) {
+            if (json.status > 19999 && json.status < 30000) {
+                this.success(json);
+            } else {
+                errorTip(app, json)
+            }
+        },
+        complete: function () {
+
+        }
+    },
+    post: function () {
+        /*<debug>*/
+        $.ajax(this.urlHock, this.config);
+        /*</debug>*/
+        /*<prod>*/
+        $.ajax(this.url, this.config);
+        /*</prod>*/
+    }
+};
