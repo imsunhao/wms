@@ -65,6 +65,11 @@
                                                         icon="edit"
                                                         @click="inlineEdit(props.$index, props.row)">
                                                 </el-button>
+                                                  <el-button
+                                                        size="success"
+                                                        @click="inlineDelete(props.$index, props.row)">删除
+                                                </el-button>
+
                                                 <el-button
                                                         size="small"
                                                         @click="freezingThawing(props.$index, props.row)">冻结解冻
@@ -581,6 +586,24 @@
                     stockFrozenThaw.$refs.carousel.setActiveItem(0);
                 });
             },                                  //TODO 行内按钮-编辑
+            inlineDelete:function(){
+                var _this = this;
+                _this.$confirm('此操作删除解冻冻结单, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.stockFrozenThaw);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },                                             //TODO 行内按钮--删除
             inlineIssued: function (index, row) {
                 var _this = this;
                 _this.$confirm('此操作下发入库任务单, 是否继续?', '提示', {
