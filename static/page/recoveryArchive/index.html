@@ -10,10 +10,10 @@
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                         class="icon sel"></i><span>多选</span>
                 </button>
-                <button @click="exportOutstanding" class="btn btn-Issued" v-show="multiSelect"><i
+                <button @click="multiOperationExportOutstanding" class="btn btn-Issued" v-show="multiSelect"><i
                         class="icon issued1"></i><span>导出欠货</span>
                 </button>
-                <button @click="exportRetention" class="btn btn-Issued" v-show="multiSelect"><i
+                <button @click="multiOperationExportRetention" class="btn btn-Issued" v-show="multiSelect"><i
                         class="icon issued1"></i><span>导出滞留</span>
                 </button>
 
@@ -84,6 +84,16 @@
                                         <el-button
                                                 size="small"
                                                 @click="retentionInformation(props.$index, props.row)">滞留补发信息
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                type="success"
+                                                @click="inlineExportOutstanding(props.$index, props.row)">导出欠货
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                type="success"
+                                                @click="inlineExportRetention(props.$index, props.row)">导出滞留
                                         </el-button>
                                     </el-form-item>
                                 </el-col>
@@ -659,6 +669,13 @@
             },                                      //分配 表单
         },
         methods: {
+            inlineExportOutstanding:function(){
+
+            },                                  //TODO 行内按钮-导出欠货
+            inlineExportOutstanding:function(){
+
+            },                                  //TODO 行内按钮-导出滞留
+
             inlineEdit: function (index, row) {
                 this.form.title = '编辑';
                 this.form.ckrwWls = row.ckrwWls;
@@ -708,11 +725,11 @@
             moreOperationModify: function () {
 
             },                                   //TODO 多选 修改
-            exportOutstanding: function () {
+            multiOperationExportOutstanding: function () {
 
-            },                                     //TODO 多选 导出欠货
-            exportRetention: function () {
-            },                                       //TODO 多选 导出滞留
+            },                        //TODO 多选 导出欠货
+            multiOperationExportRetention: function () {
+            },                          //TODO 多选 导出滞留
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');

@@ -10,16 +10,16 @@
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                         class="icon sel"></i><span>多选</span>
                 </button>
-                <button @click="exportInputList" class="btn btn-modify" v-show="multiSelect"><i
+                <button @click="multiExportInputList" class="btn btn-modify" v-show="multiSelect"><i
                         class="icon modify"></i><span>导出入库单</span>
                 </button>
-                <button @click="exportInputDetailed" class="btn btn-modify" v-show="multiSelect"><i
+                <button @click="multiExportInputDetailed" class="btn btn-modify" v-show="multiSelect"><i
                         class="icon modify"></i><span>导出入库明细</span>
                 </button>
-                <button @click="exportInputStorage" class="btn btn-modify" v-show="multiSelect"><i
+                <button @click="multiExportInputStorage" class="btn btn-modify" v-show="multiSelect"><i
                         class="icon modify"></i><span>导出入库储位</span>
                 </button>
-                 <button @click="exportInput" class="btn btn-modify" v-show="multiSelect"><i
+                 <button @click="multiExportInput" class="btn btn-modify" v-show="multiSelect"><i
                         class="icon modify"></i><span>导出入库</span>
                 </button>
 
@@ -94,11 +94,32 @@
                                             label="可用操作">
                                         <el-button
                                                 size="small"
-                                                @click="selectInputDetailed(props.$index, props.row)">查看入库明细信息
+                                                type="success"
+                                                @click="inlineExportInputList(props.$index, props.row)">导出入库单
                                         </el-button>
                                         <el-button
                                                 size="small"
-                                                @click="selectInputStorage(props.$index, props.row)">查看入库储位信息
+                                                type="success"
+                                                @click="inlineExportInputDetailed(props.$index, props.row)">导出入库明细
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                type="success"
+                                                @click="inlineExportInputStorage(props.$index, props.row)">导出入库储位
+                                        </el-button>
+                                       <el-button
+                                                size="small"
+                                                type="success"
+                                                @click="inlineExportInput(props.$index, props.row)">导出入库
+                                        </el-button>
+
+                                        <el-button
+                                                size="small"
+                                                @click="inlineSelectInputDetailed(props.$index, props.row)">查看入库明细信息
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                @click="inlineSelectInputStorage(props.$index, props.row)">查看入库储位信息
                                         </el-button>
                                     </el-form-item>
                                 </el-col>
@@ -704,11 +725,16 @@
             },                                      //分配 表单
         },
         methods: {
-            inlineModify: function (index, row) {
-                this.multipleSelection = [row];
-                printfCompile(this);
-                this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                //行内按钮 打印标签页
+            inlineExportInputList:function(){},                                        //TODO 行内按钮-导出入库单
+            inlineExportInputDetailed:function(){},                                    //TODO 行内按钮-导出入库明细
+            inlineExportInputStorage:function(){},                                     //TODO 行内按钮-导出入库储位
+            inlineExportInput:function(){},                                            //TODO 行内按钮-导出入库
+            inlineSelectInputDetailed:function(){
+                this.dialogDetailedVisible = true
+            },                                //TODO 行内按钮-查看入库明细信息
+            inlineSelectInputStorage:function(){
+                this.dialogStorageVisible = true
+            },                                 //TODO 行内按钮-查看入库储位信息
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -717,23 +743,23 @@
                 console.log(this.multipleSelection);
                 /*</debug>*/
                 this.multipleSelection = val;
-            },                               //多选 选中控制
-            exportInputList: function () {
+            },                               //TODO 多选 选中控制
+            multiExportInputList: function () {
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                       //多选 导出入库单
-            exportInputDetailed: function () {
+            },                                  //TODO 多选 导出入库单
+            multiExportInputDetailed: function () {
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                   //多选 导出入库明细
-            exportInputStorage: function () {
+            },                              //TODO 多选 导出入库明细
+            multiExportInputStorage: function () {
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                    //多选 导出入库储位
-            exportInput: function () {
+            },                               //TODO 多选 导出入库储位
+            multiExportInput: function () {
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                           //多选 导出入库
+            },                                      //TODO 多选 导出入库
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');

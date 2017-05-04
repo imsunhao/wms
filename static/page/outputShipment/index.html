@@ -10,7 +10,7 @@
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                         class="icon sel"></i><span>多选</span>
                 </button>
-                <button @click="Shipment" class="btn btn-Issued" v-show="multiSelect"><i
+                <button @click="multiOperationShipment" class="btn btn-Issued" v-show="multiSelect"><i
                         class="icon issued1"></i><span>发运</span>
                 </button>
             </div>
@@ -75,11 +75,16 @@
                                             label="可用操作">
                                         <el-button
                                                 size="small"
-                                                @click="arriveCar(props.$index, props.row)">修改发运数量
+                                                type="success"
+                                                @click="inlineShipment(props.$index, props.row)">发运
                                         </el-button>
                                         <el-button
                                                 size="small"
-                                                @click="modifyTask(props.$index, props.row)">打印承运协议
+                                                @click="inlineModifyShipmentNumber(props.$index, props.row)">修改发运数量
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                @click="inlinePrintCarrierAgreement(props.$index, props.row)">打印承运协议
                                         </el-button>
                                     </el-form-item>
 
@@ -366,9 +371,6 @@
                     height="55vh">
                 <el-carousel-item>
                     <el-row>
-                        <el-col :span="24"><h3>出库单据</h3></el-col>
-                    </el-row>
-                    <el-row>
                         <el-table
                                 :data="inputOperation"
                                 :max-height="570"
@@ -380,7 +382,7 @@
                                     width="55">
                             </el-table-column>
                             <el-table-column
-                                    label="出库单号"
+                                    label="货品编号"
                                     show-overflow-tooltip
                                     align="center"
                                     prop="ckCkdjNo">
@@ -388,32 +390,32 @@
                             <el-table-column
                                     align="center"
                                     prop="rkSjsj"
-                                    label="下单时间">
+                                    label="货品名称">
                                 <template scope="scope">
                                     <el-icon name="time"></el-icon>
-                                    <span style="margin-left: 10px">{{ auto_ckXdsj(scope.row.ckXdsj,true) }}</span>
+                                    <span style="margin-left: 10px"></span>
                                 </template>
                             </el-table-column>
                             <el-table-column
-                                    label="客户名称"
+                                    label="货品单位"
                                     align="center"
                                     show-overflow-tooltip
                                     prop="ckCkdjClientname">
                             </el-table-column>
                             <el-table-column
-                                    label="联系人"
+                                    label="下架数量"
                                     align="center"
                                     show-overflow-tooltip
                                     prop="ckContacts">
                             </el-table-column>
                             <el-table-column
-                                    label="地址"
+                                    label="批次"
                                     align="center"
                                     show-overflow-tooltip
                                     prop="ckAdress">
                             </el-table-column>
                             <el-table-column
-                                    label="状态"
+                                    label="库位"
                                     prop="rkType"
                                     align="center">
                                 <template scope="scope">
@@ -833,20 +835,54 @@
                 /*</debug>*/
                 this.multipleSelection = val;
             },                               //多选 选中控制
-            arriveCar: function (index, row) {
-                console.log(row);
-//                postChange(this,{id:row.});
-                this.dialogChangeVisible = true;
-            },                                   //TODO 行内按钮-修改发运数量
-            modifyTask: function (index, row) {
+            multiOperationShipment:function(){
+                var _this = this;
+                _this.$confirm('此操作将此任务单据发运, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.warehousingTask);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消发运'
+                    });
+                });
+            },                                   //TODO 多选-发运
 
-            },                                  //TODO 行内按钮-打印承运协议
+            inlineShipment:function(){
+                var _this = this;
+                _this.$confirm('此操作将此任务单据发运, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.warehousingTask);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消发运'
+                    });
+                });
+            },                                           //TODO 行内按钮--发运
+
+            inlineModifyShipmentNumber: function (index, row) {
+                this.dialogChangeVisible = true;
+            },                  //TODO 行内按钮-修改发运数量
+
+            inlinePrintCarrierAgreement: function (index, row) {
+
+            },                 //TODO 行内按钮-打印承运协议
             moreOperationModify: function () {
 
             },                                   //TODO 多选 修改
-            Shipment: function () {
-
-            },                                              //TODO 多选 发运
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');

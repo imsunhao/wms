@@ -10,16 +10,16 @@
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                         class="icon sel"></i><span>多选</span>
                 </button>
-                <button @click="exportOutputList" class="btn btn-modify" v-show="multiSelect"><i
+                <button @click="multiExportOutputList" class="btn btn-modify" v-show="multiSelect"><i
                         class="icon modify"></i><span>导出出库单据</span>
                 </button>
-                <button @click="exportOutputDetailed" class="btn btn-modify" v-show="multiSelect"><i
+                <button @click="multiExportOutputDetailed" class="btn btn-modify" v-show="multiSelect"><i
                         class="icon modify"></i><span>导出出库单据明细</span>
                 </button>
-                <button @click="exportSortingDetailed" class="btn btn-modify" v-show="multiSelect"><i
+                <button @click="multiExportSortingDetailed" class="btn btn-modify" v-show="multiSelect"><i
                         class="icon modify"></i><span>导出分拣明细</span>
                 </button>
-                <button @click="exportOutput" class="btn btn-modify" v-show="multiSelect"><i
+                <button @click="multiExportOutput" class="btn btn-modify" v-show="multiSelect"><i
                         class="icon modify"></i><span>导出出库</span>
                 </button>
             </div>
@@ -115,11 +115,31 @@
                                             label="可用操作">
                                         <el-button
                                                 size="small"
-                                                @click="selectOutputDetailed(props.$index, props.row)">查看出库明细信息
+                                                type="success"
+                                                @click="inlineExportOutputList(props.$index, props.row)">导出出库单
                                         </el-button>
                                         <el-button
                                                 size="small"
-                                                @click="selectSortingDetailed(props.$index, props.row)">查看分拣明细信息
+                                                type="success"
+                                                @click="inlineExportOutputDetailed(props.$index, props.row)">导出出库明细
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                type="success"
+                                                @click="inlineExportOutputStorage(props.$index, props.row)">导出出库储位
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                type="success"
+                                                @click="inlineExportOutput(props.$index, props.row)">导出出库
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                @click="inlineSelectOutputDetailed(props.$index, props.row)">查看出库明细信息
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                @click="inlineSelectSortingDetailed(props.$index, props.row)">查看分拣明细信息
                                         </el-button>
                                     </el-form-item> 
                                 </el-col>
@@ -816,6 +836,16 @@
             },                                      //分配 表单
         },
         methods: {
+            inlineExportOutputList:function(){},                                        //TODO 行内按钮-导出出库单
+            inlineExportOutputDetailed:function(){},                                    //TODO 行内按钮-导出出库明细
+            inlineExportOutputStorage:function(){},                                     //TODO 行内按钮-导出出库储位
+            inlineExportOutput:function(){},                                            //TODO 行内按钮-导出出库
+            inlineSelectOutputDetailed:function(){
+                this.dialogDetailedVisible = true;
+            },                                //TODO 行内按钮-查看出库明细信息
+            inlineSelectSortingDetailed:function(){
+                this.dialogStorageVisible = true;
+            },                               //TODO 行内按钮-查看出库储位信息
             inlineModify: function (index, row) {
                 this.multipleSelection = [row];
                 printfCompile(this);
@@ -830,22 +860,22 @@
                 /*</debug>*/
                 this.multipleSelection = val;
             },                               //多选 选中控制
-            exportOutputList: function () {
+            multiExportOutputList: function () {
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                       //多选 导出出库单据
-            exportOutputDetailed: function () {
+            },                                 //TODO 多选 导出出库单据
+            multiExportOutputDetailed: function () {
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                   //多选 导出出库单据明细
-            exportSortingDetailed: function () {
+            },                             //TODO 多选 导出出库单据明细
+            multiExportSortingDetailed: function () {
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                  //多选 导出分拣明细
-            exportOutput: function () {
+            },                            //TODO 多选 导出分拣明细
+            multiExportOutput: function () {
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                           //多选 导出出库
+            },                                      //TODO 多选 导出出库
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -920,12 +950,6 @@
             printfCheckChange: function () {
 
             },                                     //打印 选中维护
-            selectOutputDetailed: function () {
-                this.dialogDetailedVisible = true;
-            },                                   //行内按钮-查看入库明细信息
-            selectSortingDetailed: function () {
-                this.dialogStorageVisible = true;
-            },                                    //行内按钮-入库储位信息
             detailedSubmit: function () {
 
             },

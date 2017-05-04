@@ -171,10 +171,8 @@
                     <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                             class="icon sel"></i><span>多选</span>
                     </button>
-                    <!--<button @click="moreOperationModify" class="btn btn-modify" v-show="multiSelect"><i-->
-                    <!--class="icon modify"></i><span>删除</span>-->
-                    <!--</button>-->
-                    <button @click="moreOperationDelete" class="btn btn-del" v-show="multiSelect"><i
+
+                    <button @click="multiMoreOperationDelete" class="btn btn-del" v-show="multiSelect"><i
                             class="icon del"></i><span>批量删除</span>
                     </button>
             </div>
@@ -229,6 +227,11 @@
                                                 size="small"
                                                 icon="edit"
                                                 @click="inlineEdit(props.$index, props.row)">
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                type="success"
+                                                @click="inlineDelete(props.$index, props.row)">删除
                                         </el-button>
                                     </el-form-item>
                                 </el-col>
@@ -548,6 +551,24 @@
             },                                      //分配 表单
         },
         methods: {
+            inlineDelete:function(){
+                var _this = this;
+                _this.$confirm('此操作将删除库存转移单据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.recoveryArchive);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },                                             //TODO 行内按钮-删除
             inlineEdit: function (index, row) {
                 this.form.title = '编辑';
                 this.form.zyCreateTime = row.zyCreateTime;
@@ -577,14 +598,30 @@
                 /*</debug>*/
                 this.multipleSelection = val;
             },                               //多选 选中控制
-            moreOperationDelete: function () {
-                /*<debug>*/
-                console.log('选中的删除');
-                /*</debug>*/
-                for (i = 0; i < this.multipleSelectionCombination.length; i++) {
-                    remove(this.multipleSelectionCombination[i], this.warehousingReservationCombination);
-                }
-            },                                   //多选 删除
+            multiMoreOperationDelete: function () {
+                var _this = this;
+                _this.$confirm('此操作将删除库存转移单据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.recoveryArchive);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+//                /*<debug>*/
+//                console.log('选中的删除');
+//                /*</debug>*/
+//                for (i = 0; i < this.multipleSelectionCombination.length; i++) {
+//                    remove(this.multipleSelectionCombination[i], this.warehousingReservationCombination);
+//                }
+            },                              //TODO 多选 删除
             newInput: function () {
                 this.form = form();
                 this.dialogFormVisible = true;
