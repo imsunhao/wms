@@ -554,31 +554,6 @@
     </el-dialog>
 </div>
 <script>
-    var form = function () {
-        return {
-            ruUserId: '',
-            title: "新建用户",
-            ruUserName: '',
-            ruLoginName: '',
-            ruLoginPassword: '',
-            ruPhone: '',
-            ruZoneNo: '',
-            ruTelephone: '',
-            ruEmail: '',
-            ruSex: true,
-            ruBirthday: '',
-            ruHomeaddress: '',
-            ruQicq: '',
-            ruUserType: 0,
-            ruUserZyq: '',
-            ruIspda: false,
-            ruRemarks: '',
-
-            roleId: 1,
-
-            ruStatus: 1,
-        }
-    };               //弹出层 form 模板
     var userManagement = new Vue({
         el: '#userManagement',
         prop: {},
@@ -702,7 +677,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    postAble(obj, {ids: [row.ruUserId]});
+                    p[2].post({ids: [row.ruUserId]});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -782,7 +757,7 @@
                     for (var i = 0; i < obj.multipleSelection.length; i++) {
                         step.push(obj.multipleSelection[i].ruUserId);
                     }
-                    postAble(obj, {"ids": step});
+                    p[2].post({"ids": step});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -815,14 +790,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post(this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post(this.option);
             },                                //分页 当前页
 
             newInput: function () {
@@ -867,7 +842,7 @@
                     obj.dialogFormVisible = false;
                     obj.dialogFormActive = 0;
                     obj.$refs.carousel.setActiveItem(0);
-                    post(userManagement);
+                    p[0].post();
                 }, 1500);
                 /*</debug>*/
             },                                                //新建 表单提交
@@ -898,16 +873,71 @@
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                post(this, this.option);
+                p[0].post(this.option);
             },
             ruLoginName: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                post(this, this.option);
+                p[0].post(this.option);
             }
         }
     });
+    var obj = userManagement;
+    var p = [];
+    // 0 用户 分页查询
+    p[0] = autoPost({
+        urlHock: "../../hock/userControl/page.json",
+        urlProd: "/route/userManagement/0",
+        success: function (json) {
+            obj.$data.userManagement = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+    // 0 用户 启用
+    p[2] = autoPost({
+        urlHock: "/hock/form/inputOptoionDelete.json",
+        urlProd: "/route/userManagement/2",
+        success: function (json) {
+            if (json.status === 20000) {
+                post(userManagement, userManagement.option);
+                obj.$notify({
+                    title: '提示',
+                    type: 'success',
+                    message: obj.$createElement(
+                        'p',
+                        '启用完成'
+                    )
+                });
+            }
+        }
+    });
+
+    function form() {
+        return {
+            ruUserId: '',
+            title: "新建用户",
+            ruUserName: '',
+            ruLoginName: '',
+            ruLoginPassword: '',
+            ruPhone: '',
+            ruZoneNo: '',
+            ruTelephone: '',
+            ruEmail: '',
+            ruSex: true,
+            ruBirthday: '',
+            ruHomeaddress: '',
+            ruQicq: '',
+            ruUserType: 0,
+            ruUserZyq: '',
+            ruIspda: false,
+            ruRemarks: '',
+
+            roleId: 1,
+
+            ruStatus: 1,
+        }
+    }               //弹出层 form 模板
     // 高级 监视器的 使用方法
     userManagement.$watch('form.ruUserName', function () {
         if (this.form.title !== '新建用户') return;
@@ -918,46 +948,8 @@
         postRuLoginName(this, {loginName: this.form.ruLoginName.trim()});
     }, {deep: true});
 
-    post(userManagement, userManagement.option);
+    p[0].post(userManagement.option);
     postRoles(userManagement);
-    function post(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/userControl/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/userManagement/0";  //post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option ||{
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                for (var i = 0; i < json.data.length; i++) {
-                    var ruUserType = {
-                        "0": "普通",
-                        "1": "堆高车",
-                        "2": "高位叉车"
-                    };
-                    json.data[i].ruUserType = ruUserType[json.data[i].ruUserType];
-                }
-                obj.$data.userManagement = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                       // 0
     function postSubmit(obj, option) {
         obj.showLoading = true;
 
@@ -984,7 +976,7 @@
                     $ajax(url1, {
                         type: "GET",
                         data: {
-                            "ruLoginName":option.ruLoginName,
+                            "ruLoginName": option.ruLoginName,
                             "draw": 1,
                             "pageNum": 1,
                             "pageSize": 1
@@ -1047,40 +1039,7 @@
             }
         });
     }                 // 1 用户 新增
-    function postAble(obj, option) {
-        obj.showLoading = true;
 
-        /*<debug>*/
-        url = "/hock/form/inputOptoionDelete.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/userManagement/2";
-        /*</prod>*/
-        $.ajax(url, {
-            type: "GET",
-            data: option,
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                if (json.status === 20000) {
-                    post(userManagement, userManagement.option);
-                    obj.$notify({
-                        title: '提示',
-                        type: 'success',
-                        message: obj.$createElement(
-                            'p',
-                            '启用完成'
-                        )
-                    });
-                }
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                   // 2 用户 启用
     function postModify(obj, option) {
         obj.showLoading = true;
 
@@ -1333,7 +1292,7 @@
         $.ajax(url, {
             type: "GET",
             data: {
-                "status":1,
+                "status": 1,
                 "draw": 1,                      //* 没有意义
                 "pageNum": 1,                   //* 当前页
                 "pageSize": 999                 //* 每页大小
