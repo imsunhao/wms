@@ -119,7 +119,7 @@ function autoPost(option) {
     }                 //post核心
 
     var _post = {
-        type: 'POST',
+        type: 'GET',
         urlHock: '',
         urlProd: '',
         data: {},
