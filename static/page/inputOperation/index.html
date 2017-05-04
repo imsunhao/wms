@@ -123,6 +123,17 @@
                                                 </el-button>
                                                 <el-button
                                                         size="small"
+                                                        type="success"
+                                                        @click="inlineCancelAllocation(props.$index, props.row)">取消分配
+                                                </el-button>
+                                                 <el-button
+                                                        size="small"
+                                                        type="success"
+                                                        @click="inlineGrounding(props.$index, props.row)">上架
+                                                </el-button>
+
+                                                <el-button
+                                                        size="small"
                                                         @click="distributionBtn(props.$index, props.row)">再次收货
                                                 </el-button>
                                             </el-form-item>
@@ -923,6 +934,42 @@
                     obj.dialogFormVisible = true;
                 }
             },                             //分配 行内按钮
+            inlineCancelAllocation: function (index, row) {
+                var _this = this;
+                _this.$confirm('此操作将这单任务单据取消分配, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.warehousingTask);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消下发'
+                    });
+                });
+            },                      //TODO 行内按钮 取消分配
+            inlineGrounding: function (index, row) {
+                var _this = this;
+                _this.$confirm('此操作将这单任务单据上架, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.warehousingTask);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消下发'
+                    });
+                });
+            },                              //TODO 行内按钮 上架
             distributionBtnSubmit: function () {
                 var _this = this;
                 this.dialogFormActive++;
