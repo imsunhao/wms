@@ -10,7 +10,7 @@
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                         class="icon sel"></i><span>多选</span>
                 </button>
-                <button @click="multiSelectActivateTask" class="btn btn-Issued" v-show="multiSelect"><i
+                <button @click="multiOperationActivateTask" class="btn btn-Issued" v-show="multiSelect"><i
                         class="icon issued1"></i><span>激活任务</span>
                 </button>
             </div>
@@ -73,6 +73,11 @@
                                     </el-form-item>
                                     <el-form-item
                                             label="可用操作">
+                                        <el-button
+                                                size="small"
+                                                type="success"
+                                                @click="inlineActivateTask(props.$index, props.row)">激活任务
+                                        </el-button>
                                         <el-button
                                                 size="small"
                                                 type="success"
@@ -686,6 +691,24 @@
             },                                      //分配 表单
         },
         methods: {
+            inlineActivateTask:function () {                           //TODO 行内按钮 激活任务
+                var _this = this;
+                _this.$confirm('此操作将此出库单激活任务, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.activationBill);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消激活任务'
+                    });
+                });
+            },                                  //TODO 行内按钮-激活任务
             inlineSupplementaryDistribution:function () {                           //TODO 行内按钮 追加分拣
                 var _this = this;
                 _this.$confirm('此操作将追加分拣出库单, 是否继续?', '提示', {
@@ -752,7 +775,23 @@
                 /*</debug>*/
                 this.multipleSelection = val;
             },                               //多选 选中控制
-            multiSelectActivateTask: function () {
+            multiOperationActivateTask: function () {
+                var _this = this;
+                _this.$confirm('此操作将此出库单激活任务, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.activationBill);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消激活任务'
+                    });
+                });
 
             },                               //TODO 多选 激活任务
             handleSizeChange: function (val) {
