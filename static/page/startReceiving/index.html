@@ -401,12 +401,12 @@
             pxs: '',
             rkrwDh: '',
             rkrwStatus: '',
-            rkrwDhrq:'',//模糊查询--到车日期
-            rkrwNo:'',//模糊查询--任务号
-            rkrwCph:'',//模糊查询--车牌号
-            rkrwSjxm:'',//模糊查询--司机姓名
-            rkrwDbd:'',//模糊查询--调拨地
-            rkrwCys:'',//模糊查询--承运商
+            rkrwDhrq: '',//模糊查询--到车日期
+            rkrwNo: '',//模糊查询--任务号
+            rkrwCph: '',//模糊查询--车牌号
+            rkrwSjxm: '',//模糊查询--司机姓名
+            rkrwDbd: '',//模糊查询--调拨地
+            rkrwCys: '',//模糊查询--承运商
         }
     }
     var startReceiving = new Vue({
@@ -608,6 +608,12 @@
                     case 2:
                         console.log(node.data.name);
                         postRkdjId(this, {
+
+                            "rksRkdjId": 1,
+                            "draw": 0,
+                            "pageNum": 1,
+                            "pageSize": 999,
+
                             rkrwNo: node.data.rkrwNo,
                             rkrwDhrq: node.data.rkrwDhrq
                         }, resolve);
@@ -689,7 +695,7 @@
                 obj.showLoading = false;
             }
         });
-    }                         //开始收货分页查询的接口
+    }                         // 0 开始收货分页查询的接口
 
     function postRkrwNo(obj, option, resolve) {
         /*<debug>*/
@@ -725,7 +731,7 @@
 
             }
         });
-    }          //TODO 获取任务单号中详细信息
+    }          //TODO 1获取任务单号中详细信息
     function postRkdjId(obj, option, resolve) {
         /*<debug>*/
         url = "/hock/startReceiving/rkdjId.json";
@@ -737,7 +743,7 @@
 
         $.ajax(url, {
             type: "GET",
-            data: option | {
+            data: option || {
                 "draw": 1,                      //* 没有意义
                 "pageNum": 1,                   //* 当前页
                 "pageSize": 10                  //* 每页大小
@@ -763,7 +769,45 @@
 
             }
         });
-    }          //TODO 获取入库单号中详细信息
+    }          //TODO 2获取入库单号中详细信息
+    function post3(obj, option, resolve) {
+        /*<debug>*/
+        url = "/hock/startReceiving/rkdjId.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/startReceiving/3";
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "rwIds": [
+                    3, 4
+                ]
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                var resoleveStep = [];
+                for (var i = 0; i < json.length; i++) {
+                    resoleveStep.push({
+                        name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgNamejc,
+                        val2: json[i].baseGoods.bgGoodsNo,
+                        val: dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
+                        rwdh: option.rkrwNo,
+                        dhrq: dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
+                        dysj: changeDate(new Date())
+                    });
+                }
+                return resolve(resoleveStep);
+            },
+            complete: function () {
+
+            }
+        });
+    }               //TODO 3获取入库单号中详细信息
 
     function printfCompile(obj) {
         var resoleveStep = [];
