@@ -132,20 +132,15 @@
                                                         size="small"
                                                         @click="inlinePrintSortingList(props.$index, props.row)">打印分拣单
                                                 </el-button>
+                                                 <el-button
+                                                        size="small"
+                                                        @click="inlinePrintCombinationSortingList(props.$index, props.row)">打印组合分拣单
+                                                </el-button>
+
                                                   <el-button
                                                         size="small"
                                                         @click="inlinePrintOrder(props.$index, props.row)">打印追加分拣单
                                                 </el-button>
-
-
-                                                <!--<el-button-->
-                                                        <!--size="small"-->
-                                                        <!--@click="distributionBtn(props.$index, props.row)">分配-->
-                                                <!--</el-button>-->
-                                                <!--<el-button-->
-                                                        <!--size="small"-->
-                                                        <!--@click="distributionBtn(props.$index, props.row)">再次收货-->
-                                                <!--</el-button>-->
                                             </el-form-item>
                                             <el-form-item label="入库备注">
                                                 <el-tooltip class="item" effect="dark" :content="props.row.rkRemarks"
@@ -912,6 +907,7 @@
         },
         methods: {
             inlinePrintSortingList:function(){},                                       //TODO 行内按钮-打印分拣单
+            inlinePrintCombinationSortingList:function(){},                            //TODO 行内按钮-打印组合分拣单
             inlinePrintOrder:function(){},                                            //TODO 行内按钮-打印追加分拣单
             distributionBtnSubmit: function () {
                 var _this = this;
