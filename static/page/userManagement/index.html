@@ -1062,7 +1062,7 @@
     }, {deep: true});
 
     p[0].post(userManagement.option);
-    p[12].post(userManagement);
+    p[](userManagement);
     function postSubmit(obj, option) {
         obj.showLoading = true;
 
@@ -1156,5 +1156,34 @@
 
 
 
+    function postRoles(obj) {
+        obj.showLoading = true;
 
+        /*<debug>*/
+        url = "../../hock/roleControl/page.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/userManagement/12";
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: {
+                "status": 1,
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 999                 //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                userManagement.$data.role = json.data;
+            },
+            complete: function () {
+                obj.showLoading = false;
+            }
+        });
+    }                          // 12 请求 所有角色 执行一次
 </script>
