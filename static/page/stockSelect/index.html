@@ -200,7 +200,6 @@
                           :label-width="formLabelWidth">
                 <el-select v-model="form.mrArehouseId" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
-                    <el-option :value="1">角色下所有的仓库</el-option>
                 </el-select>
             </el-form-item>
         </el-form>
@@ -402,7 +401,7 @@
             rkrwCys: '',
             rkrwDh: '',
             rkrwStatus: '',
-            mrKcydsj:'',    //模糊查询--异动时间
+            mrKcydsj:[null,null],    //模糊查询--异动时间
             mrGoodsId:'',   //模糊查询--货品编号
             mrGoodsId:'',    //模糊查询--货品名称
             mrLocationId:'',//模糊查询--库位名称

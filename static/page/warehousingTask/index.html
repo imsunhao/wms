@@ -10,10 +10,7 @@
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                         class="icon sel"></i><span>多选</span>
                 </button>
-                <button @click="moreOperationModify" class="btn btn-modify" v-show="multiSelect"><i
-                        class="icon modify"></i><span>修改</span>
-                </button>
-                <button @click="moreOperationIssued" class="btn btn-Issued" v-show="multiSelect"><i
+                <button @click="multiOperationIssued" class="btn btn-Issued" v-show="multiSelect"><i
                         class="icon issued"></i><span>下发</span>
                 </button>
             </div>
@@ -252,7 +249,7 @@
             <el-form-item label="到货日期"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.rkrwDhrq"
+                        v-model="form.rkrwDhrq"
                         type="daterange"
                         align="right"
                         placeholder="到货日期"
@@ -263,7 +260,7 @@
             <el-form-item label="任务号"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.rkrwNo"
+                        v-model="form.rkrwNo"
                         class="input"
                         icon="search"
                         placeholder="任务号"></el-input>
@@ -272,7 +269,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.rkrwCph"
+                        v-model="form.rkrwCph"
                         icon="search"
                         placeholder="车牌号"></el-input>
             </el-form-item>
@@ -280,7 +277,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.rkrwSjxm"
+                        v-model="form.rkrwSjxm"
                         icon="search"
                         placeholder="司机姓名"></el-input>
             </el-form-item>
@@ -288,7 +285,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.rkrwDbd"
+                        v-model="form.rkrwDbd"
                         icon="search"
                         placeholder="调拨地"></el-input>
             </el-form-item>
@@ -296,17 +293,9 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.rkrwCys"
+                        v-model="form.rkrwCys"
                         icon="search"
                         placeholder="承运商"></el-input>
-            </el-form-item>
-            <el-form-item label="状态"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="select.rkrwCys"
-                        icon="search"
-                        placeholder="状态"></el-input>
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -586,15 +575,16 @@
             rkrwId: '',
             title: "新建入库任务",
             rkrwN: '',
-            rkrwCph: '',
             dds: '',
             pxs: '',
-            rkrwSjxm: '',
-            rkrwDhrq: '',
-            rkrwDbd: '',
-            rkrwCys: '',
             rkrwDh: '',
-            rkrwStatus: ''
+            rkrwStatus: '',
+            rkrwDhrq:[null,null],//模糊查询--到货日期
+            rkrwNo:'',//模糊查询--任务号
+            rkrwCph:'',//模糊查询--车牌号
+            rkrwSjxm:'',//模糊查询--司机姓名
+            rkrwDbd:'',//模糊查询--调拨地
+            rkrwCys:'',//模糊查询--承运商
         }
     }
     var warehousingTask = new Vue({
@@ -703,7 +693,7 @@
             },                                  //TODO 行内按钮-编辑
             inlineIssued: function (index, row) {
                 var _this = this;
-                _this.$confirm('此操作下发入库任务单, 是否继续?', '提示', {
+                _this.$confirm('此操作将这单任务单据下发, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -728,12 +718,27 @@
                 /*</debug>*/
                 this.multipleSelection = val;
             },                               //多选 选中控制
-            moreOperationModify: function () {
+            multiOperationIssued: function () {
+                var obj = this;
+                obj.$confirm('此操作将这些任务单据下发, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                    var step = [];
+                    for (var i = 0; i < obj.multipleSelection.length; i++) {
+                        step.push(obj.multipleSelection[i].ruUserId);
+                    }
+                    postPassword(warehousingTask, {ids: step});
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
 
-            },                                   //TODO 多选 修改
-            moreOperationIssued: function () {
-
-            },                                   //TODO 多选 下发
+            },                                  //TODO 多选 下发
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -867,7 +872,7 @@
 
         $.ajax(url, {
             type: "GET",
-            data: option | {
+            data: option || {
                 "draw": 1,                      //* 没有意义
                 "pageNum": 1,                   //* 当前页
                 "pageSize": 10                  //* 每页大小
@@ -885,7 +890,6 @@
             }
         });
     }              //TODO 入库任务分页查询接口
-
     function postInputOperation(obj, row) {
         obj.showLoading = true;
 
@@ -918,47 +922,4 @@
             }
         });
     }   //TODO 请求入库任务中详细信息
-
-    function changeDate(date) {
-        return dateFormat(new Date(date), 'MM-dd hh:mm');
-    }
-    function errorTip(obj, error) {                    // 错误提示
-        /*<debug>*/
-        console.log(error);
-        /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
-    function dateFormat(date, fmt) {
-        var o = {
-            "M+": date.getMonth() + 1,                 //月份
-            "d+": date.getDate(),                    //日
-            "h+": date.getHours(),                   //小时
-            "m+": date.getMinutes(),                 //分
-            "s+": date.getSeconds(),                 //秒
-            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-            "S": date.getMilliseconds()             //毫秒
-        };
-        if (/(y+)/.test(fmt))
-            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-
-                    console.log(temp);
-                }
-                data.pop();
-            }
-        }
-    }
 </script>

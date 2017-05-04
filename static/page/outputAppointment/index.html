@@ -313,15 +313,15 @@
                                                         </el-button>
                                                         <el-button
                                                                 size="small"
-                                                                type="warning"
+                                                                type="info"
                                                                 @click="inlineRetentionInput(props.$index, props.row)">
-                                                            滞留
+                                                            取消滞留
                                                         </el-button>
                                                         <el-button
                                                                 size="small"
                                                                 icon="delete"
                                                                 type="danger"
-                                                                @click="inlineDeleteOlder(props.$index, props.row)">作废
+                                                                @click="inlineDeleteOlder(props.$index, props.row)">
                                                         </el-button>
                                                     </el-form-item>
                                                 </el-form>
@@ -844,19 +844,19 @@
             },                           //行内按钮-作废
             inlineRetentionInput: function (index, row) {
                 var _this = this;
-                _this.$confirm('确定滞留？ 单号：' + row.ckCkdjNo, '提示', {
+                _this.$confirm('确定取消滞留？ 单号：' + row.ckCkdjNo, '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    _this.outputAppointment[index].ckCkdjType = 2;
+                    _this.outputAppointment[index].ckCkdjType = 1;
                     postRetentionInput(_this, {
                         id: [row.rkdjNo]
                     });
                 }).catch(function () {
                     _this.$message({
                         type: 'info',
-                        message: '已取消作废'
+                        message: '已取消操作'
                     });
                 });
             },                        //行内按钮-滞留入库
@@ -1095,7 +1095,7 @@
                 }
             },                            //入库仓库id 自动匹配
             auto_ckXdsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
             },                                //下单时间
             auto_ckCkdjType: function (value) {
@@ -1315,7 +1315,7 @@
                         type: 'success',
                         message: obj.$createElement(
                             'p',
-                            '出库单已滞留'
+                            '出库单已取消滞留'
                         )
                     });
                 }

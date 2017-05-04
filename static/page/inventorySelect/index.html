@@ -192,25 +192,24 @@
             <el-form-item label="盘点状态"
                           :label-width="formLabelWidth">
                 <el-select v-model="form.pdStatus" placeholder="请选择">
-                    <el-option :value="-1">全部</el-option>
-                    <el-option :value="0">初始</el-option>
-                    <el-option :value="1">盘点确认</el-option>
-                    <el-option :value="2">作废</el-option>
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="0" label="初始"></el-option>
+                    <el-option :value="1" label="盘点确认"></el-option>
+                    <el-option :value="2" label="作废"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="差异状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="select.pdDiffStatus" placeholder="请选择">
-                    <el-option :value="-1">全部</el-option>
-                    <el-option :value="1">无差异</el-option>
-                    <el-option :value="2">有差异</el-option>
+                <el-select v-model="form.pdDiffStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="1" label="无差异"></el-option>
+                    <el-option :value="2" label="有差异"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="仓库"
                           :label-width="formLabelWidth">
-                <el-select v-model="select.pdArehouseId" placeholder="请选择">
-                    <el-option :value="-1">全部</el-option>
-                    <el-option :value="1">角色所包含的所有仓库</el-option>
+                <el-select v-model="form.pdArehouseId" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
                 </el-select>
             </el-form-item>
 
@@ -431,7 +430,14 @@
             rkrwDbd: '',
             rkrwCys: '',
             rkrwDh: '',
-            rkrwStatus: ''
+            rkrwStatus: '',
+            pdCreateTime:[null,null],//模糊查询--创建时间
+            pdCreateUserId:'',//模糊查询--创建人
+            pdOperator:'',//模糊查询--经办人
+            pdStatus:'',//模糊查询--盘点状态
+            pdDiffStatus:'',//模糊查询--差异状态
+            pdArehouseId:''//模糊查询--仓库
+
         }
     }
     function formInventory() {

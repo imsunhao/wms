@@ -683,6 +683,7 @@
     </el-dialog>
 </div>
 <script>
+    var id = 0;
     /*<debug>*/
     var id = 0;
     (function () {
@@ -739,6 +740,7 @@
             "rkRwStatus": 1,
             "rkZdfs": 1,
             "rkStartwith": 1,
+
             bgGoodsNo: '',
             selectGood: selectGood(),
             saveARkDocsList: true,
@@ -788,8 +790,9 @@
             "rkrwSjxm": "string",
             "rkrwDh": "string",
             "rkrwStatus": "string",
-            "rkrwArehouseId": 1,
-            "rkrwClientId": 1,
+            "rkrwArehouseId": 0,
+            "rkrwClientId": 0,
+            "rkrwCreateUserid": app.rmsUser.ruUserId,
             docList: []
         }
     }
@@ -939,7 +942,6 @@
                     });
                 });
             },                                 //行内按钮-删除
-
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -982,7 +984,6 @@
                     remove(this.multipleSelectionCombination[i], this.warehousingReservationCombination);
                 }
             },                                   //多选 删除
-
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -997,7 +998,6 @@
                 this.currentPage = val;
                 post(this, this.option);
             },                                //分页 当前页
-
             newInput: function () {
                 this.dialogFormVisible = true;
 //                this.$msgbox({
@@ -1018,18 +1018,15 @@
             setInterface: function () {
 //                this.dialogFormVisible = true;
             },                                          //TODO 按钮 接口设置
-
             expandChange: function (row, expanded) {
 //                if (typeof (row.history) == 'undefined') {
 //                    postHistory(row);
 //                }
 //                console.log(row);
             },                             //下拉 选择
-
             rowSelection: function (row, selected) {
 //                console.log(selected)
             },                             //选中 当前行
-
             prevForm: function () {
                 this.formActive--;
                 this.$refs.carouselWaiting.prev();
@@ -1054,9 +1051,9 @@
                 allPrposCb(Combination, function (obj, index) {
                     if (typeof _this.warehousingReservationCombinationDetails[index] !== 'undefined') Combination[index] = _this.warehousingReservationCombinationDetails[index];
                 });
-                Combination.rkDocsList = [];
+                Combination.docList = [];
                 for (var i = 0; i < warehousingReservation.warehousingReservationCombination.length; i++) {
-                    Combination.rkDocsList.push({rkRkdjId: warehousingReservation.warehousingReservationCombination[i].rkRkdjId});
+                    Combination.docList.push({rkRkdjId: warehousingReservation.warehousingReservationCombination[i].rkRkdjId});
                 }
 
                 Combination.rkrwDhrq = new Date(Combination.rkrwDhrq).toJSON();
@@ -1091,7 +1088,6 @@
 
 
             },                                            //组合 表单提交
-
             submitUpload: function () {
                 console.log('提交')
             },
@@ -1251,9 +1247,9 @@
                 }
             },                            //入库仓库id 自动匹配
             auto_rkCreatetime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },                          //下单方式/创建方式
+            },                          //下单时间/创建方式
             auto_rkType: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {

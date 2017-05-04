@@ -232,7 +232,7 @@
             <el-form-item label="创建时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.zyCreateTime"
+                        v-model="form.zyCreateTime"
                         type="daterange"
                         align="right"
                         placeholder="创建时间"
@@ -245,7 +245,7 @@
             <el-form-item label="确认时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.zyConfirmTime"
+                        v-model="form.zyConfirmTime"
                         type="daterange"
                         align="right"
                         placeholder="确认时间"
@@ -258,7 +258,7 @@
             <el-form-item label="创建人"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.zyCreateUserId"
+                        v-model="form.zyCreateUserId"
                         class="input"
                         icon="search"
                         placeholder="创建人"></el-input>
@@ -266,7 +266,7 @@
             <el-form-item label="确认人"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.zyConfirmUserId"
+                        v-model="form.zyConfirmUserId"
                         class="input"
                         icon="search"
                         placeholder="确认人"></el-input>
@@ -274,31 +274,26 @@
             <el-form-item label="提起人"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.zyMentionUserId"
+                        v-model="form.zyMentionUserId"
                         class="input"
                         icon="search"
                         placeholder="提起人"></el-input>
             </el-form-item>
             <el-form-item label="仓库"
                           :label-width="formLabelWidth">
-                <el-select v-model="zyArehouseId" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="1">角色下所有的仓库</el-option>
+                <el-select v-model="form.zyArehouseId" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="转移状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="zyStatus" placeholder="请选择">
-                    <el-option :value="0.0">全部</el-option>
-                    <el-option :value="0.1">未确认</el-option>
-                    <el-option :value="1">已确认</el-option>
-
+                <el-select v-model="form.zyStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="0" label="初始"></el-option>
+                    <el-option :value="1" label="已确认"></el-option>
+                    <el-option :value="2" label="作废"></el-option>
                 </el-select>
             </el-form-item>
-
-
-
-
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
@@ -585,7 +580,14 @@
             rkrwDbd: '',
             rkrwCys: '',
             rkrwDh: '',
-            rkrwStatus: ''
+            rkrwStatus: '',
+            zyCreateTime:[null,null],//模糊查询--创建时间
+            zyConfirmTime:[null,null],//模糊查询--确认时间
+            zyCreateUserId:'',//模糊查询--创建人
+            zyConfirmUserId:'',//模糊查询--确认人
+            zyMentionUserId:'',//模糊查询--提起人
+            zyArehouseId:'',//模糊查询--仓库
+            zyStatus:'',//模糊查询--转移状态
         }
     }
     var aLibraryTransferSelect = new Vue({

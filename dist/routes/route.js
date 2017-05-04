@@ -514,20 +514,20 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 1:
-                        urlName = '编辑';
-                        req = autoUrl(req, '/arehouse', "PUT", function (json) {
+                        urlName = '获取任务单号中详细信息';
+                        req = autoUrl(req, '/mfunrkDoc/byRwid', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
-                        urlName = '编辑';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '获取入库单号中详细信息';
+                        req = autoUrl(req, '/mfunrkDocs/byDoc', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 3:
-                        urlName = '查看';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '开始打印 状态变化';
+                        req = autoUrl(req, '/mfunrkRwDoc/receipt', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -556,8 +556,8 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 1:
-                        urlName = '编辑';
-                        req = autoUrl(req, '/arehouse', "PUT", function (json) {
+                        urlName = '入库操作－历史记录';
+                        req = autoUrl(req, '/history/' + 1 + '/mhRkdjId', "GET", function (json) {
                             res.send(json);
                         });
                         break;
@@ -585,6 +585,30 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 6:
+                        urlName = '库位名称不允许重复';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
+                }
+                break;
+            case 'outputAppointment':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '出库预约 获取 根据分页要求获取没有出库任务的出库单信息';
+                        req = autoUrl(req, '/mfunck/selectMfunckDocByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '出库预约 新增 出库单据/包含出库单明细';
+                        req = autoUrl(req, '/mfunck/add', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
 
 
                 }
@@ -608,7 +632,7 @@ function autoUrl(req, url, method, cal) {
 }
 
 //请求java服务器
-router.get('/:_url/:_status', function (req, res, next) {
+function java(req, res, next) {
     console.log(JSON.stringify(req.query));
     request({
         url: 'http://' + server.host + ':' + server.port + server.path + req.body.url,
@@ -702,7 +726,10 @@ router.get('/:_url/:_status', function (req, res, next) {
     //         });
     //         break;
     // }
-});
+}
+
+router.get('/:_url/:_status', java);
+router.post('/:_url/:_status', java);
 
 module.exports = router;
 

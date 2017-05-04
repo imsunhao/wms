@@ -158,7 +158,7 @@
             <el-form-item label="到货日期"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.rkrwDhrq"
+                        v-model="form.rkrwDhrq"
                         type="daterange"
                         align="right"
                         placeholder="到货日期"
@@ -169,7 +169,7 @@
             <el-form-item label="任务号"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.rkrwNo"
+                        v-model="form.rkrwNo"
                         class="input"
                         icon="search"
                         placeholder="任务号"></el-input>
@@ -178,7 +178,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.rkrwCph"
+                        v-model="form.rkrwCph"
                         icon="search"
                         placeholder="车牌号"></el-input>
             </el-form-item>
@@ -186,7 +186,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.rkrwCph"
+                        v-model="form.rkrwSjxm"
                         icon="search"
                         placeholder="司机姓名"></el-input>
             </el-form-item>
@@ -194,7 +194,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.rkrwCph"
+                        v-model="form.rkrwDbd"
                         icon="search"
                         placeholder="调拨地"></el-input>
             </el-form-item>
@@ -202,18 +202,11 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.rkrwCys"
+                        v-model="form.rkrwCys"
                         icon="search"
                         placeholder="承运商"></el-input>
             </el-form-item>
-            <el-form-item label="状态"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="select.rkrwCys"
-                        icon="search"
-                        placeholder="状态"></el-input>
-            </el-form-item>
+
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
@@ -404,15 +397,16 @@
     function from() {
         return {
             rkrwN: '',
-            rkrwCph: '',
             dds: '',
             pxs: '',
-            rkrwSjxm: '',
-            rkrwDhrq: '',
-            rkrwDbd: '',
-            rkrwCys: '',
             rkrwDh: '',
-            rkrwStatus: ''
+            rkrwStatus: '',
+            rkrwDhrq: '',//模糊查询--到车日期
+            rkrwNo: '',//模糊查询--任务号
+            rkrwCph: '',//模糊查询--车牌号
+            rkrwSjxm: '',//模糊查询--司机姓名
+            rkrwDbd: '',//模糊查询--调拨地
+            rkrwCys: '',//模糊查询--承运商
         }
     }
     var startReceiving = new Vue({
@@ -584,14 +578,14 @@
                 post(this, {});
             },                                          //详细查询 提交
             printfSubmit: function () {
-                var datas=[];
-                var checkData=startReceiving.$refs.printf.getCheckedNodes();
-                for(var i in checkData){
-                    if(typeof checkData[i].val2!=='undefined'){
+                var datas = [];
+                var checkData = startReceiving.$refs.printf.getCheckedNodes();
+                for (var i in checkData) {
+                    if (typeof checkData[i].val2 !== 'undefined') {
                         datas.push(checkData[i]);
                     }
                 }
-                this.printDatas=datas;
+                this.printDatas = datas;
                 this.dialogPelectVisible = !this.dialogPrintfVisible;
                 wap.print(this);
             },                                          //打印 提交
@@ -599,21 +593,29 @@
 
             },                                     //打印 选中维护
             printfLoadNode: function (node, resolve) {
-                console.log(node.data);
                 switch (node.level) {
                     case 0:
                         return resolve(this.printf);
                     case 1:
                         postRkrwNo(this, {
-                            rkrwNo:node.data.rkrwNo,
-                            rkrwDhrq:node.data.rkrwDhrq
+                            "pageNum": 1,
+                            "pageSize": 999,
+                            "draw": 0,
+                            rkrwNo: node.data.rkrwNo,
+                            rkrwDhrq: node.data.rkrwDhrq
                         }, resolve);
                         break;
                     case 2:
                         console.log(node.data.name);
                         postRkdjId(this, {
-                            rkrwNo:node.data.rkrwNo,
-                            rkrwDhrq:node.data.rkrwDhrq
+
+                            "rksRkdjId": 1,
+                            "draw": 0,
+                            "pageNum": 1,
+                            "pageSize": 999,
+
+                            rkrwNo: node.data.rkrwNo,
+                            rkrwDhrq: node.data.rkrwDhrq
                         }, resolve);
                         break;
                     case 3:
@@ -624,24 +626,24 @@
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日-hh:mm:ss');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
             },                              //预计到货时间
-            auto_rkrwStatus:function(value){
-                if(!isNaN(value)){
-                    temp={
-                        1:'初始',
-                        2:'已下发任务',
-                        3:'已开始收货',
-                        4:'收货中',
-                        51:'部分收货',
-                        52:'全部收货',
-                        61:'收货完成',
-                        62:'收货完成'
+            auto_rkrwStatus: function (value) {
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '初始',
+                        2: '已下发任务',
+                        3: '已开始收货',
+                        4: '收货中',
+                        51: '部分收货',
+                        52: '全部收货',
+                        61: '收货完成',
+                        62: '收货完成'
                     }
-                }else{
-                    temp={
+                } else {
+                    temp = {
                         '初始': 1,
-                        '已下发任务': 2 ,
-                        '已开始收货': 3 ,
-                        '收货中': 4 ,
+                        '已下发任务': 2,
+                        '已开始收货': 3,
+                        '收货中': 4,
                         '部分收货': 51,
                         '全部收货': 52,
                         '收货完成': 61,
@@ -661,13 +663,13 @@
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
-    post(startReceiving,startReceiving.option);
+    post(startReceiving, startReceiving.option);
 
     function post(obj, option) {
         obj.showLoading = true;
 
         /*<debug>*/
-            url = "/hock/startReceiving/page.json";
+        url = "/hock/startReceiving/page.json";
         /*</debug>*/
 
         /*<prod>*/
@@ -693,7 +695,7 @@
                 obj.showLoading = false;
             }
         });
-    }                         //TODO 开始收货分页查询的接口
+    }                         // 0 开始收货分页查询的接口
 
     function postRkrwNo(obj, option, resolve) {
         /*<debug>*/
@@ -701,12 +703,12 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/data/inputOption/" + option;
+        url = "/route/startReceiving/1";
         /*</prod>*/
 
         $.ajax(url, {
             type: "GET",
-            data: option | {
+            data: option || {
                 "draw": 1,                      //* 没有意义
                 "pageNum": 1,                   //* 当前页
                 "pageSize": 10                  //* 每页大小
@@ -719,8 +721,9 @@
                 for (var i = 0; i < json.data.length; i++) {
                     resoleveStep.push({
                         name: json.data[i].rkdjId,
-                        rkrwNo:option.rkrwNo,
-                        rkrwDhrq:option.rkrwDhrq});
+                        rkrwNo: option.rkrwNo,
+                        rkrwDhrq: option.rkrwDhrq
+                    });
                 }
                 return resolve(resoleveStep);
             },
@@ -728,19 +731,19 @@
 
             }
         });
-    }          //TODO 获取任务单号中详细信息
+    }          //TODO 1获取任务单号中详细信息
     function postRkdjId(obj, option, resolve) {
         /*<debug>*/
         url = "/hock/startReceiving/rkdjId.json";
         /*</debug>*/
 
         /*<prod>*/
-        url = "/data/inputOption/" + option;
+        url = "/route/startReceiving/2";
         /*</prod>*/
 
         $.ajax(url, {
             type: "GET",
-            data: option | {
+            data: option || {
                 "draw": 1,                      //* 没有意义
                 "pageNum": 1,                   //* 当前页
                 "pageSize": 10                  //* 每页大小
@@ -753,11 +756,11 @@
                 for (var i = 0; i < json.length; i++) {
                     resoleveStep.push({
                         name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgNamejc,
-                        val2:json[i].baseGoods.bgGoodsNo,
-                        val:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        rwdh:option.rkrwNo,
-                        dhrq:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        dysj:changeDate(new Date())
+                        val2: json[i].baseGoods.bgGoodsNo,
+                        val: dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
+                        rwdh: option.rkrwNo,
+                        dhrq: dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
+                        dysj: changeDate(new Date())
                     });
                 }
                 return resolve(resoleveStep);
@@ -766,56 +769,53 @@
 
             }
         });
-    }          //TODO 获取入库单号中详细信息
-    function changeDate(date) {
-        return dateFormat(new Date(date), 'MM-dd hh:mm');
-    }
-    function errorTip(obj, error) {                    // 错误提示
+    }          //TODO 2获取入库单号中详细信息
+    function post3(obj, option, resolve) {
         /*<debug>*/
-        console.log(error);
+        url = "/hock/startReceiving/rkdjId.json";
         /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
-    function dateFormat(date, fmt) {
-        var o = {
-            "M+": date.getMonth() + 1,                 //月份
-            "d+": date.getDate(),                    //日
-            "h+": date.getHours(),                   //小时
-            "m+": date.getMinutes(),                 //分
-            "s+": date.getSeconds(),                 //秒
-            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-            "S": date.getMilliseconds()             //毫秒
-        };
-        if (/(y+)/.test(fmt))
-            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp === obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
 
-                    console.log(temp);
+        /*<prod>*/
+        url = "/route/startReceiving/3";
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option || {
+                "rwIds": [
+                    3, 4
+                ]
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                var resoleveStep = [];
+                for (var i = 0; i < json.length; i++) {
+                    resoleveStep.push({
+                        name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgNamejc,
+                        val2: json[i].baseGoods.bgGoodsNo,
+                        val: dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
+                        rwdh: option.rkrwNo,
+                        dhrq: dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
+                        dysj: changeDate(new Date())
+                    });
                 }
-                data.pop();
+                return resolve(resoleveStep);
+            },
+            complete: function () {
+
             }
-        }
-    }
+        });
+    }               //TODO 3获取入库单号中详细信息
+
     function printfCompile(obj) {
         var resoleveStep = [];
         for (var i = 0; i < obj.multipleSelection.length; i++) {
             resoleveStep.push({
                 name: obj.multipleSelection[i].rkrwNo,
-                rkrwNo:obj.multipleSelection[i].rkrwNo,
-                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
+                rkrwNo: obj.multipleSelection[i].rkrwNo,
+                rkrwDhrq: obj.multipleSelection[i].rkrwDhrq
             });
         }
         obj.printf = resoleveStep;

@@ -152,7 +152,7 @@
             <el-form-item label="货品名称"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.msxHpkid"
+                        v-model="form.msxHpkid"
                         class="input"
                         icon="search"
                         placeholder="货品编号"></el-input>
@@ -161,7 +161,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.msxHpkid"
+                        v-model="form.msxHpkid"
                         icon="search"
                         placeholder="货品编号"></el-input>
             </el-form-item>
@@ -169,7 +169,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckCkdjClientname"
+                        v-model="form.ckCkdjClientname"
                         icon="search"
                         placeholder="客户名称"></el-input>
             </el-form-item>
@@ -177,7 +177,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckAdress"
+                        v-model="form.ckAdress"
                         icon="search"
                         placeholder="客户地址"></el-input>
             </el-form-item>
@@ -185,7 +185,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckContacts"
+                        v-model="form.ckContacts"
                         icon="search"
                         placeholder="联系人"></el-input>
             </el-form-item>
@@ -193,7 +193,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckTel"
+                        v-model="form.ckTel"
                         icon="search"
                         placeholder="联系电话"></el-input>
             </el-form-item>
@@ -201,7 +201,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckCkdjClientno"
+                        v-model="form.ckCkdjClientno"
                         icon="search"
                         placeholder="客户编号"></el-input>
             </el-form-item>
@@ -209,15 +209,15 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckCkdjNo"
+                        v-model="form.ckCkdjNo"
                         icon="search"
                         placeholder="出库单号"></el-input>
             </el-form-item>
             <el-form-item label="仓库"
                           :label-width="formLabelWidth">
-                <el-select v-model="ckArehouseId" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="1">角色下所有的仓库</el-option>
+                <el-select v-model="form.ckArehouseId" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+
                 </el-select>
             </el-form-item>
         </el-form>
@@ -417,7 +417,16 @@
             rkrwDbd: '',
             rkrwCys: '',
             rkrwDh: '',
-            rkrwStatus: ''
+            rkrwStatus: '',
+            msxHpkid:'',//模糊查询--货品名称
+            msxHpkid:'',//模糊查询--货品编号
+            ckCkdjClientname:'',//模糊查询--客户名称
+            ckAdress:'',//模糊查询--客户地址
+            ckContacts:'',//模糊查询--联系人
+            ckTel:'',//模糊查询--联系电话
+            ckCkdjClientno:'',//模糊查询--客户编号
+            ckCkdjNo:'',//模糊查询--出库单号
+            ckArehouseId:'',//模糊查询--仓库
         }
     }
     var goodsFlowSelect = new Vue({
