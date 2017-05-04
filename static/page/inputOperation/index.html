@@ -1289,7 +1289,7 @@
                 }
             },                            //入库仓库id 自动匹配
             auto_rkCreatetime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日 hh:mm:ss');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日 ');
                 else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                          //创建时间/下单时间
             auto_rkType:function(value){
