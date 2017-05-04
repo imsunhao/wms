@@ -315,7 +315,7 @@
                                                                 size="small"
                                                                 type="info"
                                                                 @click="inlineRetentionInput(props.$index, props.row)">
-                                                            取消滞留
+                                                            滞留入库
                                                         </el-button>
                                                         <el-button
                                                                 size="small"
@@ -844,7 +844,7 @@
             },                           //行内按钮-作废
             inlineRetentionInput: function (index, row) {
                 var _this = this;
-                _this.$confirm('确定取消滞留？ 单号：' + row.ckCkdjNo, '提示', {
+                _this.$confirm('确定滞留入库？ 单号：' + row.ckCkdjNo, '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'

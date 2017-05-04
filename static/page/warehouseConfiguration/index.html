@@ -173,7 +173,6 @@
         background: #F8FAFB;
     }
 </style>
-
 <div id="warehouseConfiguration">
     <!--页面调整-->
     <el-row
@@ -189,11 +188,13 @@
                     v-model="baScontacts"
                     icon="search"
                     placeholder="仓库负责人"></el-input>
-            <el-select v-model="baCtype" placeholder="请选择">
-                <el-option :value="0">平面仓</el-option>
-                <el-option :value="1">立体仓</el-option>
-            </el-select>
 
+                <el-select v-model="baCtype" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="0" label="平面仓"></el-option>
+                    <el-option :value="1" label="立体仓"></el-option>
+                </el-select>
+            </el-form-item>
             <button @click="newInput" class="btn btn-add"><i
                     class="icon add"></i><span>新增</span>
             </button>
@@ -406,8 +407,8 @@
                     <el-form-item
                             label="仓库类型"
                             :label-width="formLabelWidth">
-                        <el-radio class="radio" v-model="form.baCtype " :label="true">男</el-radio>
-                        <el-radio class="radio" v-model="form.baCtype " :label="false">女</el-radio>
+                        <!--<el-radio class="radio" v-model="form.baCtype " :label="true">男</el-radio>-->
+                        <!--<el-radio class="radio" v-model="form.baCtype " :label="false">女</el-radio>-->
                     </el-form-item>
                 </el-col>
                 <el-col :span="10" :offset="2">
@@ -481,7 +482,6 @@
         </div>
     </el-dialog>
 </div>
-
 <style>
     .clearfix:after {
         content: " ";
@@ -656,9 +656,7 @@
 
 
 </style>
-
 <script>
-
     Vue.component('plan-block', {
         render: function (h) {
             // create kebabCase id
@@ -1205,6 +1203,7 @@
                 baName: '',                  //主页面 仓库名称    搜索
                 baScontacts: '',                 //主页面 仓库负责人  搜索
                 baCtype: '',                 //主页面 仓库平面仓  搜索
+
 
                 showLoading: false,              //主页面 加载 维护
                 currentPage: 1,                  //分页 当前页

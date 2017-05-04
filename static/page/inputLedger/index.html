@@ -135,8 +135,8 @@
                                         </el-button>
                                         <el-button
                                                 size="small"
-                                                icon="share"
-                                                @click="handleEdit(props.$index, props.row)">
+                                                type="success"
+                                                @click="inlineExport(props.$index, props.row)">导出
                                         </el-button>
                                         <el-button
                                                 size="small"
@@ -507,14 +507,14 @@
                     label="完结原因"
                     :label-width="formLabelWidth">
                 <el-input
-                        v-model="end.a"
+                        v-model="end.rksWjReason"
                         auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item
                     label="补发单号"
                     :label-width="formLabelWidth">
                 <el-input
-                        v-model="end.b"
+                        v-model="end.rksBfdh"
                         auto-complete="off"></el-input>
             </el-form-item>
         </el-form>
@@ -692,8 +692,8 @@
     }
     function formEnd() {
         return {
-            a: '',             //完结原因
-            b: '',             //补发单号
+            rksWjReason: '',             //完结原因
+            rksBfdh: '',             //补发单号
         }
     }
     var inputLedger = new Vue({

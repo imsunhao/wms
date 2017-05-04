@@ -10,7 +10,7 @@
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                         class="icon sel"></i><span>多选</span>
                 </button>
-                <button @click="moreOperationIssued" class="btn btn-Issued" v-show="multiSelect"><i
+                <button @click="multiOperationSelectFinish" class="btn btn-Issued" v-show="multiSelect"><i
                         class="icon issued1"></i><span>挑选完成</span>
                 </button>
             </div>
@@ -71,6 +71,15 @@
                                     </el-form-item>
                                     <el-form-item label="滞留状态">
                                         <span>{{ auto_ckrwZlStatus(props.row.ckrwZlStatus) }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="可用操作">
+
+                                        <el-button
+                                                size="small"
+                                                type="success"
+                                                @click="inlineSelectFinish(props.$index, props.row)">挑选完成
+                                        </el-button>
+
                                     </el-form-item>
 
                                 </el-col>
@@ -497,14 +506,14 @@
             },                                      //分配 表单
         },
         methods: {
-            cancelTask: function (index, row) {
+            inlineSelectFinish: function (index, row) {
                 var _this = this;
-                _this.$confirm('此操作将取消该任务单的任务, 是否继续?', '提示', {
+                _this.$confirm('此操作将这单任务单据挑选完成, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.chooseBill);
+                    remove(row, _this.warehousingTask);
                     postDelete(_this, {
                         id: [row.rkdjNo]
                     });
@@ -514,7 +523,7 @@
                         message: '已取消下发'
                     });
                 });
-            },                                //TODO 行内按钮  取消任务
+            },                      //TODO 行内按钮 挑选完成
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -524,12 +533,26 @@
                 /*</debug>*/
                 this.multipleSelection = val;
             },                               //多选 选中控制
-            moreOperationModify: function () {
+            multiOperationSelectFinish: function () {
+                var _this = this;
+                _this.$confirm('此操作将这些任务单据挑选完成, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.warehousingTask);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消下发'
+                    });
+                });
 
-            },                                   //TODO 多选 修改
-            moreOperationIssued: function () {
+            },                            //TODO 多选 挑选完成
 
-            },                                   //TODO 多选 下发
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
