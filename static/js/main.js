@@ -6,14 +6,6 @@ var app;
 var hock = "../../hock";
 /*</debug>*/
 
-var __post = Object.create(postCore, autoValue({
-    urlHock: '/check',
-    url: '/check',
-    option: {
-        slsls: 111
-    }
-}));
-
 $(function () {
     Vue.directive('echarts', {
         bind: function (el, binding, vnode) {
