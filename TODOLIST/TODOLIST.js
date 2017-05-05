@@ -4409,49 +4409,54 @@
         /**
  *  TODO 1 导出
  */
-/**
- * TODO 库位转移查询
+    /**
+     * TODO 库位转移查询
      *
      */
         /**
-         * TODO 分页查询
-         * 搜索条件
-     *  {
-            创建时间    zyCreateTime
-            确认时间    zyConfirmTime
-            TODO 仓库        zyArehouseId
-            TODO 创建人     zyCreateUserId
-            TODO 确认人     zyConfirmUserId
-            TODO 提起人     zyMentionUserId
-            转移状态        zyStatus 转移状态0 初始 1 确认 2 作废
-        }
-     查询的字段
-     一级(库存转移主表)显示列
-     {
-            创建时间    zyCreateTime
-            确认时间    zyConfirmTime
-            仓库       zyArehouseId
-            创建人     zyCreateUserId
-            确认人     zyConfirmUserId
-            提起人     zyMentionUserId
-            转移状态    zyStatus
-            转移原因    zyReason
-     }
-     二级(库存转移明细表)显示列
-     {
-            货品编号    zysRepertoryId(关联货品表)
-            货品名称    zysRepertoryId(关联货品表)
-            货品批次    zysRepertoryId
-            转移前库位   zysZyBeforeLocationId
-            转移后库位   zysZyAfterLocationId
-            转移数量     zysZyCount
-     }
+         * TODO 0 分页查询
+         * 模糊查询字段
+         * 条件
+         {
+                zyCreateTime        创建时间
+                zyConfirmTime       确认时间
+                zyArehouseId        仓库
+                zyCreateUserId      创建人
+                zyConfirmUserId     确认人
+                zyMentionUserId     提起人
+                zyStatus            转移状态
+         }
+         一级(库存转移主表)显示列
+         {
+                zyCreateTime    创建时间
+                zyConfirmTime   确认时间
+                zyArehouseId    仓库
+                zyCreateUserId  创建人
+                zyConfirmUserId 确认人
+                zyMentionUserId 提起人
+                zyStatus        转移状态
+                zyReason        转移原因
+         }
+        */
+        /**
+         * TODO 1 库位转移明细查询
+         * 二级(库存转移明细表)显示列
+         {
+           zysRepertoryId           (关联货品表)货品编号
+           zysRepertoryId           (关联货品表)货品名称
+           zysRepertoryId           货品批次
+           zysZyBeforeLocationId    转移前库位
+           zysZyAfterLocationId     转移后库位
+           zysZyCount               转移数量
+         }
 
 
-
-     */
-    /**
-        * TODO 库位冻结查询
+         */
+        /**
+         * TODO 2 导出
+         */
+/**
+ * TODO 库位冻结查询
     */
         /**
         * TODO 分页查询

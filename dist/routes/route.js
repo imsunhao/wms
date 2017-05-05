@@ -801,6 +801,30 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
+                case 'aLibraryTransferSelect':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '库位转移查询  分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '库位转移查询 库存转移明细';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 2:
+                        urlName = '库位转移查询 导出';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+                }
+                break;
+
 
 
 
