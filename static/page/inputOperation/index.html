@@ -759,73 +759,12 @@
     }
 </style>
 <script>
-
     /*<debug>*/
     (function () {
         window.dbmessage = {};
         window.dbmessage.baseArehouses = JSON.parse('[{"baArehouseId":4,"baName":"无限极济阳仓A91","baAddr":"济南市济阳县","baScity":"齐河","baScontacts":"联系人1","baPhone":"13112345678","baAcreage":"222","baCtype":"22","baHumidity":"222","baFax":"2222","baPostoffice":"test","baIsti":1,"baStatus":1,"baClientId":3,"baRemarks":"test","baCreatetime":1487233193000,"baPgroupinfo":"eeeeeeeeeeeee","arehouseKqs":[]},{"baArehouseId":5,"baName":"九阳济南仓A02","baAddr":"济南市济阳278号","baScity":"齐河","baScontacts":"联系人1","baPhone":"13012345678","baAcreage":"222","baCtype":"111","baHumidity":"222","baFax":"2222","baPostoffice":"test","baIsti":2,"baStatus":1,"baClientId":1,"baRemarks":"test","baCreatetime":1487838047000,"baPgroupinfo":"eeeeeeeeeeeee","arehouseKqs":[]}]');
     })();
     /*</debug>*/
-
-    function locationFather() {
-        return {
-            selectGood: {
-                baseGoods: {
-                    bgGoodsNo: "",
-                    blLname: ""
-                },
-                rksCount: ''
-            },
-            lala: '',
-            blLname:''
-        }
-    }
-
-    function selectGood() {
-        return {
-            baseGoods: {
-                bgGoodsNo: '',
-                bgGoodsName: ''
-            },
-            baseDw: {
-                bdName: ''
-            },
-            rksCount: 0,
-            bgGoodsId: ''
-        }
-    }
-
-    function newLocation() {
-        return {
-            "blLocationId": 0,
-            "blLname": "",
-            "blRegionId": 0,
-            "blLtray": 0,
-            "blLorder": 0,
-            "blStatus": 0,
-            "blArehouseId": 0,
-            selectGood: selectGood(),
-            lala: dateFormat(new Date(), 'yyyyMMdd')
-        }
-    }
-
-    function form() {
-        return {
-            title: '新建入库单',
-            rkRkdjNo: '',
-            rkType: '',
-            rkRemarks: '',
-            rkDocsList: [],
-            bgGoodsNo: '',
-            rkArehouseId: '',
-            rkStatus:'',
-            selectGood: selectGood(),
-            location: newLocation(),
-            saveARkDocsList: true,
-            deleteARkDocsList: true
-        };
-    }
-
     var inputOperation = new Vue({
         el: '#inputOperation',
         prop: {},
@@ -1403,6 +1342,80 @@
             }
         }
     });
+    function form() {
+        return {
+            title: '新建入库单',
+            rkRkdjNo: '',
+            rkType: '',
+            rkRemarks: '',
+            rkDocsList: [],
+            bgGoodsNo: '',
+            rkArehouseId: '',
+            rkStatus:'',
+            selectGood: selectGood(),
+            location: newLocation(),
+            saveARkDocsList: true,
+            deleteARkDocsList: true
+        };
+    }
+    var obj=inputOperation;
+    var p=[];
+    // 0 入库操作 分页查询
+    p[0] = autoPost({
+        urlHock: "../../hock/userControl/page.json",
+        urlProd: "/route/userManagement/0",
+        success: function (json) {
+            obj.$data.userManagement = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+
+
+    function locationFather() {
+        return {
+            selectGood: {
+                baseGoods: {
+                    bgGoodsNo: "",
+                    blLname: ""
+                },
+                rksCount: ''
+            },
+            lala: '',
+            blLname:''
+        }
+    }
+
+    function selectGood() {
+        return {
+            baseGoods: {
+                bgGoodsNo: '',
+                bgGoodsName: ''
+            },
+            baseDw: {
+                bdName: ''
+            },
+            rksCount: 0,
+            bgGoodsId: ''
+        }
+    }
+
+    function newLocation() {
+        return {
+            "blLocationId": 0,
+            "blLname": "",
+            "blRegionId": 0,
+            "blLtray": 0,
+            "blLorder": 0,
+            "blStatus": 0,
+            "blArehouseId": 0,
+            selectGood: selectGood(),
+            lala: dateFormat(new Date(), 'yyyyMMdd')
+        }
+    }
+
+
+
+
 
     // 高级 监视器的 使用方法
     inputOperation.$watch('form.selectGood.rksCount', function () {

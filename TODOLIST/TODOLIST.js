@@ -3441,10 +3441,6 @@
                      }
                      ]
              */
-
-
-
-
     /**
      *      TODO 入库台账       inputLedger
          */
@@ -3527,7 +3523,6 @@
             /**
              *  TODO 6 数量不允许为负数
              */
-
         /**
              TODO 出库预约
 
@@ -3649,7 +3644,6 @@
              *
              *
              * */
-
             /**
              * TODO 3 出库预约 新增 出库任务单
              *
@@ -3858,27 +3852,9 @@
          *              "ids" :[31,32,33] 出库单据ID（多个）
          *          }
          */
-            /*
- * TODO 挑选数据
-
- * TODO 激活数据
- * TODO 出库操作
- * TODO 出库发运
- * TODO 回收存档
-
- *  TODO 欠货补发信息
- *   补发单号
- *   补发情况
- *   欠货备注
- *   补发状态
- *     1.已补发
- *     2.已赔付
- *     3.需跟进
- *  TODO 滞留补发信息
- *    任务号
- */
-
- /** TODO 库内管理*/
+ /**
+  * TODO 库内管理
+  * */
     /**
      *TODO 库位转移
      *
@@ -3992,7 +3968,7 @@
         /**
         * TODO 4删除     POST /stockZyDoc/deleteOfSoft
         */
-/**
+    /**
  * TODO 5 库存转移确认     GET /stockZyDoc/confirmZy/{zyId}
  *
  * /
@@ -4002,19 +3978,9 @@
  /**
  *TODO 新增
  */
-/**
+        /**
  *TODO 新增
  */
-/**
- *TODO 新增
- */
-/**
- *TODO 新增
- */
-
-
-
-
  /**
  * TODO 库内管理
  * TODO 库位转移
@@ -4095,22 +4061,163 @@
  * TODO 业务查询
  */
     /**
-         * TODO 入库日报
-         */
-    /**
-         * TODO 出库日报
-         */
-    /**
-         * TODO 库存查询
+     TODO 入库日报
+     */
+        /**
+            * TODO 0 分页查询
+            * 搜索框条件查询
+            * 条件{
+                rkCreatetime    下单时间
+                rkrkSjsj        上架开始时间
+                rkEndTime       上架结束时间
+                mdtSjsj         作业时间
+                rkStatus        入库状态
+                mdtUserId       作业人员
+                rksGoodsId      (关联货品表)货品编号
+                rksGoodsId      (关联货品表)货品名称
+                rkRkdjNo        入库单号
+                mdtLocationId   库位
+                rkZdfs          制作方式
+                rkStartwith     操作方式
+                }
+            分页查询中的字段
+                显示列{
+                    mdtUserId                            作业人员
+                    mdtSjsj                              作业时间
+                    mdt_count*base_goods：bg_goods_tj    体积
+                    rkCreatetime                         下单时间
+                    rkrkSjsj                             上架开始时间
+                    rkEndTime                            上架结束时间
+                    rkStatus                             入库状态
+                    rksGoodsId                           (关联货品表)货品编号
+                    rksGoodsId                           (关联货品表)货品名称
+                    mdtBatch                             货品批次
+                    rksCount                             应收数量
+                    mdtCount                             上架数量
+                    mdtLocationId                        上架库位
+                    rkZdfs                               制作方式
+                    rkStartwith                          操作方式
+                    }
          */
         /**
-         * TODO 库存查询
+            * TODO 1 导出
+        */
+    /**
+ * TODO 出库日报
+ */
+        /**
+            * TODO 0 分页查询
+         * 搜索框条件查询
+         * 条件
+         {
+              ckXdsj            下单时间
+              mhCreatetime      分拣时间
+              ckCksj            下架开始时间
+              ckEndtime         下架结束时间
+              msxQrsj           操作时间
+              ckStatus          出库单据状态
+              cksQhStatus       是否欠货
+              cksZlStatus       是否滞留
+              ckTel             联系电话
+              ckContacts        联系人
+              ckCkdjClientno    客户编号
+              ckCkdjClientname  客户名称
+              ckCkdjNo          出库单号
+              cksGoodsId        货品名称
+              cksGoodsId        货品编号
+              msxXjry           作业人员
+              msxHpkcid         (关联库位表)下架库位
+              ckAdress          客户地址
+              ckIsauto          制作方式
+              ckStartwith       操作方式
+         }
+         分页查询字段
+         显示列
+         {
+            msxXjry                 作业人员
+            msxQrsj                 操作时间
+            msxMxCount*bgGoodsTj    作业体积
+            ckXdsj                  下单时间
+            ckCkdjNo                出库单号
+            ckStatus                出库单状态
+            cksQhStatus             欠货状态
+            cksZlStatus             滞留状态
+            ckCksj                  下架开始时间
+            ckEndtime               下架结束时间
+            cksGoodsId              货品名称
+            cksGoodsId              货品编号
+            msxHpkcid               货品批次
+            msxHpkcid               (关联库位表) 下架库位
+            cksGoodsCount           应下数量
+            msxMxCount              下架数量
+            ckIsauto                制作方式
+            ckStartwith             操作方式
+            ckCkdjClientno          客户编号
+            ckCkdjClientname        客户名称
+            ckAdress                客户地址
+            ckTel                   联系电话
+            ckContacts              联系人
+         }
          */
+        /**
+            * TODO 1 导出
+         */
+    /**
+     *    TODO 库存查询
+     *
+     */
+        /**
+         *  TODO 0 分页查询
+         *  搜索框查询字段
+         *  条件
+         {
+                mrKcydsj                 异动时间
+                mrGoodsId(关联货品表)   货品编号
+                mrGoodsId(关联货品表)   货品名称
+                mrLocationId           (关联库位表)库位名称
+                mrGoodsBatch           货品批次
+                mrArehouseId            仓库
+         }
+         分页查询字段
+         显示列
+         {
+              mrArehouseId                                          仓库
+              mrLocationId                                          (关联库位表) 库位名称
+              mrGoodsId                                             (关联货品表) 货品编号
+              mrGoodsId                                             (关联货品表) 货品名称
+              mrGoodsBatch                                          货品批次
+              mrKcydsj                                              异动时间
+              mrCount                                               数量
+              mrDxjCount                                            待下架数量
+              mrDzyCount                                            待转移数量
+              mrDjCount                                             冻结数量
+              mr_count - mr_dxj_count - mr_dzy_count - mr_dj_count  可用数量
+         }
+
+         *
+         */
+        /**
+ *
+ * TODO 1 导出
+ */
     /**
         * TODO 入库单据查询
         */
-            /**
-                TODO 分页查询
+        /**
+                TODO 0 分页查询
+                模糊查询字段
+                    条件
+                    {
+                        rkArehouseId   仓库
+                        rkCreatetime   下单时间
+                        rkrkSjsj       上架开始时间
+                        rkEndTime      上架结束时间
+                        rkStatus       入库状态
+                        rkRkdjNo       入库单号
+                        rkZdfs         制作方式
+                        rkStartwith     操作方式
+                    }
+
                  "rkArehouseId":"仓库",
                  "rkCreatetime":"下单时间",
                  "rkrkSjsj":"上架开始时间",
@@ -4125,8 +4232,8 @@
                  "sstj":"实收体积",
                  "mdtUserId":"上架人员"
              */
-            /**
-             * TODO 查看入库明细信息
+        /**
+             * TODO 1 查看入库明细信息
              货品编号       rksGoodsId(关联货品表)
              货品名称       rksGoodsId(关联货品表)
              货品批次       mdtBatch
@@ -4137,8 +4244,8 @@
              入库明细状态   rksStatus
              上架人员       mdtUserId(多个上架人员,在一列显示逗号隔开)
              */
-            /**
-             * TODO 查看入库储位信息
+        /**
+             * TODO 2 查看入库储位信息
              货品编号    rksGoodsId(关联货品表)
              货品名称    rksGoodsId(关联货品表)
              货品批次    mdtBatch
@@ -4148,11 +4255,23 @@
              上架人员    mdtUserId(多个上架人员,在一列显示逗号隔开)
              上架时间    mdtSjsj
              */
-            /**
-                 * TODO 出库单据查询
+        /**
+            * TODO 3 导出入库单
+        */
+        /**
+            * TODO 4 导出入库明细
+        */
+        /**
+            * TODO 5 导出入库储位
+        */
+        /**
+            * TODO 6 导出入库
+        */
+    /**
+     * TODO 出库单据查询
              */
-            /**
-             *  TODO 分页查询
+        /**
+             *  TODO 0 分页查询
              *  搜索条件的字段
                     仓库             ckArehouseId
                     下单时间         ckXdsj
@@ -4203,42 +4322,61 @@
                     TODO 备货人员      msUserId
                     下架人员            msxXjry（多个）
               }
-             二级菜单：出库明细
-             {
-                    TODO 货品编号     cksGoodsId(关联货品表)
-                    TODO 货品名称     cksGoodsId（关联货品表）
-                    货品数量            cksGoodsCount
-                    TODO 货品体积     cksGoodsCount*bgGoodsTj(暂用hptj)
-                    下架数量            msxMxCount
-                    TODO 下架体积     msxMxCount*bgGoodsTj(暂用xjtj)
-                    欠货数量            cksQhCounts
-                    TODO 欠货体积     cksQhCounts*bgGoodsTj(暂用qhtj)
-                    滞留数量            cksZlCount
-                    TODO 滞留体积     cksZlCount*bgGoodsTj(暂用zltj)
-                    欠货(补发)单号      cksBfNo
-                    滞留任务号          cksZlbfInfo
-                    发运数量            cksFyCount
-                    TODO 发运体积     cksFyCount*bgGoddsTj(暂用fytj)
-                    欠货备注            cksQhRemarks
-                    补发状态            cksBfStatus
-             }
-             三级菜单： 分拣明细
-             {
-                    TODO 货品编号   msxHpkcid（关联货品库存表再关键货品表）
-                    TODO 货品名称   msxHpkcid（关联货品库存表再关联货品表）
-                    TODO 下架库位   msxHpkcid（关联货品库存表再关联库位表）
-                    下架数量         msxMxCount
-                    TODO 下架体积   msxMxCount*bgGoodsTj(暂用xjtj)
-                    TODO 下架批次   msx_hpkcid（关联货品库存表取mr_good_batch）
-                    操作人员         msxXjry
-                    操作时间         msxQrsj
-                    修改分拣数量原因 msxWt
-             }
-             *
-             *
              */
-    /**
-     * TODO 货品流向查询 goodsFlowSelect
+        /**
+        * TODO 1 出库单明细查询
+         *   二级菜单：出库明细
+         {
+                TODO 货品编号     cksGoodsId(关联货品表)
+                TODO 货品名称     cksGoodsId（关联货品表）
+                货品数量            cksGoodsCount
+                TODO 货品体积     cksGoodsCount*bgGoodsTj(暂用hptj)
+                下架数量            msxMxCount
+                TODO 下架体积     msxMxCount*bgGoodsTj(暂用xjtj)
+                欠货数量            cksQhCounts
+                TODO 欠货体积     cksQhCounts*bgGoodsTj(暂用qhtj)
+                滞留数量            cksZlCount
+                TODO 滞留体积     cksZlCount*bgGoodsTj(暂用zltj)
+                欠货(补发)单号      cksBfNo
+                滞留任务号          cksZlbfInfo
+                发运数量            cksFyCount
+                TODO 发运体积     cksFyCount*bgGoddsTj(暂用fytj)
+                欠货备注            cksQhRemarks
+                补发状态            cksBfStatus
+         }
+         *
+        *
+ */
+        /**
+         * TODO 2 分拣明细查询
+         *     三级菜单： 分拣明细
+         {
+                TODO 货品编号   msxHpkcid（关联货品库存表再关键货品表）
+                TODO 货品名称   msxHpkcid（关联货品库存表再关联货品表）
+                TODO 下架库位   msxHpkcid（关联货品库存表再关联库位表）
+                下架数量         msxMxCount
+                TODO 下架体积   msxMxCount*bgGoodsTj(暂用xjtj)
+                TODO 下架批次   msx_hpkcid（关联货品库存表取mr_good_batch）
+                操作人员         msxXjry
+                操作时间         msxQrsj
+                修改分拣数量原因 msxWt
+         }
+         */
+        /**
+         * TODO 3 导出出库单
+         */
+        /**
+         * TODO 4 导出出库单明细
+         */
+        /**
+         * TODO 5 导出分拣明细
+         */
+        /**
+         * TODO 6 导出出库
+         */
+
+/**
+ * TODO 货品流向查询 goodsFlowSelect
      */
         /**
          *  TODO 分页查询

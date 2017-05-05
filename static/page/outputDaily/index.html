@@ -563,39 +563,6 @@
     }
 </style>
 <script>
-    function form() {
-        return {
-            rkrwN: '',
-            rkrwCph: '',
-            dds: '',
-            pxs: '',
-            rkrwSjxm: '',
-            rkrwDhrq: '',
-            rkrwDbd: '',
-            rkrwCys: '',
-            rkrwDh: '',
-            rkrwStatus: '',
-            ckXdsj:[null,null],         //模糊查询--下单时间
-            mhCreatetime:[null,null],  //模糊查询--分拣时间
-            ckCksj:[null,null],         //模糊查询--下架时间
-            msxQrsj:[null,null],        //模糊查询--操作时间
-            ckStatus:'',                 //模糊查询--出库状态
-            cksZlStatus:'',              //模糊查询--是否滞留
-            ckIsauto:'',                //模糊查询--制作方式
-            ckStartwith:'',             //模糊查询--操作方式
-            cksQhStatus:'',              //模糊查询--是否欠货
-            ckTel:'',                     //模糊查询--联系电话
-            ckContacts:'',              //模糊查询--联系人
-            ckCkdjNo:'',                 //模糊查询--出库单号
-            cksGoodsId:'',              //模糊查询--货品名称
-            cksGoodsId:'',              //模糊查询--货品编号
-            ckCkdjClientno:'',          //模糊查询--客户编号
-            ckCkdjClientname:'',        //模糊查询--客户名称
-            msxXjry:'',                  //模糊查询--作业人员
-            msxHpkcid:'',                //模糊查询--下架库位
-            ckAdress:''                  //模糊查询--客户地址
-        }
-    }
     var outputDaily = new Vue({
         el: '#outputDaily',
         prop: {},
@@ -710,14 +677,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
@@ -757,12 +724,12 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(outputDaily);
+                    p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                post(this, {});
+                p[0].post( {});
             },                                          //详细查询 提交
             printfSubmit: function () {
                 var datas=[];
@@ -916,7 +883,56 @@
 
         }
     });
-
+    function form() {
+        return {
+            rkrwN: '',
+            rkrwCph: '',
+            dds: '',
+            pxs: '',
+            rkrwSjxm: '',
+            rkrwDhrq: '',
+            rkrwDbd: '',
+            rkrwCys: '',
+            rkrwDh: '',
+            rkrwStatus: '',
+            ckXdsj:[null,null],         //模糊查询--下单时间
+            mhCreatetime:[null,null],  //模糊查询--分拣时间
+            ckCksj:[null,null],         //模糊查询--下架时间
+            msxQrsj:[null,null],        //模糊查询--操作时间
+            ckStatus:'',                 //模糊查询--出库状态
+            cksZlStatus:'',              //模糊查询--是否滞留
+            ckIsauto:'',                //模糊查询--制作方式
+            ckStartwith:'',             //模糊查询--操作方式
+            cksQhStatus:'',              //模糊查询--是否欠货
+            ckTel:'',                     //模糊查询--联系电话
+            ckContacts:'',              //模糊查询--联系人
+            ckCkdjNo:'',                 //模糊查询--出库单号
+            cksGoodsId:'',              //模糊查询--货品名称
+            cksGoodsId:'',              //模糊查询--货品编号
+            ckCkdjClientno:'',          //模糊查询--客户编号
+            ckCkdjClientname:'',        //模糊查询--客户名称
+            msxXjry:'',                  //模糊查询--作业人员
+            msxHpkcid:'',                //模糊查询--下架库位
+            ckAdress:''                  //模糊查询--客户地址
+        }
+    }
+    var obj=outputDaily;
+    // 0 出库日报 分页查询
+    p[0] = autoPost({
+        urlHock: "/hock/outputDaily/page.json",
+        urlProd: "/route/outputDaily/0",
+        success: function (json) {
+            obj.$data.outputDaily = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+     // 1 出库日报 导出
+    p[1] = autoPost({
+        urlHock: "",
+        urlProd: "/route/outputDaily/1",
+        success: function (json) {
+        }
+    });
     // 高级 监视器的 使用方法
     //    outputDaily.$watch('date', function () {
     //        if (!this.option.dateStart)return;
@@ -925,164 +941,8 @@
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
+    p[0].post( outputDaily.option);
 
-    post(outputDaily);
-    function post(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/outputDaily/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                obj.$data.outputDaily = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                        //TODO 获取出库日报主页面
-    function postRkrwNo(obj, option, resolve) {
-        /*<debug>*/
-        url = "/hock/outputDaily/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                var resoleveStep = [];
-                for (var i = 0; i < json.data.length; i++) {
-                    resoleveStep.push({
-                        name: json.data[i].rkdjId,
-                        rkrwNo:option.rkrwNo,
-                        rkrwDhrq:option.rkrwDhrq});
-                }
-                return resolve(resoleveStep);
-            },
-            complete: function () {
-
-            }
-        });
-    }          //TODO 获取任务单号中详细信息
-    function postRkdjId(obj, option, resolve) {
-        /*<debug>*/
-        url = "/hock/outputDaily/rkdjId.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                var resoleveStep = [];
-                for (var i = 0; i < json.length; i++) {
-                    resoleveStep.push({
-                        name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgNamejc,
-                        val2:json[i].baseGoods.bgGoodsNo,
-                        val:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        rwdh:option.rkrwNo,
-                        dhrq:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        dysj:changeDate(new Date())
-                    });
-                }
-                return resolve(resoleveStep);
-            },
-            complete: function () {
-
-            }
-        });
-    }          //TODO 获取入库单号中详细信息
-    function changeDate(date) {
-        return dateFormat(new Date(date), 'MM-dd hh:mm');
-    }
-    function errorTip(obj, error) {                    // 错误提示
-        /*<debug>*/
-        console.log(error);
-        /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
-    function dateFormat(date, fmt) {
-        var o = {
-            "M+": date.getMonth() + 1,                 //月份
-            "d+": date.getDate(),                    //日
-            "h+": date.getHours(),                   //小时
-            "m+": date.getMinutes(),                 //分
-            "s+": date.getSeconds(),                 //秒
-            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-            "S": date.getMilliseconds()             //毫秒
-        };
-        if (/(y+)/.test(fmt))
-            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-
-                    console.log(temp);
-                }
-                data.pop();
-            }
-        }
-    }
-    function printfCompile(obj) {
-        var resoleveStep = [];
-        for (var i = 0; i < obj.multipleSelection.length; i++) {
-            resoleveStep.push({
-                name: obj.multipleSelection[i].rkrwNo,
-                rkrwNo:obj.multipleSelection[i].rkrwNo,
-                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
-            });
-        }
-        obj.printf = resoleveStep;
-    }
 </script>
 
 

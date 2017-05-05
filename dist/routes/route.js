@@ -643,6 +643,152 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
+             case 'inputDaily':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '入库日报 分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '入库日报 导出';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+            case 'outputDaily':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '出库日报 分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '出库日报 导出';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+             case 'stockSelect':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '库存查询 分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '库存查询 导出';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+              case 'inputSelect':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '入库单据查询 分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '入库单据查询 查看入库明细信息';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '入库单据查询 查看入库储位信息';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '入库单据查询 导出入库单';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 4:
+                        urlName = '入库单据查询 导出入库明细';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 5:
+                        urlName = '入库单据查询 导出入库储位';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 6:
+                        urlName = '入库单据查询 导出入库';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+                }
+                break;
+               case 'outputSelect':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '出库单据查询 分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '出库单据查询 出库单明细查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '出库单据查询 分拣明细查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '出库单据查询 导出出库单';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 4:
+                        urlName = '出库单据查询 导出出库明细';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 5:
+                        urlName = '出库单据查询 导出分拣明细';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 6:
+                        urlName = '出库单据查询 导出出库';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+                }
+                break;
+
+
+
+
         }
         console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + req.body.url);
         next();
