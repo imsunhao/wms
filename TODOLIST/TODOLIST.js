@@ -1862,8 +1862,11 @@
 /**
  *       货品管理   goodsManage
              **/
+    /**
+ * TODO 货品管理
+ */
         /**
-          0 分页查询货品详情 POST /goods
+ 0 分页查询货品详情 POST /goods
          参数
             {
                 "bgGoodsName": "",
