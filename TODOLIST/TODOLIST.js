@@ -4083,11 +4083,68 @@
         /**
             * TODO 1 导出
         */
-/**
+    /**
  * TODO 出库日报
  */
-    /**
-         * TODO 库存查询
+        /**
+            * TODO 0 分页查询
+         * 搜索框条件查询
+         * 条件
+         {
+              ckXdsj            下单时间
+              mhCreatetime      分拣时间
+              ckCksj            下架开始时间
+              ckEndtime         下架结束时间
+              msxQrsj           操作时间
+              ckStatus          出库单据状态
+              cksQhStatus       是否欠货
+              cksZlStatus       是否滞留
+              ckTel             联系电话
+              ckContacts        联系人
+              ckCkdjClientno    客户编号
+              ckCkdjClientname  客户名称
+              ckCkdjNo          出库单号
+              cksGoodsId        货品名称
+              cksGoodsId        货品编号
+              msxXjry           作业人员
+              msxHpkcid         (关联库位表)下架库位
+              ckAdress          客户地址
+              ckIsauto          制作方式
+              ckStartwith       操作方式
+         }
+         分页查询字段
+         显示列
+         {
+            msxXjry                 作业人员
+            msxQrsj                 操作时间
+            msxMxCount*bgGoodsTj    作业体积
+            ckXdsj                  下单时间
+            ckCkdjNo                出库单号
+            ckStatus                出库单状态
+            cksQhStatus             欠货状态
+            cksZlStatus             滞留状态
+            ckCksj                  下架开始时间
+            ckEndtime               下架结束时间
+            cksGoodsId              货品名称
+            cksGoodsId              货品编号
+            msxHpkcid               货品批次
+            msxHpkcid               (关联库位表) 下架库位
+            cksGoodsCount           应下数量
+            msxMxCount              下架数量
+            ckIsauto                制作方式
+            ckStartwith             操作方式
+            ckCkdjClientno          客户编号
+            ckCkdjClientname        客户名称
+            ckAdress                客户地址
+            ckTel                   联系电话
+            ckContacts              联系人
+         }
+         */
+        /**
+            * TODO 1 导出
+         */
+/**
+ * TODO 库存查询
          */
     /**
          * TODO 库存查询
