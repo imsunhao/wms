@@ -708,6 +708,54 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
+               case 'outputSelect':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '出库单据查询 分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '出库单据查询 出库单明细查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '出库单据查询 分拣明细查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '出库单据查询 导出出库单';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 4:
+                        urlName = '出库单据查询 导出出库明细';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 5:
+                        urlName = '出库单据查询 导出分拣明细';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 6:
+                        urlName = '出库单据查询 导出出库';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+                }
+                break;
+
 
 
 

@@ -4248,11 +4248,11 @@
         /**
             * TODO 6 导出入库
         */
-/**
- * TODO 出库单据查询
+    /**
+     * TODO 出库单据查询
              */
         /**
-             *  TODO 分页查询
+             *  TODO 0 分页查询
              *  搜索条件的字段
                     仓库             ckArehouseId
                     下单时间         ckXdsj
@@ -4303,42 +4303,61 @@
                     TODO 备货人员      msUserId
                     下架人员            msxXjry（多个）
               }
-             二级菜单：出库明细
-             {
-                    TODO 货品编号     cksGoodsId(关联货品表)
-                    TODO 货品名称     cksGoodsId（关联货品表）
-                    货品数量            cksGoodsCount
-                    TODO 货品体积     cksGoodsCount*bgGoodsTj(暂用hptj)
-                    下架数量            msxMxCount
-                    TODO 下架体积     msxMxCount*bgGoodsTj(暂用xjtj)
-                    欠货数量            cksQhCounts
-                    TODO 欠货体积     cksQhCounts*bgGoodsTj(暂用qhtj)
-                    滞留数量            cksZlCount
-                    TODO 滞留体积     cksZlCount*bgGoodsTj(暂用zltj)
-                    欠货(补发)单号      cksBfNo
-                    滞留任务号          cksZlbfInfo
-                    发运数量            cksFyCount
-                    TODO 发运体积     cksFyCount*bgGoddsTj(暂用fytj)
-                    欠货备注            cksQhRemarks
-                    补发状态            cksBfStatus
-             }
-             三级菜单： 分拣明细
-             {
-                    TODO 货品编号   msxHpkcid（关联货品库存表再关键货品表）
-                    TODO 货品名称   msxHpkcid（关联货品库存表再关联货品表）
-                    TODO 下架库位   msxHpkcid（关联货品库存表再关联库位表）
-                    下架数量         msxMxCount
-                    TODO 下架体积   msxMxCount*bgGoodsTj(暂用xjtj)
-                    TODO 下架批次   msx_hpkcid（关联货品库存表取mr_good_batch）
-                    操作人员         msxXjry
-                    操作时间         msxQrsj
-                    修改分拣数量原因 msxWt
-             }
-             *
-             *
              */
-    /**
-     * TODO 货品流向查询 goodsFlowSelect
+        /**
+        * TODO 1 出库单明细查询
+         *   二级菜单：出库明细
+         {
+                TODO 货品编号     cksGoodsId(关联货品表)
+                TODO 货品名称     cksGoodsId（关联货品表）
+                货品数量            cksGoodsCount
+                TODO 货品体积     cksGoodsCount*bgGoodsTj(暂用hptj)
+                下架数量            msxMxCount
+                TODO 下架体积     msxMxCount*bgGoodsTj(暂用xjtj)
+                欠货数量            cksQhCounts
+                TODO 欠货体积     cksQhCounts*bgGoodsTj(暂用qhtj)
+                滞留数量            cksZlCount
+                TODO 滞留体积     cksZlCount*bgGoodsTj(暂用zltj)
+                欠货(补发)单号      cksBfNo
+                滞留任务号          cksZlbfInfo
+                发运数量            cksFyCount
+                TODO 发运体积     cksFyCount*bgGoddsTj(暂用fytj)
+                欠货备注            cksQhRemarks
+                补发状态            cksBfStatus
+         }
+         *
+        *
+ */
+        /**
+         * TODO 2 分拣明细查询
+         *     三级菜单： 分拣明细
+         {
+                TODO 货品编号   msxHpkcid（关联货品库存表再关键货品表）
+                TODO 货品名称   msxHpkcid（关联货品库存表再关联货品表）
+                TODO 下架库位   msxHpkcid（关联货品库存表再关联库位表）
+                下架数量         msxMxCount
+                TODO 下架体积   msxMxCount*bgGoodsTj(暂用xjtj)
+                TODO 下架批次   msx_hpkcid（关联货品库存表取mr_good_batch）
+                操作人员         msxXjry
+                操作时间         msxQrsj
+                修改分拣数量原因 msxWt
+         }
+         */
+        /**
+         * TODO 3 导出出库单
+         */
+        /**
+         * TODO 4 导出出库单明细
+         */
+        /**
+         * TODO 5 导出分拣明细
+         */
+        /**
+         * TODO 6 导出出库
+         */
+
+/**
+ * TODO 货品流向查询 goodsFlowSelect
      */
         /**
          *  TODO 分页查询
