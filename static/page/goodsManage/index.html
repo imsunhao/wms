@@ -482,22 +482,6 @@
 </div>
 
 <script>
-    var form = function () {
-        return {
-            arehouseId: 1,          //仓库id
-            title: "新建货品",
-            Name: '',               //仓库名称
-            Addr: '',               //仓库地址
-            Scontacts: '',          //联系人/负责人
-            Phone: '',              //电话
-            Remarks: '',            //备注
-            Ctype: '',              //仓库类型
-            Humidity: '',           //相对湿度
-            Postoffice: '',         //邮编
-            Fax: '',                //传真
-        }
-    };               //弹出层 form 模板
-
     var goodsManage = new Vue({
         el: '#goodsManage',
         prop: {},
@@ -576,7 +560,7 @@
                     type: 'warning'
                 }).then(function () {
                     remove(row, _this.warehousingReservation);
-                    postDelete(_this, {
+                    p[6].post( {
                         id: [row.rkdjNo]
                     });
                 }).catch(function () {
@@ -601,14 +585,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                //分页 当前页
 
             newInput: function () {
@@ -661,7 +645,7 @@
                     _this.dialogFormVisible = false;
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(goodsManage);
+                    p[0].post();
                 }, 1500);
                 /*</debug>*/
             },                                                //新建 表单提交
@@ -693,14 +677,100 @@
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                post(this, this.option);
+                p[0].post( this.option);
             },
             bgGoodsNo: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                post(this, this.option);
+                p[0].post( this.option);
             }
+        }
+    });
+    function form() {
+        return {
+            arehouseId: 1,          //仓库id
+            title: "新建货品",
+            Name: '',               //仓库名称
+            Addr: '',               //仓库地址
+            Scontacts: '',          //联系人/负责人
+            Phone: '',              //电话
+            Remarks: '',            //备注
+            Ctype: '',              //仓库类型
+            Humidity: '',           //相对湿度
+            Postoffice: '',         //邮编
+            Fax: '',                //传真
+        }
+    };               //弹出层 form 模板
+    var obj=goodsManage;
+    var p=[];
+    // 0 货品管理 分页查询
+    p[0] = autoPost({
+        urlHock: "../../hock/goodsManage/page.json",
+        urlProd: "/route/goodsManage/0",
+        success: function (json) {
+            obj.$data.goodsManage = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+     // 1 货品管理 编辑
+    p[1] = autoPost({
+        urlHock: "../../hock/goodsManage/page.json",
+        urlProd: "/route/goodsManage/1",
+        success: function (json) {
+            obj.$data.goodsManage = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+     // 2 货品管理 新增
+    p[2] = autoPost({
+        urlHock: "",
+        urlProd: "/route/goodsManage/2",
+        success: function (json) {
+            obj.$data.goodsManage = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+    // 3 货品管理
+    p[3] = autoPost({
+        urlHock: "",
+        urlProd: "/route/goodsManage/3",
+        success: function (json) {
+        }
+    });
+    // 4 货品管理
+    p[4] = autoPost({
+        urlHock: "",
+        urlProd: "/route/goodsManage/4",
+        success: function (json) {
+        }
+    });
+    // 5 货品管理
+    p[5] = autoPost({
+        urlHock: "",
+        urlProd: "/route/goodsManage/5",
+        success: function (json) {
+        }
+    });
+    // 6 货品管理  删除
+    p[6] = autoPost({
+        urlHock: "",
+        urlProd: "/route/goodsManage/6",
+        success: function (json) {
+        }
+    });
+     // 7 货品管理
+    p[7] = autoPost({
+        urlHock: "",
+        urlProd: "/route/goodsManage/7",
+        success: function (json) {
+        }
+    });
+     // 8 货品管理
+    p[8] = autoPost({
+        urlHock: "",
+        urlProd: "/route/goodsManage/8",
+        success: function (json) {
         }
     });
     // 高级 监视器的 使用方法
@@ -712,149 +782,16 @@
     //        post(this, this.option);
     //    }, {deep: true});
     //post(goodsManage, goodsManage.option);
-    post(goodsManage, goodsManage.option);
-    function post(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/goodsManage/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/goodsManage/0";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                obj.$data.goodsManage = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                       //TODO 0 货品管理分页查询接口(测试完成)
-    function postEdit(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/goodsManage/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/goodsManage/1";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-               //goodsManage.goodsManage = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                       //TODO 1 货品管理更新/编辑接口(测试)
-    function postAdd(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/goodsManage/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/goodsManage/2";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                //goodsManage.goodsManage = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                       //TODO 2 货品管理新增接口(测试完成)
-    function postDelete(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/goodsManage/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/goodsManage/6";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                //goodsManage.goodsManage = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                       //TODO 6 货品删除接口(测试)
-
-    function errorTip(obj, error) {                    // 错误提示
-        /*<debug>*/
-        console.log(error);
-        /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-
-//                    console.log(temp);
-                }
-                data.pop();
-            }
+    p[0].post( goodsManage.option);
+    function printfCompile(obj) {
+        var resoleveStep = [];
+        for (var i = 0; i < obj.multipleSelection.length; i++) {
+            resoleveStep.push({
+                name: obj.multipleSelection[i].rkrwNo,
+                rkrwNo:obj.multipleSelection[i].rkrwNo,
+                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
+            });
         }
-    }
+        obj.printf = resoleveStep;
+    }				 //打印
 </script>

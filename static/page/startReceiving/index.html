@@ -394,21 +394,6 @@
 </style>
 
 <script>
-    function from() {
-        return {
-            rkrwN: '',
-            dds: '',
-            pxs: '',
-            rkrwDh: '',
-            rkrwStatus: '',
-            rkrwDhrq: '',//模糊查询--到车日期
-            rkrwNo: '',//模糊查询--任务号
-            rkrwCph: '',//模糊查询--车牌号
-            rkrwSjxm: '',//模糊查询--司机姓名
-            rkrwDbd: '',//模糊查询--调拨地
-            rkrwCys: '',//模糊查询--承运商
-        }
-    }
     var startReceiving = new Vue({
         el: '#startReceiving',
         prop: {},
@@ -523,14 +508,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
@@ -570,12 +555,12 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(startReceiving);
+                    p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                post(this, {});
+                p[0].post( {});
             },                                          //详细查询 提交
             printfSubmit: function () {
                 var datas = [];
@@ -597,7 +582,7 @@
                     case 0:
                         return resolve(this.printf);
                     case 1:
-                        postRkrwNo(this, {
+                        p[1].post( {
                             "pageNum": 1,
                             "pageSize": 999,
                             "draw": 0,
@@ -607,7 +592,7 @@
                         break;
                     case 2:
                         console.log(node.data.name);
-                        postRkdjId(this, {
+                        p[2].post(this, {
 
                             "rksRkdjId": 1,
                             "draw": 0,
@@ -623,7 +608,7 @@
                 }
             },
             auto_rkrwDhrq: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日-hh:mm:ss');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
             },                              //预计到货时间
             auto_rkrwStatus: function (value) {
@@ -654,7 +639,67 @@
             },                                     //任务状态
         }
     });
-
+    function from() {
+        return {
+            rkrwN: '',
+            dds: '',
+            pxs: '',
+            rkrwDh: '',
+            rkrwStatus: '',
+            rkrwDhrq: '',//模糊查询--到车日期
+            rkrwNo: '',//模糊查询--任务号
+            rkrwCph: '',//模糊查询--车牌号
+            rkrwSjxm: '',//模糊查询--司机姓名
+            rkrwDbd: '',//模糊查询--调拨地
+            rkrwCys: '',//模糊查询--承运商
+        }
+    }
+    var obj=startReceiving;
+    var p=[];
+    // 0 开始收货 分页查询
+    p[0] = autoPost({
+        urlHock: "/hock/startReceiving/page.json",
+        urlProd: "/route/startReceiving/0",
+        success: function (json) {
+            obj.$data.startReceiving = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+     // 1 开始收货 获取任务单号中详细信息
+    p[1] = autoPost({
+        urlHock: "/hock/startReceiving/rkrwNo.json",
+        urlProd: "/route/startReceiving/1",
+        success: function (json) {
+            var resoleveStep = [];
+            for (var i = 0; i < json.data.length; i++) {
+                resoleveStep.push({
+                    name: json.data[i].rkdjId,
+                    rkrwNo: option.rkrwNo,
+                    rkrwDhrq: option.rkrwDhrq
+                });
+            }
+            return resolve(resoleveStep);
+        }
+    });
+      // 2 开始收货 获取入库单号中详细信息
+    p[2] = autoPost({
+        urlHock: "/hock/startReceiving/rkdjId.json",
+        urlProd: "/route/startReceiving/2",
+        success: function (json) {
+            var resoleveStep = [];
+            for (var i = 0; i < json.length; i++) {
+                resoleveStep.push({
+                    name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgNamejc,
+                    val2: json[i].baseGoods.bgGoodsNo,
+                    val: dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
+                    rwdh: option.rkrwNo,
+                    dhrq: dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
+                    dysj: changeDate(new Date())
+                });
+            }
+            return resolve(resoleveStep);
+        }
+    });
     // 高级 监视器的 使用方法
     //    startReceiving.$watch('date', function () {
     //        if (!this.option.dateStart)return;
@@ -663,164 +708,18 @@
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
-    post(startReceiving, startReceiving.option);
-
-    function post(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/startReceiving/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/startReceiving/0";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                obj.$data.startReceiving = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                         // 0 开始收货分页查询的接口
-
-    function postRkrwNo(obj, option, resolve) {
-        /*<debug>*/
-        url = "/hock/startReceiving/rkrwNo.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/startReceiving/1";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                var resoleveStep = [];
-                for (var i = 0; i < json.data.length; i++) {
-                    resoleveStep.push({
-                        name: json.data[i].rkdjId,
-                        rkrwNo: option.rkrwNo,
-                        rkrwDhrq: option.rkrwDhrq
-                    });
-                }
-                return resolve(resoleveStep);
-            },
-            complete: function () {
-
-            }
-        });
-    }          //TODO 1获取任务单号中详细信息
-    function postRkdjId(obj, option, resolve) {
-        /*<debug>*/
-        url = "/hock/startReceiving/rkdjId.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/startReceiving/2";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                var resoleveStep = [];
-                for (var i = 0; i < json.length; i++) {
-                    resoleveStep.push({
-                        name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgNamejc,
-                        val2: json[i].baseGoods.bgGoodsNo,
-                        val: dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        rwdh: option.rkrwNo,
-                        dhrq: dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        dysj: changeDate(new Date())
-                    });
-                }
-                return resolve(resoleveStep);
-            },
-            complete: function () {
-
-            }
-        });
-    }          //TODO 2获取入库单号中详细信息
-    function post3(obj, option, resolve) {
-        /*<debug>*/
-        url = "/hock/startReceiving/rkdjId.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/startReceiving/3";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "rwIds": [
-                    3, 4
-                ]
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                var resoleveStep = [];
-                for (var i = 0; i < json.length; i++) {
-                    resoleveStep.push({
-                        name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgNamejc,
-                        val2: json[i].baseGoods.bgGoodsNo,
-                        val: dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        rwdh: option.rkrwNo,
-                        dhrq: dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        dysj: changeDate(new Date())
-                    });
-                }
-                return resolve(resoleveStep);
-            },
-            complete: function () {
-
-            }
-        });
-    }               //TODO 3获取入库单号中详细信息
-
+    p[0].post( startReceiving.option);
     function printfCompile(obj) {
         var resoleveStep = [];
         for (var i = 0; i < obj.multipleSelection.length; i++) {
             resoleveStep.push({
                 name: obj.multipleSelection[i].rkrwNo,
-                rkrwNo: obj.multipleSelection[i].rkrwNo,
-                rkrwDhrq: obj.multipleSelection[i].rkrwDhrq
+                rkrwNo:obj.multipleSelection[i].rkrwNo,
+                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
             });
         }
         obj.printf = resoleveStep;
-    }
-
+    }				 //打印
 </script>
 
 

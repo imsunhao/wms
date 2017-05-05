@@ -683,6 +683,8 @@
     </el-dialog>
 </div>
 <script>
+
+    var id = 0;
     /*<debug>*/
     var id = 0;
     (function () {
@@ -690,7 +692,31 @@
         window.dbmessage.baseArehouses = JSON.parse('[{"baArehouseId":4,"baName":"无限极济阳仓A91","baAddr":"济南市济阳县","baScity":"齐河","baScontacts":"联系人1","baPhone":"13112345678","baAcreage":"222","baCtype":"22","baHumidity":"222","baFax":"2222","baPostoffice":"test","baIsti":1,"baStatus":1,"baClientId":3,"baRemarks":"test","baCreatetime":1487233193000,"baPgroupinfo":"eeeeeeeeeeeee","arehouseKqs":[]},{"baArehouseId":5,"baName":"九阳济南仓A02","baAddr":"济南市济阳278号","baScity":"齐河","baScontacts":"联系人1","baPhone":"13012345678","baAcreage":"222","baCtype":"111","baHumidity":"222","baFax":"2222","baPostoffice":"test","baIsti":2,"baStatus":1,"baClientId":1,"baRemarks":"test","baCreatetime":1487838047000,"baPgroupinfo":"eeeeeeeeeeeee","arehouseKqs":[]}]');
     })();
     /*</debug>*/
-    var id = 0;
+    function form() {
+        return {
+            title: '新建入库单',
+            rkRkdjNo: '',
+            rkRemarks: '',
+            rkDocsList: [],
+
+            rkArehouseId: '',
+            rkType: '',
+
+            rkUserId: app.rmsUser.ruUserId,
+            rkCreatetime: '',
+            rkCreateUserId: app.rmsUser.ruUserId,
+
+            "rkStatus": 1,
+            "rkRwStatus": 1,
+            "rkZdfs": 1,
+            "rkStartwith": 1,
+
+            bgGoodsNo: '',
+            selectGood: selectGood(),
+            saveARkDocsList: true,
+            deleteARkDocsList: true
+        };
+    }
     var warehousingReservation = new Vue({
         el: '#warehousingReservation',
         prop: {},
@@ -784,7 +810,7 @@
                 this.form = step;
                 this.dialogFormActive = 0;
                 if (typeof (this.form.rkDocsList) === 'undefined') {
-                    postGoods(obj, {rkRkdjNo: row.rkRkdjNo}, function (json) {
+                    p[4].post( {rkRkdjNo: row.rkRkdjNo}, function (json) {
                         obj.form.rkDocsList = json;
                         obj.dialogFormVisible = true;
                     });
@@ -793,10 +819,24 @@
                 }
             },                                        //行内按钮-观察
             Edit: function (index, row) {
-                p[8].post({rkRkdjId: row.rkRkdjId}, function (json) {
-                    var step = form();
-                    allPrposCb(step, function (obj, index) {
-                        if (typeof row[index] !== 'undefined') step[index] = row[index];
+                var obj = this;
+                var step = form();
+                allPrposCb(step, function (obj, index) {
+                    if (typeof row[index] !== 'undefined') step[index] = row[index];
+                });
+                /*<debug>*/
+                console.log(row);
+                console.log(step);
+                /*</debug>*/
+                step.title = '编辑';
+                if (typeof this.$refs.carousel !== 'undefined') this.$refs.carousel.setActiveItem(0);
+                this.form = step;
+                this.dialogFormActive = 0;
+                if (typeof (this.form.rkDocsList) === 'undefined') {
+                    p[4].post( {rkRkdjNo: row.rkRkdjNo}, function (json) {
+                        obj.form.rkDocsList = json;
+                        obj.dialogFormVisible = true;
+
                     });
                     /*<debug>*/
                     console.log(row);
@@ -919,7 +959,7 @@
             },                                              //form 前一个
             nextForm: function () {
                 if (this.warehousingReservationCombinationDetails.rkrwNo === "") {
-                    postCombinationDetails(this);
+                    p[3].post();
                 }
                 this.warehousingReservationCombinationDetails.rkrwDhrq = new Date();
                 this.formActive++;
@@ -998,19 +1038,8 @@
                     if (typeof _this.form[index] !== 'undefined') form[index] = _this.form[index];
                 });
 
-                form.rkCreatetime = new Date().toJSON();
-                form.rkDocsList = [];
-                for (var i = 0; i < _this.form.rkDocsList.length; i++) {
-                    var form_rkDocsList = post_form_rkDocsList();
-                    (function (i, form_rkDocsList) {
-                        allPrposCb(form_rkDocsList, function (val, index) {
-                            if (typeof _this.form.rkDocsList[i][index] !== 'undefined') form_rkDocsList[index] = _this.form.rkDocsList[i][index];
-                        })
-                    })(i, form_rkDocsList);
-                    form.rkDocsList.push(form_rkDocsList);
-                }
-                if (this.form.title === '新建入库单') {
-                    p[2].post(form);
+                    p[2].post( form);
+
                 } else {
                     p[3].post(form);
                 }
@@ -1061,7 +1090,7 @@
 //                },0);
             },                             //表单 string验证
             querySearchAsync: function (queryString, cb) {
-                postGoods(this, {
+                p[4].post( {
                     bgGoodsNo: queryString,
                     "pageNum": 1,
                     "pageSize": 20,
@@ -1259,14 +1288,71 @@
             }
         }
     });
-    // 2 新增-入库单
+    var obj=warehousingReservation;
+    var p=[];
+    // 0 入库预约 新增 入库预约
+    p[0] = autoPost({
+        urlHock: "../../hock/form/inputOption.json",
+        urlProd: "/route/warehousingReservation/0",
+        success: function (json) {
+            obj.dialogFormVisible = false;
+            obj.submitLoading = false;
+            if (json.status > 19999 && json.status < 30000) {
+                /*<debug>*/
+                obj.$notify({
+                    title: '成功',
+                    message: '保存成功',
+                    type: 'success'
+                });
+                /*</debug>*/
+                /*<prod>*/
+                obj.$notify({
+                    title: '成功',
+                    message: window.statusConfig[json.status],
+                    type: 'success'
+                });
+                /*</prod>*/
+                obj.warehousingReservationCombinationDetails = CombinationDetails();
+                obj.warehousingReservationCombination = [];
+                obj.multipleSelection = [];
+                obj.multipleSelectionCombination = [];
+
+                obj.formActive = 0;
+                obj.$refs.carouselWaiting.setActiveItem(0);
+                post(warehousingReservation, warehousingReservation.option);
+            } else {
+                /*<debug>*/
+                obj.$notify({
+                    title: '失败',
+                    message: '保存失败',
+                    type: 'error'
+                });
+                /*</debug>*/
+                /*<prod>*/
+                obj.$notify({
+                    title: '失败',
+                    message: window.statusConfig[json.status],
+                    type: 'error'
+                });
+                /*</prod>*/
+            }
+        }
+    });
+    // 1 入库预约
+    p[1] = autoPost({
+        urlHock: "",
+        urlProd: "/route/warehousingReservation/1",
+        success: function (json) {
+        }
+    });
+    // 2 入库预约 新增 入库单
     p[2] = autoPost({
         urlHock: "../../hock/form/inputOption.json",
         urlProd: "/route/warehousingReservation/2",
         success: function (json) {
             obj.dialogFormVisible = false;
             obj.submitLoading = false;
-            if (json.status > 19999 && json.status < 30000) {
+            if (json.code === 20002) {
                 obj.$notify({
                     title: '成功',
                     message: '保存成功！',
@@ -1275,59 +1361,64 @@
                 obj.form = form();
                 obj.dialogFormActive = 0;
                 obj.$refs.carousel.setActiveItem(0);
-                p[7].post(obj.option);
+                post(obj, obj.option);
             } else {
-                obj.$notify({
-                    title: '失败',
-                    message: json.model,
-                    type: 'error'
-                });
+
             }
         }
     });
-    // 3 编辑-入库单
+     // 3 入库预约  组合
     p[3] = autoPost({
-        urlHock: "../../hock/form/inputOption.json",
+        urlHock: "",
         urlProd: "/route/warehousingReservation/3",
         success: function (json) {
-            obj.dialogFormVisible = false;
-            obj.submitLoading = false;
-            if (json.status > 19999 && json.status < 30000) {
-                obj.$notify({
-                    title: '成功',
-                    message: '保存成功！',
-                    type: 'success'
-                });
-                obj.form = form();
-                obj.dialogFormActive = 0;
-                obj.$refs.carousel.setActiveItem(0);
-            } else {
-                obj.$notify({
-                    title: '失败',
-                    message: json.model,
-                    type: 'error'
-                });
-            }
         }
     });
-    // 7 入库预约分页查询接口
+    // 4 入库预约 获取货品编号
+    p[4] = autoPost({
+        urlHock: "/hock/form/rkGoods.json",
+        urlProd: "/route/goodsManage/0",
+        success: function (json) {
+            json = json.data;
+            var step = [];
+            var length = json.length > 20 ? 20 : json.length;
+            for (var i = 0; i < length; i++) {
+                step.push({data: json[i], value: json[i].bgGoodsNo})
+            }
+            cb(step);
+        }
+    });
+     // 5 入库预约
+    p[5] = autoPost({
+        urlHock: "",
+        urlProd: "route/warehousingReservation/5",
+        success: function (json) {
+        }
+    });
+     // 6 入库预约
+    p[6] = autoPost({
+        urlHock: "",
+        urlProd: "route/warehousingReservation/6",
+        success: function (json) {
+        }
+    });
+     // 7 入库预约 分页查询接口
     p[7] = autoPost({
         urlHock: "../../hock/form/inputOption.json",
-        urlProd: "/route/warehousingReservation/7",
+        urlProd: "route/warehousingReservation/7",
         success: function (json) {
-            obj.dialogFormVisible = false;
-            obj.submitLoading = false;
-            /*<debug>*/
-            console.log(json);
-            /*</debug>*/
             obj.$data.warehousingReservation = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-    // 8 入库单 详细信息
-    p[8] = autoPost({
-        urlHock: "../../hock/form/inputOption.json",
-        urlProd: "/route/warehousingReservation/8"
-    });
+
+
+
+
+
+
+
+
 
     function CombinationDetails() {
         return {
@@ -1359,36 +1450,7 @@
         }
     }
 
-    function form() {
-        return {
-            rkRkdjId:'',
 
-            title: '新建入库单',
-            rkRkdjNo: '',
-            rkRemarks: '',
-            rkDocsList: [],
-
-            rkArehouseId: '',
-            rkType: '',
-
-            rkUserId: app.rmsUser.ruUserId,
-            rkCreatetime: '',
-            rkCreateUserId: app.rmsUser.ruUserId,
-
-            "rkStatus": 1,
-            "rkRwStatus": 1,
-            "rkZdfs": 1,
-            "rkStartwith": 1,
-
-            allCount: 0,
-            allTj: 0,
-
-            bgGoodsNo: '',
-            selectGood: selectGood(),
-            saveARkDocsList: true,
-            deleteARkDocsList: true
-        };
-    }
 
     function post_form() {
         return {
@@ -1442,14 +1504,13 @@
     var validateRule = {
         a: new RegExp("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", "g")
     };
-
-
     // 高级 监视器的 使用方法
     warehousingReservation.$watch('date', function () {
+        if (!this.option.dateStart)return;
         /*<debug>*/
         console.log(this.option);
         /*</debug>*/
-        p[7].post(this.option);
+        post(this, this.option);
     }, {deep: true});
     warehousingReservation.$watch('form.title', function () {
         if (this.form.title === '查看') this.watchView = true;
@@ -1457,82 +1518,70 @@
     }, {deep: true});
 
 
-    p[7].post(warehousingReservation.option);
+    post(warehousingReservation, warehousingReservation.option);
 
-    function postCombinationDetails(obj) {
+
+
+
+    function post(obj, option) {
         obj.showLoading = true;
+
         /*<debug>*/
-        var json = {
-            model: 'RK' + dateFormat(new Date(), "yyyyMMdd") + '-' + (++id)
-        };
-        console.log(json);
-        setTimeout(function () {
-            obj.warehousingReservationCombinationDetails.rkrwNo = json.model;
-            obj.showLoading = false;
-        }, 500);
+        url = "../../hock/form/inputOption.json";
         /*</debug>*/
 
         /*<prod>*/
+        url = "/route/warehousingReservation/7";
 
-
-        var json = {
-            model: 'RK' + dateFormat(new Date(), "yyyyMMdd") + '-' + (++id)
-        };
-        console.log(json);
-        setTimeout(function () {
-            obj.warehousingReservationCombinationDetails.rkrwNo = json.model;
-            obj.showLoading = false;
-        }, 500);
-
-
-//        url = "/route/warehousingReservation/1";
-//
-//        $.ajax(url, {
-//            type: "GET",
-//            data: option | {
-//                "id": 1                        //* 入库单号id
-//            },
-//            error: function (error) {
-//                errorTip(obj, error);
-//            },
-//            success: function (json) {
-//                obj.warehousingReservationCombinationDetails.rkrwNo = json.model;
-//            },
-//            complete: function () {
-//                obj.showLoading = false;
-//            }
-//        });
-        /*</prod>*/
-    }         // 9 获取任务号
-    function postGoods(obj, option, cb) {
-        //TODO 此处应为AJAX请求,待完善 querySearchAsync
-
-        /*<debug>*/
-        url = "/hock/form/rkGoods.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/goodsManage/0";
+//        if(option.dateStart==='') delete option.dateStart;
+//        if(option.dateStop==='') delete option.dateStop;
         /*</prod>*/
 
         $.ajax(url, {
             type: "GET",
-            data: option,
+            data: option || {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
             error: function (error) {
-
+                errorTip(obj, error);
             },
             success: function (json) {
-                json = json.data;
-                var step = [];
-                var length = json.length > 20 ? 20 : json.length;
-                for (var i = 0; i < length; i++) {
-                    step.push({data: json[i], value: json[i].bgGoodsNo})
-                }
-                cb(step);
+//                for (var i = 0; i < json.data.length; i++) {
+//                    var rkType = {
+//                        "0": "采购订单",
+//                        "1": "仓间挑拨",
+//                        "2": "退货入库"
+//                    };
+//                    var rkStatus = {
+//                        "31": "初始状态",
+//                        "32": "部分分配",
+//                        "33": "全部分配",
+//                        "34": "部分收货",
+//                        "35": "全部收货"
+//                    };
+//                    var method = {
+//                        "1": "手动",
+//                        "2": "excel",
+//                        "3": "接口"
+//                    };
+//                    json.data[i].rkType = rkType[i % 3];
+//                    json.data[i].rkSjsj = changeDate(json.data[i].rkSjsj);
+//                    json.data[i].rkStatus = rkStatus[json.data[i].rkStatus];
+//                    json.data[i].rkZdfs = method[json.data[i].rkZdfs];
+//                    json.data[i].allCount = 10120 + i;
+//                    json.data[i].allTj = 200.0234 + i;
+//                    json.data[i].historyLoading = false;              //维护 history 的加载层
+//                }
+                /*<debug>*/
+                console.log(json);
+                /*</debug>*/
+                warehousingReservation.$data.warehousingReservation = json.data;
             },
             complete: function () {
-
+                obj.showLoading = false;
             }
         });
-    }          // 4 获取货品编号
+    }                   // 7 入库预约分页查询接口
 </script>

@@ -314,15 +314,6 @@
 </div>
 
 <script>
-    var form = function () {
-        return {
-            arehouseId: 1,          //仓库id
-            title: "新建仓库",
-            blsName: '',               //作业区名称
-            a: '',                    //库位数
-        }
-    };               //弹出层 form 模板
-
     var operationAreaManage = new Vue({
         el: '#operationAreaManage',
         prop: {},
@@ -415,14 +406,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                //分页 当前页
 
             newInput: function () {
@@ -466,7 +457,7 @@
                     _this.dialogFormVisible = false;
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(operationAreaManage);
+                    p[0].post();
                 }, 1500);
                 /*</debug>*/
             },                                                //新建 表单提交
@@ -498,9 +489,66 @@
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                post(this, this.option);
+                p[0].post( this.option);
             }
 
+        }
+    });
+    //弹出层 form 模板
+    function form () {
+        return {
+            arehouseId: 1,          //仓库id
+            title: "新建仓库",
+            blsName: '',            //作业区名称
+            a: '',                   //库位数
+        }
+    };
+    var obj=operationAreaManage;
+    var p=[];
+    // 0 作业区管理 分页查询
+    p[0] = autoPost({
+        urlHock: "../../hock/operationAreaManage/page.json",
+        urlProd: "/route/operationAreaManage/0",
+        success: function (json) {
+            obj.$data.operationAreaManage = json.data;
+            obj.$data.currentTotal = json.recordsFiltered
+        }
+    });
+
+     // 1 作业区管理 新增
+    p[1] = autoPost({
+        urlHock: "../../hock/operationAreaManage/page.json",
+        urlProd: "/route/operationAreaManage/1",
+        success: function (json) {
+            obj.$data.operationAreaManage = json.data;
+            obj.$data.currentTotal = json.recordsFiltered
+        }
+    });
+     // 2 作业区管理 编辑
+    p[2] = autoPost({
+        urlHock: "../../hock/operationAreaManage/page.json",
+        urlProd: "/route/operationAreaManage/2",
+        success: function (json) {
+            obj.$data.operationAreaManage = json.data;
+            obj.$data.currentTotal = json.recordsFiltered
+        }
+    });
+     // 3 作业区管理
+    p[3] = autoPost({
+        urlHock: "",
+        urlProd: "/route/operationAreaManage/3",
+        success: function (json) {
+            obj.$data.operationAreaManage = json.data;
+            obj.$data.currentTotal = json.recordsFiltered
+        }
+    });
+     // 4 作业区管理
+    p[4] = autoPost({
+        urlHock: "",
+        urlProd: "/route/operationAreaManage/4",
+        success: function (json) {
+            obj.$data.operationAreaManage = json.data;
+            obj.$data.currentTotal = json.recordsFiltered
         }
     });
 
@@ -513,121 +561,5 @@
     //        post(this, this.option);
     //    }, {deep: true});
 
-    post(operationAreaManage, operationAreaManage.option);
-    function post(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/operationAreaManage/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/operationAreaManage/0";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-                type: "GET",
-
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                    console.log(json);
-                obj.$data.operationAreaManage = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                       //TODO 0作业区管理分页查询接口（测试通过）
-    function postAdd(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/operationAreaManage/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/operationAreaManage/1";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-                type: "GET",
-
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                    console.log(json);
-                //operationAreaManage.operationAreaManage = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                   //TODO 1 作业区管理新增接口（测试通过）
-    function postEdit(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/operationAreaManage/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/operationAreaManage/2";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-                type: "GET",
-
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                    console.log(json);
-                //operationAreaManage.operationAreaManage = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                   //TODO 2 作业区管理更新/编辑接口（测试通过）
-    function errorTip(obj, error) {                    // 错误提示
-        /*<debug>*/
-        console.log(error);
-        /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-
-//                    console.log(temp);
-                }
-                data.pop();
-            }
-        }
-    }
+    p[0].post(operationAreaManage, operationAreaManage.option);
 </script>

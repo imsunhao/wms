@@ -393,22 +393,6 @@
     </el-dialog>
 </div>
 <script>
-    var form = function () {
-        return {
-            bcClientId: '',
-            title: "新建客户",
-            bcCname: '',
-            bcCaddr: '',
-            bcCtel: '',
-            bcStatus: '',
-            bcCjsj: '',
-
-
-            roleId: 1,
-
-            ruStatus: 1,
-        }
-    };               //弹出层 form 模板
     var clientConfiguration = new Vue({
         el: '#clientConfiguration',
         prop: {},
@@ -604,14 +588,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                //分页 当前页
             newInput: function () {
                 this.form = form();
@@ -652,7 +636,7 @@
                     _this.dialogFormVisible = false;
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(clientConfiguration);
+                    p[0].post();
                 }, 1500);
                 /*</debug>*/
             },                                                //新建 表单提交
@@ -702,8 +686,111 @@
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                post(this, this.option);
+                p[0].post(this.option);
             }
+        }
+    });
+    function  form() {
+        return {
+            bcClientId: '',
+            title: "新建客户",
+            bcCname: '',
+            bcCaddr: '',
+            bcCtel: '',
+            bcStatus: '',
+            bcCjsj: '',
+
+
+            roleId: 1,
+
+            ruStatus: 1,
+        }
+    };               //弹出层 form 模板
+    var obj=clientConfiguration;
+    var p=[];
+    // 0 客户 分页查询
+    p[0] = autoPost({
+        urlHock: "../../hock/client/client.json",
+        urlProd: "/route/clientConfiguration/0",
+        success: function (json) {
+            obj.$data.clientConfiguration = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+     // 1 客户
+    p[1] = autoPost({
+        urlHock: "",
+        urlProd: "/route/clientConfiguration/1",
+        success: function (json) {
+        }
+    });
+     // 2 客户
+    p[2] = autoPost({
+        urlHock: "",
+        urlProd: "/route/clientConfiguration/2",
+        success: function (json) {
+
+        }
+    });
+     // 3 客户
+    p[3] = autoPost({
+        urlHock: "",
+        urlProd: "/route/clientConfiguration/3",
+        success: function (json) {
+
+        }
+    });
+     // 4 客户 编辑
+    p[4] = autoPost({
+        urlHock: "../../hock/client/client.json",
+        urlProd: "/route/clientConfiguration/4",
+        success: function (json) {
+
+        }
+    });
+      // 5 客户
+    p[5] = autoPost({
+        urlHock: "",
+        urlProd: "/route/clientConfiguration/5",
+        success: function (json) {
+
+        }
+    });
+      // 6 客户
+    p[6] = autoPost({
+        urlHock: "",
+        urlProd: "/route/clientConfiguration/6",
+        success: function (json) {
+
+        }
+    });
+      // 7 客户
+    p[7] = autoPost({
+        urlHock: "",
+        urlProd: "/route/clientConfiguration/7",
+        success: function (json) {
+        }
+    });
+      // 8 客户
+    p[8] = autoPost({
+        urlHock: "",
+        urlProd: "/route/clientConfiguration/8",
+        success: function (json) {
+
+        }
+    });
+      // 9 客户
+    p[9] = autoPost({
+        urlHock: "",
+        urlProd: "/route/clientConfiguration/9",
+        success: function (json) {
+        }
+    });
+      // 10 客户
+    p[10] = autoPost({
+        urlHock: "",
+        urlProd: "/route/clientConfiguration/10",
+        success: function (json) {
         }
     });
     // 高级 监视器的 使用方法
@@ -714,42 +801,7 @@
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
-
-
-    post(clientConfiguration,clientConfiguration.option);
-
-    function post(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/client/client.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/clientConfiguration/0";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                obj.$data.clientConfiguration = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
-
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                       //TODO 0 请求 客户配置分页查询(测试完成)
+    p[0].post(clientConfiguration.option);
     function postAdd(obj, option) {
         obj.showLoading = true;
 
@@ -779,68 +831,16 @@
                 obj.showLoading = false;
             }
         });
-    }                   //TODO 1 请求 新增-配置货品-配置仓库 (测试完成)
-    function postEdit(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/client/client.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/clientConfiguration/4";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                //clientConfiguration.$data.clientConfiguration = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                   //TODO 4 请求 编辑 (测试完成)
-
-
-    function errorTip(obj, error) {                    // 错误提示
-        /*<debug>*/
-        console.log(error);
-        /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-
-//                    console.log(temp);
-                }
-                data.pop();
-            }
+    }            //TODO 1 请求 新增-配置货品-配置仓库 (测试完成)
+    function printfCompile(obj) {
+        var resoleveStep = [];
+        for (var i = 0; i < obj.multipleSelection.length; i++) {
+            resoleveStep.push({
+                name: obj.multipleSelection[i].rkrwNo,
+                rkrwNo:obj.multipleSelection[i].rkrwNo,
+                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
+            });
         }
-    }
-    function addOrDelete(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            if (data[i] == obj) {
-                return true;
-            }
-        }
-        return false;
-    }
-
+        obj.printf = resoleveStep;
+    }				 //打印
 </script>
