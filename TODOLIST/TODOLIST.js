@@ -4185,7 +4185,20 @@
         * TODO 入库单据查询
         */
         /**
-                TODO 分页查询
+                TODO 0 分页查询
+                模糊查询字段
+                    条件
+                    {
+                        rkArehouseId   仓库
+                        rkCreatetime   下单时间
+                        rkrkSjsj       上架开始时间
+                        rkEndTime      上架结束时间
+                        rkStatus       入库状态
+                        rkRkdjNo       入库单号
+                        rkZdfs         制作方式
+                        rkStartwith     操作方式
+                    }
+
                  "rkArehouseId":"仓库",
                  "rkCreatetime":"下单时间",
                  "rkrkSjsj":"上架开始时间",
@@ -4201,7 +4214,7 @@
                  "mdtUserId":"上架人员"
              */
         /**
-             * TODO 查看入库明细信息
+             * TODO 1 查看入库明细信息
              货品编号       rksGoodsId(关联货品表)
              货品名称       rksGoodsId(关联货品表)
              货品批次       mdtBatch
@@ -4213,7 +4226,7 @@
              上架人员       mdtUserId(多个上架人员,在一列显示逗号隔开)
              */
         /**
-             * TODO 查看入库储位信息
+             * TODO 2 查看入库储位信息
              货品编号    rksGoodsId(关联货品表)
              货品名称    rksGoodsId(关联货品表)
              货品批次    mdtBatch
@@ -4224,7 +4237,19 @@
              上架时间    mdtSjsj
              */
         /**
-                 * TODO 出库单据查询
+            * TODO 3 导出入库单
+        */
+        /**
+            * TODO 4 导出入库明细
+        */
+        /**
+            * TODO 5 导出入库储位
+        */
+        /**
+            * TODO 6 导出入库
+        */
+/**
+ * TODO 出库单据查询
              */
         /**
              *  TODO 分页查询
