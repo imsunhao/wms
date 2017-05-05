@@ -570,23 +570,6 @@
     }
 </style>
 <script>
-    function form() {
-        return {
-            rkrwId: '',
-            title: "新建入库任务",
-            rkrwN: '',
-            dds: '',
-            pxs: '',
-            rkrwDh: '',
-            rkrwStatus: '',
-            rkrwDhrq:[null,null],//模糊查询--到货日期
-            rkrwNo:'',//模糊查询--任务号
-            rkrwCph:'',//模糊查询--车牌号
-            rkrwSjxm:'',//模糊查询--司机姓名
-            rkrwDbd:'',//模糊查询--调拨地
-            rkrwCys:'',//模糊查询--承运商
-        }
-    }
     var warehousingTask = new Vue({
         el: '#warehousingTask',
         prop: {},
@@ -744,7 +727,7 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post(this.option);
             },                                   //分页 Size
             expandChange: function (row, expanded) {
                 if (typeof (row.inputOperation) === 'undefined' && expanded) {
@@ -760,7 +743,7 @@
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post(this.option);
             },                                //分页 当前页
             newInput: function () {
                 this.dialogFormVisible = true;
@@ -804,12 +787,12 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(warehousingTask);
+                    p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                post(this, {});
+                p[0].post( {});
             },                                          //详细查询 提交
             auto_rkrwDhrq: function (value, bool) {
                 if (!bool)return dateFormat(new Date(value), 'yyyy年-MM月-dd日');
@@ -849,7 +832,82 @@
         },
         watch: {}
     });
+    function form() {
+        return {
+            rkrwId: '',
+            title: "新建入库任务",
+            rkrwN: '',
+            dds: '',
+            pxs: '',
+            rkrwDh: '',
+            rkrwStatus: '',
+            rkrwDhrq:[null,null],//模糊查询--到货日期
+            rkrwNo:'',//模糊查询--任务号
+            rkrwCph:'',//模糊查询--车牌号
+            rkrwSjxm:'',//模糊查询--司机姓名
+            rkrwDbd:'',//模糊查询--调拨地
+            rkrwCys:'',//模糊查询--承运商
+        }
+    }
+    var obj=warehousingTask;
+    var p=[];
+    // 0 入库任务 分页查询
+    p[0] = autoPost({
+        urlHock: "/hock/warehousingTask/page.json",
+        urlProd: "/route/warehousingTask/0",
+        success: function (json) {
+            obj.$data.warehousingTask = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+    // 1 入库任务
+    p[1] = autoPost({
+        urlHock: "",
+        urlProd: "/route/warehousingTask/1",
+        success: function (json) {
 
+        }
+    });
+    // 2 入库任务
+    p[2] = autoPost({
+        urlHock: "",
+        urlProd: "/route/warehousingTask/2",
+        success: function (json) {
+
+        }
+    });
+    // 3 入库任务
+    p[3] = autoPost({
+        urlHock: "",
+        urlProd: "/route/warehousingTask/3",
+        success: function (json) {
+
+        }
+    });
+    // 4 入库任务
+    p[4] = autoPost({
+        urlHock: "",
+        urlProd: "/route/warehousingTask/4",
+        success: function (json) {
+
+        }
+    });
+    // 5 入库任务
+    p[5] = autoPost({
+        urlHock: "",
+        urlProd: "/route/warehousingTask/5",
+        success: function (json) {
+
+        }
+    });
+    // 6 入库任务
+    p[6] = autoPost({
+        urlHock: "",
+        urlProd: "/route/warehousingTask/6",
+        success: function (json) {
+
+        }
+    });
     // 高级 监视器的 使用方法
     //        warehousingTask.$watch('warehousingTask.inputOperation', function () {
     //            if (!this.option.dateStart)return;
@@ -858,68 +916,16 @@
     //            /*</debug>*/
     //            post(this, this.option);
     //        }, {deep: true});
-    post(warehousingTask, warehousingTask.option);
-    function post(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/warehousingTask/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/warehousingTask/0";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                obj.$data.warehousingTask = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }              //TODO 入库任务分页查询接口
-    function postInputOperation(obj, row) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/form/inputOption.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/warehousingTask/0";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                /*<debug>*/
-                console.log(json);
-                /*</debug>*/
-                row.inputOperation = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }   //TODO 请求入库任务中详细信息
+    p[0].post(warehousingTask.option);
+    function printfCompile(obj) {
+        var resoleveStep = [];
+        for (var i = 0; i < obj.multipleSelection.length; i++) {
+            resoleveStep.push({
+                name: obj.multipleSelection[i].rkrwNo,
+                rkrwNo:obj.multipleSelection[i].rkrwNo,
+                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
+            });
+        }
+        obj.printf = resoleveStep;
+    }				 //打印
 </script>
