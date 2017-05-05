@@ -4143,12 +4143,44 @@
         /**
             * TODO 1 导出
          */
-/**
- * TODO 库存查询
-         */
     /**
-         * TODO 库存查询
+     *    TODO 库存查询
+     *
+     */
+        /**
+         *  TODO 0 分页查询
+         *  搜索框查询字段
+         *  条件
+         {
+                mrKcydsj                 异动时间
+                mrGoodsId(关联货品表)   货品编号
+                mrGoodsId(关联货品表)   货品名称
+                mrLocationId           (关联库位表)库位名称
+                mrGoodsBatch           货品批次
+                mrArehouseId            仓库
+         }
+         分页查询字段
+         显示列
+         {
+              mrArehouseId                                          仓库
+              mrLocationId                                          (关联库位表) 库位名称
+              mrGoodsId                                             (关联货品表) 货品编号
+              mrGoodsId                                             (关联货品表) 货品名称
+              mrGoodsBatch                                          货品批次
+              mrKcydsj                                              异动时间
+              mrCount                                               数量
+              mrDxjCount                                            待下架数量
+              mrDzyCount                                            待转移数量
+              mrDjCount                                             冻结数量
+              mr_count - mr_dxj_count - mr_dzy_count - mr_dj_count  可用数量
+         }
+
+         *
          */
+        /**
+ *
+ * TODO 1 导出
+ */
     /**
         * TODO 入库单据查询
         */
