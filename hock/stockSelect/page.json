@@ -1,32 +1,32 @@
-[
-  {
-    "mrArehouseId":"仓库id",
-    "mrLocationId":"库位名称 ",
-    "mrGoodsId":"货品编号 ",
-    "mrGoodsId":"货品名称 ",
-    "mrGoodsBatch":"货品批次 ",
-    "mrKcydsj":"异动时间 ",
-    "mrCount":"数量   ",
-    "mrDxjCount":"待下架数量",
-    "mrDzyCount":"待转移数量",
-    "mrDjCount":"冻结数量 ",
-    "kysl":"可用数量 "
-  },
-  {
-    "mrArehouseId":"1",
-    "mrLocationId":"A103 ",
-    "mrGoodsId":"电子秤 ",
-    "mrGoodsId":"C11 ",
-    "mrGoodsBatch":"A-11-1 ",
-    "mrKcydsj":"20170412 ",
-    "mrCount":"11   ",
-    "mrDxjCount":"2",
-    "mrDzyCount":"1",
-    "mrDjCount":"1 ",
-    "kysl":"1 "
-  }
-
-
-]
+{
+  "data": [
+    {
+      "mrArehouseId": "仓库id",
+      "mrLocationId": "库位名称 ",
+      "mrGoodsId": "货品编号 ",
+      "mrGoodsId": "货品名称 ",
+      "mrGoodsBatch": "货品批次 ",
+      "mrKcydsj": "异动时间 ",
+      "mrCount": "数量   ",
+      "mrDxjCount": "待下架数量",
+      "mrDzyCount": "待转移数量",
+      "mrDjCount": "冻结数量 ",
+      "kysl": "可用数量 "
+    },
+    {
+      "mrArehouseId": "1",
+      "mrLocationId": "A103 ",
+      "mrGoodsId": "电子秤 ",
+      "mrGoodsId": "C11 ",
+      "mrGoodsBatch": "A-11-1 ",
+      "mrKcydsj": "20170412 ",
+      "mrCount": "11   ",
+      "mrDxjCount": "2",
+      "mrDzyCount": "1",
+      "mrDjCount": "1 ",
+      "kysl": "1 "
+    }
+  ]
+}
 
 

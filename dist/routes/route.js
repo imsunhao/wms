@@ -645,6 +645,23 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
+             case 'stockSelect':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '库存查询 分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '库存查询 导出';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+
 
         }
         console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + req.body.url);
