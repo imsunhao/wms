@@ -2,11 +2,56 @@
 console.log('线上版本');
 /*</prod>*/
 var app;
+var wap;
 /*<debug>*/
 var hock = "../../hock";
 /*</debug>*/
 
 $(function () {
+    Vue.component('sh-print', {
+        render: function (h) {
+            var value2 = this.val2;
+            var value = this.val;
+            var rwdh = this.rwdh;
+            var dhrq = this.dhrq;
+            var dysj = this.dysj;
+            return h(
+                'div', {
+                    'class': {
+                        divImsunhao: true
+                    }
+                },
+                [
+                    h('div', {
+                        'class': {
+                            barcode2: true
+                        },
+                        domProps: {
+                            innerHTML: code128(value2, "B")
+                        }
+                    }, ''),
+                    h('p', ['任务单号', h('span', rwdh)]),
+                    h('p', ['到货日期', h('span', dhrq)]),
+                    h('p', ['打印时间', h('span', dysj)]),
+                    h('div', {
+                        'class': {
+                            barcode: true
+                        },
+                        domProps: {
+                            innerHTML: code128(value, "B")
+                        }
+                    }, '')
+                ]
+            )
+        },
+        props: {
+            val2: '',
+            val: '',
+            rwdh: '',
+            dhrq: '',
+            dysj: ''
+        }
+    });
     Vue.directive('echarts', {
         bind: function (el, binding, vnode) {
             Vue.nextTick(function () {
@@ -192,6 +237,28 @@ $(function () {
         watch: {
             f_SlideMenuText: function (val) {
                 this.$refs.slideTree.filter(val);
+            }
+        }
+    });
+    wap = new Vue({
+        el: '#wap',
+        data: function () {
+            return {
+                printDatas: [],
+                dialogTableVisible: false
+            }
+        },
+        methods: {
+            print: function (obj) {
+                if (typeof (obj.printDatas) === 'undefined') return;
+                this.printDatas = obj.printDatas;
+                this.dialogTableVisible = true;
+                var _this = this;
+                setTimeout(function () {
+                    window.print();
+                    obj.printModel = true;
+                    _this.dialogTableVisible = false;
+                }, 500);
             }
         }
     });

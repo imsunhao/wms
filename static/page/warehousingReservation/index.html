@@ -505,7 +505,7 @@
                     <el-row>
                         <el-col :span="10">
                             <el-form-item
-                                    label="出库单号"
+                                    label="入库单号"
                                     prop="rkRkdjNo"
                                     :label-width="formLabelWidth">
                                 <el-input
@@ -532,7 +532,7 @@
                                     <el-option label="退货入库" :value.number="2"></el-option>
                                 </el-select>
                             </el-form-item>
-                            <el-form-item label="出库备注" :label-width="formLabelWidth">
+                            <el-form-item label="入库备注" :label-width="formLabelWidth">
                                 <el-input
                                         :disabled="watchView"
                                         type="textarea"
@@ -542,13 +542,13 @@
                             </el-form-item>
                         </el-col>
                         <el-col :span="12" :offset="2">
-                            <el-form-item label="出库状态">
-                                {{auto_rkStatus(form.ckStatus)}}
+                            <el-form-item label="入库状态">
+                                {{auto_rkStatus(form.rkStatus)}}
                             </el-form-item>
-                            <el-form-item label="出库数量">
-                                {{form.cksCount}}
+                            <el-form-item label="入库数量">
+                                {{form.allCount}}
                             </el-form-item>
-                            <el-form-item label="出库体积">
+                            <el-form-item label="入库体积">
                                 {{form.allTj }}
                             </el-form-item>
                             <el-form-item label="制作方式">
@@ -787,8 +787,9 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "dateStart": this.date[0],
-                    "dateStop": this.date[1]
+                    "startTimeParam": tsf_date(this.date[0]),
+                    "endTimeParam": tsf_date(this.date[1]),
+                    rkRkdjNo: this.rkRkdjNo
                 }
             },
 
@@ -835,10 +836,19 @@
                     p[4].post( {rkRkdjNo: row.rkRkdjNo}, function (json) {
                         obj.form.rkDocsList = json;
                         obj.dialogFormVisible = true;
+
                     });
-                } else {
+                    /*<debug>*/
+                    console.log(row);
+                    console.log(step);
+                    /*</debug>*/
+                    step.title = '编辑';
+                    step.rkDocsList = json;
+                    if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
+                    obj.form = step;
+                    obj.dialogFormActive = 0;
                     obj.dialogFormVisible = true;
-                }
+                });
             },                                        //行内按钮-编辑
             deleteOlder: function (index, row) {
                 var _this = this;
@@ -905,14 +915,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[7].post(this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[7].post(this.option);
             },                                //分页 当前页
             newInput: function () {
                 this.dialogFormVisible = true;
@@ -998,7 +1008,7 @@
 
                     _this.formActive = 0;
                     _this.$refs.carouselWaiting.setActiveItem(0);
-                    post(warehousingReservation);
+                    p[7].post();
                 }, 1500);
                 /*</debug>*/
 
@@ -1022,31 +1032,16 @@
                 this.submitLoading = true;
 
                 /*<prod>*/
-                this.form.rkCreatetime = new Date().toJSON();
-                if (this.form.title === '新建入库单') {
-                    var form = post_form();
+                var form = post_form();
 
-                    allPrposCb(form, function (obj, index) {
-                        if (typeof _this.form[index] !== 'undefined') form[index] = _this.form[index];
-                    });
-
-                    var form_rkDocsList = {};
-                    for (var i = 0; i < form.rkDocsList.length; i++) {
-                        form_rkDocsList = post_form_rkDocsList();
-                        allPrposCb(form_rkDocsList, function ( val,index) {
-                            if (typeof _this.form.rkDocsList[0][index] !== 'undefined') form_rkDocsList[index] = _this.form.rkDocsList[0][index];
-                        });
-                        form.rkDocsList.push(form_rkDocsList);
-                    }
-
-//
-//                    console.log(JSON.stringify( form));
-//                    console.log(JSON.stringify( _this.form.rkDocsList));
-
+                allPrposCb(form, function (obj, index) {
+                    if (typeof _this.form[index] !== 'undefined') form[index] = _this.form[index];
+                });
 
                     p[2].post( form);
-                } else {
 
+                } else {
+                    p[3].post(form);
                 }
                 /*</prod>*/
 
@@ -1063,7 +1058,7 @@
                     _this.form = form();
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(warehousingReservation);
+                    p[7].post(warehousingReservation.options);
                 }, 1500);
                 /*</debug>*/
 
@@ -1074,7 +1069,7 @@
                 this.form = form();
                 this.dialogFormActive = 0;
                 this.$refs.carousel.setActiveItem(0);
-            },                                        //观察提交
+            },                                       //观察提交
 
             validateRkRkdjNo: function (rule, value, callback) {
                 if (validateRule.a.exec(value)) {
@@ -1182,7 +1177,7 @@
                     }
                 }
                 return temp[value];
-            },                                         //
+            },                                      //
             auto_rkStatus: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {
@@ -1205,7 +1200,7 @@
                     }
                 }
                 return temp[value];
-            },                                       //入库状态
+            },                                    //入库状态
             auto_rkZdfs: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {
@@ -1222,7 +1217,7 @@
                     }
                 }
                 return temp[value];
-            },                                         //制单方式
+            },                                      //制单方式
 
         },
         watch: {
@@ -1238,7 +1233,58 @@
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                post(this, this.option);
+                p[7].post(this.option);
+            }
+        }
+    });
+    var obj = warehousingReservation;
+    var p = [];
+    // 0 新增-入库预约
+    p[0] = autoPost({
+        urlHock: "../../hock/form/inputOption.json",
+        urlProd: "/route/warehousingReservation/0",
+        success: function (json) {
+            obj = warehousingReservation;
+            obj.dialogFormVisible = false;
+            obj.submitLoading = false;
+            if (json.status > 19999 && json.status < 30000) {
+                /*<debug>*/
+                obj.$notify({
+                    title: '成功',
+                    message: '保存成功',
+                    type: 'success'
+                });
+                /*</debug>*/
+                /*<prod>*/
+                obj.$notify({
+                    title: '成功',
+                    message: window.statusConfig[json.status],
+                    type: 'success'
+                });
+                /*</prod>*/
+                obj.warehousingReservationCombinationDetails = CombinationDetails();
+                obj.warehousingReservationCombination = [];
+                obj.multipleSelection = [];
+                obj.multipleSelectionCombination = [];
+
+                obj.formActive = 0;
+                obj.$refs.carouselWaiting.setActiveItem(0);
+                p[7].post(warehousingReservation.option);
+            } else {
+                /*<debug>*/
+                obj.$notify({
+                    title: '失败',
+                    message: '保存失败',
+                    type: 'error'
+                });
+                /*</debug>*/
+                /*<prod>*/
+                obj.$notify({
+                    title: '失败',
+                    message: window.statusConfig[json.status],
+                    type: 'error'
+                });
+                /*</prod>*/
             }
         }
     });
@@ -1473,9 +1519,6 @@
 
 
     post(warehousingReservation, warehousingReservation.option);
-
-
-
 
 
 

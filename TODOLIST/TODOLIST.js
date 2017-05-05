@@ -2662,6 +2662,12 @@
          *   allCount 总数量
          *   allTj 总体积
          */
+        /** TODO 8 入库单 详细信息
+         *
+         *
+         * */
+
+
     /**
      *      TODO 入库任务 warehousingTask
          */
@@ -2802,6 +2808,7 @@
             /**
              * 6  入库任务管理 通过id获取一条入库任务单 GET /mfunrkRwDoc/{rkrw_id}
          * */
+
     /**
         * TODO 开始收货 startReceiving
            */
@@ -3703,14 +3710,17 @@
          * TODO 2 激活任务   POST /mfunck/rwJiHuo
          *      参数 setModel
          *          {
-                 *              "ids" : [6,7],   出库任务ID（多个）
-                 *              "useId" : 1     操作员ID
-                 *          }
+         *              "ids": [ 1,2,3,4], 任务ID（多个）
+         *             "useId": 1,      操作员ID
+         *             "userName": "超级管理员"   操作员名称
+         *    }
          */
         /**
-         * TODO 3 追加分拣  GET /mfunck/bujianById/{ckdjId}/{userId}
-         *        "ckdjId" : 出库单据ID
-         *        "userId" : 操作员ID
+         * TODO 3 追加分拣  GET /mfunck/bujianById
+         *        {
+         *           "id": 43, 出库单据ID
+         *          "useId": 1  操作员ID
+         *         }
          */
         /**
          *  TODO 4 修改分拣方式 POST /mfunck/editCkDocsFJFSByCkmxId
@@ -3721,9 +3731,11 @@
          *      "ckdjId" : 出库单据ID
          */
         /**
-         *  TODO 6 激活单据 GET /mfunck/fenjianById/{ckdjId}/{userId}
-         *      "ckdjId" : 出库单据ID
-         *      "userId" : 操作员ID
+         *  TODO 6 激活单据 GET /mfunck/fenjianById
+         *      {
+         *         "id": 44,  出库单据ID
+         *         "useId": 1  操作员ID
+         *       }
          */
         /**
          *  TODO 7 修改出库明细分拣数量 GET /mfunck/xiugaifenjian/{msxMxId}/{mxCount}/{userId}
