@@ -10,7 +10,8 @@
       "rkrwDbd":"山东章丘",
       "rkrwCys":"亓耳",
       "rkrwDh":"13065098763",
-      "rkrwStatus":1
+      "rkrwStatus":1,
+      "docList":[]
     },
     {
       "rkrwNo": 20170331001,
@@ -22,7 +23,8 @@
       "rkrwDbd": "山东菏泽",
       "rkrwCys": "伊泽",
       "rkrwDh": "13665098763",
-      "rkrwStatus": 1
+      "rkrwStatus": 1,
+      "docList":[]
     },
     {
       "rkrwNo": 20170331001,
@@ -34,7 +36,8 @@
       "rkrwDbd": "山东泰安",
       "rkrwCys": "苗圃",
       "rkrwDh": "13065058763",
-      "rkrwStatus": 2
+      "rkrwStatus": 2,
+      "docList":[]
     },
     {
       "rkrwNo": 20170331001,
@@ -46,7 +49,8 @@
       "rkrwDbd": "山东青岛",
       "rkrwCys": "畦田",
       "rkrwDh": "13065198763",
-      "rkrwStatus": 2
+      "rkrwStatus": 2,
+      "docList":[]
     },
     {
       "rkrwNo": 20170331001,
@@ -58,7 +62,8 @@
       "rkrwDbd": "山东烟台",
       "rkrwCys": "安庆",
       "rkrwDh": "13365098763",
-      "rkrwStatus": 3
+      "rkrwStatus": 3,
+      "docList":[]
     }
   ]
 }
