@@ -4374,12 +4374,11 @@
         /**
          * TODO 6 导出出库
          */
-
-/**
- * TODO 货品流向查询 goodsFlowSelect
+    /**
+     * TODO 货品流向查询 goodsFlowSelect
      */
         /**
-         *  TODO 分页查询
+         *  TODO 0 分页查询
          *  搜索条件
          *  {
                     仓库              ckArehouseId
@@ -4407,8 +4406,11 @@
                 客户地址         ckAdress
             }
          */
-    /**
-     * TODO 库位转移查询
+        /**
+ *  TODO 1 导出
+ */
+/**
+ * TODO 库位转移查询
      *
      */
         /**
