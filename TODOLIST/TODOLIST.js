@@ -3427,10 +3427,6 @@
                      }
                      ]
              */
-
-
-
-
     /**
      *      TODO 入库台账       inputLedger
          */
@@ -3513,7 +3509,6 @@
             /**
              *  TODO 6 数量不允许为负数
              */
-
         /**
              TODO 出库预约
 
@@ -3635,7 +3630,6 @@
              *
              *
              * */
-
             /**
              * TODO 3 出库预约 新增 出库任务单
              *
@@ -3839,27 +3833,9 @@
          *              "ids" :[31,32,33] 出库单据ID（多个）
          *          }
          */
-            /*
- * TODO 挑选数据
-
- * TODO 激活数据
- * TODO 出库操作
- * TODO 出库发运
- * TODO 回收存档
-
- *  TODO 欠货补发信息
- *   补发单号
- *   补发情况
- *   欠货备注
- *   补发状态
- *     1.已补发
- *     2.已赔付
- *     3.需跟进
- *  TODO 滞留补发信息
- *    任务号
- */
-
- /** TODO 库内管理*/
+ /**
+  * TODO 库内管理
+  * */
     /**
      *TODO 库位转移
      *
@@ -3973,7 +3949,7 @@
         /**
         * TODO 4删除     POST /stockZyDoc/deleteOfSoft
         */
-/**
+    /**
  * TODO 5 库存转移确认     GET /stockZyDoc/confirmZy/{zyId}
  *
  * /
@@ -3983,19 +3959,9 @@
  /**
  *TODO 新增
  */
-/**
+        /**
  *TODO 新增
  */
-/**
- *TODO 新增
- */
-/**
- *TODO 新增
- */
-
-
-
-
  /**
  * TODO 库内管理
  * TODO 库位转移
@@ -4076,21 +4042,60 @@
  * TODO 业务查询
  */
     /**
-         * TODO 入库日报
+     TODO 入库日报
+     */
+        /**
+            * TODO 0 分页查询
+            * 搜索框条件查询
+            * 条件{
+                rkCreatetime    下单时间
+                rkrkSjsj        上架开始时间
+                rkEndTime       上架结束时间
+                mdtSjsj         作业时间
+                rkStatus        入库状态
+                mdtUserId       作业人员
+                rksGoodsId      (关联货品表)货品编号
+                rksGoodsId      (关联货品表)货品名称
+                rkRkdjNo        入库单号
+                mdtLocationId   库位
+                rkZdfs          制作方式
+                rkStartwith     操作方式
+                }
+            分页查询中的字段
+                显示列{
+                    mdtUserId                            作业人员
+                    mdtSjsj                              作业时间
+                    mdt_count*base_goods：bg_goods_tj    体积
+                    rkCreatetime                         下单时间
+                    rkrkSjsj                             上架开始时间
+                    rkEndTime                            上架结束时间
+                    rkStatus                             入库状态
+                    rksGoodsId                           (关联货品表)货品编号
+                    rksGoodsId                           (关联货品表)货品名称
+                    mdtBatch                             货品批次
+                    rksCount                             应收数量
+                    mdtCount                             上架数量
+                    mdtLocationId                        上架库位
+                    rkZdfs                               制作方式
+                    rkStartwith                          操作方式
+                    }
          */
-    /**
-         * TODO 出库日报
-         */
+        /**
+            * TODO 1 导出
+        */
+/**
+ * TODO 出库日报
+ */
     /**
          * TODO 库存查询
          */
-        /**
+    /**
          * TODO 库存查询
          */
     /**
         * TODO 入库单据查询
         */
-            /**
+        /**
                 TODO 分页查询
                  "rkArehouseId":"仓库",
                  "rkCreatetime":"下单时间",
@@ -4106,7 +4111,7 @@
                  "sstj":"实收体积",
                  "mdtUserId":"上架人员"
              */
-            /**
+        /**
              * TODO 查看入库明细信息
              货品编号       rksGoodsId(关联货品表)
              货品名称       rksGoodsId(关联货品表)
@@ -4118,7 +4123,7 @@
              入库明细状态   rksStatus
              上架人员       mdtUserId(多个上架人员,在一列显示逗号隔开)
              */
-            /**
+        /**
              * TODO 查看入库储位信息
              货品编号    rksGoodsId(关联货品表)
              货品名称    rksGoodsId(关联货品表)
@@ -4129,10 +4134,10 @@
              上架人员    mdtUserId(多个上架人员,在一列显示逗号隔开)
              上架时间    mdtSjsj
              */
-            /**
+        /**
                  * TODO 出库单据查询
              */
-            /**
+        /**
              *  TODO 分页查询
              *  搜索条件的字段
                     仓库             ckArehouseId

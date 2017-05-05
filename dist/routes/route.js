@@ -613,6 +613,22 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
+             case 'inputDaily':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '入库日报 分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '入库日报 导出';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
         }
         console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + req.body.url);
         next();
