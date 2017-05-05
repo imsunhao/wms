@@ -2810,13 +2810,174 @@
 
         */
 /*
- * TODO 动碰盘点查询
- * TODO 循环盘点查询
- * TODO 全面盘点查询
- * TODO 盘点作业
- * TODO 动碰盘点
- * TODO 循环盘点
- * TODO 全面盘点
+ * TODO 动碰盘点查询 POST /mfunpd/selectDPPDByPage
+ * 参数类：pdDocPageModel
+ * {
+ *  "draw": 0,
+    "pageNum": 1,
+    "pageSize": 10
+ * }
+ * 前台接收对象 pageList
+ * {
+     "pdId": 7,                        （盘点计划ID）
+     "pdType": 0,                      （盘点类型：0 异动盘点 1 货品盘点 2 全仓盘点）
+     "pdYdBeginTime": 1486224000000,   （异动开始时间）
+     "pdYdEndTime": 1493913600000,     （异动结束时间）
+     "pdZyBeginTime": null,            （盘点作业开始时间）
+     "pdZyEndTime": null,              （盘点作业结束时间）
+     "pdCreateTime": 1493955966000,    （盘点计划创建时间）
+     "pdCreateUserId": 3,              （盘点计划创建人ID）
+     "pdQrsj": null,                   （盘点计划确认时间）
+     "pdQrUserId": null,               （盘点计划确认人员ID）
+     "pdZfsj": null,                   （盘点计划作废时间）
+     "pdZfUserId": null,               （盘点计划作废人员ID）
+     "pdStatus": 0,                    （盘点状态：0 初始 1 盘点确认 2 作废）
+     "pdChargePerson": "张三丰",        （负责人）
+     "pdOperator": "杨过",              （经办人(多人)盘点操作人）
+     "pdArehouseId": 3,                （仓库ID）
+     "pdDiffStatus": 0,                （差异状态：0 无差异 1 有差异）
+     "mfunpdDocs": [],                 （盘点明细集合）（有用的时候才用）
+     "mrGoodsIds": null,               （货品ID集合）（有用的时候才用）
+     "rmsUser": null                   （当前操作人）（有用的时候才用）
+    }
+ *
+ */
+/*
+ * TODO 循环盘点查询 POST /mfunpd/selectXHPDByPage
+ * * 参数类：pdDocPageModel
+ * {
+ *  "draw": 0,
+ "pageNum": 1,
+ "pageSize": 10
+ * }
+ * 前台接收对象 pageList
+ * {
+ "pdId": 7,                        （盘点计划ID）
+ "pdType": 0,                      （盘点类型：0 异动盘点 1 货品盘点 2 全仓盘点）
+ "pdYdBeginTime": 1486224000000,   （异动开始时间）
+ "pdYdEndTime": 1493913600000,     （异动结束时间）
+ "pdZyBeginTime": null,            （盘点作业开始时间）
+ "pdZyEndTime": null,              （盘点作业结束时间）
+ "pdCreateTime": 1493955966000,    （盘点计划创建时间）
+ "pdCreateUserId": 3,              （盘点计划创建人ID）
+ "pdQrsj": null,                   （盘点计划确认时间）
+ "pdQrUserId": null,               （盘点计划确认人员ID）
+ "pdZfsj": null,                   （盘点计划作废时间）
+ "pdZfUserId": null,               （盘点计划作废人员ID）
+ "pdStatus": 0,                    （盘点状态：0 初始 1 盘点确认 2 作废）
+ "pdChargePerson": "张三丰",        （负责人）
+ "pdOperator": "杨过",              （经办人(多人)盘点操作人）
+ "pdArehouseId": 3,                （仓库ID）
+ "pdDiffStatus": 0,                （差异状态：0 无差异 1 有差异）
+ "mfunpdDocs": [],                 （盘点明细集合）（有用的时候才用）
+ "mrGoodsIds": null,               （货品ID集合）（有用的时候才用）
+ "rmsUser": null                   （当前操作人）（有用的时候才用）
+ }
+ */
+/*
+ * TODO 全面盘点查询 POST /mfunpd/selectQMPDByPage
+ * 参数类：pdDocPageModel
+ * {
+ *  "draw": 0,
+ "pageNum": 1,
+ "pageSize": 10
+ * }
+ * 前台接收对象 pageList
+ * {
+ "pdId": 7,                        （盘点计划ID）
+ "pdType": 0,                      （盘点类型：0 异动盘点 1 货品盘点 2 全仓盘点）
+ "pdYdBeginTime": 1486224000000,   （异动开始时间）
+ "pdYdEndTime": 1493913600000,     （异动结束时间）
+ "pdZyBeginTime": null,            （盘点作业开始时间）
+ "pdZyEndTime": null,              （盘点作业结束时间）
+ "pdCreateTime": 1493955966000,    （盘点计划创建时间）
+ "pdCreateUserId": 3,              （盘点计划创建人ID）
+ "pdQrsj": null,                   （盘点计划确认时间）
+ "pdQrUserId": null,               （盘点计划确认人员ID）
+ "pdZfsj": null,                   （盘点计划作废时间）
+ "pdZfUserId": null,               （盘点计划作废人员ID）
+ "pdStatus": 0,                    （盘点状态：0 初始 1 盘点确认 2 作废）
+ "pdChargePerson": "张三丰",        （负责人）
+ "pdOperator": "杨过",              （经办人(多人)盘点操作人）
+ "pdArehouseId": 3,                （仓库ID）
+ "pdDiffStatus": 0,                （差异状态：0 无差异 1 有差异）
+ "mfunpdDocs": [],                 （盘点明细集合）（有用的时候才用）
+ "mrGoodsIds": null,               （货品ID集合）（有用的时候才用）
+ "rmsUser": null                   （当前操作人）（有用的时候才用）
+ }
+ */
+/*
+ * TODO 根据盘点计划ID查询盘点计划详情（通用） POST /mfunpd/selectPdInfoByPdId
+ * 传递参数类：pdDocPageModel
+ * 实例 ：
+ * {
+     "pdsId": 33,                     （盘点明细ID）
+     "pdsPdId": 19,                   （盘点计划ID）
+     "pdsGoodsId": 1,                 （货品ID）
+     "pdsLocationId": 1,              （库位ID）
+     "pdsRepertoryCount": 1000,       （库存数量）
+     "pdsPdCount": 0,                 （盘点数量）
+     "pdsDiffStatus": 0,              （差异状态：0 无差异 1 有差异）
+     "pdsStatus": 0,                  （盘点状态：0 未盘点 1 已盘点）
+     "pdsUserId": 21,                 （盘点人员ID）
+     "pdsPdTime": null,               （盘点时间）
+     "baseGoods": {
+         "bgGoodsId": 1,
+         "bgGoodsNo": "jiuyangNo",     （货品编号）
+         "bgGoodsName": "九阳电磁炉",   （货品名称）
+         "bgNamejc": "电磁炉",
+         "bgT": 50,
+     },
+     "baseLocation": {
+     "blLocationId": 1,
+     "blLname": "H11-28-A1",         （库位名称）
+     "blRegionId": 1
+     },
+     "rmsUser": null
+     },
+ */
+/*
+ * TODO 新增动碰盘点 POST /mfunpd/insertDPMfunpdDocAndDocs
+ *  传递参数类：mfunpdDoc（盘点计划实体类）
+ *  实例：
+ *  {
+     "pdYdBeginTime": "2017-02-05T02:48:43.631Z",      （异动开始时间）
+     "pdYdEndTime": "2017-04-13T02:48:43.631Z",        （异动结束时间）
+     "pdCreateUserId": 3,                              （创建人员ID）
+     "pdChargePerson": "张三丰",                       （负责人）
+     "pdOperator": "杨过",                             （经办人）
+     "pdArehouseId": 6                                 （仓库ID）
+     }
+    返回 jsonModel 20002成功 50002失败
+ */
+/*
+ * TODO 新增循环盘点 POST
+ * 传递参数类：mfunpdDoc（盘点计划实体类）
+ * 实例：
+ * {
+     "pdCreateUserId": 2,       （创建人ID）
+     "pdChargePerson": "郭襄",   （负责人）
+     "pdOperator": "小龙女",     （经办人）
+     "pdArehouseId": 1,          （仓库ID）
+     "mrGoodsIds": [             （货品ID集合）
+         1,
+         2
+     ]
+    }
+  返回 jsonModel 20002成功 50002失败
+ */
+/*
+ * TODO 新增全面盘点 POST /mfunpd/insertQMMfunpdDocAndDocs
+ * 传递参数类：mfunpdDoc（盘点计划实体类）
+ * 实例：
+ * {
+     "pdCreateUserId": 2,        （创建人ID）
+     "pdChargePerson": "郭襄",    （负责人）
+     "pdOperator": "小龙女",      （经办人）
+     "pdArehouseId": 1            （仓库ID）
+     }
+     返回 jsonModel 20002成功 50002失败
+
  **/
 
 
