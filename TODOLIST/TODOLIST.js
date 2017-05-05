@@ -2309,8 +2309,11 @@
          *      参数名称 paramsModel  （同凯哥出库任务的修改分拣方式）
          */
         /**
-         *  TODO 5 挂起确认 GET  /mfunck/guaQiById/{ckdjId}
-         *      "ckdjId" : 出库单据ID
+         *  TODO 5 挂起确认 GET  /mfunck/guaQiById
+         *      {
+         *          "id": 37,  出库单据ID
+         *          "useId": 1  操作员ID
+         *      }
          */
         /**
          *  TODO 6 激活单据 GET /mfunck/fenjianById
@@ -2320,10 +2323,12 @@
          *       }
          */
         /**
-         *  TODO 7 修改出库明细分拣数量 GET /mfunck/xiugaifenjian/{msxMxId}/{mxCount}/{userId}
-         *      "msxMxId" ： 出库单明细ID
-         *      "mxCount" :  修改后的数量（小于分拣数量）
-         *      "userId" :   操作员ID
+         *  TODO 7 修改出库明细分拣数量 GET /mfunck/xiugaifenjian
+         *      {
+         *           "id": 123, 出库单明细ID
+         *          "useId": 1,  操作员ID
+         *        "mxCount": 7  修改后的数量（小于分拣数量）
+         *     }
          */
     /**
      * TODO 出库操作
@@ -2353,8 +2358,10 @@
         * TODO 5 下架 GET /mfunck/xiajiaById
         *          参数名称 ：serModel
         *          {
-                *              "ids" : [32,33]  多个出库单ID
-                *          }
+        *              "ids" : [32,33]  多个出库单ID
+        *              "useId": 1,      操作员ID
+        *               "userName": "超级管理员"   操作员名称
+        *          }
         *
         */
     /**
