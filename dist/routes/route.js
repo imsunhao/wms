@@ -169,9 +169,21 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 1:
+                        urlName = '入库预约-组合';
+                        req = autoUrl(req, '/mfunrkDoc', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
                     case 2:
                         urlName = '入库预约-新增-入库单';
                         req = autoUrl(req, '/mfunrkDoc/add', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '入库预约-修改-入库单';
+                        req = autoUrl(req, '/mfunrkDoc', "PUT", function (json) {
                             res.send(json);
                         });
                         break;
@@ -181,9 +193,9 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-                    case 1:
-                        urlName = '入库预约-组合';
-                        req = autoUrl(req, '/mfunrkDoc', "POST", function (json) {
+                    case 8:
+                        urlName = '入库预约-查询-入库单-详细';
+                        req = autoUrl(req, '/mfunrkDocs/byDoc/' + req.query.rkRkdjId, "GET", function (json) {
                             res.send(json);
                         });
                         break;
@@ -234,7 +246,7 @@ router.param('_url', function (req, res, next, url) {
             case 'warehousingTask':
                 switch (parseInt(req.params._status)) {
                     case 0:
-                        urlName = '入库任务管理-加载入库任务管理页面';
+                        urlName = '查询-入库任务';
                         req = autoUrl(req, '/mfunrkRwDoc', "POST", function (json) {
                             res.send(json);
                         });
@@ -245,9 +257,27 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-                    case 2:
-                        urlName = '下发';
+                    case 5:
+                        urlName = '下发-入库任务';
                         req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 6:
+                        urlName = '查询-入库任务详情';
+                        req = autoUrl(req, '/mfunrkRwDoc/' + req.query.rkrwId, "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 7:
+                        urlName = '查询-入库单号-入库明细';
+                        req = autoUrl(req, '/mfunrkDoc/' + req.query.rkRkdjId, "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 8:
+                        urlName = '查询-入库单据';
+                        req = autoUrl(req, '/mfunrkDoc', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -878,4 +908,3 @@ router.get('/:_url/:_status', java);
 router.post('/:_url/:_status', java);
 
 module.exports = router;
-

@@ -24,15 +24,15 @@
                 <el-table-column
                         type="expand">
                     <template scope="props">
-                        <el-row>
-                            <h3 style="margin-top: 0; margin-left: -15px;">入库任务详细</h3>
-                        </el-row>
                         <el-carousel
                                 arrow="hover"
-                                height="240px"
+                                height="280px"
                                 indicator-position="none"
                                 :autoplay="false">
                             <el-carousel-item>
+                                <el-row>
+                                    <h3 style="margin-top: 0; margin-left: -15px;">入库任务详细</h3>
+                                </el-row>
                                 <el-form label-position="left" inline class="demo-table-expand">
                                     <el-row>
                                         <el-col :span="10">
@@ -87,45 +87,20 @@
                                 </el-form>
                             </el-carousel-item>
                             <el-carousel-item>
+                                <el-row>
+                                    <h3 style="margin-top: 0; margin-left: -15px;">入库任务单据<span
+                                            style="font-size: 14px;
+                                            font-weight: normal;
+                                            margin-left: 5px;">（双击查看单据明细）</span>
+                                    </h3>
+                                </el-row>
                                 <el-table
-                                        :data="props.row.inputOperation"
+                                        :data="props.row.docList"
+                                        @row-dblclick="dblClick"
                                         :max-height="240">
                                     <el-table-column
-                                            type="expand">
-                                        <template scope="props">
-                                            <h3>入库明细</h3>
-                                            <el-table
-                                                    :data="props.row.rkDocsList"
-                                                    highlight-current-row
-                                                    style="width: 100%">
-                                                <el-table-column
-                                                        label="货品编号"
-                                                        width="140"
-                                                        show-overflow-tooltip
-                                                        align="center"
-                                                        prop="baseGoods.bgGoodsNo">
-                                                </el-table-column>
-                                                <el-table-column
-                                                        align="center"
-                                                        prop="baseGoods.bgGoodsName"
-                                                        show-overflow-tooltip
-                                                        label="货品名称">
-                                                </el-table-column>
-                                                <el-table-column
-                                                        label="单位"
-                                                        width="80"
-                                                        prop="baseDw.bdName"
-                                                        align="center">
-                                                </el-table-column>
-                                                <el-table-column
-                                                        label="数量"
-                                                        width="100"
-                                                        show-overflow-tooltip
-                                                        prop="rksCount"
-                                                        align="center">
-                                                </el-table-column>
-                                            </el-table>
-                                        </template>
+                                            type="index"
+                                            width="55">
                                     </el-table-column>
                                     <el-table-column
                                             label="入库单号"
@@ -146,15 +121,19 @@
                                     </el-table-column>
                                     <el-table-column
                                             label="类型"
-                                            prop="rkType"
                                             align="center"
                                             width="100">
+                                        <template scope="scope">
+                                            {{auto_rkType(scope.row.rkType)}}
+                                        </template>
                                     </el-table-column>
                                     <el-table-column
                                             label="状态"
-                                            prop="rkStatus"
                                             align="center"
                                             width="100">
+                                        <template scope="scope">
+                                            {{auto_rkStatus(scope.row.rkStatus)}}
+                                        </template>
                                     </el-table-column>
                                     <el-table-column
                                             label="总数量"
@@ -250,11 +229,10 @@
                           :label-width="formLabelWidth">
                 <el-date-picker
                         v-model="form.rkrwDhrq"
-                        type="daterange"
+                        type="datetime"
                         align="right"
                         placeholder="到货日期"
-                        class="input"
-                        :picker-options="pickerOptions">
+                        class="input">
                 </el-date-picker>
             </el-form-item>
             <el-form-item label="任务号"
@@ -303,33 +281,77 @@
         </div>
     </el-dialog>
     <el-dialog
+            v-model="dialogListsVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">入库明细 单号：{{lists.rkRkdjNo}}</span>
+        </div>
+        <el-table
+                :data="lists.data"
+                highlight-current-row
+                style="width: 100%">
+            <el-table-column
+                    type="index"
+                    width="55">
+            </el-table-column>
+            <el-table-column
+                    label="货品编号"
+                    width="140"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="baseGoods.bgGoodsNo">
+            </el-table-column>
+            <el-table-column
+                    align="center"
+                    prop="baseGoods.bgGoodsName"
+                    show-overflow-tooltip
+                    label="货品名称">
+            </el-table-column>
+            <el-table-column
+                    label="单位"
+                    width="80"
+                    prop="baseDw.bdName"
+                    align="center">
+            </el-table-column>
+            <el-table-column
+                    label="数量"
+                    width="100"
+                    show-overflow-tooltip
+                    prop="rksCount"
+                    align="center">
+            </el-table-column>
+        </el-table>
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="dialogListsVisible=false">关闭</el-button>
+        </div>
+    </el-dialog>
+    <el-dialog
             size="large"
             v-model="dialogFormVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">{{form.title}}</span>
             <el-steps
                     class="steps"
-                    :space="120"
+                    :space="200"
                     :active="dialogFormActive"
                     finish-status="success">
+                <el-step title="任务详细"></el-step>
+                <el-step title="入库单据"></el-step>
             </el-steps>
         </div>
-        <el-form :model="form" ref="newForm">
-            <el-carousel
-                    ref="carousel"
-                    :autoplay="false"
-                    arrow="never"
-                    indicator-position="none"
-                    height="55vh">
-                <el-carousel-item>
+        <el-carousel
+                ref="carousel"
+                :autoplay="false"
+                arrow="never"
+                indicator-position="none"
+                height="55vh">
+            <el-carousel-item>
+                <el-form :model="form" ref="newForm">
                     <el-row>
                         <el-col :span="10">
                             <el-form-item
                                     label="任务号"
                                     :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.rkrwNo"
-                                        auto-complete="off"></el-input>
+                                <el-tag type="success">{{form.rkrwNo}}</el-tag>
                             </el-form-item>
                             <el-form-item
                                     label="车牌号"
@@ -341,16 +363,12 @@
                             <el-form-item
                                     label="订单数"
                                     :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.dds"
-                                        auto-complete="off"></el-input>
+                                <span>{{form.dds}}</span>
                             </el-form-item>
                             <el-form-item
                                     label="品项数"
                                     :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.pxs"
-                                        auto-complete="off"></el-input>
+                                <span>{{form.pxs}}</span>
                             </el-form-item>
 
                             <el-form-item
@@ -365,9 +383,9 @@
                             <el-form-item
                                     label="到货日期"
                                     :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.rkrwDhrq"
-                                        auto-complete="off"></el-input>
+                                <el-date-picker
+                                        v-model="form.rkrwDhrq"
+                                        type="datetime"></el-date-picker>
                             </el-form-item>
                             <el-form-item
                                     label="承运商"
@@ -393,20 +411,186 @@
                             <el-form-item
                                     label="任务状态"
                                     :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.rkrwStatus"
-                                        auto-complete="off"></el-input>
+                                <span>{{auto_rkrwStatus(form.rkrwStatus)}}</span>
                             </el-form-item>
-
-
                         </el-col>
                     </el-row>
-                </el-carousel-item>
-            </el-carousel>
-        </el-form>
+                </el-form>
+            </el-carousel-item>
+            <el-carousel-item>
+                <el-row>
+                    <el-col :span="24">
+                        <div class="inner btn-nav btn-nav2">
+                            <el-input
+                                    v-model="form.list2.rkRkdjNo"
+                                    icon="search"
+                                    placeholder="入库单号"></el-input>
+                            <el-date-picker
+                                    v-model="form.list2.date"
+                                    type="daterange"
+                                    align="right"
+                                    placeholder="选择日期"
+                                    class="datePicker"
+                                    :picker-options="pickerOptions">
+                            </el-date-picker>
+                            </button>
+                            <button @click="list2_more"
+                                    class="btn btn-multiSelect"><i
+                                    class="icon sel"></i><span>多选</span>
+                            </button>
+                            <button @click="list2_moreOperationDelete" class="btn btn-del"
+                                    v-show="form.list2.multiSelect"><i
+                                    class="icon del"></i><span>批量删除</span>
+                            </button>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="12">
+                        <h3>等待选择</h3>
+                        <el-table
+                                :data="form.list2.warehousingReservation"
+                                :max-height="350"
+                                class="list2_table"
+                                @select="list2_handleSelectionChange"
+                                @select-all="list2_handleSelectionChangeAll">
+                            <el-table-column
+                                    type="expand">
+                                <template scope="props">
+                                    <el-row>
+                                        <el-col :span="24">
+                                            <el-form label-position="left" inline class="demo-table-expand">
+                                                <el-form-item label="入库单号">
+                                                    <span>{{ props.row.rkRkdjNo }}</span>
+                                                </el-form-item>
+                                                <el-form-item label="下单时间">
+                                                    <el-icon name="time"></el-icon>
+                                                    <span style="margin-left: 10px">{{ auto_rkCreatetime(props.row.rkCreatetime) }}</span>
+                                                </el-form-item>
+                                                <el-form-item label="订单类型">
+                                                    <span>{{ auto_rkType(props.row.rkType) }}</span>
+                                                </el-form-item>
+                                                <el-form-item label="入库状态">
+                                                    <span>{{ auto_rkStatus(props.row.rkStatus) }}</span>
+                                                </el-form-item>
+                                                <el-form-item label="入库数量">
+                                                    <span>{{ props.row.allCount }}</span>
+                                                </el-form-item>
+                                                <el-form-item label="入库体积">
+                                                    <span>{{ props.row.allTj    }}</span>
+                                                </el-form-item>
+                                                <el-form-item label="制作方式">
+                                                    <span>{{ auto_rkZdfs(props.row.rkZdfs) }}</span>
+                                                </el-form-item>
+                                                <el-form-item label="可用操作">
+                                                    <el-button
+                                                            size="small"
+                                                            icon="view"
+                                                            @click="list2_View(props.$index, props.row)">
+                                                    </el-button>
+                                                </el-form-item>
+                                                <el-form-item label="入库备注">
+                                                    <el-tooltip class="item" effect="dark"
+                                                                :content="props.row.rkRemarks"
+                                                                placement="top">
+                                                        <span class="remark">{{ props.row.rkRemarks }}</span>
+                                                    </el-tooltip>
+                                                </el-form-item>
+                                            </el-form>
+                                        </el-col>
+                                    </el-row>
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                    label="所属仓库"
+                                    align="center"
+                                    prop="rkArehouseId">
+                                <template scope="scope">
+                                    <el-tag
+                                            type="success"
+                                            close-transition>
+                                        {{auto_rkArehouseId(scope.row.rkArehouseId)}}
+                                    </el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                    label="入库单号"
+                                    show-overflow-tooltip
+                                    align="center"
+                                    prop="rkRkdjNo">
+                            </el-table-column>
+                            <el-table-column
+                                    width="80"
+                                    align="center"
+                                    label="时间">
+                                <template scope="scope">
+                                    {{auto_rkCreatetime(scope.row.rkCreatetime,true)}}
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                    type="selection"
+                                    width="60">
+                            </el-table-column>
+                        </el-table>
+                    </el-col>
+                    <el-col :span="12">
+                        <h3>等待组合</h3>
+                        <el-table
+                                :data="form.list2.warehousingReservationCombination"
+                                :max-height="350"
+                                class="list2_table"
+                                @selection-change="list2_handleSelectionChangeCombination">
+                            <el-table-column
+                                    type="index"
+                                    width="55">
+                            </el-table-column>
+                            <el-table-column
+                                    label="所属仓库"
+                                    align="center"
+                                    prop="rkArehouseId">
+                                <template scope="scope">
+                                    <el-tag
+                                            type="success"
+                                            close-transition>
+                                        {{auto_rkArehouseId(scope.row.rkArehouseId)}}
+                                    </el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                    label="入库单号"
+                                    show-overflow-tooltip
+                                    align="center"
+                                    prop="rkRkdjNo">
+                            </el-table-column>
+
+                            <el-table-column
+                                    width="80"
+                                    align="center"
+                                    label="时间">
+                                <template scope="scope">
+                                    {{auto_rkCreatetime(scope.row.rkCreatetime,true)}}
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                    v-if="form.list2.multiSelect"
+                                    type="selection"
+                                    width="60">
+                            </el-table-column>
+                        </el-table>
+                    </el-col>
+                </el-row>
+            </el-carousel-item>
+        </el-carousel>
 
         <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="submit" :loading="submitLoading">保存
+            <el-button class='formBottom' type="primary" @click="prev" v-show="dialogFormActive&&form.rkrwStatus==1">
+                上一步
+            </el-button>
+            <el-button class='formBottom' type="primary" @click="next" v-show="dialogFormActive<1&&form.rkrwStatus==1">
+                下一步
+            </el-button>
+            <el-button class='formBottom' type="primary" @click="submit" :loading="submitLoading"
+                       v-show="dialogFormActive>=1||form.rkrwStatus==2">保存
             </el-button>
         </div>
     </el-dialog>
@@ -568,13 +752,71 @@
     .select .input {
         width: 70%;
     }
+
+    #warehousingTask .btn-nav2 {
+        height: 25px;
+    }
+
+    #warehousingTask .btn-nav2 .el-input {
+        margin-top: 0;
+    }
+
+    #warehousingTask .btn-nav2 .btn {
+        margin-top: 0;
+        background: #fff;
+    }
+
+    #warehousingTask .list2_table {
+        width: 98%;
+        margin: 1%;
+    }
 </style>
 <script>
+    function _form_list2() {
+        return {
+            date: [null, null],
+            rkRkdjNo: '',
+            warehousingReservation: [],
+            warehousingReservationCombination: [],
+
+
+            multiSelect: false,
+            multipleSelection: []
+        }
+    }
+    function _form() {
+        return {
+            rkrwId: '',
+            title: "新建入库任务",
+            rkrwN: '',
+            dds: '',
+            pxs: '',
+            rkrwDh: '',
+            rkrwStatus: '',
+            rkrwDhrq: null,//模糊查询--到货日期
+            rkrwNo: '',//模糊查询--任务号
+            rkrwCph: '',//模糊查询--车牌号
+            rkrwSjxm: '',//模糊查询--司机姓名
+            rkrwDbd: '',//模糊查询--调拨地
+            rkrwCys: '',//模糊查询--承运商
+
+            list2: _form_list2()
+        }
+    }
+    function _lists() {
+        return {
+            rkrwNo: '',
+            data: []
+        }
+    }
     var warehousingTask = new Vue({
         el: '#warehousingTask',
         prop: {},
         data: function () {
             return {
+                lists: _lists(),
+                dialogListsVisible: false,           //明细 弹出层 是否可见
+
                 warehousingTask: [],
                 multipleSelection: [],
                 multiSelect: false,
@@ -613,12 +855,12 @@
                 rkRkdjNo: '',                       //主页面 入库单号 搜索
 
                 formLabelWidth: '120px',            //表单 配置
-                form: form(),                           //表单 弹出层 信息集合
+                form: _form(),                      //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
 
-                select: form(),                         //搜索 弹出层 信息集合,
+                select: _form(),                    //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 selectLoading: false
             }
@@ -630,6 +872,16 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize
+                }
+            },
+            list2_option: function () {
+                return {
+                    "draw": 1,
+                    "pageNum": 1,
+                    "pageSize": 20,
+                    startTimeParam: tsf_date(this.form.list2.date[0]),
+                    endTimeParam: tsf_date(this.form.list2.date[1]),
+                    rkRkdjNo: this.form.list2.rkRkdjNo
                 }
             },
             search: function () {
@@ -646,7 +898,7 @@
                     "rkrwDbd": this.form.rkrwDbd,
                     "rkrwCys": this.form.rkrwCys,
                     "rkrwDh": this.form.rkrwDh,
-                    "rkrwStatus": this.form.rkrwStatus
+                    "rkrwStatus": 1
                 }
             },
             distributionForm: function () {
@@ -657,41 +909,56 @@
         },
         methods: {
             inlineEdit: function (index, row) {
-                this.form.title = '编辑';
-                this.form.rkrwNo = row.rkrwNo;
-                this.form.rkrwCph = row.rkrwCph;
-                this.form.dds = row.dds;
-                this.form.pxs = row.pxs;
-                this.form.rkrwSjxm = row.rkrwSjxm;
-                this.form.rkrwDhrq = row.rkrwDhrq;
-                this.form.rkrwDbd = row.rkrwDbd;
-                this.form.rkrwCys = row.rkrwCys;
-                this.form.rkrwDh = row.rkrwDh;
-                this.form.rkrwStatus = parseInt(row.rkrwStatus);
-                this.dialogFormVisible = true;
-                this.dialogFormActive = 0;
-                Vue.nextTick(function () {
-                    warehousingTask.$refs.carousel.setActiveItem(0);
+                var step = _form();
+                allPrposCb(step, function (obj, index) {
+                    if (typeof row[index] !== 'undefined') step[index] = row[index];
                 });
-            },                                  //TODO 行内按钮-编辑
+                /*<debug>*/
+                console.log(row);
+                console.log(step);
+                /*</debug>*/
+                step.title = '编辑';
+                if (row.rkrwStatus == 1) {
+                    p[8].post(obj.list2_option);
+                    step.list2.warehousingReservationCombination = row.docList;
+                }
+
+                if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
+                obj.form = step;
+                obj.dialogFormActive = 0;
+                obj.dialogFormVisible = true;
+            },                                  //TODO 行内按钮 编辑
             inlineIssued: function (index, row) {
-                var _this = this;
-                _this.$confirm('此操作将这单任务单据下发, 是否继续?', '提示', {
+                obj.$confirm('此操作将这单任务单据下发, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.warehousingTask);
-                    postDelete(_this, {
+                    p[5].post({
                         id: [row.rkdjNo]
                     });
                 }).catch(function () {
-                    _this.$message({
+                    obj.$message({
                         type: 'info',
                         message: '已取消下发'
                     });
                 });
-            },                                //TODO 行内按钮  下发
+            },                                //TODO 行内按钮 下发
+            dblClick: function (row, event) {
+                console.log(row);
+                if (row.rkDocsList === null || typeof row.rkDocsList === 'undefined' || row.rkDocsList.length < 1) {
+                    p[7].post({rkRkdjId: row.rkRkdjId}, function (json) {
+                        row.rkDocsList = json.rkDocsList;
+                        obj.lists.data = row.rkDocsList;
+                        obj.lists.rkRkdjNo = row.rkRkdjNo;
+                        obj.dialogListsVisible = true;
+                    })
+                } else {
+                    obj.lists.data = row.rkDocsList;
+                    obj.lists.rkRkdjNo = row.rkRkdjNo;
+                    obj.dialogListsVisible = true;
+                }
+            },                                    //TODO 行内按钮 双击查看明细
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -702,7 +969,6 @@
                 this.multipleSelection = val;
             },                               //多选 选中控制
             multiOperationIssued: function () {
-                var obj = this;
                 obj.$confirm('此操作将这些任务单据下发, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -727,11 +993,16 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                p[0].post(this.option);
+                p[0].post(warehousingTask.option)
             },                                   //分页 Size
             expandChange: function (row, expanded) {
-                if (typeof (row.inputOperation) === 'undefined' && expanded) {
-                    postInputOperation(this, row);
+                if (expanded && (typeof (row.docList) === 'undefined' || row.docList.length === 0)) {
+                    p[6].post({rkrwId: row.rkrwId}, function (json) {
+                        /*<debug>*/
+                        console.log(json);
+                        /*</debug>*/
+                        row.docList = json.docList;
+                    });
                 }
                 /*<debug>*/
                 console.log(row);
@@ -743,7 +1014,7 @@
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                p[0].post(this.option);
+                p[0].post(warehousingTask.option)
             },                                //分页 当前页
             newInput: function () {
                 this.dialogFormVisible = true;
@@ -758,46 +1029,78 @@
                 this.$refs.carousel.next();
             },                                                  //新建 弹出层banner控制 后一个
             submit: function () {
-                var _this = this;
-                this.dialogFormActive++;
+                this.dialogFormActive = 2;
                 this.submitLoading = true;
                 //TODO 此处应是ajax请求
                 setTimeout(function () {
-                    _this.submitLoading = false;
-                    _this.$notify({
+                    obj.submitLoading = false;
+                    obj.$notify({
                         title: '成功',
                         message: '保存成功！',
                         type: 'success'
                     });
-                    _this.dialogFormVisible = false;
-                    _this.form = {
-                        rkRkdjNo: '',
-                        rkType: '',
-                        rkRemarks: '',
-                        rkDocsList: [],
-                        bgGoodsNo: '',
-                        selectGood: {
-                            value: '',
-                            bgGoodsName: '',
-                            count: 0,
-                            bgGoodsId: ''
-                        },
-                        saveARkDocsList: true,
-                        deleteARkDocsList: true
-                    };
-                    _this.dialogFormActive = 0;
-                    _this.$refs.carousel.setActiveItem(0);
+                    obj.dialogFormVisible = false;
+                    obj.form = _form();
+                    obj.dialogFormActive = 0;
+                    obj.$refs.carousel.setActiveItem(0);
                     p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                p[0].post( {});
+                p[0].post(warehousingTask.search);
             },                                          //详细查询 提交
+
+            list2_handleSelectionChange: function (val, row) {
+                /*<debug>*/
+                console.log(addOrDelete(row, val));
+                /*</debug>*/
+                if (addOrDelete(row, val)) {
+                    this.form.list2.warehousingReservationCombination.push(row);
+                } else {
+                    remove(row, this.form.list2.warehousingReservationCombination);
+                }
+                this.form.list2.multipleSelection = val;
+            },                   //多选 list2-选中控制
+            list2_handleSelectionChangeAll: function (val) {
+                if (val.length > 0) {
+                    for (var i = 0; i < val.length; i++) {
+                        if (!addOrDelete(val[i], this.form.list2.warehousingReservationCombination)) {
+                            this.form.list2.warehousingReservationCombination.push(val[i]);
+                        }
+                    }
+                } else {
+                    for (var i = 0; i < this.form.list2.warehousingReservation.length; i++) {
+                        remove(this.form.list2.warehousingReservation[i], this.form.list2.warehousingReservationCombination);
+                    }
+                }
+                this.form.list2.multipleSelection = val;
+            },                     //多选 list2-选中控制
+            list2_handleSelectionChangeCombination: function (val) {
+                /*<debug>*/
+                console.log(this.form.list2.multipleSelectionCombination);
+                /*</debug>*/
+                this.form.list2.multipleSelectionCombination = val;
+            },             //Combination list2-选中控制
+            list2_moreOperationDelete: function () {
+                /*<debug>*/
+                console.log('选中的删除');
+                /*</debug>*/
+                for (i = 0; i < this.form.list2.multipleSelectionCombination.length; i++) {
+                    remove(this.form.list2.multipleSelectionCombination[i], this.form.list2.warehousingReservationCombination);
+                }
+            },                             //多选 list2-删除
+            list2_more: function () {
+                this.form.list2.multiSelect = !this.form.list2.multiSelect
+            },
+            list2_View: function (index, row) {
+
+            },
+
             auto_rkrwDhrq: function (value, bool) {
                 if (!bool)return dateFormat(new Date(value), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Data(value), 'MMdd');
-            },                                //预计到货日期
+            },                              //预计到货日期
             auto_rkrwStatus: function (value) {
 
                 if (!isNaN(value)) {
@@ -824,108 +1127,159 @@
                     }
                 }
                 return temp[value];
-            },                                    //任务状态,
+            },                                  //任务状态
             auto_rkCreatetime: function (value, bool) {
                 if (!bool) return dateFormat(new Date(value), 'yyyy-MM-dd');
-                else return dateFormat(new Date(value), 'yyyy年-MM月-dd日');
-            },                            //入库任务中详细信息 - 入库时间
+                else return dateFormat(new Date(value), 'MM-dd');
+            },                          //入库任务中详细信息 - 入库时间
+            auto_rkType: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        0: '采购订单',
+                        1: '仓间调拨',
+                        2: '退货入库'
+                    }
+                } else {
+                    temp = {
+                        '采购订单': 0,
+                        '仓间调拨': 1,
+                        '退货入库': 2
+                    }
+                }
+                return temp[value];
+            },                                      //订单类型
+            auto_rkStatus: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '原始状态',
+                        21: '部分分配',
+                        22: '全部分配',
+                        31: '部分收货',
+                        32: '完全收货',
+                    }
+                } else {
+                    temp = {
+                        '采购订单': 0,
+                        '仓间调拨': 1,
+                        '退货入库': 2
+                    }
+                }
+                return temp[value];
+            },                                    //入库状态
+            auto_rkArehouseId: function (data, set) {
+                /*<debug>*/
+                //console.log(rkArehouseId);
+                /*</debug>*/
+                var baArehouse = window.dbmessage.baseArehouses;
+                var i;
+                if (typeof set !== 'undefined') {
+                    for (i = 0; i < baArehouse.length; i++) {
+                        if (baArehouse[i].baName === data) {
+                            return baArehouse[i].baArehouseId
+                        }
+                    }
+                    return errorTip(this, '不应出现未知的情况仓库');
+                } else {
+                    for (i = 0; i < baArehouse.length; i++) {
+                        if (baArehouse[i].baArehouseId == data) {
+                            return baArehouse[i].baName
+                        }
+                    }
+                    return '未知的仓库'
+                }
+            },                            //入库仓库id 自动匹配
+            auto_rkZdfs: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '手动',
+                        2: '导入',
+                        3: '接口'
+                    }
+                } else {
+                    temp = {
+                        '手动': 1,
+                        '导入': 2,
+                        '接口': 3
+                    }
+                }
+                return temp[value];
+            },                                      //制单方式
         },
         watch: {}
     });
-    function form() {
-        return {
-            rkrwId: '',
-            title: "新建入库任务",
-            rkrwN: '',
-            dds: '',
-            pxs: '',
-            rkrwDh: '',
-            rkrwStatus: '',
-            rkrwDhrq:[null,null],//模糊查询--到货日期
-            rkrwNo:'',//模糊查询--任务号
-            rkrwCph:'',//模糊查询--车牌号
-            rkrwSjxm:'',//模糊查询--司机姓名
-            rkrwDbd:'',//模糊查询--调拨地
-            rkrwCys:'',//模糊查询--承运商
-        }
-    }
-    var obj=warehousingTask;
-    var p=[];
-    // 0 入库任务 分页查询
+    var obj = warehousingTask;
+    var p = [];
+    obj.$watch('form.list2.date', function () {
+        p[8].post(obj.list2_option);
+    }, {deep: true});
+    obj.$watch('form.list2.rkRkdjNo', function () {
+        p[8].post(obj.list2_option);
+    }, {deep: true});
+    // 0 查询-入库任务
     p[0] = autoPost({
         urlHock: "/hock/warehousingTask/page.json",
         urlProd: "/route/warehousingTask/0",
         success: function (json) {
+            /*<debug>*/
+            console.log(json);
+            /*</debug>*/
             obj.$data.warehousingTask = json.data;
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-    // 1 入库任务
+
+    // 1 修改-入库任务
     p[1] = autoPost({
-        urlHock: "",
-        urlProd: "/route/warehousingTask/1",
+        urlHock: "/hock/warehousingTask/page.json",
+        urlProd: "/route/warehousingTask/0",
         success: function (json) {
-
+            /*<debug>*/
+            console.log(json);
+            /*</debug>*/
+            obj.$data.warehousingTask = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-    // 2 入库任务
-    p[2] = autoPost({
-        urlHock: "",
-        urlProd: "/route/warehousingTask/2",
-        success: function (json) {
 
-        }
-    });
-    // 3 入库任务
-    p[3] = autoPost({
-        urlHock: "",
-        urlProd: "/route/warehousingTask/3",
-        success: function (json) {
-
-        }
-    });
-    // 4 入库任务
-    p[4] = autoPost({
-        urlHock: "",
-        urlProd: "/route/warehousingTask/4",
-        success: function (json) {
-
-        }
-    });
-    // 5 入库任务
+    // 5 下发-入库任务
     p[5] = autoPost({
-        urlHock: "",
+        urlHock: "/hock/warehousingTask/page.json",
         urlProd: "/route/warehousingTask/5",
         success: function (json) {
-
+            /*<debug>*/
+            console.log(json);
+            /*</debug>*/
+            obj.$data.warehousingTask = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-    // 6 入库任务
+
+    // 6 查询-入库任务详情
     p[6] = autoPost({
-        urlHock: "",
-        urlProd: "/route/warehousingTask/6",
-        success: function (json) {
+        urlHock: "/hock/warehousingTask/rwDocList.json",
+        urlProd: "/route/warehousingTask/6"
+    });
 
+    // 7 查询-入库单号-入库明细
+    p[7] = autoPost({
+        urlHock: "/hock/warehousingTask/docList.json",
+        urlProd: "/route/warehousingTask/7"
+    });
+
+    // 8 查询-入库单据
+    p[8] = autoPost({
+        urlHock: "/hock/form/inputOption.json",
+        urlProd: "/route/warehousingTask/8",
+        success: function (json) {
+            /*<debug>*/
+            console.log(json);
+            /*</debug>*/
+            obj.$data.form.list2.warehousingReservation = json.data;
         }
     });
-    // 高级 监视器的 使用方法
-    //        warehousingTask.$watch('warehousingTask.inputOperation', function () {
-    //            if (!this.option.dateStart)return;
-    //            /*<debug>*/
-    //            console.log(this.option);
-    //            /*</debug>*/
-    //            post(this, this.option);
-    //        }, {deep: true});
+
     p[0].post(warehousingTask.option);
-    function printfCompile(obj) {
-        var resoleveStep = [];
-        for (var i = 0; i < obj.multipleSelection.length; i++) {
-            resoleveStep.push({
-                name: obj.multipleSelection[i].rkrwNo,
-                rkrwNo:obj.multipleSelection[i].rkrwNo,
-                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
-            });
-        }
-        obj.printf = resoleveStep;
-    }				 //打印
 </script>

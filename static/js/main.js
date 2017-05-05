@@ -2,11 +2,56 @@
 console.log('线上版本');
 /*</prod>*/
 var app;
+var wap;
 /*<debug>*/
 var hock = "../../hock";
 /*</debug>*/
 
 $(function () {
+    Vue.component('sh-print', {
+        render: function (h) {
+            var value2 = this.val2;
+            var value = this.val;
+            var rwdh = this.rwdh;
+            var dhrq = this.dhrq;
+            var dysj = this.dysj;
+            return h(
+                'div', {
+                    'class': {
+                        divImsunhao: true
+                    }
+                },
+                [
+                    h('div', {
+                        'class': {
+                            barcode2: true
+                        },
+                        domProps: {
+                            innerHTML: code128(value2, "B")
+                        }
+                    }, ''),
+                    h('p', ['任务单号', h('span', rwdh)]),
+                    h('p', ['到货日期', h('span', dhrq)]),
+                    h('p', ['打印时间', h('span', dysj)]),
+                    h('div', {
+                        'class': {
+                            barcode: true
+                        },
+                        domProps: {
+                            innerHTML: code128(value, "B")
+                        }
+                    }, '')
+                ]
+            )
+        },
+        props: {
+            val2: '',
+            val: '',
+            rwdh: '',
+            dhrq: '',
+            dysj: ''
+        }
+    });
     Vue.directive('echarts', {
         bind: function (el, binding, vnode) {
             Vue.nextTick(function () {
@@ -195,6 +240,28 @@ $(function () {
             }
         }
     });
+    wap = new Vue({
+        el: '#wap',
+        data: function () {
+            return {
+                printDatas: [],
+                dialogTableVisible: false
+            }
+        },
+        methods: {
+            print: function (obj) {
+                if (typeof (obj.printDatas) === 'undefined') return;
+                this.printDatas = obj.printDatas;
+                this.dialogTableVisible = true;
+                var _this = this;
+                setTimeout(function () {
+                    window.print();
+                    obj.printModel = true;
+                    _this.dialogTableVisible = false;
+                }, 500);
+            }
+        }
+    });
     app.$watch('rmsUser', function () {
     }, {deep: true});
 
@@ -340,5 +407,12 @@ $(function () {
     })(app);
 });
 
+/*<debug>*/
+var id = 0;
+(function () {
+    window.dbmessage = {};
+    window.dbmessage.baseArehouses = JSON.parse('[{"baArehouseId":4,"baName":"无限极济阳仓A91","baAddr":"济南市济阳县","baScity":"齐河","baScontacts":"联系人1","baPhone":"13112345678","baAcreage":"222","baCtype":"22","baHumidity":"222","baFax":"2222","baPostoffice":"test","baIsti":1,"baStatus":1,"baClientId":3,"baRemarks":"test","baCreatetime":1487233193000,"baPgroupinfo":"eeeeeeeeeeeee","arehouseKqs":[]},{"baArehouseId":5,"baName":"九阳济南仓A02","baAddr":"济南市济阳278号","baScity":"齐河","baScontacts":"联系人1","baPhone":"13012345678","baAcreage":"222","baCtype":"111","baHumidity":"222","baFax":"2222","baPostoffice":"test","baIsti":2,"baStatus":1,"baClientId":1,"baRemarks":"test","baCreatetime":1487838047000,"baPgroupinfo":"eeeeeeeeeeeee","arehouseKqs":[]}]');
+})();
+/*</debug>*/
 
 
