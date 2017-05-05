@@ -2713,100 +2713,107 @@
          *          rkrwDh      司机电话
          *          rkrwStatus  任务状态
          */
-            /** 1 修改 入库任务管理 更新入库任务单 PUT /mfunrkRwDoc
-             *
-             *          参数
-             *          {
-             *              "rkrwId": 1,
-                            "rkrwNo": "111",
-                            "rkrwDhrq": "2017-04-07T03:38:53.205Z",
-                            "rkrwDbd": "111",
-                            "rkrwCys": "111",
-                            "rkrwCph": "111",
-                            "rkrwSjxm": "111",
-                            "rkrwDh": "111",
-                            "rkrwStatus": "1"
-             *          }
-             *          参数说明
-             *          rkrwId      id/入库任务号(系统自动生成格式为当前日期例:入库2017-03-14-16-17-01)
-             *          rkrwNo      入库任务单号(系统自动生成)
-             *          rkrwDhrq    预计到货日期(必填并且精确到分钟)
-             *          rkrwDbd     调拨地(必填)
-             *           rkrwCys    承运商(必填)
-             *          rkrwCph     车牌号(必填)
-             *          rkrwSjxm    司机姓名(必填)
-             *          rkrwDh      司机电话(必填)
-             *          rkrwStatus  任务状态:
-                                        1.初始(创建入库任务后的状态)
-                                        2.已下发任务(下达任务后的状态)
-                                        3.已开始收货(打印收货标签后的状态)
-                                        4.收货中(上架第一个库位后的状态)
-                                        5.1.部分收货(任务下所有订单有一个部分收货整个任务为部分收货)
-                                        5.2.全部收货(任务下所有订单状态为全部收货整个任务状态为全部收货)
-                                        6.收货完成/欠货(全部收货状态下导出台帐为收货完成,部分收货状态下导出台帐为欠货)
-                                        可以手动将欠货标记为收货完成需要输入原因以及补发单号
-             */
-            /**
-             *          TODO 2 修改明细表
-             *          rkRkdjNo        入库单号
-             *          rkCreatetime    下单时间
-             *                          总数量
-             *                          总体积
-             *          rkRemarks       备注
-             */
-            /**
-             * 3 新增 入库任务单     POST /mfunrkRwDoc/add
-             * 参数
-             *
-             *
+        /** 1 修改 入库任务管理 更新入库任务单 PUT /mfunrkRwDoc
+         *
+         *          参数
+         *          {
+         *              "rkrwId": 1,
+                        "rkrwNo": "111",
+                        "rkrwDhrq": "2017-04-07T03:38:53.205Z",
+                        "rkrwDbd": "111",
+                        "rkrwCys": "111",
+                        "rkrwCph": "111",
+                        "rkrwSjxm": "111",
+                        "rkrwDh": "111",
+                        "rkrwStatus": "1"
+         *          }
+         *          参数说明
+         *          rkrwId      id/入库任务号(系统自动生成格式为当前日期例:入库2017-03-14-16-17-01)
+         *          rkrwNo      入库任务单号(系统自动生成)
+         *          rkrwDhrq    预计到货日期(必填并且精确到分钟)
+         *          rkrwDbd     调拨地(必填)
+         *           rkrwCys    承运商(必填)
+         *          rkrwCph     车牌号(必填)
+         *          rkrwSjxm    司机姓名(必填)
+         *          rkrwDh      司机电话(必填)
+         *          rkrwStatus  任务状态:
+                                    1.初始(创建入库任务后的状态)
+                                    2.已下发任务(下达任务后的状态)
+                                    3.已开始收货(打印收货标签后的状态)
+                                    4.收货中(上架第一个库位后的状态)
+                                    5.1.部分收货(任务下所有订单有一个部分收货整个任务为部分收货)
+                                    5.2.全部收货(任务下所有订单状态为全部收货整个任务状态为全部收货)
+                                    6.收货完成/欠货(全部收货状态下导出台帐为收货完成,部分收货状态下导出台帐为欠货)
+                                    可以手动将欠货标记为收货完成需要输入原因以及补发单号
+         */
+        /**
+         *          TODO 2 修改明细表
+         *          rkRkdjNo        入库单号
+         *          rkCreatetime    下单时间
+         *                          总数量
+         *                          总体积
+         *          rkRemarks       备注
+         */
+        /**
+         * 3 新增-入库任务     POST /mfunrkRwDoc/add
+         * 参数
+         *
+         *
+         {
+            "rkrwId": 0,
+            "rkrwNo": "A0001",
+            "rkrwDhrq": "2017-04-13T08:25:12.866Z",
+            "rkrwDbd": "调拨地1",
+            "rkrwCys": "承运商1",
+            "rkrwCph": "鲁A-GF886",
+            "rkrwSjxm": "老司机1",
+            "rkrwDh": "15098879088",
+            "rkrwStatus": "31",
+            "rkrwArehouseId": 1,
+            "rkrwClientId": 1,
+            "docList": [
              {
-                "rkrwId": 0,
-                "rkrwNo": "A0001",
-                "rkrwDhrq": "2017-04-13T08:25:12.866Z",
-                "rkrwDbd": "调拨地1",
-                "rkrwCys": "承运商1",
-                "rkrwCph": "鲁A-GF886",
-                "rkrwSjxm": "老司机1",
-                "rkrwDh": "15098879088",
-                "rkrwStatus": "31",
-                "rkrwArehouseId": 1,
-                "rkrwClientId": 1,
-                "docList": [
-                 {
-                   "rkRkdjId": 8
-                 },
-                 {
-                   "rkRkdjId": 17
-                 }
-                ]
+               "rkRkdjId": 8
+             },
+             {
+               "rkRkdjId": 17
              }
-             *
-             *
-             * 参数说明：
-             *
-             *      rkrwId          默认为null/0
-                    rkrwNo          任务编号信息
-                    rkrwDhrq        时间
-                    rkrwDbd         调拨地
-                    rkrwCys         承运商
-                    rkrwCph         车牌号
-                    rkrwSjxm        司机姓名
-                    rkrwDh          电话
-                    rkrwStatus      状态码
-                    rkrwArehouseId  创建仓库
-                    rkrwClientId    所属客户
-
-                    docList [{"rkRkdjId": 8 需要被合并的入库单据id(其他字段无用)},{"rkRkdjId": 17 需要被合并的入库单据id(其他字段无用)}]
-             *
-             */
-            /**
-             *  4 删除入库单 入库任务管理 通过id删除一条入库任务单  DELETE /mfunrkRwDoc/{rkrw_id}
-             */
-            /**
-             *  TODO 5 下发
-             */
-            /**
-             * 6  入库任务管理 通过id获取一条入库任务单 GET /mfunrkRwDoc/{rkrw_id}
+            ]
+         }
+         *
+         *
+         * 参数说明：
+         *
+         *      rkrwId          默认为null/0
+                rkrwNo          任务编号信息
+                rkrwDhrq        时间
+                rkrwDbd         调拨地
+                rkrwCys         承运商
+                rkrwCph         车牌号
+                rkrwSjxm        司机姓名
+                rkrwDh          电话
+                rkrwStatus      状态码
+                rkrwArehouseId  创建仓库
+                rkrwClientId    所
+                docList [{"rkRkdjId": 8 需要被合并的入库单据id(其他字段无用)},{"rkRkdjId": 17 需要被合并的入库单据id(其他字段无用)}]
+         *
+         */
+        /**
+         *  4 删除-入库任务  DELETE /mfunrkRwDoc/{rkrw_id}
+         */
+        /**
+         *  TODO 5 下发
+         */
+        /**
+         * 6  查询-入库任务详情 GET /mfunrkRwDoc/{rkrw_id}
+         * */
+        /**
+         *  7 查询-入库单号-入库明细
+         *
+         * */
+        /**
+         *  8 查询-入库单据
+         *
          * */
 
     /**
