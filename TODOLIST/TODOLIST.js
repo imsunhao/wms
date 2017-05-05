@@ -4459,7 +4459,7 @@
  * TODO 库位冻结查询
     */
         /**
-        * TODO 分页查询
+        * TODO 0 分页查询
         * 搜索条件
         * {
                创建时间     djCreateTime
@@ -4480,21 +4480,26 @@
                作废人员   djZfUserId
                作废时间   djZfTime
         }
-        二级页面(库存冻结明细表)显示列
-        {
-              库位名称    djsRepertory
-              货品编号    djsRepertory
-              货品名称    djsRepertory
-              货品批次    djsRepertory
-              状态        djsStatus 0.已冻结 1.未冻结(可用)
-              冻结数量    djsRepertory
-        }
-
-
         */
-    /**
-         * TODO 盘点查询
-         */
+        /**
+         * * TODO 1 库位冻结明细查询
+            *   二级页面(库存冻结明细表)显示列
+            {
+                  库位名称    djsRepertory
+                  货品编号    djsRepertory
+                  货品名称    djsRepertory
+                  货品批次    djsRepertory
+                  状态        djsStatus 0.已冻结 1.未冻结(可用)
+                  冻结数量    djsRepertory
+            }
+            *
+ */
+        /**
+        * TODO 2 导出
+        */
+/**
+ * TODO 盘点查询
+ */
         /**
              * TODO 0  分页查询
                 * 搜索条件
