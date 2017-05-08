@@ -841,7 +841,7 @@
      *  RF管理   RFManage
          **/
         /**
-         *  0 (RF管理主页面) 分页查询RF管理详情 POST /user/page
+         *  TODO 0 (RF管理主页面) 分页查询RF管理详情 POST /user/page
          * 参数
          * {
                 "pageNum": 1,
@@ -873,25 +873,22 @@
          *
          */
         /**
-         * 1 RF管理 关联作业区，判断主作业区是否被占用，是否已关联；是否有PDA任务 GET /user/userAddZyq/{id}/{firstZyq}/{secondZyq}
+         * TODO 1 RF管理 判断主作业区是否被占用，是否已关联；是否有PDA任务 GET /user/userAddZyq/{id}/{firstZyq}/{secondZyq}
+        */
         /**
-         *  TODO 2 获取作业区名称
-         *      ruUserZyq   高位叉车作业区域
-         *   **/
-        /**
-         *  2 获取作业区的名称 用户管理 根据id返回用户信息  GET /user/{id}
+         *  TODO 2  根据id返回用户信息  GET /user/{id}
          */
         /**
-         * 3  RF管理 判断主作业区是否重复 GET /user/isRepeatByFirstZyq/{firstZyq}
+         * TODO 3  RF管理 判断主作业区是否重复 GET /user/isRepeatByFirstZyq/{firstZyq}
          **/
         /**
-         *  4 编辑
+         *  TODO 4  更新用户信息 PUT /user
          */
     /**
  *      TODO 作业区管理 operationAreaManage
          *      **/
         /**
-         *  0 (作业区管理主页面) 储位组管理 POST请求查询储位组信息 POST /locations/page
+         *  TODO 0 (作业区管理主页面) 储位组管理 POST请求查询储位组信息 POST /locations/page
          * 参数
          * {
                 "blsName": "储位组1001",
@@ -908,7 +905,7 @@
              blsRemarks       备注
          */
         /**
-         *  1  储位组管理 新增储位组 POST /locations
+         *  TODO 1  储位组管理 新增储位组 POST /locations
          *  参数
          *  {
          *      "blsName": "string11",
@@ -925,7 +922,7 @@
                 blsRemarks      备注
          **/
         /**
-         *   2 编辑 储位组管理 更新储位组信息 PUT /locations
+         *   TODO 2  储位组管理 更新储位组信息 PUT /locations
          *  参数
          *  {
          *      "blsLocationsId": 1,
@@ -947,10 +944,10 @@
          * 3 储位组管理 根据id返回储位组信息 GET /locations/{id}
          */
         /**
-         *  4  储位组管理 通过id删除一条储位组数据 DELETE /locations/{id}
+         *  TODO 4  储位组管理 通过id删除一条储位组数据 DELETE /locations/{id}
          */
         /**
-         *  TODO 5 库位名称不允许重复
+         *  TODO 5  储位管理 判断储位名称是否重复 GET /location/isRepeatByBlLname/{blLname}
          *
          **/
 /**

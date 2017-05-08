@@ -515,7 +515,7 @@
         }
     });
 
-     // 1 作业区管理 新增
+     // 1 作业区管理 储位组管理 新增储位组
     p[1] = autoPost({
         urlHock: "../../hock/operationAreaManage/page.json",
         urlProd: "/route/operationAreaManage/1",
@@ -524,7 +524,7 @@
             obj.$data.currentTotal = json.recordsFiltered
         }
     });
-     // 2 作业区管理 编辑
+     // 2 作业区管理 储位组管理 更新储位组信息
     p[2] = autoPost({
         urlHock: "../../hock/operationAreaManage/page.json",
         urlProd: "/route/operationAreaManage/2",
@@ -533,7 +533,7 @@
             obj.$data.currentTotal = json.recordsFiltered
         }
     });
-     // 3 作业区管理
+     // 3 作业区管理 储位组管理 根据id返回储位组信息
     p[3] = autoPost({
         urlHock: "",
         urlProd: "/route/operationAreaManage/3",
@@ -542,7 +542,7 @@
             obj.$data.currentTotal = json.recordsFiltered
         }
     });
-     // 4 作业区管理
+     // 4 作业区管理 储位组管理 通过id删除一条储位组数据';
     p[4] = autoPost({
         urlHock: "",
         urlProd: "/route/operationAreaManage/4",
@@ -551,6 +551,17 @@
             obj.$data.currentTotal = json.recordsFiltered
         }
     });
+      // 5 作业区管理 储位组管理 通过id删除一条储位组数据';
+    p[5] = autoPost({
+        urlHock: "",
+        urlProd: "/route/operationAreaManage/5",
+        success: function (json) {
+            obj.$data.operationAreaManage = json.data;
+            obj.$data.currentTotal = json.recordsFiltered
+        }
+    });
+
+
 
     // 高级 监视器的 使用方法
     //    operationAreaManage.$watch('date', function () {
@@ -561,5 +572,5 @@
     //        post(this, this.option);
     //    }, {deep: true});
 
-    p[0].post(operationAreaManage, operationAreaManage.option);
+    p[0].post( operationAreaManage.option);
 </script>

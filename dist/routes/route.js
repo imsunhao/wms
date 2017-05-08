@@ -414,17 +414,31 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 1:
-                        urlName = '关联作业区';
-                        req = autoUrl(req, '/goods', "POST", function (json) {
+                        urlName = 'RF管理-  根据id返回用户信息';
+                        req = autoUrl(req, '/user/userAddZyq/{id}/{firstZyq}/{secondZyq}', "GET", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
-                        urlName = '获取作业区名称';
-                        req = autoUrl(req, '/goods/add', "POST", function (json) {
+                        urlName = 'RF管理-根据id返回用户信息';
+                        req = autoUrl(req, '/user/{id}', "GET", function (json) {
                             res.send(json);
                         });
                         break;
+                      case 3:
+                        urlName = 'RF管理- 判断主作业区是否重复';
+                        req = autoUrl(req, '/user/isRepeatByFirstZyq/{firstZyq}', "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                       case 4:
+                        urlName = 'RF管理- 更新用户信息';
+                        req = autoUrl(req, '', "", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
                 }
                 break;
             case 'operationAreaManage':
@@ -436,32 +450,32 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 1:
-                        urlName = '新增';
+                        urlName = '作业区管理-储位组管理 新增储位组';
                         req = autoUrl(req, '/locations', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
-                        urlName = '编辑';
+                        urlName = '作业区管理-储位组管理 更新储位组信息';
                         req = autoUrl(req, '/locations', "PUT", function (json) {
                             res.send(json);
                         });
                         break;
                     case 3:
-                        urlName = '查看';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '作业区管理-储位组管理 根据id返回储位组信息';
+                        req = autoUrl(req, '/locations/{id}', "GET", function (json) {
                             res.send(json);
                         });
                         break;
                     case 4:
-                        urlName = '删除';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '作业区管理-储位组管理 通过id删除一条储位组数据';
+                        req = autoUrl(req, '/locations/{id}', "/DELETE", function (json) {
                             res.send(json);
                         });
                         break;
                     case 5:
-                        urlName = '库位名称不允许重复';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '作业区管理-判断储位名称是否重复';
+                        req = autoUrl(req, '/location/isRepeatByBlLname/{blLname}', "GET", function (json) {
                             res.send(json);
                         });
                         break;
@@ -1003,13 +1017,13 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '库存转移  分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/stockZyDoc/page', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 1:
                         urlName = '库存转移 新增';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/stockZyDoc/page', "PUT", function (json) {
                             res.send(json);
                         });
                         break;
@@ -1031,7 +1045,7 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '库存转移确认  分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/stockZyDoc/page', "POST", function (json) {
                             res.send(json);
                         });
                         break;
