@@ -2298,7 +2298,8 @@
          *    }
          */
         /**
-         * TODO 3 追加分拣  GET /mfunck/bujianById
+         * TODO 3 追加分拣  POST /mfunck/bujianById
+         *          参数名称 ：serModel
          *        {
          *           "id": 43, 出库单据ID
          *          "useId": 1  操作员ID
@@ -2309,21 +2310,25 @@
          *      参数名称 paramsModel  （同凯哥出库任务的修改分拣方式）
          */
         /**
-         *  TODO 5 挂起确认 GET  /mfunck/guaQiById
+         *  TODO 5 挂起确认 POST  /mfunck/guaQiById
+         *      参数名称 ：serModel
          *      {
          *          "id": 37,  出库单据ID
          *          "useId": 1  操作员ID
+         *          "userName": "超级管理员"   操作员名称
          *      }
          */
         /**
-         *  TODO 6 激活单据 GET /mfunck/fenjianById
+         *  TODO 6 激活单据 POST /mfunck/fenjianById
+         *      参数名称 ：serModel
          *      {
          *         "id": 44,  出库单据ID
          *         "useId": 1  操作员ID
          *       }
          */
         /**
-         *  TODO 7 修改出库明细分拣数量 GET /mfunck/xiugaifenjian
+         *  TODO 7 修改出库明细分拣数量 POST /mfunck/xiugaifenjian
+         *          参数名称 ：serModel
          *      {
          *           "id": 123, 出库单明细ID
          *          "useId": 1,  操作员ID
@@ -2334,28 +2339,37 @@
      * TODO 出库操作
      */
         /**
-        * TODO 2 打印分拣单 GET /mfunck/dayinfenjiandan/{pageNum}/{pageSize}/{draw}/{ckdjId}
-        *      "pageNum" :  第几页
-        *      "pageSize" : 每一页多少条数据
-        *      "draw" :    请求次数
-        *      "ckdjId" : 出库单ID
+        * TODO 2 打印分拣单 POST /mfunck/dayinfenjiandan
+         *      参数名称 ：serModel
+         *    {
+        *       "pageNum" :  第几页，
+        *       "pageSize" : 每一页多少条数据，
+        *       "draw" :    请求次数，
+        *       "id" : 出库单ID
+        *      }
          *      */
         /**
-        *TODO 3 打印组合分拣单 GET /mfunck/dayinzuhedan/{pageNum}/{pageSize}/{draw}/{ckdjIds}
-        *       "pageNum" : 第几页
-        *       "pageSize" :  每一页多少条数据
-        *       "draw" : 请求次数
-        *       "ckdjIds" : 出库单ID(多个)
+        *TODO 3 打印组合分拣单 POST /mfunck/dayinzuhedan
+         *         参数名称 ：serModel
+         *     {
+        *       "pageNum" : 第几页，
+        *       "pageSize" :  每一页多少条数据，
+        *       "draw" : 请求次数，
+        *       "ids" : 出库单ID(多个)
+        *       }
          *   */
         /**
-        * TODO 4 打印追加分拣单 GET /mfunck/dayinzuijiadan/{pageNum}/{pageSize}/{draw}/{ckdjId}
+        * TODO 4 打印追加分拣单 POST /mfunck/dayinzuijiadan
+         *          参数名称 ：serModel
+         *       {
         *         "pageNum" : 第几页
         *         "pageSize" : 每一页多少条数据
         *         "draw" : 请求次数
-        *         "ckdjId" : 出库单ID
+        *         "id" : 出库单ID
+        *         }
         */
         /**
-        * TODO 5 下架 GET /mfunck/xiajiaById
+        * TODO 5 下架 POST /mfunck/xiajiaById
         *          参数名称 ：serModel
         *          {
         *              "ids" : [32,33]  多个出库单ID
@@ -2377,6 +2391,7 @@
          */
         /**
          * TODO 3 修改发运数量 POST /mfunck/updateFysl
+         *         参数名称 MfunckDocs ckdocs
          *      {
                  *          "cksCkmxId"　： 出库明细ID
                  *          "cksGoodsId" : 货品ID
