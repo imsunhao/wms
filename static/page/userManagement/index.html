@@ -883,8 +883,33 @@
             }
         }
     });
-    var obj = userManagement;
-    var p = [];
+    function form() {
+        return {
+            ruUserId: '',
+            title: "新建用户",
+            ruUserName: '',
+            ruLoginName: '',
+            ruLoginPassword: '',
+            ruPhone: '',
+            ruZoneNo: '',
+            ruTelephone: '',
+            ruEmail: '',
+            ruSex: true,
+            ruBirthday: '',
+            ruHomeaddress: '',
+            ruQicq: '',
+            ruUserType: 0,
+            ruUserZyq: '',
+            ruIspda: false,
+            ruRemarks: '',
+
+            roleId: 1,
+
+            ruStatus: 1,
+        }
+    };               //弹出层 form 模板
+    var obj=userManagement;
+    var p=[];
     // 0 用户 分页查询
     p[0] = autoPost({
         urlHock: "../../hock/userControl/page.json",
@@ -894,7 +919,7 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-    // 2 用户 启用
+    // 0 用户 启用
     p[2] = autoPost({
         urlHock: "/hock/form/inputOptoionDelete.json",
         urlProd: "/route/userManagement/2",
@@ -912,12 +937,21 @@
             }
         }
     });
+     // 3 用户
+    p[3] = autoPost({
+        urlHock: "",
+        urlProd: "/route/userManagement/3",
+        success: function (json) {
+
+        }
+    });
      // 4 用户 编辑
     p[4] = autoPost({
         urlHock: "../../hock/roleControl/page.json",
         urlProd: "/route/userManagement/4",
         success: function (json) {
-            userManagement.$data.role = json.data;
+            obj.$data.userManagement = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
         }
     });
       // 5 用户 密码
@@ -937,13 +971,13 @@
             }
         }
     });
-        // 6 用户 禁用
+      // 6 用户 禁用
     p[6] = autoPost({
         urlHock: "/hock/form/inputOptoionDelete.json",
         urlProd: "/route/userManagement/6",
         success: function (json) {
             if (json.status === 20000) {
-                p[0].post( userManagement.option);
+                post(userManagement, userManagement.option);
                 obj.$notify({
                     title: '提示',
                     type: 'success',
@@ -955,7 +989,7 @@
             }
         }
     });
-         // 7 用户名 查重
+      //  7 用户名 查重
     p[7] = autoPost({
         urlHock: "../../hock/roleControl/page.json",
         urlProd: "/route/userManagement/7",
@@ -965,7 +999,7 @@
             }
         }
     });
-         // 8 登录名 查重
+      //  8 用户名 查重
     p[8] = autoPost({
         urlHock: "../../hock/roleControl/page.json",
         urlProd: "/route/userManagement/8",
@@ -975,7 +1009,7 @@
             }
         }
     });
-          // 9 设置 用户 角色
+     //  9 设置 用户 角色
     p[9] = autoPost({
         urlHock: "../../hock/roleControl/page.json",
         urlProd: "/route/userManagement/9",
@@ -1001,58 +1035,31 @@
             }
         }
     });
-          // 11 请求 用户 角色
+      //  10 设置 用户
+    p[10] = autoPost({
+        urlHock: "",
+        urlProd: "/route/userManagement/10",
+        success: function (json) {
+        }
+    });
+       //  11 设置 用户 角色
     p[11] = autoPost({
-        urlHock: "../../hock/roleControl/page.json",
+        urlHock: "",
         urlProd: "/route/userManagement/11",
         success: function (json) {
-            obj.roleForm.roleId = json[0].rrRoleId;
+            obj.$data.userManagement = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-            // 12 请求 所有角色 执行一次
+        //  12 设置 用户 角色
     p[12] = autoPost({
-        urlHock: "../../hock/roleControl/page.json",
+        urlHock: "",
         urlProd: "/route/userManagement/12",
         success: function (json) {
-            userManagement.$data.role = json.data;
+            obj.$data.userManagement = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-
-
-
-
-
-
-
-
-
-
-
-    function form() {
-        return {
-            ruUserId: '',
-            title: "新建用户",
-            ruUserName: '',
-            ruLoginName: '',
-            ruLoginPassword: '',
-            ruPhone: '',
-            ruZoneNo: '',
-            ruTelephone: '',
-            ruEmail: '',
-            ruSex: true,
-            ruBirthday: '',
-            ruHomeaddress: '',
-            ruQicq: '',
-            ruUserType: 0,
-            ruUserZyq: '',
-            ruIspda: false,
-            ruRemarks: '',
-
-            roleId: 1,
-
-            ruStatus: 1,
-        }
-    }               //弹出层 form 模板
     // 高级 监视器的 使用方法
     userManagement.$watch('form.ruUserName', function () {
         if (this.form.title !== '新建用户') return;
@@ -1154,5 +1161,15 @@
             }
         });
     }                 // 1 用户 新增
-
+    function printfCompile(obj) {
+        var resoleveStep = [];
+        for (var i = 0; i < obj.multipleSelection.length; i++) {
+            resoleveStep.push({
+                name: obj.multipleSelection[i].rkrwNo,
+                rkrwNo:obj.multipleSelection[i].rkrwNo,
+                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
+            });
+        }
+        obj.printf = resoleveStep;
+    }				 //打印
 </script>

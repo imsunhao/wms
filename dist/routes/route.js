@@ -253,13 +253,13 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '修改';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mfunrkRwDoc', "PUT", function (json) {
                             res.send(json);
                         });
                         break;
                     case 5:
                         urlName = '下发-入库任务';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mfunrkRwDoc/issued', "POST", function (json) {
                             res.send(json);
                         });
                         break;

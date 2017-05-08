@@ -123,10 +123,22 @@ function autoPost(option) {
         urlHock: '',
         urlProd: '',
         success: function (json) {
+            this.callbackAfter(json);
+        },
+        callbackAfter: function (json, cb) {
             if (json.status > 19999 && json.status < 30000) {
-
+                obj.$notify({
+                    title: '成功',
+                    message: json.model + '成功！',
+                    type: 'success'
+                });
+                if (cb) cb();
             } else {
-                errorTip(app, json)
+                obj.$notify({
+                    title: '失败',
+                    message: json.model + '失败!',
+                    type: 'error'
+                });
             }
         },
         data: {},
@@ -145,7 +157,7 @@ function autoPost(option) {
     return Object.create(_post, autoValue(option));
 }           //post核心
 function tsf_date(date) {
-    if (typeof date !== 'undefined' && date !== null) {
+    if (typeof date !== 'undefined' && date !== null && date !== '') {
         return dateFormat(date, 'yyyy-MM-dd hh:mm:ss')
     } else {
         return null;
