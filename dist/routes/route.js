@@ -469,13 +469,13 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 4:
                         urlName = '作业区管理-储位组管理 通过id删除一条储位组数据';
-                        req = autoUrl(req, '/locations/{id}', "/locations/{id}", function (json) {
+                        req = autoUrl(req, '/locations/{id}', "/DELETE", function (json) {
                             res.send(json);
                         });
                         break;
                     case 5:
-                        urlName = '库位名称不允许重复';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '作业区管理-判断储位名称是否重复';
+                        req = autoUrl(req, '/location/isRepeatByBlLname/{blLname}', "GET", function (json) {
                             res.send(json);
                         });
                         break;

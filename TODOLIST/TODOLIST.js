@@ -2137,7 +2137,7 @@
              blsRemarks       备注
          */
         /**
-         *  1  储位组管理 新增储位组 POST /locations
+         *  TODO 1  储位组管理 新增储位组 POST /locations
          *  参数
          *  {
          *      "blsName": "string11",
@@ -2154,7 +2154,7 @@
                 blsRemarks      备注
          **/
         /**
-         *   2  储位组管理 更新储位组信息 PUT /locations
+         *   TODO 2  储位组管理 更新储位组信息 PUT /locations
          *  参数
          *  {
          *      "blsLocationsId": 1,
@@ -2176,10 +2176,10 @@
          * 3 储位组管理 根据id返回储位组信息 GET /locations/{id}
          */
         /**
-         *  4  储位组管理 通过id删除一条储位组数据 DELETE /locations/{id}
+         *  TODO 4  储位组管理 通过id删除一条储位组数据 DELETE /locations/{id}
          */
         /**
-         *  TODO 5 库位名称不允许重复
+         *  TODO 5  储位管理 判断储位名称是否重复 GET /location/isRepeatByBlLname/{blLname}
          *
          **/
 /**
