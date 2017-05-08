@@ -792,38 +792,31 @@
         success: function (json) {
         }
     });
-      // 4 库存转移 通过库存转移单据id确认转移一条转移单
+       // 4 库存转移 软删除多个或单个库存转移数据
     p[4] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryTransfer/4",
         success: function (json) {
         }
     });
-       // 5 库存转移 软删除多个或单个库存转移数据
+       // 5 库存转移 分页获取库存转移单据(包含详细信息)
     p[5] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryTransfer/5",
         success: function (json) {
         }
     });
-       // 6 库存转移 分页获取库存转移单据(包含详细信息)
+       // 6 库存转移 通过库存转移单据id删除库存转移单据
     p[6] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryTransfer/6",
         success: function (json) {
         }
     });
-       // 7 库存转移 通过库存转移单据id删除库存转移单据
+       // 7 库存转移 通过库存转移单据id获取一条库存转移单据
     p[7] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryTransfer/7",
-        success: function (json) {
-        }
-    });
-       // 8 库存转移 通过库存转移单据id获取一条库存转移单据
-    p[8] = autoPost({
-        urlHock: "",
-        urlProd: "/route/aLibraryTransfer/8",
         success: function (json) {
         }
     });
