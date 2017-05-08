@@ -975,6 +975,35 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
+             case 'aLibraryTransfer':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '库存转移  分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '库存转移 新增';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '库存转移 编辑';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 3:
+                        urlName = '库存转移 删除';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+
 
 
 
