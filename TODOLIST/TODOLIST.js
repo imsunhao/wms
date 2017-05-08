@@ -2444,7 +2444,7 @@
  *   "cksCkmxId": ,     出库明细id
  *   "cksCkfs": "",     分拣方式 先进先出,指定批次,指定库位(x：p：k)
  *   "cksZdpc": "",     指定批次（x,k时为空，不用传）
- *   "cksLocationId":   指定库位（x,p时为空，不用传）
+ *   "cksLocationId": 1  指定库位（x,p时为空，不用传）
  * }
  * 返回 jsonModel  20002成功 50002失败
  */
@@ -2462,6 +2462,7 @@
  * TODO 根据任务Id下发任务 POST /mfunck/issuedCkrw
  * 参数 参数对象：setModel
  * {
+ *   "userName": "张三",         （当前登录用户名称）
  *  "ids": [   任务ID集合
  *     1,
  *     2
