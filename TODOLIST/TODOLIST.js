@@ -807,13 +807,13 @@
                 ]
          */
         /**
-         *   3 货品管理 通过客户id查询一些货品数据 GET /goods/findByClientId/{client_id}
+         *   Delete 3  货品管理 通过客户id查询一些货品数据 GET /goods/findByClientId/{client_id}
          **/
         /**
-         *   4 货品管理 通过货品编号查询一些货品数据 GET /goods/findBygoodsNo/{goods_no}
+         *   Delete 4 货品管理 通过货品编号查询一些货品数据 GET /goods/findBygoodsNo/{goods_no}
          **/
         /**
-            *   5 货品管理 通过货品id查询货品  GET /goods/{id}
+            *   Delete 5 货品管理 通过货品id查询货品  GET /goods/{id}
             *
          **/
         /**
@@ -830,11 +830,11 @@
          *
          *  **/
         /**
-         *   7  货品管理 通过id删除一条货品数据 DELETE /goods/{id}
-         *
-         *  **/
-        /**
          *   8 货品单号、编号不允许重复  货品管理 判断货品编号是否重复 GET /goods/isRepeatByBgGoodsNo/{bgGoodsNo}
+         *
+         **/
+        /**
+         *   9 查询所有单位
          *
          **/
     /**
