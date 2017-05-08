@@ -7,6 +7,13 @@
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
+                <button @click="multiSelectClick" class="btn btn-multiSelect"><i
+                        class="icon sel"></i><span>多选</span>
+                </button>
+
+                <button @click="multiExport" class="btn btn-del" v-show="multiSelect"><i
+                        class=""></i><span>导出</span>
+                </button>
             </div>
             <el-table
                     :data="inventorySelect"
@@ -66,12 +73,12 @@
                                             label="可用操作">
                                         <el-button
                                                 size="small"
-                                                @click="inventoryDetails(props.$index, props.row)">盘点详情
+                                                @click="inlineInventoryDetails(props.$index, props.row)">盘点详情
                                         </el-button>
                                         <el-button
                                                 size="small"
                                                 type="info"
-                                                @click="inlineModify(props.$index, props.row)">导出
+                                                @click="inlineExport(props.$index, props.row)">导出
                                         </el-button>
                                     </el-form-item>
                                 </el-col>
@@ -419,36 +426,6 @@
     }
 </style>
 <script>
-    function form() {
-        return {
-            rkrwN: '',
-            rkrwCph: '',
-            dds: '',
-            pxs: '',
-            rkrwSjxm: '',
-            rkrwDhrq: '',
-            rkrwDbd: '',
-            rkrwCys: '',
-            rkrwDh: '',
-            rkrwStatus: '',
-            pdCreateTime:[null,null],//模糊查询--创建时间
-            pdCreateUserId:'',//模糊查询--创建人
-            pdOperator:'',//模糊查询--经办人
-            pdStatus:'',//模糊查询--盘点状态
-            pdDiffStatus:'',//模糊查询--差异状态
-            pdArehouseId:''//模糊查询--仓库
-
-        }
-    }
-    function formInventory() {
-        return {
-            pdsRepertoryId:'',
-            pdsGoodsId:'',
-            pdsGoodsId:'',
-            pdsRepertoryCount:'',
-            pdsPdCount:''
-        }
-    }
     var inventorySelect = new Vue({
         el: '#inventorySelect',
         prop: {},
@@ -499,7 +476,7 @@
 
 
                 inventory: [],                      //查看盘点详情信息 弹出层 信息集合(表单格式)息 弹出层 信息集合
-                dialogInventoryVisible: false,      //查看盘点详情信息 弹出层 是否可见
+                dialogInventoryVisible: false,    //查看盘点详情信息 弹出层 是否可见
 
                 select: form(),                     //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
@@ -554,19 +531,20 @@
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
             },                                   //多选 打印标签页
+            multiExport:function(){},                                                  //TODO 多选 导出
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post(this.option);
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
@@ -606,15 +584,16 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(inventorySelect);
+                    p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
-            inventoryDetails: function () {
+            inlineInventoryDetails: function () {
                 this.dialogInventoryVisible = true;
-            },                                      //行内按钮 盘点详情
+            },                                 //TODO 行内按钮-盘点详情
+            inlineExport:function(){},                                                  //TODO 行内按钮--导出
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                post(this, {});
+                p[0].post( {});
             },                                          //详细查询 提交
             inventorySubmit: function () {
             },
@@ -681,6 +660,64 @@
             },                                   //差异状态
         }
     });
+    function form() {
+        return {
+            rkrwN: '',
+            rkrwCph: '',
+            dds: '',
+            pxs: '',
+            rkrwSjxm: '',
+            rkrwDhrq: '',
+            rkrwDbd: '',
+            rkrwCys: '',
+            rkrwDh: '',
+            rkrwStatus: '',
+            pdCreateTime:[null,null],//模糊查询--创建时间
+            pdCreateUserId:'',//模糊查询--创建人
+            pdOperator:'',//模糊查询--经办人
+            pdStatus:'',//模糊查询--盘点状态
+            pdDiffStatus:'',//模糊查询--差异状态
+            pdArehouseId:''//模糊查询--仓库
+
+        }
+    }
+    var obj=inventorySelect;
+    var p=[];
+    // 0 盘点查询 分页查询
+    p[0] = autoPost({
+        urlHock: "/hock/inventorySelect/page.json",
+        urlProd: "/route/inventorySelect/0",
+        success: function (json) {
+            obj.$data.inventorySelect = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+    // 1 盘点查询
+    p[1] = autoPost({
+        urlHock: "",
+        urlProd: "/route/inventorySelect/1",
+        success: function (json) {
+
+        }
+    });
+     // 1 盘点查询
+    p[2] = autoPost({
+        urlHock: "",
+        urlProd: "/route/inventorySelect/2",
+        success: function (json) {
+
+        }
+    });
+
+    function formInventory() {
+        return {
+            pdsRepertoryId:'',
+            pdsGoodsId:'',
+            pdsGoodsId:'',
+            pdsRepertoryCount:'',
+            pdsPdCount:''
+        }
+    }
     // 高级 监视器的 使用方法
     //    inventorySelect.$watch('date', function () {
     //        if (!this.option.dateStart)return;
@@ -689,151 +726,7 @@
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
-    post(inventorySelect);
-    function post(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/inventorySelect/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                obj.$data.inventorySelect = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                         //TODO 获取入库日报主页面
-    function postRkrwNo(obj, option, resolve) {
-        /*<debug>*/
-        url = "/hock/inventorySelect/rkrwNo.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                var resoleveStep = [];
-                for (var i = 0; i < json.data.length; i++) {
-                    resoleveStep.push({
-                        name: json.data[i].rkdjId,
-                        rkrwNo:option.rkrwNo,
-                        rkrwDhrq:option.rkrwDhrq});
-                }
-                return resolve(resoleveStep);
-            },
-            complete: function () {
-
-            }
-        });
-    }          //TODO 获取任务单号中详细信息
-    function postRkdjId(obj, option, resolve) {
-        /*<debug>*/
-        url = "/hock/inventorySelect/rkdjId.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                var resoleveStep = [];
-                for (var i = 0; i < json.length; i++) {
-                    resoleveStep.push({
-                        name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgNamejc,
-                        val2:json[i].baseGoods.bgGoodsNo,
-                        val:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        rwdh:option.rkrwNo,
-                        dhrq:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        dysj:changeDate(new Date())
-                    });
-                }
-                return resolve(resoleveStep);
-            },
-            complete: function () {
-
-            }
-        });
-    }          //TODO 获取入库单号中详细信息
-    function changeDate(date) {
-        return dateFormat(new Date(date), 'MM-dd hh:mm');
-    }
-    function errorTip(obj, error) {                    // 错误提示
-        /*<debug>*/
-        console.log(error);
-        /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
-    function dateFormat(date, fmt) {
-        var o = {
-            "M+": date.getMonth() + 1,                 //月份
-            "d+": date.getDate(),                    //日
-            "h+": date.getHours(),                   //小时
-            "m+": date.getMinutes(),                 //分
-            "s+": date.getSeconds(),                 //秒
-            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-            "S": date.getMilliseconds()             //毫秒
-        };
-        if (/(y+)/.test(fmt))
-            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-
-                    console.log(temp);
-                }
-                data.pop();
-            }
-        }
-    }
+    p[0].post(inventorySelect.option);
     function printfCompile(obj) {
         var resoleveStep = [];
         for (var i = 0; i < obj.multipleSelection.length; i++) {
@@ -844,7 +737,7 @@
             });
         }
         obj.printf = resoleveStep;
-    }
+    }                               //打印
 
 </script>
 
