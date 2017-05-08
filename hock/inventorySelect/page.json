@@ -14,13 +14,13 @@
     {
       "pdArehouseId":" 1     ",
       "pdCreateTime":" 201704026   ",
-      "pdType":" 1   ",
+      "pdType":"1",
       "pdYdBeginTime":" 201704026 ",
       "pdYdEndTime":" 201704026 ",
-      "pdStatus":" 1   ",
+      "pdStatus":"1",
       "pdChargePerson":" 张三    ",
       "pdOperator":" 李四    ",
-      "pdDiffStatus":" 1   "
+      "pdDiffStatus":"1"
     }
 
   ]

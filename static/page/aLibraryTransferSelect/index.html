@@ -40,7 +40,9 @@
                                                 <span>{{ props.row.zyArehouseId }}</span>
                                             </el-form-item>
                                             <el-form-item label="创建时间">
-                                                <span>{{ auto_zyCreateTime(props.row.zyCreateTime) }}</span>
+                                                <span>
+                                                    <el-icon name="time"></el-icon>
+                                                    {{ auto_zyCreateTime(props.row.zyCreateTime) }}</span>
                                             </el-form-item>
                                             <el-form-item label="提起人">
                                                 <span>{{props.row.zyConfirmUserId}}</span>
@@ -57,7 +59,9 @@
                                                 <span>{{ props.row.zyReason }}</span>
                                             </el-form-item>
                                             <el-form-item label="确认时间">
-                                                <span>{{ auto_zyConfirmTime(props.row.zyConfirmTime) }}</span>
+                                                <span>
+                                                    <el-icon name="time"></el-icon>
+                                                    {{ auto_zyConfirmTime(props.row.zyConfirmTime) }}</span>
                                             </el-form-item>
                                             <el-form-item label="转移状态">
                                                 <span>{{ auto_zyStatus(props.row.zyStatus) }}</span>
@@ -228,7 +232,7 @@
             <el-form-item label="创建时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.zyCreateTime"
+                        v-model="form.zyCreateTime"
                         type="daterange"
                         align="right"
                         placeholder="创建时间"
@@ -241,7 +245,7 @@
             <el-form-item label="确认时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.zyConfirmTime"
+                        v-model="form.zyConfirmTime"
                         type="daterange"
                         align="right"
                         placeholder="确认时间"
@@ -254,7 +258,7 @@
             <el-form-item label="创建人"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.zyCreateUserId"
+                        v-model="form.zyCreateUserId"
                         class="input"
                         icon="search"
                         placeholder="创建人"></el-input>
@@ -262,7 +266,7 @@
             <el-form-item label="确认人"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.zyConfirmUserId"
+                        v-model="form.zyConfirmUserId"
                         class="input"
                         icon="search"
                         placeholder="确认人"></el-input>
@@ -270,31 +274,26 @@
             <el-form-item label="提起人"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.zyMentionUserId"
+                        v-model="form.zyMentionUserId"
                         class="input"
                         icon="search"
                         placeholder="提起人"></el-input>
             </el-form-item>
             <el-form-item label="仓库"
                           :label-width="formLabelWidth">
-                <el-select v-model="zyArehouseId" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="1">角色下所有的仓库</el-option>
+                <el-select v-model="form.zyArehouseId" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="转移状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="zyStatus" placeholder="请选择">
-                    <el-option :value="0.0">全部</el-option>
-                    <el-option :value="0.1">未确认</el-option>
-                    <el-option :value="1">已确认</el-option>
-
+                <el-select v-model="form.zyStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="0" label="初始"></el-option>
+                    <el-option :value="1" label="已确认"></el-option>
+                    <el-option :value="2" label="作废"></el-option>
                 </el-select>
             </el-form-item>
-
-
-
-
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
@@ -581,7 +580,14 @@
             rkrwDbd: '',
             rkrwCys: '',
             rkrwDh: '',
-            rkrwStatus: ''
+            rkrwStatus: '',
+            zyCreateTime:[null,null],//模糊查询--创建时间
+            zyConfirmTime:[null,null],//模糊查询--确认时间
+            zyCreateUserId:'',//模糊查询--创建人
+            zyConfirmUserId:'',//模糊查询--确认人
+            zyMentionUserId:'',//模糊查询--提起人
+            zyArehouseId:'',//模糊查询--仓库
+            zyStatus:'',//模糊查询--转移状态
         }
     }
     var aLibraryTransferSelect = new Vue({
@@ -711,7 +717,7 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post(this.option);
             },                                   //分页 Size
             expandChange: function (row, expanded) {
                 if (typeof (row.inputOperation) === 'undefined' && expanded) {
@@ -727,7 +733,7 @@
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                //分页 当前页
             newInput: function () {
                 this.dialogFormVisible = true;
@@ -771,21 +777,21 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(aLibraryTransferSelect);
+                    p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                post(this, {});
+                p[0].post( {});
             }, //详细查询 提交
 
             auto_zyCreateTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },//创建时间
             auto_zyConfirmTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },//确认时间
             auto_zyStatus: function (value) {
 
@@ -809,6 +815,33 @@
         },
         watch: {}
     });
+    var obj=aLibraryTransferSelect;
+    var p=[];
+    // 0 库位转移查询 分页查询
+    p[0] = autoPost({
+        urlHock: "/hock/aLibraryTransferSelect/page.json",
+        urlProd: "/route/aLibraryTransferSelect/0",
+        success: function (json) {
+            obj.$data.aLibraryTransferSelect = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+    // 1 库位转移查询
+    p[1] = autoPost({
+        urlHock: "",
+        urlProd: "/route/aLibraryTransferSelect/1",
+        success: function (json) {
+        }
+    });
+    // 2 库位转移查询
+    p[2] = autoPost({
+        urlHock: "",
+        urlProd: "/route/aLibraryTransferSelect/2",
+        success: function (json) {
+
+        }
+    });
+
 
     // 高级 监视器的 使用方法
     //        aLibraryTransferSelect.$watch('aLibraryTransferSelect.inputOperation', function () {
@@ -818,110 +851,16 @@
     //            /*</debug>*/
     //            post(this, this.option);
     //        }, {deep: true});
-    post(aLibraryTransferSelect, aLibraryTransferSelect.option);
-    function post(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/aLibraryTransferSelect/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/aLibraryTransferSelect/0";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                obj.$data.aLibraryTransferSelect = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }              //TODO 入库任务分页查询接口
-    function postInputOperation(obj, row) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/form/inputOption.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/aLibraryTransferSelect/0";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                /*<debug>*/
-                console.log(json);
-                /*</debug>*/
-                row.inputOperation = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }   //TODO 请求入库任务中详细信息
-    function changeDate(date) {
-        return dateFormat(new Date(date), 'MM-dd hh:mm');
-    }
-    function errorTip(obj, error) {                    // 错误提示
-        /*<debug>*/
-        console.log(error);
-        /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
-    function dateFormat(date, fmt) {
-        var o = {
-            "M+": date.getMonth() + 1,                 //月份
-            "d+": date.getDate(),                    //日
-            "h+": date.getHours(),                   //小时
-            "m+": date.getMinutes(),                 //分
-            "s+": date.getSeconds(),                 //秒
-            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-            "S": date.getMilliseconds()             //毫秒
-        };
-        if (/(y+)/.test(fmt))
-            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-
-                    console.log(temp);
-                }
-                data.pop();
-            }
+    p[0].post(aLibraryTransferSelect.option);
+    function printfCompile(obj) {
+        var resoleveStep = [];
+        for (var i = 0; i < obj.multipleSelection.length; i++) {
+            resoleveStep.push({
+                name: obj.multipleSelection[i].rkrwNo,
+                rkrwNo:obj.multipleSelection[i].rkrwNo,
+                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
+            });
         }
-    }
+        obj.printf = resoleveStep;
+    }				 //打印
 </script>

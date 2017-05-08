@@ -10,16 +10,16 @@
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                         class="icon sel"></i><span>多选</span>
                 </button>
-                <button @click="exportInputList" class="btn btn-modify" v-show="multiSelect"><i
+                <button @click="multiExportInputList" class="btn btn-modify" v-show="multiSelect"><i
                         class="icon modify"></i><span>导出入库单</span>
                 </button>
-                <button @click="exportInputDetailed" class="btn btn-modify" v-show="multiSelect"><i
+                <button @click="multiExportInputDetailed" class="btn btn-modify" v-show="multiSelect"><i
                         class="icon modify"></i><span>导出入库明细</span>
                 </button>
-                <button @click="exportInputStorage" class="btn btn-modify" v-show="multiSelect"><i
+                <button @click="multiExportInputStorage" class="btn btn-modify" v-show="multiSelect"><i
                         class="icon modify"></i><span>导出入库储位</span>
                 </button>
-                 <button @click="exportInput" class="btn btn-modify" v-show="multiSelect"><i
+                 <button @click="multiExportInput" class="btn btn-modify" v-show="multiSelect"><i
                         class="icon modify"></i><span>导出入库</span>
                 </button>
 
@@ -65,15 +65,21 @@
                                         <span>{{props.row.sstj }}</span>
                                     </el-form-item>
                                     <el-form-item label="下单时间">
-                                        <span>{{auto_rkCreatetime(props.row.rkCreatetime)}}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{auto_rkCreatetime(props.row.rkCreatetime)}}</span>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="上架开始">
-                                        <span>{{ auto_rkrkSjsj(props.row.rkrkSjsj) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_rkrkSjsj(props.row.rkrkSjsj) }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架结束">
-                                        <span>{{ auto_rkEndTime(props.row.rkEndTime) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_rkEndTime(props.row.rkEndTime) }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架人员">
                                         <span>{{ props.row.mdtUserId }}</span>
@@ -88,11 +94,32 @@
                                             label="可用操作">
                                         <el-button
                                                 size="small"
-                                                @click="selectInputDetailed(props.$index, props.row)">查看入库明细信息
+                                                type="success"
+                                                @click="inlineExportInputList(props.$index, props.row)">导出入库单
                                         </el-button>
                                         <el-button
                                                 size="small"
-                                                @click="selectInputStorage(props.$index, props.row)">查看入库储位信息
+                                                type="success"
+                                                @click="inlineExportInputDetailed(props.$index, props.row)">导出入库明细
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                type="success"
+                                                @click="inlineExportInputStorage(props.$index, props.row)">导出入库储位
+                                        </el-button>
+                                       <el-button
+                                                size="small"
+                                                type="success"
+                                                @click="inlineExportInput(props.$index, props.row)">导出入库
+                                        </el-button>
+
+                                        <el-button
+                                                size="small"
+                                                @click="inlineSelectInputDetailed(props.$index, props.row)">查看入库明细信息
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                @click="inlineSelectInputStorage(props.$index, props.row)">查看入库储位信息
                                         </el-button>
                                     </el-form-item>
                                 </el-col>
@@ -136,7 +163,9 @@
                         align="center"
                         prop="rkZdfs">
                     <template scope="scope">
-                        {{auto_rkZdfs(scope.row.rkZdfs,true)}}
+                        <el-tag
+                                close-transition> {{auto_rkZdfs(scope.row.rkZdfs,true)}}
+                        </el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -145,7 +174,9 @@
                         align="center"
                         width="100">
                     <template scope="scope">
-                        {{auto_rkStatus(scope.row.rkStatus)}}
+                        <el-tag
+                                close-transition> {{auto_rkStatus(scope.row.rkStatus)}}
+                        </el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -178,7 +209,7 @@
             <el-form-item label="下单时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.rkCreatetime"
+                        v-model="form.rkCreatetime"
                         type="daterange"
                         align="right"
                         placeholder="下单时间"
@@ -189,7 +220,7 @@
             <el-form-item label="上架时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.rkrkSjsj"
+                        v-model="form.rkrkSjsj"
                         type="daterange"
                         align="right"
                         placeholder="上架时间"
@@ -202,38 +233,37 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.rkRkdjNo"
+                        v-model="form.rkRkdjNo"
                         icon="search"
                         placeholder="入库单号"></el-input>
             </el-form-item>
             <el-form-item label="入库状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="rkStatus" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="21">部分分配</el-option>
-                    <el-option :value="22">全部分配</el-option>
-                    <el-option :value="31">部分上架</el-option>
-                    <el-option :value="32">全部上架</el-option>
+                <el-select v-model="form.rkStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="21" label="部分分配"></el-option>
+                    <el-option :value="22" label="全部分配"></el-option>
+                    <el-option :value="31" label="部分上架"></el-option>
+                    <el-option :value="32" label="全部上架"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="制单方式"
                           :label-width="formLabelWidth">
-                <el-select v-model="rkZdfs" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="1">手动</el-option>
-                    <el-option :value="2">导入</el-option>
-                    <el-option :value="3">接口</el-option>
+                <el-select v-model="form.rkZdfs" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="1" label="手动"></el-option>
+                    <el-option :value="2" label="导入"></el-option>
+                    <el-option :value="3" label="接口"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="操作方式"
                           :label-width="formLabelWidth">
-                <el-select v-model="rkStartwith" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="1">电脑端</el-option>
-                    <el-option :value="2">PDA</el-option>
+                <el-select v-model="form.rkStartwith" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="1" label="电脑端"></el-option>
+                    <el-option :value="2" label="PDA"></el-option>
                 </el-select>
             </el-form-item>
-
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
@@ -553,46 +583,6 @@
     }
 </style>
 <script>
-    function form() {
-        return {
-            rkrwN: '',
-            rkrwCph: '',
-            dds: '',
-            pxs: '',
-            rkrwSjxm: '',
-            rkrwDhrq: '',
-            rkrwDbd: '',
-            rkrwCys: '',
-            rkrwDh: '',
-            rkrwStatus: ''
-        }
-    }
-    function formDetailed() {
-        return {
-            rksGoodsId: '',     // 货品编号
-            rksGoodsId1: '',     // 货品名称
-            mdtBatch: '',       // 货品批次
-            rksCount: '',       // 货品数量
-            bgGoodsTj:'',       //货品体积
-            sssl: '',           // 实收数量
-            sstj:'',            //实收体积
-            rksStatus: '',      //入库明细状态
-            mdtUserId: ''       // 上架人员
-        }
-    }//明细
-    function formStorage() {
-        return {
-            rksGoodsId: '',     //货品编号
-            rksGoodsId1: '',     //货品名称
-            mdtBatch: '',       //货品批次
-            mdtLocationId: '',  //上架库位
-            mdtCount: '',       //上架数量
-            sstj:'',             //实收体积
-            mdtUserId:'',       //上架人员
-            mdtSjsj: ''         //上架时间
-        }
-    }//储位
-
     var inputSelect = new Vue({
         el: '#inputSelect',
         prop: {},
@@ -689,11 +679,16 @@
             },                                      //分配 表单
         },
         methods: {
-            inlineModify: function (index, row) {
-                this.multipleSelection = [row];
-                printfCompile(this);
-                this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                //行内按钮 打印标签页
+            inlineExportInputList:function(){},                                        //TODO 行内按钮-导出入库单
+            inlineExportInputDetailed:function(){},                                    //TODO 行内按钮-导出入库明细
+            inlineExportInputStorage:function(){},                                     //TODO 行内按钮-导出入库储位
+            inlineExportInput:function(){},                                            //TODO 行内按钮-导出入库
+            inlineSelectInputDetailed:function(){
+                this.dialogDetailedVisible = true
+            },                                //TODO 行内按钮-查看入库明细信息
+            inlineSelectInputStorage:function(){
+                this.dialogStorageVisible = true
+            },                                 //TODO 行内按钮-查看入库储位信息
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -702,36 +697,36 @@
                 console.log(this.multipleSelection);
                 /*</debug>*/
                 this.multipleSelection = val;
-            },                               //多选 选中控制
-            exportInputList: function () {
+            },                               //TODO 多选 选中控制
+            multiExportInputList: function () {
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                       //多选 导出入库单
-            exportInputDetailed: function () {
+            },                                  //TODO 多选 导出入库单
+            multiExportInputDetailed: function () {
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                   //多选 导出入库明细
-            exportInputStorage: function () {
+            },                              //TODO 多选 导出入库明细
+            multiExportInputStorage: function () {
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                    //多选 导出入库储位
-            exportInput: function () {
+            },                               //TODO 多选 导出入库储位
+            multiExportInput: function () {
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                           //多选 导出入库
+            },                                      //TODO 多选 导出入库
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
@@ -771,12 +766,12 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(inputSelect);
+                    p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                post(this, {});
+                p[0].post( {});
             },                                          //详细查询 提交
             printfSubmit: function () {
                 var datas=[];
@@ -829,20 +824,20 @@
                 }
             },
             auto_mdtSjsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                               //作业时间
             auto_rkrkSjsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                              //上架开始时间
             auto_rkEndTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                             //上架结束时间
             auto_rkCreatetime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                          //下单时间
             auto_rkStatus:function(value){
                 var temp={}
@@ -903,7 +898,104 @@
 
         }
     });
-
+    function form() {
+        return {
+            rkrwN: '',
+            rkrwCph: '',
+            dds: '',
+            pxs: '',
+            rkrwSjxm: '',
+            rkrwDhrq: '',
+            rkrwDbd: '',
+            rkrwCys: '',
+            rkrwDh: '',
+            rkrwStatus: '',
+            rkCreatetime:[null,null],//模糊查询--下单时间
+            rkrkSjsj:[null,null],     //模糊查询--上架时间
+            rkRkdjNo:'',                //模糊查询--入库单号
+            rkStatus:'',                 //模糊查询--入库状态
+            rkZdfs:'',                   //模糊查询--制单方式
+            rkStartwith:'',              //模糊查询--操作方式
+        }
+    }
+    var obj=inputSelect;
+    var p=[];
+    // 0 入库单据查询 分页查询
+    p[0] = autoPost({
+        urlHock: "/hock/inputSelect/page.json",
+        urlProd: "/route/inputSelect/0",
+        success: function (json) {
+            obj.$data.inputSelect = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+     // 1 入库单据查询
+    p[1] = autoPost({
+        urlHock: "",
+        urlProd: "/route/inputSelect/1",
+        success: function (json) {
+        }
+    });
+     // 2 入库单据查询
+    p[2] = autoPost({
+        urlHock: "",
+        urlProd: "/route/inputSelect/2",
+        success: function (json) {
+        }
+    });
+     // 3 入库单据查询
+    p[3] = autoPost({
+        urlHock: "",
+        urlProd: "/route/inputSelect/3",
+        success: function (json) {
+        }
+    });
+     // 4 入库单据查询
+    p[4] = autoPost({
+        urlHock: "",
+        urlProd: "/route/inputSelect/4",
+        success: function (json) {
+        }
+    });
+     // 5 入库单据查询
+    p[5] = autoPost({
+        urlHock: "",
+        urlProd: "/route/inputSelect/5",
+        success: function (json) {
+        }
+    });
+     // 6 入库单据查询
+    p[6] = autoPost({
+        urlHock: "",
+        urlProd: "/route/inputSelect/6",
+        success: function (json) {
+        }
+    });
+    function formDetailed() {
+        return {
+            rksGoodsId: '',     // 货品编号
+            rksGoodsId1: '',     // 货品名称
+            mdtBatch: '',       // 货品批次
+            rksCount: '',       // 货品数量
+            bgGoodsTj:'',       //货品体积
+            sssl: '',           // 实收数量
+            sstj:'',            //实收体积
+            rksStatus: '',      //入库明细状态
+            mdtUserId: ''       // 上架人员
+        }
+    }//明细
+    function formStorage() {
+        return {
+            rksGoodsId: '',     //货品编号
+            rksGoodsId1: '',     //货品名称
+            mdtBatch: '',       //货品批次
+            mdtLocationId: '',  //上架库位
+            mdtCount: '',       //上架数量
+            sstj:'',             //实收体积
+            mdtUserId:'',       //上架人员
+            mdtSjsj: ''         //上架时间
+        }
+    }//储位
     // 高级 监视器的 使用方法
     //    inputSelect.$watch('date', function () {
     //        if (!this.option.dateStart)return;
@@ -913,214 +1005,7 @@
     //        post(this, this.option);
     //    }, {deep: true});
 
-    post(inputSelect);
-    function post(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/inputSelect/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                obj.$data.inputSelect = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                        //TODO 获取入库日报主页面
-    function postSelectInputDetailed(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/inputSelect/selectInputDetailed.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                obj.$data.inputSelect = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }     //TODO 查看入库明细信息
-    function postSelectInputStorage(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/inputSelect/selectInputStorage.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                obj.$data.inputSelect = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }     //TODO 查看入库储位信息
-
-    function postRkrwNo(obj, option, resolve) {
-        /*<debug>*/
-        url = "/hock/inputSelect/rkrwNo.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                var resoleveStep = [];
-                for (var i = 0; i < json.data.length; i++) {
-                    resoleveStep.push({
-                        name: json.data[i].rkdjId,
-                        rkrwNo:option.rkrwNo,
-                        rkrwDhrq:option.rkrwDhrq});
-                }
-                return resolve(resoleveStep);
-            },
-            complete: function () {
-
-            }
-        });
-    }          //TODO 获取任务单号中详细信息
-    function postRkdjId(obj, option, resolve) {
-        /*<debug>*/
-        url = "/hock/inputSelect/rkdjId.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                var resoleveStep = [];
-                for (var i = 0; i < json.length; i++) {
-                    resoleveStep.push({
-                        name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgNamejc,
-                        val2:json[i].baseGoods.bgGoodsNo,
-                        val:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        rwdh:option.rkrwNo,
-                        dhrq:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        dysj:changeDate(new Date())
-                    });
-                }
-                return resolve(resoleveStep);
-            },
-            complete: function () {
-
-            }
-        });
-    }          //TODO 获取入库单号中详细信息
-    function changeDate(date) {
-        return dateFormat(new Date(date), 'MM-dd hh:mm');
-    }
-    function errorTip(obj, error) {                    // 错误提示
-        /*<debug>*/
-        console.log(error);
-        /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
-    function dateFormat(date, fmt) {
-        var o = {
-            "M+": date.getMonth() + 1,                 //月份
-            "d+": date.getDate(),                    //日
-            "h+": date.getHours(),                   //小时
-            "m+": date.getMinutes(),                 //分
-            "s+": date.getSeconds(),                 //秒
-            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-            "S": date.getMilliseconds()             //毫秒
-        };
-        if (/(y+)/.test(fmt))
-            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-
-                    console.log(temp);
-                }
-                data.pop();
-            }
-        }
-    }
+    p[0].post( inputSelect.option);
     function printfCompile(obj) {
         var resoleveStep = [];
         for (var i = 0; i < obj.multipleSelection.length; i++) {
@@ -1131,7 +1016,7 @@
             });
         }
         obj.printf = resoleveStep;
-    }
+    }           //TODO 打印
 
 </script>
 

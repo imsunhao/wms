@@ -35,19 +35,31 @@
                                         <span>{{ props.row.mdtUserId }}</span>
                                     </el-form-item>
                                     <el-form-item label="作业时间">
-                                        <span>{{ auto_mdtSjsj(props.row.mdtSjsj) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_mdtSjsj(props.row.mdtSjsj) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="体积">
                                         <span>{{ props.row.bgGoodsTj }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架开始">
-                                        <span>{{ auto_rkrkSjsj(props.row.rkrkSjsj) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_rkrkSjsj(props.row.rkrkSjsj) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="上架结束">
-                                        <span>{{ auto_rkEndTime(props.row.rkEndTime) }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_rkEndTime(props.row.rkEndTime) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="下单时间">
-                                        <span>{{auto_rkCreatetime(props.row.rkCreatetime)}}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{auto_rkCreatetime(props.row.rkCreatetime)}}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="入库单号">
                                         <span>{{props.row.rkRkdjNo}}</span>
@@ -138,7 +150,9 @@
                         align="center"
                         width="100">
                     <template scope="scope">
-                        {{auto_rkStatus(scope.row.rkStatus)}}
+                        <el-tag
+                                close-transition>{{auto_rkStatus(scope.row.rkStatus)}}
+                        </el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -171,7 +185,7 @@
             <el-form-item label="下单时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.rkCreatetime"
+                        v-model="form.rkCreatetime"
                         type="daterange"
                         align="right"
                         placeholder="下单时间"
@@ -179,10 +193,11 @@
                         :picker-options="pickerOptions">
                 </el-date-picker>
             </el-form-item>
+
             <el-form-item label="上架时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.rkrkSjsj"
+                        v-model="form.rkrkSjsj"
                         type="daterange"
                         align="right"
                         placeholder="上架时间"
@@ -193,7 +208,7 @@
             <el-form-item label="作业时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.mdtSjsj"
+                        v-model="form.mdtSjsj"
                         type="daterange"
                         align="right"
                         placeholder="作业时间"
@@ -204,7 +219,7 @@
             <el-form-item label="作业人员"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.ruUserName"
+                        v-model="form.ruUserName"
                         class="input"
                         icon="search"
                         placeholder="作业人员"></el-input>
@@ -213,7 +228,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.bgGoodsNo"
+                        v-model="form.bgGoodsNo"
                         icon="search"
                         placeholder="货品编号"></el-input>
             </el-form-item>
@@ -221,7 +236,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.bgGoodsName"
+                        v-model="form.bgGoodsName"
                         icon="search"
                         placeholder="货品姓名"></el-input>
             </el-form-item>
@@ -229,7 +244,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.rkRkdjNo"
+                        v-model="form.rkRkdjNo"
                         icon="search"
                         placeholder="入库单号"></el-input>
             </el-form-item>
@@ -237,34 +252,34 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.blLname"
+                        v-model="form.blLname"
                         icon="search"
                         placeholder="库位"></el-input>
             </el-form-item>
             <el-form-item label="入库状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="rkStatus" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="21">部分分配</el-option>
-                    <el-option :value="22">全部分配</el-option>
-                    <el-option :value="31">部分上架</el-option>
-                    <el-option :value="32">全部上架</el-option>
+                <el-select v-model="form.rkStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="21" label="部分分配"></el-option>
+                    <el-option :value="22" label="全部分配"></el-option>
+                    <el-option :value="31" label="部分上架"></el-option>
+                    <el-option :value="32" label="全部上架"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="制单方式"
                           :label-width="formLabelWidth">
-                <el-select v-model="rkZdfs" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="1">手动</el-option>
-                    <el-option :value="2">导入</el-option>
-                    <el-option :value="3">接口</el-option>
+                <el-select v-model="form.rkZdfs" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="1" label="手动"></el-option>
+                    <el-option :value="2" label="导入"></el-option>
+                    <el-option :value="3" label="接口"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="操作方式"
                           :label-width="formLabelWidth">
-                <el-select v-model="rkStartwith" placeholder="请选择">
-                    <el-option :value="1">电脑端</el-option>
-                    <el-option :value="2">PDA</el-option>
+                <el-select v-model="form.rkStartwith" placeholder="请选择">
+                    <el-option :value="1" label="电脑端"></el-option>
+                    <el-option :value="2" label="PDA"></el-option>
                 </el-select>
             </el-form-item>
 
@@ -455,20 +470,6 @@
     }
 </style>
 <script>
-    function from() {
-        return {
-            rkrwN: '',
-            rkrwCph: '',
-            dds: '',
-            pxs: '',
-            rkrwSjxm: '',
-            rkrwDhrq: '',
-            rkrwDbd: '',
-            rkrwCys: '',
-            rkrwDh: '',
-            rkrwStatus: ''
-        }
-    }
     var inputDaily = new Vue({
         el: '#inputDaily',
         prop: {},
@@ -512,12 +513,12 @@
                 rkRkdjNo: '',                       //主页面 入库单号 搜索
 
                 formLabelWidth: '120px',            //表单 配置
-                form: from(),                           //表单 弹出层 信息集合
+                form: form(),                         //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
 
-                select: from(),                         //搜索 弹出层 信息集合,
+                select: form(),                         //搜索 弹出层 信息集合,
                 printf: [],                         //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 dialogPrintfVisible: false,
@@ -583,14 +584,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
@@ -630,12 +631,12 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(inputDaily);
+                    p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                post(this, {});
+                p[0].post( {});
             },                                          //详细查询 提交
             printfSubmit: function () {
                 var datas=[];
@@ -675,21 +676,21 @@
                 }
             },
             auto_mdtSjsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                                  //作业时间
             auto_rkrkSjsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                                  //上架开始时间
             auto_rkEndTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                                  //上架结束时间
             auto_rkCreatetime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },                                  //下单时间
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+            },                              //下单时间
             auto_rkStatus:function(value){
                 var temp={}
                 if(!isNaN(value)){
@@ -743,13 +744,51 @@
                 }
                 return temp[value];
             },                                         //入库状态
-
-
-
-
         }
     });
-
+    function form() {
+        return {
+            rkrwN: '',
+            rkrwCph: '',
+            dds: '',
+            pxs: '',
+            rkrwSjxm: '',
+            rkrwDhrq: '',
+            rkrwDbd: '',
+            rkrwCys: '',
+            rkrwDh: '',
+            rkrwStatus: '',
+            rkCreatetime:[null,null],//模糊查询--创建时间
+            rkrkSjsj:[null,null],    //模糊查询--上架时间
+            mdtSjsj:[null,null],     //模糊查询--作业时间
+            ruUserName:'',            //模糊查询--作业人员
+            bgGoodsNo:'',             //模糊查询--货品编号
+            bgGoodsName:'',           //模糊查询--货品名称
+            rkRkdjNo:'',              //模糊查询--入库单号
+            blLname:'',                //模糊查询--库位
+            rkStatus:'',               //模糊查询--入库状态
+            rkZdfs:'',                  //模糊查询--制单方式
+            rkStartwith:'',             //模糊查询--操作方式
+        }
+    }
+    var obj=inputDaily;
+    var p=[];
+    // 0 入库日报 分页查询
+    p[0] = autoPost({
+        urlHock: "/hock/inputDaily/page.json",
+        urlProd: "/route/inputDaily/0",
+        success: function (json) {
+            obj.$data.inputDaily = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+    // 1 入库日报 导出
+    p[1] = autoPost({
+        urlHock: "",
+        urlProd: "/route/inputDaily/1",
+        success: function (json) {
+        }
+    });
     // 高级 监视器的 使用方法
     //    inputDaily.$watch('date', function () {
     //        if (!this.option.dateStart)return;
@@ -758,153 +797,7 @@
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
-
-    post(inputDaily);
-    function post(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/inputDaily/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                obj.$data.inputDaily = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                        //TODO 获取入库日报主页面
-    function postRkrwNo(obj, option, resolve) {
-        /*<debug>*/
-        url = "/hock/inputDaily/rkrwNo.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                var resoleveStep = [];
-                for (var i = 0; i < json.data.length; i++) {
-                    resoleveStep.push({
-                        name: json.data[i].rkdjId,
-                        rkrwNo:option.rkrwNo,
-                        rkrwDhrq:option.rkrwDhrq});
-                }
-                return resolve(resoleveStep);
-            },
-            complete: function () {
-
-            }
-        });
-    }          //TODO 获取任务单号中详细信息
-    function postRkdjId(obj, option, resolve) {
-        /*<debug>*/
-        url = "/hock/inputDaily/rkdjId.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                var resoleveStep = [];
-                for (var i = 0; i < json.length; i++) {
-                    resoleveStep.push({
-                        name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgNamejc,
-                        val2:json[i].baseGoods.bgGoodsNo,
-                        val:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        rwdh:option.rkrwNo,
-                        dhrq:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        dysj:changeDate(new Date())
-                    });
-                }
-                return resolve(resoleveStep);
-            },
-            complete: function () {
-
-            }
-        });
-    }          //TODO 获取入库单号中详细信息
-    function changeDate(date) {
-        return dateFormat(new Date(date), 'MM-dd hh:mm');
-    }
-    function errorTip(obj, error) {                    // 错误提示
-        /*<debug>*/
-        console.log(error);
-        /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
-    function dateFormat(date, fmt) {
-        var o = {
-            "M+": date.getMonth() + 1,                 //月份
-            "d+": date.getDate(),                    //日
-            "h+": date.getHours(),                   //小时
-            "m+": date.getMinutes(),                 //分
-            "s+": date.getSeconds(),                 //秒
-            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-            "S": date.getMilliseconds()             //毫秒
-        };
-        if (/(y+)/.test(fmt))
-            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-
-                    console.log(temp);
-                }
-                data.pop();
-            }
-        }
-    }
+    p[0].post( inputDaily.option);
     function printfCompile(obj) {
         var resoleveStep = [];
         for (var i = 0; i < obj.multipleSelection.length; i++) {
@@ -915,8 +808,7 @@
             });
         }
         obj.printf = resoleveStep;
-    }
-
+    }               //打印
 </script>
 
 

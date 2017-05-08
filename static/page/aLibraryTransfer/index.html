@@ -171,10 +171,8 @@
                     <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                             class="icon sel"></i><span>多选</span>
                     </button>
-                    <!--<button @click="moreOperationModify" class="btn btn-modify" v-show="multiSelect"><i-->
-                    <!--class="icon modify"></i><span>删除</span>-->
-                    <!--</button>-->
-                    <button @click="moreOperationDelete" class="btn btn-del" v-show="multiSelect"><i
+
+                    <button @click="multiMoreOperationDelete" class="btn btn-del" v-show="multiSelect"><i
                             class="icon del"></i><span>批量删除</span>
                     </button>
             </div>
@@ -196,7 +194,10 @@
                             <el-row>
                                 <el-col :span="10">
                                     <el-form-item label="创建时间">
-                                        <span>{{ props.row.zyCreateTime }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{auto_zyCreateTime(props.row.zyCreateTime) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="提起人">
                                         <span>{{ props.row.zyMentionUserName }}</span>
@@ -213,16 +214,24 @@
                                         <span>{{ props.row.zyReason	 }}</span>
                                     </el-form-item>
                                     <el-form-item label="确认时间">
-                                        <span>{{ props.row.zyConfirmTime }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_zyConfirmTime(props.row.zyConfirmTime) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="转移状态">
-                                        <span>{{ props.row.zyStatus }}</span>
+                                        <span>{{ auto_zyStatus(props.row.zyStatus) }}</span>
                                     </el-form-item>
                                     <el-form-item label="可用操作">
                                         <el-button
                                                 size="small"
                                                 icon="edit"
                                                 @click="inlineEdit(props.$index, props.row)">
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                type="success"
+                                                @click="inlineDelete(props.$index, props.row)">删除
                                         </el-button>
                                     </el-form-item>
                                 </el-col>
@@ -237,8 +246,13 @@
                 <el-table-column
                         label="创建时间"
                         show-overflow-tooltip
-                        prop="zyCreateTime"
                         align="center">
+                    <template scope="scope">
+                        <span>
+                            {{auto_zyCreateTime(scope.row.zyCreateTime,true)}}
+                        </span>
+                    </template>
+
                 </el-table-column>
                 <el-table-column
                         label="提起人"
@@ -271,7 +285,7 @@
                         width="100">
                     <template scope="scope">
                         <el-tag
-                                close-transition>{{scope.row.zyStatus}}
+                                close-transition>{{auto_zyStatus(scope.row.zyStatus)}}
                         </el-tag>
                     </template>
                 </el-table-column>
@@ -391,7 +405,7 @@
             <el-form-item label="创建日期"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.zyCreateTime"
+                        v-model="form.zyCreateTime"
                         type="daterange"
                         align="right"
                         placeholder="创建日期"
@@ -401,17 +415,18 @@
             </el-form-item>
             <el-form-item label="转移状态"
                           :label-width="formLabelWidth">
-                <el-input
-                        v-model="select.zyStatus"
-                        class="input"
-                        icon="search"
-                        placeholder="转移状态"></el-input>
+                <el-select v-model="form.zyStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="0" label="初始"></el-option>
+                    <el-option :value="1" label="已确认"></el-option>
+                    <el-option :value="2" label="作废"></el-option>
+                </el-select>
             </el-form-item>
             <el-form-item label="提起人"
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.zyMentionUserName"
+                        v-model="form.zyMentionUserName"
                         icon="search"
                         placeholder="提起人"></el-input>
             </el-form-item>
@@ -419,7 +434,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.zyConfirmUserName"
+                        v-model="form.zyConfirmUserName"
                         icon="search"
                         placeholder="确认人"></el-input>
             </el-form-item>
@@ -429,19 +444,7 @@
         </div>
     </el-dialog>
 </div>
-
 <script>
-    function form() {
-        return {
-            zyCreateTime:'',
-            zyMentionUserName:'',
-            zyCreateUserName:'',
-            zyConfirmUserName:'',
-            zyReason:'',
-            zyConfirmTime:'',
-            zyStatus:''
-        }
-    }
     var aLibraryTransfer = new Vue({
         el: '#aLibraryTransfer',
         prop: {},
@@ -533,6 +536,24 @@
             },                                      //分配 表单
         },
         methods: {
+            inlineDelete:function(){
+                var _this = this;
+                _this.$confirm('此操作将删除库存转移单据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.recoveryArchive);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },                                             //TODO 行内按钮-删除
             inlineEdit: function (index, row) {
                 this.form.title = '编辑';
                 this.form.zyCreateTime = row.zyCreateTime;
@@ -553,7 +574,6 @@
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
             },                                //行内按钮 打印标签页
-
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -563,14 +583,30 @@
                 /*</debug>*/
                 this.multipleSelection = val;
             },                               //多选 选中控制
-            moreOperationDelete: function () {
-                /*<debug>*/
-                console.log('选中的删除');
-                /*</debug>*/
-                for (i = 0; i < this.multipleSelectionCombination.length; i++) {
-                    remove(this.multipleSelectionCombination[i], this.warehousingReservationCombination);
-                }
-            },                                   //多选 删除
+            multiMoreOperationDelete: function () {
+                var _this = this;
+                _this.$confirm('此操作将删除库存转移单据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.recoveryArchive);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+//                /*<debug>*/
+//                console.log('选中的删除');
+//                /*</debug>*/
+//                for (i = 0; i < this.multipleSelectionCombination.length; i++) {
+//                    remove(this.multipleSelectionCombination[i], this.warehousingReservationCombination);
+//                }
+            },                              //TODO 多选 删除
             newInput: function () {
                 this.form = form();
                 this.dialogFormVisible = true;
@@ -579,23 +615,20 @@
                     aLibraryTransfer.$refs.carousel.setActiveItem(0);
                 });
             },
-
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post(this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                //分页 当前页
-
-
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -634,15 +667,13 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(aLibraryTransfer);
+                    p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
-
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                post(this, {});
+                p[0].post( {});
             },                                          //详细查询 提交
-
             printfSubmit: function () {
                 var datas=[];
                 var checkData=aLibraryTransfer.$refs.printf.getCheckedNodes();
@@ -679,7 +710,81 @@
                     case 3:
                         return resolve([]);
                 }
-            }
+            },
+            auto_zyCreateTime: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+            },                           //创建时间
+            auto_zyConfirmTime: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+            },                           //确认时间
+            auto_zyStatus:function(value){
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        0:'初始',
+                        1:'确认',
+                        2:'作废',
+                    }
+                }else{
+                    temp={
+                        '初始':0,
+                        '确认':1,
+                        '作废':2
+                    }
+                }
+                return temp[value];
+            },                                        //转移状态
+
+
+        }
+    });
+    function form() {
+        return {
+            zyCreateTime:'',
+            zyMentionUserName:'',
+            zyCreateUserName:'',
+            zyConfirmUserName:'',
+            zyReason:'',
+            zyConfirmTime:'',
+            zyStatus:'',
+            zyCreateTime:[null,null],//模糊查询--创建日期
+            zyStatus:'',//模糊查询--转移状态
+            zyMentionUserName:'',//模糊查询--提起人
+            zyConfirmUserName:''//模糊查询--确认人
+        }
+    }
+    var obj=aLibraryTransfer;
+    var p=[];
+    // 0 库存转移 分页查询
+    p[0] = autoPost({
+        urlHock: "../../hock/aLibraryTransfer/page.json",
+        urlProd: "/route/aLibraryTransfer/0",
+        success: function (json) {
+            obj.$data.aLibraryTransfer = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+     // 1 库存转移
+    p[1] = autoPost({
+        urlHock: "",
+        urlProd: "/route/aLibraryTransfer/1",
+        success: function (json) {
+        }
+    });
+     // 2 库存转移
+    p[2] = autoPost({
+        urlHock: "",
+        urlProd: "/route/aLibraryTransfer/2",
+        success: function (json) {
+        }
+    });
+     // 3 库存转移
+    p[3] = autoPost({
+        urlHock: "",
+        urlProd: "/route/aLibraryTransfer/3",
+        success: function (json) {
         }
     });
 
@@ -691,155 +796,7 @@
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
-    post(aLibraryTransfer,aLibraryTransfer.option);
-
-    function post(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url =
-            url = "/hock/aLibraryTransfer/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/aLibraryTransfer/0";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                obj.$data.aLibraryTransfer = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }           ///TODO 库存转移分页查询的接口
-
-    function postRkrwNo(obj, option, resolve) {
-        /*<debug>*/
-        url = "/hock/aLibraryTransfer/rkrwNo.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                var resoleveStep = [];
-                for (var i = 0; i < json.data.length; i++) {
-                    resoleveStep.push({
-                        name: json.data[i].rkdjId,
-                        rkrwNo:option.rkrwNo,
-                        rkrwDhrq:option.rkrwDhrq});
-                }
-                return resolve(resoleveStep);
-            },
-            complete: function () {
-
-            }
-        });
-    }          //TODO 获取任务单号中详细信息
-    function postRkdjId(obj, option, resolve) {
-        /*<debug>*/
-        url = "/hock/aLibraryTransfer/rkdjId.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                var resoleveStep = [];
-                for (var i = 0; i < json.length; i++) {
-                    resoleveStep.push({
-                        name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgNamejc,
-                        val2:json[i].baseGoods.bgGoodsNo,
-                        val:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        rwdh:option.rkrwNo,
-                        dhrq:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        dysj:changeDate(new Date())
-                    });
-                }
-                return resolve(resoleveStep);
-            },
-            complete: function () {
-
-            }
-        });
-    }          //TODO 获取入库单号中详细信息
-    function changeDate(date) {
-        return dateFormat(new Date(date), 'MM-dd hh:mm');
-    }
-    function errorTip(obj, error) {                    // 错误提示
-        /*<debug>*/
-        console.log(error);
-        /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
-    function dateFormat(date, fmt) {
-        var o = {
-            "M+": date.getMonth() + 1,                 //月份
-            "d+": date.getDate(),                    //日
-            "h+": date.getHours(),                   //小时
-            "m+": date.getMinutes(),                 //分
-            "s+": date.getSeconds(),                 //秒
-            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-            "S": date.getMilliseconds()             //毫秒
-        };
-        if (/(y+)/.test(fmt))
-            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-
-                    console.log(temp);
-                }
-                data.pop();
-            }
-        }
-    }
+    p[0].post(aLibraryTransfer.option);
     function printfCompile(obj) {
         var resoleveStep = [];
         for (var i = 0; i < obj.multipleSelection.length; i++) {
@@ -850,7 +807,7 @@
             });
         }
         obj.printf = resoleveStep;
-    }
+    }           //打印
 
 </script>
 

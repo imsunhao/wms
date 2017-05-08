@@ -16,8 +16,27 @@
                         class="datePicker"
                         :picker-options="pickerOptions">
                 </el-date-picker>
-                <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
-                        class="icon search"></i><span>详细查询</span>
+                <el-select v-model="form.rkStatus" placeholder="请选择">
+                    <el-option :value="1" label="初始"></el-option>
+                    <el-option :value="21" label="部分分配"></el-option>
+                    <el-option :value="22" label="全部分配"></el-option>
+                    <el-option :value="31" label="部分收货"></el-option>
+                    <el-option :value="32" label="全都收货"></el-option>
+
+
+                </el-select>
+
+                <!--<button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i-->
+                <!--class="icon search"></i><span>详细查询</span>-->
+                <!--</button>-->
+                <button @click="multiSelectClick" class="btn btn-multiSelect"><i
+                        class="icon sel"></i><span>多选</span>
+                </button>
+                <button @click="multiOperationCancelAllocation" class="btn CancelAllocation" v-show="multiSelect"><i
+                        class="icon issued"></i><span>取消分配</span>
+                </button>
+                <button @click="multiOperationGrounding" class="btn CancelAllocation" v-show="multiSelect"><i
+                        class="icon issued"></i><span>上架</span>
                 </button>
             </div>
             <el-table
@@ -86,8 +105,10 @@
                                             <el-form-item label="入库体积">
                                                 <span>{{ props.row.allTj }}</span>
                                             </el-form-item>
-                                             <el-form-item label="下单时间">
-                                                <span>{{ auto_rkCreatetime(props.row.rkCreatetime) }}</span>
+                                            <el-form-item label="下单时间">
+                                                <span>
+                                                    <el-icon name="time"></el-icon>
+                                                    {{ auto_rkCreatetime(props.row.rkCreatetime) }}</span>
                                             </el-form-item>
 
                                             <el-form-item label="制作方式">
@@ -99,6 +120,17 @@
                                                         size="small"
                                                         @click="distributionBtn(props.$index, props.row)">分配
                                                 </el-button>
+                                                <el-button
+                                                        size="small"
+                                                        type="success"
+                                                        @click="inlineCancelAllocation(props.$index, props.row)">取消分配
+                                                </el-button>
+                                                <el-button
+                                                        size="small"
+                                                        type="success"
+                                                        @click="inlineGrounding(props.$index, props.row)">上架
+                                                </el-button>
+
                                                 <el-button
                                                         size="small"
                                                         @click="distributionBtn(props.$index, props.row)">再次收货
@@ -173,7 +205,6 @@
                         sortable
                         label="下单时间">
                     <template scope="scope">
-                        <el-icon name="time"></el-icon>
                         <span style="margin-left: 10px">{{ auto_rkCreatetime(scope.row.rkCreatetime,true) }}</span>
                     </template>
                 </el-table-column>
@@ -526,9 +557,11 @@
                     {{form.location.selectGood.baseGoods.bgGoodsNo}}
                 </el-form-item>
                 <el-form-item label="分配数量" :label-width="formLabelWidth">
-                    <el-input
-                            v-model.number="form.location.selectGood.rksCount"
-                            auto-complete="off"></el-input>
+                    <el-slider
+                            :max="form.location.selectGood.rksCountMax"
+                            v-model="form.location.selectGood.rksCount"
+                            show-input>
+                    </el-slider>
                 </el-form-item>
                 <el-form-item label="库位名称" :label-width="formLabelWidth">
                     <el-autocomplete
@@ -727,72 +760,12 @@
     }
 </style>
 <script>
-
     /*<debug>*/
     (function () {
         window.dbmessage = {};
         window.dbmessage.baseArehouses = JSON.parse('[{"baArehouseId":4,"baName":"无限极济阳仓A91","baAddr":"济南市济阳县","baScity":"齐河","baScontacts":"联系人1","baPhone":"13112345678","baAcreage":"222","baCtype":"22","baHumidity":"222","baFax":"2222","baPostoffice":"test","baIsti":1,"baStatus":1,"baClientId":3,"baRemarks":"test","baCreatetime":1487233193000,"baPgroupinfo":"eeeeeeeeeeeee","arehouseKqs":[]},{"baArehouseId":5,"baName":"九阳济南仓A02","baAddr":"济南市济阳278号","baScity":"齐河","baScontacts":"联系人1","baPhone":"13012345678","baAcreage":"222","baCtype":"111","baHumidity":"222","baFax":"2222","baPostoffice":"test","baIsti":2,"baStatus":1,"baClientId":1,"baRemarks":"test","baCreatetime":1487838047000,"baPgroupinfo":"eeeeeeeeeeeee","arehouseKqs":[]}]');
     })();
     /*</debug>*/
-
-    function locationFather() {
-        return {
-            selectGood: {
-                baseGoods: {
-                    bgGoodsNo: "",
-                    blLname: ""
-                },
-                rksCount: ''
-            },
-            lala: '',
-            blLname:''
-        }
-    }
-
-    function selectGood() {
-        return {
-            baseGoods: {
-                bgGoodsNo: '',
-                bgGoodsName: ''
-            },
-            baseDw: {
-                bdName: ''
-            },
-            rksCount: 0,
-            bgGoodsId: ''
-        }
-    }
-
-    function newLocation() {
-        return {
-            "blLocationId": 0,
-            "blLname": "",
-            "blRegionId": 0,
-            "blLtray": 0,
-            "blLorder": 0,
-            "blStatus": 0,
-            "blArehouseId": 0,
-            selectGood: selectGood(),
-            lala: dateFormat(new Date(), 'yyyyMMdd')
-        }
-    }
-
-    function form() {
-        return {
-            title: '新建入库单',
-            rkRkdjNo: '',
-            rkType: '',
-            rkRemarks: '',
-            rkDocsList: [],
-            bgGoodsNo: '',
-            rkArehouseId: '',
-            selectGood: selectGood(),
-            location: newLocation(),
-            saveARkDocsList: true,
-            deleteARkDocsList: true
-        };
-    }
-
     var inputOperation = new Vue({
         el: '#inputOperation',
         prop: {},
@@ -842,9 +815,9 @@
                 currentPage: 1,
                 pageSize: 10,
 
-                date: [null, null],                 //主页面 选择日期 搜索
+                date: [null, null],                 //TODO 主页面 选择日期 搜索
                 rkRkdjNo: '',                       //TODO 主页面 入库单号 搜索
-
+                rkStatus: '',                        //TODO 主页面 状态 搜索
                 formLabelWidth: '120px',            //表单 配置
                 form: form(),                       //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
@@ -866,7 +839,7 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "rkRkdjNo":this.rkRkdjNo.trim()
+                    "rkRkdjNo": this.rkRkdjNo.trim()
 //                    "dateStart": this.date[0],
 //                    "dateStop": this.date[1]
                 }
@@ -893,7 +866,7 @@
                 this.dialogDistributionForm = true;
                 this.dialogFormActive = 1;
                 if (typeof (this.form.rkDocsList) === 'undefined') {
-                    postGoods(obj, {rkRkdjNo: row.rkRkdjNo}, function (json) {
+                    postGoods({rkRkdjNo: row.rkRkdjNo}, function (json) {
                         obj.form.rkDocsList = json;
                         obj.dialogFormVisible = true;
                     });
@@ -901,6 +874,42 @@
                     obj.dialogFormVisible = true;
                 }
             },                             //分配 行内按钮
+            inlineCancelAllocation: function (index, row) {
+                var _this = this;
+                _this.$confirm('此操作将这单任务单据取消分配, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.warehousingTask);
+                    postDelete({
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消下发'
+                    });
+                });
+            },                      //TODO 行内按钮 取消分配
+            inlineGrounding: function (index, row) {
+                var _this = this;
+                _this.$confirm('此操作将这单任务单据上架, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.warehousingTask);
+                    postDelete({
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消下发'
+                    });
+                });
+            },                             //TODO 行内按钮 上架
             distributionBtnSubmit: function () {
                 var _this = this;
                 this.dialogFormActive++;
@@ -918,14 +927,15 @@
                     _this.dialogFormActive = 0;
                     _this.dialogDistributionForm = false;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(inputOperation);
+                    post();
                 }, 1500);
             },
             distributionBtnLocation: function (index, row) {
-                var step=selectGood();
+                var step = selectGood();
                 allPrposCb(step, function (obj, index) {
                     if (typeof row[index] !== 'undefined') step[index] = row[index];
                 });
+                step.rksCountMax=step.rksCount;
                 this.form.location.selectGood = step;
                 this.dialogLocationVisible = true;
             },
@@ -1057,6 +1067,46 @@
                 /*</debug>*/
                 this.multipleSelection = val;
             },                              //多选 选中控制
+            multiOperationCancelAllocation: function () {
+                var obj = this;
+                obj.$confirm('此操作将这些入库单据取消分配, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                    var step = [];
+                    for (var i = 0; i < obj.multipleSelection.length; i++) {
+                        step.push(obj.multipleSelection[i].ruUserId);
+                    }
+                    postPassword(warehousingTask, {ids: step});
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                        //TODO 多选 取消分配
+            multiOperationGrounding: function () {
+                var obj = this;
+                obj.$confirm('此操作将这些入库单据上架, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    // TODO
+                    var step = [];
+                    for (var i = 0; i < obj.multipleSelection.length; i++) {
+                        step.push(obj.multipleSelection[i].ruUserId);
+                    }
+                    postPassword(warehousingTask, {ids: step});
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                               //TODO 多选 上架
             moreOperationDelete: function () {
                 /*<debug>*/
                 console.log('选中的删除');
@@ -1066,7 +1116,7 @@
                     remove(this.multipleSelection[i], this.inputOperation);
                     listID.push(this.inputOperation.rkdjNo);
                 }
-                postDelete(this, {
+                postDelete({
                     id: listID
                 })
 
@@ -1076,14 +1126,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                post(this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                post(this.option);
             },                                //分页 当前页
             newInput: function () {
                 this.dialogFormVisible = true;
@@ -1100,8 +1150,12 @@
 
             },                                              //按钮 新建入库单
             expandChange: function (row, expanded) {
-                if ( expanded && row.historyLength === 0) {
+                console.log(row.rkRkdjId);
+                if (expanded && row.history.length === 0) {
                     postHistory(row);
+                    p[3].post({rkRkdjId: row.rkRkdjId}, function (json) {
+                        row.rkDocsList = json.rkDocsList;
+                    })
                 }
             },                             //下拉 选择
             rowSelection: function (row, selected) {
@@ -1146,10 +1200,23 @@
 //                },0);
             },                             //表单 string验证
             querySearchAsync: function (queryString, cb) {
-                postGoods(this, {bgGoodsNo: queryString}, cb);
+                postGoods({bgGoodsNo: queryString}, cb);
             },
             queryLocationAsync: function (queryString, cb) {
-                postLocation(this, {blLname: queryString}, cb);
+                p[5].post({
+                    "pageNum": 1,
+                    "pageSize": 10,
+                    "draw": 0,
+                    blLName: queryString
+                }, function (json) {
+                    json = json.data;
+                    var step = [];
+                    var length = json.length > 20 ? 20 : json.length;
+                    for (var i = 0; i < length; i++) {
+                        step.push({data: json[i], value: json[i].blLname})
+                    }
+                    cb(step);
+                });
             },
             GoodSelect: function (item) {
                 this.form.saveARkDocsList = false;
@@ -1194,7 +1261,7 @@
                     type: 'warning'
                 }).then(function () {
                     remove(row, _this.inputOperation);
-                    postDelete(_this, {
+                    postDelete({
                         id: [row.rkdjNo]
                     });
                 }).catch(function () {
@@ -1227,62 +1294,62 @@
                 }
             },                            //入库仓库id 自动匹配
             auto_rkCreatetime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日-hh:mm:ss');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日 ');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                          //创建时间/下单时间
-            auto_rkType:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        0:'采购订单',
-                        1:'仓间调拨',
-                        2:'退货入库'
+            auto_rkType: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        0: '采购订单',
+                        1: '仓间调拨',
+                        2: '退货入库'
                     }
-                }else{
-                    temp={
-                        '采购订单':0,
-                        '仓间调拨':1,
-                        '退货入库':2
-                    }
-                }
-                return temp[value];
-            },                                          //订单类型
-            auto_rkStatus:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        1:'原始状态',
-                        21:'部分分配',
-                        22:'全部分配',
-                        31:'部分收货',
-                        32:'完全收货',
-                    }
-                }else{
-                    temp={
-                        '采购订单':0,
-                        '仓间调拨':1,
-                        '退货入库':2
+                } else {
+                    temp = {
+                        '采购订单': 0,
+                        '仓间调拨': 1,
+                        '退货入库': 2
                     }
                 }
                 return temp[value];
-            },                                         //入库状态
-            auto_rkZdfs:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        1:'手动',
-                        2:'导入',
-                        3:'接口'
+            },                                      //订单类型
+            auto_rkStatus: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '原始状态',
+                        21: '部分分配',
+                        22: '全部分配',
+                        31: '部分收货',
+                        32: '完全收货',
                     }
-                }else{
-                    temp={
-                        '手动':1,
-                        '导入':2,
-                        '接口':3
+                } else {
+                    temp = {
+                        '采购订单': 0,
+                        '仓间调拨': 1,
+                        '退货入库': 2
                     }
                 }
                 return temp[value];
-            },                                        //制单方式
+            },                                    //入库状态
+            auto_rkZdfs: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '手动',
+                        2: '导入',
+                        3: '接口'
+                    }
+                } else {
+                    temp = {
+                        '手动': 1,
+                        '导入': 2,
+                        '接口': 3
+                    }
+                }
+                return temp[value];
+            },                                      //制单方式
 
         },
         watch: {
@@ -1290,10 +1357,91 @@
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                post(this, this.option);
+                post(this.option);
             }
         }
     });
+    function form() {
+        return {
+            title: '新建入库单',
+            rkRkdjNo: '',
+            rkType: '',
+            rkRemarks: '',
+            rkDocsList: [],
+            bgGoodsNo: '',
+            rkArehouseId: '',
+            rkStatus: '',
+            selectGood: selectGood(),
+            location: newLocation(),
+            saveARkDocsList: true,
+            deleteARkDocsList: true
+        };
+    }
+    var obj = inputOperation;
+    var p = [];
+    // 0 入库操作 分页查询
+    p[0] = autoPost({
+        urlHock: "../../hock/userControl/page.json",
+        urlProd: "/route/userManagement/0",
+        success: function (json) {
+            obj.$data.userManagement = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+
+    //3 查询-入库单号-入库明细
+    p[3] = autoPost({
+        urlHock: "/hock/warehousingTask/docList.json",
+        urlProd: "/route/inputOperation/3"
+    });
+
+    //5 查询-储位
+    p[5] = autoPost({
+        urlHock: "/hock/inputOption/location.json",
+        urlProd: "/route/inputOperation/5"
+    });
+
+    function locationFather() {
+        return {
+            selectGood: {
+                baseGoods: {
+                    bgGoodsNo: "",
+                    blLname: ""
+                },
+                rksCount: ''
+            },
+            lala: '',
+            blLname: ''
+        }
+    }
+
+    function selectGood() {
+        return {
+            baseGoods: {
+                bgGoodsNo: '',
+                bgGoodsName: ''
+            },
+            baseDw: {
+                bdName: ''
+            },
+            rksCount: 0,
+            bgGoodsId: ''
+        }
+    }
+
+    function newLocation() {
+        return {
+            "blLocationId": 0,
+            "blLname": "",
+            "blRegionId": 0,
+            "blLtray": 0,
+            "blLorder": 0,
+            "blStatus": 0,
+            "blArehouseId": 0,
+            selectGood: selectGood(),
+            lala: dateFormat(new Date(), 'yyyyMMdd')
+        }
+    }
 
     // 高级 监视器的 使用方法
     inputOperation.$watch('form.selectGood.rksCount', function () {
@@ -1311,14 +1459,14 @@
         /*<debug>*/
         console.log(this.option);
         /*</debug>*/
-        post(this, this.option);
+        post(this.option);
     }, {deep: true});
     //    , {
     //        deep: true
     //    }
 
-    post(inputOperation,inputOperation.option);
-    function post(obj, option) {
+    post(inputOperation.option);
+    function post(option) {
         obj.showLoading = true;
 
         /*<debug>*/
@@ -1340,24 +1488,31 @@
                 errorTip(obj, error);
             },
             success: function (json) {
+
+                /*<debug>*/
                 console.log(json);
-                var temp=[];
-                for(var i=0;i<json.data.length;i++){
-                    temp[i]=json.data[i];
-                    temp[i].history=[];
-                    temp[i].historyLoading=false;
-                    temp[i].historyLength=0;
+                /*</debug>*/
+                if (json.code !== 500) {
+                    var temp = [];
+                    for (var i = 0; i < json.data.length; i++) {
+                        temp[i] = json.data[i];
+                        temp[i].history = [];
+                        temp[i].historyLoading = false;
+                        temp[i].historyLength = 0;
+                    }
+                    obj.$data.inputOperation = json.data;
+                    obj.$data.currentTotal = json.recordsFiltered;
+                } else {
+                    errorTip(obj, json);
                 }
-                obj.$data.inputOperation = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
             },
             complete: function () {
                 obj.showLoading = false;
             }
         });
-    }           //TODO 0 分页获取 入库操作详情 (测试通过)
+    }           //0 分页获取 入库操作详情
 
-    function postHistory(obj, option) {
+    function postHistory(option) {
         obj.historyLoading = true;
 
         /*<debug>*/
@@ -1365,38 +1520,7 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/data/inputOption/history";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "id": 1                        //* 入库单号id
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                for (var i = 0; i < json.history.length; i++) {
-                    json.history[i].createTime = changeDate(json.history[i].createTime);
-                }
-                obj.history = json.history;
-                obj.historyLength = json.history.length - 1;
-                obj.historyLoading = false;
-            },
-            complete: function () {
-            }
-        });
-    }
-
-    function postLocation(obj, option, cb) {
-
-        /*<debug>*/
-        url = "/hock/inputOption/location.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/history";
+        url = "/route/inputOperation/1";
         /*</prod>*/
 
         $.ajax(url, {
@@ -1408,20 +1532,35 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                json = json.data;
-                var step = [];
-                var length = json.length > 20 ? 20 : json.length;
-                for (var i = 0; i < length; i++) {
-                    step.push({data: json[i], value: json[i].blLname})
+                var temp = {
+                    1: '创建出库单(出库)',
+                    2: '分拣(出库)',
+                    3: '下架(出库)',
+                    4: '编辑(出库)',
+                    5: '删除(出库)',
+                    6: '追加分拣(出库)',
+                    7: 'PDA上架(入库)',
+                    8: 'PDA分拣(出库)',
+                    9: 'PDA下架(出库)',
+                    10: '创建入库单(入库)',
+                    11: '编辑入库单(手工制作可以编辑)(入库)',
+                    12: '作废入库单(手工制作可以作废)(入库)',
+                    13: '分配入库单(入库)'
+                };
+                for (var i = 0; i < json.length; i++) {
+                    json[i].createTime = dateFormat(new Date(json[i].mhCreatetime), 'MM-dd hh:mm');
+                    json[i].description = "由 " + json[i].rmsUser.ruUserName + " " + temp[json[i].mhStatus]
                 }
-                cb(step);
+                option.history = json;
+                option.historyLength = json.length;
+                obj.historyLoading = false;
             },
             complete: function () {
             }
         });
-    }
+    }    //1 历史记录
 
-    function postDelete(obj, option) {
+    function postDelete(option) {
         //TODO 删除后重新post
         if (option.id.length < 1)return;
         obj.showLoading = true;
@@ -1460,7 +1599,7 @@
         });
     }
 
-    function postGoods(obj, option, cb) {
+    function postGoods(option, cb) {
         //TODO 此处应为AJAX请求,待完善 querySearchAsync
 
         /*<debug>*/
@@ -1493,68 +1632,4 @@
             }
         });
     }
-
-    function changeDate(date) {
-        return dateFormat(new Date(date), 'MM-dd hh:mm');
-    }
-
-    function errorTip(obj, error) {                    // 错误提示
-        /*<debug>*/
-        console.log(error);
-        /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
-
-    function dateFormat(date, fmt) {
-        var o = {
-            "M+": date.getMonth() + 1,                 //月份
-            "d+": date.getDate(),                    //日
-            "h+": date.getHours(),                   //小时
-            "m+": date.getMinutes(),                 //分
-            "s+": date.getSeconds(),                 //秒
-            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-            "S": date.getMilliseconds()             //毫秒
-        };
-        if (/(y+)/.test(fmt))
-            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
-
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-
-                    console.log(temp);
-                }
-                data.pop();
-            }
-        }
-    }
-
-    /*
-     * 用来遍历指定对象所有的属性名称和值
-     * obj 需要遍历的对象
-     * cb 回调函数  1. 子属性 2.子属性名
-     */
-    function allPrposCb(obj, cb) {
-        for (var p in obj) {
-            if (typeof(obj[p]) !== "function") {
-                cb(obj[p], p)
-            }
-        }
-    }
 </script>
-
-
-
-
-

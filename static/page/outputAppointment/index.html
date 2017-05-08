@@ -93,7 +93,6 @@
         cursor: pointer;
         padding: 0;
         margin: 0;
-        float: left;
         font-size: 14px;
         color: #1f2d3d;
         margin-top: 29px;
@@ -202,14 +201,15 @@
                                         v-model="date"
                                         type="daterange"
                                         align="right"
-                                        placeholder="下单时间"
+                                        placeholder="选择日期"
                                         class="datePicker"
                                         :picker-options="pickerOptions">
                                 </el-date-picker>
-                                <el-select v-model="baCtype" placeholder="请选择">
-                                    <el-option :value="0">正常单据</el-option>
-                                    <el-option :value="1">挂起单据</el-option>
-                                    <el-option :value="2">滞留单据</el-option>
+                                <el-select v-model.number="ckCkdjType" placeholder="请选择">
+                                    <el-option :value.number="-1" label="全部"></el-option>
+                                    <el-option :value.number="0" label="正常单据"></el-option>
+                                    <el-option :value.number="1" label="挂起单据"></el-option>
+                                    <el-option :value.number="2" label="滞留单据"></el-option>
                                 </el-select>
                                 <button @click="newInput" class="btn btn-add"><i class="icon add"></i><span>添加</span>
                                 </button>
@@ -219,32 +219,6 @@
                                 <button @click="moreOperationDelete" class="btn btn-del" v-show="multiSelect"><i
                                         class="icon del"></i><span>批量删除</span>
                                 </button>
-                                <button @click="moreOperationTovoid" class="btn btn-del" v-show="multiSelect"><i
-                                        class="icon del1"></i><span>作废</span>
-                                </button>
-                                <button @click="moreOperationRetentionInput" class="btn btn-del" v-show="multiSelect"><i
-                                        class="icon del1"></i><span>滞留入库</span>
-                                </button>
-
-                                <!--<button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i-->
-                                <!--class="icon search"></i><span>详细查询</span>-->
-                                <!--</button>-->
-                                <!--<button-->
-                                <!--class="btn btn-edit"-->
-                                <!--@click="handleDelete">编辑-->
-                                <!--</button>-->
-                                <!--<button-->
-                                <!--class="btn btn-distribution"-->
-                                <!--@click="handleDelete">分配-->
-                                <!--</button>-->
-                                <!--<button-->
-                                <!--class="btn btn-receipt"-->
-                                <!--@click="handleDelete">再次收货-->
-                                <!--</button>-->
-                                <!--<button-->
-                                <!--class="btn btn-print"-->
-                                <!--@click="handleDelete">打印-->
-                                <!--</button>-->
                             </div>
                         </el-col>
                     </el-row>
@@ -315,13 +289,19 @@
                                                         <el-button
                                                                 size="small"
                                                                 icon="edit"
-                                                                @click="Edit(props.$index, props.row)">编辑
+                                                                @click="inlineEdit(props.$index, props.row)">
+                                                        </el-button>
+                                                        <el-button
+                                                                size="small"
+                                                                type="info"
+                                                                @click="inlineRetentionInput(props.$index, props.row)">
+                                                            滞留入库
                                                         </el-button>
                                                         <el-button
                                                                 size="small"
                                                                 icon="delete"
                                                                 type="danger"
-                                                                @click="deleteOlder(props.$index, props.row)">删除
+                                                                @click="inlineDeleteOlder(props.$index, props.row)">
                                                         </el-button>
                                                     </el-form-item>
                                                 </el-form>
@@ -443,7 +423,6 @@
                             <el-col :span="10" :offset="2">
 
 
-
                                 <el-form-item label="车牌号" :label-width="formLabelWidth">
                                     <el-input
                                             v-model="outputAppointmentCombinationDetails.ckrwCph"
@@ -493,7 +472,7 @@
                     :active="dialogFormActive"
                     finish-status="success">
                 <el-step title="基础信息"></el-step>
-                <el-step title="出库明细"></el-step>
+                <el-step title="入库明细"></el-step>
             </el-steps>
         </div>
         <el-form :model="form" ref="newForm">
@@ -518,16 +497,16 @@
                                         auto-complete="off"></el-input>
                             </el-form-item>
                             <el-form-item label="所属仓库" :label-width="formLabelWidth">
-                                <el-select v-model="form.ckArehouseId" placeholder="请选择所属仓库">
+                                <el-select v-model.number="form.ckArehouseId" placeholder="请选择所属仓库">
                                     <el-option :label="obj.baName" :value="obj.baArehouseId"
                                                v-for="obj of baseArehouses"></el-option>
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="单据类型" :label-width="formLabelWidth">
-                                <el-select v-model="form.ckCkdjType" placeholder="请选择单据类型">
-                                    <el-option label="正常单据" :value="0"></el-option>
-                                    <el-option label="挂起单据" :value="1"></el-option>
-                                    <el-option label="滞留单据" :value="2"></el-option>
+                                <el-select v-model.number="form.ckCkdjType" placeholder="请选择单据类型">
+                                    <el-option label="正常单据" :value.number="0"></el-option>
+                                    <el-option label="挂起单据" :value.number="1"></el-option>
+                                    <el-option label="滞留单据" :value.number="2"></el-option>
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="出库备注" :label-width="formLabelWidth">
@@ -562,7 +541,7 @@
                     <el-row>
                         <el-col :span="24"><h3>出库明细</h3></el-col>
                     </el-row>
-                    <el-row>
+                    <el-row v-show="!watchView">
                         <el-col :span="12">
                             <el-form-item label="货品编号" :label-width="formLabelWidth">
                                 <el-autocomplete
@@ -605,7 +584,7 @@
                         </el-col>
                     </el-row>
                     <el-row>
-                        <el-col :span="8" :offset="16">
+                        <el-col :span="8" :offset="16" v-show="!watchView">
                             <el-button size="small" @click="saveDocsList"
                                        :disabled="form.saveARkDocsList">保存明细
                             </el-button>
@@ -619,7 +598,7 @@
                             <el-table
                                     @row-click="GoodClick"
                                     height="200"
-                                    :data="form.rkDocsList">
+                                    :data="form.ckDocsList">
                                 <el-table-column
                                         type="index"
                                         width="55">
@@ -661,7 +640,10 @@
             <el-button type="primary" @click="prev" v-show="dialogFormActive">上一步</el-button>
             <el-button type="primary" @click="next" v-show="dialogFormActive < 1">下一步</el-button>
             <el-button type="primary" @click="submit" :loading="submitLoading" v-show="dialogFormActive >= 1"
-                       :disabled="form.rkDocsList.length==0">保存
+                       :disabled="form.ckDocsList.length==0" v-if="!watchView">保存
+            </el-button>
+            <el-button type="primary" @click="submitWatchView" :loading="submitLoading" v-show="dialogFormActive >= 1"
+                       :disabled="form.ckDocsList.length==0" v-if="watchView">确认
             </el-button>
         </div>
     </el-dialog>
@@ -674,49 +656,6 @@
         window.dbmessage.baseArehouses = JSON.parse('[{"baArehouseId":4,"baName":"无限极济阳仓A91","baAddr":"济南市济阳县","baScity":"齐河","baScontacts":"联系人1","baPhone":"13112345678","baAcreage":"222","baCtype":"22","baHumidity":"222","baFax":"2222","baPostoffice":"test","baIsti":1,"baStatus":1,"baClientId":3,"baRemarks":"test","baCreatetime":1487233193000,"baPgroupinfo":"eeeeeeeeeeeee","arehouseKqs":[]},{"baArehouseId":5,"baName":"九阳济南仓A02","baAddr":"济南市济阳278号","baScity":"齐河","baScontacts":"联系人1","baPhone":"13012345678","baAcreage":"222","baCtype":"111","baHumidity":"222","baFax":"2222","baPostoffice":"test","baIsti":2,"baStatus":1,"baClientId":1,"baRemarks":"test","baCreatetime":1487838047000,"baPgroupinfo":"eeeeeeeeeeeee","arehouseKqs":[]}]');
     })();
     /*</debug>*/
-    function CombinationDetails() {
-        return {
-            rkrwId: '',         //id
-            rkrwNo: '',         //入库任务号
-            rkrwDhrq: '',       //预计到货日期
-            rkrwDbd: '',        //调拨地
-            rkrwCys: '',        //承运商
-            rkrwCph: '',        //车牌号
-            rkrwSjxm: '',       //司机姓名
-            rkrwDh: '',         //司机电话
-            rkrwStatus: ''      //任务状态
-        }
-    }
-    function selectGood() {
-        return {
-            baseGoods: {
-                bgGoodsNo: '',
-                bgGoodsName: ''
-            },
-            baseDw: {
-                bdName: ''
-            },
-            rksCount: 0,
-            bgGoodsId: ''
-        }
-    }
-    function form() {
-        return {
-            title: '新建出库单',
-            ckCkdjNo: '',
-            rkType: '',
-            rkRemarks: '',
-            rkDocsList: [],
-            bgGoodsNo: '',
-            rkArehouseId: '',
-            selectGood: selectGood(),
-            saveARkDocsList: true,
-            deleteARkDocsList: true
-        };
-    }
-    var validateRule = {
-        a: new RegExp("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", "g")
-    };
     var outputAppointment = new Vue({
         el: '#outputAppointment',
         prop: {},
@@ -729,8 +668,10 @@
                 multipleSelection: [],
                 multipleSelectionCombination: [],
                 multiSelect: false,
-                date: [null, null],           //主页面 下单时间 搜索
+                date: [null, null],           //主页面 选择日期 搜索
                 ckCkdjNo: '',                 //主页面 出库单号 搜索
+                ckCkdjType: '',               //主页面 出库单 类型
+                ckRwStatus: 0,                //主页面 出库单任务状态 搜索
                 pickerOptions: {
                     shortcuts: [{
                         text: '最近一周',
@@ -768,11 +709,17 @@
                 dialogFormVisible: false,      //新建 弹出层 是否可见
                 submitLoading: false,          //新建 弹出层 提交等待
 
+                dialogExcelVisible: false,     //Excel 弹出层 是否可见
+                excelLoading: false,           //Excel 弹出层 提交等待
+
                 formActive: 0,                 //form steps 当前进度
 
                 select: {},                    //搜索 弹出层 信息集合
                 dialogSelectVisible: false,
-                selectLoading: false
+                selectLoading: false,
+                fileList: [],
+
+                watchView: false,               //观察状态量-是否为查看
             }
         },
         computed: {
@@ -781,13 +728,15 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "dateStart": this.date[0],
-                    "dateStop": this.date[1]
+                    "startTimeParam": tsf_date(this.date[0]),
+                    "endTimeParam": tsf_date(this.date[1]),
+                    ckCkdjNo: this.ckCkdjNo
                 }
-            }
+            },
+
         },
         methods: {
-            Edit: function (index, row) {
+            View: function (index, row) {
                 var obj = this;
                 var step = form();
                 allPrposCb(step, function (obj, index) {
@@ -797,21 +746,40 @@
                 console.log(row);
                 console.log(step);
                 /*</debug>*/
-                step.title = '编辑';
+                step.title = '查看';
+                if (typeof this.$refs.carousel !== 'undefined') this.$refs.carousel.setActiveItem(0);
                 this.form = step;
                 this.dialogFormActive = 0;
-                if (typeof (this.form.rkDocsList) === 'undefined') {
+                if (typeof (this.form.ckDocsList) === 'undefined') {
                     postGoods(obj, {ckCkdjNo: row.ckCkdjNo}, function (json) {
-                        obj.form.rkDocsList = json;
+                        obj.form.ckDocsList = json;
                         obj.dialogFormVisible = true;
                     });
                 } else {
                     obj.dialogFormVisible = true;
                 }
+            },                                        //行内按钮-观察
+            inlineEdit: function (index, row) {
+                p[8].post({rkRkdjId: row.rkRkdjId}, function (json) {
+                    var step = form();
+                    allPrposCb(step, function (obj, index) {
+                        if (typeof row[index] !== 'undefined') step[index] = row[index];
+                    });
+                    /*<debug>*/
+                    console.log(row);
+                    console.log(step);
+                    /*</debug>*/
+                    step.title = '编辑';
+                    step.ckDocsList = json;
+                    if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
+                    obj.form = step;
+                    obj.dialogFormActive = 0;
+                    obj.dialogFormVisible = true;
+                });
             },                                        //行内按钮-编辑
-            deleteOlder: function (index, row) {
+            inlineDeleteOlder: function (index, row) {
                 var _this = this;
-                _this.$confirm('此操作将永久删除该入库单, 是否继续?', '提示', {
+                _this.$confirm('确定作废? 单号：' + row.ckCkdjNo, '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -823,10 +791,28 @@
                 }).catch(function () {
                     _this.$message({
                         type: 'info',
-                        message: '已取消删除'
+                        message: '已取消作废'
                     });
                 });
-            },                                 //行内按钮-删除
+            },                                 //行内按钮-作废
+            inlineRetentionInput: function (index, row) {
+                var _this = this;
+                _this.$confirm('确定滞留入库？ 单号：' + row.ckCkdjNo, '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    _this.outputAppointment[index].ckCkdjType = 1;
+                    postRetentionInput(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消操作'
+                    });
+                });
+            },                        //行内按钮-滞留入库
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -869,35 +855,19 @@
                     remove(this.multipleSelectionCombination[i], this.outputAppointmentCombination);
                 }
             },                                   //多选 删除
-            moreOperationTovoid: function () {
-                /*<debug>*/
-                console.log('选中的删除');
-                /*</debug>*/
-                for (i = 0; i < this.multipleSelectionCombination.length; i++) {
-                    remove(this.multipleSelectionCombination[i], this.outputAppointmentCombination);
-                }
-            },                                   //TOOD  多选 作废
-            moreOperationRetentionInput: function () {
-                /*<debug>*/
-                console.log('选中的删除');
-                /*</debug>*/
-                for (i = 0; i < this.multipleSelectionCombination.length; i++) {
-                    remove(this.multipleSelectionCombination[i], this.outputAppointmentCombination);
-                }
-            },                           //TODO 多选 滞留入库
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[7].post(this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[7].post(this.option);
             },                                //分页 当前页
             newInput: function () {
                 this.dialogFormVisible = true;
@@ -912,13 +882,7 @@
 //                    }
 //                });
 
-            },                                              //按钮 新建入库单
-            importExcel: function () {
-//                this.dialogFormVisible = true;
-            },                                           //TODO 按钮 导入Excel
-            setInterface: function () {
-//                this.dialogFormVisible = true;
-            },                                          //TODO 按钮 接口设置
+            },                                              //按钮 新建出库单
             expandChange: function (row, expanded) {
 //                if (typeof (row.history) == 'undefined') {
 //                    postHistory(row);
@@ -944,7 +908,30 @@
                 var _this = this;
                 this.formActive++;
                 this.submitLoading = true;
-                //TODO 此处应是ajax请求
+
+
+                /*<prod>*/
+                var Combination = post_Combination();
+
+                allPrposCb(Combination, function (obj, index) {
+                    if (typeof _this.outputAppointmentCombinationDetails[index] !== 'undefined') Combination[index] = _this.outputAppointmentCombinationDetails[index];
+                });
+                Combination.docList = [];
+                for (var i = 0; i < outputAppointment.outputAppointmentCombination.length; i++) {
+                    Combination.docList.push({rkRkdjId: outputAppointment.outputAppointmentCombination[i].rkRkdjId});
+                }
+
+                Combination.rkrwDhrq = new Date(Combination.rkrwDhrq).toJSON();
+
+                console.log(Combination);
+
+
+                p[0].post(Combination);
+
+                /*</prod>*/
+
+
+                /*<debug>*/
                 setTimeout(function () {
                     _this.submitLoading = false;
                     _this.$notify({
@@ -960,9 +947,16 @@
 
                     _this.formActive = 0;
                     _this.$refs.carouselWaiting.setActiveItem(0);
-                    post(outputAppointment);
+                    p[7].post();
                 }, 1500);
-            },                                            //form 表单提交
+                /*</debug>*/
+
+
+            },                                            //组合 表单提交
+            submitUpload: function () {
+                console.log('提交')
+            },
+
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -975,15 +969,34 @@
                 var _this = this;
                 this.dialogFormActive++;
                 this.submitLoading = true;
-                //TODO 此处应是ajax请求
 
-                if (this.form.title == '新建入库单') {
+                /*<prod>*/
+                var form = post_form();
 
-                } else {
+                allPrposCb(form, function (obj, index) {
+                    if (typeof _this.form[index] !== 'undefined') form[index] = _this.form[index];
+                });
 
+                form.rkCreatetime = new Date().toJSON();
+                form.ckDocsList = [];
+                for (var i = 0; i < _this.form.ckDocsList.length; i++) {
+                    var form_rkDocsList = post_form_rkDocsList();
+                    (function (i, form_rkDocsList) {
+                        allPrposCb(form_rkDocsList, function (val, index) {
+                            if (typeof _this.form.ckDocsList[i][index] !== 'undefined') form_rkDocsList[index] = _this.form.ckDocsList[i][index];
+                        })
+                    })(i, form_rkDocsList);
+                    form.ckDocsList.push(form_rkDocsList);
                 }
+                if (this.form.title === '新建出库单') {
+                    p[2].post(form);
+                } else {
+                    p[3].post(form);
+                }
+                /*</prod>*/
 
 
+                /*<debug>*/
                 setTimeout(function () {
                     _this.submitLoading = false;
                     _this.$notify({
@@ -995,17 +1008,27 @@
                     _this.form = form();
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(outputAppointment);
+                    p[7].post(outputAppointment.options);
                 }, 1500);
+                /*</debug>*/
+
             },                                                //新建 表单提交
-            validateckCkdjNo: function (rule, value, callback) {
+            submitWatchView: function () {
+                this.dialogFormActive++;
+                this.dialogFormVisible = false;
+                this.form = form();
+                this.dialogFormActive = 0;
+                this.$refs.carousel.setActiveItem(0);
+            },                                       //观察提交
+
+            validateRkRkdjNo: function (rule, value, callback) {
                 if (validateRule.a.exec(value)) {
                     callback(new Error('不允许存在特殊字符!'));
                 }
                 else {
                     callback();
                 }
-            },                 //validate 出库单号
+            },                 //validate 入库单号
             formValidateField: function (formName) {
 //                console.log(outputAppointment.$refs[formName]);
 //                console.log(outputAppointment.$refs);
@@ -1017,9 +1040,15 @@
 //                },0);
             },                             //表单 string验证
             querySearchAsync: function (queryString, cb) {
-                postGoods(this, {bgGoodsNo: queryString}, cb);
+                postGoods(this, {
+                    bgGoodsNo: queryString,
+                    "pageNum": 1,
+                    "pageSize": 20,
+                    "draw": 1
+                }, cb);
             },                       //货品异步查询
             GoodSelect: function (item) {
+                this.form.selectGood = selectGood();
                 this.form.saveARkDocsList = false;
                 this.form.deleteARkDocsList = true;
                 this.form.selectGood = {
@@ -1028,10 +1057,12 @@
                         bgGoodsName: item.data.bgGoodsName
                     },
                     baseDw: {
+                        bdDwid: item.data.bgZxdw,
                         bdName: item.data.bgZxdw
                     },
                     rksCount: 0,
-                    bgGoodsId: item.data.bgGoodsId,
+                    rksDwid: item.data.bgZxdw,
+                    rksGoodsId: item.data.bgGoodsId,
                     data: item.data
                 };
             },                                        //货品明细控制 选中下拉菜单中的货品
@@ -1041,20 +1072,22 @@
                 this.form.selectGood = item;
             },                                         //货品明细控制 选中form中的货品
             saveDocsList: function () {
-                this.form.rkDocsList.push(this.form.selectGood);
+                this.form.ckDocsList.push(this.form.selectGood);
                 this.form.selectGood = selectGood();
                 this.form.saveARkDocsList = true;
             },                                          //货品明细控制 保存
             deleteARkDocsList: function () {
-                remove(this.form.selectGood, this.form.rkDocsList);
+                remove(this.form.selectGood, this.form.ckDocsList);
                 this.form.selectGood = selectGood();
             },                                     //货品明细控制 删除
+
             selectSubmit: function () {
                 this.dialogSelectVisible = false;
             },                                          //详细查询 查询提交
+
             auto_ckArehouseId: function (data, set) {
                 /*<debug>*/
-                //console.log(ckArehouseId);
+//                console.log(data);
                 /*</debug>*/
                 var baArehouse = window.dbmessage.baseArehouses;
                 var i;
@@ -1075,56 +1108,56 @@
                 }
             },                            //入库仓库id 自动匹配
             auto_ckXdsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
             },                                //下单时间
-            auto_ckCkdjType:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        0:'正常单据',
-                        1:'挂起单据',
-                        2:'滞留单据'
+            auto_ckCkdjType: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        0: '正常单据',
+                        1: '挂起单据',
+                        2: '滞留单据'
                     }
-                }else{
-                    temp={
+                } else {
+                    temp = {
                         '正常单据': 0,
                         '挂起单据': 1,
                         '滞留单据': 2
                     }
                 }
                 return temp[value];
-            },                                      //单据类型
-            auto_ckIsauto:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        1:'手动',
-                        2:'导入',
-                        3:'接口'
+            },                                  //单据类型
+            auto_ckIsauto: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '手动',
+                        2: '导入',
+                        3: '接口'
                     }
-                }else{
-                    temp={
+                } else {
+                    temp = {
                         '手动': 1,
                         '导入': 2,
                         '接口': 3
                     }
                 }
                 return temp[value];
-            },                                      //制单方式
-            auto_ckStatus:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        1:'初始',
-                        21:'部分分拣',
-                        22:'部分下架',
-                        31:'全部分拣',
-                        32:'全部下架',
-                        50:'作废'
+            },                                    //制单方式
+            auto_ckStatus: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '初始',
+                        21: '部分分拣',
+                        22: '部分下架',
+                        31: '全部分拣',
+                        32: '全部下架',
+                        50: '作废'
                     }
-                }else{
-                    temp={
+                } else {
+                    temp = {
                         '初始': 1,
                         '部分分拣': 21,
                         '部分下架': 22,
@@ -1135,7 +1168,8 @@
                     }
                 }
                 return temp[value];
-            }                                      //单据状态
+            }                                     //单据状态
+
         },
         watch: {
             outputAppointment: function () {
@@ -1150,119 +1184,290 @@
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                post(this, this.option);
+                p[7].post(this.option);
+            },
+            ckCkdjType: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[7].post(this.option);
             }
         }
     });
+    var obj = outputAppointment;
+    var p = [];
+    // 0 新增-入库预约
+    p[0] = autoPost({
+        urlHock: "/hock/outputAppointment/page.json",
+        urlProd: "/route/outputAppointment/0",
+        success: function (json) {
+            obj = outputAppointment;
+            obj.dialogFormVisible = false;
+            obj.submitLoading = false;
+            if (json.status > 19999 && json.status < 30000) {
+                /*<debug>*/
+                obj.$notify({
+                    title: '成功',
+                    message: '保存成功',
+                    type: 'success'
+                });
+                /*</debug>*/
+                /*<prod>*/
+                obj.$notify({
+                    title: '成功',
+                    message: window.statusConfig[json.status],
+                    type: 'success'
+                });
+                /*</prod>*/
+                obj.outputAppointmentCombinationDetails = CombinationDetails();
+                obj.outputAppointmentCombination = [];
+                obj.multipleSelection = [];
+                obj.multipleSelectionCombination = [];
+
+                obj.formActive = 0;
+                obj.$refs.carouselWaiting.setActiveItem(0);
+                p[7].post(outputAppointment.option);
+            } else {
+                /*<debug>*/
+                obj.$notify({
+                    title: '失败',
+                    message: '保存失败',
+                    type: 'error'
+                });
+                /*</debug>*/
+                /*<prod>*/
+                obj.$notify({
+                    title: '失败',
+                    message: window.statusConfig[json.status],
+                    type: 'error'
+                });
+                /*</prod>*/
+            }
+        }
+    });
+    // 2 新增-入库单
+    p[2] = autoPost({
+        urlHock: "../../hock/form/inputOption.json",
+        urlProd: "/route/outputAppointment/2",
+        success: function (json) {
+            obj.dialogFormVisible = false;
+            obj.submitLoading = false;
+            if (json.status > 19999 && json.status < 30000) {
+                obj.$notify({
+                    title: '成功',
+                    message: '保存成功！',
+                    type: 'success'
+                });
+                obj.form = form();
+                obj.dialogFormActive = 0;
+                obj.$refs.carousel.setActiveItem(0);
+                p[7].post(obj.option);
+            } else {
+                obj.$notify({
+                    title: '失败',
+                    message: json.model,
+                    type: 'error'
+                });
+            }
+        }
+    });
+    // 3 编辑-入库单
+    p[3] = autoPost({
+        urlHock: "../../hock/form/inputOption.json",
+        urlProd: "/route/outputAppointment/3",
+        success: function (json) {
+            obj.dialogFormVisible = false;
+            obj.submitLoading = false;
+            if (json.status > 19999 && json.status < 30000) {
+                obj.$notify({
+                    title: '成功',
+                    message: '保存成功！',
+                    type: 'success'
+                });
+                obj.form = form();
+                obj.dialogFormActive = 0;
+                obj.$refs.carousel.setActiveItem(0);
+            } else {
+                obj.$notify({
+                    title: '失败',
+                    message: json.model,
+                    type: 'error'
+                });
+            }
+        }
+    });
+    // 7 入库预约分页查询接口
+    p[7] = autoPost({
+        urlHock: "/hock/outputAppointment/page.json",
+        urlProd: "/route/outputAppointment/7",
+        success: function (json) {
+            obj.dialogFormVisible = false;
+            obj.submitLoading = false;
+            obj.$data.outputAppointment = json.data;
+            /*<debug>*/
+            console.log(obj.$data.outputAppointment);
+            /*</debug>*/
+        }
+    });
+    // 8 入库单 详细信息
+    p[8] = autoPost({
+        urlHock: "../../hock/form/inputOption.json",
+        urlProd: "/route/outputAppointment/8"
+    });
+
+    function CombinationDetails() {
+        return {
+            rkrwId: '',         //id
+            rkrwNo: '',         //入库任务号
+            rkrwDhrq: '',       //预计到货日期
+            rkrwDbd: '',        //调拨地
+            rkrwCys: '',        //承运商
+            rkrwCph: '',        //车牌号
+            rkrwSjxm: '',       //司机姓名
+            rkrwDh: '',         //司机电话
+            rkrwStatus: ''      //任务状态
+        }
+    }
+
+    function selectGood() {
+        return {
+            baseGoods: {
+                bgGoodsNo: '',
+                bgGoodsName: ''
+            },
+            baseDw: {
+                bdDwid: '',
+                bdName: ''
+            },
+            cksCount: 0,
+            cksDwid: '',
+            cksGoodsId: ''
+        }
+    }
+
+    function form() {
+        return {
+            ckCkdjId: '',
+
+
+            ckCkdjNo: '',
+            ckErpNo: '',
+            ckCkdjType: '',
+            ckCkdjClientno: '',
+            ckCkdjClientname: '',
+            ckContacts: '',
+            ckTel: '',
+            ckAdress: '',
+            ckXdsj: '',
+            ckBjsj: '',
+            ckYfhsj: '',
+            ckRemarks: '',
+            ckStatus: 1,
+            ckIsauto: '',
+            ckCksj: '',
+            ckStartwith: '',
+            ckIsyadan: '',
+            ckIsqianhuo: '',
+            ckRwStatus: '',
+            ckQhStatus: '',
+            ckZlStatus: '',
+
+            title: '新建出库单',
+
+
+            ckDocsList: [],
+
+            ckArehouseId: '',
+            ckClientId: '',
+
+            rkUserId: app.rmsUser.ruUserId,
+            rkCreatetime: '',
+            rkCreateUserId: app.rmsUser.ruUserId,
+
+            "rkStatus": 1,
+            "rkRwStatus": 1,
+            "rkZdfs": 1,
+            "rkStartwith": 1,
+
+            allCount: 0,
+            allTj: 0,
+
+            bgGoodsNo: '',
+            selectGood: selectGood(),
+            saveARkDocsList: true,
+            deleteARkDocsList: true
+        };
+    }
+
+    function post_form() {
+        return {
+            "rkRkdjId": "",
+            "ckCkdjNo": "L0197168",
+            "rkType": "1",
+            "rkGysmc": "供应商001",
+            "rkRemarks": "备注",
+            "rkUserId": 1,
+            "rkCreatetime": "2017-04-11T06:35:12.029Z",
+            "rkCreateUserId": 1,
+            "rkZdfs": 1,
+            "rkStartwith": 2,
+            "rkStatus": 31,
+            "rkArehouseId": 1,
+            "rkClientId": 1,
+            "rkPrintcount": 0,
+            "rkRwId": 1,
+            "rkRwStatus": "51",
+            ckDocsList: []
+        }
+    }
+
+    function post_form_rkDocsList() {
+        return {
+            "rksGoodsId": 9,
+            "rksDwid": 1,
+            "rksCount": 100,
+            "rksStatus": 1
+        }
+    }
+
+    function post_Combination() {
+        return {
+            "rkrwId": 0,
+            "rkrwNo": "string",
+            "rkrwDhrq": "2017-04-13T08:25:12.866Z",
+            "rkrwDbd": "string",
+            "rkrwCys": "string",
+            "rkrwCph": "string",
+            "rkrwSjxm": "string",
+            "rkrwDh": "string",
+            "rkrwStatus": "string",
+            "rkrwArehouseId": 0,
+            "rkrwClientId": 0,
+            "rkrwCreateUserid": app.rmsUser.ruUserId,
+            docList: []
+        }
+    }
+
+    var validateRule = {
+        a: new RegExp("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", "g")
+    };
+
+
     // 高级 监视器的 使用方法
     outputAppointment.$watch('date', function () {
-        if (!this.option.dateStart)return;
         /*<debug>*/
         console.log(this.option);
         /*</debug>*/
-        post(this, this.option);
+        p[7].post(this.option);
     }, {deep: true});
-    post(outputAppointment, outputAppointment.option);
-    function post(obj, option) {
-        obj.showLoading = true;
+    outputAppointment.$watch('form.title', function () {
+        if (this.form.title === '查看') this.watchView = true;
+        else this.watchView = false;
+    }, {deep: true});
 
-        /*<debug>*/
-        /*<debug>*/
-        //url = "../../hock/form/inputOption.json";
-        url = "../../hock/outputAppointment/page.json";
 
-        /*</debug>*/
+    p[7].post(outputAppointment.option);
 
-        /*<prod>*/
-        url = "/route/outputAppointment/0";
-
-//        if(option.dateStart==='') delete option.dateStart;
-//        if(option.dateStop==='') delete option.dateStop;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-//                for (var i = 0; i < json.data.length; i++) {
-//                    var rkType = {
-//                        "0": "采购订单",
-//                        "1": "仓间挑拨",
-//                        "2": "退货入库"
-//                    };
-//                    var rkStatus = {
-//                        "31": "初始状态",
-//                        "32": "部分分配",
-//                        "33": "全部分配",
-//                        "34": "部分收货",
-//                        "35": "全部收货"
-//                    };
-//                    var method = {
-//                        "1": "手动",
-//                        "2": "excel",
-//                        "3": "接口"
-//                    };
-//                    json.data[i].rkType = rkType[i % 3];
-//                    json.data[i].rkSjsj = changeDate(json.data[i].rkSjsj);
-//                    json.data[i].rkStatus = rkStatus[json.data[i].rkStatus];
-//                    json.data[i].rkZdfs = method[json.data[i].rkZdfs];
-//                    json.data[i].allCount = 10120 + i;
-//                    json.data[i].allTj = 200.0234 + i;
-//                    json.data[i].historyLoading = false;              //维护 history 的加载层
-//                }
-                console.log(json);
-                outputAppointment.$data.outputAppointment = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }    // TODO 入库预约分页查询接口(测试通过)
-    function postDelete(obj, option) {
-        //TODO 删除后重新post
-        if (option.id.length < 1)return;
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/form/inputOptoionDelete.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/outputAppointment/1";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "id": 1                        //* 出库单号id
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                if (json.status == 1) {
-                    obj.$notify({
-                        title: '提示',
-                        type: 'success',
-                        message: obj.$createElement(
-                            'p',
-                            '删除完成'
-                        )
-                    });
-                }
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }
     function postCombinationDetails(obj) {
         obj.showLoading = true;
         /*<debug>*/
@@ -1277,25 +1482,37 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/route/outputAppointment/1";
 
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "id": 1                        //* 出库单号id
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                obj.outputAppointmentCombinationDetails.rkrwNo = json.model;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
+
+        var json = {
+            model: 'RK' + dateFormat(new Date(), "yyyyMMdd") + '-' + (++id)
+        };
+        console.log(json);
+        setTimeout(function () {
+            obj.outputAppointmentCombinationDetails.rkrwNo = json.model;
+            obj.showLoading = false;
+        }, 500);
+
+
+//        url = "/route/outputAppointment/1";
+//
+//        $.ajax(url, {
+//            type: "GET",
+//            data: option | {
+//                "id": 1                        //* 入库单号id
+//            },
+//            error: function (error) {
+//                errorTip(obj, error);
+//            },
+//            success: function (json) {
+//                obj.outputAppointmentCombinationDetails.rkrwNo = json.model;
+//            },
+//            complete: function () {
+//                obj.showLoading = false;
+//            }
+//        });
         /*</prod>*/
-    }
+    }         // 9 获取任务号
     function postGoods(obj, option, cb) {
         //TODO 此处应为AJAX请求,待完善 querySearchAsync
 
@@ -1304,14 +1521,12 @@
         /*</debug>*/
 
         /*<prod>*/
-        url = "/data/inputOption/delete" + option;
+        url = "/route/goodsManage/0";
         /*</prod>*/
 
         $.ajax(url, {
             type: "GET",
-            data: option | {
-                "id": 1                        //* 出库单号id
-            },
+            data: option,
             error: function (error) {
 
             },
@@ -1328,67 +1543,5 @@
 
             }
         });
-    }
-    function changeDate(date) {
-        return dateFormat(new Date(date), 'MM-dd hh:mm');
-    }
-    function errorTip(obj, error) {                    // 错误提示
-        /*<debug>*/
-        console.log(error);
-        /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
-    function dateFormat(date, fmt) {
-        var o = {
-            "M+": date.getMonth() + 1,                 //月份
-            "d+": date.getDate(),                    //日
-            "h+": date.getHours(),                   //小时
-            "m+": date.getMinutes(),                 //分
-            "s+": date.getSeconds(),                 //秒
-            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-            "S": date.getMilliseconds()             //毫秒
-        };
-        if (/(y+)/.test(fmt))
-            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-
-//                    console.log(temp);
-                }
-                data.pop();
-            }
-        }
-    }
-    function addOrDelete(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            if (data[i] == obj) {
-                return true;
-            }
-        }
-        return false;
-    }
-    /*
-     * 用来遍历指定对象所有的属性名称和值
-     * obj 需要遍历的对象
-     * cb 回调函数  1. 子属性 2.子属性名
-     */
-    function allPrposCb(obj, cb) {
-        for (var p in obj) {
-            if (typeof(obj[p]) !== "function") {
-                cb(obj[p], p)
-            }
-        }
-    }
+    }          // 4 获取货品编号
 </script>

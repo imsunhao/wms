@@ -40,7 +40,9 @@
                                                 <span>{{ props.row.djArehouseId }}</span>
                                             </el-form-item>
                                             <el-form-item label="创建时间">
-                                                <span>{{ auto_djCreateTime(props.row.djCreateTime) }}</span>
+                                                <span>
+                                                    <el-icon name="time"></el-icon>
+                                                    {{ auto_djCreateTime(props.row.djCreateTime) }}</span>
                                             </el-form-item>
                                             <el-form-item label="创建人">
                                                 <span>{{props.row.djCreateUserId}}</span>
@@ -51,7 +53,9 @@
                                         </el-col>
                                         <el-col :span="10" :offset="2">
                                             <el-form-item label="解冻时间">
-                                                <span>{{auto_djJdTime(props.row.djJdTime) }}</span>
+                                                <span>
+                                                    <el-icon name="time"></el-icon>
+                                                    {{auto_djJdTime(props.row.djJdTime) }}</span>
                                             </el-form-item>
                                             <el-form-item label="冻结状态">
                                                 <span>{{ auto_djStatus(props.row.djStatus) }}</span>
@@ -60,7 +64,9 @@
                                                 <span>{{ (props.row.djZfUserId) }}</span>
                                             </el-form-item>
                                             <el-form-item label="作废时间">
-                                                <span>{{ auto_djZfTime(props.row.djZfTime) }}</span>
+                                                <span>
+                                                    <el-icon name="time"></el-icon>
+                                                    {{ auto_djZfTime(props.row.djZfTime) }}</span>
                                             </el-form-item>
                                             <el-form-item
                                                     label="可用操作">
@@ -81,40 +87,6 @@
                                         :max-height="240">
                                     <el-table-column
                                             type="expand">
-                                        <!--<template scope="props">-->
-                                        <!--<h3>入库明细</h3>-->
-                                        <!--<el-table-->
-                                        <!--:data="props.row.rkDocsList"-->
-                                        <!--highlight-current-row-->
-                                        <!--style="width: 100%">-->
-                                        <!--<el-table-column-->
-                                        <!--label="货品编号"-->
-                                        <!--width="140"-->
-                                        <!--show-overflow-tooltip-->
-                                        <!--align="center"-->
-                                        <!--prop="baseGoods.bgGoodsNo">-->
-                                        <!--</el-table-column>-->
-                                        <!--<el-table-column-->
-                                        <!--align="center"-->
-                                        <!--prop="baseGoods.bgGoodsName"-->
-                                        <!--show-overflow-tooltip-->
-                                        <!--label="货品名称">-->
-                                        <!--</el-table-column>-->
-                                        <!--<el-table-column-->
-                                        <!--label="单位"-->
-                                        <!--width="80"-->
-                                        <!--prop="baseDw.bdName"-->
-                                        <!--align="center">-->
-                                        <!--</el-table-column>-->
-                                        <!--<el-table-column-->
-                                        <!--label="数量"-->
-                                        <!--width="100"-->
-                                        <!--show-overflow-tooltip-->
-                                        <!--prop="rksCount"-->
-                                        <!--align="center">-->
-                                        <!--</el-table-column>-->
-                                        <!--</el-table>-->
-                                        <!--</template>-->
                                     </el-table-column>
                                     <el-table-column
                                             label="库位名称"
@@ -200,7 +172,10 @@
                         align="center"
                         width="100">
                     <template scope="scope">
-                        {{auto_djStatus(scope.row.djStatus)}}
+                        <el-tag
+                                close-transition>{{auto_djStatus(scope.row.djStatus)}}
+                        </el-tag>
+
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -233,7 +208,7 @@
             <el-form-item label="创建时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.djCreateTime"
+                        v-model="form.djCreateTime"
                         type="daterange"
                         align="right"
                         placeholder="创建时间"
@@ -259,7 +234,7 @@
             <el-form-item label="创建人"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.djCreateUserId"
+                        v-model="form.djCreateUserId"
                         class="input"
                         icon="search"
                         placeholder="创建人"></el-input>
@@ -267,27 +242,25 @@
             <el-form-item label="解冻人"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.djJdUserId"
+                        v-model="form.djJdUserId"
                         class="input"
                         icon="search"
                         placeholder="解冻人"></el-input>
             </el-form-item>
             <el-form-item label="仓库"
                           :label-width="formLabelWidth">
-                <el-select v-model="djArehouseId" placeholder="请选择">
-                    <el-option :value="0">全部</el-option>
-                    <el-option :value="1">角色下所有的仓库</el-option>
+                <el-select v-model="form.djArehouseId" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+
                 </el-select>
             </el-form-item>
             <el-form-item label="冻结状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="djStatus" placeholder="请选择">
-                    <el-option :value="0.0">全部</el-option>
-                    <el-option :value="0">冻结</el-option>
-                    <el-option :value="1">解冻</el-option>
-                    <el-option :value="2">作废</el-option>
-
-
+                <el-select v-model="form.djStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="0" label="冻结"></el-option>
+                    <el-option :value="1"  label="解冻"></el-option>
+                    <el-option :value="2"  label="作废"></el-option>
                 </el-select>
             </el-form-item>
         </el-form>
@@ -563,22 +536,6 @@
     }
 </style>
 <script>
-    function form() {
-        return {
-            rkrwId: '',
-            title: "新建入库任务",
-            rkrwN: '',
-            rkrwCph: '',
-            dds: '',
-            pxs: '',
-            rkrwSjxm: '',
-            rkrwDhrq: '',
-            rkrwDbd: '',
-            rkrwCys: '',
-            rkrwDh: '',
-            rkrwStatus: ''
-        }
-    }
     var aLibraryFrozenSelect = new Vue({
         el: '#aLibraryFrozenSelect',
         prop: {},
@@ -706,7 +663,7 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                   //分页 Size
             expandChange: function (row, expanded) {
                 if (typeof (row.inputOperation) === 'undefined' && expanded) {
@@ -722,7 +679,7 @@
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post(this.option);
             },                                //分页 当前页
             newInput: function () {
                 this.dialogFormVisible = true;
@@ -766,24 +723,24 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(aLibraryFrozenSelect);
+                    p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                post(this, {});
+                p[0].post( {});
             },                                          //详细查询 提交
             auto_djCreateTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                         //创建时间
             auto_djJdTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                              //解冻时间
             auto_djZfTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                              //作废时间
             auto_djStatus: function (value) {
 
@@ -807,7 +764,54 @@
         },
         watch: {}
     });
+    function form() {
+        return {
+            rkrwId: '',
+            title: "新建入库任务",
+            rkrwN: '',
+            rkrwCph: '',
+            dds: '',
+            pxs: '',
+            rkrwSjxm: '',
+            rkrwDhrq: '',
+            rkrwDbd: '',
+            rkrwCys: '',
+            rkrwDh: '',
+            rkrwStatus: '',
+            djCreateTime:[null,null],//模糊查询--创建时间
+            djJdTime:[null,null],//模糊查询--解冻时间
+            djCreateUserId:'',//模糊查询--创建人
+            djJdUserId:'',//模糊查询--解冻人
+            djArehouseId:'',//模糊查询--仓库
+            djStatus:'',//模糊查询--冻结状态
+        }
+    }
+    var obj=aLibraryFrozenSelect;
+    var p=[];
+    // 0 库位冻结查询 分页查询
+    p[0] = autoPost({
+        urlHock: "/hock/aLibraryFrozenSelect/page.json",
+        urlProd: "/route/aLibraryFrozenSelect/0",
+        success: function (json) {
+            obj.$data.aLibraryFrozenSelect = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+    // 1 库位冻结查询
+    p[1] = autoPost({
+        urlHock: "",
+        urlProd: "/route/aLibraryFrozenSelect/1",
+        success: function (json) {
 
+        }
+    });
+    // 2 库位冻结查询
+    p[2] = autoPost({
+        urlHock: "",
+        urlProd: "/route/aLibraryFrozenSelect/2",
+        success: function (json) {
+        }
+    });
     // 高级 监视器的 使用方法
     //        aLibraryFrozenSelect.$watch('aLibraryFrozenSelect.inputOperation', function () {
     //            if (!this.option.dateStart)return;
@@ -816,7 +820,7 @@
     //            /*</debug>*/
     //            post(this, this.option);
     //        }, {deep: true});
-    post(aLibraryFrozenSelect, aLibraryFrozenSelect.option);
+    p[0].post( aLibraryFrozenSelect.option);
     function post(obj, option) {
         obj.showLoading = true;
 

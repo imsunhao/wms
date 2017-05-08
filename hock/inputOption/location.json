@@ -1,0 +1,70 @@
+{
+  "data": [
+    {
+      "blLocationId": 1,
+      "blLname": "H16-39-A1",
+      "blRegionId": 1,
+      "blLtray": 2,
+      "blLorder": 1,
+      "blStatus": 1,
+      "blArehouseId": 1
+    },
+    {
+      "blLocationId": 2,
+      "blLname": "H16-39-A2",
+      "blRegionId": 1,
+      "blLtray": 2,
+      "blLorder": 2,
+      "blStatus": 1,
+      "blArehouseId": 1
+    },
+    {
+      "blLocationId": 3,
+      "blLname": "H16-39-A3",
+      "blRegionId": 1,
+      "blLtray": 2,
+      "blLorder": 3,
+      "blStatus": 1,
+      "blArehouseId": 1
+    },
+    {
+      "blLocationId": 5,
+      "blLname": "H16-39-A4",
+      "blRegionId": 1,
+      "blLtray": 2,
+      "blLorder": 4,
+      "blStatus": 1,
+      "blArehouseId": 1
+    },
+    {
+      "blLocationId": 6,
+      "blLname": "H16-43-A1",
+      "blRegionId": 2,
+      "blLtray": 2,
+      "blLorder": 5,
+      "blStatus": 1,
+      "blArehouseId": 1
+    },
+    {
+      "blLocationId": 7,
+      "blLname": "H16-43-A2",
+      "blRegionId": 3,
+      "blLtray": 2,
+      "blLorder": 6,
+      "blStatus": 1,
+      "blArehouseId": 1
+    },
+    {
+      "blLocationId": 8,
+      "blLname": "H16-43-A3",
+      "blRegionId": 4,
+      "blLtray": 2,
+      "blLorder": 7,
+      "blStatus": 1,
+      "blArehouseId": 1
+    }
+  ],
+  "draw": 0,
+  "recordsTotal": 7,
+  "recordsFiltered": 7
+}

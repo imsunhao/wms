@@ -169,9 +169,21 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 1:
+                        urlName = '入库预约-组合';
+                        req = autoUrl(req, '/mfunrkDoc', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
                     case 2:
                         urlName = '入库预约-新增-入库单';
                         req = autoUrl(req, '/mfunrkDoc/add', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '入库预约-修改-入库单';
+                        req = autoUrl(req, '/mfunrkDoc', "PUT", function (json) {
                             res.send(json);
                         });
                         break;
@@ -181,9 +193,9 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-                    case 1:
-                        urlName = '入库预约-组合';
-                        req = autoUrl(req, '/mfunrkDoc', "POST", function (json) {
+                    case 8:
+                        urlName = '入库预约-查询-入库单-详细';
+                        req = autoUrl(req, '/mfunrkDocs/byDoc/' + req.query.rkRkdjId, "GET", function (json) {
                             res.send(json);
                         });
                         break;
@@ -234,20 +246,38 @@ router.param('_url', function (req, res, next, url) {
             case 'warehousingTask':
                 switch (parseInt(req.params._status)) {
                     case 0:
-                        urlName = '入库任务管理-加载入库任务管理页面';
+                        urlName = '查询-入库任务';
                         req = autoUrl(req, '/mfunrkRwDoc', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 1:
                         urlName = '修改';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mfunrkRwDoc', "PUT", function (json) {
                             res.send(json);
                         });
                         break;
-                    case 2:
-                        urlName = '下发';
-                        req = autoUrl(req, '', "POST", function (json) {
+                    case 5:
+                        urlName = '下发-入库任务';
+                        req = autoUrl(req, '/mfunrkRwDoc/issued', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 6:
+                        urlName = '查询-入库任务详情';
+                        req = autoUrl(req, '/mfunrkRwDoc/' + req.query.rkrwId, "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 7:
+                        urlName = '查询-入库单号-入库明细';
+                        req = autoUrl(req, '/mfunrkDoc/' + req.query.rkRkdjId, "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 8:
+                        urlName = '查询-入库单据';
+                        req = autoUrl(req, '/mfunrkDoc', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -514,20 +544,20 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 1:
-                        urlName = '编辑';
-                        req = autoUrl(req, '/arehouse', "PUT", function (json) {
+                        urlName = '获取任务单号中详细信息';
+                        req = autoUrl(req, '/mfunrkDoc/byRwid', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
-                        urlName = '编辑';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '获取入库单号中详细信息';
+                        req = autoUrl(req, '/mfunrkDocs/byDoc', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 3:
-                        urlName = '查看';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '开始打印 状态变化';
+                        req = autoUrl(req, '/mfunrkRwDoc/receipt', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -556,8 +586,8 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 1:
-                        urlName = '编辑';
-                        req = autoUrl(req, '/arehouse', "PUT", function (json) {
+                        urlName = '入库操作－历史记录';
+                        req = autoUrl(req, '/history/' + 1 + '/mhRkdjId', "GET", function (json) {
                             res.send(json);
                         });
                         break;
@@ -568,8 +598,8 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 3:
-                        urlName = '查看';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '查询-入库单号-入库明细';
+                        req = autoUrl(req, '/mfunrkDoc/' + req.query.rkRkdjId, "GET", function (json) {
                             res.send(json);
                         });
                         break;
@@ -580,6 +610,12 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 5:
+                        urlName = '查询-储位';
+                        req = autoUrl(req, '/location/page', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 6:
                         urlName = '库位名称不允许重复';
                         req = autoUrl(req, '', "POST", function (json) {
                             res.send(json);
@@ -589,6 +625,471 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
+            case 'outputAppointment':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '出库预约 新增 出库单据/包含出库单明细';
+                        req = autoUrl(req, '/mfunck/add', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '入库预约-组合';
+                        req = autoUrl(req, '/mfunrkDoc', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '入库预约-新增-入库单';
+                        req = autoUrl(req, '/mfunrkDoc/add', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '入库预约-修改-入库单';
+                        req = autoUrl(req, '/mfunrkDoc', "PUT", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 7:
+                        urlName = '出库预约-查询-出库单';
+                        req = autoUrl(req, '/mfunck/selectMfunckDocByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 8:
+                        urlName = '入库预约-查询-入库单-详细';
+                        req = autoUrl(req, '/mfunrkDocs/byDoc/' + req.query.rkRkdjId, "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
+                }
+                break;
+            case 'inputDaily':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '入库日报 分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '入库日报 导出';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+            case 'outputDaily':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '出库日报 分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '出库日报 导出';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+            case 'stockSelect':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '库存查询 分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '库存查询 导出';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+            case 'inputSelect':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '入库单据查询 分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '入库单据查询 查看入库明细信息';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '入库单据查询 查看入库储位信息';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '入库单据查询 导出入库单';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 4:
+                        urlName = '入库单据查询 导出入库明细';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 5:
+                        urlName = '入库单据查询 导出入库储位';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 6:
+                        urlName = '入库单据查询 导出入库';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+                }
+                break;
+            case 'outputSelect':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '出库单据查询 分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '出库单据查询 出库单明细查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '出库单据查询 分拣明细查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '出库单据查询 导出出库单';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 4:
+                        urlName = '出库单据查询 导出出库明细';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 5:
+                        urlName = '出库单据查询 导出分拣明细';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 6:
+                        urlName = '出库单据查询 导出出库';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+                }
+                break;
+                case 'goodsFlowSelect':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '货品流向查询  分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '货品流向查询 导出';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+                case 'aLibraryTransferSelect':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '库位转移查询  分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '库位转移查询 库存转移明细';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 2:
+                        urlName = '库位转移查询 导出';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+                }
+                break;
+                case 'aLibraryFrozenSelect':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '库位冻结查询  分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '库位冻结查询 库存冻结明细';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '库位冻结查询 导出';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+                }
+                break;
+            case 'inventorySelect':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '盘点查询  分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '盘点查询 盘点详情';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '盘点查询 导出';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+                }
+                break;
+             case 'dynamicTouchInventory':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '动碰盘点  分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '动碰盘点 新增';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '动碰盘点 分配任务';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 3:
+                        urlName = '动碰盘点 盘点详情';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 4:
+                        urlName = '动碰盘点 盘点确认';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+                }
+                break;
+              case 'loopInventory':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '循环盘点  分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '循环盘点 新增';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '循环盘点 分配任务';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 3:
+                        urlName = '循环盘点 盘点详情';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 4:
+                        urlName = '循环盘点 盘点确认';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+                }
+                break;
+            case 'comprehensiveInventory':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '全面盘点  分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '全面盘点 新增';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '全面盘点 分配任务';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 3:
+                        urlName = '全面盘点 盘点详情';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 4:
+                        urlName = '全面盘点 盘点确认';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+                }
+                break;
+             case 'aLibraryTransfer':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '库存转移  分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '库存转移 新增';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '库存转移 编辑';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 3:
+                        urlName = '库存转移 删除';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+              case 'stockTransferConfirm':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '库存转移确认  分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '库存转移确认 确认';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '库存转移确认 删除';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+               case 'stockFrozenThaw':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '库存冻结/解冻  分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '库存冻结/解冻 新增';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '库存冻结/解冻 编辑';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '库存冻结/解冻 删除';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 4:
+                        urlName = '库存冻结/解冻 冻结解冻';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
+                }
+                break;
+
+
+
+
+
         }
         console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + req.body.url);
         next();
@@ -608,7 +1109,7 @@ function autoUrl(req, url, method, cal) {
 }
 
 //请求java服务器
-router.get('/:_url/:_status', function (req, res, next) {
+function java(req, res, next) {
     console.log(JSON.stringify(req.query));
     request({
         url: 'http://' + server.host + ':' + server.port + server.path + req.body.url,
@@ -702,7 +1203,9 @@ router.get('/:_url/:_status', function (req, res, next) {
     //         });
     //         break;
     // }
-});
+}
+
+router.get('/:_url/:_status', java);
+router.post('/:_url/:_status', java);
 
 module.exports = router;
-

@@ -1,0 +1,32 @@
+{
+  "history":[
+    {
+      "createTime": 1471165944000,
+      "description": "由 孙颢 建立初始状态"
+    },
+    {
+      "createTime": 1478165944000,
+      "description": "由 孙颢4 分配 [玩具熊 20 箱,纸飞机 10箱] 到 A021库 完毕"
+    },
+    {
+      "createTime": 1374165944000,
+      "description": "由 孙颢3 分配 [纸飞机 20 箱,玩具熊 10箱] 到 A064库 完毕"
+    },
+    {
+      "createTime": 1274165944000,
+      "description": "由 孙颢2 对A021库 上架完毕"
+    },
+    {
+      "createTime": 1474166444000,
+      "description": "由 孙颢5 对A064库 上架完毕"
+    },
+    {
+      "createTime": 1474176944000,
+      "description": "由 孙颢5 对A064库 下架完毕"
+    },
+    {
+      "createTime": 1474188944000,
+      "description": "由 孙颢5 对A064库 上架完毕"
+    }
+  ]
+}
