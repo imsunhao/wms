@@ -406,29 +406,6 @@
     }
 </style>
 <script>
-    function from() {
-        return {
-            rkrwN: '',
-            rkrwCph: '',
-            dds: '',
-            pxs: '',
-            rkrwSjxm: '',
-            rkrwDhrq: '',
-            rkrwDbd: '',
-            rkrwCys: '',
-            rkrwDh: '',
-            rkrwStatus: '',
-            msxHpkid:'',//模糊查询--货品名称
-            msxHpkid:'',//模糊查询--货品编号
-            ckCkdjClientname:'',//模糊查询--客户名称
-            ckAdress:'',//模糊查询--客户地址
-            ckContacts:'',//模糊查询--联系人
-            ckTel:'',//模糊查询--联系电话
-            ckCkdjClientno:'',//模糊查询--客户编号
-            ckCkdjNo:'',//模糊查询--出库单号
-            ckArehouseId:'',//模糊查询--仓库
-        }
-    }
     var goodsFlowSelect = new Vue({
         el: '#goodsFlowSelect',
         prop: {},
@@ -472,12 +449,12 @@
                 rkRkdjNo: '',                       //主页面 入库单号 搜索
 
                 formLabelWidth: '120px',            //表单 配置
-                form: from(),                           //表单 弹出层 信息集合
+                form: form(),                           //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
 
-                select: from(),                         //搜索 弹出层 信息集合,
+                select: form(),                         //搜索 弹出层 信息集合,
                 printf: [],                         //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 dialogPrintfVisible: false,
@@ -543,14 +520,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                post(this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                post(this.option);
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
@@ -590,12 +567,12 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(goodsFlowSelect);
+                    p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                post(this, {});
+                p[0].post( {});
             },                                          //详细查询 提交
             printfSubmit: function () {
                 var datas=[];
@@ -709,6 +686,49 @@
 
         }
     });
+    function form() {
+        return {
+            rkrwN: '',
+            rkrwCph: '',
+            dds: '',
+            pxs: '',
+            rkrwSjxm: '',
+            rkrwDhrq: '',
+            rkrwDbd: '',
+            rkrwCys: '',
+            rkrwDh: '',
+            rkrwStatus: '',
+            msxHpkid:'',//模糊查询--货品名称
+            msxHpkid:'',//模糊查询--货品编号
+            ckCkdjClientname:'',//模糊查询--客户名称
+            ckAdress:'',//模糊查询--客户地址
+            ckContacts:'',//模糊查询--联系人
+            ckTel:'',//模糊查询--联系电话
+            ckCkdjClientno:'',//模糊查询--客户编号
+            ckCkdjNo:'',//模糊查询--出库单号
+            ckArehouseId:'',//模糊查询--仓库
+        }
+    }
+    var obj=goodsFlowSelect;
+    var p=[];
+    // 0 货品流向查询 分页查询
+    p[0] = autoPost({
+        urlHock: "/hock/goodsFlowSelect/page.json",
+        urlProd: "/route/goodsFlowSelect/0",
+        success: function (json) {
+            obj.$data.goodsFlowSelect = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+     // 1 货品流向查询 导出
+    p[1] = autoPost({
+        urlHock: "",
+        urlProd: "/route/goodsFlowSelect/1",
+        success: function (json) {
+        }
+    });
+
+
 
     // 高级 监视器的 使用方法
     //    goodsFlowSelect.$watch('date', function () {
@@ -719,7 +739,7 @@
     //        post(this, this.option);
     //    }, {deep: true});
 
-    post(goodsFlowSelect);
+    p[0].post(goodsFlowSelect.option);
     function post(obj, option) {
         obj.showLoading = true;
 

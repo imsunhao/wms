@@ -1,32 +1,62 @@
-{
-  "history":[
-    {
-      "createTime": 1471165944000,
-      "description": "由 孙颢 建立初始状态"
-    },
-    {
-      "createTime": 1478165944000,
-      "description": "由 孙颢4 分配 [玩具熊 20 箱,纸飞机 10箱] 到 A021库 完毕"
-    },
-    {
-      "createTime": 1374165944000,
-      "description": "由 孙颢3 分配 [纸飞机 20 箱,玩具熊 10箱] 到 A064库 完毕"
-    },
-    {
-      "createTime": 1274165944000,
-      "description": "由 孙颢2 对A021库 上架完毕"
-    },
-    {
-      "createTime": 1474166444000,
-      "description": "由 孙颢5 对A064库 上架完毕"
-    },
-    {
-      "createTime": 1474176944000,
-      "description": "由 孙颢5 对A064库 下架完毕"
-    },
-    {
-      "createTime": 1474188944000,
-      "description": "由 孙颢5 对A064库 上架完毕"
+[
+  {
+    "mhDjhistoryId": 2,
+    "mhStatus": 1,
+    "mhCreatetime": 1494136487000,
+    "mhUserId": 1,
+    "mhRkdjId": 2,
+    "mhCkdjId": 0,
+    "rmsUser": {
+      "ruUserId": 1,
+      "ruUserName": "超级管理员",
+      "ruLoginName": "admin",
+      "ruLoginPassword": "d135f41faa533e92dcff73f9179670bc",
+      "ruPhone": "15098879708",
+      "ruTelephone": "1234567",
+      "ruEmail": "infchd@hotmail.com",
+      "ruSex": true,
+      "ruBirthday": 1488873925000,
+      "ruHomeaddress": "",
+      "ruQicq": "",
+      "ruCreateTime": 1474165944000,
+      "ruLastModifiedTime": 1474301742000,
+      "ruStatus": 1,
+      "ruSalt": "HKJID",
+      "ruUserType": 0,
+      "ruUserZyq": "1,2",
+      "ruRemarks": "",
+      "ruIspda": true,
+      "ruPortrait": "static/images/users/00.jpg"
     }
-  ]
-}
+  },
+  {
+    "mhDjhistoryId": 1,
+    "mhStatus": 1,
+    "mhCreatetime": 1494134979000,
+    "mhUserId": 1,
+    "mhRkdjId": 1,
+    "mhCkdjId": 0,
+    "rmsUser": {
+      "ruUserId": 1,
+      "ruUserName": "超级管理员",
+      "ruLoginName": "admin",
+      "ruLoginPassword": "d135f41faa533e92dcff73f9179670bc",
+      "ruPhone": "15098879708",
+      "ruTelephone": "1234567",
+      "ruEmail": "infchd@hotmail.com",
+      "ruSex": true,
+      "ruBirthday": 1488873925000,
+      "ruHomeaddress": "",
+      "ruQicq": "",
+      "ruCreateTime": 1474165944000,
+      "ruLastModifiedTime": 1474301742000,
+      "ruStatus": 1,
+      "ruSalt": "HKJID",
+      "ruUserType": 0,
+      "ruUserZyq": "1,2",
+      "ruRemarks": "",
+      "ruIspda": true,
+      "ruPortrait": "static/images/users/00.jpg"
+    }
+  }
+]
