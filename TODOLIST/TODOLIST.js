@@ -887,7 +887,7 @@
         /**
          *  4 编辑
          */
-/**
+    /**
  *      TODO 作业区管理 operationAreaManage
          *      **/
         /**
@@ -1430,6 +1430,12 @@
          *   allCount 总数量
          *   allTj 总体积
          */
+
+        /** TODO 8 入库单 详细信息
+         *
+         *
+         * */
+
     /**
      *      TODO 入库任务 warehousingTask
          */
@@ -1475,52 +1481,69 @@
          *          rkrwDh      司机电话
          *          rkrwStatus  任务状态
          */
-            /** 1 修改 入库任务管理 更新入库任务单 PUT /mfunrkRwDoc
-             *
-             *          参数
-             *          {
-             *              "rkrwId": 1,
-                            "rkrwNo": "111",
-                            "rkrwDhrq": "2017-04-07T03:38:53.205Z",
-                            "rkrwDbd": "111",
-                            "rkrwCys": "111",
-                            "rkrwCph": "111",
-                            "rkrwSjxm": "111",
-                            "rkrwDh": "111",
-                            "rkrwStatus": "1"
-             *          }
-             *          参数说明
-             *          rkrwId      id/入库任务号(系统自动生成格式为当前日期例:入库2017-03-14-16-17-01)
-             *          rkrwNo      入库任务单号(系统自动生成)
-             *          rkrwDhrq    预计到货日期(必填并且精确到分钟)
-             *          rkrwDbd     调拨地(必填)
-             *           rkrwCys    承运商(必填)
-             *          rkrwCph     车牌号(必填)
-             *          rkrwSjxm    司机姓名(必填)
-             *          rkrwDh      司机电话(必填)
-             *          rkrwStatus  任务状态:
-                                        1.初始(创建入库任务后的状态)
-                                        2.已下发任务(下达任务后的状态)
-                                        3.已开始收货(打印收货标签后的状态)
-                                        4.收货中(上架第一个库位后的状态)
-                                        5.1.部分收货(任务下所有订单有一个部分收货整个任务为部分收货)
-                                        5.2.全部收货(任务下所有订单状态为全部收货整个任务状态为全部收货)
-                                        6.收货完成/欠货(全部收货状态下导出台帐为收货完成,部分收货状态下导出台帐为欠货)
-                                        可以手动将欠货标记为收货完成需要输入原因以及补发单号
-             */
-            /**
-             *          TODO 2 修改明细表
-             *          rkRkdjNo        入库单号
-             *          rkCreatetime    下单时间
-             *                          总数量
-             *                          总体积
-             *          rkRemarks       备注
-             */
-            /**
-             * 3 新增 入库任务单     POST /mfunrkRwDoc/add
-             * 参数
-             *
-             *
+
+        /** 1 修改 入库任务管理 更新入库任务单 PUT /mfunrkRwDoc
+         *
+         *          参数
+         *          {
+         *              "rkrwId": 1,
+                        "rkrwNo": "111",
+                        "rkrwDhrq": "2017-04-07T03:38:53.205Z",
+                        "rkrwDbd": "111",
+                        "rkrwCys": "111",
+                        "rkrwCph": "111",
+                        "rkrwSjxm": "111",
+                        "rkrwDh": "111",
+                        "rkrwStatus": "1"
+         *          }
+         *          参数说明
+         *          rkrwId      id/入库任务号(系统自动生成格式为当前日期例:入库2017-03-14-16-17-01)
+         *          rkrwNo      入库任务单号(系统自动生成)
+         *          rkrwDhrq    预计到货日期(必填并且精确到分钟)
+         *          rkrwDbd     调拨地(必填)
+         *           rkrwCys    承运商(必填)
+         *          rkrwCph     车牌号(必填)
+         *          rkrwSjxm    司机姓名(必填)
+         *          rkrwDh      司机电话(必填)
+         *          rkrwStatus  任务状态:
+                                    1.初始(创建入库任务后的状态)
+                                    2.已下发任务(下达任务后的状态)
+                                    3.已开始收货(打印收货标签后的状态)
+                                    4.收货中(上架第一个库位后的状态)
+                                    5.1.部分收货(任务下所有订单有一个部分收货整个任务为部分收货)
+                                    5.2.全部收货(任务下所有订单状态为全部收货整个任务状态为全部收货)
+                                    6.收货完成/欠货(全部收货状态下导出台帐为收货完成,部分收货状态下导出台帐为欠货)
+                                    可以手动将欠货标记为收货完成需要输入原因以及补发单号
+         */
+        /**
+         *          TODO 2 修改明细表
+         *          rkRkdjNo        入库单号
+         *          rkCreatetime    下单时间
+         *                          总数量
+         *                          总体积
+         *          rkRemarks       备注
+         */
+        /**
+         * 3 新增-入库任务     POST /mfunrkRwDoc/add
+         * 参数
+         *
+         *
+         {
+            "rkrwId": 0,
+            "rkrwNo": "A0001",
+            "rkrwDhrq": "2017-04-13T08:25:12.866Z",
+            "rkrwDbd": "调拨地1",
+            "rkrwCys": "承运商1",
+            "rkrwCph": "鲁A-GF886",
+            "rkrwSjxm": "老司机1",
+            "rkrwDh": "15098879088",
+            "rkrwStatus": "31",
+            "rkrwArehouseId": 1,
+            "rkrwClientId": 1,
+            "docList": [
+             {
+               "rkRkdjId": 8
+             },
              {
                 "rkrwId": 0,
                 "rkrwNo": "A0001",
@@ -2121,8 +2144,11 @@
              TODO 出库预约
 
              **/
-/**
-             * TODO 0  出库单管理 根据分页要求获取没有出库任务的出库单信息 POST /mfunck/selectMfunckDocByPage
+
+            /**
+             * 7 TODO 出库预约 获取 根据分页要求获取没有出库任务的出库单信息 POST /mfunck/selectMfunckDocByPage
+             *
+             *
              * 参数：查询条件 ckDocPageModel（参数对象）
              * {
                   "draw": 0,
@@ -2134,7 +2160,7 @@
                   "ckStatus": 1,                   出库状态（1初始 21部分分拣，未下架状态 22部分出库，已下架 31全部分拣，未下架 32全部出库，下架完成41已挂起， 50作废）
                   "ckCkdjClientname",              客户名称（支持模糊查询）
                   "ckCkdjType": 0,                 单据类型（0正常单据，1挂起单据，2滞留单据）
-                  "ckArehouseId": 1               （如果是调度员就不传，如果是别的角色就传）
+                  "ckArehouseId": 1               （如果是调度员就传-1，如果是别的角色,就传其他角色的仓库id）
                 }
              *
              *
@@ -2173,12 +2199,9 @@
                   allHeight : null                          总重量
                 }
              */
-/**
- * TODO 出库单管理 随机生成出库单号 GET /mfunck/mfunckdocAdd
- * 返回jsonModel ckCkdjNo 出库单号
- */
-/**
- * TODO 1 出库单管理 新增出库单据/包含出库单明细 POST /mfunck/add
+
+            /**
+             * 0 TODO 出库预约 新增 出库单据/包含出库单明细 POST /mfunck/add
              * 参数
              * {
                   "ckCkdjNo": "CK1482398743793",（必填）
@@ -2811,16 +2834,8 @@
                 客户地址         ckAdress
             }
          */
-/**
- * TODO 盘点查询  POST /mfunpd/selectMfunpdByPage
- * 参数类： pdDocPageModel
- * 实例：
- *
- *
- *
- */
-/**
- * TODO 库位转移查询
+    /**
+     * TODO 库位转移查询
      *
      */
     /**
@@ -2897,225 +2912,147 @@
 
 
         */
-/*
- * TODO 动碰盘点查询 POST /mfunpd/selectDPPDByPage
- * 参数类：pdDocPageModel
- * {
- *  "draw": 0,
-    "pageNum": 1,
-    "pageSize": 10
- * }
- * 前台接收对象 pageList
- * {
-     "pdId": 7,                        （盘点计划ID）
-     "pdType": 0,                      （盘点类型：0 异动盘点 1 货品盘点 2 全仓盘点）
-     "pdYdBeginTime": 1486224000000,   （异动开始时间）
-     "pdYdEndTime": 1493913600000,     （异动结束时间）
-     "pdZyBeginTime": null,            （盘点作业开始时间）
-     "pdZyEndTime": null,              （盘点作业结束时间）
-     "pdCreateTime": 1493955966000,    （盘点计划创建时间）
-     "pdCreateUserId": 3,              （盘点计划创建人ID）
-     "pdQrsj": null,                   （盘点计划确认时间）
-     "pdQrUserId": null,               （盘点计划确认人员ID）
-     "pdZfsj": null,                   （盘点计划作废时间）
-     "pdZfUserId": null,               （盘点计划作废人员ID）
-     "pdStatus": 0,                    （盘点状态：0 初始 1 盘点确认 2 作废）
-     "pdChargePerson": "张三丰",        （负责人）
-     "pdOperator": "杨过",              （经办人(多人)盘点操作人）
-     "pdArehouseId": 3,                （仓库ID）
-     "pdDiffStatus": 0,                （差异状态：0 无差异 1 有差异）
-     "mfunpdDocs": [],                 （盘点明细集合）（有用的时候才用）
-     "mrGoodsIds": null,               （货品ID集合）（有用的时候才用）
-     "rmsUser": null                   （当前操作人）（有用的时候才用）
+
+    /**
+         * TODO 盘点查询
+         */
+        /**
+             * TODO 0  分页查询
+                * 搜索条件
+                * {
+                       创建时间    pdCreateTime
+                       创建人      pdCreateUserId
+                       经办人      pdOperator
+                       盘点状态    pdStatus     0 初始     1 盘点确认 2 作废
+                       差异状态    pdDiffStatus 0 无差异   1 有差异
+                       仓库        pdArehouseId
+                       盘点类型    pdType       0 异动盘点 1 货品盘点 2 全仓盘点
+                   }
+                    一级页面(盘点计划主表)显示列
+                        {
+                               仓库              pdArehouseId
+                               创建时间          pdCreateTime
+                               盘点类型          pdType
+                               异动开始时间      pdYdBeginTime
+                               异动结束时间      pdYdEndTime
+                               盘点状态          pdStatus
+                               负责人            pdChargePerson
+                               经办人            pdOperator
+                               差异状态          pdDiffStatus
+                        }
+                        二级页面(盘点计划明细表)显示列
+                        {
+                               库位名称    pdsRepertoryId(关联)
+                               货品编号    pdsGoodsId
+                               货品名称    pdsGoodsId
+                               计划数量    pdsRepertoryCount
+                               盘点数量    pdsPdCount
+                        }
+
+
+
+ */
+        /**
+         * TODO 1 盘点详情(盘点明细表mfunpd_docs)
+                pdsId               盘点计划明细主键
+                pdsPdId             盘点计划主键ID
+                pdsGoodsId          货品ID
+                pdsLocationId       库位ID
+                pdsRepertoryCount   库存数量
+                pdsPdCount          盘点数量
+                pdsDiffStatus       差异状态 0 无差异  1 有差异
+                pdsStatus           盘点状态0 未盘点 1 已盘点
+                pdsUserId           盘点人员id
+                pdsPdTime           盘点时间
+         */
+/**
+     * TODO 库内管理
+     */
+    /**
+     * 库存转移
+     */
+        /**
+     *  TODO 库存管理 分页 根据货品id 库位id 仓库id 合并获取库存单据 POST /repertory/groupPage
+         {
+  "data": [
+    {
+      "mrRepertoryId": 107,
+      "mrLocationId": 3,
+      "mrGoodsId": 13,
+      "mrGoodsBatch": "2017-04-26",
+      "mrDwid": 1,
+      "mrCount": 40,
+      "mrDxjCount": 0,
+      "mrDjCount": 0,
+      "mrDjStatus": true,
+      "mrDzyCount": 0,
+      "mrKcydsj": 1493197331000,
+      "mrArehouseId": 1,
+      "kyCount": 40,
+      "baseLocation": {
+        "blLocationId": 3,
+        "blLname": "H16-39-A4",
+        "blRegionId": 1,
+        "blLtray": 21,
+        "blLorder": 3,
+        "blStatus": 1,
+        "blArehouseId": 1
+      },
+      "baseGoods": {
+        "bgGoodsId": 13,
+        "bgGoodsNo": "13701003002",
+        "bgGoodsName": "电热锅、JK-28R2（28R2-A）、红色+黑色+不锈钢一体、3L、220V、2100W、50HZ、内销、I类结构",
+        "bgNamejc": "电热锅、JK-28R2（28R2-A）、红色+黑色+不锈钢一体、3L、220V、2100W、50HZ、内销、I类结构",
+        "bgT": null,
+        "bgI": null,
+        "bgHsl": 4,
+        "bgZxdw": 8,
+        "bgSzdw": 1,
+        "bgStatus": 1,
+        "bgArehouseId": 1,
+        "bgClientId": 2,
+        "bgGoodsType": "",
+        "bgGoodsTj": 23.83,
+        "bgGoodsZl": 2,
+        "bgGoodsPrice": null,
+        "bgCreatetime": 1488942628000,
+        "bgRemarks": "",
+        "bgGoodsGg": "",
+        "baseDws": null
+      },
+      "baseDw": {
+        "bdDwId": 1,
+        "bdName": "台",
+        "bdStatus": 2,
+        "bdIsdel": true,
+        "bdCreatetime": 1488786104000
+      },
+      "baseArehouse": {
+        "baArehouseId": 1,
+        "baName": "九阳齐河仓",
+        "baAddr": "齐河",
+        "baScity": "济南",
+        "baScontacts": "联系人1",
+        "baPhone": "13267890789",
+        "baAcreage": "baAcreage",
+        "baCtype": "baCtype",
+        "baHumidity": "baHumidity",
+        "baFax": "baFax",
+        "baPostoffice": "baPostoffice",
+        "baIsti": 1,
+        "baStatus": 1,
+        "baClientId": 1,
+        "baRemarks": "baRemarks",
+        "baCreatetime": 1488092935000,
+        "baPgroupinfo": null,
+        "arehouseKqs": null
+      },
+      "baseArehouseKq": null
     }
- *
- */
-/*
- * TODO 循环盘点查询 POST /mfunpd/selectXHPDByPage
- * * 参数类：pdDocPageModel
- * {
- *  "draw": 0,
- "pageNum": 1,
- "pageSize": 10
- * }
- * 前台接收对象 pageList
- * {
- "pdId": 7,                        （盘点计划ID）
- "pdType": 0,                      （盘点类型：0 异动盘点 1 货品盘点 2 全仓盘点）
- "pdYdBeginTime": 1486224000000,   （异动开始时间）
- "pdYdEndTime": 1493913600000,     （异动结束时间）
- "pdZyBeginTime": null,            （盘点作业开始时间）
- "pdZyEndTime": null,              （盘点作业结束时间）
- "pdCreateTime": 1493955966000,    （盘点计划创建时间）
- "pdCreateUserId": 3,              （盘点计划创建人ID）
- "pdQrsj": null,                   （盘点计划确认时间）
- "pdQrUserId": null,               （盘点计划确认人员ID）
- "pdZfsj": null,                   （盘点计划作废时间）
- "pdZfUserId": null,               （盘点计划作废人员ID）
- "pdStatus": 0,                    （盘点状态：0 初始 1 盘点确认 2 作废）
- "pdChargePerson": "张三丰",        （负责人）
- "pdOperator": "杨过",              （经办人(多人)盘点操作人）
- "pdArehouseId": 3,                （仓库ID）
- "pdDiffStatus": 0,                （差异状态：0 无差异 1 有差异）
- "mfunpdDocs": [],                 （盘点明细集合）（有用的时候才用）
- "mrGoodsIds": null,               （货品ID集合）（有用的时候才用）
- "rmsUser": null                   （当前操作人）（有用的时候才用）
- }
- */
-/*
- * TODO 全面盘点查询 POST /mfunpd/selectQMPDByPage
- * 参数类：pdDocPageModel
- * {
- *  "draw": 0,
- "pageNum": 1,
- "pageSize": 10
- * }
- * 前台接收对象 pageList
- * {
- "pdId": 7,                        （盘点计划ID）
- "pdType": 0,                      （盘点类型：0 异动盘点 1 货品盘点 2 全仓盘点）
- "pdYdBeginTime": 1486224000000,   （异动开始时间）
- "pdYdEndTime": 1493913600000,     （异动结束时间）
- "pdZyBeginTime": null,            （盘点作业开始时间）
- "pdZyEndTime": null,              （盘点作业结束时间）
- "pdCreateTime": 1493955966000,    （盘点计划创建时间）
- "pdCreateUserId": 3,              （盘点计划创建人ID）
- "pdQrsj": null,                   （盘点计划确认时间）
- "pdQrUserId": null,               （盘点计划确认人员ID）
- "pdZfsj": null,                   （盘点计划作废时间）
- "pdZfUserId": null,               （盘点计划作废人员ID）
- "pdStatus": 0,                    （盘点状态：0 初始 1 盘点确认 2 作废）
- "pdChargePerson": "张三丰",        （负责人）
- "pdOperator": "杨过",              （经办人(多人)盘点操作人）
- "pdArehouseId": 3,                （仓库ID）
- "pdDiffStatus": 0,                （差异状态：0 无差异 1 有差异）
- "mfunpdDocs": [],                 （盘点明细集合）（有用的时候才用）
- "mrGoodsIds": null,               （货品ID集合）（有用的时候才用）
- "rmsUser": null                   （当前操作人）（有用的时候才用）
- }
- */
-/*
- * TODO 根据盘点计划ID查询盘点计划详情（通用） POST /mfunpd/selectPdInfoByPdId
- * 传递参数类：pdDocPageModel
- * 实例 ：
- * {
-     "pdsId": 33,                     （盘点明细ID）
-     "pdsPdId": 19,                   （盘点计划ID）
-     "pdsGoodsId": 1,                 （货品ID）
-     "pdsLocationId": 1,              （库位ID）
-     "pdsRepertoryCount": 1000,       （库存数量）
-     "pdsPdCount": 0,                 （盘点数量）
-     "pdsDiffStatus": 0,              （差异状态：0 无差异 1 有差异）
-     "pdsStatus": 0,                  （盘点状态：0 未盘点 1 已盘点）
-     "pdsUserId": 21,                 （盘点人员ID）
-     "pdsPdTime": null,               （盘点时间）
-     "baseGoods": {
-         "bgGoodsId": 1,
-         "bgGoodsNo": "jiuyangNo",     （货品编号）
-         "bgGoodsName": "九阳电磁炉",   （货品名称）
-         "bgNamejc": "电磁炉",
-         "bgT": 50,
-     },
-     "baseLocation": {
-     "blLocationId": 1,
-     "blLname": "H11-28-A1",         （库位名称）
-     "blRegionId": 1
-     },
-     "rmsUser": null
-     },
- */
-/*
- * TODO 新增动碰盘点 POST /mfunpd/insertDPMfunpdDocAndDocs
- *  传递参数类：mfunpdDoc（盘点计划实体类）
- *  实例：
- *  {
-     "pdYdBeginTime": "2017-02-05T02:48:43.631Z",      （异动开始时间）
-     "pdYdEndTime": "2017-04-13T02:48:43.631Z",        （异动结束时间）
-     "pdCreateUserId": 3,                              （创建人员ID）
-     "pdChargePerson": "张三丰",                       （负责人）
-     "pdOperator": "杨过",                             （经办人）
-     "pdArehouseId": 6                                 （仓库ID）
-     }
-    返回 jsonModel 20002成功 50002失败
- */
-/*
- * TODO 新增循环盘点 POST /mfunpd/insertXHMfunpdDocAndDocs
- * 传递参数类：mfunpdDoc（盘点计划实体类）
- * 实例：
- * {
-     "pdCreateUserId": 2,       （创建人ID）
-     "pdChargePerson": "郭襄",   （负责人）
-     "pdOperator": "小龙女",     （经办人）
-     "pdArehouseId": 1,          （仓库ID）
-     "mrGoodsIds": [             （货品ID集合）
-         1,
-         2
-     ]
-    }
-  返回 jsonModel 20002成功 50002失败
- */
-/*
- * TODO 新增全面盘点 POST /mfunpd/insertQMMfunpdDocAndDocs
- * 传递参数类：mfunpdDoc（盘点计划实体类）
- * 实例：
- * {
-     "pdCreateUserId": 2,        （创建人ID）
-     "pdChargePerson": "郭襄",    （负责人）
-     "pdOperator": "小龙女",      （经办人）
-     "pdArehouseId": 1            （仓库ID）
-     }
-     返回 jsonModel 20002成功 50002失败
+  ],
+  "draw": 0,
+  "recordsTotal": 1,
+  "recordsFiltered": 1
+}
 
- **/
-/**
- * TODO 分配任务页面根据盘点计划ID查询详情 POST /mfunpd/selectPdInfoByPdId
- * 传递参数类：pdDocPageModel
- * 实例
- * {
-      "pdId": 19          （盘点计划ID）
-    }
- 返回 jsonModel mfunpdDocs 盘点明细集合
- */
-/**
- * TODO 根据盘点明细id分配任务 POST /mfunpd/allocatingTaskByPdsId
- * 传递参数类：pdDocPageModel
- * 实例;
- * {
- *   "pdId": 19,                 （盘点计划ID）
- *   "userId": 21,               （经办人ID）
- *   "ids": [                    （盘点计划ID）
- *     35,
- *     36
- *   ],
- *   "userName": "九阳操作员"     （经办人姓名）
- *  }
- *  返回 jsonModel 20002成功 50002失败
- */
-/**
- * TODO 盘点详情页面根据盘点计划ID查询详情 POST /mfunpd/selectPdInfoByPdsPdId
- * 传递参数类：pdDocPageModel
- * {
- *   "pdId": 19   （盘点计划ID）
- *  }
- *  返回 jsonModel mfunpdDocs 盘点明细集合
- */
-/**
- * TODO 重盘 根据盘点明细id重盘（修改状态）POST /mfunpd/againPdByPdsId
- * 传递参数类：pdDocPageModel
- * {
- *   "pdsId": 35
- *  }
- *  返回 jsonModel 20002成功 50002失败
- */
-/**
- * TODO 根据盘点计划id确认盘点信息（修改库存） POST /mfunpd/confirmPdDocByPdId
- * 传递参数类：pdDocPageModel
- * {
- *   "": 19
- *  }
- * 返回 jsonModel 20002成功 50002失败
- */
-
-
-
-//在这里修改了
+     */

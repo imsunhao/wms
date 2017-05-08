@@ -536,28 +536,6 @@
     }
 </style>
 <script>
-    function form() {
-        return {
-            rkrwId: '',
-            title: "新建入库任务",
-            rkrwN: '',
-            rkrwCph: '',
-            dds: '',
-            pxs: '',
-            rkrwSjxm: '',
-            rkrwDhrq: '',
-            rkrwDbd: '',
-            rkrwCys: '',
-            rkrwDh: '',
-            rkrwStatus: '',
-            djCreateTime:[null,null],//模糊查询--创建时间
-            djJdTime:[null,null],//模糊查询--解冻时间
-            djCreateUserId:'',//模糊查询--创建人
-            djJdUserId:'',//模糊查询--解冻人
-            djArehouseId:'',//模糊查询--仓库
-            djStatus:'',//模糊查询--冻结状态
-        }
-    }
     var aLibraryFrozenSelect = new Vue({
         el: '#aLibraryFrozenSelect',
         prop: {},
@@ -685,7 +663,7 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                   //分页 Size
             expandChange: function (row, expanded) {
                 if (typeof (row.inputOperation) === 'undefined' && expanded) {
@@ -701,7 +679,7 @@
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post(this.option);
             },                                //分页 当前页
             newInput: function () {
                 this.dialogFormVisible = true;
@@ -745,12 +723,12 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(aLibraryFrozenSelect);
+                    p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                post(this, {});
+                p[0].post( {});
             },                                          //详细查询 提交
             auto_djCreateTime: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
@@ -786,7 +764,54 @@
         },
         watch: {}
     });
+    function form() {
+        return {
+            rkrwId: '',
+            title: "新建入库任务",
+            rkrwN: '',
+            rkrwCph: '',
+            dds: '',
+            pxs: '',
+            rkrwSjxm: '',
+            rkrwDhrq: '',
+            rkrwDbd: '',
+            rkrwCys: '',
+            rkrwDh: '',
+            rkrwStatus: '',
+            djCreateTime:[null,null],//模糊查询--创建时间
+            djJdTime:[null,null],//模糊查询--解冻时间
+            djCreateUserId:'',//模糊查询--创建人
+            djJdUserId:'',//模糊查询--解冻人
+            djArehouseId:'',//模糊查询--仓库
+            djStatus:'',//模糊查询--冻结状态
+        }
+    }
+    var obj=aLibraryFrozenSelect;
+    var p=[];
+    // 0 库位冻结查询 分页查询
+    p[0] = autoPost({
+        urlHock: "/hock/aLibraryFrozenSelect/page.json",
+        urlProd: "/route/aLibraryFrozenSelect/0",
+        success: function (json) {
+            obj.$data.aLibraryFrozenSelect = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+    // 1 库位冻结查询
+    p[1] = autoPost({
+        urlHock: "",
+        urlProd: "/route/aLibraryFrozenSelect/1",
+        success: function (json) {
 
+        }
+    });
+    // 2 库位冻结查询
+    p[2] = autoPost({
+        urlHock: "",
+        urlProd: "/route/aLibraryFrozenSelect/2",
+        success: function (json) {
+        }
+    });
     // 高级 监视器的 使用方法
     //        aLibraryFrozenSelect.$watch('aLibraryFrozenSelect.inputOperation', function () {
     //            if (!this.option.dateStart)return;
@@ -795,7 +820,7 @@
     //            /*</debug>*/
     //            post(this, this.option);
     //        }, {deep: true});
-    post(aLibraryFrozenSelect, aLibraryFrozenSelect.option);
+    p[0].post( aLibraryFrozenSelect.option);
     function post(obj, option) {
         obj.showLoading = true;
 
