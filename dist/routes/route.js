@@ -587,7 +587,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '入库操作－历史记录';
-                        req = autoUrl(req, '/history/' + 1 + '/mhRkdjId', "GET", function (json) {
+                        req = autoUrl(req, '/history/' + req.query.rkRkdjId + '/mhRkdjId', "GET", function (json) {
                             res.send(json);
                         });
                         break;
