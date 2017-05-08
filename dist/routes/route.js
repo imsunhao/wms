@@ -870,6 +870,42 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
+             case 'dynamicTouchInventory':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '动碰盘点  分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '动碰盘点 新增';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '动碰盘点 分配任务';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 3:
+                        urlName = '动碰盘点 盘点详情';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 4:
+                        urlName = '动碰盘点 盘点确认';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+                }
+                break;
+
 
         }
         console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + req.body.url);
