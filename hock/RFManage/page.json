@@ -8,19 +8,19 @@
     },
     {
       "ruLoginName":"张星",
-      "ruUserType":2,
+      "ruUserType":1,
       "ruUserZyq":"A区",
       "ruUserZyq":"C区"
     },
     {
       "ruLoginName":"赵忍忍",
-      "ruUserType":2,
+      "ruUserType":0,
       "ruUserZyq":"A区",
       "ruUserZyq":"D区"
     },
     {
       "ruLoginName":"张三",
-      "ruUserType":2,
+      "ruUserType":0,
       "ruUserZyq":"A区",
       "ruUserZyq":"E区"
     }

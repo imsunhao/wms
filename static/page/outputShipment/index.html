@@ -10,7 +10,7 @@
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                         class="icon sel"></i><span>多选</span>
                 </button>
-                <button @click="Shipment" class="btn btn-Issued" v-show="multiSelect"><i
+                <button @click="multiOperationShipment" class="btn btn-Issued" v-show="multiSelect"><i
                         class="icon issued1"></i><span>发运</span>
                 </button>
             </div>
@@ -53,10 +53,16 @@
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="预计到车">
-                                        <span>{{ auto_ckrwYjdcsj(props.row.ckrwYjdcsj) }}</span>
+                                        <span>
+                                             <el-icon name="time"></el-icon>
+                                            {{ auto_ckrwYjdcsj(props.row.ckrwYjdcsj) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="实际到车">
-                                        <span>{{ auto_ckrwSjdcsj(props.row.ckrwSjdcsj) }}</span>
+                                        <span>
+                                             <el-icon name="time"></el-icon>
+                                            {{ auto_ckrwSjdcsj(props.row.ckrwSjdcsj) }}
+                                        </span>
                                     </el-form-item>
 
                                     <el-form-item label="欠货状态">
@@ -69,11 +75,16 @@
                                             label="可用操作">
                                         <el-button
                                                 size="small"
-                                                @click="arriveCar(props.$index, props.row)">修改发运数量
+                                                type="success"
+                                                @click="inlineShipment(props.$index, props.row)">发运
                                         </el-button>
                                         <el-button
                                                 size="small"
-                                                @click="modifyTask(props.$index, props.row)">打印承运协议
+                                                @click="inlineModifyShipmentNumber(props.$index, props.row)">修改发运数量
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                @click="inlinePrintCarrierAgreement(props.$index, props.row)">打印承运协议
                                         </el-button>
                                     </el-form-item>
 
@@ -182,7 +193,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckrwCph"
+                        v-model="form.ckrwCph"
                         icon="search"
                         placeholder="车牌号"></el-input>
             </el-form-item>
@@ -190,7 +201,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckrwWls"
+                        v-model="form.ckrwWls"
                         icon="search"
                         placeholder="物流商"></el-input>
             </el-form-item>
@@ -198,7 +209,7 @@
             <el-form-item label="任务号"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.ckrwNo"
+                        v-model="form.ckrwNo"
                         class="input"
                         icon="search"
                         placeholder="任务号"></el-input>
@@ -206,7 +217,7 @@
             <el-form-item label="制作时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.ckrwHistoryCzsj"
+                        v-model="form.ckrwHistoryCzsj"
                         type="daterange"
                         align="right"
                         placeholder="制作时间"
@@ -217,7 +228,7 @@
             <el-form-item label="预计到车时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.ckrwYjdcsj"
+                        v-model="form.ckrwYjdcsj"
                         type="daterange"
                         align="right"
                         placeholder="预计到车时间"
@@ -228,7 +239,7 @@
             <el-form-item label="实际到车时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.ckrwSjdcsj"
+                        v-model="form.ckrwSjdcsj"
                         type="daterange"
                         align="right"
                         placeholder="实际到车时间"
@@ -236,16 +247,6 @@
                         :picker-options="pickerOptions">
                 </el-date-picker>
             </el-form-item>
-
-
-            <!--<el-select v-model="baCtype" placeholder="请选择">-->
-            <!--<el-option :value="1">欠货</el-option>-->
-            <!--<el-option :value="2">未欠货</el-option>-->
-            <!--</el-select>-->
-            <!--<el-select v-model="baCtype" placeholder="请选择">-->
-            <!--<el-option :value="1">滞留</el-option>-->
-            <!--<el-option :value="2">未滞留</el-option>-->
-            <!--</el-select>-->
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
@@ -358,7 +359,6 @@
             </el-button>
         </div>
     </el-dialog>
-
     <el-dialog
             title="修改发运数量"
             v-model="dialogChangeVisible">
@@ -371,58 +371,53 @@
                     height="55vh">
                 <el-carousel-item>
                     <el-row>
-                        <el-col :span="24"><h3>出库单据</h3></el-col>
-                    </el-row>
-                    <el-row>
                         <el-table
                                 :data="inputOperation"
                                 :max-height="570"
                                 @cell-dblclick="cellDblClick"
-                                style="width: 100%">
+                                style="width: 100%"
+                        >
                             <el-table-column
                                     type="index"
                                     width="55">
                             </el-table-column>
                             <el-table-column
-                                    label="出库单号"
-                                    width="170"
+                                    label="货品编号"
                                     show-overflow-tooltip
                                     align="center"
                                     prop="ckCkdjNo">
                             </el-table-column>
                             <el-table-column
-                                    width="150"
                                     align="center"
                                     prop="rkSjsj"
-                                    label="下单时间">
+                                    label="货品名称">
                                 <template scope="scope">
                                     <el-icon name="time"></el-icon>
-                                    <span style="margin-left: 10px">{{ auto_ckXdsj(scope.row.ckXdsj,true) }}</span>
+                                    <span style="margin-left: 10px"></span>
                                 </template>
                             </el-table-column>
                             <el-table-column
-                                    label="客户名称"
+                                    label="货品单位"
                                     align="center"
                                     show-overflow-tooltip
                                     prop="ckCkdjClientname">
                             </el-table-column>
                             <el-table-column
-                                    label="联系人"
+                                    label="下架数量"
                                     align="center"
                                     show-overflow-tooltip
                                     prop="ckContacts">
                             </el-table-column>
                             <el-table-column
-                                    label="地址"
+                                    label="批次"
                                     align="center"
                                     show-overflow-tooltip
                                     prop="ckAdress">
                             </el-table-column>
                             <el-table-column
-                                    label="状态"
+                                    label="库位"
                                     prop="rkType"
-                                    align="center"
-                                    width="100">
+                                    align="center">
                                 <template scope="scope">
                                     <el-tag
                                             :type="typeWatch(scope.row.type)"
@@ -686,8 +681,6 @@
     }
 </style>
 <script>
-
-
     function selectGood() {
         return {
             baseGoods: {
@@ -717,24 +710,29 @@
             deleteARkDocsList: true
         };
     }
-
     function form() {
         return {
-            rkrwId: '',
-            title: "新建入库任务",
-            rkrwN: '',
-            rkrwCph: '',
+            ckrwId: '',
+            title: "新建出库任务",
+            ckrwNo: '',
+            ckrwCph: '',
             dds: '',
             pxs: '',
-            rkrwSjxm: '',
-            rkrwDhrq: '',
-            rkrwDbd: '',
-            rkrwCys: '',
-            rkrwDh: '',
-            rkrwStatus: ''
-        }
-    }
+            ckrwSjxm: '',
+            ckrwDhrq: '',
+            ckrwDbd: '',
+            ckrwCys: '',
+            ckrwDh: '',
+            ckrwStatus: '',
+            ckrwCph:'',                    //模糊查询--车牌号
+            ckrwWls:'',                    //模糊查询--物流商
+            ckrwNo :'',                    //模糊查询--任务号
+            ckrwHistoryCzsj:[null,null], //模糊查询--制作时间
+            ckrwYjdcsj:[null,null],      //模糊查询--预计到车时间
+            ckrwSjdcsj:[null,null],      //模糊查询--实际到车时间
 
+    }
+    }
     var outputShipment = new Vue({
         el: '#outputShipment',
         prop: {},
@@ -837,22 +835,54 @@
                 /*</debug>*/
                 this.multipleSelection = val;
             },                               //多选 选中控制
+            multiOperationShipment:function(){
+                var _this = this;
+                _this.$confirm('此操作将此任务单据发运, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.warehousingTask);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消发运'
+                    });
+                });
+            },                                   //TODO 多选-发运
 
-            arriveCar: function (index, row) {
-                console.log(row);
-//                postChange(this,{id:row.});
+            inlineShipment:function(){
+                var _this = this;
+                _this.$confirm('此操作将此任务单据发运, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.warehousingTask);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消发运'
+                    });
+                });
+            },                                           //TODO 行内按钮--发运
+
+            inlineModifyShipmentNumber: function (index, row) {
                 this.dialogChangeVisible = true;
-            },                                   //TODO 行内按钮-修改发运数量
-            modifyTask: function (index, row) {
+            },                  //TODO 行内按钮-修改发运数量
 
-            },                                  //TODO 行内按钮-打印承运协议
+            inlinePrintCarrierAgreement: function (index, row) {
 
+            },                 //TODO 行内按钮-打印承运协议
             moreOperationModify: function () {
 
             },                                   //TODO 多选 修改
-            Shipment: function () {
-
-            },                                              //TODO 多选 发运
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -916,18 +946,15 @@
                 this.dialogSelectVisible = !this.dialogSelectVisible;
                 post(this, {});
             },                                          //详细查询 提交
-
             cellDblClick: function (row, column, cell, event) {
                 console.log(row, column, cell, event);
             },
-
-
             auto_ckrwYjdcsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
             },                            //预计到车时间
             auto_ckrwSjdcsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
             },                            //实际到车时间
             auto_ckrwStatus: function (value) {
@@ -992,7 +1019,6 @@
         },
         watch: {}
     });
-
     // 高级 监视器的 使用方法
     //    outputShipment.$watch('date', function () {
     //        if (!this.option.dateStart)return;

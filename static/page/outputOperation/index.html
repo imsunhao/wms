@@ -5,7 +5,7 @@
         <el-col :span="24">
             <div class="inner btn-nav">
                 <el-input
-                        v-model="ckCkdjId"
+                        v-model="ckCkdjNo"
                         icon="search"
                         placeholder="出库单号"></el-input>
                 <el-date-picker
@@ -17,13 +17,21 @@
                         :picker-options="pickerOptions">
                 </el-date-picker>
                 <el-date-picker
-                        v-model="ckrwHistoryCzsj"
+                        v-model="mhCreatetime"
                         type="daterange"
                         align="right"
                         placeholder="制作时间"
                         class="datePicker"
                         :picker-options="pickerOptions">
                 </el-date-picker>
+                    <el-select v-model="ckStatus" placeholder="请选择">
+                        <el-option :value="-1" label="全部"></el-option>
+                        <el-option :value="21" label="部分分拣"></el-option>
+                        <el-option :value="22" label="全部分拣"></el-option>
+                        <el-option :value="31" label="部分出库"></el-option>
+                        <el-option :value="32" label="全部出库"></el-option>
+                    </el-select>
+                </el-form-item>
 
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
@@ -31,10 +39,10 @@
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                         class="icon sel"></i><span>多选</span>
                 </button>
-                <button @click="printCombinedSortingList" class="btn btn-Issued" v-show="multiSelect"><i
+                <button @click="multiSelectPrintCombinedSortingList" class="btn btn-Issued" v-show="multiSelect"><i
                         class="icon issued1"></i><span>打印组合分拣单</span>
                 </button>
-                <button @click="offTheShelf" class="btn btn-Issued" v-show="multiSelect"><i
+                <button @click="multiSelectOffTheShelf" class="btn btn-Issued" v-show="multiSelect"><i
                         class="icon issued1"></i><span>下架</span>
                 </button>
 
@@ -98,7 +106,10 @@
                                                 <span>{{ props.row.ckCkdjNo }}</span>
                                             </el-form-item>
                                             <el-form-item label="下单时间">
-                                                <span>{{ auto_ckXdsj(props.row.ckXdsj) }}</span>
+                                                <span>
+                                                     <el-icon name="time"></el-icon>
+                                                    {{ auto_ckXdsj(props.row.ckXdsj) }}
+                                                </span>
                                             </el-form-item>
                                             <el-form-item label="客户名称">
                                                 <span>{{ props.row.ckCkdjClientname }}</span>
@@ -119,22 +130,17 @@
 
                                                   <el-button
                                                         size="small"
-                                                        @click="printSortingList(props.$index, props.row)">打印分拣单
+                                                        @click="inlinePrintSortingList(props.$index, props.row)">打印分拣单
                                                 </el-button>
+                                                 <el-button
+                                                        size="small"
+                                                        @click="inlinePrintCombinationSortingList(props.$index, props.row)">打印组合分拣单
+                                                </el-button>
+
                                                   <el-button
                                                         size="small"
-                                                        @click="printOrder(props.$index, props.row)">打印追加分拣单
+                                                        @click="inlinePrintOrder(props.$index, props.row)">打印追加分拣单
                                                 </el-button>
-
-
-                                                <!--<el-button-->
-                                                        <!--size="small"-->
-                                                        <!--@click="distributionBtn(props.$index, props.row)">分配-->
-                                                <!--</el-button>-->
-                                                <!--<el-button-->
-                                                        <!--size="small"-->
-                                                        <!--@click="distributionBtn(props.$index, props.row)">再次收货-->
-                                                <!--</el-button>-->
                                             </el-form-item>
                                             <el-form-item label="入库备注">
                                                 <el-tooltip class="item" effect="dark" :content="props.row.rkRemarks"
@@ -202,10 +208,8 @@
                         width="150"
                         align="center"
                         prop="rkSjsj"
-                        sortable
                         label="下单时间">
                     <template scope="scope">
-                        <el-icon name="time"></el-icon>
                         <span style="margin-left: 10px">{{ auto_ckXdsj(scope.row.ckXdsj,true) }}</span>
                     </template>
                 </el-table-column>
@@ -231,9 +235,7 @@
                         label="状态"
                         prop="rkType"
                         align="center"
-                        width="100"
-                        :filters="[{ text: '初始', value: '初始' }, { text: '部分分拣', value: '部分分拣' }, { text: '未下架状态', value: '未下架状态' }, { text: '部分出库', value: '部分出库' }, { text: '已下架', value: '已下架' }, { text: '全部分拣', value: '全部分拣' }, { text: '未下架', value: '未下架' }, { text: '全部出库', value: '全部出库' }, { text: '下架完成', value: '下架完成' }, { text: '作废', value: '作废' }]"
-                        :filter-method="filterType">
+                        width="100">
                     <template scope="scope">
                         <el-tag
                                 :type="typeWatch(scope.row.type)"
@@ -865,9 +867,11 @@
                 currentPage: 1,
                 pageSize: 10,
 
-                date: [null, null],                 //主页面 选择日期 搜索
-                rkRkdjNo: '',                       //TODO 主页面 入库单号 搜索
 
+                ckXdsj:[null,null],                 //TODO 主页面 下单时间 搜索
+                ckCkdjNo:'',                        //TODO 主页面 出库单号 搜索
+                mhCreatetime:[null,null],          //TODO 主页面 制作时间 搜索
+                ckStatus:'',                        //TODO 主页面 出库状态 搜索
                 formLabelWidth: '120px',            //表单 配置
                 form: form(),                       //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
@@ -890,7 +894,7 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "rkRkdjNo":this.rkRkdjNo.trim()
+//                    "rkRkdjNo":this.rkRkdjNo.trim()
 //                    "dateStart": this.date[0],
 //                    "dateStop": this.date[1]
                 }
@@ -902,29 +906,9 @@
             },                                      //分配 表单
         },
         methods: {
-            distributionBtn: function (index, row) {
-                var obj = this;
-                var step = form();
-                allPrposCb(step, function (obj, index) {
-                    if (typeof row[index] !== 'undefined') step[index] = row[index];
-                });
-                /*<debug>*/
-                console.log(row);
-                console.log(step);
-                /*</debug>*/
-                step.title = '分配\t:' + row.rkRkdjNo;
-                this.form = step;
-                this.dialogDistributionForm = true;
-                this.dialogFormActive = 1;
-                if (typeof (this.form.rkDocsList) === 'undefined') {
-                    postGoods(obj, {rkRkdjNo: row.rkRkdjNo}, function (json) {
-                        obj.form.rkDocsList = json;
-                        obj.dialogFormVisible = true;
-                    });
-                } else {
-                    obj.dialogFormVisible = true;
-                }
-            },                             //分配 行内按钮
+            inlinePrintSortingList:function(){},                                       //TODO 行内按钮-打印分拣单
+            inlinePrintCombinationSortingList:function(){},                            //TODO 行内按钮-打印组合分拣单
+            inlinePrintOrder:function(){},                                            //TODO 行内按钮-打印追加分拣单
             distributionBtnSubmit: function () {
                 var _this = this;
                 this.dialogFormActive++;
@@ -1075,12 +1059,12 @@
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
-            printCombinedSortingList:function () {
+            multiSelectPrintCombinedSortingList:function () {
                 this.multiSelect = !this.multiSelect;
-            },
-            offTheShelf:function () {
+            },                    //TODO 多选 打印组合分拣单
+            multiSelectOffTheShelf:function () {
                 this.multiSelect = !this.multiSelect;
-            },
+            },                                 //TODO 多选 下架
             handleSelectionChange: function (val) {
                 /*<debug>*/
                 console.log(this.multipleSelection);
@@ -1256,11 +1240,11 @@
                     }
                     return '未知的仓库'
                 }
-            },                            //入库仓库id 自动匹配
+            },                            //TODO 入库仓库id 自动匹配
             auto_ckXdsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },                                  //下单时间
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+            },                                //TODO 下单时间
             auto_ckStatus:function(value){
                 var temp={};
                 if(!isNaN(value)){
@@ -1284,7 +1268,7 @@
                     }
                 }
                 return temp[value];
-            },                                      //单据状态
+            },                                      //TODO 单据状态
             auto_ckIsauto:function(value){
                 var temp={};
                 if(!isNaN(value)){
@@ -1301,7 +1285,7 @@
                     }
                 }
                 return temp[value];
-            },                                      //制单方式
+            },                                      //TODO 制单方式
 
         },
         watch: {

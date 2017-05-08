@@ -184,19 +184,28 @@
                             <el-row>
                                 <el-col :span="10">
                                     <el-form-item label="创建时间">
-                                        <span>{{ props.row.pdCreateTime }}</span>
+                                        <span>
+                                              <el-icon name="time"></el-icon>
+                                            {{ auto_pdCreateTime(props.row.pdCreateTime) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="盘点类型">
-                                        <span>{{ props.row.pdType }}</span>
+                                        <span>{{ auto_pdType(props.row.pdType) }}</span>
                                     </el-form-item>
                                     <el-form-item label="异动开始">
-                                        <span>{{props.row.pdYdBeginTime}}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{auto_pdYdBeginTime(props.row.pdYdBeginTime)}}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="异动结束">
-                                        <span>{{props.row.pdYdEndTime}}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{auto_pdYdEndTime(props.row.pdYdEndTime)}}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="盘点状态">
-                                        <span>{{ props.row.pdStatus	 }}</span>
+                                        <span>{{ auto_pdStatus(props.row.pdStatus)	 }}</span>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10" :offset="2">
@@ -208,57 +217,66 @@
                                         <span>{{ props.row.pdOperator }}</span>
                                     </el-form-item>
                                     <el-form-item label="差异状态">
-                                        <span>{{ props.row.pdDiffStatus }}</span>
+                                        <span>{{ auto_pdDiffStatus(props.row.pdDiffStatus) }}</span>
                                     </el-form-item>
                                     <el-form-item label="可用操作">
-                                        <el-button
+                                         <el-button
                                                 size="small"
-                                                icon="edit"
-                                                @click="inlineEdit(props.$index, props.row)">
+                                                @click="inlineAssignment(props.$index, props.row)">分配任务
                                         </el-button>
                                          <el-button
                                                 size="small"
-                                                @click="inlineEdit(props.$index, props.row)">分配任务
+                                                @click="inlineInventoryDetails(props.$index, props.row)">盘点详情
                                         </el-button>
                                          <el-button
                                                 size="small"
-                                                @click="inlineEdit(props.$index, props.row)">盘点详情
+                                                @click="inlineInventoryConfirm(props.$index, props.row)">盘点确认
                                         </el-button>
-
-
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                         </el-form>
                     </template>
                 </el-table-column>
-                <!--<el-table-column-->
-                <!--type="index"-->
-                <!--width="55">-->
-                <!--</el-table-column>-->
                 <el-table-column
-                        label="创建时间"
-                        show-overflow-tooltip
+                        align="center"
                         prop="pdCreateTime"
-                        align="center">
+                        label="创建时间">
+                    <template scope="scope">
+                        <span>
+                            {{ auto_pdCreateTime(scope.row.pdCreateTime,true) }}
+                        </span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="盘点类型"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="pdYdBeginTime">
+                        prop="pdType"
+                        align="center">
+                    <template scope="scope">
+                        <el-tag
+                                close-transition>{{auto_pdType(scope.row.pdType)}}
+                        </el-tag>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="异动开始时间"
                         show-overflow-tooltip
-                        align="center"
-                        prop="pdYdBeginTime">
+                        align="center">
+                    <template scope="scope">
+                        <span>
+                            {{auto_pdYdBeginTime(scope.row.pdYdBeginTime,true)}}
+                        </span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="异动结束时间"
                         show-overflow-tooltip
-                        align="center"
-                        prop="pdYdEndTime">
+                        align="center">
+                    <template scope="scope">
+                        <span>
+                            {{auto_pdYdEndTime(scope.row.pdYdEndTime,true)}}
+                        </span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="负责人"
@@ -279,7 +297,7 @@
                         width="100">
                     <template scope="scope">
                         <el-tag
-                                close-transition>{{scope.row.pdStatus}}
+                                close-transition>{{auto_pdStatus(scope.row.pdStatus)}}
                         </el-tag>
                     </template>
                 </el-table-column>
@@ -390,11 +408,114 @@
                 </el-carousel-item>
             </el-carousel>
         </el-form>
-
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="submit" :loading="submitLoading">保存
             </el-button>
         </div>
+    </el-dialog>
+    <el-dialog
+            size="large"
+            title="分配任务"
+            v-model="dialogAssignmentVisible">
+        <el-table
+                :data="assignment"
+                highlight-current-row
+                style="width: 100%">
+            <el-table-column
+                    label="库位名称"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="pdsLocationId">
+            </el-table-column>
+            <el-table-column
+                    label="货品编号"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="pdsGoodsId">
+            </el-table-column>
+            <el-table-column
+                    label="货品名称"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="pdsGoodsId">
+            </el-table-column>
+            <el-table-column
+                    label="库存数量"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="pdsRepertoryCount">
+            </el-table-column>
+            <el-table-column
+                    label="操作"
+                    prop="rksCount"
+                    align="center">
+                <template scope="scope">
+                    <el-button
+                            size="small"
+                            type="danger"
+                            icon="assignment"
+                            @click="assignmentInlineOperation(scope.$index, scope.row)">分配
+                    </el-button>
+                </template>
+            </el-table-column>
+
+
+        </el-table>
+    </el-dialog>
+    <el-dialog
+            size="large"
+            title="盘点详情"
+            v-model="dialogDetailsVisible">
+        <el-table
+                :data="details"
+                highlight-current-row
+                style="width: 100%">
+            <el-table-column
+                    label="库位名称"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="pdsLocationId">
+            </el-table-column>
+            <el-table-column
+                    label="货品编号"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="pdsGoodsId">
+            </el-table-column>
+            <el-table-column
+                    label="货品名称"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="pdsGoodsId">
+            </el-table-column>
+            <el-table-column
+                    label="库存数量"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="pdsRepertoryCount">
+            </el-table-column>
+            <el-table-column
+                    label="盘点数量"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="pdsPdCount">
+            </el-table-column>
+            <el-table-column
+                    label="操作"
+                    prop="rksCount"
+                    align="center">
+                <template scope="scope">
+                    <el-button
+                            size="small"
+                            type="danger"
+                            icon="assignment"
+                            @click="heavyPlateInlineOperation(scope.$index, scope.row)">重盘
+                    </el-button>
+                </template>
+            </el-table-column>
+
+
+        </el-table>
     </el-dialog>
 </div>
 <script>
@@ -409,6 +530,24 @@
             zyStatus:''
         }
     }
+    function formAssignment() {
+        return {
+            pdsLocationId: '',          // 库位名称
+            pdsGoodsId: '',             // 货品编号
+            pdsGoodsId: '',             // 货品名称
+            pdsGoodsId: '',             // 货品批次
+            pdsRepertoryCount:'',       //库存数量
+        }
+    }//分配任务
+    function formDetails() {
+        return {
+            pdsLocationId: '',          // 库位名称
+            pdsGoodsId: '',             // 货品编号
+            pdsGoodsId: '',             // 货品名称
+            pdsRepertoryCount:'',      // 库存数量
+            pdsPdCount:'',              // 盘点数量
+        }
+    }//盘点详情
     var dynamicTouchInventory = new Vue({
         el: '#dynamicTouchInventory',
         prop: {},
@@ -447,24 +586,21 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-
-                date: [null, null],                 //主页面 选择日期 搜索
-                rkRkdjNo: '',                       //主页面 入库单号 搜索
-
                 formLabelWidth: '120px',            //表单 配置
-                form: form(),                           //表单 弹出层 信息集合
+                form: form(),                        //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
-
-                select: form(),                         //搜索 弹出层 信息集合,
-                printf: [],                         //搜索 弹出层 信息集合,
+                assignment:[],                       //查看 分配任务 弹出层 信息集合(表单格式)
+                dialogAssignmentVisible: false,    //查看 分配任务 弹出层 是否可见
+                details:[],                           //查看 盘点详情 弹出层 信息集合(表单格式)
+                dialogDetailsVisible: false,        //查看 盘点详情 弹出层 是否可见
+                select: form(),                        //搜索 弹出层 信息集合,
+                printf: [],                            //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 dialogPrintfVisible: false,
                 selectLoading: false,
                 printfLoading: false,
-
-                printDatas: [],          // 打印数据
             }
         },
         computed: {
@@ -500,27 +636,27 @@
             },                                      //分配 表单
         },
         methods: {
-            inlineEdit: function (index, row) {
-                this.form.title = '编辑';
-                this.form.zyCreateTime = row.zyCreateTime;
-                this.form.zyMentionUserName = row.zyMentionUserName;
-                this.form.zyCreateUserName = row.zyCreateUserName;
-                this.form.zyConfirmUserName = row.zyConfirmUserName;
-                this.form.zyReason=row.zyReason;
-                this.form.zyConfirmTime=row.zyConfirmTime;
-                this.form.zyStatus=row.zyStatus;
-                this.dialogFormVisible = true;
-                this.dialogFormActive = 0;
-                Vue.nextTick(function () {
-                    dynamicTouchInventory.$refs.carousel.setActiveItem(0);
+            inlineAssignment: function () {
+                this.dialogAssignmentVisible = true;
+            },                                     //行内按钮-分配任务
+            inlineInventoryDetails:function(){
+                this.dialogDetailsVisible = true;
+            },                                  //行内按钮-盘点详情
+            inlineInventoryConfirm: function (index, row) {
+                var obj = this;
+                obj.$confirm('确认此盘点计划, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    postPassword(userManagement, {ids: row.ruUserId});
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
                 });
-            },                                  //TODO 行内按钮-编辑
-            inlineModify: function (index, row) {
-                this.multipleSelection = [row];
-                printfCompile(this);
-                this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                //行内按钮 打印标签页
-
+            },                     //行内按钮-盘点确认
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -545,8 +681,7 @@
                 Vue.nextTick(function () {
                     dynamicTouchInventory.$refs.carousel.setActiveItem(0);
                 });
-            },
-
+            },                                               //新增页面
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -561,8 +696,6 @@
                 this.currentPage = val;
                 post(this, this.option);
             },                                //分页 当前页
-
-
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -604,12 +737,10 @@
                     post(dynamicTouchInventory);
                 }, 1500);
             },                                                //新建 表单提交
-
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
                 post(this, {});
             },                                          //详细查询 提交
-
             printfSubmit: function () {
                 var datas=[];
                 var checkData=dynamicTouchInventory.$refs.printf.getCheckedNodes();
@@ -646,10 +777,71 @@
                     case 3:
                         return resolve([]);
                 }
-            }
+            },
+            auto_pdCreateTime: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+            },                           //创建时间
+            auto_pdYdBeginTime: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+            },                          //异动开始时间
+            auto_pdYdEndTime: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+            },                            //异动结束时间
+            auto_pdType:function(value){
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        0:'异动盘点',
+                        1:'货品盘点',
+                        2:'全仓盘点',
+                    }
+                }else{
+                    temp={
+                        '异动盘点':0,
+                        '货品盘点':1,
+                        '全仓盘点':2
+                    }
+                }
+                return temp[value];
+            },                                         //盘点类型
+            auto_pdStatus:function(value){
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        0:'初始',
+                        1:'盘点确认',
+                        2:'作废',
+                    }
+                }else{
+                    temp={
+                        '初始':0,
+                        '盘点确认':1,
+                        '全仓盘点':2
+                    }
+                }
+                return temp[value];
+            },                                       //盘点状态
+            auto_pdDiffStatus:function(value){
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        0:'无差异',
+                        1:'有差异',
+                    }
+                }else{
+                    temp={
+                        '无差异':0,
+                        '有差异':1,
+
+                    }
+                }
+                return temp[value];
+            },                                   //差异状态
         }
     });
-
     // 高级 监视器的 使用方法
     //    dynamicTouchInventory.$watch('date', function () {
     //        if (!this.option.dateStart)return;
@@ -683,7 +875,6 @@
                 errorTip(obj, error);
             },
             success: function (json) {
-                console.log(json);
                 obj.$data.dynamicTouchInventory = json.data;
                 obj.$data.currentTotal = json.recordsFiltered;
             },
@@ -691,8 +882,7 @@
                 obj.showLoading = false;
             }
         });
-    }           ///TODO 库存转移分页查询的接口
-
+    }                         //TODO 动碰盘点接口
     function postRkrwNo(obj, option, resolve) {
         /*<debug>*/
         url = "/hock/dynamicTouchInventory/rkrwNo.json";
@@ -765,48 +955,6 @@
             }
         });
     }          //TODO 获取入库单号中详细信息
-    function changeDate(date) {
-        return dateFormat(new Date(date), 'MM-dd hh:mm');
-    }
-    function errorTip(obj, error) {                    // 错误提示
-        /*<debug>*/
-        console.log(error);
-        /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
-    function dateFormat(date, fmt) {
-        var o = {
-            "M+": date.getMonth() + 1,                 //月份
-            "d+": date.getDate(),                    //日
-            "h+": date.getHours(),                   //小时
-            "m+": date.getMinutes(),                 //分
-            "s+": date.getSeconds(),                 //秒
-            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-            "S": date.getMilliseconds()             //毫秒
-        };
-        if (/(y+)/.test(fmt))
-            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-
-                    console.log(temp);
-                }
-                data.pop();
-            }
-        }
-    }
     function printfCompile(obj) {
         var resoleveStep = [];
         for (var i = 0; i < obj.multipleSelection.length; i++) {
@@ -817,7 +965,7 @@
             });
         }
         obj.printf = resoleveStep;
-    }
+    }                         //打印
 
 </script>
 

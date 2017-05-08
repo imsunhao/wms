@@ -10,7 +10,7 @@
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                         class="icon sel"></i><span>多选</span>
                 </button>
-                <button @click="moreOperationIssued" class="btn btn-Issued" v-show="multiSelect"><i
+                <button @click="multiOperationSelectFinish" class="btn btn-Issued" v-show="multiSelect"><i
                         class="icon issued1"></i><span>挑选完成</span>
                 </button>
             </div>
@@ -54,10 +54,16 @@
                                         <span>{{ auto_ckrwStatus(props.row.ckrwStatus) }}</span>
                                     </el-form-item>
                                     <el-form-item label="预计到车">
-                                        <span>{{auto_ckrwYjdcsj(props.row.ckrwYjdcsj) }}</span>
+                                        <span>
+                                             <el-icon name="time"></el-icon>
+                                            {{auto_ckrwYjdcsj(props.row.ckrwYjdcsj) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="实际到车">
-                                        <span>{{ auto_ckrwSjdcsj(props.row.ckrwSjdcsj) }}</span>
+                                        <span>
+                                             <el-icon name="time"></el-icon>
+                                            {{ auto_ckrwSjdcsj(props.row.ckrwSjdcsj) }}
+                                        </span>
                                     </el-form-item>
 
                                     <el-form-item label="欠货状态">
@@ -65,6 +71,15 @@
                                     </el-form-item>
                                     <el-form-item label="滞留状态">
                                         <span>{{ auto_ckrwZlStatus(props.row.ckrwZlStatus) }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="可用操作">
+
+                                        <el-button
+                                                size="small"
+                                                type="success"
+                                                @click="inlineSelectFinish(props.$index, props.row)">挑选完成
+                                        </el-button>
+
                                     </el-form-item>
 
                                 </el-col>
@@ -172,14 +187,14 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.ckrwCph"
+                        v-model="form.ckrwCph"
                         icon="search"
                         placeholder="车牌号"></el-input>
             </el-form-item>
             <el-form-item label="任务号"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="select.ckrwNo"
+                        v-model="form.ckrwNo"
                         class="input"
                         icon="search"
                         placeholder="任务号"></el-input>
@@ -187,7 +202,7 @@
             <el-form-item label="制作时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.ckrwHistoryCzsj"
+                        v-model="form.ckrwHistoryCzsj"
                         type="daterange"
                         align="right"
                         placeholder="制作时间"
@@ -195,14 +210,6 @@
                         :picker-options="pickerOptions">
                 </el-date-picker>
             </el-form-item>
-            <!--<el-select v-model="baCtype" placeholder="请选择">-->
-            <!--<el-option :value="1">欠货</el-option>-->
-            <!--<el-option :value="2">未欠货</el-option>-->
-            <!--</el-select>-->
-            <!--<el-select v-model="baCtype" placeholder="请选择">-->
-            <!--<el-option :value="1">滞留</el-option>-->
-            <!--<el-option :value="2">未滞留</el-option>-->
-            <!--</el-select>-->
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
@@ -396,18 +403,21 @@
 <script>
     function form() {
         return {
-            rkrwId:'',
+            ckrwId:'',
             title: "新建入库任务",
-            rkrwN: '',
-            rkrwCph: '',
+            ckrwN: '',
+            ckrwCph: '',
             dds: '',
             pxs: '',
-            rkrwSjxm: '',
-            rkrwDhrq: '',
-            rkrwDbd: '',
-            rkrwCys: '',
-            rkrwDh: '',
-            rkrwStatus: ''
+            ckrwSjxm: '',
+            ckrwDhrq: '',
+            ckrwDbd: '',
+            ckrwCys: '',
+            ckrwDh: '',
+            ckrwStatus: '',
+            ckrwCph:'',//模糊查询--车牌号
+            ckrwNo:'',//模糊查询--任务号
+            ckrwHistoryCzsj:[null,null],//模糊查询--制作时间
         }
     };
     var chooseBill = new Vue({
@@ -496,14 +506,14 @@
             },                                      //分配 表单
         },
         methods: {
-            cancelTask: function (index, row) {
+            inlineSelectFinish: function (index, row) {
                 var _this = this;
-                _this.$confirm('此操作将取消该任务单的任务, 是否继续?', '提示', {
+                _this.$confirm('此操作将这单任务单据挑选完成, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.chooseBill);
+                    remove(row, _this.warehousingTask);
                     postDelete(_this, {
                         id: [row.rkdjNo]
                     });
@@ -513,7 +523,7 @@
                         message: '已取消下发'
                     });
                 });
-            },                                //TODO 行内按钮  取消任务
+            },                      //TODO 行内按钮 挑选完成
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -523,12 +533,26 @@
                 /*</debug>*/
                 this.multipleSelection = val;
             },                               //多选 选中控制
-            moreOperationModify: function () {
+            multiOperationSelectFinish: function () {
+                var _this = this;
+                _this.$confirm('此操作将这些任务单据挑选完成, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.warehousingTask);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消下发'
+                    });
+                });
 
-            },                                   //TODO 多选 修改
-            moreOperationIssued: function () {
+            },                            //TODO 多选 挑选完成
 
-            },                                   //TODO 多选 下发
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -593,11 +617,11 @@
                 post(this, {});
             },                                          //详细查询 提交
             auto_ckrwYjdcsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
             },                                  //预计到车时间
             auto_ckrwSjdcsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
             },                                 //实际到车时间
             auto_ckrwStatus:function(value){

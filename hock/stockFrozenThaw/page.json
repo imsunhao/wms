@@ -1,0 +1,43 @@
+{
+  "data":[
+    {
+      "djId":"id",
+      "djReason":"备注",
+      "djStatus":"冻结状态",
+      "djCreateUserId":"创建人员ID",
+      "djCreateTime":"创建时间",
+      "djJdUserId":"解冻人员ID",
+      "djJdTime":"解冻时间",
+      "djDjTime":"冻结时间",
+      "djZfUserId":"作废人员ID",
+      "djZfTime":"作废时间",
+      "djArehouseId  ":"仓库ID"
+    },
+    {
+      "djId":"id",
+      "djReason":"备注",
+      "djStatus":"1",
+      "djCreateUserId":"1",
+      "djCreateTime":"20170427",
+      "djJdUserId":"1",
+      "djJdTime":"20170427",
+      "djDjTime":"20170427",
+      "djZfUserId":"1",
+      "djZfTime":"20170427",
+      "djArehouseId":"1"
+    }
+
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
