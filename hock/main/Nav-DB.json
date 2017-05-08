@@ -124,18 +124,18 @@
           "label": "库存转移确认",
           "url":"page/stockTransferConfirm",
           "bmMenuIcon":"d2"
-        },
-
-        {
-          "id":23,
-          "label": "库存冻结/解冻",
-          "url":"page/stockFrozenThaw",
-          "bmMenuIcon":"d5"
-        }
-      ]
     },
+
     {
-      "id":36,
+      "id":23,
+      "label": "库存冻结/解冻",
+      "url":"page/stockFrozenThaw",
+      "bmMenuIcon":"d5"
+    }
+  ]
+},
+{
+"id":36,
       "head": "盘点作业",
       "children": [
         {

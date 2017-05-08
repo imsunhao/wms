@@ -3241,6 +3241,509 @@
         /**
  * TODO 6 库存转移过程 通过库存转移单据id获取一条库存转移单据 GET /stockZyDoc/{zyId}
  */
+    /**
+ * TODO 库存冻结/解冻
+ */
+        /**
+ *      TODO 0 库存冻结过程 分页获取库存冻结单据 POST /stockDjDoc/page
+ *      参数
+        *  {
+         "data": [
+           {
+             "djId": 3,
+             "djReason": "冻结原因",
+             "djStatus": 0,
+             "djCreateUserId": 1,
+             "djCreateTime": 1494238898000,
+             "djCreateUserName": "string",
+             "djDjUserId": 0,
+             "djDjTime": 1493774111000,
+             "djJdUserId": 0,
+             "djJdTime": 1493774111000,
+             "djJdUserName": "",
+             "djZfUserId": 0,
+             "djZfTime": 1493774111000,
+             "djZfUserName": "",
+             "djArehouseId": 0,
+             "djDocsList": []
+           }
+         ],
+         "draw": 0,
+         "recordsTotal": 3,
+         "recordsFiltered": 3
+         }
+ */
+        /**
+ *  TODO 1 库存冻结过程 分页获取库存冻结单据(包含明细) POST /stockDjDoc/selectByPage
+ *  {
+  "data": [
+    {
+      "djId": 3,
+      "djReason": "冻结原因",
+      "djStatus": 0,
+      "djCreateUserId": 1,
+      "djCreateTime": 1494238898000,
+      "djCreateUserName": "string",
+      "djDjUserId": 0,
+      "djDjTime": 1493774111000,
+      "djJdUserId": 0,
+      "djJdTime": 1493774111000,
+      "djJdUserName": "",
+      "djZfUserId": 0,
+      "djZfTime": 1493774111000,
+      "djZfUserName": "",
+      "djArehouseId": 0,
+      "djDocsList": [
+        {
+          "djsId": 5,
+          "djsDjId": 3,
+          "djsRepertoryId": 209,
+          "djsStatus": 1,
+          "mfunRepertory": {
+            "mrRepertoryId": 209,
+            "mrLocationId": 6,
+            "mrGoodsId": 2,
+            "mrGoodsBatch": "2017-05-04",
+            "mrDwid": 2,
+            "mrCount": 100,
+            "mrDxjCount": 0,
+            "mrDjCount": 0,
+            "mrDjStatus": true,
+            "mrDzyCount": 100,
+            "mrKcydsj": null,
+            "mrArehouseId": 1,
+            "kyCount": null,
+            "baseLocation": {
+              "blLocationId": 6,
+              "blLname": "H16-43-A1",
+              "blRegionId": 2,
+              "blLtray": 2,
+              "blLorder": 5,
+              "blStatus": 1,
+              "blArehouseId": 1
+            },
+            "baseGoods": {
+              "bgGoodsId": 2,
+              "bgGoodsNo": "13701002007",
+              "bgGoodsName": "电火锅、JK-40H8（40H8-A）、浅咖色、φ31cm、1300W、220V、50Hz、内销、I类结构",
+              "bgNamejc": "电火锅、JK-40H8（40H8-A）、浅咖色、φ31cm、1300W、220V、50Hz、内销、I类结构",
+              "bgT": 50,
+              "bgI": 1,
+              "bgHsl": 3,
+              "bgZxdw": 2,
+              "bgSzdw": 1,
+              "bgStatus": 1,
+              "bgArehouseId": 1,
+              "bgClientId": 2,
+              "bgGoodsType": "type1",
+              "bgGoodsTj": 11,
+              "bgGoodsZl": 22,
+              "bgGoodsPrice": 33,
+              "bgCreatetime": 1487913251000,
+              "bgRemarks": "任溶溶",
+              "bgGoodsGg": "太太团",
+              "baseDws": null
+            },
+            "baseDw": {
+              "bdDwId": 2,
+              "bdName": "箱",
+              "bdStatus": 1,
+              "bdIsdel": true,
+              "bdCreatetime": 1488786130000
+            },
+            "baseArehouse": null,
+            "baseArehouseKq": null,
+            "baseRegion": null
+          }
+        }
+      ]
+    }
+  ],
+  "draw": 0,
+  "recordsTotal": 3,
+  "recordsFiltered": 3
+}
+ */
+        /**
+ * TODO 2 库存冻结过程 新增库存冻结单据/包含库存冻结单明细 POST /stockDjDoc
+ * {
+  "djId": 0,
+  "djReason": "string",
+  "djStatus": "string",
+  "djCreateUserId": 0,
+  "djCreateTime": "2017-05-08T10:57:34.368Z",
+  "djCreateUserName": "string",
+  "djDjUserId": 0,
+  "djDjTime": "2017-05-08T10:57:34.368Z",
+  "djJdUserId": 0,
+  "djJdTime": "2017-05-08T10:57:34.368Z",
+  "djJdUserName": "string",
+  "djZfUserId": 0,
+  "djZfTime": "2017-05-08T10:57:34.368Z",
+  "djZfUserName": "string",
+  "djArehouseId": 0,
+  "djDocsList": [
+    {
+      "djsId": 0,
+      "djsDjId": 0,
+      "djsRepertoryId": 0,
+      "djsStatus": "string",
+      "mfunRepertory": {
+        "mrRepertoryId": 0,
+        "mrLocationId": 0,
+        "mrGoodsId": 0,
+        "mrGoodsBatch": "string",
+        "mrDwid": 0,
+        "mrCount": 0,
+        "mrDxjCount": 0,
+        "mrDjCount": 0,
+        "mrDjStatus": true,
+        "mrDzyCount": 0,
+        "mrKcydsj": "2017-05-08T10:57:34.368Z",
+        "mrArehouseId": 0,
+        "kyCount": 0,
+        "baseLocation": {
+          "blLocationId": 0,
+          "blLname": "string",
+          "blRegionId": 0,
+          "blLtray": 0,
+          "blLorder": 0,
+          "blStatus": 0,
+          "blArehouseId": 0
+        },
+        "baseGoods": {
+          "bgGoodsId": 0,
+          "bgGoodsNo": "string",
+          "bgGoodsName": "string",
+          "bgNamejc": "string",
+          "bgT": 0,
+          "bgI": 0,
+          "bgHsl": 0,
+          "bgZxdw": 0,
+          "bgSzdw": 0,
+          "bgStatus": 0,
+          "bgArehouseId": 0,
+          "bgClientId": 0,
+          "bgGoodsType": "string",
+          "bgGoodsTj": 0,
+          "bgGoodsZl": 0,
+          "bgGoodsPrice": 0,
+          "bgCreatetime": "2017-05-08T10:57:34.368Z",
+          "bgRemarks": "string",
+          "bgGoodsGg": "string",
+          "baseDws": [
+            {
+              "bdDwId": 0,
+              "bdName": "string",
+              "bdStatus": 0,
+              "bdIsdel": true,
+              "bdCreatetime": "2017-05-08T10:57:34.369Z"
+            }
+          ]
+        },
+        "baseDw": {
+          "bdDwId": 0,
+          "bdName": "string",
+          "bdStatus": 0,
+          "bdIsdel": true,
+          "bdCreatetime": "2017-05-08T10:57:34.369Z"
+        },
+        "baseArehouse": {
+          "baArehouseId": 0,
+          "baName": "string",
+          "baAddr": "string",
+          "baScity": "string",
+          "baScontacts": "string",
+          "baPhone": "string",
+          "baAcreage": "string",
+          "baCtype": "string",
+          "baHumidity": "string",
+          "baFax": "string",
+          "baPostoffice": "string",
+          "baIsti": 0,
+          "baStatus": 0,
+          "baClientId": 0,
+          "baRemarks": "string",
+          "baCreatetime": "2017-05-08T10:57:34.369Z",
+          "baPgroupinfo": "string",
+          "arehouseKqs": [
+            {
+              "baqKqId": 0,
+              "baqArehouseId": 0,
+              "baqKqName": "string",
+              "baqIsdel": 0,
+              "baqStatus": 0,
+              "baseRegions": [
+                {
+                  "brgRegionId": 0,
+                  "brgArehouseId": 0,
+                  "brgRegionNo": "string",
+                  "brgKqId": 0,
+                  "brgRegionStatus": 0,
+                  "baseLocationList": [
+                    {
+                      "blLocationId": 0,
+                      "blLname": "string",
+                      "blRegionId": 0,
+                      "blLtray": 0,
+                      "blLorder": 0,
+                      "blStatus": 0,
+                      "blArehouseId": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "baseArehouseKq": [
+          {
+            "baqKqId": 0,
+            "baqArehouseId": 0,
+            "baqKqName": "string",
+            "baqIsdel": 0,
+            "baqStatus": 0,
+            "baseRegions": [
+              {
+                "brgRegionId": 0,
+                "brgArehouseId": 0,
+                "brgRegionNo": "string",
+                "brgKqId": 0,
+                "brgRegionStatus": 0,
+                "baseLocationList": [
+                  {
+                    "blLocationId": 0,
+                    "blLname": "string",
+                    "blRegionId": 0,
+                    "blLtray": 0,
+                    "blLorder": 0,
+                    "blStatus": 0,
+                    "blArehouseId": 0
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "baseRegion": {
+          "brgRegionId": 0,
+          "brgArehouseId": 0,
+          "brgRegionNo": "string",
+          "brgKqId": 0,
+          "brgRegionStatus": 0,
+          "baseLocationList": [
+            {
+              "blLocationId": 0,
+              "blLname": "string",
+              "blRegionId": 0,
+              "blLtray": 0,
+              "blLorder": 0,
+              "blStatus": 0,
+              "blArehouseId": 0
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+ *
+ */
+        /**
+ * TODO 3 库存冻结过程 更新库存冻结数据 PUT /stockDjDoc
+ * {
+  "djId": 0,
+  "djReason": "string",
+  "djStatus": "string",
+  "djCreateUserId": 0,
+  "djCreateTime": "2017-05-08T10:57:34.370Z",
+  "djCreateUserName": "string",
+  "djDjUserId": 0,
+  "djDjTime": "2017-05-08T10:57:34.370Z",
+  "djJdUserId": 0,
+  "djJdTime": "2017-05-08T10:57:34.370Z",
+  "djJdUserName": "string",
+  "djZfUserId": 0,
+  "djZfTime": "2017-05-08T10:57:34.370Z",
+  "djZfUserName": "string",
+  "djArehouseId": 0,
+  "djDocsList": [
+    {
+      "djsId": 0,
+      "djsDjId": 0,
+      "djsRepertoryId": 0,
+      "djsStatus": "string",
+      "mfunRepertory": {
+        "mrRepertoryId": 0,
+        "mrLocationId": 0,
+        "mrGoodsId": 0,
+        "mrGoodsBatch": "string",
+        "mrDwid": 0,
+        "mrCount": 0,
+        "mrDxjCount": 0,
+        "mrDjCount": 0,
+        "mrDjStatus": true,
+        "mrDzyCount": 0,
+        "mrKcydsj": "2017-05-08T10:57:34.370Z",
+        "mrArehouseId": 0,
+        "kyCount": 0,
+        "baseLocation": {
+          "blLocationId": 0,
+          "blLname": "string",
+          "blRegionId": 0,
+          "blLtray": 0,
+          "blLorder": 0,
+          "blStatus": 0,
+          "blArehouseId": 0
+        },
+        "baseGoods": {
+          "bgGoodsId": 0,
+          "bgGoodsNo": "string",
+          "bgGoodsName": "string",
+          "bgNamejc": "string",
+          "bgT": 0,
+          "bgI": 0,
+          "bgHsl": 0,
+          "bgZxdw": 0,
+          "bgSzdw": 0,
+          "bgStatus": 0,
+          "bgArehouseId": 0,
+          "bgClientId": 0,
+          "bgGoodsType": "string",
+          "bgGoodsTj": 0,
+          "bgGoodsZl": 0,
+          "bgGoodsPrice": 0,
+          "bgCreatetime": "2017-05-08T10:57:34.370Z",
+          "bgRemarks": "string",
+          "bgGoodsGg": "string",
+          "baseDws": [
+            {
+              "bdDwId": 0,
+              "bdName": "string",
+              "bdStatus": 0,
+              "bdIsdel": true,
+              "bdCreatetime": "2017-05-08T10:57:34.371Z"
+            }
+          ]
+        },
+        "baseDw": {
+          "bdDwId": 0,
+          "bdName": "string",
+          "bdStatus": 0,
+          "bdIsdel": true,
+          "bdCreatetime": "2017-05-08T10:57:34.371Z"
+        },
+        "baseArehouse": {
+          "baArehouseId": 0,
+          "baName": "string",
+          "baAddr": "string",
+          "baScity": "string",
+          "baScontacts": "string",
+          "baPhone": "string",
+          "baAcreage": "string",
+          "baCtype": "string",
+          "baHumidity": "string",
+          "baFax": "string",
+          "baPostoffice": "string",
+          "baIsti": 0,
+          "baStatus": 0,
+          "baClientId": 0,
+          "baRemarks": "string",
+          "baCreatetime": "2017-05-08T10:57:34.371Z",
+          "baPgroupinfo": "string",
+          "arehouseKqs": [
+            {
+              "baqKqId": 0,
+              "baqArehouseId": 0,
+              "baqKqName": "string",
+              "baqIsdel": 0,
+              "baqStatus": 0,
+              "baseRegions": [
+                {
+                  "brgRegionId": 0,
+                  "brgArehouseId": 0,
+                  "brgRegionNo": "string",
+                  "brgKqId": 0,
+                  "brgRegionStatus": 0,
+                  "baseLocationList": [
+                    {
+                      "blLocationId": 0,
+                      "blLname": "string",
+                      "blRegionId": 0,
+                      "blLtray": 0,
+                      "blLorder": 0,
+                      "blStatus": 0,
+                      "blArehouseId": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "baseArehouseKq": [
+          {
+            "baqKqId": 0,
+            "baqArehouseId": 0,
+            "baqKqName": "string",
+            "baqIsdel": 0,
+            "baqStatus": 0,
+            "baseRegions": [
+              {
+                "brgRegionId": 0,
+                "brgArehouseId": 0,
+                "brgRegionNo": "string",
+                "brgKqId": 0,
+                "brgRegionStatus": 0,
+                "baseLocationList": [
+                  {
+                    "blLocationId": 0,
+                    "blLname": "string",
+                    "blRegionId": 0,
+                    "blLtray": 0,
+                    "blLorder": 0,
+                    "blStatus": 0,
+                    "blArehouseId": 0
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "baseRegion": {
+          "brgRegionId": 0,
+          "brgArehouseId": 0,
+          "brgRegionNo": "string",
+          "brgKqId": 0,
+          "brgRegionStatus": 0,
+          "baseLocationList": [
+            {
+              "blLocationId": 0,
+              "blLname": "string",
+              "blRegionId": 0,
+              "blLtray": 0,
+              "blLorder": 0,
+              "blStatus": 0,
+              "blArehouseId": 0
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+ *
+ */
+        /**
+        * TODO 4 库存冻结过程 通过库存冻结/解冻单据 冻结/解冻一条或多条库存单 POST /stockDjDoc/djAndJd
+        */
+        /**
+         * TODO 5 库存冻结过程 通过库存冻结单据id删除库存冻结单据  DELETE /stockDjDoc/{djId}
+         */
+        /**
+         * TODO 6  库存冻结过程 通过库存冻结单据id获取一条库存冻结单据 GET /stockDjDoc/{djId}
+         */
+
 
 
 

@@ -1117,35 +1117,49 @@ router.param('_url', function (req, res, next, url) {
                case 'stockFrozenThaw':
                 switch (parseInt(req.params._status)) {
                     case 0:
-                        urlName = '库存冻结/解冻  分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '库存冻结/解冻  分页获取库存冻结单据';
+                        req = autoUrl(req, '/stockDjDoc/page', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 1:
-                        urlName = '库存冻结/解冻 新增';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '库存冻结/解冻 分页获取库存冻结单据(包含明细)';
+                        req = autoUrl(req, '/stockDjDoc/selectByPage', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
-                        urlName = '库存冻结/解冻 编辑';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '库存冻结/解冻 新增库存冻结单据/包含库存冻结单明细';
+                        req = autoUrl(req, '/stockDjDoc', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 3:
-                        urlName = '库存冻结/解冻 删除';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '库存冻结/解冻 更新库存冻结数据';
+                        req = autoUrl(req, '/stockDjDoc', "PUT", function (json) {
                             res.send(json);
                         });
                         break;
                       case 4:
-                        urlName = '库存冻结/解冻 冻结解冻';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '库存冻结/解冻 通过库存冻结/解冻单据 冻结/解冻一条或多条库存单';
+                        req = autoUrl(req, '/stockDjDoc/djAndJd', "POST", function (json) {
                             res.send(json);
                         });
                         break;
+                    case 5:
+                        urlName = '库存冻结/解冻通过库存冻结单据id删除库存冻结单据';
+                        req = autoUrl(req, '/stockDjDoc/'+req.query.djId, "DELETE", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 6:
+                        urlName = '库存冻结/解冻 通过库存冻结单据id获取一条库存冻结单据单';
+                        req = autoUrl(req, '/stockDjDoc/'+req.requery.djId, "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
 
 
                 }
