@@ -171,10 +171,8 @@
                     <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                             class="icon sel"></i><span>多选</span>
                     </button>
-                    <!--<button @click="moreOperationModify" class="btn btn-modify" v-show="multiSelect"><i-->
-                    <!--class="icon modify"></i><span>删除</span>-->
-                    <!--</button>-->
-                    <button @click="moreOperationDelete" class="btn btn-del" v-show="multiSelect"><i
+
+                    <button @click="multiMoreOperationDelete" class="btn btn-del" v-show="multiSelect"><i
                             class="icon del"></i><span>批量删除</span>
                     </button>
             </div>
@@ -196,7 +194,10 @@
                             <el-row>
                                 <el-col :span="10">
                                     <el-form-item label="创建时间">
-                                        <span>{{ props.row.zyCreateTime }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{auto_zyCreateTime(props.row.zyCreateTime) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="提起人">
                                         <span>{{ props.row.zyMentionUserName }}</span>
@@ -213,16 +214,24 @@
                                         <span>{{ props.row.zyReason	 }}</span>
                                     </el-form-item>
                                     <el-form-item label="确认时间">
-                                        <span>{{ props.row.zyConfirmTime }}</span>
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_zyConfirmTime(props.row.zyConfirmTime) }}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="转移状态">
-                                        <span>{{ props.row.zyStatus }}</span>
+                                        <span>{{ auto_zyStatus(props.row.zyStatus) }}</span>
                                     </el-form-item>
                                     <el-form-item label="可用操作">
                                         <el-button
                                                 size="small"
                                                 icon="edit"
                                                 @click="inlineEdit(props.$index, props.row)">
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                type="success"
+                                                @click="inlineDelete(props.$index, props.row)">删除
                                         </el-button>
                                     </el-form-item>
                                 </el-col>
@@ -237,8 +246,13 @@
                 <el-table-column
                         label="创建时间"
                         show-overflow-tooltip
-                        prop="zyCreateTime"
                         align="center">
+                    <template scope="scope">
+                        <span>
+                            {{auto_zyCreateTime(scope.row.zyCreateTime,true)}}
+                        </span>
+                    </template>
+
                 </el-table-column>
                 <el-table-column
                         label="提起人"
@@ -271,7 +285,7 @@
                         width="100">
                     <template scope="scope">
                         <el-tag
-                                close-transition>{{scope.row.zyStatus}}
+                                close-transition>{{auto_zyStatus(scope.row.zyStatus)}}
                         </el-tag>
                     </template>
                 </el-table-column>
@@ -391,7 +405,7 @@
             <el-form-item label="创建日期"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="select.zyCreateTime"
+                        v-model="form.zyCreateTime"
                         type="daterange"
                         align="right"
                         placeholder="创建日期"
@@ -401,17 +415,18 @@
             </el-form-item>
             <el-form-item label="转移状态"
                           :label-width="formLabelWidth">
-                <el-input
-                        v-model="select.zyStatus"
-                        class="input"
-                        icon="search"
-                        placeholder="转移状态"></el-input>
+                <el-select v-model="form.zyStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="0" label="初始"></el-option>
+                    <el-option :value="1" label="已确认"></el-option>
+                    <el-option :value="2" label="作废"></el-option>
+                </el-select>
             </el-form-item>
             <el-form-item label="提起人"
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.zyMentionUserName"
+                        v-model="form.zyMentionUserName"
                         icon="search"
                         placeholder="提起人"></el-input>
             </el-form-item>
@@ -419,7 +434,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="select.zyConfirmUserName"
+                        v-model="form.zyConfirmUserName"
                         icon="search"
                         placeholder="确认人"></el-input>
             </el-form-item>
@@ -429,7 +444,6 @@
         </div>
     </el-dialog>
 </div>
-
 <script>
     function form() {
         return {
@@ -439,7 +453,11 @@
             zyConfirmUserName:'',
             zyReason:'',
             zyConfirmTime:'',
-            zyStatus:''
+            zyStatus:'',
+            zyCreateTime:[null,null],//模糊查询--创建日期
+            zyStatus:'',//模糊查询--转移状态
+            zyMentionUserName:'',//模糊查询--提起人
+            zyConfirmUserName:''//模糊查询--确认人
         }
     }
     var aLibraryTransfer = new Vue({
@@ -533,6 +551,24 @@
             },                                      //分配 表单
         },
         methods: {
+            inlineDelete:function(){
+                var _this = this;
+                _this.$confirm('此操作将删除库存转移单据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.recoveryArchive);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },                                             //TODO 行内按钮-删除
             inlineEdit: function (index, row) {
                 this.form.title = '编辑';
                 this.form.zyCreateTime = row.zyCreateTime;
@@ -553,7 +589,6 @@
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
             },                                //行内按钮 打印标签页
-
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -563,14 +598,30 @@
                 /*</debug>*/
                 this.multipleSelection = val;
             },                               //多选 选中控制
-            moreOperationDelete: function () {
-                /*<debug>*/
-                console.log('选中的删除');
-                /*</debug>*/
-                for (i = 0; i < this.multipleSelectionCombination.length; i++) {
-                    remove(this.multipleSelectionCombination[i], this.warehousingReservationCombination);
-                }
-            },                                   //多选 删除
+            multiMoreOperationDelete: function () {
+                var _this = this;
+                _this.$confirm('此操作将删除库存转移单据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.recoveryArchive);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+//                /*<debug>*/
+//                console.log('选中的删除');
+//                /*</debug>*/
+//                for (i = 0; i < this.multipleSelectionCombination.length; i++) {
+//                    remove(this.multipleSelectionCombination[i], this.warehousingReservationCombination);
+//                }
+            },                              //TODO 多选 删除
             newInput: function () {
                 this.form = form();
                 this.dialogFormVisible = true;
@@ -579,7 +630,6 @@
                     aLibraryTransfer.$refs.carousel.setActiveItem(0);
                 });
             },
-
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -594,8 +644,6 @@
                 this.currentPage = val;
                 post(this, this.option);
             },                                //分页 当前页
-
-
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -637,12 +685,10 @@
                     post(aLibraryTransfer);
                 }, 1500);
             },                                                //新建 表单提交
-
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
                 post(this, {});
             },                                          //详细查询 提交
-
             printfSubmit: function () {
                 var datas=[];
                 var checkData=aLibraryTransfer.$refs.printf.getCheckedNodes();
@@ -679,7 +725,34 @@
                     case 3:
                         return resolve([]);
                 }
-            }
+            },
+            auto_zyCreateTime: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+            },                           //创建时间
+            auto_zyConfirmTime: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+            },                           //确认时间
+            auto_zyStatus:function(value){
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        0:'初始',
+                        1:'确认',
+                        2:'作废',
+                    }
+                }else{
+                    temp={
+                        '初始':0,
+                        '确认':1,
+                        '作废':2
+                    }
+                }
+                return temp[value];
+            },                                        //转移状态
+
+
         }
     });
 

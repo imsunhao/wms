@@ -208,7 +208,7 @@
                                     <span>{{ props.row.ruLoginName        }}</span>
                                 </el-form-item>
                                 <el-form-item label="类型">
-                                    <span>{{ props.row.ruUserType        }}</span>
+                                    <span>{{ auto_ruUserType(props.row.ruUserType)        }}</span>
                                 </el-form-item>
                             </el-form>
                         </el-col>
@@ -251,7 +251,10 @@
                     label="类型"
                     align="center">
                 <template scope="scope">
-                    <span>{{ scope.row.ruUserType == 0 ? '普通' : '高位叉车'}}</span>
+                    <el-tag
+                            close-transition>{{auto_ruUserType(scope.row.ruUserType)}}
+                    </el-tag>
+                    <!--<span>{{ scope.row.ruUserType == 0 ? '普通' : '高位叉车'}}</span>-->
 
                 </template>
             </el-table-column>
@@ -386,22 +389,6 @@
 </div>
 
 <script>
-    var form = function () {
-        return {
-            arehouseId: 1,          //仓库id
-            title: "新建仓库",
-            Name: '',               //仓库名称
-            Addr: '',               //仓库地址
-            Scontacts: '',          //联系人/负责人
-            Phone: '',              //电话
-            Remarks: '',            //备注
-            Ctype: '',              //仓库类型
-            Humidity: '',           //相对湿度
-            Postoffice: '',         //邮编
-            Fax: '',                //传真
-        }
-    };               //弹出层 form 模板
-
     var RFManage = new Vue({
         el: '#RFManage',
         prop: {},
@@ -485,22 +472,20 @@
             multiOperationEdit: function () {
                 this.inlineEdit(1, this.multipleSelection[0]);
             },                                    //多选 编辑
-
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                //分页 当前页
-
             newInput: function () {
                 this.form = form();
                 this.dialogFormVisible = true;
@@ -516,8 +501,7 @@
                 Vue.nextTick(function () {
                     RFManage.$refs.carousel.setActiveItem(0);
                 });
-            },                                       //按钮 仓库管理 TODO
-
+            },                                       //TODO 按钮 仓库管理
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -551,11 +535,10 @@
                     _this.dialogFormVisible = false;
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(RFManage);
+                    p[0].post();
                 }, 1500);
                 /*</debug>*/
             },                                                //新建 表单提交
-
             submitRole: function () {
                 var _this = this;
                 this.loadingWarehouse = true;
@@ -576,21 +559,96 @@
                 }, 1500);
                 /*</debug>*/
             },                                            //新建 表单提交
-
+            auto_ruUserType:function(value){
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        0:'普通',
+                        1:'堆高车',
+                        2:'高位叉车',
+                    }
+                }else{
+                    temp={
+                        '普通':0,
+                        '堆高车':1,
+                        '高位叉车':2
+                    }
+                }
+                return temp[value];
+            },                                      //类型
         },
         watch: {
             ruLoginName: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                post(this, this.option);
+                p[0].post( this.option);
             },
             ruUserZyq: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                post(this, this.option);
+                p[0].post( this.option);
             }
+        }
+    });
+   function  form() {
+        return {
+            arehouseId: 1,          //仓库id
+            title: "新建仓库",
+            Name: '',               //仓库名称
+            Addr: '',               //仓库地址
+            Scontacts: '',          //联系人/负责人
+            Phone: '',              //电话
+            Remarks: '',            //备注
+            Ctype: '',              //仓库类型
+            Humidity: '',           //相对湿度
+            Postoffice: '',         //邮编
+            Fax: '',                //传真
+        }
+    };               //弹出层 form 模板
+    var obj=RFManage;
+    var p=[];
+    // 0 RF管理 分页查询
+    p[0] = autoPost({
+        urlHock: "../../hock/RFManage/page.json",
+        urlProd: "route/RFManage/0",
+        success: function (json) {
+            obj.$data.RFManage = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+      // 1 RF管理
+    p[1] = autoPost({
+        urlHock: "",
+        urlProd: "route/RFManage/1",
+        success: function (json) {
+
+        }
+    });
+   // 2 RF管理
+    p[2] = autoPost({
+        urlHock: "",
+        urlProd: "route/RFManage/2",
+        success: function (json) {
+
+        }
+    });
+     // 3 RF管理
+    p[3] = autoPost({
+        urlHock: "",
+        urlProd: "route/RFManage/3",
+        success: function (json) {
+
+        }
+    });
+     // 4 RF管理 编辑
+    p[4] = autoPost({
+        urlHock: "../../hock/RFManage/page.json",
+        urlProd: "route/RFManage/4",
+        success: function (json) {
+            obj.$data.RFManage = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
         }
     });
     // 高级 监视器的 使用方法
@@ -601,250 +659,25 @@
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
-    post(RFManage, RFManage.option);
-    function post(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/RFManage/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/RFManage/0";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                obj.$data.RFManage = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                       //TODO RF管理分页查询接口(测试完成)
-    function postEdit(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/RFManage/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/RFManage/0";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                RFManage.RFManage = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                       //TODO RF管理编辑接口(测试完成)
-
-
-    function postRuUserName(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/roleControl/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/role/page/0";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                //RFManage.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }             //仓库名称 查重
-    function postRuLoginName(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/roleControl/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/RFManage/0";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                //RFManage.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }            //登录名 查重
-    function postSubmit(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/roleControl/page.json";
-        url1 = "../../hock/roleControl/page.json";
-        url2 = "../../hock/roleControl/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/role/page/0";//post
-        url1 = "/route/role/page/0";//post
-        url2 = "/route/role/page/0";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                RFManage.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                 //仓库 新增
-    function postModify(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "../../hock/roleControl/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/role/page/0";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                RFManage.$data.role = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                 //仓库 修改
-    function postDelete(obj, option) {
-        //TODO 删除后重新post
-        if (option.id.length < 1)return;
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/form/inputOptoionDelete.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/RFManage/1";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "id": 1                        //* 入库单号id
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                if (json.status == 1) {
-                    obj.$notify({
-                        title: '提示',
-                        type: 'success',
-                        message: obj.$createElement(
-                            'p',
-                            '删除完成'
-                        )
-                    });
-                }
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                 //仓库 删除
-    function errorTip(obj, error) {                    // 错误提示
-        /*<debug>*/
-        console.log(error);
-        /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-
-//                    console.log(temp);
-                }
-                data.pop();
-            }
+    p[0].post( RFManage.option);
+    function printfCompile(obj) {
+        var resoleveStep = [];
+        for (var i = 0; i < obj.multipleSelection.length; i++) {
+            resoleveStep.push({
+                name: obj.multipleSelection[i].rkrwNo,
+                rkrwNo:obj.multipleSelection[i].rkrwNo,
+                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
+            });
         }
-    }
+        obj.printf = resoleveStep;
+    }				 //打印
+
+
+
+
+
+
+
+
+
 </script>

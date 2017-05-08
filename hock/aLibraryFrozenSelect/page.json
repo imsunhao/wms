@@ -1,0 +1,27 @@
+{
+  "data":
+  [
+    {
+      "djCreateTime":"创建时间",
+      "djJdTime":"解冻时间",
+      "djCreateUserId":"创建人 ",
+      "djJdUserId":"解冻人 ",
+      "djArehouseId":"仓库  ",
+      "djStatus":"冻结状态",
+      "djZfUserId":"作废人员",
+      "djZfTime":"作废时间"
+    },
+    {
+      "djCreateTime":"20170426",
+      "djJdTime":"20170426",
+      "djCreateUserId":"张三 ",
+      "djJdUserId":"李四 ",
+      "djArehouseId":"1  ",
+      "djStatus":"1",
+      "djZfUserId":"李子青",
+      "djZfTime":"201170426"
+    }
+  ]
+}
+
+

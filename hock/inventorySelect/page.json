@@ -1,0 +1,29 @@
+{
+  "data":[
+    {
+      "pdArehouseId":" 仓库     ",
+      "pdCreateTime":" 创建时间   ",
+      "pdType":"盘点类型",
+      "pdYdBeginTime":" 异动开始时间 ",
+      "pdYdEndTime":" 异动结束时间 ",
+      "pdStatus":"盘点状态",
+      "pdChargePerson":" 负责人    ",
+      "pdOperator":" 经办人    ",
+      "pdDiffStatus":" 差异状态   "
+    },
+    {
+      "pdArehouseId":" 1     ",
+      "pdCreateTime":" 201704026   ",
+      "pdType":"1",
+      "pdYdBeginTime":" 201704026 ",
+      "pdYdEndTime":" 201704026 ",
+      "pdStatus":"1",
+      "pdChargePerson":" 张三    ",
+      "pdOperator":" 李四    ",
+      "pdDiffStatus":"1"
+    }
+
+  ]
+}
+
+
