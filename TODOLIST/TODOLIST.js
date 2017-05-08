@@ -841,7 +841,7 @@
      *  RF管理   RFManage
          **/
         /**
-         *  0 (RF管理主页面) 分页查询RF管理详情 POST /user/page
+         *  TODO 0 (RF管理主页面) 分页查询RF管理详情 POST /user/page
          * 参数
          * {
                 "pageNum": 1,
@@ -873,25 +873,22 @@
          *
          */
         /**
-         * 1 RF管理 关联作业区，判断主作业区是否被占用，是否已关联；是否有PDA任务 GET /user/userAddZyq/{id}/{firstZyq}/{secondZyq}
+         * TODO 1 RF管理 判断主作业区是否被占用，是否已关联；是否有PDA任务 GET /user/userAddZyq/{id}/{firstZyq}/{secondZyq}
+        */
         /**
-         *  TODO 2 获取作业区名称
-         *      ruUserZyq   高位叉车作业区域
-         *   **/
-        /**
-         *  2 获取作业区的名称 用户管理 根据id返回用户信息  GET /user/{id}
+         *  TODO 2  根据id返回用户信息  GET /user/{id}
          */
         /**
-         * 3  RF管理 判断主作业区是否重复 GET /user/isRepeatByFirstZyq/{firstZyq}
+         * TODO 3  RF管理 判断主作业区是否重复 GET /user/isRepeatByFirstZyq/{firstZyq}
          **/
         /**
-         *  4 编辑
+         *  TODO 4  更新用户信息 PUT /user
          */
     /**
  *      TODO 作业区管理 operationAreaManage
          *      **/
         /**
-         *  0 (作业区管理主页面) 储位组管理 POST请求查询储位组信息 POST /locations/page
+         *  TODO 0 (作业区管理主页面) 储位组管理 POST请求查询储位组信息 POST /locations/page
          * 参数
          * {
                 "blsName": "储位组1001",
@@ -908,7 +905,7 @@
              blsRemarks       备注
          */
         /**
-         *  1  储位组管理 新增储位组 POST /locations
+         *  TODO 1  储位组管理 新增储位组 POST /locations
          *  参数
          *  {
          *      "blsName": "string11",
@@ -925,7 +922,7 @@
                 blsRemarks      备注
          **/
         /**
-         *   2 编辑 储位组管理 更新储位组信息 PUT /locations
+         *   TODO 2  储位组管理 更新储位组信息 PUT /locations
          *  参数
          *  {
          *      "blsLocationsId": 1,
@@ -947,10 +944,10 @@
          * 3 储位组管理 根据id返回储位组信息 GET /locations/{id}
          */
         /**
-         *  4  储位组管理 通过id删除一条储位组数据 DELETE /locations/{id}
+         *  TODO 4  储位组管理 通过id删除一条储位组数据 DELETE /locations/{id}
          */
         /**
-         *  TODO 5 库位名称不允许重复
+         *  TODO 5  储位管理 判断储位名称是否重复 GET /location/isRepeatByBlLname/{blLname}
          *
          **/
 /**
@@ -2380,8 +2377,12 @@
  返回 jsonModel  20002成功 50002失败
  */
 /**
- * TODO 根据任务ID查看出库任务详情 GET /mfunck/checkCkrwInfoByCkrwId/{ckrwId}
- *
+ * TODO 根据任务ID查看出库任务详情 POST /mfunck/checkCkrwInfoByCkrwId
+ * 参数类：setModel
+ * {
+ *   "id": 1
+ * }
+ * 返回 jsonModel ckrwDoc (出库任务对象，包含出库单据以及出库明细)
  */
 /**
  * TODO 修改出库任务 POST /mfunck/editCkrw
@@ -2399,8 +2400,11 @@
     }
  */
 /**
- * TODO 根据任务ID取消出库任务 GET /mfunck/cancelCkrwByCkrwId/{ckrwId}
- * 参数 出库任务ID ckrwId
+ * TODO 根据任务ID取消出库任务 POST /mfunck/cancelCkrwByCkrwId
+ * 参数类：setModel
+ * {
+ *   "id": 1
+ * }
  * 返回 jsonModel  20002成功 50002失败
  */
 /**
@@ -2415,8 +2419,11 @@
  * 返回 jsonModel  20002成功 50002失败
  */
 /**
- * TODO 根据出库单id取消挂起单据 GET /mfunck/cancelHangUpCkdocByCkdjId/{ckCkdjId}
- * 参数 出库单ID ckCkdjId
+ * TODO 根据出库单id取消挂起单据 POST /mfunck/cancelHangUpCkdocByCkdjId
+ * 参数类：setModel
+ * {
+ *   "id": 1
+ * }
  * 返回 jsonModel  20002成功 50002失败
  */
 /**
@@ -2431,7 +2438,14 @@
  * 返回 jsonModel  20002成功 50002失败
  */
 /**
- * TODO 根据任务ID填写实际到车时间
+ * TODO 根据任务ID填写实际到车时间 POST /mfunck/editSJdcsjByCkrwId
+ * 参数类：setModel
+ * {
+ *   "id": 16,
+ *   "ckrwSjdcsj": "2017-05-08T03:14:27.609Z",
+ *   "userName": "张三"
+ * }
+ * 返回jsonModel 20002成功 50002失败
  */
 /**
  * TODO 根据任务Id下发任务 POST /mfunck/issuedCkrw
@@ -2474,7 +2488,18 @@
        "goodsTypeNum": 0,                   品项数
      }
  */
-
+/**
+ * TODO 出库任务管理 挑选任务单据完成 POST /mfunck/chooseCompleteByCkrwId
+ * 参数类：setModel
+ * {
+ *  "ids": [
+ *    12,
+ *    13
+ *    ],
+ *   "userName": "李四"
+ * }
+ * 返回 jsonModel  20002成功 50002失败
+ */
  /**
  * TODO 激活数据 激活任务单据分页查询 POST /mfunck/selectActivatedCkrwByPage
   * 参数：查询参数对象：ckRwDocPageParam
@@ -2507,6 +2532,7 @@
        "goodsTypeNum": 0,                   品项数
      }
  */
+ /
 /**
  * TODO 出库操作 操作出库单据分页查询 POST /mfunck/selectOperateCkDocByPage
  * 参数 查询参数对象：ckDocPageModel
@@ -2717,7 +2743,35 @@
  * TODO 出库单据查询
  */
         /**
-         *  TODO 分页查询
+         *  TODO 分页查询 POST /mfunck/findMfunckDocByPage
+         *  参数类：ckDocPageModel
+         *  实例：
+         *  {
+              "draw": 0,
+              "ckCkdjNo": "jy1333",                        （出库单号）
+              "pageNum": 1,
+              "pageSize": 10,
+              "ckStatus": 0,                               （出库单状态）
+              "ckCkdjClientno": "jd465",                   （客户编号）
+              "ckCkdjClientname": "九阳",                  （客户名称）
+              "ckCkdjType": 0,                             （单据类型）
+              "ckArehouseId": 1,                           （仓库ID）
+              "mhStartCreateTime": "2017-03-12",           （激活开始时间）
+              "mhEndCreateTime": "2017-03-12",             （激活结束时间）
+              "ckStartXdsj": "2017-03-12",                 （下单开始时间）
+              "ckEndXdsj": "2017-03-12",                   （下单结束时间）
+              "ckEndtime": "2017-03-12",                   （下架结束时间）
+              "ckCksj": "2017-03-12",                      （下架开始时间）
+              "ckZlStatus": 0,                             （滞留状态）
+              "ckTel": "138",                              （电话）
+              "ckContacts": "郭靖",                         （联系人）
+              "ckAdress": "济南市",                         （地址）
+              "ckIsauto": 0,                                （制单方式）
+              "ckStartwith": 0,                             （操作方式）
+              "ckQhStatus": 0                               （缺货状态）
+            }
+         返回 pagelist
+
          *  搜索条件的字段
                 仓库             ckArehouseId
                 下单时间         ckXdsj
@@ -2750,14 +2804,14 @@
                 单据状态            ckStatus    1:'初始',  21:'部分分拣'  22:'部分出库', 31:'全部分拣', 32:'全部出库 50:'作废',
                 欠货状态            ckQhStatus
                 滞留状态            ckZlStatus
-                TODO 总数量       sum(cksGoodsCount)(暂用allSL)
-                TODO 总体积       (暂用allTJ)
-                TODO 下架数量     sum(msxMxCount)(暂用xjsl)
-                TODO 下架体积     (暂用xjtj)
-                TODO 欠货数量     sum(cksQhCount)(暂用qhsl)
-                TODO 欠货体积     cksQhCount*bgGoodsTj(暂用qhtj)
-                滞留数量            cksZlCount
-                TODO 滞留体积     cksZlCount*bgGoodsTj(暂用zltj)
+                TODO 总数量       sum(cksGoodsCount)(暂用allSL)                allCount
+                TODO 总体积       (暂用allTJ)                                  allTj
+                TODO 下架数量     sum(msxMxCount)(暂用xjsl)                    allSortingCount
+                TODO 下架体积     (暂用xjtj)                                   allSortingTj
+                TODO 欠货数量     sum(cksQhCount)(暂用qhsl)                    allQhCount
+                TODO 欠货体积     cksQhCount*bgGoodsTj(暂用qhtj)               allQhTj
+                滞留数量            cksZlCount                                        allZlCount
+                TODO 滞留体积     cksZlCount*bgGoodsTj(暂用zltj)               allZlTj
                 客户编号            ckCkdjClientno
                 客户名称            ckCkdjClientname
                 客户地址            ckAdress
@@ -2768,32 +2822,43 @@
                 TODO 备货人员      msUserId
                 下架人员            msxXjry（多个）
           }
-         二级菜单：出库明细
+         二级菜单：出库明细 POST /mfunck/findMfunckDocsByCkCkdjId
+         参数类： setModel
+         {
+           "id": 2     (出库单ID)
+         }
+         返回 jsonModel mfunckDocs 出库明细集合
+
          {
                 TODO 货品编号     cksGoodsId(关联货品表)
                 TODO 货品名称     cksGoodsId（关联货品表）
                 货品数量            cksGoodsCount
-                TODO 货品体积     cksGoodsCount*bgGoodsTj(暂用hptj)
-                下架数量            msxMxCount
-                TODO 下架体积     msxMxCount*bgGoodsTj(暂用xjtj)
+                TODO 货品体积     cksGoodsCount*bgGoodsTj(暂用hptj)    goodsTj
+                下架数量            msxMxCount                               sortingCount
+                TODO 下架体积     msxMxCount*bgGoodsTj(暂用xjtj)       sortingTj
                 欠货数量            cksQhCounts
-                TODO 欠货体积     cksQhCounts*bgGoodsTj(暂用qhtj)
+                TODO 欠货体积     cksQhCounts*bgGoodsTj(暂用qhtj)      cksQhTj
                 滞留数量            cksZlCount
-                TODO 滞留体积     cksZlCount*bgGoodsTj(暂用zltj)
+                TODO 滞留体积     cksZlCount*bgGoodsTj(暂用zltj)       cksZlTj
                 欠货(补发)单号      cksBfNo
                 滞留任务号          cksZlbfInfo
                 发运数量            cksFyCount
-                TODO 发运体积     cksFyCount*bgGoddsTj(暂用fytj)
+                TODO 发运体积     cksFyCount*bgGoddsTj(暂用fytj)        cksFyTj
                 欠货备注            cksQhRemarks
                 补发状态            cksBfStatus
          }
-         三级菜单： 分拣明细
+         三级菜单： 分拣明细 POST /mfunck/findMfunckSortingMxByCkmxId
+         参数类： setModel
+         {
+           "id": 35       (出库明细ID)
+         }
+         返回 jsonModel mfunckSortingMx （分拣明细集合）
          {
                 TODO 货品编号   msxHpkcid（关联货品库存表再关键货品表）
                 TODO 货品名称   msxHpkcid（关联货品库存表再关联货品表）
                 TODO 下架库位   msxHpkcid（关联货品库存表再关联库位表）
                 下架数量         msxMxCount
-                TODO 下架体积   msxMxCount*bgGoodsTj(暂用xjtj)
+                TODO 下架体积   msxMxCount*bgGoodsTj(暂用xjtj)                sortingTj
                 TODO 下架批次   msx_hpkcid（关联货品库存表取mr_good_batch）
                 操作人员         msxXjry
                 操作时间         msxQrsj

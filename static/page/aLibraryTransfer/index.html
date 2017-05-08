@@ -239,10 +239,6 @@
                         </el-form>
                     </template>
                 </el-table-column>
-                <!--<el-table-column-->
-                <!--type="index"-->
-                <!--width="55">-->
-                <!--</el-table-column>-->
                 <el-table-column
                         label="创建时间"
                         show-overflow-tooltip
@@ -252,7 +248,6 @@
                             {{auto_zyCreateTime(scope.row.zyCreateTime,true)}}
                         </span>
                     </template>
-
                 </el-table-column>
                 <el-table-column
                         label="提起人"
@@ -277,6 +272,16 @@
                         show-overflow-tooltip
                         align="center"
                         prop="zyReason">
+                </el-table-column>
+                <el-table-column
+                        label="确认时间"
+                        show-overflow-tooltip
+                        align="center">
+                    <template scope="scope">
+                        <span>
+                            {{auto_zyConfirmTime(scope.row.zyConfirmTime,true)}}
+                        </span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="转移状态"
@@ -766,28 +771,62 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-     // 1 库存转移
+     // 1 库存转移 新增
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryTransfer/1",
         success: function (json) {
         }
     });
-     // 2 库存转移
+     // 2 库存转移 编辑
     p[2] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryTransfer/2",
         success: function (json) {
         }
     });
-     // 3 库存转移
+      // 3 库存转移 分页 根据货品id 库位id 仓库id 合并获取库存单据
     p[3] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryTransfer/3",
         success: function (json) {
         }
     });
-
+      // 4 库存转移 通过库存转移单据id确认转移一条转移单
+    p[4] = autoPost({
+        urlHock: "",
+        urlProd: "/route/aLibraryTransfer/4",
+        success: function (json) {
+        }
+    });
+       // 5 库存转移 软删除多个或单个库存转移数据
+    p[5] = autoPost({
+        urlHock: "",
+        urlProd: "/route/aLibraryTransfer/5",
+        success: function (json) {
+        }
+    });
+       // 6 库存转移 分页获取库存转移单据(包含详细信息)
+    p[6] = autoPost({
+        urlHock: "",
+        urlProd: "/route/aLibraryTransfer/6",
+        success: function (json) {
+        }
+    });
+       // 7 库存转移 通过库存转移单据id删除库存转移单据
+    p[7] = autoPost({
+        urlHock: "",
+        urlProd: "/route/aLibraryTransfer/7",
+        success: function (json) {
+        }
+    });
+       // 8 库存转移 通过库存转移单据id获取一条库存转移单据
+    p[8] = autoPost({
+        urlHock: "",
+        urlProd: "/route/aLibraryTransfer/8",
+        success: function (json) {
+        }
+    });
     // 高级 监视器的 使用方法
     //    aLibraryTransfer.$watch('date', function () {
     //        if (!this.option.dateStart)return;
