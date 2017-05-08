@@ -381,7 +381,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 6:
                         urlName = '货品管理 软删除多个或单个数据';
-                        req = autoUrl(req, '/goods/deleteOfSoft', " POST", function (json) {
+                        req = autoUrl(req, '/goods/deleteOfSoft', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -400,6 +400,12 @@ router.param('_url', function (req, res, next, url) {
                     case 9:
                         urlName = '货品单号、编号不允许重复';
                         req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 10:
+                        urlName = '货品管理 查询所有单位';
+                        req = autoUrl(req, '/dw/page', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -1168,7 +1174,7 @@ function java(req, res, next) {
         } else {
             return res.send({
                 status: 500,
-                message: "服务器未响应"
+                model: "服务器未响应"
             });
         }
     });
