@@ -19,6 +19,7 @@
                     :max-height="570"
                     ref="table"
                     @expand="expandChange"
+                    @selection-change="multiSelectionChange"
                     class="warehousingTaskTable"
                     style="width: 100%">
                 <el-table-column
@@ -191,7 +192,7 @@
                         label="状态"
                         prop="status"
                         align="center"
-                        width="100">
+                        width="130">
                     <template scope="scope">
                         <el-tag
                                 close-transition>{{auto_rkrwStatus(scope.row.rkrwStatus)}}
@@ -274,6 +275,20 @@
                         v-model="form.rkrwCys"
                         icon="search"
                         placeholder="承运商"></el-input>
+            </el-form-item>
+            <el-form-item label="任务状态"
+                          :label-width="formLabelWidth">
+                <el-select
+                        v-model="form.rkrwStatus"
+                        placeholder="请选择任务状态">
+                    <el-option label="全部" :value="-1"></el-option>
+                    <el-option label="初始" :value="1"></el-option>
+                    <el-option label="已下发任务" :value="2"></el-option>
+                    <el-option label="已开始收货" :value="3"></el-option>
+                    <el-option label="收货中" :value="4"></el-option>
+                    <el-option label="部分收货" :value="51"></el-option>
+                    <el-option label="全部收货" :value="52"></el-option>
+                </el-select>
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -803,6 +818,23 @@
             list2: _form_list2()
         }
     }
+    function _form_post() {
+        return {
+            rkrwId: '',
+            rkrwN: '',
+            dds: '',
+            pxs: '',
+            rkrwDh: '',
+            rkrwStatus: '',
+            rkrwDhrq: null,//模糊查询--到货日期
+            rkrwNo: '',//模糊查询--任务号
+            rkrwCph: '',//模糊查询--车牌号
+            rkrwSjxm: '',//模糊查询--司机姓名
+            rkrwDbd: '',//模糊查询--调拨地
+            rkrwCys: '',//模糊查询--承运商
+            docList: []
+        }
+    }
     function _lists() {
         return {
             rkrwNo: '',
@@ -889,16 +921,16 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "rkrwN": this.form.rkrwN,
+                    "rkrwNo": this.form.rkrwNo,
                     "rkrwCph": this.form.rkrwCph,
                     "dds": this.form.dds,
                     "pxs": this.form.pxs,
                     "rkrwSjxm": this.form.rkrwSjxm,
-                    "rkrwDhrq": this.form.rkrwDhrq,
+                    "rkrwDhrq": tsf_date(this.form.rkrwDhrq),
                     "rkrwDbd": this.form.rkrwDbd,
                     "rkrwCys": this.form.rkrwCys,
                     "rkrwDh": this.form.rkrwDh,
-                    "rkrwStatus": 1
+                    "rkrwStatus": this.form.rkrwStatus
                 }
             },
             distributionForm: function () {
@@ -935,7 +967,7 @@
                     type: 'warning'
                 }).then(function () {
                     p[5].post({
-                        id: [row.rkdjNo]
+                        rwIds: [row.rkrwId]
                     });
                 }).catch(function () {
                     obj.$message({
@@ -977,9 +1009,9 @@
                     // TODO
                     var step = [];
                     for (var i = 0; i < obj.multipleSelection.length; i++) {
-                        step.push(obj.multipleSelection[i].ruUserId);
+                        step.push(obj.multipleSelection[i].rkrwId);
                     }
-                    postPassword(warehousingTask, {ids: step});
+                    p[5].post({rwIds: step});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -1031,20 +1063,23 @@
             submit: function () {
                 this.dialogFormActive = 2;
                 this.submitLoading = true;
-                //TODO 此处应是ajax请求
-                setTimeout(function () {
+                if (obj.form.rkrwStatus === 1) {
+                    obj.form.docList = obj.form.list2.warehousingReservationCombination;
+                }
+                var step = _form_post();
+                allPrposCb(step, function (obj2, index) {
+                    if (typeof obj.form[index] !== 'undefined') step[index] = obj.form[index];
+                });
+                p[1].post(step, function (json) {
                     obj.submitLoading = false;
-                    obj.$notify({
-                        title: '成功',
-                        message: '保存成功！',
-                        type: 'success'
-                    });
-                    obj.dialogFormVisible = false;
-                    obj.form = _form();
-                    obj.dialogFormActive = 0;
-                    obj.$refs.carousel.setActiveItem(0);
-                    p[0].post();
-                }, 1500);
+                    this.callbackAfter({status: json.status, model: '任务修改'}, function () {
+                        p[0].post(obj.option);
+                        obj.dialogFormVisible = false;
+                        obj.form = _form();
+                        obj.dialogFormActive = 0;
+                        obj.$refs.carousel.setActiveItem(0);
+                    })
+                });
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
@@ -1234,14 +1269,7 @@
     // 1 修改-入库任务
     p[1] = autoPost({
         urlHock: "/hock/warehousingTask/page.json",
-        urlProd: "/route/warehousingTask/0",
-        success: function (json) {
-            /*<debug>*/
-            console.log(json);
-            /*</debug>*/
-            obj.$data.warehousingTask = json.data;
-            obj.$data.currentTotal = json.recordsFiltered;
-        }
+        urlProd: "/route/warehousingTask/1"
     });
 
     // 5 下发-入库任务
@@ -1252,8 +1280,9 @@
             /*<debug>*/
             console.log(json);
             /*</debug>*/
-            obj.$data.warehousingTask = json.data;
-            obj.$data.currentTotal = json.recordsFiltered;
+            this.callbackAfter({status: json.status, model: '任务下发'}, function () {
+                p[0].post(obj.option);
+            });
         }
     });
 
