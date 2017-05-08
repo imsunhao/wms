@@ -999,22 +999,48 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '库存转移 新增';
-                        req = autoUrl(req, '/stockZyDoc/page', "PUT", function (json) {
+                        req = autoUrl(req, '/stockZyDoc', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
                         urlName = '库存转移 编辑';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/stockZyDoc', "PUT", function (json) {
                             res.send(json);
                         });
                         break;
                     case 3:
-                        urlName = '库存转移 删除';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '库存转移 分页 根据货品id 库位id 仓库id 合并获取库存单据';
+                        req = autoUrl(req, 'repertory/groupPage', "POST", function (json) {
                             res.send(json);
                         });
                         break;
+
+                    case 4:
+                        urlName = '库存转移 软删除多个或单个库存转移数据';
+                        req = autoUrl(req, '/stockZyDoc/deleteOfSoft', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 5:
+                        urlName = '库存转移 分页获取库存转移单据(包含详细信息)';
+                        req = autoUrl(req, ' /stockZyDoc/selectByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 6:
+                        urlName = '库存转移 库存转移过程 通过库存转移单据id删除库存转移单据';
+                        req = autoUrl(req, '/stockZyDoc/' + req.query.zyId , "DELETE", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 7:
+                        urlName = '库存转移 库存转移过程 通过库存转移单据id获取一条库存转移单据';
+                        req = autoUrl(req, '/stockZyDoc/'+req.query.zyId, "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
                 }
                 break;
             case 'stockTransferConfirm':

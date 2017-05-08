@@ -3856,7 +3856,7 @@
      *
     */
         /**
-        * TODO 0 分页查询库位转移 /stockZyDoc/page
+        * TODO 0 分页查询库位转移 POST /stockZyDoc/page
          * {
           "startTimeParam": "string",     开始时间
           "endTimeParam": "string",       结束时间
@@ -3870,7 +3870,7 @@
          *
  */
         /**
-        * TODO 2 新增   POST /stockZyDoc
+        * TODO 1 新增   POST /stockZyDoc
          * {
             "zyMentionUserId": 1,                 提起人id
             "zyMentionUserName": "string",        提起人名称
@@ -3902,7 +3902,7 @@
         }
         */
         /**
- *  TODO 3编辑    PUT /stockZyDoc
+         *  TODO 2 编辑    PUT /stockZyDoc
          *  {
             "zyId":9,                                 转移单id
             "zyMentionUserId": 1,                     提起人id
@@ -3936,36 +3936,36 @@
         }
  */
         /**
-        * TODO 4删除     POST /stockZyDoc/deleteOfSoft
-        */
-/**
- * TODO 5  库存管理 分页 根据货品id 库位id 仓库id 合并获取库存单据 POST /repertory/groupPage
- *
- * {
-              "bgGoodsNo": "",          货品编号
-              "bgGoodsName": "",        货品名称
-              "mrGoodsBatch": "",       货品批次
-              "blLname": "",            储位名称
-              "mrDjStatus": "",         冻结状态
-              "pageNum": 1,
-              "pageSize": 10,
-              "draw": 0
-            }
- */
-    /**
- * TODO 5 库存转移确认     GET /stockZyDoc/confirmZy/{zyId}
- *
- * /
- /**
- * TODO 库存冻结/解冻
- * /
- /**
- *TODO 新增
+            * TODO 3 库存管理 分页 根据货品id 库位id 仓库id 合并获取库存单据 POST /repertory/groupPage
+            *
+ *          {
+                       "bgGoodsNo": "",          货品编号
+                       "bgGoodsName": "",        货品名称
+                       "mrGoodsBatch": "",       货品批次
+                       "blLname": "",            储位名称
+                       "mrDjStatus": "",         冻结状态
+                       "pageNum": 1,
+                       "pageSize": 10,
+                       "draw": 0
+                     }
  */
         /**
- *TODO 新增
- */
- /**
+            * TODO 4 库存转移过程 软删除多个或单个库存转移数据 POST /stockZyDoc/deleteOfSoft
+         */
+        /**
+            * TODO 5 库存转移过程 分页获取库存转移单据(包含详细信息) POST /stockZyDoc/selectByPage
+         */
+        /**
+            * TODO 6 库存转移过程 通过库存转移单据id删除库存转移单据 DELETE /stockZyDoc/{zyId}
+         */
+        /**
+            TODO 7  库存转移过程 通过库存转移单据id获取一条库存转移单据 GET /stockZyDoc/{zyId}
+         */
+
+
+
+
+/**
  * TODO 库内管理
  * TODO 库位转移
  * TODO 库存转移确认
