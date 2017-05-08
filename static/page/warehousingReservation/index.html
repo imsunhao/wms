@@ -771,7 +771,6 @@
         },
         methods: {
             View: function (index, row) {
-                var obj = this;
                 var step = form();
                 allPrposCb(step, function (obj, index) {
                     if (typeof row[index] !== 'undefined') step[index] = row[index];

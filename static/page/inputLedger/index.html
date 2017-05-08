@@ -8,8 +8,8 @@
                         class="icon search"></i><span>详细查询</span>
                 </button>
                 <button
-                        class="btn btn-edit"
-                        @click="handleDelete">制作台账
+                        class="btn btn-add"
+                        @click="inlineNew"><i class="icon add"></i><span>制作台账</span>
                 </button>
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i class="icon sel"></i><span>多选</span>
                 </button>
@@ -231,7 +231,7 @@
         </el-col>
     </el-row>
     <el-dialog
-            size="small"
+            size="full"
             v-model="dialogFormVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">新建入库单</span>
@@ -245,142 +245,10 @@
             </el-steps>
         </div>
         <el-form :model="form" ref="newForm">
-            <el-carousel
-                    ref="carousel"
-                    :autoplay="false"
-                    arrow="never"
-                    indicator-position="none"
-                    height="55vh">
-                <el-carousel-item>
-                    <el-row>
-                        <el-col :span="24"><h3>入库基础信息</h3></el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="10">
-                            <el-form-item label="入库单号" :label-width="formLabelWidth">
-                                <el-input v-model="form.rkRkdjNo" auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item label="订单类型" :label-width="formLabelWidth">
-                                <el-select v-model="form.rkType" placeholder="请选择单据类型">
-                                    <el-option label="采购订单" :value="0"></el-option>
-                                    <el-option label="仓间挑拨" :value="1"></el-option>
-                                    <el-option label="退货入库" :value="2"></el-option>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item label="入库备注" :label-width="formLabelWidth">
-                                <el-input
-                                        type="textarea"
-                                        :rows="2"
-                                        v-model="form.rkRemarks"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="12" :offset="2">
-                            <el-form-item label="入库状态">
-                                form.rkStatus
-                            </el-form-item>
-                            <el-form-item label="入库数量">
-                                form.number
-                            </el-form-item>
-                            <el-form-item label="入库体积">
-                                form.volume
-                            </el-form-item>
-                            <el-form-item label="制作方式">
-                                form.zdfs=1 手动
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                </el-carousel-item>
-                <el-carousel-item>
-                    <el-row>
-                        <el-col :span="24"><h3>入库明细</h3></el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="12">
-                            <el-form-item label="货品编号" :label-width="formLabelWidth">
-                                <el-autocomplete
-                                        v-model="form.bgGoodsNo"
-                                        :fetch-suggestions="querySearchAsync"
-                                        @select="GoodSelect"
-                                        auto-complete="off"></el-autocomplete>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="12">
-                            <el-form-item
-                                    label="货品数量"
-                                    :label-width="formLabelWidth"
-                                    prop="selectGood.count"
-                                    :rules="{ type: 'number', message: '货品数量必须为数字值'}">
-                                <el-input
-                                        type="count"
-                                        :disabled="form.selectGood.value==''"
-                                        v-model.number="form.selectGood.count"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="8">
-                            <el-form-item label="货品编号" :label-width="formLabelWidth">
-                                {{form.selectGood.value}}
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="8">
-                            <el-form-item label="货品名称" :label-width="formLabelWidth">
-                                {{form.selectGood.bgGoodsName}}
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="8">
-                            <el-form-item label="货品数量" :label-width="formLabelWidth">
-                                {{form.selectGood.count}}
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="8" :offset="16">
-                            <el-button size="small" @click="saveARkDocsList" :disabled="form.saveARkDocsList">保存明细
-                            </el-button>
-                            <el-button size="small" @click="deleteARkDocsList" :disabled="form.deleteARkDocsList"
-                                       type="danger">删除明细
-                            </el-button>
-                        </el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="24" style="margin-top: 5px">
-                            <el-table
-                                    height="200"
-                                    :data="form.rkDocsList"
-                                    @row-click="GoodClick">
-                                <el-table-column
-                                        type="index"
-                                        width="55">
-                                </el-table-column>
-                                <el-table-column
-                                        property="value"
-                                        label="货品编号">
-                                </el-table-column>
-                                <el-table-column
-                                        property="bgGoodsName"
-                                        label="货品名称">
-                                </el-table-column>
-                                <el-table-column
-                                        property="bgDw"
-                                        label="货品单位">
-                                </el-table-column>
-                                <el-table-column
-                                        property="count"
-                                        label="货品数量">
-                                </el-table-column>
-                            </el-table>
-                        </el-col>
-                    </el-row>
-                </el-carousel-item>
-            </el-carousel>
+
         </el-form>
         <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="prev" v-show="dialogFormActive">上一步</el-button>
-            <el-button type="primary" @click="next" v-show="dialogFormActive < 1">下一步</el-button>
-            <el-button type="primary" @click="submit" :loading="submitLoading" v-show="dialogFormActive >= 1">保存
+            <el-button type="primary" @click="submit" :loading="submitLoading">保存
             </el-button>
         </div>
     </el-dialog>
@@ -789,57 +657,19 @@
             },                                      //导出 表单
         },
         methods: {
-            handleEdit: function (index, row) {
+            inlineNew:function () {
+                
+            },
+            inlineEdit: function (index, row) {
                 console.log(index, row);
             },                                  //测试 行内按钮 有效性
-            handleDelete: function (index, row) {
+            inlineDelete: function (index, row) {
                 console.log(index, row);
             },                                //测试 行内按钮 有效性
             inlineOweEnd: function () {
                 this.dialogEndVisible = true;
             },                                              //TODO 行内按钮--欠货完结
-            filterStatus: function (value, row) {
-                return row.status == value;
-            },                                //状态 过滤函数
-            statusWatch: function (status) {
-                var str = '';
-                switch (status) {
-                    case '初始状态':
-                        str = 'info';
-                        break;
-                    case '部分分配':
-                        str = 'danger';
-                        break;
-                    case '全部分配':
-                        str = 'warning';
-                        break;
-                    case '部分收货':
-                        str = 'success';
-                        break;
-                    case '全部收货':
-                        str = 'primary';
-                        break;
-                }
-                return str;
-            },                                     //状态 标签颜色
-            typeWatch: function (type) {
-                var str = '';
-                switch (type) {
-                    case '采购订单':
-                        str = 'warning';
-                        break;
-                    case '仓间挑拨':
-                        str = 'success';
-                        break;
-                    case '退货入库':
-                        str = 'default';
-                        break;
-                }
-                return str;
-            },                                         //单据 标签颜色
-            filterType: function (value, row) {
-                return row.type == value;
-            },                                  //单据 过滤函数
+
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -877,7 +707,7 @@
                 })
 
             },                                   //TODO 多选 制作台账
-            export: function () {
+            multiExport: function () {
                 /*<debug>*/
                 console.log('选中的删除');
                 /*</debug>*/
@@ -891,7 +721,7 @@
                 })
 
             },                                            //TODO 多选导出
-            oweEnd: function () {
+            multiOweEnd: function () {
                 /*<debug>*/
                 console.log('选中的删除');
                 /*</debug>*/
