@@ -3528,7 +3528,7 @@
 
              **/
             /**
-             * 0 TODO 出库预约 获取 根据分页要求获取没有出库任务的出库单信息 POST /mfunck/selectMfunckDocByPage
+             * 7 TODO 出库预约 获取 根据分页要求获取没有出库任务的出库单信息 POST /mfunck/selectMfunckDocByPage
              *
              *
              * 参数：查询条件 ckDocPageModel（参数对象）
@@ -3542,7 +3542,7 @@
                   "ckStatus": 1,                   出库状态（1初始 21部分分拣，未下架状态 22部分出库，已下架 31全部分拣，未下架 32全部出库，下架完成41已挂起， 50作废）
                   "ckCkdjClientname",              客户名称（支持模糊查询）
                   "ckCkdjType": 0,                 单据类型（0正常单据，1挂起单据，2滞留单据）
-                  "ckArehouseId": 1               （如果是调度员就不传，如果是别的角色就传）
+                  "ckArehouseId": 1               （如果是调度员就传-1，如果是别的角色,就传其他角色的仓库id）
                 }
              *
              *
@@ -3582,7 +3582,7 @@
                 }
              */
             /**
-             * 1 TODO 出库预约 新增 出库单据/包含出库单明细 POST /mfunck/add
+             * 0 TODO 出库预约 新增 出库单据/包含出库单明细 POST /mfunck/add
              * 参数
              * {
                   "ckCkdjNo": "CK1482398743793",（必填）
