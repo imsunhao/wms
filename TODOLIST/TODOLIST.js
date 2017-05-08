@@ -2731,8 +2731,16 @@
                 客户地址         ckAdress
             }
          */
-    /**
-     * TODO 库位转移查询
+/**
+ * TODO 盘点查询  POST /mfunpd/selectMfunpdByPage
+ * 参数类： pdDocPageModel
+ * 实例：
+ *
+ *
+ *
+ */
+/**
+ * TODO 库位转移查询
      *
      */
     /**
@@ -2951,7 +2959,7 @@
     返回 jsonModel 20002成功 50002失败
  */
 /*
- * TODO 新增循环盘点 POST
+ * TODO 新增循环盘点 POST /mfunpd/insertXHMfunpdDocAndDocs
  * 传递参数类：mfunpdDoc（盘点计划实体类）
  * 实例：
  * {
@@ -2979,6 +2987,54 @@
      返回 jsonModel 20002成功 50002失败
 
  **/
+/**
+ * TODO 分配任务页面根据盘点计划ID查询详情 POST /mfunpd/selectPdInfoByPdId
+ * 传递参数类：pdDocPageModel
+ * 实例
+ * {
+      "pdId": 19          （盘点计划ID）
+    }
+ 返回 jsonModel mfunpdDocs 盘点明细集合
+ */
+/**
+ * TODO 根据盘点明细id分配任务 POST /mfunpd/allocatingTaskByPdsId
+ * 传递参数类：pdDocPageModel
+ * 实例;
+ * {
+ *   "pdId": 19,                 （盘点计划ID）
+ *   "userId": 21,               （经办人ID）
+ *   "ids": [                    （盘点计划ID）
+ *     35,
+ *     36
+ *   ],
+ *   "userName": "九阳操作员"     （经办人姓名）
+ *  }
+ *  返回 jsonModel 20002成功 50002失败
+ */
+/**
+ * TODO 盘点详情页面根据盘点计划ID查询详情 POST /mfunpd/selectPdInfoByPdsPdId
+ * 传递参数类：pdDocPageModel
+ * {
+ *   "pdId": 19   （盘点计划ID）
+ *  }
+ *  返回 jsonModel mfunpdDocs 盘点明细集合
+ */
+/**
+ * TODO 重盘 根据盘点明细id重盘（修改状态）POST /mfunpd/againPdByPdsId
+ * 传递参数类：pdDocPageModel
+ * {
+ *   "pdsId": 35
+ *  }
+ *  返回 jsonModel 20002成功 50002失败
+ */
+/**
+ * TODO 根据盘点计划id确认盘点信息（修改库存） POST /mfunpd/confirmPdDocByPdId
+ * 传递参数类：pdDocPageModel
+ * {
+ *   "": 19
+ *  }
+ * 返回 jsonModel 20002成功 50002失败
+ */
 
 
 
