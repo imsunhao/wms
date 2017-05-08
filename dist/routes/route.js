@@ -1003,6 +1003,29 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
+              case 'stockTransferConfirm':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '库存转移确认  分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '库存转移确认 确认';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '库存转移确认 删除';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+
 
 
 
