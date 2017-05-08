@@ -717,7 +717,7 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post(this.option);
             },                                   //分页 Size
             expandChange: function (row, expanded) {
                 if (typeof (row.inputOperation) === 'undefined' && expanded) {
@@ -733,7 +733,7 @@
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                //分页 当前页
             newInput: function () {
                 this.dialogFormVisible = true;
@@ -777,12 +777,12 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(aLibraryTransferSelect);
+                    p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                post(this, {});
+                p[0].post( {});
             }, //详细查询 提交
 
             auto_zyCreateTime: function (value, bool) {
@@ -815,6 +815,33 @@
         },
         watch: {}
     });
+    var obj=aLibraryTransferSelect;
+    var p=[];
+    // 0 库位转移查询 分页查询
+    p[0] = autoPost({
+        urlHock: "/hock/aLibraryTransferSelect/page.json",
+        urlProd: "/route/aLibraryTransferSelect/0",
+        success: function (json) {
+            obj.$data.aLibraryTransferSelect = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+    // 1 库位转移查询
+    p[1] = autoPost({
+        urlHock: "",
+        urlProd: "/route/aLibraryTransferSelect/1",
+        success: function (json) {
+        }
+    });
+    // 2 库位转移查询
+    p[2] = autoPost({
+        urlHock: "",
+        urlProd: "/route/aLibraryTransferSelect/2",
+        success: function (json) {
+
+        }
+    });
+
 
     // 高级 监视器的 使用方法
     //        aLibraryTransferSelect.$watch('aLibraryTransferSelect.inputOperation', function () {
@@ -824,110 +851,16 @@
     //            /*</debug>*/
     //            post(this, this.option);
     //        }, {deep: true});
-    post(aLibraryTransferSelect, aLibraryTransferSelect.option);
-    function post(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/aLibraryTransferSelect/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/aLibraryTransferSelect/0";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                obj.$data.aLibraryTransferSelect = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }              //TODO 入库任务分页查询接口
-    function postInputOperation(obj, row) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/form/inputOption.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/aLibraryTransferSelect/0";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                /*<debug>*/
-                console.log(json);
-                /*</debug>*/
-                row.inputOperation = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }   //TODO 请求入库任务中详细信息
-    function changeDate(date) {
-        return dateFormat(new Date(date), 'MM-dd hh:mm');
-    }
-    function errorTip(obj, error) {                    // 错误提示
-        /*<debug>*/
-        console.log(error);
-        /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
-    function dateFormat(date, fmt) {
-        var o = {
-            "M+": date.getMonth() + 1,                 //月份
-            "d+": date.getDate(),                    //日
-            "h+": date.getHours(),                   //小时
-            "m+": date.getMinutes(),                 //分
-            "s+": date.getSeconds(),                 //秒
-            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-            "S": date.getMilliseconds()             //毫秒
-        };
-        if (/(y+)/.test(fmt))
-            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-
-                    console.log(temp);
-                }
-                data.pop();
-            }
+    p[0].post(aLibraryTransferSelect.option);
+    function printfCompile(obj) {
+        var resoleveStep = [];
+        for (var i = 0; i < obj.multipleSelection.length; i++) {
+            resoleveStep.push({
+                name: obj.multipleSelection[i].rkrwNo,
+                rkrwNo:obj.multipleSelection[i].rkrwNo,
+                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
+            });
         }
-    }
+        obj.printf = resoleveStep;
+    }				 //打印
 </script>
