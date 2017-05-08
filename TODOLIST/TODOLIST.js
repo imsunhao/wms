@@ -3206,4 +3206,43 @@
         /**
  *  TODO 7 通过库存转移单据id获取一条库存转移单据 GET /stockZyDoc/{zyId}
  */
+    /**
+ * TODO 库存转移确认
+ */
+        /**
+ * TODO 0 分页查询库位转移 POST /stockZyDoc/page
+ * {
+          "startTimeParam": "string",     开始时间
+          "endTimeParam": "string",       结束时间
+          "zyStatus": 0,                  转移状态
+          "zyMentionUserName": "string",  提起人
+          "zyCreateUserName": "string",   创建人
+          "pageNum": 0,
+          "pageSize": 0,
+          "draw": 0
+        }
+ *
+ */
+        /**
+ *  TODO 1 库存转移过程 通过库存转移单据id确认转移一条转移单 GET /stockZyDoc/confirmZy/{zyId}
+ */
+        /**
+ * TODO 2 库存转移过程 软删除多个或单个库存转移数据 POST /stockZyDoc/deleteOfSoft
+ */
+        /**
+ * TODO 3 库存转移过程 分页获取库存转移单据 POST /stockZyDoc/page
+ */
+        /**
+ *  TODO 4 库存转移过程 分页获取库存转移单据(包含详细信息) POST /stockZyDoc/selectByPage
+ */
+        /**
+ * TODO 5 库存转移过程 通过库存转移单据id删除库存转移单据 DELETE /stockZyDoc/{zyId}
+ */
+        /**
+ * TODO 6 库存转移过程 通过库存转移单据id获取一条库存转移单据 GET /stockZyDoc/{zyId}
+ */
+
+
+
+
 

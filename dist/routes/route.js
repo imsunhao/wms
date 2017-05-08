@@ -1076,17 +1076,42 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 1:
-                        urlName = '库存转移确认 确认';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '库存转移确认 通过库存转移单据id确认转移一条转移单';
+                        req = autoUrl(req, '/stockZyDoc/confirmZy/'+req.query.zyId, "GET", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
-                        urlName = '库存转移确认 删除';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '库存转移确认 软删除多个或单个库存转移数据';
+                        req = autoUrl(req, '/stockZyDoc/deleteOfSoft', "POST", function (json) {
                             res.send(json);
                         });
                         break;
+                      case 3:
+                        urlName = '库存转移确认 分页获取库存转移单据';
+                        req = autoUrl(req, '/stockZyDoc/page', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 4:
+                        urlName = '库存转移确认 分页获取库存转移单据(包含详细信息)';
+                        req = autoUrl(req, '/stockZyDoc/deleteOfSoft', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 5:
+                        urlName = '库存转移确认 通过库存转移单据id删除库存转移单据';
+                        req = autoUrl(req, '/stockZyDoc/'+ req.query.zyId, "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 6:
+                        urlName = '库存转移确认 通过库存转移单据id获取一条库存转移单据';
+                        req = autoUrl(req,  '/stockZyDoc/'+ req.query.zyId, "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
                 }
                 break;
                case 'stockFrozenThaw':
