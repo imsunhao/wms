@@ -2121,7 +2121,7 @@
              TODO 出库预约
 
              **/
-            /**
+/**
              * TODO 0  出库单管理 根据分页要求获取没有出库任务的出库单信息 POST /mfunck/selectMfunckDocByPage
              * 参数：查询条件 ckDocPageModel（参数对象）
              * {
@@ -2173,8 +2173,12 @@
                   allHeight : null                          总重量
                 }
              */
-            /**
-             * TODO 1 出库单管理 新增出库单据/包含出库单明细 POST /mfunck/add
+/**
+ * TODO 出库单管理 随机生成出库单号 GET /mfunck/mfunckdocAdd
+ * 返回jsonModel ckCkdjNo 出库单号
+ */
+/**
+ * TODO 1 出库单管理 新增出库单据/包含出库单明细 POST /mfunck/add
              * 参数
              * {
                   "ckCkdjNo": "CK1482398743793",（必填）
@@ -2231,10 +2235,71 @@
              * ]
              * }
              */
-        /**
+/**
+ * TODO 出库单管理 根据出库单Id查询出库明细详情 POST /mfunck/checkMfunckDocsByCkdjId
+ * 参数类： setModel
+ * {
+ *  "id": 1
+ *  }
+ *  返回 jsonModel mfunckDocs 出库明细集合
+ *  mfunckDocs.getBaseGoods.getBgGoodsNo (货品编号)
+ *  mfunckDocs.getBaseGoods.getBgGoodsName (货品名称)
+ *  mfunckDocs.getBaseDw.getBdName （单位名称）
+ *  mfunckDocs.getCksGoodsCount （货品数量）
+ */
+/**
+ * TODO 出库单管理 修改出库单及明细 POST /mfunck/editMfunckDocAndDocs
+ * 参数类： mfunckDoc 出库单对象
+ * 实例：
+ * {
+      "ckCkdjId": 40                                  （出库单ID ）
+      "ckCkdjNo": "CK1482398743793",                  （出库单号 不能修改）
+      "ckErpNo": "hk45645",                           （客户erp号）
+      "ckCkdjType": 0,                                （单据类型）
+      "ckCkdjClientno": "hlcs2001",                   （客户编号）
+      "ckCkdjClientname": "济南华联超市王舍人店",      （客户名称）
+      "ckContacts": "张三丰",                         （联系人）
+      "ckTel": "18856568985",                         （联系电话）
+      "ckAdress": "济南市历城区工业北路",              （地址）
+      "ckYfhsj": "2017-04-17T05:46:21.260Z",          （预发货时间）
+      "ckRemarks": "备注",                            （备注）
+      "ckCksj": "2017-04-17T05:46:21.260Z",           （出库时间）
+      "ckArehouseId": 1,
+      "ckClientId": 1,
+      "mfunckDocs": [
+        {
+          "cksCkmxId": 56,
+          "cksGoodsId": 1,
+          "cksGoodsCount": 50,
+          "cksDwid": 1,
+          "cksCkfs": "先进先出",
+          "cksZdpc": "X"
+        },
+        {
+          "cksCkmxId": 57,
+          "cksGoodsId": 2,
+          "cksGoodsCount": 100,
+          "cksDwid": 2,
+          "cksCkfs": "先进先出",
+          "cksZdpc": "X"
+        }
+      ]
+    }
+ 返回 jsonModel 20002 成功 50002 失败！
+ */
+/**
+ * TODO 出库单管理 根据出库单Id作废出库单及明细 POST /mfunck/cancelMfunckDocByCkdjId
+ * 参数类 setModel
+ * {
+ *   "id": 1
+ * }
+ * 返回 jsonModel 20002 成功 50002 失败！
+ */
+
+/**
          * TODO 出库任务
          */
-            /**
+/**
              * TODO  出库任务管理 分页查询所有任务状态下的出库任务 POST /mfunck/selectMfunckRwByPage
              * 参数：查询条件 ckRwDocPageParam(参数对象)
              * {
@@ -2273,7 +2338,7 @@
              *
              */
 /**
- * TODO 点击新增系统自动生成出库单号 POST /mfunck/greatCkrwNo
+ * TODO 点击新增系统自动生成出库任务单号 POST /mfunck/greatCkrwNo
  * 返回参数 jsonModel  ckCkrwNo(任务单号)
  */
 /**
@@ -2548,6 +2613,21 @@
       allTj : null                              总体积
       allHeight : null                          总重量
       }
+ */
+/**
+ * TODO 出库单管理 根据发运任务Id查询状态为（部分出库，全部出库）的出库单 POST /mfunck/selectDespatchCkDocByCkrwId
+ * 参数类 setModel
+ * {
+ *   "id": 5
+ *  }
+ *  返回jsonModel mfunckDoc 出库单集合
+ */
+/**
+ * TODO 出库任务管理 修改出库发运数量 POST /mfunck/editGoodsCountByMfunckDocs
+ * 参数类 mfunckDocs（出库明细集合）
+ * 实例：
+ *
+ *
  */
 /*
  *  TODO 欠货补发信息
