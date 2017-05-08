@@ -979,13 +979,13 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '库存转移  分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/stockZyDoc/page', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 1:
                         urlName = '库存转移 新增';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/stockZyDoc/page', "PUT", function (json) {
                             res.send(json);
                         });
                         break;
