@@ -3743,6 +3743,180 @@
         /**
          * TODO 6  库存冻结过程 通过库存冻结单据id获取一条库存冻结单据 GET /stockDjDoc/{djId}
          */
+    /**
+     * TODO 库内管理
+     */
+        /**
+         * TODO 0 POST /mfunpd/selectDPPDByPage 盘点查询 动碰盘点分页查询
+         * {
+          "data": [
+            {
+              "pdId": 1,
+              "pdType": 0,
+              "pdYdBeginTime": 1493308800000,
+              "pdYdEndTime": null,
+              "pdZyBeginTime": null,
+              "pdZyEndTime": null,
+              "pdCreateTime": 1493349660000,
+              "pdCreateUserId": 1,
+              "pdQrsj": 1493349772000,
+              "pdQrUserId": null,
+              "pdZfsj": null,
+              "pdZfUserId": null,
+              "pdStatus": 0,
+              "pdChargePerson": "",
+              "pdOperator": "",
+              "pdArehouseId": 1,
+              "pdDiffStatus": 1,
+              "mfunpdDocs": [],
+              "mrGoodsIds": null,
+              "rmsUser": null
+            }
+          ],
+          "draw": 0,
+          "recordsTotal": 1,
+          "recordsFiltered": 1
+        }
+         */
+        /**
+ * TODO 1 盘点作业 新增动碰盘点计划及明细 POST /mfunpd/insertDPMfunpdDocAndDocs
+ * {
+  "pdId": 0,
+  "pdType": "string",
+  "pdYdBeginTime": "2017-05-08T11:47:54.237Z",
+  "pdYdEndTime": "2017-05-08T11:47:54.237Z",
+  "pdZyBeginTime": "2017-05-08T11:47:54.237Z",
+  "pdZyEndTime": "2017-05-08T11:47:54.237Z",
+  "pdCreateTime": "2017-05-08T11:47:54.237Z",
+  "pdCreateUserId": 0,
+  "pdQrsj": "2017-05-08T11:47:54.237Z",
+  "pdQrUserId": 0,
+  "pdZfsj": "2017-05-08T11:47:54.237Z",
+  "pdZfUserId": 0,
+  "pdStatus": "string",
+  "pdChargePerson": "string",
+  "pdOperator": "string",
+  "pdArehouseId": 0,
+  "pdDiffStatus": "string",
+  "mfunpdDocs": [
+    {
+      "pdsId": 0,
+      "pdsPdId": 0,
+      "pdsGoodsId": 0,
+      "pdsLocationId": 0,
+      "pdsRepertoryCount": 0,
+      "pdsPdCount": 0,
+      "pdsDiffStatus": "string",
+      "pdsStatus": "string",
+      "pdsUserId": 0,
+      "pdsPdTime": "2017-05-08T11:47:54.238Z",
+      "baseGoods": {
+        "bgGoodsId": 0,
+        "bgGoodsNo": "string",
+        "bgGoodsName": "string",
+        "bgNamejc": "string",
+        "bgT": 0,
+        "bgI": 0,
+        "bgHsl": 0,
+        "bgZxdw": 0,
+        "bgSzdw": 0,
+        "bgStatus": 0,
+        "bgArehouseId": 0,
+        "bgClientId": 0,
+        "bgGoodsType": "string",
+        "bgGoodsTj": 0,
+        "bgGoodsZl": 0,
+        "bgGoodsPrice": 0,
+        "bgCreatetime": "2017-05-08T11:47:54.238Z",
+        "bgRemarks": "string",
+        "bgGoodsGg": "string",
+        "baseDws": [
+          {
+            "bdDwId": 0,
+            "bdName": "string",
+            "bdStatus": 0,
+            "bdIsdel": true,
+            "bdCreatetime": "2017-05-08T11:47:54.238Z"
+          }
+        ]
+      },
+      "baseLocation": {
+        "blLocationId": 0,
+        "blLname": "string",
+        "blRegionId": 0,
+        "blLtray": 0,
+        "blLorder": 0,
+        "blStatus": 0,
+        "blArehouseId": 0
+      },
+      "rmsUser": {
+        "ruUserId": 0,
+        "ruUserName": "string",
+        "ruLoginName": "string",
+        "ruLoginPassword": "string",
+        "ruPhone": "string",
+        "ruTelephone": "string",
+        "ruEmail": "string",
+        "ruSex": true,
+        "ruBirthday": "2017-05-08T11:47:54.238Z",
+        "ruHomeaddress": "string",
+        "ruQicq": "string",
+        "ruCreateTime": "2017-05-08T11:47:54.238Z",
+        "ruLastModifiedTime": "2017-05-08T11:47:54.239Z",
+        "ruStatus": 0,
+        "ruSalt": "string",
+        "ruUserType": 0,
+        "ruUserZyq": "string",
+        "ruRemarks": "string",
+        "ruIspda": true,
+        "ruPortrait": "string"
+      }
+    }
+  ],
+  "mrGoodsIds": [
+    0
+  ],
+  "rmsUser": {
+    "ruUserId": 0,
+    "ruUserName": "string",
+    "ruLoginName": "string",
+    "ruLoginPassword": "string",
+    "ruPhone": "string",
+    "ruTelephone": "string",
+    "ruEmail": "string",
+    "ruSex": true,
+    "ruBirthday": "2017-05-08T11:47:54.239Z",
+    "ruHomeaddress": "string",
+    "ruQicq": "string",
+    "ruCreateTime": "2017-05-08T11:47:54.239Z",
+    "ruLastModifiedTime": "2017-05-08T11:47:54.239Z",
+    "ruStatus": 0,
+    "ruSalt": "string",
+    "ruUserType": 0,
+    "ruUserZyq": "string",
+    "ruRemarks": "string",
+    "ruIspda": true,
+    "ruPortrait": "string"
+  }
+}
+ */
+        /**
+         * TODO 2 盘点作业 根据盘点明细id分配任务 POST /mfunpd/allocatingTaskByPdsId
+         */
+        /**
+         *  TODO 3 盘点作业 根据盘点计划id确认盘点信息（修改库存) POST /mfunpd/confirmPdDocByPdId
+         */
+        /**
+         * TODO 4 盘点作业 根据盘点明细id重盘（修改状态) POST /mfunpd/againPdByPdsId
+         */
+        /**
+         * TODO 5 盘点作业 分配任务页面根据盘点计划ID查询详情 POST /mfunpd/selectPdInfoByPdId
+         */
+        /**
+         * TODO 6  盘点作业 盘点详情页面根据盘点计划ID查询详情 POST /mfunpd/selectPdInfoByPdsPdId
+         */
+
+
 
 
 

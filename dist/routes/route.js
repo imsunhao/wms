@@ -911,35 +911,49 @@ router.param('_url', function (req, res, next, url) {
              case 'dynamicTouchInventory':
                 switch (parseInt(req.params._status)) {
                     case 0:
-                        urlName = '动碰盘点  分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '动碰盘点 动碰盘点分页查询';
+                        req = autoUrl(req, '/mfunpd/selectDPPDByPage', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 1:
-                        urlName = '动碰盘点 新增';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '动碰盘点 新增动碰盘点计划及明细';
+                        req = autoUrl(req, '/mfunpd/insertDPMfunpdDocAndDocs', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
-                        urlName = '动碰盘点 分配任务';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '动碰盘点 根据盘点明细id分配任务';
+                        req = autoUrl(req, '/mfunpd/allocatingTaskByPdsId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                       case 3:
-                        urlName = '动碰盘点 盘点详情';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '动碰盘点 根据盘点计划id确认盘点信息（修改库存)';
+                        req = autoUrl(req, '/mfunpd/confirmPdDocByPdId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                       case 4:
-                        urlName = '动碰盘点 盘点确认';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '动碰盘点 根据盘点明细id重盘（修改状态)';
+                        req = autoUrl(req, '/mfunpd/againPdByPdsId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
+                      case 5:
+                        urlName = '动碰盘点 分配任务页面根据盘点计划ID查询详情';
+                        req = autoUrl(req, '/mfunpd/selectPdInfoByPdId', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                       case 6:
+                        urlName = '动碰盘点 盘点详情页面根据盘点计划ID查询详情';
+                        req = autoUrl(req, '/mfunpd/selectPdInfoByPdsPdId', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
 
                 }
                 break;
