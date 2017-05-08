@@ -414,17 +414,31 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 1:
-                        urlName = '关联作业区';
-                        req = autoUrl(req, '/goods', "POST", function (json) {
+                        urlName = 'RF管理-关联作业区';
+                        req = autoUrl(req, '/user/userAddZyq/{id}/{firstZyq}/{secondZyq}', "GET", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
-                        urlName = '获取作业区名称';
-                        req = autoUrl(req, '/goods/add', "POST", function (json) {
+                        urlName = 'RF管理-获取作业区名称';
+                        req = autoUrl(req, '/user/{id}', "GET", function (json) {
                             res.send(json);
                         });
                         break;
+                      case 3:
+                        urlName = 'RF管理- 判断主作业区是否重复';
+                        req = autoUrl(req, '/user/isRepeatByFirstZyq/{firstZyq}', "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                       case 4:
+                        urlName = 'RF管理- 编辑';
+                        req = autoUrl(req, '', "", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
                 }
                 break;
             case 'operationAreaManage':
@@ -1007,7 +1021,7 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '库存转移确认  分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/stockZyDoc/page', "POST", function (json) {
                             res.send(json);
                         });
                         break;
