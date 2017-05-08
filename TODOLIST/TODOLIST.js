@@ -2357,8 +2357,12 @@
  返回 jsonModel  20002成功 50002失败
  */
 /**
- * TODO 根据任务ID查看出库任务详情 GET /mfunck/checkCkrwInfoByCkrwId/{ckrwId}
- *
+ * TODO 根据任务ID查看出库任务详情 POST /mfunck/checkCkrwInfoByCkrwId
+ * 参数类：setModel
+ * {
+ *   "id": 1
+ * }
+ * 返回 jsonModel ckrwDoc (出库任务对象，包含出库单据以及出库明细)
  */
 /**
  * TODO 修改出库任务 POST /mfunck/editCkrw
@@ -2376,8 +2380,11 @@
     }
  */
 /**
- * TODO 根据任务ID取消出库任务 GET /mfunck/cancelCkrwByCkrwId/{ckrwId}
- * 参数 出库任务ID ckrwId
+ * TODO 根据任务ID取消出库任务 POST /mfunck/cancelCkrwByCkrwId
+ * 参数类：setModel
+ * {
+ *   "id": 1
+ * }
  * 返回 jsonModel  20002成功 50002失败
  */
 /**
@@ -2392,8 +2399,11 @@
  * 返回 jsonModel  20002成功 50002失败
  */
 /**
- * TODO 根据出库单id取消挂起单据 GET /mfunck/cancelHangUpCkdocByCkdjId/{ckCkdjId}
- * 参数 出库单ID ckCkdjId
+ * TODO 根据出库单id取消挂起单据 POST /mfunck/cancelHangUpCkdocByCkdjId
+ * 参数类：setModel
+ * {
+ *   "id": 1
+ * }
  * 返回 jsonModel  20002成功 50002失败
  */
 /**
@@ -2408,7 +2418,14 @@
  * 返回 jsonModel  20002成功 50002失败
  */
 /**
- * TODO 根据任务ID填写实际到车时间
+ * TODO 根据任务ID填写实际到车时间 POST /mfunck/editSJdcsjByCkrwId
+ * 参数类：setModel
+ * {
+ *   "id": 16,
+ *   "ckrwSjdcsj": "2017-05-08T03:14:27.609Z",
+ *   "userName": "张三"
+ * }
+ * 返回jsonModel 20002成功 50002失败
  */
 /**
  * TODO 根据任务Id下发任务 POST /mfunck/issuedCkrw
@@ -2451,6 +2468,18 @@
        "goodsTypeNum": 0,                   品项数
      }
  */
+/**
+ * TODO 出库任务管理 挑选任务单据完成 POST /mfunck/chooseCompleteByCkrwId
+ * 参数类：setModel
+ * {
+ *  "ids": [
+ *    12,
+ *    13
+ *    ],
+ *   "userName": "李四"
+ * }
+ * 返回 jsonModel  20002成功 50002失败
+ */
 
  /**
  * TODO 激活数据 激活任务单据分页查询 POST /mfunck/selectActivatedCkrwByPage
@@ -2484,6 +2513,7 @@
        "goodsTypeNum": 0,                   品项数
      }
  */
+ /
 /**
  * TODO 出库操作 操作出库单据分页查询 POST /mfunck/selectOperateCkDocByPage
  * 参数 查询参数对象：ckDocPageModel
