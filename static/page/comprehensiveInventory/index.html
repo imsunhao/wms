@@ -465,35 +465,6 @@
 
 </div>
 <script>
-    function form() {
-        return {
-            zyCreateTime:'',
-            zyMentionUserName:'',
-            zyCreateUserName:'',
-            zyConfirmUserName:'',
-            zyReason:'',
-            zyConfirmTime:'',
-            zyStatus:''
-        }
-    }
-    function formAssignment() {
-        return {
-            pdsLocationId: '',          // 库位名称
-            pdsGoodsId: '',             // 货品编号
-            pdsGoodsId: '',             // 货品名称
-            pdsGoodsId: '',             // 货品批次
-            pdsRepertoryCount:'',       //库存数量
-        }
-    }//分配任务
-    function formDetails() {
-        return {
-            pdsLocationId: '',          // 库位名称
-            pdsGoodsId: '',             // 货品编号
-            pdsGoodsId: '',             // 货品名称
-            pdsRepertoryCount:'',      // 库存数量
-            pdsPdCount:'',              // 盘点数量
-        }
-    }//盘点详情
     var comprehensiveInventory = new Vue({
         el: '#comprehensiveInventory',
         prop: {},
@@ -644,14 +615,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post(this.option);
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
@@ -691,12 +662,12 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(comprehensiveInventory);
+                    p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                post(this, {});
+                p[0].post( {});
             },                                          //详细查询 提交
             printfSubmit: function () {
                 var datas=[];
@@ -736,70 +707,141 @@
                 }
             },
             auto_pdCreateTime: function (value, bool) {
-            if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-            else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-        },                           //创建时间
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+            },                           //创建时间
             auto_pdYdBeginTime: function (value, bool) {
-        if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-        else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-    },                          //异动开始时间
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+            },                          //异动开始时间
             auto_pdYdEndTime: function (value, bool) {
-        if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-        else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-    },                            //异动结束时间
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+            },                            //异动结束时间
             auto_pdType:function(value){
-        var temp={}
-        if(!isNaN(value)){
-            temp={
-                0:'异动盘点',
-                1:'货品盘点',
-                2:'全仓盘点',
-            }
-        }else{
-            temp={
-                '异动盘点':0,
-                '货品盘点':1,
-                '全仓盘点':2
-            }
-        }
-        return temp[value];
-    },                                         //盘点类型
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        0:'异动盘点',
+                        1:'货品盘点',
+                        2:'全仓盘点',
+                    }
+                }else{
+                    temp={
+                        '异动盘点':0,
+                        '货品盘点':1,
+                        '全仓盘点':2
+                    }
+                }
+                return temp[value];
+            },                                         //盘点类型
             auto_pdStatus:function(value){
-        var temp={}
-        if(!isNaN(value)){
-            temp={
-                0:'初始',
-                1:'盘点确认',
-                2:'作废',
-            }
-        }else{
-            temp={
-                '初始':0,
-                '盘点确认':1,
-                '全仓盘点':2
-            }
-        }
-        return temp[value];
-    },                                       //盘点状态
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        0:'初始',
+                        1:'盘点确认',
+                        2:'作废',
+                    }
+                }else{
+                    temp={
+                        '初始':0,
+                        '盘点确认':1,
+                        '全仓盘点':2
+                    }
+                }
+                return temp[value];
+            },                                       //盘点状态
             auto_pdDiffStatus:function(value){
-        var temp={}
-        if(!isNaN(value)){
-            temp={
-                0:'无差异',
-                1:'有差异',
-            }
-        }else{
-            temp={
-                '无差异':0,
-                '有差异':1,
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        0:'无差异',
+                        1:'有差异',
+                    }
+                }else{
+                    temp={
+                        '无差异':0,
+                        '有差异':1,
 
-            }
-        }
-        return temp[value];
-    },                                   //差异状态
+                    }
+                }
+                return temp[value];
+            },                                   //差异状态
         }
     });
+    function form() {
+        return {
+            zyCreateTime:'',
+            zyMentionUserName:'',
+            zyCreateUserName:'',
+            zyConfirmUserName:'',
+            zyReason:'',
+            zyConfirmTime:'',
+            zyStatus:''
+        }
+    }
+    var obj=comprehensiveInventory;
+    var p=[];
+    // 0 全面盘点 分页查询
+    p[0] = autoPost({
+        urlHock: "/hock/comprehensiveInventory/page.json",
+        urlProd: "/route/comprehensiveInventory/0",
+        success: function (json) {
+            obj.$data.comprehensiveInventory = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+    // 1 全面盘点
+    p[1] = autoPost({
+        urlHock: "",
+        urlProd: "/route/comprehensiveInventory/1",
+        success: function (json) {
 
+        }
+    });
+    // 2 全面盘点
+    p[2] = autoPost({
+        urlHock: "",
+        urlProd: "/route/comprehensiveInventory/2",
+        success: function (json) {
+
+        }
+    });
+    // 3 全面盘点
+    p[3] = autoPost({
+        urlHock: "",
+        urlProd: "/route/comprehensiveInventory/3",
+        success: function (json) {
+
+        }
+    });
+    // 4 全面盘点
+    p[4] = autoPost({
+        urlHock: "",
+        urlProd: "/route/comprehensiveInventory/4",
+        success: function (json) {
+
+        }
+    });
+    function formAssignment() {
+        return {
+            pdsLocationId: '',          // 库位名称
+            pdsGoodsId: '',             // 货品编号
+            pdsGoodsId: '',             // 货品名称
+            pdsGoodsId: '',             // 货品批次
+            pdsRepertoryCount:'',       //库存数量
+        }
+    }//分配任务
+    function formDetails() {
+        return {
+            pdsLocationId: '',          // 库位名称
+            pdsGoodsId: '',             // 货品编号
+            pdsGoodsId: '',             // 货品名称
+            pdsRepertoryCount:'',      // 库存数量
+            pdsPdCount:'',              // 盘点数量
+        }
+    }//盘点详情
     // 高级 监视器的 使用方法
     //    comprehensiveInventory.$watch('date', function () {
     //        if (!this.option.dateStart)return;
@@ -808,111 +850,7 @@
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
-    post(comprehensiveInventory,comprehensiveInventory.option);
-
-    function post(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url =
-            url = "/hock/comprehensiveInventory/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/comprehensiveInventory/0";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                obj.$data.comprehensiveInventory = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }           ///TODO 库存转移分页查询的接口
-    function postRkrwNo(obj, option, resolve) {
-        /*<debug>*/
-        url = "/hock/comprehensiveInventory/rkrwNo.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                var resoleveStep = [];
-                for (var i = 0; i < json.data.length; i++) {
-                    resoleveStep.push({
-                        name: json.data[i].rkdjId,
-                        rkrwNo:option.rkrwNo,
-                        rkrwDhrq:option.rkrwDhrq});
-                }
-                return resolve(resoleveStep);
-            },
-            complete: function () {
-
-            }
-        });
-    }          //TODO 获取任务单号中详细信息
-    function postRkdjId(obj, option, resolve) {
-        /*<debug>*/
-        url = "/hock/comprehensiveInventory/rkdjId.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                var resoleveStep = [];
-                for (var i = 0; i < json.length; i++) {
-                    resoleveStep.push({
-                        name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgNamejc,
-                        val2:json[i].baseGoods.bgGoodsNo,
-                        val:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        rwdh:option.rkrwNo,
-                        dhrq:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        dysj:changeDate(new Date())
-                    });
-                }
-                return resolve(resoleveStep);
-            },
-            complete: function () {
-
-            }
-        });
-    }          //TODO 获取入库单号中详细信息
+    p[0].post(comprehensiveInventory.option);
     function printfCompile(obj) {
         var resoleveStep = [];
         for (var i = 0; i < obj.multipleSelection.length; i++) {
