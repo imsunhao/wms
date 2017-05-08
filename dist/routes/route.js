@@ -1025,6 +1025,43 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
+               case 'stockFrozenThaw':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '库存冻结/解冻  分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '库存冻结/解冻 新增';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '库存冻结/解冻 编辑';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '库存冻结/解冻 删除';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 4:
+                        urlName = '库存冻结/解冻 冻结解冻';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
+                }
+                break;
+
 
 
 
