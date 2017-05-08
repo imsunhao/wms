@@ -905,6 +905,42 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
+              case 'loopInventory':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '循环盘点  分页查询';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '循环盘点 新增';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '循环盘点 分配任务';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 3:
+                        urlName = '循环盘点 盘点详情';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 4:
+                        urlName = '循环盘点 盘点确认';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+                }
+                break;
+
 
 
         }

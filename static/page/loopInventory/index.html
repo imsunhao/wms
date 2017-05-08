@@ -178,7 +178,7 @@
                         type="expand">
                     <template scope="props">
                         <el-row>
-                            <h3 style="margin-top: 0; margin-left: -15px;">动碰盘点详细</h3>
+                            <h3 style="margin-top: 0; margin-left: -15px;">循环盘点详细</h3>
                         </el-row>
                         <el-form label-position="left" inline class="demo-table-expand">
                             <el-row>
@@ -483,35 +483,6 @@
     </el-dialog>
 </div>
 <script>
-    function form() {
-        return {
-            zyCreateTime:'',
-            zyMentionUserName:'',
-            zyCreateUserName:'',
-            zyConfirmUserName:'',
-            zyReason:'',
-            zyConfirmTime:'',
-            zyStatus:''
-        }
-    }
-    function formAssignment() {
-        return {
-            pdsLocationId: '',          // 库位名称
-            pdsGoodsId: '',             // 货品编号
-            pdsGoodsId: '',             // 货品名称
-            pdsGoodsId: '',             // 货品批次
-            pdsRepertoryCount:'',       //库存数量
-        }
-    }//分配任务
-    function formDetails() {
-        return {
-            pdsLocationId: '',          // 库位名称
-            pdsGoodsId: '',             // 货品编号
-            pdsGoodsId: '',             // 货品名称
-            pdsRepertoryCount:'',      // 库存数量
-            pdsPdCount:'',              // 盘点数量
-        }
-    }//盘点详情
     var loopInventory = new Vue({
         el: '#loopInventory',
         prop: {},
@@ -654,14 +625,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
@@ -701,13 +672,13 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(loopInventory);
+                    p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
 
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                post(this, {});
+                p[0].post( {});
             },                                          //详细查询 提交
             printfSubmit: function () {
                 var datas=[];
@@ -810,7 +781,78 @@
             },                                   //差异状态
         }
     });
+    function form() {
+        return {
+            zyCreateTime:'',
+            zyMentionUserName:'',
+            zyCreateUserName:'',
+            zyConfirmUserName:'',
+            zyReason:'',
+            zyConfirmTime:'',
+            zyStatus:''
+        }
+    }
+    var obj=loopInventory;
+    var p=[];
+    // 0 循环盘点 分页查询
+    p[0] = autoPost({
+        urlHock: "/hock/loopInventory/page.json",
+        urlProd: "/route/loopInventory/0",
+        success: function (json) {
+            obj.$data.loopInventory = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+    // 1 循环盘点
+    p[1] = autoPost({
+        urlHock: "",
+        urlProd: "/route/loopInventory/1",
+        success: function (json) {
 
+        }
+    });
+    // 2 循环盘点
+    p[2] = autoPost({
+        urlHock: "",
+        urlProd: "/route/loopInventory/2",
+        success: function (json) {
+
+        }
+    });
+    // 3 循环盘点
+    p[3] = autoPost({
+        urlHock: "",
+        urlProd: "/route/loopInventory/3",
+        success: function (json) {
+
+        }
+    });
+    // 4 循环盘点
+    p[4] = autoPost({
+        urlHock: "",
+        urlProd: "/route/loopInventory/4",
+        success: function (json) {
+
+        }
+    });
+    function formAssignment() {
+        return {
+            pdsLocationId: '',          // 库位名称
+            pdsGoodsId: '',             // 货品编号
+            pdsGoodsId: '',             // 货品名称
+            pdsGoodsId: '',             // 货品批次
+            pdsRepertoryCount:'',       //库存数量
+        }
+    }//分配任务
+    function formDetails() {
+        return {
+            pdsLocationId: '',          // 库位名称
+            pdsGoodsId: '',             // 货品编号
+            pdsGoodsId: '',             // 货品名称
+            pdsRepertoryCount:'',      // 库存数量
+            pdsPdCount:'',              // 盘点数量
+        }
+    }//盘点详情
     // 高级 监视器的 使用方法
     //    loopInventory.$watch('date', function () {
     //        if (!this.option.dateStart)return;
@@ -819,7 +861,7 @@
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
-    post(loopInventory,loopInventory.option);
+    p[0].post(loopInventory.option);
 
     function post(obj, option) {
         obj.showLoading = true;
