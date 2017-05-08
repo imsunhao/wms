@@ -618,7 +618,7 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-    // 1 RF管理 关联作业区，判断主作业区是否被占用，是否已关联；是否有PDA任务
+    // 1 RF管理 判断主作业区是否被占用，是否已关联；是否有PDA任务
     p[1] = autoPost({
         urlHock: "",
         urlProd: "route/RFManage/1",
@@ -626,7 +626,7 @@
 
         }
     });
-    // 2 RF管理 获取作业区的名称 用户管理 根据id返回用户信息
+    // 2 RF管理  根据id返回用户信息
     p[2] = autoPost({
         urlHock: "",
         urlProd: "route/RFManage/2",
@@ -634,7 +634,7 @@
 
         }
     });
-    // 3 RF管理 RF管理 判断主作业区是否重复
+    // 3 RF管理 判断主作业区是否重复
     p[3] = autoPost({
         urlHock: "",
         urlProd: "route/RFManage/3",
@@ -642,7 +642,7 @@
 
         }
     });
-    // 4 RF管理 编辑
+    // 4 RF管理 更新用户信息
     p[4] = autoPost({
         urlHock: "",
         urlProd: "route/RFManage/4",

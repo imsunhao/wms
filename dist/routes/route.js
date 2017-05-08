@@ -414,13 +414,13 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 1:
-                        urlName = 'RF管理-关联作业区';
+                        urlName = 'RF管理-  根据id返回用户信息';
                         req = autoUrl(req, '/user/userAddZyq/{id}/{firstZyq}/{secondZyq}', "GET", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
-                        urlName = 'RF管理-获取作业区名称';
+                        urlName = 'RF管理-根据id返回用户信息';
                         req = autoUrl(req, '/user/{id}', "GET", function (json) {
                             res.send(json);
                         });
@@ -432,7 +432,7 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                        case 4:
-                        urlName = 'RF管理- 编辑';
+                        urlName = 'RF管理- 更新用户信息';
                         req = autoUrl(req, '', "", function (json) {
                             res.send(json);
                         });
@@ -450,26 +450,26 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 1:
-                        urlName = '新增';
+                        urlName = '作业区管理-储位组管理 新增储位组';
                         req = autoUrl(req, '/locations', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
-                        urlName = '编辑';
+                        urlName = '作业区管理-储位组管理 更新储位组信息';
                         req = autoUrl(req, '/locations', "PUT", function (json) {
                             res.send(json);
                         });
                         break;
                     case 3:
-                        urlName = '查看';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '作业区管理-储位组管理 根据id返回储位组信息';
+                        req = autoUrl(req, '/locations/{id}', "GET", function (json) {
                             res.send(json);
                         });
                         break;
                     case 4:
-                        urlName = '删除';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '作业区管理-储位组管理 通过id删除一条储位组数据';
+                        req = autoUrl(req, '/locations/{id}', "/locations/{id}", function (json) {
                             res.send(json);
                         });
                         break;
