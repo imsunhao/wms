@@ -1427,12 +1427,10 @@
          *   allCount 总数量
          *   allTj 总体积
          */
-
         /** TODO 8 入库单 详细信息
          *
          *
          * */
-
     /**
      *      TODO 入库任务 warehousingTask
          */
@@ -1478,7 +1476,6 @@
          *          rkrwDh      司机电话
          *          rkrwStatus  任务状态
          */
-
         /** 1 修改 入库任务管理 更新入库任务单 PUT /mfunrkRwDoc
          *
          *          参数
@@ -2137,12 +2134,11 @@
             /**
              *  TODO 6 数量不允许为负数
              */
-        /**
+    /**
              TODO 出库预约
 
              **/
-
-            /**
+        /**
              * 7 TODO 出库预约 获取 根据分页要求获取没有出库任务的出库单信息 POST /mfunck/selectMfunckDocByPage
              *
              *
@@ -2196,8 +2192,7 @@
                   allHeight : null                          总重量
                 }
              */
-
-            /**
+        /**
              * 0 TODO 出库预约 新增 出库单据/包含出库单明细 POST /mfunck/add
              * 参数
              * {
@@ -2255,7 +2250,7 @@
              * ]
              * }
              */
-/**
+        /**
  * TODO 出库单管理 根据出库单Id查询出库明细详情 POST /mfunck/checkMfunckDocsByCkdjId
  * 参数类： setModel
  * {
@@ -2267,7 +2262,7 @@
  *  mfunckDocs.getBaseDw.getBdName （单位名称）
  *  mfunckDocs.getCksGoodsCount （货品数量）
  */
-/**
+        /**
  * TODO 出库单管理 修改出库单及明细 POST /mfunck/editMfunckDocAndDocs
  * 参数类： mfunckDoc 出库单对象
  * 实例：
@@ -2307,7 +2302,7 @@
     }
  返回 jsonModel 20002 成功 50002 失败！
  */
-/**
+        /**
  * TODO 出库单管理 根据出库单Id作废出库单及明细 POST /mfunck/cancelMfunckDocByCkdjId
  * 参数类 setModel
  * {
@@ -2315,11 +2310,10 @@
  * }
  * 返回 jsonModel 20002 成功 50002 失败！
  */
-
-/**
+    /**
          * TODO 出库任务
          */
-/**
+        /**
              * TODO  出库任务管理 分页查询所有任务状态下的出库任务 POST /mfunck/selectMfunckRwByPage
              * 参数：查询条件 ckRwDocPageParam(参数对象)
              * {
@@ -2357,11 +2351,11 @@
              *
              *
              */
-/**
+        /**
  * TODO 点击新增系统自动生成出库任务单号 POST /mfunck/greatCkrwNo
  * 返回参数 jsonModel  ckCkrwNo(任务单号)
  */
-/**
+        /**
  * TODO 新增出库任务及明细 POST /mfunck/insertCkrw
  * {
       "ckrwNo": "CK20170418-04",                  任务单号（自动生成）
@@ -2376,7 +2370,7 @@
     }
  返回 jsonModel  20002成功 50002失败
  */
-/**
+        /**
  * TODO 根据任务ID查看出库任务详情 POST /mfunck/checkCkrwInfoByCkrwId
  * 参数类：setModel
  * {
@@ -2384,7 +2378,7 @@
  * }
  * 返回 jsonModel ckrwDoc (出库任务对象，包含出库单据以及出库明细)
  */
-/**
+        /**
  * TODO 修改出库任务 POST /mfunck/editCkrw
  * 参数，出库任务对象mfunckRwDoc
  * {
@@ -2399,7 +2393,7 @@
       ]
     }
  */
-/**
+        /**
  * TODO 根据任务ID取消出库任务 POST /mfunck/cancelCkrwByCkrwId
  * 参数类：setModel
  * {
@@ -2407,7 +2401,7 @@
  * }
  * 返回 jsonModel  20002成功 50002失败
  */
-/**
+        /**
  * TODO 根据出库单id挂起单据 POST /mfunck/hangUpCkdocByCkdjId
  * 参数 setModel 对象
  * {
@@ -2418,7 +2412,7 @@
  * }
  * 返回 jsonModel  20002成功 50002失败
  */
-/**
+        /**
  * TODO 根据出库单id取消挂起单据 POST /mfunck/cancelHangUpCkdocByCkdjId
  * 参数类：setModel
  * {
@@ -2426,7 +2420,7 @@
  * }
  * 返回 jsonModel  20002成功 50002失败
  */
-/**
+        /**
  * TODO 根据出库明细id修改分拣方式 POST /mfunck/editCkDocsFJFSByCkmxId
  * 参数 参数对象：paramsModel
  * {
@@ -2437,7 +2431,7 @@
  * }
  * 返回 jsonModel  20002成功 50002失败
  */
-/**
+        /**
  * TODO 根据任务ID填写实际到车时间 POST /mfunck/editSJdcsjByCkrwId
  * 参数类：setModel
  * {
@@ -2447,7 +2441,7 @@
  * }
  * 返回jsonModel 20002成功 50002失败
  */
-/**
+        /**
  * TODO 根据任务Id下发任务 POST /mfunck/issuedCkrw
  * 参数 参数对象：setModel
  * {
@@ -2458,7 +2452,7 @@
  * }
  * 返回 jsonModel  20002成功 50002失败
  */
-/**
+        /**
  * TODO 挑选任务单据分页查询 POST /mfunck/selectChooseCkrwByPage
  * 参数：参数对象：ckRwDocPageParam
  * {
@@ -2488,7 +2482,7 @@
        "goodsTypeNum": 0,                   品项数
      }
  */
-/**
+        /**
  * TODO 出库任务管理 挑选任务单据完成 POST /mfunck/chooseCompleteByCkrwId
  * 参数类：setModel
  * {
@@ -2500,7 +2494,7 @@
  * }
  * 返回 jsonModel  20002成功 50002失败
  */
- /**
+        /**
  * TODO 激活数据 激活任务单据分页查询 POST /mfunck/selectActivatedCkrwByPage
   * 参数：查询参数对象：ckRwDocPageParam
   * {
@@ -2532,8 +2526,7 @@
        "goodsTypeNum": 0,                   品项数
      }
  */
- /
-/**
+        /**
  * TODO 出库操作 操作出库单据分页查询 POST /mfunck/selectOperateCkDocByPage
  * 参数 查询参数对象：ckDocPageModel
  * {
@@ -2584,7 +2577,7 @@
       allHeight : null                          总重量
       }
  */
-/**
+        /**
  * TODO 出库发运 出库任务发运单据分页查询 POST /mfunck/selectDespatchCkrwByPage
  * 参数：查询参数对象：ckRwDocPageParam
  * {
@@ -2618,7 +2611,7 @@
         "goodsTypeNum": 0,                   品项数
       }
  */
-/**
+        /**
  * TODO 回收存档 回收存档出库单据分页查询 POST /mfunck/selectConserveCkDocByPage
  * 参数 查询参数对象：ckDocPageModel
  * {
@@ -2663,7 +2656,7 @@
       allHeight : null                          总重量
       }
  */
-/**
+        /**
  * TODO 出库单管理 根据发运任务Id查询状态为（部分出库，全部出库）的出库单 POST /mfunck/selectDespatchCkDocByCkrwId
  * 参数类 setModel
  * {
@@ -2671,14 +2664,14 @@
  *  }
  *  返回jsonModel mfunckDoc 出库单集合
  */
-/**
+        /**
  * TODO 出库任务管理 修改出库发运数量 POST /mfunck/editGoodsCountByMfunckDocs
  * 参数类 mfunckDocs（出库明细集合）
  * 实例：
  *
  *
  */
-/*
+        /*
  *  TODO 欠货补发信息
  *   补发单号
  *   补发情况
@@ -2977,7 +2970,6 @@
 
 
         */
-
     /**
          * TODO 盘点查询
          */
@@ -3034,90 +3026,184 @@
      * TODO 库内管理
      */
     /**
-     * 库存转移
-     */
+ *TODO 库位转移
+ *
+ */
         /**
-     *  TODO 库存管理 分页 根据货品id 库位id 仓库id 合并获取库存单据 POST /repertory/groupPage
-         {
-  "data": [
-    {
-      "mrRepertoryId": 107,
-      "mrLocationId": 3,
-      "mrGoodsId": 13,
-      "mrGoodsBatch": "2017-04-26",
-      "mrDwid": 1,
-      "mrCount": 40,
-      "mrDxjCount": 0,
-      "mrDjCount": 0,
-      "mrDjStatus": true,
-      "mrDzyCount": 0,
-      "mrKcydsj": 1493197331000,
-      "mrArehouseId": 1,
-      "kyCount": 40,
-      "baseLocation": {
-        "blLocationId": 3,
-        "blLname": "H16-39-A4",
-        "blRegionId": 1,
-        "blLtray": 21,
-        "blLorder": 3,
-        "blStatus": 1,
-        "blArehouseId": 1
-      },
-      "baseGoods": {
-        "bgGoodsId": 13,
-        "bgGoodsNo": "13701003002",
-        "bgGoodsName": "电热锅、JK-28R2（28R2-A）、红色+黑色+不锈钢一体、3L、220V、2100W、50HZ、内销、I类结构",
-        "bgNamejc": "电热锅、JK-28R2（28R2-A）、红色+黑色+不锈钢一体、3L、220V、2100W、50HZ、内销、I类结构",
-        "bgT": null,
-        "bgI": null,
-        "bgHsl": 4,
-        "bgZxdw": 8,
-        "bgSzdw": 1,
-        "bgStatus": 1,
-        "bgArehouseId": 1,
-        "bgClientId": 2,
-        "bgGoodsType": "",
-        "bgGoodsTj": 23.83,
-        "bgGoodsZl": 2,
-        "bgGoodsPrice": null,
-        "bgCreatetime": 1488942628000,
-        "bgRemarks": "",
-        "bgGoodsGg": "",
-        "baseDws": null
-      },
-      "baseDw": {
-        "bdDwId": 1,
-        "bdName": "台",
-        "bdStatus": 2,
-        "bdIsdel": true,
-        "bdCreatetime": 1488786104000
-      },
-      "baseArehouse": {
-        "baArehouseId": 1,
-        "baName": "九阳齐河仓",
-        "baAddr": "齐河",
-        "baScity": "济南",
-        "baScontacts": "联系人1",
-        "baPhone": "13267890789",
-        "baAcreage": "baAcreage",
-        "baCtype": "baCtype",
-        "baHumidity": "baHumidity",
-        "baFax": "baFax",
-        "baPostoffice": "baPostoffice",
-        "baIsti": 1,
-        "baStatus": 1,
-        "baClientId": 1,
-        "baRemarks": "baRemarks",
-        "baCreatetime": 1488092935000,
-        "baPgroupinfo": null,
-        "arehouseKqs": null
-      },
-      "baseArehouseKq": null
-    }
-  ],
-  "draw": 0,
-  "recordsTotal": 1,
-  "recordsFiltered": 1
+ * TODO 0 分页查询库位转移 POST /stockZyDoc/page
+ * {
+          "startTimeParam": "string",     开始时间
+          "endTimeParam": "string",       结束时间
+          "zyStatus": 0,                  转移状态
+          "zyMentionUserName": "string",  提起人
+          "zyCreateUserName": "string",   创建人
+          "pageNum": 0,
+          "pageSize": 0,
+          "draw": 0
+        }
+ *
+ */
+        /**
+ * TODO 1 新增   POST /stockZyDoc
+ * {
+            "zyMentionUserId": 1,                 提起人id
+            "zyMentionUserName": "string",        提起人名称
+            "zyReason": "string",                 转移原因
+            "zyStatus": "0",                      转移状态
+            "zyCreateUserId": 1,                  创建人id
+            "zyCreateUserName": "string",         创建人名称
+            "zyConfirmUserId": 1,                 确认人id
+            "zyConfirmUserName": "string",        确认人名称
+            "zyCancelUserId": 1,                  作废人id
+            "zyCancelUserName": "string",         作废人名称
+            "zyArehouseId": 1,                    仓库id
+            "zyDocsList": [            转移明细
+                {
+                    "zysRepertoryId": 176,        合并后的库存id
+                    "zysZyBeforeLocationId": 2,   转移前储位id
+                    "zysZyAfterLocationId": 1,    转移后储位id
+                    "zysZyBeforeKyCount": 190,    转移前的可用数量
+                    "zysZyCount": 90              转移数量
+                },
+                {
+                    "zysRepertoryId": 183,
+                    "zysZyBeforeLocationId": 3,
+                    "zysZyAfterLocationId": 1,
+                    "zysZyBeforeKyCount": 720,
+                    "zysZyCount": 100
+                }
+            ]
+        }
+ */
+        /**
+ *  TODO 2 编辑    PUT /stockZyDoc
+ *  {
+            "zyId":9,                                 转移单id
+            "zyMentionUserId": 1,                     提起人id
+            "zyMentionUserName": "string",            提起人名称
+            "zyReason": "string",                     转移原因
+            "zyStatus": "0",                          转移状态
+            "zyCreateUserId": 1,                      创建人id
+            "zyCreateUserName": "string",             创建人名称
+            "zyCreateTime":"2017-04-20T11:56:42.597Z",创建时间
+            "zyConfirmUserId": 1,                     确认人id
+            "zyConfirmUserName": "string",            确认人名称
+            "zyCancelUserId": 1,                      作废人id
+            "zyCancelUserName": "string",             作废人名称
+            "zyArehouseId": 1,                        仓库id
+            "zyDocsList": [                           转移明细id
+                {
+                    "zysRepertoryId": 176,            合并后的库存id
+                    "zysZyBeforeLocationId": 2,       转移前库位id
+                    "zysZyAfterLocationId": 1,        转移后库位id
+                    "zysZyBeforeKyCount": 340,        转移前可用数量
+                    "zysZyCount": 150                 转移数量
+                },
+                {
+                    "zysRepertoryId": 183,
+                    "zysZyBeforeLocationId": 3,
+                    "zysZyAfterLocationId": 1,
+                    "zysZyBeforeKyCount": 720,
+                    "zysZyCount": 200
+                }
+            ]
+        }
+ */
+        /**
+ *  TODO 3 库存管理 分页 根据货品id 库位id 仓库id 合并获取库存单据 POST /repertory/groupPage
+ {
+"data": [
+{
+"mrRepertoryId": 107,
+"mrLocationId": 3,
+"mrGoodsId": 13,
+"mrGoodsBatch": "2017-04-26",
+"mrDwid": 1,
+"mrCount": 40,
+"mrDxjCount": 0,
+"mrDjCount": 0,
+"mrDjStatus": true,
+"mrDzyCount": 0,
+"mrKcydsj": 1493197331000,
+"mrArehouseId": 1,
+"kyCount": 40,
+"baseLocation": {
+"blLocationId": 3,
+"blLname": "H16-39-A4",
+"blRegionId": 1,
+"blLtray": 21,
+"blLorder": 3,
+"blStatus": 1,
+"blArehouseId": 1
+},
+"baseGoods": {
+"bgGoodsId": 13,
+"bgGoodsNo": "13701003002",
+"bgGoodsName": "电热锅、JK-28R2（28R2-A）、红色+黑色+不锈钢一体、3L、220V、2100W、50HZ、内销、I类结构",
+"bgNamejc": "电热锅、JK-28R2（28R2-A）、红色+黑色+不锈钢一体、3L、220V、2100W、50HZ、内销、I类结构",
+"bgT": null,
+"bgI": null,
+"bgHsl": 4,
+"bgZxdw": 8,
+"bgSzdw": 1,
+"bgStatus": 1,
+"bgArehouseId": 1,
+"bgClientId": 2,
+"bgGoodsType": "",
+"bgGoodsTj": 23.83,
+"bgGoodsZl": 2,
+"bgGoodsPrice": null,
+"bgCreatetime": 1488942628000,
+"bgRemarks": "",
+"bgGoodsGg": "",
+"baseDws": null
+},
+"baseDw": {
+"bdDwId": 1,
+"bdName": "台",
+"bdStatus": 2,
+"bdIsdel": true,
+"bdCreatetime": 1488786104000
+},
+"baseArehouse": {
+"baArehouseId": 1,
+"baName": "九阳齐河仓",
+"baAddr": "齐河",
+"baScity": "济南",
+"baScontacts": "联系人1",
+"baPhone": "13267890789",
+"baAcreage": "baAcreage",
+"baCtype": "baCtype",
+"baHumidity": "baHumidity",
+"baFax": "baFax",
+"baPostoffice": "baPostoffice",
+"baIsti": 1,
+"baStatus": 1,
+"baClientId": 1,
+"baRemarks": "baRemarks",
+"baCreatetime": 1488092935000,
+"baPgroupinfo": null,
+"arehouseKqs": null
+},
+"baseArehouseKq": null
+}
+],
+"draw": 0,
+"recordsTotal": 1,
+"recordsFiltered": 1
 }
 
-     */
+ */
+        /**
+ * TODO 4 库存转移 软删除多个或单个库存转移数据  POST  /stockZyDoc/deleteOfSoft
+ */
+        /**
+ * TODO 5 分页获取库存转移单据(包含详细信息) POST /stockZyDoc/selectByPage
+ */
+        /**
+ * TOOD 6  库存转移过程 通过库存转移单据id删除库存转移单据 DELETE /stockZyDoc/{zyId}
+ */
+        /**
+ *  TODO 7 通过库存转移单据id获取一条库存转移单据 GET /stockZyDoc/{zyId}
+ */
+
