@@ -239,10 +239,6 @@
                         </el-form>
                     </template>
                 </el-table-column>
-                <!--<el-table-column-->
-                <!--type="index"-->
-                <!--width="55">-->
-                <!--</el-table-column>-->
                 <el-table-column
                         label="创建时间"
                         show-overflow-tooltip
@@ -252,7 +248,6 @@
                             {{auto_zyCreateTime(scope.row.zyCreateTime,true)}}
                         </span>
                     </template>
-
                 </el-table-column>
                 <el-table-column
                         label="提起人"
@@ -277,6 +272,16 @@
                         show-overflow-tooltip
                         align="center"
                         prop="zyReason">
+                </el-table-column>
+                <el-table-column
+                        label="确认时间"
+                        show-overflow-tooltip
+                        align="center">
+                    <template scope="scope">
+                        <span>
+                            {{auto_zyConfirmTime(scope.row.zyConfirmTime,true)}}
+                        </span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="转移状态"
