@@ -93,7 +93,6 @@
         cursor: pointer;
         padding: 0;
         margin: 0;
-        float: left;
         font-size: 14px;
         color: #1f2d3d;
         margin-top: 29px;
@@ -206,6 +205,13 @@
                                         class="datePicker"
                                         :picker-options="pickerOptions">
                                 </el-date-picker>
+                                <el-select
+                                        v-model="rkRwStatus"
+                                        placeholder="请选择单据类型">
+                                    <el-option label="全部" :value.number="-1"></el-option>
+                                    <el-option label="未被分配" :value.number="0"></el-option>
+                                    <el-option label="已分配" :value.number="1"></el-option>
+                                </el-select>
                                 <button @click="newInput" class="btn btn-add"><i class="icon add"></i><span>添加</span>
                                 </button>
                                 <button @click="importExcel" class="btn btn-import"><i class="icon add"></i><span>导入Excel</span>
@@ -698,6 +704,7 @@
                 multiSelect: false,
                 date: [null, null],           //主页面 选择日期 搜索
                 rkRkdjNo: '',                 //主页面 入库单号 搜索
+                rkRwStatus: 0,                //主页面 入库单任务状态 搜索
                 pickerOptions: {
                     shortcuts: [{
                         text: '最近一周',
@@ -756,7 +763,8 @@
                     "pageSize": this.pageSize,
                     "startTimeParam": tsf_date(this.date[0]),
                     "endTimeParam": tsf_date(this.date[1]),
-                    rkRkdjNo: this.rkRkdjNo
+                    rkRkdjNo: this.rkRkdjNo,
+                    rkRwStatus: this.rkRwStatus
                 }
             },
 
@@ -1194,6 +1202,12 @@
                 }
             },
             rkRkdjNo: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[7].post(this.option);
+            },
+            rkRwStatus: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
