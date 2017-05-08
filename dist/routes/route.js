@@ -612,8 +612,8 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 3:
-                        urlName = '查看';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '查询-入库单号-入库明细';
+                        req = autoUrl(req, '/mfunrkDoc/' + req.query.rkRkdjId, "GET", function (json) {
                             res.send(json);
                         });
                         break;
@@ -624,8 +624,8 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 5:
-                        urlName = '库位名称不允许重复';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '查询-储位';
+                        req = autoUrl(req, '/location/page', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -642,14 +642,38 @@ router.param('_url', function (req, res, next, url) {
             case 'outputAppointment':
                 switch (parseInt(req.params._status)) {
                     case 0:
-                        urlName = '出库预约 获取 根据分页要求获取没有出库任务的出库单信息';
-                        req = autoUrl(req, '/mfunck/selectMfunckDocByPage', "POST", function (json) {
+                        urlName = '出库预约 新增 出库单据/包含出库单明细';
+                        req = autoUrl(req, '/mfunck/add', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 1:
-                        urlName = '出库预约 新增 出库单据/包含出库单明细';
-                        req = autoUrl(req, '/mfunck/add', "POST", function (json) {
+                        urlName = '入库预约-组合';
+                        req = autoUrl(req, '/mfunrkDoc', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '入库预约-新增-入库单';
+                        req = autoUrl(req, '/mfunrkDoc/add', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '入库预约-修改-入库单';
+                        req = autoUrl(req, '/mfunrkDoc', "PUT", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 7:
+                        urlName = '出库预约-查询-出库单';
+                        req = autoUrl(req, '/mfunck/selectMfunckDocByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 8:
+                        urlName = '入库预约-查询-入库单-详细';
+                        req = autoUrl(req, '/mfunrkDocs/byDoc/' + req.query.rkRkdjId, "GET", function (json) {
                             res.send(json);
                         });
                         break;
@@ -657,7 +681,7 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
-             case 'inputDaily':
+            case 'inputDaily':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '入库日报 分页查询';
@@ -689,7 +713,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
-             case 'stockSelect':
+            case 'stockSelect':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '库存查询 分页查询';
@@ -705,7 +729,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
-              case 'inputSelect':
+            case 'inputSelect':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '入库单据查询 分页查询';
@@ -752,7 +776,7 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
-               case 'outputSelect':
+            case 'outputSelect':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '出库单据查询 分页查询';
@@ -1075,8 +1099,6 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
-
-
 
 
 
