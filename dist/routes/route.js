@@ -888,14 +888,14 @@ router.param('_url', function (req, res, next, url) {
             case 'inventorySelect':
                 switch (parseInt(req.params._status)) {
                     case 0:
-                        urlName = '盘点查询  分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '盘点查询  根据查询条件分页查询盘点计划';
+                        req = autoUrl(req, '/mfunpd/selectMfunpdByPage', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 1:
-                        urlName = '盘点查询 盘点详情';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '盘点查询 根据盘点计划ID查询盘点详情';
+                        req = autoUrl(req, '/mfunpd/selectMfunpdDocsByPdsPdId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -952,9 +952,6 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-
-
-
                 }
                 break;
               case 'loopInventory':

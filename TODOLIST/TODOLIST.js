@@ -3967,7 +3967,57 @@
         /**
          * TODO 6 盘点作业 盘点详情页面根据盘点计划ID查询详情 POST /mfunpd/selectPdInfoByPdsPdId
          */
-
+/**
+ * TODO 业务查询
+ */
+    /**
+     * TODO 盘点查询
+     */
+        /**
+        * TODO 0 业务查询 根据查询条件分页查询盘点计划 POST /mfunpd/selectMfunpdByPage
+        * 参数：
+        * {
+               "draw": 0,
+               "pageNum": 1,
+               "pageSize": 10
+          }
+        字段
+        {
+           "data": [
+             {
+               "pdId": 1,
+               "pdType": 0,
+               "pdYdBeginTime": 1493308800000,
+               "pdYdEndTime": null,
+               "pdZyBeginTime": null,
+               "pdZyEndTime": null,
+               "pdCreateTime": 1493349660000,
+               "pdCreateUserId": 1,
+               "pdQrsj": 1493349772000,
+               "pdQrUserId": null,
+               "pdZfsj": null,
+               "pdZfUserId": null,
+               "pdStatus": 0,
+               "pdChargePerson": "",
+               "pdOperator": "",
+               "pdArehouseId": 1,
+               "pdDiffStatus": 1,
+               "mfunpdDocs": [],
+               "mrGoodsIds": null,
+               "rmsUser": null
+             }
+           ],
+           "draw": 0,
+           "recordsTotal": 1,
+           "recordsFiltered": 1
+          }
+        */
+        /**
+         * TODO 1 业务查询 根据盘点计划ID查询盘点详情 POST /mfunpd/selectMfunpdDocsByPdsPdId
+         */
+        /**
+         * TODO 2 导出
+         */
 
 
 
