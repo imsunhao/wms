@@ -162,9 +162,31 @@
             element-loading-text="拼命加载中">
         <el-col :span="24">
             <div class="inner btn-nav">
-                <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
-                        class="icon search"></i><span>详细查询</span>
-                </button>
+                <el-input
+                        v-model="zyMentionUserName"
+                        icon="search"
+                        placeholder="提起人"></el-input>
+                <el-input
+                        v-model="zyCreateUserName"
+                        icon="search"
+                        placeholder="创建人"></el-input>
+                <el-date-picker
+                        v-model="date"
+                        type="daterange"
+                        align="right"
+                        placeholder="创建日期"
+                        class="datePicker"
+                        :picker-options="pickerOptions">
+                </el-date-picker>
+                <el-select
+                        v-model="zyStatus"
+                        placeholder="请选择转移状态">
+                    <el-option label="全部" :value.number="-1"></el-option>
+                    <el-option label="未确认" :value.number="0"></el-option>
+                    <el-option label="已确认" :value.number="1"></el-option>
+                </el-select>
+
+
             </div>
             <el-table
                     :data="stockTransferConfirm"
@@ -231,11 +253,8 @@
                         </el-form>
                     </template>
                 </el-table-column>
-                <!--<el-table-column-->
-                <!--type="index"-->
-                <!--width="55">-->
-                <!--</el-table-column>-->
                 <el-table-column
+                        label="创建时间"
                         label="创建时间"
                         show-overflow-tooltip
                         align="center">
@@ -397,9 +416,6 @@
             size="tiny"
             class="select"
             v-model="dialogSelectVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">详细查询</span>
-        </div>
         <el-form :model="select">
             <el-form-item label="创建日期"
                           :label-width="formLabelWidth">
@@ -484,7 +500,9 @@
                 pageSize: 10,
 
                 date: [null, null],                 //主页面 选择日期 搜索
-                rkRkdjNo: '',                       //主页面 入库单号 搜索
+                zyMentionUserName: '',             //主页面 提起人 搜索
+                zyCreateUserName:'',                 //主页面 创建人 搜索
+                zyStatus:'',                        //主页面 转移状态
 
                 formLabelWidth: '120px',            //表单 配置
                 form: form(),                           //表单 弹出层 信息集合
