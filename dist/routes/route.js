@@ -1006,35 +1006,48 @@ router.param('_url', function (req, res, next, url) {
             case 'comprehensiveInventory':
                 switch (parseInt(req.params._status)) {
                     case 0:
-                        urlName = '全面盘点  分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '全面盘点  全面盘点分页查询';
+                        req = autoUrl(req, '/mfunpd/selectQMPDByPage', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 1:
-                        urlName = '全面盘点 新增';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '全面盘点 新增全面盘点计划及明细';
+                        req = autoUrl(req, '/mfunpd/insertQMMfunpdDocAndDocs', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
-                        urlName = '全面盘点 分配任务';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '全面盘点 根据盘点明细id重盘（修改状态)';
+                        req = autoUrl(req, '/mfunpd/againPdByPdsId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                       case 3:
-                        urlName = '全面盘点 盘点详情';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '全面盘点 根据盘点明细id分配任务';
+                        req = autoUrl(req, '/mfunpd/allocatingTaskByPdsId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                       case 4:
-                        urlName = '全面盘点 盘点确认';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '全面盘点 根据盘点计划id确认盘点信息（修改库存）';
+                        req = autoUrl(req, '/mfunpd/confirmPdDocByPdId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
+                        case 5:
+                        urlName = '全面盘点 分配任务页面根据盘点计划ID查询详情';
+                        req = autoUrl(req, '/mfunpd/selectPdInfoByPdId', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                        case 6:
+                        urlName = '全面盘点 根据盘点计划id确认盘点信息（修改库存）';
+                        req = autoUrl(req, '/mfunpd/selectPdInfoByPdsPdId', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
 
                 }
                 break;

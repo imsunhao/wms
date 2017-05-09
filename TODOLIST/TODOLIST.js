@@ -3943,6 +3943,30 @@
         /**
          * TODO 6 盘点作业 盘点详情页面根据盘点计划ID查询详情  POST /mfunpd/selectPdInfoByPdsPdId
          */
+    /**
+    * TODO 全面盘点
+    */
+        /**
+         * TODO 0  盘点查询 全面盘点分页查询 POST /mfunpd/selectQMPDByPage
+         */
+        /**
+         * TODO 1 盘点作业 新增全面盘点计划及明细  POST /mfunpd/insertQMMfunpdDocAndDocs
+         */
+        /**
+         *  TODO 2 盘点作业 根据盘点明细id重盘（修改状态)  POST /mfunpd/againPdByPdsId
+         */
+        /**
+         * TODO 3 盘点作业 根据盘点明细id分配任务  POST /mfunpd/allocatingTaskByPdsId
+         */
+        /**
+         * TODO 4 盘点作业 根据盘点计划id确认盘点信息（修改库存） POST /mfunpd/confirmPdDocByPdId
+         */
+        /**
+         * TODO 5 盘点作业 分配任务页面根据盘点计划ID查询详情  POST /mfunpd/selectPdInfoByPdId
+         */
+        /**
+         * TODO 6 盘点作业 盘点详情页面根据盘点计划ID查询详情 POST /mfunpd/selectPdInfoByPdsPdId
+         */
 
 
 
