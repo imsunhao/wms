@@ -263,7 +263,14 @@
           "label": "关于本系统",
           "url":"page/aboutThisSystem",
           "bmMenuIcon":"g1"
+        },
+          {
+          "id":48,
+          "label": "测试页面",
+          "url":"page/testPage",
+          "bmMenuIcon":""
         }
+
       ]
     }
   ]
