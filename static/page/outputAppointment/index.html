@@ -295,7 +295,7 @@
                                                                 size="small"
                                                                 type="info"
                                                                 @click="inlineRetentionInput(props.$index, props.row)">
-                                                            滞留入库
+                                                            滞留出库
                                                         </el-button>
                                                         <el-button
                                                                 size="small"
@@ -472,7 +472,7 @@
                     :active="dialogFormActive"
                     finish-status="success">
                 <el-step title="基础信息"></el-step>
-                <el-step title="入库明细"></el-step>
+                <el-step title="出库明细"></el-step>
             </el-steps>
         </div>
         <el-form :model="form" ref="newForm">
@@ -730,10 +730,15 @@
                     "pageSize": this.pageSize,
                     "startTimeParam": tsf_date(this.date[0]),
                     "endTimeParam": tsf_date(this.date[1]),
-                    ckCkdjNo: this.ckCkdjNo
+
+                    ckCkdjNo: this.ckCkdjNo,
+
+                    "ckStatus": -1,
+                    "ckCkdjClientname": "",
+                    "ckCkdjType": -1,
+                    "ckArehouseId": -1
                 }
             },
-
         },
         methods: {
             View: function (index, row) {
@@ -797,7 +802,7 @@
             },                                 //行内按钮-作废
             inlineRetentionInput: function (index, row) {
                 var _this = this;
-                _this.$confirm('确定滞留入库？ 单号：' + row.ckCkdjNo, '提示', {
+                _this.$confirm('确定滞留出库？ 单号：' + row.ckCkdjNo, '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -812,7 +817,7 @@
                         message: '已取消操作'
                     });
                 });
-            },                        //行内按钮-滞留入库
+            },                        //行内按钮-滞留出库
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -1028,7 +1033,7 @@
                 else {
                     callback();
                 }
-            },                 //validate 入库单号
+            },                 //validate 出库单号
             formValidateField: function (formName) {
 //                console.log(outputAppointment.$refs[formName]);
 //                console.log(outputAppointment.$refs);
@@ -1106,7 +1111,7 @@
                     }
                     return '未知的仓库'
                 }
-            },                            //入库仓库id 自动匹配
+            },                            //出库仓库id 自动匹配
             auto_ckXdsj: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
@@ -1196,7 +1201,7 @@
     });
     var obj = outputAppointment;
     var p = [];
-    // 0 新增-入库预约
+    // 0 新增-出库预约
     p[0] = autoPost({
         urlHock: "/hock/outputAppointment/page.json",
         urlProd: "/route/outputAppointment/0",
@@ -1245,7 +1250,7 @@
             }
         }
     });
-    // 2 新增-入库单
+    // 2 新增-出库单
     p[2] = autoPost({
         urlHock: "../../hock/form/inputOption.json",
         urlProd: "/route/outputAppointment/2",
@@ -1271,7 +1276,7 @@
             }
         }
     });
-    // 3 编辑-入库单
+    // 3 编辑-出库单
     p[3] = autoPost({
         urlHock: "../../hock/form/inputOption.json",
         urlProd: "/route/outputAppointment/3",
@@ -1296,7 +1301,7 @@
             }
         }
     });
-    // 7 入库预约分页查询接口
+    // 7 出库预约分页查询接口
     p[7] = autoPost({
         urlHock: "/hock/outputAppointment/page.json",
         urlProd: "/route/outputAppointment/7",
@@ -1309,7 +1314,7 @@
             /*</debug>*/
         }
     });
-    // 8 入库单 详细信息
+    // 8 出库单 详细信息
     p[8] = autoPost({
         urlHock: "../../hock/form/inputOption.json",
         urlProd: "/route/outputAppointment/8"
@@ -1318,7 +1323,7 @@
     function CombinationDetails() {
         return {
             rkrwId: '',         //id
-            rkrwNo: '',         //入库任务号
+            rkrwNo: '',         //出库任务号
             rkrwDhrq: '',       //预计到货日期
             rkrwDbd: '',        //调拨地
             rkrwCys: '',        //承运商
@@ -1348,29 +1353,35 @@
     function form() {
         return {
             ckCkdjId: '',
+            "ckCkdjNo": "CK1482398743793",
+            "ckErpNo": "hk45645",
+            "ckCkdjClientno": "hlcs2001",
+            "ckCkdjClientname": "济南华联超市王舍人店",
+            "ckContacts": "张三丰",
+            "ckTel": "18856568985",
+            "ckAdress": "济南市历城区工业北路",
+            "ckYfhsj": "2017-04-17T05:46:21.260Z",
+            "ckRemarks": "备注",
+            "userId": 2,
+            "mfunckDocs": [
+                {
+                    "cksGoodsId": 1,
+                    "cksGoodsCount": 50,
+                    "cksDwid": 1,
+                    "cksCkfs": "先进先出",
+                    "cksZdpc": "X",
+                    "cksLocationId": 1
+                },
+                {
+                    "cksGoodsId": 2,
+                    "cksGoodsCount": 100,
+                    "cksDwid": 2,
+                    "cksCkfs": "先进先出",
+                    "cksZdpc": "X",
+                    "cksLocationId": 1
+                }
+            ],
 
-
-            ckCkdjNo: '',
-            ckErpNo: '',
-            ckCkdjType: '',
-            ckCkdjClientno: '',
-            ckCkdjClientname: '',
-            ckContacts: '',
-            ckTel: '',
-            ckAdress: '',
-            ckXdsj: '',
-            ckBjsj: '',
-            ckYfhsj: '',
-            ckRemarks: '',
-            ckStatus: 1,
-            ckIsauto: '',
-            ckCksj: '',
-            ckStartwith: '',
-            ckIsyadan: '',
-            ckIsqianhuo: '',
-            ckRwStatus: '',
-            ckQhStatus: '',
-            ckZlStatus: '',
 
             title: '新建出库单',
 
@@ -1396,28 +1407,45 @@
             selectGood: selectGood(),
             saveARkDocsList: true,
             deleteARkDocsList: true
-        };
+        }
+            ;
     }
 
     function post_form() {
         return {
-            "rkRkdjId": "",
-            "ckCkdjNo": "L0197168",
-            "rkType": "1",
-            "rkGysmc": "供应商001",
-            "rkRemarks": "备注",
-            "rkUserId": 1,
-            "rkCreatetime": "2017-04-11T06:35:12.029Z",
-            "rkCreateUserId": 1,
-            "rkZdfs": 1,
-            "rkStartwith": 2,
-            "rkStatus": 31,
-            "rkArehouseId": 1,
-            "rkClientId": 1,
-            "rkPrintcount": 0,
-            "rkRwId": 1,
-            "rkRwStatus": "51",
-            ckDocsList: []
+            "ckCkdjId":"",
+            "ckCkdjNo": "CK1482398743793",
+            "ckErpNo": "hk45645",
+            "ckCkdjType": 0,
+            "ckCkdjClientno": "hlcs2001",
+            "ckCkdjClientname": "济南华联超市王舍人店",
+            "ckContacts": "张三丰",
+            "ckTel": "18856568985",
+            "ckAdress": "济南市历城区工业北路",
+            "ckYfhsj": "2017-04-17T05:46:21.260Z",
+            "ckRemarks": "备注",
+            "ckIsyadan": 0,
+            "ckIsqianhuo": 0,
+            "ckArehouseId": 1,
+            "ckClientId": 1,
+            "ckEndtime": "2017-04-17T05:46:21.261Z",
+            "userId": 2,
+            "mfunckDocs": [
+                {
+                    "cksGoodsId": 1,
+                    "cksGoodsCount": 50,
+                    "cksDwid": 1,
+                    "cksCkfs": "先进先出",
+                    "cksZdpc": "X"
+                },
+                {
+                    "cksGoodsId": 2,
+                    "cksGoodsCount": 100,
+                    "cksDwid": 2,
+                    "cksCkfs": "先进先出",
+                    "cksZdpc": "X"
+                }
+            ]
         }
     }
 
@@ -1499,7 +1527,7 @@
 //        $.ajax(url, {
 //            type: "GET",
 //            data: option | {
-//                "id": 1                        //* 入库单号id
+//                "id": 1                        //* 出库单号id
 //            },
 //            error: function (error) {
 //                errorTip(obj, error);

@@ -1427,10 +1427,12 @@
          *   allCount 总数量
          *   allTj 总体积
          */
+
         /** TODO 8 入库单 详细信息
          *
          *
          * */
+
     /**
      *      TODO 入库任务 warehousingTask
          */
@@ -2134,11 +2136,14 @@
             /**
              *  TODO 6 数量不允许为负数
              */
-    /**
+
+
+
+        /**
              TODO 出库预约
 
              **/
-        /**
+            /**
              * 7 TODO 出库预约 获取 根据分页要求获取没有出库任务的出库单信息 POST /mfunck/selectMfunckDocByPage
              *
              *
@@ -2199,7 +2204,7 @@
                   "ckCkdjNo": "CK1482398743793",（必填）
                   "ckErpNo": "hk45645",
                   "ckCkdjClientno": "hlcs2001",（必填）
-                  "ckCkdjClientname": "济南华联超市王舍人店",（必填）
+                  "ckCkdjClientname": "TODO 新加客户",（必填）
                   "ckContacts": "张三丰",（必填）
                   "ckTel": "18856568985",（必填）
                   "ckAdress": "济南市历城区工业北路",（必填）
@@ -2213,7 +2218,7 @@
                       "cksGoodsId": 1,（必填）
                       "cksGoodsCount": 50,（必填）
                       "cksDwid": 1,（必填）
-                      "cksCkfs": "先进先出",（必填）（先进先出,指定批次,指定库位(x：p：k) 默认x）
+                      "cksCkfs": "TODO 先进先出",（必填）（先进先出,指定批次,指定库位(x：p：k) 默认x）
                       "cksZdpc": "X",(根据出库方式选填)
                       "cksLocationId": 1 (根据出库方式选填)
                     },
@@ -2251,7 +2256,84 @@
              * ]
              * }
              */
-        /**
+
+/**
+ *  TODO 1 出库预约-组合  /mfunck/insertCkrw
+
+ {
+  "ckrwNo": "CK20170509-03",
+  "ckrwYjdcsj": "2017-04-18T03:45:44.353Z",
+  "ckrwCph": "鲁A56895",
+  "ckrwQhStatus": "1",
+  "ckrwZlStatus": "1",
+  "ckrwWls": "佳怡物流",
+  "ckrwArehouseId": 1,
+  "ckrwClientId": 1,
+"userName":"超级管理员",
+  "ckCkdjIds": [
+    43,
+    44
+  ]
+}
+
+
+ *
+ */
+
+/**
+ *  TODO 3 出库预约-修改-出库单
+ *
+ *
+ */
+/**
+ *  TODO 8 出库预约-查询-出库单-详细 /mfunck/checkMfunckDocsByCkdjId
+ *
+ *
+ {
+  "id": 29
+}
+ *
+ *
+ */
+/**
+ *  TODO 9 出库预约-查询-出库单据-出库单号 /mfunck/mfunckdocAdd
+ *
+ *
+ *
+ *  {
+  "status": 20000,
+  "model": "CK1494319702504"
+}
+ *
+ *
+ */
+/**
+ *  TODO 10 出库预约-查询-出库任务-出库单号 /mfunck/greatCkrwNo
+ *
+ *
+ {
+  "status": null,
+  "model": "CK20170509-01"
+}
+ *
+ *
+ */
+/**
+ *  TODO 11 出库预约-作废-出库单据-出库单号 POST /mfunck/cancelMfunckDocByCkdjId
+ *
+ *
+ *
+ {
+  "id": 0
+ }
+ *
+ *
+ */
+
+
+
+
+/**
  * TODO 出库单管理 根据出库单Id查询出库明细详情 POST /mfunck/checkMfunckDocsByCkdjId
  * 参数类： setModel
  * {
@@ -2313,6 +2395,9 @@
  * }
  * 返回 jsonModel 20002 成功 50002 失败！
  */
+
+
+
     /**
          * TODO 出库任务
          */
@@ -2680,8 +2765,7 @@
  *
  *
  */
-        /*
- *  TODO 欠货补发信息
+        /**  TODO 欠货补发信息
  *   补发单号
  *   补发情况
  *   欠货备注
@@ -2741,11 +2825,160 @@
          上架人员    mdtUserId(多个上架人员,在一列显示逗号隔开)
          上架时间    mdtSjsj
          */
-    /**
- * TODO 出库单据查询
+
+/**
+ * TODO 0 出库任务-查询-任务单 /mfunck/selectMfunckRwByPage
+ */
+/**
+ * TODO 1 出库任务-查询-任务单-详情 /mfunck/selectMfunckRwByPage
+ */
+/**
+ * TODO 2 出库任务-查询-任务单-详细-明细 /mfunck/checkMfunckDocsByCkdjId
+ */
+/**
+ * TODO 3 出库任务-下发 /mfunck/issuedCkrw
+ *
+ {
+  "ids": [
+    1,2,3
+  ],
+  "userName": "超Q"
+}
+ */
+/**
+ * TODO 4 出库任务-倒车 /mfunck/editSJdcsjByCkrwId
+ *
+ {
+  "id": 10,
+  "ckrwSjdcsj": "2017-05-08T03:14:27.609Z",
+  "userName": "张三"
+}
+ */
+/**
+ * TODO 5 出库任务-修改-任务单 /mfunck/editCkrw
+ *
+ *
+ {
+   "ckrwId":10,
+   "ckrwNo": "CK20170509-03",
+   "ckrwYjdcsj": "2017-04-18T03:45:44.353Z",
+   "ckrwCph": "鲁A56895",
+   "ckrwQhStatus": "1",
+   "ckrwZlStatus": "1",
+   "ckrwWls": "佳怡物流",
+   "ckrwArehouseId": 1,
+   "ckrwClientId": 1,
+ "userName":"超级管理员",
+   "ckCkdjIds": [
+     43,
+     44
+   ]
+ }
+
+ */
+/**
+ * TODO 6 出库任务-取消任务 /mfunck/checkMfunckDocsByCkdjId
+
+ {
+  "id": 10,
+  "userName": "张三"
+}
+
+ */
+/**
+ * TODO 7 出库任务-挂起单据 /mfunck/hangUpCkdocByCkdjId
+ *
+ *ids 为 出库单id
+ {
+  "id": 10,
+  "userName": "string"
+}
+ */
+/**
+ * TODO 8 出库任务-取消挂起 /mfunck/cancelHangUpCkdocByCkdjId
+ *
+ *ids 为 出库单id
+ {
+   "id":10,
+   "userName": "string"
+ }
+ */
+/**
+ * TODO 9 出库任务-修改分拣方式 /mfunck/editCkDocsFJFSByCkmxId
+ *
+ *
+ {
+  "cksCkmxId": 1,
+  "cksCkfs": "X"
+}
+
+
+ 库位
+ {
+  "cksCkmxId": 14,
+  "cksCkfs": "K",
+"cksLocationId": 1
+}
+
+ 批次    TODO 日期
+
+ {
+  "cksCkmxId": 14,
+  "cksCkfs": "P",
+"cksZdpc": 1
+}
+
+ */
+
+
+
+/**
+ * TODO 挑选单据
  */
         /**
-         *  TODO 分页查询 POST /mfunck/findMfunckDocByPage
+         *  TODO 0 挑选单据-查询-任务单据 POST /mfunck/selectChooseCkrwByPage
+         *
+         *
+         *
+         *
+         {
+           "draw": 0,
+           "ckrwNo": "",               任务单号（可模糊查询）
+           "ckrwCph": "",              车牌号（可模糊查询）
+           "ckrwWls": "",              物流商（可模糊查询）
+           "ckrwStartGreatTime": "",   制作开始时间
+           "ckrwEndGreatTime": "",     制作结束时间
+           "pageNum": 1,               页码
+           "pageSize": 10              当页条数
+         }
+         */
+        /**
+         *  TODO 1 挑选单据-挑选完成 POST /mfunck/chooseCompleteByCkrwId
+         *
+         *
+         *ids 为 出库单id
+         {
+           "ids":[2],
+           "userName": "string"
+         }
+         *
+         */
+/**
+ * TODO 激活单据
+ */
+
+/**
+ * TODO 0 激活单据-查询-任务单 /mfunck/selectActivatedCkrwByPage
+ */
+/**
+ * TODO 1 激活任务
+ */
+
+
+
+
+
+        /**
          *  参数类：ckDocPageModel
          *  实例：
          *  {
