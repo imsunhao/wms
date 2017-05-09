@@ -7,10 +7,6 @@
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
-                <button
-                        class="btn btn-edit"
-                        @click="handleDelete">制作台账
-                </button>
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i class="icon sel"></i><span>多选</span>
                 </button>
                 <button
@@ -129,12 +125,6 @@
                                     <el-form-item label="可用操作">
                                         <el-button
                                                 size="small"
-                                                icon="delete"
-                                                type="danger"
-                                                @click="deleteOlder(props.$index, props.row)">
-                                        </el-button>
-                                        <el-button
-                                                size="small"
                                                 type="success"
                                                 @click="inlineExport(props.$index, props.row)">导出
                                         </el-button>
@@ -142,6 +132,11 @@
                                                 size="small"
                                                 @click="inlineOweEnd(props.$index, props.row)">欠货完结
                                         </el-button>
+                                           <el-button
+                                                size="small"
+                                                @click="inlineProductionLedger(props.$index, props.row)">制作台账
+                                        </el-button>
+
                                     </el-form-item>
                                     <el-form-item label="备注">
                                         <el-tooltip class="item" effect="dark" :content="props.row.remarks"
@@ -230,160 +225,6 @@
             </div>
         </el-col>
     </el-row>
-    <el-dialog
-            size="small"
-            v-model="dialogFormVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">新建入库单</span>
-            <el-steps
-                    class="steps"
-                    :space="120"
-                    :active="dialogFormActive"
-                    finish-status="success">
-                <el-step title="基础信息"></el-step>
-                <el-step title="入库明细"></el-step>
-            </el-steps>
-        </div>
-        <el-form :model="form" ref="newForm">
-            <el-carousel
-                    ref="carousel"
-                    :autoplay="false"
-                    arrow="never"
-                    indicator-position="none"
-                    height="55vh">
-                <el-carousel-item>
-                    <el-row>
-                        <el-col :span="24"><h3>入库基础信息</h3></el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="10">
-                            <el-form-item label="入库单号" :label-width="formLabelWidth">
-                                <el-input v-model="form.rkRkdjNo" auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item label="订单类型" :label-width="formLabelWidth">
-                                <el-select v-model="form.rkType" placeholder="请选择单据类型">
-                                    <el-option label="采购订单" :value="0"></el-option>
-                                    <el-option label="仓间挑拨" :value="1"></el-option>
-                                    <el-option label="退货入库" :value="2"></el-option>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item label="入库备注" :label-width="formLabelWidth">
-                                <el-input
-                                        type="textarea"
-                                        :rows="2"
-                                        v-model="form.rkRemarks"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="12" :offset="2">
-                            <el-form-item label="入库状态">
-                                form.rkStatus
-                            </el-form-item>
-                            <el-form-item label="入库数量">
-                                form.number
-                            </el-form-item>
-                            <el-form-item label="入库体积">
-                                form.volume
-                            </el-form-item>
-                            <el-form-item label="制作方式">
-                                form.zdfs=1 手动
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                </el-carousel-item>
-                <el-carousel-item>
-                    <el-row>
-                        <el-col :span="24"><h3>入库明细</h3></el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="12">
-                            <el-form-item label="货品编号" :label-width="formLabelWidth">
-                                <el-autocomplete
-                                        v-model="form.bgGoodsNo"
-                                        :fetch-suggestions="querySearchAsync"
-                                        @select="GoodSelect"
-                                        auto-complete="off"></el-autocomplete>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="12">
-                            <el-form-item
-                                    label="货品数量"
-                                    :label-width="formLabelWidth"
-                                    prop="selectGood.count"
-                                    :rules="{ type: 'number', message: '货品数量必须为数字值'}">
-                                <el-input
-                                        type="count"
-                                        :disabled="form.selectGood.value==''"
-                                        v-model.number="form.selectGood.count"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="8">
-                            <el-form-item label="货品编号" :label-width="formLabelWidth">
-                                {{form.selectGood.value}}
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="8">
-                            <el-form-item label="货品名称" :label-width="formLabelWidth">
-                                {{form.selectGood.bgGoodsName}}
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="8">
-                            <el-form-item label="货品数量" :label-width="formLabelWidth">
-                                {{form.selectGood.count}}
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="8" :offset="16">
-                            <el-button size="small" @click="saveARkDocsList" :disabled="form.saveARkDocsList">保存明细
-                            </el-button>
-                            <el-button size="small" @click="deleteARkDocsList" :disabled="form.deleteARkDocsList"
-                                       type="danger">删除明细
-                            </el-button>
-                        </el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="24" style="margin-top: 5px">
-                            <el-table
-                                    height="200"
-                                    :data="form.rkDocsList"
-                                    @row-click="GoodClick">
-                                <el-table-column
-                                        type="index"
-                                        width="55">
-                                </el-table-column>
-                                <el-table-column
-                                        property="value"
-                                        label="货品编号">
-                                </el-table-column>
-                                <el-table-column
-                                        property="bgGoodsName"
-                                        label="货品名称">
-                                </el-table-column>
-                                <el-table-column
-                                        property="bgDw"
-                                        label="货品单位">
-                                </el-table-column>
-                                <el-table-column
-                                        property="count"
-                                        label="货品数量">
-                                </el-table-column>
-                            </el-table>
-                        </el-col>
-                    </el-row>
-                </el-carousel-item>
-            </el-carousel>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="prev" v-show="dialogFormActive">上一步</el-button>
-            <el-button type="primary" @click="next" v-show="dialogFormActive < 1">下一步</el-button>
-            <el-button type="primary" @click="submit" :loading="submitLoading" v-show="dialogFormActive >= 1">保存
-            </el-button>
-        </div>
-    </el-dialog>
     <el-dialog
             size="small"
             title="导出"
@@ -523,8 +364,189 @@
             </el-button>
         </div>
     </el-dialog>
-</div>
+    <el-dialog
+            size="full"
+            title="制作台账信息"
+            v-model="dialogLedgerVisible">
+        <el-form
+                :model="ledger">
+            <el-carousel
+                    ref="carousel"
+                    :autoplay="false"
+                    arrow="never"
+                    indicator-position="none"
+                    height="55vh">
+                <el-carousel-item>
+                    <el-row>
+                        <el-row>
+                            <el-col :span="8" :offset="0" >
+                                <el-form-item
+                                        label="始发日期"
+                                        :label-width="formLabelWidth">
+                                    {{ledger.rkCreatetime}}
+                                </el-form-item>
+                                <el-form-item
+                                        label="到货日期"
+                                        :label-width="formLabelWidth">
+                                    {{ledger.rkSjsj}}
+                                </el-form-item>
+                                <el-form-item
+                                        label="收货日期"
+                                        :label-width="formLabelWidth">
+                                    {{ledger.rkSjsj}}
+                                </el-form-item>
+                                <el-form-item
+                                        label="调拨地点"
+                                        :label-width="formLabelWidth">
+                                    {{ledger.rkrwDbd}}
+                                </el-form-item>
+                                <el-form-item
+                                        label="承运商"
+                                        :label-width="formLabelWidth">
+                                    {{ledger.rkrwCph}}
+                                </el-form-item>
+                                <el-form-item
+                                        label="车牌号"
+                                        :label-width="formLabelWidth">
+                                    {{ledger.rkrwCph}}
+                                </el-form-item>
+                                <el-form-item
+                                        label="收货人"
+                                        :label-width="formLabelWidth">
+                                    {{ledger.ruUserName}}
+                                </el-form-item>
+                                <el-form-item
+                                        label="收货仓库"
+                                        :label-width="formLabelWidth">
+                                    {{ledger.baName}}
+                                </el-form-item>
+                                <el-form-item
+                                        label="单号"
+                                        :label-width="formLabelWidth">
+                                    {{ledger.rkRkdjNo}}
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8" :offset="0" >
+                                <el-form-item
+                                        label="承运件数(箱)"
+                                        :label-width="formLabelWidth">
+                                    <!--{{ledger.}}-->
+                                </el-form-item>
+                                <el-form-item
+                                        label="方数"
+                                        :label-width="formLabelWidth">
+                                    <!--{{ledger.}}-->
+                                </el-form-item>
+                                <el-form-item
+                                        label="物料编号"
+                                        :label-width="formLabelWidth">
+                                    {{ledger.bgGoodsNo}}
+                                </el-form-item>
+                                <el-form-item
+                                        label="物料描述"
+                                        :label-width="formLabelWidth">
+                                    {{ledger.bgGoodsName}}
+                                </el-form-item>
+                                <el-form-item
+                                        label="台数"
+                                        :label-width="formLabelWidth">
+                                    <!--{{ledger}}-->
+                                </el-form-item>
+                                <el-form-item
+                                        label="件数"
+                                        :label-width="formLabelWidth">
+                                    <!--{{ledger}}-->
+                                </el-form-item>
+                                <el-form-item
+                                        label="方数"
+                                        :label-width="formLabelWidth">
+                                    <!--{{ledger}}-->
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8"  >
+                                <el-form-item
+                                        label="泡沫"
+                                        :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model.number="ledger.rksPm"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item
+                                        label="调拨破损外包"
+                                        :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model.number="ledger.rksDbPswb"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item
+                                        label="源头破损外包"
+                                        :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model.number="ledger.rksYtPswb"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item
+                                        label="调拨破损内保"
+                                        :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model.number="ledger.rksDbPsnb"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item
+                                        label="源头破损内保"
+                                        :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model.number="ledger.rksYtPsnb"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item
+                                    label="缺机/台"
+                                    :label-width="formLabelWidth">
+                                <el-input
+                                        v-model.number="ledger.rksQhsl"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                                <el-form-item
+                                        label="异常原因"
+                                        :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model.number="ledger.rksYcyy"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item
+                                        label="处理结果"
+                                        :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model.number="ledger.rksCljg"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item
+                                        label="破损台数"
+                                        :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model.number="ledger.rksPsts"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item label="结算时间" :label-width="formLabelWidth">
+                                    <el-date-picker
+                                            v-model="ledger.rksJssj"
+                                            type="datetime"
+                                            placeholder="选择结算时间">
+                                    </el-date-picker>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                    </el-row>
+                </el-carousel-item>
+            </el-carousel>
 
+        </el-form>
+        <div slot="footer" >
+            <el-button type="primary" @click="ledgerSubmit" :loading="submitLoading">保存
+            </el-button>
+        </div>
+    </el-dialog>
+</div>
 <style>
     #inputLedger {
         width: 100%;
@@ -696,6 +718,37 @@
             rksBfdh: '',             //补发单号
         }
     }
+    function formLedger() {
+        return {
+            rkCreatetime:'',      //始发日期
+            rkSjsj:'',           //到货日期
+            rkSjsj:'',           //收货日期
+            rkrwDbd:'',         //--调拨地点
+            rkrwCph:'',         //--承运商
+            rkrwCph:'',          // --车牌号
+            ruUserName:'',      //--收货人
+            baName:'',          //--收货仓库
+            rkRkdjNo:'',        //--单号
+            rkErpNo:'',         //-调拨单号
+                                 //承运件数(台)
+                                //承运件数(箱子)
+                                //方数
+            bgGoodsNo:'',      //--物料编号
+            bgGoodsName:'',    //--物料描述
+            rksPm: '',          //--泡沫
+                                //台数
+                               //件数
+                               //方数
+            rksDbPswb: '',   //--调拨破损外包
+            rksYtPswb: '',   //--源头破损外包
+            rksDbPsnb: '',   //--调拨破损内保
+            rksYtPsnb: '',   //--源头破损内保
+            rksYcyy: '',    // --异常原因
+            rksCljg: '',    // ---处理结果
+            rksPsts: '',    // --破损台数
+            rksJssj: '',    // --结算时间
+        }
+    }
     var inputLedger = new Vue({
         el: '#inputLedger',
         prop: {},
@@ -734,7 +787,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-                formLabelWidth: '160px',            //表单 配置
+                formLabelWidth: '120px',            //表单 配置
                 form: {
                     rkRkdjNo: '',
                     rkType: '',
@@ -753,8 +806,11 @@
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
-                end: formEnd(),                     //TODO 欠货完结信息 弹出层 信息集合
+                end: formEnd(),                       //TODO 欠货完结信息 弹出层 信息集合
                 dialogEndVisible: false,            //TODO 欠货完结信息 弹出层 是否可见
+                ledger: formLedger(),                 //TODO 制作台账结信息 弹出层 信息集合
+                dialogLedgerVisible: false,         //TODO 制作台账信息 弹出层 是否可见
+
 
                 distribution: {
                     value: '',
@@ -789,15 +845,35 @@
             },                                      //导出 表单
         },
         methods: {
-            handleEdit: function (index, row) {
-                console.log(index, row);
-            },                                  //测试 行内按钮 有效性
-            handleDelete: function (index, row) {
-                console.log(index, row);
-            },                                //测试 行内按钮 有效性
+            inlineExport:function(){},                                                 //TODO 行内按钮-导出
+            inlineProductionLedger:function(index, row){
+                this.dialogLedgerVisible = true;
+                this.ledger.rksPm=row.rksPm;        //  --泡沫
+                this.ledger.rksDbPswb =row.rksDbPswb;  //--调拨破损外包
+                this.ledger.rksYtPswb =row.rksYtPswb;  //--源头破损外包
+                this.ledger.rksDbPsnb =row.rksDbPsnb;  //--调拨破损内保
+                this.ledger.rksYtPsnb =row.rksYtPsnb;  //--源头破损内保
+                this.ledger.rksQhsl =row.rksQhsl;   //--缺机/台
+                this.ledger.rksYcyy =row.rksYcyy;   //--异常原因
+                this.ledger.rksCljg =row.rksCljg;   //---处理结果
+                this.ledger.rksPsts =row.rksPsts;   //--破损台数
+                this.ledger.rksJssj =row.rksJssj;   //--结算时间
+                this.ledger.rkCreatetime=row.rkCreatetime;//--始发日期
+                this.ledger.rkSjsj =row.rkSjsj ;      //--到货日期
+                this.ledger.rkSjsj =row.rkSjsj ;      //--收货日期
+                this.ledger.rkrwDbd=row.rkrwDbd;     //--调拨地点
+                this.ledger.rkrwCph=row.rkrwCph;     //--承运商
+                this.ledger.rkrwCph=row.rkrwCph;     //--车牌号
+                this.ledger.ruUserName=row.ruUserName; //--收货人
+                this.ledger.baName    =row.baName    ; //--收货仓库
+                this.ledger.rkRkdjNo  =row.rkRkdjNo  ; //--单号
+                this.ledger.rkErpNo   =row.rkErpNo   ; //-调拨单号
+                this.ledger.bgGoodsNo =row.bgGoodsNo ; //--物料编号
+                this.ledger.bgGoodsName=row.bgGoodsName; //--物料描述
+            },                                       //TODO 行内按钮-制作台账
             inlineOweEnd: function () {
                 this.dialogEndVisible = true;
-            },                                              //TODO 行内按钮--欠货完结
+            },                                          //TODO 行内按钮-欠货完结
             filterStatus: function (value, row) {
                 return row.status == value;
             },                                //状态 过滤函数
@@ -863,20 +939,6 @@
                 })
 
             },                                   //多选 删除
-            productionLedger: function () {
-                /*<debug>*/
-                console.log('选中的删除');
-                /*</debug>*/
-                var listID = [];
-                for (var i = 0; i < this.multipleSelection.length; i++) {
-                    remove(this.multipleSelection[i], this.inputLedger);
-                    listID.push(this.inputLedger.rkdjNo);
-                }
-                postDelete(this, {
-                    id: listID
-                })
-
-            },                                   //TODO 多选 制作台账
             export: function () {
                 /*<debug>*/
                 console.log('选中的删除');
@@ -1033,30 +1095,16 @@
             endSubmit: function () {
 
             },
+            ledgerSubmit: function () {
+
+            },
+
             distributionBtn: function () {
                 this.dialogDistributionVisible = !this.dialogDistributionVisible;
             },                                        //分配 控制按钮
             selectSubmit: function () {
                 this.dialogSelectVisible = false;
                 console.log('select!');
-            },
-            deleteOlder: function (index, row) {
-                var _this = this;
-                _this.$confirm('此操作将永久删除该入库单, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(function () {
-                    remove(row, _this.inputLedger);
-                    postDelete(_this, {
-                        id: [row.rkdjNo]
-                    });
-                }).catch(function () {
-                    _this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    });
-                });
             },
             auto_rkCreatetime: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
@@ -1093,7 +1141,6 @@
             }
         }
     });
-
     // 高级 监视器的 使用方法
     inputLedger.$watch('date', function () {
         if (!this.option.dateStart)return;
