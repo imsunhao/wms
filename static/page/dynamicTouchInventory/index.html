@@ -826,7 +826,7 @@
     }
     var obj=dynamicTouchInventory;
     var p=[];
-    // 0 动碰盘点 分页查询
+    // 0 动碰盘点 动碰盘点分页查询
     p[0] = autoPost({
         urlHock: "/hock/dynamicTouchInventory/page.json",
         urlProd: "/route/dynamicTouchInventory/0",
@@ -835,7 +835,7 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-     // 1 动碰盘点
+     // 1 动碰盘点 新增动碰盘点计划及明细
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/dynamicTouchInventory/1",
@@ -843,7 +843,7 @@
 
         }
     });
-      // 2 动碰盘点
+      // 2 动碰盘点 根据盘点明细id分配任务
     p[2] = autoPost({
         urlHock: "",
         urlProd: "/route/dynamicTouchInventory/2",
@@ -851,7 +851,7 @@
 
         }
     });
-      // 3 动碰盘点
+      // 3 动碰盘点 根据盘点计划id确认盘点信息
     p[3] = autoPost({
         urlHock: "",
         urlProd: "/route/dynamicTouchInventory/3",
@@ -859,7 +859,7 @@
 
         }
     });
-    // 4 动碰盘点
+    // 4 动碰盘点 根据盘点明细id重盘（修改状态)
     p[4] = autoPost({
         urlHock: "",
         urlProd: "/route/dynamicTouchInventory/4",
@@ -867,6 +867,23 @@
 
         }
     });
+    // 5 动碰盘点 分配任务页面根据盘点计划ID查询详情
+    p[5] = autoPost({
+        urlHock: "",
+        urlProd: "/route/dynamicTouchInventory/5",
+        success: function (json) {
+        }
+    });
+     // 6 动碰盘点 盘点详情页面根据盘点计划ID查询详情
+    p[6] = autoPost({
+        urlHock: "",
+        urlProd: "/route/dynamicTouchInventory/6",
+        success: function (json) {
+
+        }
+    });
+
+
 
 
 

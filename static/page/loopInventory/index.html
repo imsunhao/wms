@@ -794,7 +794,7 @@
     }
     var obj=loopInventory;
     var p=[];
-    // 0 循环盘点 分页查询
+    // 0 循环盘点 循环盘点分页查询
     p[0] = autoPost({
         urlHock: "/hock/loopInventory/page.json",
         urlProd: "/route/loopInventory/0",
@@ -803,7 +803,7 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-    // 1 循环盘点
+    // 1 循环盘点 新增循环盘点计划及明细
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/loopInventory/1",
@@ -811,7 +811,7 @@
 
         }
     });
-    // 2 循环盘点
+    // 2 循环盘点 根据盘点明细id重盘（修改状态）
     p[2] = autoPost({
         urlHock: "",
         urlProd: "/route/loopInventory/2",
@@ -819,7 +819,7 @@
 
         }
     });
-    // 3 循环盘点
+    // 3 循环盘点 根据盘点明细id分配任务
     p[3] = autoPost({
         urlHock: "",
         urlProd: "/route/loopInventory/3",
@@ -827,7 +827,7 @@
 
         }
     });
-    // 4 循环盘点
+    // 4 循环盘点 根据盘点计划id确认盘点信息（修改库存）
     p[4] = autoPost({
         urlHock: "",
         urlProd: "/route/loopInventory/4",
@@ -835,6 +835,23 @@
 
         }
     });
+    // 5 循环盘点 分配任务页面根据盘点计划ID查询详情
+    p[5] = autoPost({
+        urlHock: "",
+        urlProd: "/route/loopInventory/5",
+        success: function (json) {
+
+        }
+    });
+      // 6 循环盘点 盘点详情页面根据盘点计划ID查询详情
+    p[6] = autoPost({
+        urlHock: "",
+        urlProd: "/route/loopInventory/6",
+        success: function (json) {
+
+        }
+    });
+
     function formAssignment() {
         return {
             pdsLocationId: '',          // 库位名称

@@ -270,6 +270,16 @@
                         prop="zyReason">
                 </el-table-column>
                 <el-table-column
+                        label="确认时间"
+                        show-overflow-tooltip
+                        align="center">
+                    <template scope="scope">
+                        <span>
+                            {{auto_zyConfirmTime(scope.row.zyConfirmTime,true)}}
+                        </span>
+                    </template>
+                </el-table-column>
+                <el-table-column
                         label="转移状态"
                         align="center"
                         width="100">
@@ -726,7 +736,7 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-    // 1 库存转移确认
+    // 1 库存转移确认 通过库存转移单据id确认转移一条转移单
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/stockTransferConfirm/1",
@@ -734,7 +744,7 @@
 
         }
     });
-    // 2 库存转移确认
+    // 2 库存转移确认 软删除多个或单个库存转移数据
     p[2] = autoPost({
         urlHock: "",
         urlProd: "/route/stockTransferConfirm/2",
@@ -742,6 +752,36 @@
 
         }
     });
+     // 3 库存转移确认 分页获取库存转移单据
+    p[3] = autoPost({
+        urlHock: "",
+        urlProd: "/route/stockTransferConfirm/3",
+        success: function (json) {
+
+        }
+    });
+     // 4 库存转移确认  分页获取库存转移单据(包含详细信息)
+    p[4] = autoPost({
+        urlHock: "",
+        urlProd: "/route/stockTransferConfirm/4",
+        success: function (json) {
+        }
+    });
+     // 5 库存转移确认 通过库存转移单据id删除库存转移单据
+    p[5] = autoPost({
+        urlHock: "",
+        urlProd: "/route/stockTransferConfirm/5",
+        success: function (json) {
+        }
+    });
+     // 6 库存转移确认 通过库存转移单据id获取一条库存转移单据
+    p[6] = autoPost({
+        urlHock: "",
+        urlProd: "/route/stockTransferConfirm/6",
+        success: function (json) {
+        }
+    });
+
 
 
 

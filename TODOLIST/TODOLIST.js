@@ -1427,12 +1427,10 @@
          *   allCount 总数量
          *   allTj 总体积
          */
-
         /** TODO 8 入库单 详细信息
          *
          *
          * */
-
     /**
      *      TODO 入库任务 warehousingTask
          */
@@ -1478,7 +1476,6 @@
          *          rkrwDh      司机电话
          *          rkrwStatus  任务状态
          */
-
         /** 1 修改 入库任务管理 更新入库任务单 PUT /mfunrkRwDoc
          *
          *          参数
@@ -2137,12 +2134,11 @@
             /**
              *  TODO 6 数量不允许为负数
              */
-        /**
+    /**
              TODO 出库预约
 
              **/
-
-            /**
+        /**
              * 7 TODO 出库预约 获取 根据分页要求获取没有出库任务的出库单信息 POST /mfunck/selectMfunckDocByPage
              *
              *
@@ -2196,8 +2192,7 @@
                   allHeight : null                          总重量
                 }
              */
-
-            /**
+        /**
              * 0 TODO 出库预约 新增 出库单据/包含出库单明细 POST /mfunck/add
              * 参数
              * {
@@ -2256,7 +2251,7 @@
              * ]
              * }
              */
-/**
+        /**
  * TODO 出库单管理 根据出库单Id查询出库明细详情 POST /mfunck/checkMfunckDocsByCkdjId
  * 参数类： setModel
  * {
@@ -2268,7 +2263,7 @@
  *  mfunckDocs.getBaseDw.getBdName （单位名称）
  *  mfunckDocs.getCksGoodsCount （货品数量）
  */
-/**
+        /**
  * TODO 出库单管理 修改出库单及明细 POST /mfunck/editMfunckDocAndDocs
  * 参数类： mfunckDoc 出库单对象
  * 实例：
@@ -2309,7 +2304,7 @@
     }
  返回 jsonModel 20002 成功 50002 失败！
  */
-/**
+        /**
  * TODO 出库单管理 根据出库单Id作废出库单及明细 POST /mfunck/cancelMfunckDocByCkdjId
  * 参数类 setModel
  * {
@@ -2318,11 +2313,10 @@
  * }
  * 返回 jsonModel 20002 成功 50002 失败！
  */
-
-/**
+    /**
          * TODO 出库任务
          */
-/**
+        /**
              * TODO  出库任务管理 分页查询所有任务状态下的出库任务 POST /mfunck/selectMfunckRwByPage
              * 参数：查询条件 ckRwDocPageParam(参数对象)
              * {
@@ -2360,11 +2354,11 @@
              *
              *
              */
-/**
+        /**
  * TODO 点击新增系统自动生成出库任务单号 POST /mfunck/greatCkrwNo
  * 返回参数 jsonModel  ckCkrwNo(任务单号)
  */
-/**
+        /**
  * TODO 新增出库任务及明细 POST /mfunck/insertCkrw
  * {
       "ckrwNo": "CK20170418-04",                  任务单号（自动生成）
@@ -2380,7 +2374,7 @@
     }
  返回 jsonModel  20002成功 50002失败
  */
-/**
+        /**
  * TODO 根据任务ID查看出库任务详情 POST /mfunck/checkCkrwInfoByCkrwId
  * 参数类：setModel
  * {
@@ -2388,7 +2382,7 @@
  * }
  * 返回 jsonModel ckrwDoc (出库任务对象，包含出库单据以及出库明细)
  */
-/**
+        /**
  * TODO 修改出库任务 POST /mfunck/editCkrw
  * 参数，出库任务对象mfunckRwDoc
  * {
@@ -2404,7 +2398,7 @@
       ]
     }
  */
-/**
+        /**
  * TODO 根据任务ID取消出库任务 POST /mfunck/cancelCkrwByCkrwId
  * 参数类：setModel
  * {
@@ -2413,7 +2407,7 @@
  * }
  * 返回 jsonModel  20002成功 50002失败
  */
-/**
+        /**
  * TODO 根据出库单id挂起单据 POST /mfunck/hangUpCkdocByCkdjId
  * 参数 setModel 对象
  * {
@@ -2425,7 +2419,7 @@
  * }
  * 返回 jsonModel  20002成功 50002失败
  */
-/**
+        /**
  * TODO 根据出库单id取消挂起单据 POST /mfunck/cancelHangUpCkdocByCkdjId
  * 参数类：setModel
  * {
@@ -2434,7 +2428,7 @@
  * }
  * 返回 jsonModel  20002成功 50002失败
  */
-/**
+        /**
  * TODO 根据出库明细id修改分拣方式 POST /mfunck/editCkDocsFJFSByCkmxId
  * 参数 参数对象：paramsModel
  * {
@@ -2445,7 +2439,7 @@
  * }
  * 返回 jsonModel  20002成功 50002失败
  */
-/**
+        /**
  * TODO 根据任务ID填写实际到车时间 POST /mfunck/editSJdcsjByCkrwId
  * 参数类：setModel
  * {
@@ -2455,7 +2449,7 @@
  * }
  * 返回jsonModel 20002成功 50002失败
  */
-/**
+        /**
  * TODO 根据任务Id下发任务 POST /mfunck/issuedCkrw
  * 参数 参数对象：setModel
  * {
@@ -2467,7 +2461,7 @@
  * }
  * 返回 jsonModel  20002成功 50002失败
  */
-/**
+        /**
  * TODO 挑选任务单据分页查询 POST /mfunck/selectChooseCkrwByPage
  * 参数：参数对象：ckRwDocPageParam
  * {
@@ -2497,7 +2491,7 @@
        "goodsTypeNum": 0,                   品项数
      }
  */
-/**
+        /**
  * TODO 出库任务管理 挑选任务单据完成 POST /mfunck/chooseCompleteByCkrwId
  * 参数类：setModel
  * {
@@ -2509,7 +2503,7 @@
  * }
  * 返回 jsonModel  20002成功 50002失败
  */
- /**
+        /**
  * TODO 激活数据 激活任务单据分页查询 POST /mfunck/selectActivatedCkrwByPage
   * 参数：查询参数对象：ckRwDocPageParam
   * {
@@ -2541,8 +2535,7 @@
        "goodsTypeNum": 0,                   品项数
      }
  */
- /
-/**
+        /**
  * TODO 出库操作 操作出库单据分页查询 POST /mfunck/selectOperateCkDocByPage
  * 参数 查询参数对象：ckDocPageModel
  * {
@@ -2593,7 +2586,7 @@
       allHeight : null                          总重量
       }
  */
-/**
+        /**
  * TODO 出库发运 出库任务发运单据分页查询 POST /mfunck/selectDespatchCkrwByPage
  * 参数：查询参数对象：ckRwDocPageParam
  * {
@@ -2627,7 +2620,7 @@
         "goodsTypeNum": 0,                   品项数
       }
  */
-/**
+        /**
  * TODO 回收存档 回收存档出库单据分页查询 POST /mfunck/selectConserveCkDocByPage
  * 参数 查询参数对象：ckDocPageModel
  * {
@@ -2672,7 +2665,7 @@
       allHeight : null                          总重量
       }
  */
-/**
+        /**
  * TODO 出库单管理 根据发运任务Id查询状态为（部分出库，全部出库）的出库单 POST /mfunck/selectDespatchCkDocByCkrwId
  * 参数类 setModel
  * {
@@ -2680,14 +2673,14 @@
  *  }
  *  返回jsonModel mfunckDoc 出库单集合
  */
-/**
+        /**
  * TODO 出库任务管理 修改出库发运数量 POST /mfunck/editGoodsCountByMfunckDocs
  * 参数类 mfunckDocs（出库明细集合）
  * 实例：
  *
  *
  */
-/*
+        /*
  *  TODO 欠货补发信息
  *   补发单号
  *   补发情况
@@ -2986,7 +2979,6 @@
 
 
         */
-
     /**
          * TODO 盘点查询
          */
@@ -3043,90 +3035,953 @@
      * TODO 库内管理
      */
     /**
-     * 库存转移
-     */
+ *TODO 库位转移
+ *
+ */
         /**
-     *  TODO 库存管理 分页 根据货品id 库位id 仓库id 合并获取库存单据 POST /repertory/groupPage
-         {
+ * TODO 0 分页查询库位转移 POST /stockZyDoc/page
+ * {
+          "startTimeParam": "string",     开始时间
+          "endTimeParam": "string",       结束时间
+          "zyStatus": 0,                  转移状态
+          "zyMentionUserName": "string",  提起人
+          "zyCreateUserName": "string",   创建人
+          "pageNum": 0,
+          "pageSize": 0,
+          "draw": 0
+        }
+ *
+ */
+        /**
+ * TODO 1 新增   POST /stockZyDoc
+ * {
+            "zyMentionUserId": 1,                 提起人id
+            "zyMentionUserName": "string",        提起人名称
+            "zyReason": "string",                 转移原因
+            "zyStatus": "0",                      转移状态
+            "zyCreateUserId": 1,                  创建人id
+            "zyCreateUserName": "string",         创建人名称
+            "zyConfirmUserId": 1,                 确认人id
+            "zyConfirmUserName": "string",        确认人名称
+            "zyCancelUserId": 1,                  作废人id
+            "zyCancelUserName": "string",         作废人名称
+            "zyArehouseId": 1,                    仓库id
+            "zyDocsList": [            转移明细
+                {
+                    "zysRepertoryId": 176,        合并后的库存id
+                    "zysZyBeforeLocationId": 2,   转移前储位id
+                    "zysZyAfterLocationId": 1,    转移后储位id
+                    "zysZyBeforeKyCount": 190,    转移前的可用数量
+                    "zysZyCount": 90              转移数量
+                },
+                {
+                    "zysRepertoryId": 183,
+                    "zysZyBeforeLocationId": 3,
+                    "zysZyAfterLocationId": 1,
+                    "zysZyBeforeKyCount": 720,
+                    "zysZyCount": 100
+                }
+            ]
+        }
+ */
+        /**
+ *  TODO 2 编辑    PUT /stockZyDoc
+ *  {
+            "zyId":9,                                 转移单id
+            "zyMentionUserId": 1,                     提起人id
+            "zyMentionUserName": "string",            提起人名称
+            "zyReason": "string",                     转移原因
+            "zyStatus": "0",                          转移状态
+            "zyCreateUserId": 1,                      创建人id
+            "zyCreateUserName": "string",             创建人名称
+            "zyCreateTime":"2017-04-20T11:56:42.597Z",创建时间
+            "zyConfirmUserId": 1,                     确认人id
+            "zyConfirmUserName": "string",            确认人名称
+            "zyCancelUserId": 1,                      作废人id
+            "zyCancelUserName": "string",             作废人名称
+            "zyArehouseId": 1,                        仓库id
+            "zyDocsList": [                           转移明细id
+                {
+                    "zysRepertoryId": 176,            合并后的库存id
+                    "zysZyBeforeLocationId": 2,       转移前库位id
+                    "zysZyAfterLocationId": 1,        转移后库位id
+                    "zysZyBeforeKyCount": 340,        转移前可用数量
+                    "zysZyCount": 150                 转移数量
+                },
+                {
+                    "zysRepertoryId": 183,
+                    "zysZyBeforeLocationId": 3,
+                    "zysZyAfterLocationId": 1,
+                    "zysZyBeforeKyCount": 720,
+                    "zysZyCount": 200
+                }
+            ]
+        }
+ */
+        /**
+ *  TODO 3 库存管理 分页 根据货品id 库位id 仓库id 合并获取库存单据 POST /repertory/groupPage
+ {
+"data": [
+{
+"mrRepertoryId": 107,
+"mrLocationId": 3,
+"mrGoodsId": 13,
+"mrGoodsBatch": "2017-04-26",
+"mrDwid": 1,
+"mrCount": 40,
+"mrDxjCount": 0,
+"mrDjCount": 0,
+"mrDjStatus": true,
+"mrDzyCount": 0,
+"mrKcydsj": 1493197331000,
+"mrArehouseId": 1,
+"kyCount": 40,
+"baseLocation": {
+"blLocationId": 3,
+"blLname": "H16-39-A4",
+"blRegionId": 1,
+"blLtray": 21,
+"blLorder": 3,
+"blStatus": 1,
+"blArehouseId": 1
+},
+"baseGoods": {
+"bgGoodsId": 13,
+"bgGoodsNo": "13701003002",
+"bgGoodsName": "电热锅、JK-28R2（28R2-A）、红色+黑色+不锈钢一体、3L、220V、2100W、50HZ、内销、I类结构",
+"bgNamejc": "电热锅、JK-28R2（28R2-A）、红色+黑色+不锈钢一体、3L、220V、2100W、50HZ、内销、I类结构",
+"bgT": null,
+"bgI": null,
+"bgHsl": 4,
+"bgZxdw": 8,
+"bgSzdw": 1,
+"bgStatus": 1,
+"bgArehouseId": 1,
+"bgClientId": 2,
+"bgGoodsType": "",
+"bgGoodsTj": 23.83,
+"bgGoodsZl": 2,
+"bgGoodsPrice": null,
+"bgCreatetime": 1488942628000,
+"bgRemarks": "",
+"bgGoodsGg": "",
+"baseDws": null
+},
+"baseDw": {
+"bdDwId": 1,
+"bdName": "台",
+"bdStatus": 2,
+"bdIsdel": true,
+"bdCreatetime": 1488786104000
+},
+"baseArehouse": {
+"baArehouseId": 1,
+"baName": "九阳齐河仓",
+"baAddr": "齐河",
+"baScity": "济南",
+"baScontacts": "联系人1",
+"baPhone": "13267890789",
+"baAcreage": "baAcreage",
+"baCtype": "baCtype",
+"baHumidity": "baHumidity",
+"baFax": "baFax",
+"baPostoffice": "baPostoffice",
+"baIsti": 1,
+"baStatus": 1,
+"baClientId": 1,
+"baRemarks": "baRemarks",
+"baCreatetime": 1488092935000,
+"baPgroupinfo": null,
+"arehouseKqs": null
+},
+"baseArehouseKq": null
+}
+],
+"draw": 0,
+"recordsTotal": 1,
+"recordsFiltered": 1
+}
+
+ */
+        /**
+ * TODO 4 库存转移 软删除多个或单个库存转移数据  POST  /stockZyDoc/deleteOfSoft
+ */
+        /**
+ * TODO 5 分页获取库存转移单据(包含详细信息) POST /stockZyDoc/selectByPage
+ */
+        /**
+ * TOOD 6  库存转移过程 通过库存转移单据id删除库存转移单据 DELETE /stockZyDoc/{zyId}
+ */
+        /**
+ *  TODO 7 通过库存转移单据id获取一条库存转移单据 GET /stockZyDoc/{zyId}
+ */
+    /**
+ * TODO 库存转移确认
+ */
+        /**
+ * TODO 0 分页查询库位转移 POST /stockZyDoc/page
+ * {
+          "startTimeParam": "string",     开始时间
+          "endTimeParam": "string",       结束时间
+          "zyStatus": 0,                  转移状态
+          "zyMentionUserName": "string",  提起人
+          "zyCreateUserName": "string",   创建人
+          "pageNum": 0,
+          "pageSize": 0,
+          "draw": 0
+        }
+ *
+ */
+        /**
+ *  TODO 1 库存转移过程 通过库存转移单据id确认转移一条转移单 GET /stockZyDoc/confirmZy/{zyId}
+ */
+        /**
+ * TODO 2 库存转移过程 软删除多个或单个库存转移数据 POST /stockZyDoc/deleteOfSoft
+ */
+        /**
+ * TODO 3 库存转移过程 分页获取库存转移单据 POST /stockZyDoc/page
+ */
+        /**
+ *  TODO 4 库存转移过程 分页获取库存转移单据(包含详细信息) POST /stockZyDoc/selectByPage
+ */
+        /**
+ * TODO 5 库存转移过程 通过库存转移单据id删除库存转移单据 DELETE /stockZyDoc/{zyId}
+ */
+        /**
+ * TODO 6 库存转移过程 通过库存转移单据id获取一条库存转移单据 GET /stockZyDoc/{zyId}
+ */
+    /**
+ * TODO 库存冻结/解冻
+ */
+        /**
+ *      TODO 0 库存冻结过程 分页获取库存冻结单据 POST /stockDjDoc/page
+ *      参数
+        *  {
+         "data": [
+           {
+             "djId": 3,
+             "djReason": "冻结原因",
+             "djStatus": 0,
+             "djCreateUserId": 1,
+             "djCreateTime": 1494238898000,
+             "djCreateUserName": "string",
+             "djDjUserId": 0,
+             "djDjTime": 1493774111000,
+             "djJdUserId": 0,
+             "djJdTime": 1493774111000,
+             "djJdUserName": "",
+             "djZfUserId": 0,
+             "djZfTime": 1493774111000,
+             "djZfUserName": "",
+             "djArehouseId": 0,
+             "djDocsList": []
+           }
+         ],
+         "draw": 0,
+         "recordsTotal": 3,
+         "recordsFiltered": 3
+         }
+ */
+        /**
+ *  TODO 1 库存冻结过程 分页获取库存冻结单据(包含明细) POST /stockDjDoc/selectByPage
+ *  {
   "data": [
     {
-      "mrRepertoryId": 107,
-      "mrLocationId": 3,
-      "mrGoodsId": 13,
-      "mrGoodsBatch": "2017-04-26",
-      "mrDwid": 1,
-      "mrCount": 40,
-      "mrDxjCount": 0,
-      "mrDjCount": 0,
-      "mrDjStatus": true,
-      "mrDzyCount": 0,
-      "mrKcydsj": 1493197331000,
-      "mrArehouseId": 1,
-      "kyCount": 40,
-      "baseLocation": {
-        "blLocationId": 3,
-        "blLname": "H16-39-A4",
-        "blRegionId": 1,
-        "blLtray": 21,
-        "blLorder": 3,
-        "blStatus": 1,
-        "blArehouseId": 1
-      },
-      "baseGoods": {
-        "bgGoodsId": 13,
-        "bgGoodsNo": "13701003002",
-        "bgGoodsName": "电热锅、JK-28R2（28R2-A）、红色+黑色+不锈钢一体、3L、220V、2100W、50HZ、内销、I类结构",
-        "bgNamejc": "电热锅、JK-28R2（28R2-A）、红色+黑色+不锈钢一体、3L、220V、2100W、50HZ、内销、I类结构",
-        "bgT": null,
-        "bgI": null,
-        "bgHsl": 4,
-        "bgZxdw": 8,
-        "bgSzdw": 1,
-        "bgStatus": 1,
-        "bgArehouseId": 1,
-        "bgClientId": 2,
-        "bgGoodsType": "",
-        "bgGoodsTj": 23.83,
-        "bgGoodsZl": 2,
-        "bgGoodsPrice": null,
-        "bgCreatetime": 1488942628000,
-        "bgRemarks": "",
-        "bgGoodsGg": "",
-        "baseDws": null
-      },
-      "baseDw": {
-        "bdDwId": 1,
-        "bdName": "台",
-        "bdStatus": 2,
-        "bdIsdel": true,
-        "bdCreatetime": 1488786104000
-      },
-      "baseArehouse": {
-        "baArehouseId": 1,
-        "baName": "九阳齐河仓",
-        "baAddr": "齐河",
-        "baScity": "济南",
-        "baScontacts": "联系人1",
-        "baPhone": "13267890789",
-        "baAcreage": "baAcreage",
-        "baCtype": "baCtype",
-        "baHumidity": "baHumidity",
-        "baFax": "baFax",
-        "baPostoffice": "baPostoffice",
-        "baIsti": 1,
-        "baStatus": 1,
-        "baClientId": 1,
-        "baRemarks": "baRemarks",
-        "baCreatetime": 1488092935000,
-        "baPgroupinfo": null,
-        "arehouseKqs": null
-      },
-      "baseArehouseKq": null
+      "djId": 3,
+      "djReason": "冻结原因",
+      "djStatus": 0,
+      "djCreateUserId": 1,
+      "djCreateTime": 1494238898000,
+      "djCreateUserName": "string",
+      "djDjUserId": 0,
+      "djDjTime": 1493774111000,
+      "djJdUserId": 0,
+      "djJdTime": 1493774111000,
+      "djJdUserName": "",
+      "djZfUserId": 0,
+      "djZfTime": 1493774111000,
+      "djZfUserName": "",
+      "djArehouseId": 0,
+      "djDocsList": [
+        {
+          "djsId": 5,
+          "djsDjId": 3,
+          "djsRepertoryId": 209,
+          "djsStatus": 1,
+          "mfunRepertory": {
+            "mrRepertoryId": 209,
+            "mrLocationId": 6,
+            "mrGoodsId": 2,
+            "mrGoodsBatch": "2017-05-04",
+            "mrDwid": 2,
+            "mrCount": 100,
+            "mrDxjCount": 0,
+            "mrDjCount": 0,
+            "mrDjStatus": true,
+            "mrDzyCount": 100,
+            "mrKcydsj": null,
+            "mrArehouseId": 1,
+            "kyCount": null,
+            "baseLocation": {
+              "blLocationId": 6,
+              "blLname": "H16-43-A1",
+              "blRegionId": 2,
+              "blLtray": 2,
+              "blLorder": 5,
+              "blStatus": 1,
+              "blArehouseId": 1
+            },
+            "baseGoods": {
+              "bgGoodsId": 2,
+              "bgGoodsNo": "13701002007",
+              "bgGoodsName": "电火锅、JK-40H8（40H8-A）、浅咖色、φ31cm、1300W、220V、50Hz、内销、I类结构",
+              "bgNamejc": "电火锅、JK-40H8（40H8-A）、浅咖色、φ31cm、1300W、220V、50Hz、内销、I类结构",
+              "bgT": 50,
+              "bgI": 1,
+              "bgHsl": 3,
+              "bgZxdw": 2,
+              "bgSzdw": 1,
+              "bgStatus": 1,
+              "bgArehouseId": 1,
+              "bgClientId": 2,
+              "bgGoodsType": "type1",
+              "bgGoodsTj": 11,
+              "bgGoodsZl": 22,
+              "bgGoodsPrice": 33,
+              "bgCreatetime": 1487913251000,
+              "bgRemarks": "任溶溶",
+              "bgGoodsGg": "太太团",
+              "baseDws": null
+            },
+            "baseDw": {
+              "bdDwId": 2,
+              "bdName": "箱",
+              "bdStatus": 1,
+              "bdIsdel": true,
+              "bdCreatetime": 1488786130000
+            },
+            "baseArehouse": null,
+            "baseArehouseKq": null,
+            "baseRegion": null
+          }
+        }
+      ]
     }
   ],
   "draw": 0,
-  "recordsTotal": 1,
-  "recordsFiltered": 1
+  "recordsTotal": 3,
+  "recordsFiltered": 3
 }
+ */
+        /**
+ * TODO 2 库存冻结过程 新增库存冻结单据/包含库存冻结单明细 POST /stockDjDoc
+ * {
+  "djId": 0,
+  "djReason": "string",
+  "djStatus": "string",
+  "djCreateUserId": 0,
+  "djCreateTime": "2017-05-08T10:57:34.368Z",
+  "djCreateUserName": "string",
+  "djDjUserId": 0,
+  "djDjTime": "2017-05-08T10:57:34.368Z",
+  "djJdUserId": 0,
+  "djJdTime": "2017-05-08T10:57:34.368Z",
+  "djJdUserName": "string",
+  "djZfUserId": 0,
+  "djZfTime": "2017-05-08T10:57:34.368Z",
+  "djZfUserName": "string",
+  "djArehouseId": 0,
+  "djDocsList": [
+    {
+      "djsId": 0,
+      "djsDjId": 0,
+      "djsRepertoryId": 0,
+      "djsStatus": "string",
+      "mfunRepertory": {
+        "mrRepertoryId": 0,
+        "mrLocationId": 0,
+        "mrGoodsId": 0,
+        "mrGoodsBatch": "string",
+        "mrDwid": 0,
+        "mrCount": 0,
+        "mrDxjCount": 0,
+        "mrDjCount": 0,
+        "mrDjStatus": true,
+        "mrDzyCount": 0,
+        "mrKcydsj": "2017-05-08T10:57:34.368Z",
+        "mrArehouseId": 0,
+        "kyCount": 0,
+        "baseLocation": {
+          "blLocationId": 0,
+          "blLname": "string",
+          "blRegionId": 0,
+          "blLtray": 0,
+          "blLorder": 0,
+          "blStatus": 0,
+          "blArehouseId": 0
+        },
+        "baseGoods": {
+          "bgGoodsId": 0,
+          "bgGoodsNo": "string",
+          "bgGoodsName": "string",
+          "bgNamejc": "string",
+          "bgT": 0,
+          "bgI": 0,
+          "bgHsl": 0,
+          "bgZxdw": 0,
+          "bgSzdw": 0,
+          "bgStatus": 0,
+          "bgArehouseId": 0,
+          "bgClientId": 0,
+          "bgGoodsType": "string",
+          "bgGoodsTj": 0,
+          "bgGoodsZl": 0,
+          "bgGoodsPrice": 0,
+          "bgCreatetime": "2017-05-08T10:57:34.368Z",
+          "bgRemarks": "string",
+          "bgGoodsGg": "string",
+          "baseDws": [
+            {
+              "bdDwId": 0,
+              "bdName": "string",
+              "bdStatus": 0,
+              "bdIsdel": true,
+              "bdCreatetime": "2017-05-08T10:57:34.369Z"
+            }
+          ]
+        },
+        "baseDw": {
+          "bdDwId": 0,
+          "bdName": "string",
+          "bdStatus": 0,
+          "bdIsdel": true,
+          "bdCreatetime": "2017-05-08T10:57:34.369Z"
+        },
+        "baseArehouse": {
+          "baArehouseId": 0,
+          "baName": "string",
+          "baAddr": "string",
+          "baScity": "string",
+          "baScontacts": "string",
+          "baPhone": "string",
+          "baAcreage": "string",
+          "baCtype": "string",
+          "baHumidity": "string",
+          "baFax": "string",
+          "baPostoffice": "string",
+          "baIsti": 0,
+          "baStatus": 0,
+          "baClientId": 0,
+          "baRemarks": "string",
+          "baCreatetime": "2017-05-08T10:57:34.369Z",
+          "baPgroupinfo": "string",
+          "arehouseKqs": [
+            {
+              "baqKqId": 0,
+              "baqArehouseId": 0,
+              "baqKqName": "string",
+              "baqIsdel": 0,
+              "baqStatus": 0,
+              "baseRegions": [
+                {
+                  "brgRegionId": 0,
+                  "brgArehouseId": 0,
+                  "brgRegionNo": "string",
+                  "brgKqId": 0,
+                  "brgRegionStatus": 0,
+                  "baseLocationList": [
+                    {
+                      "blLocationId": 0,
+                      "blLname": "string",
+                      "blRegionId": 0,
+                      "blLtray": 0,
+                      "blLorder": 0,
+                      "blStatus": 0,
+                      "blArehouseId": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "baseArehouseKq": [
+          {
+            "baqKqId": 0,
+            "baqArehouseId": 0,
+            "baqKqName": "string",
+            "baqIsdel": 0,
+            "baqStatus": 0,
+            "baseRegions": [
+              {
+                "brgRegionId": 0,
+                "brgArehouseId": 0,
+                "brgRegionNo": "string",
+                "brgKqId": 0,
+                "brgRegionStatus": 0,
+                "baseLocationList": [
+                  {
+                    "blLocationId": 0,
+                    "blLname": "string",
+                    "blRegionId": 0,
+                    "blLtray": 0,
+                    "blLorder": 0,
+                    "blStatus": 0,
+                    "blArehouseId": 0
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "baseRegion": {
+          "brgRegionId": 0,
+          "brgArehouseId": 0,
+          "brgRegionNo": "string",
+          "brgKqId": 0,
+          "brgRegionStatus": 0,
+          "baseLocationList": [
+            {
+              "blLocationId": 0,
+              "blLname": "string",
+              "blRegionId": 0,
+              "blLtray": 0,
+              "blLorder": 0,
+              "blStatus": 0,
+              "blArehouseId": 0
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+ *
+ */
+        /**
+ * TODO 3 库存冻结过程 更新库存冻结数据 PUT /stockDjDoc
+ * {
+  "djId": 0,
+  "djReason": "string",
+  "djStatus": "string",
+  "djCreateUserId": 0,
+  "djCreateTime": "2017-05-08T10:57:34.370Z",
+  "djCreateUserName": "string",
+  "djDjUserId": 0,
+  "djDjTime": "2017-05-08T10:57:34.370Z",
+  "djJdUserId": 0,
+  "djJdTime": "2017-05-08T10:57:34.370Z",
+  "djJdUserName": "string",
+  "djZfUserId": 0,
+  "djZfTime": "2017-05-08T10:57:34.370Z",
+  "djZfUserName": "string",
+  "djArehouseId": 0,
+  "djDocsList": [
+    {
+      "djsId": 0,
+      "djsDjId": 0,
+      "djsRepertoryId": 0,
+      "djsStatus": "string",
+      "mfunRepertory": {
+        "mrRepertoryId": 0,
+        "mrLocationId": 0,
+        "mrGoodsId": 0,
+        "mrGoodsBatch": "string",
+        "mrDwid": 0,
+        "mrCount": 0,
+        "mrDxjCount": 0,
+        "mrDjCount": 0,
+        "mrDjStatus": true,
+        "mrDzyCount": 0,
+        "mrKcydsj": "2017-05-08T10:57:34.370Z",
+        "mrArehouseId": 0,
+        "kyCount": 0,
+        "baseLocation": {
+          "blLocationId": 0,
+          "blLname": "string",
+          "blRegionId": 0,
+          "blLtray": 0,
+          "blLorder": 0,
+          "blStatus": 0,
+          "blArehouseId": 0
+        },
+        "baseGoods": {
+          "bgGoodsId": 0,
+          "bgGoodsNo": "string",
+          "bgGoodsName": "string",
+          "bgNamejc": "string",
+          "bgT": 0,
+          "bgI": 0,
+          "bgHsl": 0,
+          "bgZxdw": 0,
+          "bgSzdw": 0,
+          "bgStatus": 0,
+          "bgArehouseId": 0,
+          "bgClientId": 0,
+          "bgGoodsType": "string",
+          "bgGoodsTj": 0,
+          "bgGoodsZl": 0,
+          "bgGoodsPrice": 0,
+          "bgCreatetime": "2017-05-08T10:57:34.370Z",
+          "bgRemarks": "string",
+          "bgGoodsGg": "string",
+          "baseDws": [
+            {
+              "bdDwId": 0,
+              "bdName": "string",
+              "bdStatus": 0,
+              "bdIsdel": true,
+              "bdCreatetime": "2017-05-08T10:57:34.371Z"
+            }
+          ]
+        },
+        "baseDw": {
+          "bdDwId": 0,
+          "bdName": "string",
+          "bdStatus": 0,
+          "bdIsdel": true,
+          "bdCreatetime": "2017-05-08T10:57:34.371Z"
+        },
+        "baseArehouse": {
+          "baArehouseId": 0,
+          "baName": "string",
+          "baAddr": "string",
+          "baScity": "string",
+          "baScontacts": "string",
+          "baPhone": "string",
+          "baAcreage": "string",
+          "baCtype": "string",
+          "baHumidity": "string",
+          "baFax": "string",
+          "baPostoffice": "string",
+          "baIsti": 0,
+          "baStatus": 0,
+          "baClientId": 0,
+          "baRemarks": "string",
+          "baCreatetime": "2017-05-08T10:57:34.371Z",
+          "baPgroupinfo": "string",
+          "arehouseKqs": [
+            {
+              "baqKqId": 0,
+              "baqArehouseId": 0,
+              "baqKqName": "string",
+              "baqIsdel": 0,
+              "baqStatus": 0,
+              "baseRegions": [
+                {
+                  "brgRegionId": 0,
+                  "brgArehouseId": 0,
+                  "brgRegionNo": "string",
+                  "brgKqId": 0,
+                  "brgRegionStatus": 0,
+                  "baseLocationList": [
+                    {
+                      "blLocationId": 0,
+                      "blLname": "string",
+                      "blRegionId": 0,
+                      "blLtray": 0,
+                      "blLorder": 0,
+                      "blStatus": 0,
+                      "blArehouseId": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "baseArehouseKq": [
+          {
+            "baqKqId": 0,
+            "baqArehouseId": 0,
+            "baqKqName": "string",
+            "baqIsdel": 0,
+            "baqStatus": 0,
+            "baseRegions": [
+              {
+                "brgRegionId": 0,
+                "brgArehouseId": 0,
+                "brgRegionNo": "string",
+                "brgKqId": 0,
+                "brgRegionStatus": 0,
+                "baseLocationList": [
+                  {
+                    "blLocationId": 0,
+                    "blLname": "string",
+                    "blRegionId": 0,
+                    "blLtray": 0,
+                    "blLorder": 0,
+                    "blStatus": 0,
+                    "blArehouseId": 0
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "baseRegion": {
+          "brgRegionId": 0,
+          "brgArehouseId": 0,
+          "brgRegionNo": "string",
+          "brgKqId": 0,
+          "brgRegionStatus": 0,
+          "baseLocationList": [
+            {
+              "blLocationId": 0,
+              "blLname": "string",
+              "blRegionId": 0,
+              "blLtray": 0,
+              "blLorder": 0,
+              "blStatus": 0,
+              "blArehouseId": 0
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+ *
+ */
+        /**
+        * TODO 4 库存冻结过程 通过库存冻结/解冻单据 冻结/解冻一条或多条库存单 POST /stockDjDoc/djAndJd
+        */
+        /**
+         * TODO 5 库存冻结过程 通过库存冻结单据id删除库存冻结单据  DELETE /stockDjDoc/{djId}
+         */
+        /**
+         * TODO 6  库存冻结过程 通过库存冻结单据id获取一条库存冻结单据 GET /stockDjDoc/{djId}
+         */
+/**
+ * TODO 库内管理
+ */
+    /**
+ * TODO 动碰盘点
+ */
+        /**
+ * TODO 0 POST /mfunpd/selectDPPDByPage 盘点查询 动碰盘点分页查询
+         * {
+          "data": [
+            {
+              "pdId": 1,
+              "pdType": 0,
+              "pdYdBeginTime": 1493308800000,
+              "pdYdEndTime": null,
+              "pdZyBeginTime": null,
+              "pdZyEndTime": null,
+              "pdCreateTime": 1493349660000,
+              "pdCreateUserId": 1,
+              "pdQrsj": 1493349772000,
+              "pdQrUserId": null,
+              "pdZfsj": null,
+              "pdZfUserId": null,
+              "pdStatus": 0,
+              "pdChargePerson": "",
+              "pdOperator": "",
+              "pdArehouseId": 1,
+              "pdDiffStatus": 1,
+              "mfunpdDocs": [],
+              "mrGoodsIds": null,
+              "rmsUser": null
+            }
+          ],
+          "draw": 0,
+          "recordsTotal": 1,
+          "recordsFiltered": 1
+        }
+         */
+        /**
+ * TODO 1 盘点作业 新增动碰盘点计划及明细 POST /mfunpd/insertDPMfunpdDocAndDocs
+ * {
+  "pdId": 0,
+  "pdType": "string",
+  "pdYdBeginTime": "2017-05-08T11:47:54.237Z",
+  "pdYdEndTime": "2017-05-08T11:47:54.237Z",
+  "pdZyBeginTime": "2017-05-08T11:47:54.237Z",
+  "pdZyEndTime": "2017-05-08T11:47:54.237Z",
+  "pdCreateTime": "2017-05-08T11:47:54.237Z",
+  "pdCreateUserId": 0,
+  "pdQrsj": "2017-05-08T11:47:54.237Z",
+  "pdQrUserId": 0,
+  "pdZfsj": "2017-05-08T11:47:54.237Z",
+  "pdZfUserId": 0,
+  "pdStatus": "string",
+  "pdChargePerson": "string",
+  "pdOperator": "string",
+  "pdArehouseId": 0,
+  "pdDiffStatus": "string",
+  "mfunpdDocs": [
+    {
+      "pdsId": 0,
+      "pdsPdId": 0,
+      "pdsGoodsId": 0,
+      "pdsLocationId": 0,
+      "pdsRepertoryCount": 0,
+      "pdsPdCount": 0,
+      "pdsDiffStatus": "string",
+      "pdsStatus": "string",
+      "pdsUserId": 0,
+      "pdsPdTime": "2017-05-08T11:47:54.238Z",
+      "baseGoods": {
+        "bgGoodsId": 0,
+        "bgGoodsNo": "string",
+        "bgGoodsName": "string",
+        "bgNamejc": "string",
+        "bgT": 0,
+        "bgI": 0,
+        "bgHsl": 0,
+        "bgZxdw": 0,
+        "bgSzdw": 0,
+        "bgStatus": 0,
+        "bgArehouseId": 0,
+        "bgClientId": 0,
+        "bgGoodsType": "string",
+        "bgGoodsTj": 0,
+        "bgGoodsZl": 0,
+        "bgGoodsPrice": 0,
+        "bgCreatetime": "2017-05-08T11:47:54.238Z",
+        "bgRemarks": "string",
+        "bgGoodsGg": "string",
+        "baseDws": [
+          {
+            "bdDwId": 0,
+            "bdName": "string",
+            "bdStatus": 0,
+            "bdIsdel": true,
+            "bdCreatetime": "2017-05-08T11:47:54.238Z"
+          }
+        ]
+      },
+      "baseLocation": {
+        "blLocationId": 0,
+        "blLname": "string",
+        "blRegionId": 0,
+        "blLtray": 0,
+        "blLorder": 0,
+        "blStatus": 0,
+        "blArehouseId": 0
+      },
+      "rmsUser": {
+        "ruUserId": 0,
+        "ruUserName": "string",
+        "ruLoginName": "string",
+        "ruLoginPassword": "string",
+        "ruPhone": "string",
+        "ruTelephone": "string",
+        "ruEmail": "string",
+        "ruSex": true,
+        "ruBirthday": "2017-05-08T11:47:54.238Z",
+        "ruHomeaddress": "string",
+        "ruQicq": "string",
+        "ruCreateTime": "2017-05-08T11:47:54.238Z",
+        "ruLastModifiedTime": "2017-05-08T11:47:54.239Z",
+        "ruStatus": 0,
+        "ruSalt": "string",
+        "ruUserType": 0,
+        "ruUserZyq": "string",
+        "ruRemarks": "string",
+        "ruIspda": true,
+        "ruPortrait": "string"
+      }
+    }
+  ],
+  "mrGoodsIds": [
+    0
+  ],
+  "rmsUser": {
+    "ruUserId": 0,
+    "ruUserName": "string",
+    "ruLoginName": "string",
+    "ruLoginPassword": "string",
+    "ruPhone": "string",
+    "ruTelephone": "string",
+    "ruEmail": "string",
+    "ruSex": true,
+    "ruBirthday": "2017-05-08T11:47:54.239Z",
+    "ruHomeaddress": "string",
+    "ruQicq": "string",
+    "ruCreateTime": "2017-05-08T11:47:54.239Z",
+    "ruLastModifiedTime": "2017-05-08T11:47:54.239Z",
+    "ruStatus": 0,
+    "ruSalt": "string",
+    "ruUserType": 0,
+    "ruUserZyq": "string",
+    "ruRemarks": "string",
+    "ruIspda": true,
+    "ruPortrait": "string"
+  }
+}
+ */
+        /**
+         * TODO 2 盘点作业 根据盘点明细id分配任务 POST /mfunpd/allocatingTaskByPdsId
+         */
+        /**
+         *  TODO 3 盘点作业 根据盘点计划id确认盘点信息（修改库存) POST /mfunpd/confirmPdDocByPdId
+         */
+        /**
+         * TODO 4 盘点作业 根据盘点明细id重盘（修改状态) POST /mfunpd/againPdByPdsId
+         */
+        /**
+         * TODO 5 盘点作业 分配任务页面根据盘点计划ID查询详情 POST /mfunpd/selectPdInfoByPdId
+         */
+        /**
+         * TODO 6 盘点作业 盘点详情页面根据盘点计划ID查询详情 POST /mfunpd/selectPdInfoByPdsPdId
+         */
+    /**
+ * TODO 循环盘点
+  */
+        /**
+         *   TODO 0 盘点查询 循环盘点分页查询 POST /mfunpd/selectXHPDByPage
+         *
+        */
+        /**
+         * TODO 1 盘点作业 新增循环盘点计划及明细  POST /mfunpd/insertXHMfunpdDocAndDocs
+         */
+        /**
+         * TODO 2 盘点作业 根据盘点明细id重盘（修改状态） POST /mfunpd/againPdByPdsId
+         */
+        /**
+         * TODO 3 盘点作业 根据盘点明细id分配任务  POST /mfunpd/allocatingTaskByPdsId
+         */
+        /**
+         * TODO 4 盘点作业 根据盘点计划id确认盘点信息（修改库存）POST /mfunpd/confirmPdDocByPdId
+         */
+        /**
+         * TODO 5 盘点作业 分配任务页面根据盘点计划ID查询详情 POST /mfunpd/selectPdInfoByPdId
+         */
+        /**
+         * TODO 6 盘点作业 盘点详情页面根据盘点计划ID查询详情  POST /mfunpd/selectPdInfoByPdsPdId
+         */
+    /**
+    * TODO 全面盘点
+    */
+        /**
+         * TODO 0  盘点查询 全面盘点分页查询 POST /mfunpd/selectQMPDByPage
+         */
+        /**
+         * TODO 1 盘点作业 新增全面盘点计划及明细  POST /mfunpd/insertQMMfunpdDocAndDocs
+         */
+        /**
+         *  TODO 2 盘点作业 根据盘点明细id重盘（修改状态)  POST /mfunpd/againPdByPdsId
+         */
+        /**
+         * TODO 3 盘点作业 根据盘点明细id分配任务  POST /mfunpd/allocatingTaskByPdsId
+         */
+        /**
+         * TODO 4 盘点作业 根据盘点计划id确认盘点信息（修改库存） POST /mfunpd/confirmPdDocByPdId
+         */
+        /**
+         * TODO 5 盘点作业 分配任务页面根据盘点计划ID查询详情  POST /mfunpd/selectPdInfoByPdId
+         */
+        /**
+         * TODO 6 盘点作业 盘点详情页面根据盘点计划ID查询详情 POST /mfunpd/selectPdInfoByPdsPdId
+         */
 
-     */
+
+
+
+
+
+
+
+

@@ -745,7 +745,7 @@
     }
     var obj=stockFrozenThaw;
     var p=[];
-    // 0 库存冻结/解冻 分页查询
+    // 0 库存冻结/解冻 分页获取库存冻结单据
     p[0] = autoPost({
         urlHock: "../../hock/stockFrozenThaw/page.json",
         urlProd: "/route/stockFrozenThaw/0",
@@ -754,31 +754,45 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-     // 1 库存冻结/解冻
+     // 1 库存冻结/解冻 分页获取库存冻结单据(包含明细)
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/stockFrozenThaw/1",
         success: function (json) {
         }
     });
-     // 2 库存冻结/解冻
+     // 2 库存冻结/解冻 新增库存冻结单据/包含库存冻结单明细
     p[2] = autoPost({
         urlHock: "",
         urlProd: "/route/stockFrozenThaw/2",
         success: function (json) {
         }
     });
-     // 3 库存冻结/解冻
+     // 3 库存冻结/解冻 更新库存冻结数据
     p[3] = autoPost({
         urlHock: "",
         urlProd: "/route/stockFrozenThaw/3",
         success: function (json) {
         }
     });
-     // 4 库存冻结/解冻
+     // 4 库存冻结/解冻 通过库存冻结/解冻单据 冻结/解冻一条或多条库存单
     p[4] = autoPost({
         urlHock: "",
         urlProd: "/route/stockFrozenThaw/4",
+        success: function (json) {
+        }
+    });
+     // 5 库存冻结/解冻 通过库存冻结单据id删除库存冻结单据
+    p[5] = autoPost({
+        urlHock: "",
+        urlProd: "/route/stockFrozenThaw/5",
+        success: function (json) {
+        }
+    });
+     // 6 库存冻结/解冻 通通过库存冻结单据id获取一条库存冻结单据
+    p[6] = autoPost({
+        urlHock: "",
+        urlProd: "/route/stockFrozenThaw/6",
         success: function (json) {
         }
     });

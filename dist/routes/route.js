@@ -911,105 +911,143 @@ router.param('_url', function (req, res, next, url) {
              case 'dynamicTouchInventory':
                 switch (parseInt(req.params._status)) {
                     case 0:
-                        urlName = '动碰盘点  分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '动碰盘点 动碰盘点分页查询';
+                        req = autoUrl(req, '/mfunpd/selectDPPDByPage', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 1:
-                        urlName = '动碰盘点 新增';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '动碰盘点 新增动碰盘点计划及明细';
+                        req = autoUrl(req, '/mfunpd/insertDPMfunpdDocAndDocs', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
-                        urlName = '动碰盘点 分配任务';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '动碰盘点 根据盘点明细id分配任务';
+                        req = autoUrl(req, '/mfunpd/allocatingTaskByPdsId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                       case 3:
-                        urlName = '动碰盘点 盘点详情';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '动碰盘点 根据盘点计划id确认盘点信息（修改库存)';
+                        req = autoUrl(req, '/mfunpd/confirmPdDocByPdId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                       case 4:
-                        urlName = '动碰盘点 盘点确认';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '动碰盘点 根据盘点明细id重盘（修改状态)';
+                        req = autoUrl(req, '/mfunpd/againPdByPdsId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
+                      case 5:
+                        urlName = '动碰盘点 分配任务页面根据盘点计划ID查询详情';
+                        req = autoUrl(req, '/mfunpd/selectPdInfoByPdId', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                       case 6:
+                        urlName = '动碰盘点 盘点详情页面根据盘点计划ID查询详情';
+                        req = autoUrl(req, '/mfunpd/selectPdInfoByPdsPdId', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
 
                 }
                 break;
               case 'loopInventory':
                 switch (parseInt(req.params._status)) {
                     case 0:
-                        urlName = '循环盘点  分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '循环盘点  循环盘点分页查询';
+                        req = autoUrl(req, '/mfunpd/selectXHPDByPage', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 1:
-                        urlName = '循环盘点 新增';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '循环盘点 新增循环盘点计划及明细';
+                        req = autoUrl(req, '/mfunpd/insertXHMfunpdDocAndDocs', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
-                        urlName = '循环盘点 分配任务';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '循环盘点 根据盘点明细id重盘（修改状态）';
+                        req = autoUrl(req, '/mfunpd/againPdByPdsId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                       case 3:
-                        urlName = '循环盘点 盘点详情';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '循环盘点 根据盘点明细id分配任务';
+                        req = autoUrl(req, '/mfunpd/allocatingTaskByPdsId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                       case 4:
-                        urlName = '循环盘点 盘点确认';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '循环盘点 根据盘点计划id确认盘点信息（修改库存）';
+                        req = autoUrl(req, '/mfunpd/confirmPdDocByPdId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
-
+                        case 5:
+                        urlName = '循环盘点 分配任务页面根据盘点计划ID查询详情';
+                        req = autoUrl(req, '/mfunpd/selectPdInfoByPdId', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                        case 6:
+                        urlName = '循环盘点 盘点详情页面根据盘点计划ID查询详情';
+                        req = autoUrl(req, '/mfunpd/selectPdInfoByPdsPdId', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
                 }
                 break;
             case 'comprehensiveInventory':
                 switch (parseInt(req.params._status)) {
                     case 0:
-                        urlName = '全面盘点  分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '全面盘点  全面盘点分页查询';
+                        req = autoUrl(req, '/mfunpd/selectQMPDByPage', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 1:
-                        urlName = '全面盘点 新增';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '全面盘点 新增全面盘点计划及明细';
+                        req = autoUrl(req, '/mfunpd/insertQMMfunpdDocAndDocs', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
-                        urlName = '全面盘点 分配任务';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '全面盘点 根据盘点明细id重盘（修改状态)';
+                        req = autoUrl(req, '/mfunpd/againPdByPdsId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                       case 3:
-                        urlName = '全面盘点 盘点详情';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '全面盘点 根据盘点明细id分配任务';
+                        req = autoUrl(req, '/mfunpd/allocatingTaskByPdsId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                       case 4:
-                        urlName = '全面盘点 盘点确认';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '全面盘点 根据盘点计划id确认盘点信息（修改库存）';
+                        req = autoUrl(req, '/mfunpd/confirmPdDocByPdId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
+                        case 5:
+                        urlName = '全面盘点 分配任务页面根据盘点计划ID查询详情';
+                        req = autoUrl(req, '/mfunpd/selectPdInfoByPdId', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                        case 6:
+                        urlName = '全面盘点 根据盘点计划id确认盘点信息（修改库存）';
+                        req = autoUrl(req, '/mfunpd/selectPdInfoByPdsPdId', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
 
                 }
                 break;
@@ -1076,51 +1114,90 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 1:
-                        urlName = '库存转移确认 确认';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '库存转移确认 通过库存转移单据id确认转移一条转移单';
+                        req = autoUrl(req, '/stockZyDoc/confirmZy/'+req.query.zyId, "GET", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
-                        urlName = '库存转移确认 删除';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '库存转移确认 软删除多个或单个库存转移数据';
+                        req = autoUrl(req, '/stockZyDoc/deleteOfSoft', "POST", function (json) {
                             res.send(json);
                         });
                         break;
+                      case 3:
+                        urlName = '库存转移确认 分页获取库存转移单据';
+                        req = autoUrl(req, '/stockZyDoc/page', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 4:
+                        urlName = '库存转移确认 分页获取库存转移单据(包含详细信息)';
+                        req = autoUrl(req, '/stockZyDoc/deleteOfSoft', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 5:
+                        urlName = '库存转移确认 通过库存转移单据id删除库存转移单据';
+                        req = autoUrl(req, '/stockZyDoc/'+ req.query.zyId, "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 6:
+                        urlName = '库存转移确认 通过库存转移单据id获取一条库存转移单据';
+                        req = autoUrl(req,  '/stockZyDoc/'+ req.query.zyId, "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
                 }
                 break;
                case 'stockFrozenThaw':
                 switch (parseInt(req.params._status)) {
                     case 0:
-                        urlName = '库存冻结/解冻  分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '库存冻结/解冻  分页获取库存冻结单据';
+                        req = autoUrl(req, '/stockDjDoc/page', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 1:
-                        urlName = '库存冻结/解冻 新增';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '库存冻结/解冻 分页获取库存冻结单据(包含明细)';
+                        req = autoUrl(req, '/stockDjDoc/selectByPage', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
-                        urlName = '库存冻结/解冻 编辑';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '库存冻结/解冻 新增库存冻结单据/包含库存冻结单明细';
+                        req = autoUrl(req, '/stockDjDoc', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 3:
-                        urlName = '库存冻结/解冻 删除';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '库存冻结/解冻 更新库存冻结数据';
+                        req = autoUrl(req, '/stockDjDoc', "PUT", function (json) {
                             res.send(json);
                         });
                         break;
                       case 4:
-                        urlName = '库存冻结/解冻 冻结解冻';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '库存冻结/解冻 通过库存冻结/解冻单据 冻结/解冻一条或多条库存单';
+                        req = autoUrl(req, '/stockDjDoc/djAndJd', "POST", function (json) {
                             res.send(json);
                         });
                         break;
+                    case 5:
+                        urlName = '库存冻结/解冻通过库存冻结单据id删除库存冻结单据';
+                        req = autoUrl(req, '/stockDjDoc/'+req.query.djId, "DELETE", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 6:
+                        urlName = '库存冻结/解冻 通过库存冻结单据id获取一条库存冻结单据单';
+                        req = autoUrl(req, '/stockDjDoc/'+req.requery.djId, "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
 
 
                 }
