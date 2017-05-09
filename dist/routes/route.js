@@ -421,7 +421,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = 'RF管理-  根据id返回用户信息';
-                        req = autoUrl(req, '/user/userAddZyq/' + req.query.id + '/' + req.query.firstZyq + '/'+ req.query.secondZyq, "GET", function (json) {
+                        req = autoUrl(req, '/user/userAddZyq/' + req.query.id + '/' + req.query.firstZyq + '/' + req.query.secondZyq, "GET", function (json) {
                             res.send(json);
                         });
                         break;
@@ -431,13 +431,13 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-                      case 3:
+                    case 3:
                         urlName = 'RF管理- 判断主作业区是否重复';
-                        req = autoUrl(req, '/user/isRepeatByFirstZyq/'+ req.query.firstZyq, "GET", function (json) {
+                        req = autoUrl(req, '/user/isRepeatByFirstZyq/' + req.query.firstZyq, "GET", function (json) {
                             res.send(json);
                         });
                         break;
-                       case 4:
+                    case 4:
                         urlName = 'RF管理- 更新用户信息';
                         req = autoUrl(req, '/user', "PUT", function (json) {
                             res.send(json);
@@ -469,19 +469,19 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 3:
                         urlName = '作业区管理-储位组管理 根据id返回储位组信息';
-                        req = autoUrl(req, '/locations/'+req.query.id, "GET", function (json) {
+                        req = autoUrl(req, '/locations/' + req.query.id, "GET", function (json) {
                             res.send(json);
                         });
                         break;
                     case 4:
                         urlName = '作业区管理-储位组管理 通过id删除一条储位组数据';
-                        req = autoUrl(req, '/locations/'+req.query.id, "/DELETE", function (json) {
+                        req = autoUrl(req, '/locations/' + req.query.id, "/DELETE", function (json) {
                             res.send(json);
                         });
                         break;
                     case 5:
                         urlName = '作业区管理-判断储位名称是否重复';
-                        req = autoUrl(req, '/location/isRepeatByBlLname/'+req.query.blLname, "GET", function (json) {
+                        req = autoUrl(req, '/location/isRepeatByBlLname/' + req.query.blLname, "GET", function (json) {
                             res.send(json);
                         });
                         break;
@@ -500,6 +500,72 @@ router.param('_url', function (req, res, next, url) {
                     case 1:
                         urlName = '编辑';
                         req = autoUrl(req, '/arehouse', "PUT", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '新增';
+                        req = autoUrl(req, '/arehouse', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '通过client_id查询部分仓库的信息(被客户id绑定的)';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 4:
+                        urlName = '删除';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 5:
+                        urlName = '库位名称不允许重复';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 6:
+                        urlName = '库位名称不允许重复';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 7:
+                        urlName = '库位名称不允许重复';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 8:
+                        urlName = '库位名称不允许重复';
+                        req = autoUrl(req, '', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 9:
+                        urlName = '软删除多个或单个数据';
+                        req = autoUrl(req, '/arehouse/deleteOfSoft', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+
+                }
+                break;
+            case 'warehouseManage':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '查询-指定仓库信息';
+                        req = autoUrl(req, '/arehouse/page', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '查询-指定区域下储位信息';
+                        req = autoUrl(req, '/location/findByRegionId/' + req.query.region_id, "GET", function (json) {
                             res.send(json);
                         });
                         break;
@@ -687,7 +753,7 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
-             case 'inputDaily':
+            case 'inputDaily':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '入库日报 分页查询';
@@ -719,7 +785,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
-             case 'stockSelect':
+            case 'stockSelect':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '库存查询 分页查询';
@@ -735,7 +801,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
-              case 'inputSelect':
+            case 'inputSelect':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '入库单据查询 分页查询';
@@ -782,7 +848,7 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
-               case 'outputSelect':
+            case 'outputSelect':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '出库单据查询 分页查询';
@@ -829,7 +895,7 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
-                case 'goodsFlowSelect':
+            case 'goodsFlowSelect':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '货品流向查询  分页查询';
@@ -845,7 +911,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
-                case 'aLibraryTransferSelect':
+            case 'aLibraryTransferSelect':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '库位转移查询  分页查询';
@@ -859,7 +925,7 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-                      case 2:
+                    case 2:
                         urlName = '库位转移查询 导出';
                         req = autoUrl(req, '', "POST", function (json) {
                             res.send(json);
@@ -868,7 +934,7 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
-                case 'aLibraryFrozenSelect':
+            case 'aLibraryFrozenSelect':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '库位冻结查询  分页查询';
@@ -914,7 +980,7 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
-             case 'dynamicTouchInventory':
+            case 'dynamicTouchInventory':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '动碰盘点  分页查询';
@@ -934,13 +1000,13 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-                      case 3:
+                    case 3:
                         urlName = '动碰盘点 盘点详情';
                         req = autoUrl(req, '', "POST", function (json) {
                             res.send(json);
                         });
                         break;
-                      case 4:
+                    case 4:
                         urlName = '动碰盘点 盘点确认';
                         req = autoUrl(req, '', "POST", function (json) {
                             res.send(json);
@@ -949,7 +1015,7 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
-              case 'loopInventory':
+            case 'loopInventory':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '循环盘点  分页查询';
@@ -969,13 +1035,13 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-                      case 3:
+                    case 3:
                         urlName = '循环盘点 盘点详情';
                         req = autoUrl(req, '', "POST", function (json) {
                             res.send(json);
                         });
                         break;
-                      case 4:
+                    case 4:
                         urlName = '循环盘点 盘点确认';
                         req = autoUrl(req, '', "POST", function (json) {
                             res.send(json);
@@ -1004,13 +1070,13 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-                      case 3:
+                    case 3:
                         urlName = '全面盘点 盘点详情';
                         req = autoUrl(req, '', "POST", function (json) {
                             res.send(json);
                         });
                         break;
-                      case 4:
+                    case 4:
                         urlName = '全面盘点 盘点确认';
                         req = autoUrl(req, '', "POST", function (json) {
                             res.send(json);
@@ -1019,7 +1085,7 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
-             case 'aLibraryTransfer':
+            case 'aLibraryTransfer':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '库存转移  分页查询';
@@ -1060,20 +1126,20 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 6:
                         urlName = '库存转移 库存转移过程 通过库存转移单据id删除库存转移单据';
-                        req = autoUrl(req, '/stockZyDoc/' + req.query.zyId , "DELETE", function (json) {
+                        req = autoUrl(req, '/stockZyDoc/' + req.query.zyId, "DELETE", function (json) {
                             res.send(json);
                         });
                         break;
                     case 7:
                         urlName = '库存转移 库存转移过程 通过库存转移单据id获取一条库存转移单据';
-                        req = autoUrl(req, '/stockZyDoc/'+req.query.zyId, "GET", function (json) {
+                        req = autoUrl(req, '/stockZyDoc/' + req.query.zyId, "GET", function (json) {
                             res.send(json);
                         });
                         break;
 
                 }
                 break;
-              case 'stockTransferConfirm':
+            case 'stockTransferConfirm':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '库存转移确认  分页查询';
@@ -1095,7 +1161,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
-               case 'stockFrozenThaw':
+            case 'stockFrozenThaw':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '库存冻结/解冻  分页查询';
@@ -1121,7 +1187,7 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-                      case 4:
+                    case 4:
                         urlName = '库存冻结/解冻 冻结解冻';
                         req = autoUrl(req, '', "POST", function (json) {
                             res.send(json);
@@ -1131,9 +1197,6 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
-
-
-
 
 
         }
