@@ -321,7 +321,7 @@
         </el-col>
     </el-row>
     <el-dialog
-            size="large"
+            size="small"
             v-model="dialogFormVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">{{form.title}}</span>
@@ -343,65 +343,25 @@
                     <el-row>
                         <el-col :span="10">
                             <el-form-item
-                                    label="创建时间"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.pdCreateTime"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="盘点类型"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.pdType"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-
-                            <el-form-item
-                                    label="异动开始时间"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.pdYdBeginTime"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="异动结束时间"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.pdYdEndTime"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-
-                        </el-col>
-                        <el-col :span="10" :offset="2">
-                            <el-form-item
-                                    label="盘点状态"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.pdStatus"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
                                     label="负责人"
                                     :label-width="formLabelWidth">
                                 <el-input
                                         v-model.number="form.pdChargePerson"
                                         auto-complete="off"></el-input>
                             </el-form-item>
-                            <el-form-item
-                                    label="经办人"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.pdOperator"
-                                        auto-complete="off"></el-input>
+                            <el-form-item label="异动开始时间" :label-width="formLabelWidth">
+                                <el-date-picker
+                                        v-model="form.pdYdBeginTime"
+                                        type="datetime"
+                                        placeholder="选择到货日期">
+                                </el-date-picker>
                             </el-form-item>
-
-                            <el-form-item
-                                    label="差异状态"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.pdDiffStatus"
-                                        auto-complete="off"></el-input>
+                               <el-form-item label="异动结束时间" :label-width="formLabelWidth">
+                                <el-date-picker
+                                        v-model="form.pdYdEndTime"
+                                        type="datetime"
+                                        placeholder="选择到货日期">
+                                </el-date-picker>
                             </el-form-item>
                         </el-col>
                     </el-row>

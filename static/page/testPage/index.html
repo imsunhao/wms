@@ -1,0 +1,1421 @@
+<style>
+    #warehousingReservation {
+        width: 100%;
+        min-width: 890px;
+        position: relative;
+    }
+
+    #warehousingReservation .demo-table-expand {
+        font-size: 0;
+    }
+
+    #warehousingReservation .demo-table-expand label {
+        width: 90px;
+        color: #99a9bf;
+    }
+
+    #warehousingReservation .demo-table-expand .el-form-item {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 80%;
+    }
+
+    #warehousingReservation .el-table__expand-column .el-table__expand-icon {
+        height: 39px;
+    }
+
+    #warehousingReservation .table {
+        transition: 1s all;
+    }
+
+    #warehousingReservation .el-carousel__container {
+        height: 440px;
+    }
+
+    .el-tooltip__popper {
+        max-width: 400px;
+    }
+
+    .el-step__main {
+        max-width: calc(100% - 60px);
+    }
+
+    #warehousingReservation .warehousingReservationTable {
+        width: 95% !important;
+        margin: 10px 20px 0;
+    }
+
+    #warehousingReservation .datePicker {
+        width: 140px !important;
+        height: 24px !important;
+        margin-top: 29px;
+        margin-right: 18px;
+        float: left;
+    }
+
+    #warehousingReservation .datePicker .el-input__inner {
+        border-radius: 2px !important;
+        height: 24px !important;
+    }
+
+    #warehousingReservation .add {
+        background: url("/static/images/add.png") no-repeat center;
+    }
+
+    #warehousingReservation .del {
+        background: url("/static/images/del.png") no-repeat center;
+    }
+
+    #warehousingReservation .search {
+        background: url("/static/images/search.png") no-repeat center;
+    }
+
+    #warehousingReservation .sel {
+        background: url("/static/images/sel.png") no-repeat center;
+    }
+
+    #warehousingReservation .icon {
+        float: left;
+    }
+
+    #warehousingReservation .btn span {
+        float: left;
+        margin-top: 4px;
+        margin-left: 2px;
+    }
+
+    #warehousingReservation .btn {
+        height: 24px;
+        line-height: 1;
+        border: none;
+        background: #f8fafb;
+        outline: none;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        font-size: 14px;
+        color: #1f2d3d;
+        margin-top: 29px;
+        margin-right: 16px;
+    }
+
+    #warehousingReservation .btn-print {
+        margin-right: 0;
+    }
+
+    #warehousingReservation .btn:hover {
+        color: #5468ee;
+    }
+
+    #warehousingReservation .inner {
+        margin: 0 20px;
+    }
+
+    #warehousingReservation .btn-nav {
+        height: 60px;
+        overflow: hidden;
+    }
+
+    #warehousingReservation .btn-nav .el-input .el-input__inner {
+        height: 24px;
+    }
+
+    #warehousingReservation .btn-nav .el-input {
+        float: left;
+        margin-top: 29px;
+        margin-right: 18px;
+        width: 140px;
+        height: 24px;
+    }
+
+    #warehousingReservation h4 {
+        padding-left: 20px;
+        margin-bottom: 0;
+    }
+
+    #warehousingReservation .formBottom {
+        margin-top: 10px;
+    }
+
+    #warehousingReservation .warehousingReservationCombinationDetails .el-date-editor.el-input {
+        width: 100%;
+    }
+
+    #warehousingReservation .warehousingReservationCombinationDetails {
+        margin-top: 30px;
+    }
+</style>
+<style>
+    .steps {
+        position: absolute;
+        bottom: 10px;
+        left: 30px;
+        margin: auto;
+    }
+
+    .el-dialog__headerbtn {
+        position: absolute;
+        right: 25px;
+        top: 15px;
+    }
+
+    .el-step__main {
+        margin-left: -8px !important;
+    }
+</style>
+<style>
+    #warehousingReservation .bgGoodsName {
+        max-height: 36px;
+        display: inline-block;
+        overflow: hidden;
+    }
+
+    #warehousingReservation .bgGoodsNameLocation {
+        max-height: 14px;
+        display: inline-block;
+        font-size: 14px;
+        line-height: 15px;
+        overflow: hidden;
+    }
+</style>
+<div id="warehousingReservation">
+    <!--页面调整-->
+    <el-row v-loading="showLoading"
+            element-loading-text="拼命加载中">
+        <el-col :span="24">
+            <el-carousel
+                    ref="carouselWaiting"
+                    :autoplay="false"
+                    arrow="never"
+                    indicator-position="none"
+                    height="65vh">
+                <el-carousel-item>
+                    <el-row>
+                        <el-col :span="24">
+                            <div class="inner btn-nav">
+                                <el-input
+                                        v-model="zyMentionUserName"
+                                        placeholder="提起人"></el-input>
+                                <el-input
+                                        v-model="zyReason"
+                                        placeholder="转移原因"></el-input>
+                                <button @click="newInput" class="btn btn-add"><i class="icon add"></i><span>选择库存</span>
+                                </button>
+                            </div>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-table
+                                :data="warehousingTask"
+                                :max-height="570"
+                                ref="table"
+                                @expand="expandChange"
+                                @selection-change="multiSelectionChange"
+                                class="warehousingTaskTable"
+                                style="width: 100%">
+                            <el-table-column
+                                    type="expand">
+                                <template scope="props">
+                                    <el-carousel
+                                            arrow="hover"
+                                            height="280px"
+                                            indicator-position="none"
+                                            :autoplay="false">
+                                        <el-carousel-item>
+                                            <el-row>
+                                                <h3 style="margin-top: 0; margin-left: -15px;">入库任务详细</h3>
+                                            </el-row>
+                                            <el-form label-position="left" inline class="demo-table-expand">
+                                                <el-row>
+                                                    <el-col :span="10">
+                                                        <el-form-item label="任务号">
+                                                            <span>{{ props.row.rkrwNo }}</span>
+                                                        </el-form-item>
+                                                        <el-form-item label="车牌号">
+                                                            <span>{{ props.row.rkrwCph }}</span>
+                                                        </el-form-item>
+                                                        <el-form-item label="订单数">
+                                                            <span>{{props.row.dds}}</span>
+                                                        </el-form-item>
+                                                        <el-form-item label="品项数">
+                                                            <span>{{props.row.pxs}}</span>
+                                                        </el-form-item>
+                                                        <el-form-item label="司机姓名">
+                                                            <span>{{ props.row.rkrwSjxm }}</span>
+                                                        </el-form-item>
+                                                        <el-form-item label="调拨地">
+                                                            <span>{{ props.row.rkrwDbd }}</span>
+                                                        </el-form-item>
+                                                    </el-col>
+                                                    <el-col :span="10" :offset="2">
+                                                        <el-form-item label="到货日期">
+                                                            <span>{{auto_rkrwDhrq(props.row.rkrwDhrq) }}</span>
+                                                        </el-form-item>
+                                                        <el-form-item label="承运商">
+                                                            <span>{{ props.row.rkrwCys }}</span>
+                                                        </el-form-item>
+                                                        <el-form-item label="司机电话">
+                                                            <span>{{ props.row.rkrwDh }}</span>
+                                                        </el-form-item>
+                                                        <el-form-item label="任务状态">
+                                                            <span>{{ auto_rkrwStatus(props.row.rkrwStatus) }}</span>
+                                                        </el-form-item>
+                                                        <el-form-item
+                                                                label="可用操作">
+                                                            <el-button
+                                                                    size="small"
+                                                                    icon="edit"
+                                                                    @click="inlineEdit(props.$index, props.row)">
+                                                            </el-button>
+                                                            <el-button
+                                                                    size="small"
+                                                                    type="success"
+                                                                    @click="inlineIssued(props.$index, props.row)">下发
+                                                            </el-button>
+                                                        </el-form-item>
+
+                                                    </el-col>
+                                                </el-row>
+                                            </el-form>
+                                        </el-carousel-item>
+                                        <el-carousel-item>
+                                            <el-row>
+                                                <h3 style="margin-top: 0; margin-left: -15px;">入库任务单据<span
+                                                        style="font-size: 14px;
+                                            font-weight: normal;
+                                            margin-left: 5px;">（双击查看单据明细）</span>
+                                                </h3>
+                                            </el-row>
+                                            <el-table
+                                                    :data="props.row.docList"
+                                                    @row-dblclick="dblClick"
+                                                    :max-height="240">
+                                                <el-table-column
+                                                        type="index"
+                                                        width="55">
+                                                </el-table-column>
+                                                <el-table-column
+                                                        label="入库单号"
+                                                        width="170"
+                                                        show-overflow-tooltip
+                                                        align="center"
+                                                        prop="rkRkdjNo">
+                                                </el-table-column>
+                                                <el-table-column
+                                                        width="150"
+                                                        align="center"
+                                                        prop="rkCreatetime"
+                                                        label="下单时间">
+                                                    <template scope="scope">
+                                                        <el-icon name="time"></el-icon>
+                                                        <span style="margin-left: 10px">{{ auto_rkCreatetime(scope.row.rkCreatetime) }}</span>
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column
+                                                        label="类型"
+                                                        align="center"
+                                                        width="100">
+                                                    <template scope="scope">
+                                                        {{auto_rkType(scope.row.rkType)}}
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column
+                                                        label="状态"
+                                                        align="center"
+                                                        width="100">
+                                                    <template scope="scope">
+                                                        {{auto_rkStatus(scope.row.rkStatus)}}
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column
+                                                        label="总数量"
+                                                        align="center"
+                                                        show-overflow-tooltip
+                                                        prop="allCount">
+                                                </el-table-column>
+                                                <el-table-column
+                                                        label="总体积"
+                                                        align="center"
+                                                        show-overflow-tooltip
+                                                        prop="allTj">
+                                                </el-table-column>
+                                                <el-table-column
+                                                        label="备注"
+                                                        show-overflow-tooltip
+                                                        prop="rkRemarks">
+                                                </el-table-column>
+                                            </el-table>
+                                        </el-carousel-item>
+                                    </el-carousel>
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                    label="货品编号"
+                                    show-overflow-tooltip
+                                    prop="bgGoodsNo"
+                                    align="cener">
+                            </el-table-column>
+                            <el-table-column
+                                    label="货品名称"
+                                    show-overflow-tooltip
+                                    align="center"
+                                    prop="bgGoodsName">
+                            </el-table-column>
+                            <el-table-column
+                                    label="货品库位"
+                                    show-overflow-tooltip
+                                    align="center"
+                                    prop="blLname">
+                            </el-table-column>
+                            <el-table-column
+                                    label="可转移数量"
+                                    show-overflow-tooltip
+                                    align="center"
+                                    prop="kyCount">
+                            </el-table-column>
+                            <el-table-column
+                                    label="货品批次"
+                                    show-overflow-tooltip
+                                    align="center"
+                                    prop="mrGoodsBatch">
+                            </el-table-column>
+                            <el-table-column
+                                    label="目标库位"
+                                    prop="zysZyAfterLocationId"
+                                    align="center"
+                                    width="130">
+                            </el-table-column>
+                            <el-table-column
+                                    label="调整数量"
+                                    prop="zysZyCount"
+                                    align="center"
+                                    width="130">
+                            </el-table-column>
+                            <el-table-column
+                                    v-if="multiSelect"
+                                    type="selection"
+                                    width="60">
+                            </el-table-column>
+                        </el-table>
+                    </el-row>
+                </el-carousel-item>
+                <el-carousel-item>
+                    <el-row>
+                        <el-col :span="24"><h4>预约详细</h4></el-col>
+                    </el-row>
+                    <el-row class="warehousingReservationCombinationDetails">
+                        <el-form
+                                ref="warehousingReservationCombinationDetails"
+                                :data="warehousingReservationCombinationDetails">
+                            <el-col :span="10">
+                                <el-form-item
+                                        label="入库任务单号"
+                                        :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model="warehousingReservationCombinationDetails.rkrwNo"
+                                            :disabled="true"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item label="调拨地" :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model="warehousingReservationCombinationDetails.rkrwDbd"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item label="车牌号" :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model="warehousingReservationCombinationDetails.rkrwCph"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item label="司机电话" :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model="warehousingReservationCombinationDetails.rkrwDh"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="10" :offset="2">
+                                <el-form-item label="预计到货日期" :label-width="formLabelWidth">
+                                    <el-date-picker
+                                            v-model="warehousingReservationCombinationDetails.rkrwDhrq"
+                                            type="datetime"
+                                            placeholder="选择到货日期">
+                                    </el-date-picker>
+                                </el-form-item>
+                                <el-form-item label="承运商" :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model="warehousingReservationCombinationDetails.rkrwCys"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item label="司机姓名" :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model="warehousingReservationCombinationDetails.rkrwSjxm"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                            </el-col>
+                        </el-form>
+                    </el-row>
+                </el-carousel-item>
+            </el-carousel>
+        </el-col>
+    </el-row>
+    <el-dialog
+            size="large"
+            v-model="dialogFormVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">{{form.title}}</span>
+            <el-steps
+                    class="steps"
+                    :space="120"
+                    :active="dialogFormActive"
+                    finish-status="success">
+            </el-steps>
+        </div>
+        <el-form :model="form" ref="newForm">
+            <el-carousel
+                    ref="carousel"
+                    :autoplay="false"
+                    arrow="never"
+                    indicator-position="none"
+                    height="55vh">
+
+                <el-carousel-item>
+                    <el-row v-show="!watchView">
+                        <el-col :span="8">
+                            <el-form-item label="货品编号" :label-width="formLabelWidth">
+                                <el-autocomplete
+                                        :fetch-suggestions="querySearchAsync"
+                                        v-model="form.selectGood.baseGoods.bgGoodsNo"
+                                        @select="GoodSelect"
+                                        auto-complete="off"></el-autocomplete>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-form-item label="货品名称" :label-width="formLabelWidth">
+                                <el-autocomplete
+                                        :fetch-suggestions="querySearchAsync"
+                                        v-model="form.selectGood.baseGoods.bgGoodsName"
+                                        @select="GoodSelect"
+                                        auto-complete="off"></el-autocomplete>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-form-item label="库位名称" :label-width="formLabelWidth">
+                                <el-autocomplete
+                                        :fetch-suggestions="querySearchAsync"
+                                        v-model="form.selectGood.baseGoods.bgGoodsNo"
+                                        @select="GoodSelect"
+                                        auto-complete="off"></el-autocomplete>
+                            </el-form-item>
+                        </el-col>
+
+
+                    </el-row>
+
+
+                    <el-row>
+                        <el-col :span="24" style="margin-top: 5px">
+                            <el-table
+                                    @row-click="GoodClick"
+                                    height="200"
+                                    :data="form.rkDocsList">
+                                <el-table-column
+                                        type="index"
+                                        width="55">
+                                </el-table-column>
+                                <el-table-column
+                                        label="货品编号"
+                                        show-overflow-tooltip
+                                        align="center"
+                                        prop="baseGoods.bgGoodsNo">
+                                </el-table-column>
+                                <el-table-column
+                                        align="center"
+                                        prop="baseGoods.bgGoodsName"
+                                        show-overflow-tooltip
+                                        label="货品名称">
+                                </el-table-column>
+                                <el-table-column
+                                        label="货品规格"
+                                        prop="baseGoods.bgGoodsGg"
+                                        align="center">
+                                </el-table-column>
+                                <el-table-column
+                                        label="货品单位"
+                                        show-overflow-tooltip
+                                        prop="baseGoods.bgSzdw"
+                                        align="center">
+                                </el-table-column>
+                                  <el-table-column
+                                        label="货品储位"
+                                        show-overflow-tooltip
+                                        prop="baseLocation.blLname"
+                                        align="center">
+                                </el-table-column>
+                                  <el-table-column
+                                        label="可转移数量"
+                                        show-overflow-tooltip
+                                        prop="mfunRepertory.kyCount"
+                                        align="center">
+                                </el-table-column>
+                                  <el-table-column
+                                        label="货品批号"
+                                        show-overflow-tooltip
+                                        prop="mfunRepertory.mrGoodsBatch"
+                                        align="center">
+                                </el-table-column>
+                                 <el-table-column
+                                        label="操作"
+                                        show-overflow-tooltip
+                                        prop=""
+                                        align="center">
+                                </el-table-column>
+
+
+
+
+                            </el-table>
+                        </el-col>
+                    </el-row>
+                </el-carousel-item>
+            </el-carousel>
+        </el-form>
+    </el-dialog>
+</div>
+<script>
+    var id = 0;
+    var warehousingReservation = new Vue({
+        el: '#warehousingReservation',
+        prop: {},
+        data: function () {
+            return {
+                baseArehouses: window.dbmessage.baseArehouses,
+                warehousingReservation: [],
+                warehousingReservationCombinationDetails: CombinationDetails(),
+                warehousingReservationCombination: [],
+                multipleSelection: [],
+                multipleSelectionCombination: [],
+                multiSelect: false,
+                date: [null, null],           //主页面 选择日期 搜索
+                rkRkdjNo: '',                 //主页面 入库单号 搜索
+                rkRwStatus: 0,                //主页面 入库单任务状态 搜索
+                pickerOptions: {
+                    shortcuts: [{
+                        text: '最近一周',
+                        onClick: function (picker) {
+                            var end = new Date();
+                            var start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                            picker.$emit('pick', [start, end]);
+                        }
+                    }, {
+                        text: '最近一个月',
+                        onClick: function (picker) {
+                            var end = new Date();
+                            var start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                            picker.$emit('pick', [start, end]);
+                        }
+                    }, {
+                        text: '最近三个月',
+                        onClick: function (picker) {
+                            var end = new Date();
+                            var start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                            picker.$emit('pick', [start, end]);
+                        }
+                    }]
+                },
+                showLoading: false,
+                currentPage: 1,
+                pageSize: 10,
+
+                formLabelWidth: '120px',       //表单 配置
+                form: form(),                  //表单 弹出层 信息集合
+                dialogFormActive: 0,           //新建 弹出层 steps 当前进度
+                dialogFormVisible: false,      //新建 弹出层 是否可见
+                submitLoading: false,          //新建 弹出层 提交等待
+
+                dialogExcelVisible: false,     //Excel 弹出层 是否可见
+                excelLoading: false,           //Excel 弹出层 提交等待
+
+                formActive: 0,                 //form steps 当前进度
+
+                select: {},                    //搜索 弹出层 信息集合
+                dialogSelectVisible: false,
+                selectLoading: false,
+                fileList: [],
+
+                watchView: false,               //观察状态量-是否为查看
+            }
+        },
+        computed: {
+            option: function () {
+                return {
+                    "draw": 1,
+                    "pageNum": this.currentPage,
+                    "pageSize": this.pageSize,
+                    "startTimeParam": tsf_date(this.date[0]),
+                    "endTimeParam": tsf_date(this.date[1]),
+                    rkRkdjNo: this.rkRkdjNo,
+                    rkRwStatus: this.rkRwStatus
+                }
+            },
+
+        },
+        methods: {
+            View: function (index, row) {
+                var obj = this;
+                var step = form();
+                allPrposCb(step, function (obj, index) {
+                    if (typeof row[index] !== 'undefined') step[index] = row[index];
+                });
+                /*<debug>*/
+                console.log(row);
+                console.log(step);
+                /*</debug>*/
+                step.title = '查看';
+                if (typeof this.$refs.carousel !== 'undefined') this.$refs.carousel.setActiveItem(0);
+                this.form = step;
+                this.dialogFormActive = 0;
+                if (typeof (this.form.rkDocsList) === 'undefined') {
+                    postGoods(obj, {rkRkdjNo: row.rkRkdjNo}, function (json) {
+                        obj.form.rkDocsList = json;
+                        obj.dialogFormVisible = true;
+                    });
+                } else {
+                    obj.dialogFormVisible = true;
+                }
+            },                                        //行内按钮-观察
+            Edit: function (index, row) {
+                p[8].post({rkRkdjId: row.rkRkdjId}, function (json) {
+                    var step = form();
+                    allPrposCb(step, function (obj, index) {
+                        if (typeof row[index] !== 'undefined') step[index] = row[index];
+                    });
+                    /*<debug>*/
+                    console.log(row);
+                    console.log(step);
+                    /*</debug>*/
+                    step.title = '编辑';
+                    step.rkDocsList = json;
+                    if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
+                    obj.form = step;
+                    obj.dialogFormActive = 0;
+                    obj.dialogFormVisible = true;
+                });
+            },                                        //行内按钮-编辑
+            deleteOlder: function (index, row) {
+                var _this = this;
+                _this.$confirm('此操作将永久删除该入库单, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    remove(row, _this.warehousingReservation);
+                    postDelete(_this, {
+                        id: [row.rkdjNo]
+                    });
+                }).catch(function () {
+                    _this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },                                 //行内按钮-删除
+            multiSelectClick: function () {
+                this.multiSelect = !this.multiSelect;
+            },                                      //多选 状态维护
+            handleSelectionChange: function (val, row) {
+                /*<debug>*/
+                console.log(addOrDelete(row, val));
+                /*</debug>*/
+                if (addOrDelete(row, val)) {
+                    this.warehousingReservationCombination.push(row);
+                } else {
+                    remove(row, this.warehousingReservationCombination);
+                }
+                this.multipleSelection = val;
+            },                         //多选 选中控制
+            handleSelectionChangeAll: function (val) {
+                if (val.length > 0) {
+                    for (var i = 0; i < val.length; i++) {
+                        if (!addOrDelete(val[i], this.warehousingReservationCombination)) {
+                            this.warehousingReservationCombination.push(val[i]);
+                        }
+                    }
+                } else {
+                    for (var i = 0; i < this.warehousingReservation.length; i++) {
+                        remove(this.warehousingReservation[i], this.warehousingReservationCombination);
+                    }
+                }
+                this.multipleSelection = val;
+            },                           //多选 选中控制
+            handleSelectionChangeCombination: function (val) {
+                /*<debug>*/
+                console.log(this.multipleSelectionCombination);
+                /*</debug>*/
+                this.multipleSelectionCombination = val;
+            },                   //Combination 选中控制
+            moreOperationDelete: function () {
+                /*<debug>*/
+                console.log('选中的删除');
+                /*</debug>*/
+                for (i = 0; i < this.multipleSelectionCombination.length; i++) {
+                    remove(this.multipleSelectionCombination[i], this.warehousingReservationCombination);
+                }
+            },                                   //多选 删除
+            handleSizeChange: function (val) {
+                /*<debug>*/
+                console.log('每页' + val + '条');
+                /*</debug>*/
+                this.pageSize = val;
+                p[7].post(this.option);
+            },                                   //分页 Size
+            handleCurrentChange: function (val) {
+                /*<debug>*/
+                console.log('当前第' + val + '页');
+                /*</debug>*/
+                this.currentPage = val;
+                p[7].post(this.option);
+            },                                //分页 当前页
+            newInput: function () {
+                this.dialogFormVisible = true;
+//                this.$msgbox({
+//                    title: '消息',
+//                    message: 'sadgasd',
+//                    showCancelButton: true,
+//                    confirmButtonText: '确定',
+//                    cancelButtonText: '取消',
+//                    beforeClose: function (action, instance, done) {
+//                        done();
+//                    }
+//                });
+
+            },                                              //按钮 
+            importExcel: function () {
+                this.dialogExcelVisible = true;
+            },                                           //TODO 按钮 导入Excel
+            setInterface: function () {
+//                this.dialogFormVisible = true;
+            },                                          //TODO 按钮 接口设置
+            expandChange: function (row, expanded) {
+//                if (typeof (row.history) == 'undefined') {
+//                    postHistory(row);
+//                }
+//                console.log(row);
+            },                             //下拉 选择
+            rowSelection: function (row, selected) {
+//                console.log(selected)
+            },                             //选中 当前行
+            submitForm: function () {
+                var _this = this;
+                this.formActive++;
+                this.submitLoading = true;
+
+
+                /*<prod>*/
+                var Combination = post_Combination();
+
+                allPrposCb(Combination, function (obj, index) {
+                    if (typeof _this.warehousingReservationCombinationDetails[index] !== 'undefined') Combination[index] = _this.warehousingReservationCombinationDetails[index];
+                });
+                Combination.docList = [];
+                for (var i = 0; i < warehousingReservation.warehousingReservationCombination.length; i++) {
+                    Combination.docList.push({rkRkdjId: warehousingReservation.warehousingReservationCombination[i].rkRkdjId});
+                }
+
+                Combination.rkrwDhrq = new Date(Combination.rkrwDhrq).toJSON();
+
+                console.log(Combination);
+
+
+                p[0].post(Combination);
+
+                /*</prod>*/
+
+
+                /*<debug>*/
+                setTimeout(function () {
+                    _this.submitLoading = false;
+                    _this.$notify({
+                        title: '成功',
+                        message: '保存成功！',
+                        type: 'success'
+                    });
+//                    _this.$refs['warehousingReservationCombinationDetails'].resetFields();
+                    _this.warehousingReservationCombinationDetails = CombinationDetails();
+                    _this.warehousingReservationCombination = [];
+                    _this.multipleSelection = [];
+                    _this.multipleSelectionCombination = [];
+
+                    _this.formActive = 0;
+                    _this.$refs.carouselWaiting.setActiveItem(0);
+                    p[7].post();
+                }, 1500);
+                /*</debug>*/
+
+
+            },                                            //组合 表单提交
+            submitUpload: function () {
+                console.log('提交')
+            },
+
+            prev: function () {
+                this.dialogFormActive--;
+                this.$refs.carousel.prev();
+            },                                                  //新建 弹出层banner控制 前一个
+            next: function () {
+                this.dialogFormActive++;
+                this.$refs.carousel.next();
+            },                                                  //新建 弹出层banner控制 后一个
+            submit: function () {
+                var _this = this;
+                this.dialogFormActive++;
+                this.submitLoading = true;
+
+                /*<prod>*/
+                var form = post_form();
+
+                allPrposCb(form, function (obj, index) {
+                    if (typeof _this.form[index] !== 'undefined') form[index] = _this.form[index];
+                });
+
+                form.rkCreatetime = new Date().toJSON();
+                form.rkDocsList = [];
+                for (var i = 0; i < _this.form.rkDocsList.length; i++) {
+                    var form_rkDocsList = post_form_rkDocsList();
+                    (function (i, form_rkDocsList) {
+                        allPrposCb(form_rkDocsList, function (val, index) {
+                            if (typeof _this.form.rkDocsList[i][index] !== 'undefined') form_rkDocsList[index] = _this.form.rkDocsList[i][index];
+                        })
+                    })(i, form_rkDocsList);
+                    form.rkDocsList.push(form_rkDocsList);
+                }
+
+                /*</prod>*/
+
+
+                /*<debug>*/
+                setTimeout(function () {
+                    _this.submitLoading = false;
+                    _this.$notify({
+                        title: '成功',
+                        message: '保存成功！',
+                        type: 'success'
+                    });
+                    _this.dialogFormVisible = false;
+                    _this.form = form();
+                    _this.dialogFormActive = 0;
+                    _this.$refs.carousel.setActiveItem(0);
+                    p[7].post(warehousingReservation.options);
+                }, 1500);
+                /*</debug>*/
+
+            },                                                //新建 表单提交
+            submitWatchView: function () {
+                this.dialogFormActive++;
+                this.dialogFormVisible = false;
+                this.form = form();
+                this.dialogFormActive = 0;
+                this.$refs.carousel.setActiveItem(0);
+            },                                       //观察提交
+
+            validateRkRkdjNo: function (rule, value, callback) {
+                if (validateRule.a.exec(value)) {
+                    callback(new Error('不允许存在特殊字符!'));
+                }
+                else {
+                    callback();
+                }
+            },                 //validate 入库单号
+            formValidateField: function (formName) {
+//                console.log(warehousingReservation.$refs[formName]);
+//                console.log(warehousingReservation.$refs);
+//                setTimeout(function () {
+//                    return warehousingReservation.$refs[formName].validate(function (valid) {
+//                        console.log(valid);
+//                        return valid;
+//                    })
+//                },0);
+            },                             //表单 string验证
+            querySearchAsync: function (queryString, cb) {
+                postGoods(this, {
+                    bgGoodsNo: queryString,
+                    "pageNum": 1,
+                    "pageSize": 20,
+                    "draw": 1
+                }, cb);
+            },                       //货品异步查询
+            GoodSelect: function (item) {
+                this.form.selectGood = selectGood();
+                this.form.saveARkDocsList = false;
+                this.form.deleteARkDocsList = true;
+                this.form.selectGood = {
+                    baseGoods: {
+                        bgGoodsNo: item.data.bgGoodsNo,
+                        bgGoodsName: item.data.bgGoodsName
+                    },
+                    baseDw: {
+                        bdDwid: item.data.bgZxdw,
+                        bdName: item.data.bgZxdw
+                    },
+                    rksCount: 0,
+                    rksDwid: item.data.bgZxdw,
+                    rksGoodsId: item.data.bgGoodsId,
+                    data: item.data
+                };
+            },                                        //货品明细控制 选中下拉菜单中的货品
+            GoodClick: function (item) {
+                this.form.saveARkDocsList = true;
+                this.form.deleteARkDocsList = false;
+                this.form.selectGood = item;
+            },                                         //货品明细控制 选中form中的货品
+            saveDocsList: function () {
+                this.form.rkDocsList.push(this.form.selectGood);
+                this.form.selectGood = selectGood();
+                this.form.saveARkDocsList = true;
+            },                                          //货品明细控制 保存
+            deleteARkDocsList: function () {
+                remove(this.form.selectGood, this.form.rkDocsList);
+                this.form.selectGood = selectGood();
+            },                                     //货品明细控制 删除
+
+            selectSubmit: function () {
+                this.dialogSelectVisible = false;
+            },                                          //详细查询 查询提交
+
+            auto_rkArehouseId: function (data, set) {
+                /*<debug>*/
+                //console.log(rkArehouseId);
+                /*</debug>*/
+                var baArehouse = window.dbmessage.baseArehouses;
+                var i;
+                if (typeof set !== 'undefined') {
+                    for (i = 0; i < baArehouse.length; i++) {
+                        if (baArehouse[i].baName === data) {
+                            return baArehouse[i].baArehouseId
+                        }
+                    }
+                    return errorTip(this, '不应出现未知的情况仓库');
+                } else {
+                    for (i = 0; i < baArehouse.length; i++) {
+                        if (baArehouse[i].baArehouseId == data) {
+                            return baArehouse[i].baName
+                        }
+                    }
+                    return '未知的仓库'
+                }
+            },                            //入库仓库id 自动匹配
+            auto_rkCreatetime: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+            },                          //下单时间/创建方式
+            auto_rkType: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        0: '采购订单',
+                        1: '仓间调拨',
+                        2: '退货入库'
+                    }
+                } else {
+                    temp = {
+                        '采购订单': 0,
+                        '仓间调拨': 1,
+                        '退货入库': 2
+                    }
+                }
+                return temp[value];
+            },                                      //
+            auto_rkStatus: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '原始状态',
+                        21: '部分分配',
+                        22: '全部分配',
+                        31: '部分收货',
+                        32: '完全收货',
+                    }
+                } else {
+                    temp = {
+                        '原始状态': 1,
+                        '部分分配': 21,
+                        '全部分配': 22,
+                        '部分收货': 31,
+                        '完全收货': 32,
+
+
+                    }
+                }
+                return temp[value];
+            },                                    //入库状态
+            auto_rkZdfs: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '手动',
+                        2: '导入',
+                        3: '接口'
+                    }
+                } else {
+                    temp = {
+                        '手动': 1,
+                        '导入': 2,
+                        '接口': 3
+                    }
+                }
+                return temp[value];
+            },                                      //制单方式
+
+        },
+        watch: {
+            warehousingReservation: function () {
+
+            },
+            form: function () {
+                if (isNaN(this.form.selectGood.count)) {
+                    this.saveARkDocsList = false;
+                }
+            },
+            rkRkdjNo: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[7].post(this.option);
+            },
+            rkRwStatus: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[7].post(this.option);
+            }
+        }
+    });
+    var obj = warehousingReservation;
+    var p = [];
+    // 0 新增-入库预约
+    p[0] = autoPost({
+        urlHock: "../../hock/form/inputOption.json",
+        urlProd: "/route/warehousingReservation/0",
+        success: function (json) {
+            obj = warehousingReservation;
+            obj.dialogFormVisible = false;
+            obj.submitLoading = false;
+            if (json.status > 19999 && json.status < 30000) {
+                /*<debug>*/
+                obj.$notify({
+                    title: '成功',
+                    message: '保存成功',
+                    type: 'success'
+                });
+                /*</debug>*/
+                /*<prod>*/
+                obj.$notify({
+                    title: '成功',
+                    message: window.statusConfig[json.status],
+                    type: 'success'
+                });
+                /*</prod>*/
+                obj.warehousingReservationCombinationDetails = CombinationDetails();
+                obj.warehousingReservationCombination = [];
+                obj.multipleSelection = [];
+                obj.multipleSelectionCombination = [];
+
+                obj.formActive = 0;
+                obj.$refs.carouselWaiting.setActiveItem(0);
+                p[7].post(warehousingReservation.option);
+            } else {
+                /*<debug>*/
+                obj.$notify({
+                    title: '失败',
+                    message: '保存失败',
+                    type: 'error'
+                });
+                /*</debug>*/
+                /*<prod>*/
+                obj.$notify({
+                    title: '失败',
+                    message: window.statusConfig[json.status],
+                    type: 'error'
+                });
+                /*</prod>*/
+            }
+        }
+    });
+    // 2 新增-入库单
+    p[2] = autoPost({
+        urlHock: "../../hock/form/inputOption.json",
+        urlProd: "/route/warehousingReservation/2",
+        success: function (json) {
+            obj.dialogFormVisible = false;
+            obj.submitLoading = false;
+            if (json.status > 19999 && json.status < 30000) {
+                obj.$notify({
+                    title: '成功',
+                    message: '保存成功！',
+                    type: 'success'
+                });
+                obj.form = form();
+                obj.dialogFormActive = 0;
+                obj.$refs.carousel.setActiveItem(0);
+                p[7].post(obj.option);
+            } else {
+                obj.$notify({
+                    title: '失败',
+                    message: json.model,
+                    type: 'error'
+                });
+            }
+        }
+    });
+    // 3 编辑-入库单
+    p[3] = autoPost({
+        urlHock: "../../hock/form/inputOption.json",
+        urlProd: "/route/warehousingReservation/3",
+        success: function (json) {
+            obj.dialogFormVisible = false;
+            obj.submitLoading = false;
+            if (json.status > 19999 && json.status < 30000) {
+                obj.$notify({
+                    title: '成功',
+                    message: '保存成功！',
+                    type: 'success'
+                });
+                obj.form = form();
+                obj.dialogFormActive = 0;
+                obj.$refs.carousel.setActiveItem(0);
+            } else {
+                obj.$notify({
+                    title: '失败',
+                    message: json.model,
+                    type: 'error'
+                });
+            }
+        }
+    });
+    // 7 入库预约分页查询接口
+    p[7] = autoPost({
+        urlHock: "../../hock/form/inputOption.json",
+        urlProd: "/route/warehousingReservation/7",
+        success: function (json) {
+            obj.dialogFormVisible = false;
+            obj.submitLoading = false;
+            /*<debug>*/
+            console.log(json);
+            /*</debug>*/
+            obj.$data.warehousingReservation = json.data;
+        }
+    });
+    // 8 入库单 详细信息
+    p[8] = autoPost({
+        urlHock: "../../hock/form/inputOption.json",
+        urlProd: "/route/warehousingReservation/8"
+    });
+
+    function CombinationDetails() {
+        return {
+            rkrwId: '',         //id
+            rkrwNo: '',         //入库任务号
+            rkrwDhrq: '',       //预计到货日期
+            rkrwDbd: '',        //调拨地
+            rkrwCys: '',        //承运商
+            rkrwCph: '',        //车牌号
+            rkrwSjxm: '',       //司机姓名
+            rkrwDh: '',         //司机电话
+            rkrwStatus: ''      //任务状态
+        }
+    }
+
+    function selectGood() {
+        return {
+            baseGoods: {
+                bgGoodsNo: '',
+                bgGoodsName: ''
+            },
+            baseDw: {
+                bdDwid: '',
+                bdName: ''
+            },
+            rksCount: 0,
+            rksDwid: '',
+            rksGoodsId: ''
+        }
+    }
+
+    function form() {
+        return {
+            rkRkdjId: '',
+
+            title: '',
+            rkRkdjNo: '',
+            rkRemarks: '',
+            rkDocsList: [],
+
+            rkArehouseId: '',
+            rkType: '',
+
+            rkUserId: app.rmsUser.ruUserId,
+            rkCreatetime: '',
+            rkCreateUserId: app.rmsUser.ruUserId,
+
+            "rkStatus": 1,
+            "rkRwStatus": 1,
+            "rkZdfs": 1,
+            "rkStartwith": 1,
+
+            allCount: 0,
+            allTj: 0,
+
+            bgGoodsNo: '',
+            selectGood: selectGood(),
+            saveARkDocsList: true,
+            deleteARkDocsList: true
+        };
+    }
+
+    function post_form() {
+        return {
+            "rkRkdjId": "",
+            "rkRkdjNo": "L0197168",
+            "rkType": "1",
+            "rkGysmc": "供应商001",
+            "rkRemarks": "备注",
+            "rkUserId": 1,
+            "rkCreatetime": "2017-04-11T06:35:12.029Z",
+            "rkCreateUserId": 1,
+            "rkZdfs": 1,
+            "rkStartwith": 2,
+            "rkStatus": 31,
+            "rkArehouseId": 1,
+            "rkClientId": 1,
+            "rkPrintcount": 0,
+            "rkRwId": 1,
+            "rkRwStatus": "51",
+            rkDocsList: []
+        }
+    }
+
+    function post_form_rkDocsList() {
+        return {
+            "rksGoodsId": 9,
+            "rksDwid": 1,
+            "rksCount": 100,
+            "rksStatus": 1
+        }
+    }
+
+    function post_Combination() {
+        return {
+            "rkrwId": 0,
+            "rkrwNo": "string",
+            "rkrwDhrq": "2017-04-13T08:25:12.866Z",
+            "rkrwDbd": "string",
+            "rkrwCys": "string",
+            "rkrwCph": "string",
+            "rkrwSjxm": "string",
+            "rkrwDh": "string",
+            "rkrwStatus": "string",
+            "rkrwArehouseId": 0,
+            "rkrwClientId": 0,
+            "rkrwCreateUserid": app.rmsUser.ruUserId,
+            docList: []
+        }
+    }
+
+    var validateRule = {
+        a: new RegExp("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", "g")
+    };
+
+
+    // 高级 监视器的 使用方法
+    warehousingReservation.$watch('date', function () {
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        p[7].post(this.option);
+    }, {deep: true});
+    warehousingReservation.$watch('form.title', function () {
+        if (this.form.title === '查看') this.watchView = true;
+        else this.watchView = false;
+    }, {deep: true});
+
+
+    p[7].post(warehousingReservation.option);
+
+    function postCombinationDetails(obj) {
+        obj.showLoading = true;
+        /*<debug>*/
+        var json = {
+            model: 'RK' + dateFormat(new Date(), "yyyyMMdd") + '-' + (++id)
+        };
+        console.log(json);
+        setTimeout(function () {
+            obj.warehousingReservationCombinationDetails.rkrwNo = json.model;
+            obj.showLoading = false;
+        }, 500);
+        /*</debug>*/
+
+        /*<prod>*/
+
+
+        var json = {
+            model: 'RK' + dateFormat(new Date(), "yyyyMMdd") + '-' + (++id)
+        };
+        console.log(json);
+        setTimeout(function () {
+            obj.warehousingReservationCombinationDetails.rkrwNo = json.model;
+            obj.showLoading = false;
+        }, 500);
+
+
+//        url = "/route/warehousingReservation/1";
+//
+//        $.ajax(url, {
+//            type: "GET",
+//            data: option | {
+//                "id": 1                        //* 入库单号id
+//            },
+//            error: function (error) {
+//                errorTip(obj, error);
+//            },
+//            success: function (json) {
+//                obj.warehousingReservationCombinationDetails.rkrwNo = json.model;
+//            },
+//            complete: function () {
+//                obj.showLoading = false;
+//            }
+//        });
+        /*</prod>*/
+    }         // 9 获取任务号
+    function postGoods(obj, option, cb) {
+        //TODO 此处应为AJAX请求,待完善 querySearchAsync
+
+        /*<debug>*/
+        url = "/hock/form/rkGoods.json";
+        /*</debug>*/
+
+        /*<prod>*/
+        url = "/route/goodsManage/0";
+        /*</prod>*/
+
+        $.ajax(url, {
+            type: "GET",
+            data: option,
+            error: function (error) {
+
+            },
+            success: function (json) {
+                json = json.data;
+                var step = [];
+                var length = json.length > 20 ? 20 : json.length;
+                for (var i = 0; i < length; i++) {
+                    step.push({data: json[i], value: json[i].bgGoodsNo})
+                }
+                cb(step);
+            },
+            complete: function () {
+
+            }
+        });
+    }          // 4 获取货品编号
+</script>

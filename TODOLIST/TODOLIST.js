@@ -3440,8 +3440,100 @@
  * TODO 4 库存转移 软删除多个或单个库存转移数据  POST  /stockZyDoc/deleteOfSoft
  */
         /**
- * TODO 5 分页获取库存转移单据(包含详细信息) POST /stockZyDoc/selectByPage
- */
+            * TODO 5 分页获取库存转移单据(包含详细信息) POST /stockZyDoc/selectByPage
+         * {
+  "data": [
+    {
+      "zyId": 7,
+      "zyMentionUserId": 1,
+      "zyMentionUserName": "超级管理员",
+      "zyReason": "string",
+      "zyStatus": 0,
+      "zyCreateUserId": 1,
+      "zyCreateUserName": "超级管理员",
+      "zyCreateTime": 1494221354000,
+      "zyConfirmUserId": null,
+      "zyConfirmUserName": "",
+      "zyConfirmTime": null,
+      "zyCancelUserId": null,
+      "zyCancelUserName": "",
+      "zyCancelTime": null,
+      "zyArehouseId": 1,
+      "zyDocsList": [
+        {
+          "zysId": 8,
+          "zysZyId": 7,
+          "zysRepertoryId": 205,
+          "zysZyBeforeLocationId": 1,
+          "zysZyAfterLocationId": 1,
+          "zysZyBeforeKyCount": 100,
+          "zysZyCount": 0,
+          "mfunRepertory": {
+            "mrRepertoryId": 205,
+            "mrLocationId": 8,
+            "mrGoodsId": 1,
+            "mrGoodsBatch": "2017-04-27",
+            "mrDwid": 1,
+            "mrCount": 100,
+            "mrDxjCount": 20,
+            "mrDjCount": 0,
+            "mrDjStatus": true,
+            "mrDzyCount": 0,
+            "mrKcydsj": 1494315188000,
+            "mrArehouseId": 1,
+            "kyCount": null,
+            "baseLocation": {
+              "blLocationId": 8,
+              "blLname": "H16-43-A3", --货品库位
+              "blRegionId": 4,
+              "blLtray": 2,
+              "blLorder": 7,
+              "blStatus": 1,
+              "blArehouseId": 1
+            },
+            "baseGoods": {
+              "bgGoodsId": 1,
+              "bgGoodsNo": "13701003002",
+              "bgGoodsName": "电热锅、JK-30R2（30R2-A）、红色+黑色+不锈钢一体、3L、220V、2100W、50HZ、内销、I类结构",
+              "bgNamejc": "电热锅、JK-30R2（30R2-A）、红色+黑色+不锈钢一体、3L、220V、2100W、50HZ、内销、I类结构",
+              "bgT": 50,
+              "bgI": 10,
+              "bgHsl": 5,
+              "bgZxdw": 2,
+              "bgSzdw": 1,
+              "bgStatus": 1,
+              "bgArehouseId": 1,
+              "bgClientId": 1,
+              "bgGoodsType": "type1",
+              "bgGoodsTj": 9,
+              "bgGoodsZl": 10,
+              "bgGoodsPrice": 70,
+              "bgCreatetime": 1489643786000,
+              "bgRemarks": "九阳电磁炉",
+              "bgGoodsGg": "bg_goods_gg",
+              "baseDws": null
+            },
+            "baseDw": {
+              "bdDwId": 1,
+              "bdName": "台",
+              "bdStatus": 2,
+              "bdIsdel": true,
+              "bdCreatetime": 1488786104000
+            },
+            "baseArehouse": null,
+            "baseArehouseKq": null,
+            "baseRegion": null
+          }
+        }
+      ]
+    }
+  ],
+  "draw": 0,
+  "recordsTotal": 5,
+  "recordsFiltered": 5
+}
+         *
+        */
         /**
  * TOOD 6  库存转移过程 通过库存转移单据id删除库存转移单据 DELETE /stockZyDoc/{zyId}
  */
@@ -4209,7 +4301,69 @@
         /**
          * TODO 6 盘点作业 盘点详情页面根据盘点计划ID查询详情 POST /mfunpd/selectPdInfoByPdsPdId
          */
-
+/**
+ * TODO 业务查询
+ */
+    /**
+     * TODO 库存转移查询
+     */
+        /**
+         * TODO 0  库存转移过程 分页获取库存转移单据(包含详细信息) POST /stockZyDoc/selectByPage
+         */
+/**
+ * TODO 库存冻结查询
+     */
+        /**
+         * TODO 0 库存冻结过程 分页获取库存冻结单据(包含明细) POST /stockDjDoc/selectByPage
+         */
+    /**
+        * TODO 盘点查询
+     */
+        /**
+        * TODO 0 业务查询 根据查询条件分页查询盘点计划 POST /mfunpd/selectMfunpdByPage
+        * 参数：
+        * {
+               "draw": 0,
+               "pageNum": 1,
+               "pageSize": 10
+          }
+        字段
+        {
+           "data": [
+             {
+               "pdId": 1,
+               "pdType": 0,
+               "pdYdBeginTime": 1493308800000,
+               "pdYdEndTime": null,
+               "pdZyBeginTime": null,
+               "pdZyEndTime": null,
+               "pdCreateTime": 1493349660000,
+               "pdCreateUserId": 1,
+               "pdQrsj": 1493349772000,
+               "pdQrUserId": null,
+               "pdZfsj": null,
+               "pdZfUserId": null,
+               "pdStatus": 0,
+               "pdChargePerson": "",
+               "pdOperator": "",
+               "pdArehouseId": 1,
+               "pdDiffStatus": 1,
+               "mfunpdDocs": [],
+               "mrGoodsIds": null,
+               "rmsUser": null
+             }
+           ],
+           "draw": 0,
+           "recordsTotal": 1,
+           "recordsFiltered": 1
+          }
+        */
+        /**
+         * TODO 1 业务查询 根据盘点计划ID查询盘点详情 POST /mfunpd/selectMfunpdDocsByPdsPdId
+         */
+        /**
+         * TODO 2 导出
+         */
 
 
 

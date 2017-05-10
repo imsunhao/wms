@@ -683,7 +683,7 @@
     }
     var obj=inventorySelect;
     var p=[];
-    // 0 盘点查询 分页查询
+    // 0 盘点查询 根据查询条件分页查询盘点计划
     p[0] = autoPost({
         urlHock: "/hock/inventorySelect/page.json",
         urlProd: "/route/inventorySelect/0",
@@ -692,7 +692,7 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-    // 1 盘点查询
+    // 1 盘点查询 根据盘点计划ID查询盘点详情
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/inventorySelect/1",
