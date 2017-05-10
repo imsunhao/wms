@@ -2929,18 +2929,11 @@
 }
 
  */
-
-
-
 /**
  * TODO 挑选单据
  */
         /**
          *  TODO 0 挑选单据-查询-任务单据 POST /mfunck/selectChooseCkrwByPage
-         *
-         *
-         *
-         *
          {
            "draw": 0,
            "ckrwNo": "",               任务单号（可模糊查询）
@@ -2966,25 +2959,25 @@
 /**
  * TODO  激活单据分页查询
  */
-/**
- * TODO 0 激活单据-查询-任务单  POST /mfunck/selectActivatedCkrwByPage
- *  * 参数
-         {
-         "draw": 0,
-         "ckrwNo": "",                    (任务单号)
-         "ckrwCph": "",                    (车牌号)
-         "ckrwWls": "",                         (物流商)
-         "ckrwStartYjdcsj": "",        (预计到车时间)
-         "ckrwEndSjdcsj": "",          (实际倒车时间)
-         "ckrwStartGreatTime": "",                  (创建时间/制作时间)
-         "ckrwEndGreatTime": "",                    (创建结束时间)
-         "pageNum": 1,
-         "pageSize": 10
-        }
- */
-/**
- * TODO 1 激活任务
- */
+    /**
+     * TODO 0 激活单据-查询-任务单  POST /mfunck/selectActivatedCkrwByPage
+     *  * 参数
+             {
+             "draw": 0,
+             "ckrwNo": "",                    (任务单号)
+             "ckrwCph": "",                    (车牌号)
+             "ckrwWls": "",                         (物流商)
+             "ckrwStartYjdcsj": "",        (预计到车时间)
+             "ckrwEndSjdcsj": "",          (实际倒车时间)
+             "ckrwStartGreatTime": "",                  (创建时间/制作时间)
+             "ckrwEndGreatTime": "",                    (创建结束时间)
+             "pageNum": 1,
+             "pageSize": 10
+            }
+     */
+    /**
+     * TODO 1 激活任务
+     */
 /**
  * TODO 出库操作
  */
