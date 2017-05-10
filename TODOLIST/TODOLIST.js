@@ -3011,6 +3011,22 @@
  */
 /**
  * TODO 0 分页查询 POST /mfunck/selectDespatchCkrwByPage
+ * 参数：
+      {
+      "draw": 0,
+      "ckrwNo": "",
+      "ckrwCph": "",
+      "ckrwWls": "",
+      "ckrwStartYjdcsj": "",
+      "ckrwEndSjdcsj": "",
+      "ckrwStartSjdcsj": "",
+      "ckrwEndYjdcsj": "",
+      "ckrwStartGreatTime": "",
+      "ckrwEndGreatTime": "",
+      "pageNum": 1,
+      "pageSize": 10
+    }
+
  *
  */
 
