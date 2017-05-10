@@ -542,39 +542,6 @@
     }
 </style>
 <script>
-    function form() {
-        return {
-            ckrwId: '',
-            title: "新建入库任务",
-            ckrwN: '',
-            ckrwCph: '',
-            dds: '',
-            pxs: '',
-            ckrwSjxm: '',
-            ckrwDhrq: '',
-            ckrwDbd: '',
-            ckrwCys: '',
-            ckrwDh: '',
-            ckrwStatus: '',
-            ckCkdjNo:'',                //模糊查询--出库单号
-            ckXdsj  :[null,null],       //模糊查询--下单时间
-            mhCreatetime:[null,null],   //模糊查询--制作时间
-
-    }
-    }
-    function formReissue() {
-        return {
-            a: '',             //补发单号
-            b: "",             //补发情况
-            c: '',             //欠货备注
-            d: 0,              //补发状态  1.已补发  2.已赔付 3.需跟进
-        }
-    }
-    function formRetention() {
-        return {
-            a: '',             //任务号
-        }
-    }
     var recoveryArchive = new Vue({
         el: '#recoveryArchive',
         prop: {},
@@ -735,14 +702,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post(this.option);
             },                                //分页 当前页
             outstandingInformation: function () {
                 this.dialogReissueVisible = true;
@@ -792,12 +759,12 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(recoveryArchive);
+                    p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                post(this, {});
+                p[0].post( {});
             },                                          //详细查询 提交
             reissueSubmit: function () {
 
@@ -831,6 +798,51 @@
         },
         watch: {}
     });
+    function form() {
+        return {
+            ckrwId: '',
+            title: "新建入库任务",
+            ckrwN: '',
+            ckrwCph: '',
+            dds: '',
+            pxs: '',
+            ckrwSjxm: '',
+            ckrwDhrq: '',
+            ckrwDbd: '',
+            ckrwCys: '',
+            ckrwDh: '',
+            ckrwStatus: '',
+            ckCkdjNo:'',                //模糊查询--出库单号
+            ckXdsj  :[null,null],       //模糊查询--下单时间
+            mhCreatetime:[null,null],   //模糊查询--制作时间
+
+    }
+    }
+    var obj=recoveryArchive;
+    var p=[];
+    // 0 回收存档 分页查询
+    p[0] = autoPost({
+        urlHock: "../../hock/recoveryArchive/page.json",
+        urlProd: "/route/recoveryArchive/0",
+        success: function (json) {
+            obj.$data.recoveryArchive = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+    function formReissue() {
+        return {
+            a: '',             //补发单号
+            b: "",             //补发情况
+            c: '',             //欠货备注
+            d: 0,              //补发状态  1.已补发  2.已赔付 3.需跟进
+        }
+    }
+    function formRetention() {
+        return {
+            a: '',             //任务号
+        }
+    }
+
     // 高级 监视器的 使用方法
     //    recoveryArchive.$watch('date', function () {
     //        if (!this.option.dateStart)return;
@@ -839,7 +851,7 @@
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
-    post(recoveryArchive, recoveryArchive.option);
+    p[0].post( recoveryArchive.option);
     function post(obj, option) {
         obj.showLoading = true;
 

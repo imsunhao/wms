@@ -2964,15 +2964,90 @@
          *
          */
 /**
- * TODO 激活单据
+ * TODO  激活单据分页查询
  */
-
 /**
- * TODO 0 激活单据-查询-任务单 /mfunck/selectActivatedCkrwByPage
+ * TODO 0 激活单据-查询-任务单  POST /mfunck/selectActivatedCkrwByPage
+ *  * 参数
+         {
+         "draw": 0,
+         "ckrwNo": "",                    (任务单号)
+         "ckrwCph": "",                    (车牌号)
+         "ckrwWls": "",                         (物流商)
+         "ckrwStartYjdcsj": "",        (预计到车时间)
+         "ckrwEndSjdcsj": "",          (实际倒车时间)
+         "ckrwStartGreatTime": "",                  (创建时间/制作时间)
+         "ckrwEndGreatTime": "",                    (创建结束时间)
+         "pageNum": 1,
+         "pageSize": 10
+        }
  */
 /**
  * TODO 1 激活任务
  */
+/**
+ * TODO 出库操作
+ */
+/**
+ * TODO 0 出库操作 出库单据分页查询 POST /mfunck/selectOperateCkDocByPage
+          {
+          "draw": 0,
+          "ckCkdjNo": "",           (出库单号)
+          "pageNum": 1,
+          "pageSize": 10,
+          "ckStatus": -1,           (状态)
+          "ckCkdjClientname": "",   (客户名称)
+          "ckrwCph": "",            (车牌号)
+          "ckrwWls": "",            (物流商)
+          "mhStartCreateTime": "",  (制作时间)
+          "mhEndCreateTime": "",
+          "ckStartXdsj": "",        (下单时间)
+          "ckEndXdsj": ""
+         }
+
+ */
+/**
+ * TODO 出库发运
+ */
+/**
+ * TODO 0 分页查询 POST /mfunck/selectDespatchCkrwByPage
+ * 参数：
+      {
+      "draw": 0,
+      "ckrwNo": "",
+      "ckrwCph": "",
+      "ckrwWls": "",
+      "ckrwStartYjdcsj": "",
+      "ckrwEndSjdcsj": "",
+      "ckrwStartSjdcsj": "",
+      "ckrwEndYjdcsj": "",
+      "ckrwStartGreatTime": "",
+      "ckrwEndGreatTime": "",
+      "pageNum": 1,
+      "pageSize": 10
+    }
+
+ *
+ */
+/**
+ * TODO 回收存档
+ */
+/**
+ * TODO 0 分页查询 POST /mfunck/selectConserveCkDocByPage
+ * 参数
+     {
+      "draw": 0,
+      "ckCkdjNo": "",
+      "pageNum": 1,
+      "pageSize": 10,
+      "mhStartCreateTime": "",
+      "mhEndCreateTime": "",
+      "ckStartXdsj": "",
+      "ckEndXdsj": ""
+    }
+ */
+
+
 
 
 

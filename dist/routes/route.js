@@ -845,6 +845,51 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
+             case 'activationBill':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '激活单据-查询-任务单据';
+                        req = autoUrl(req, '/mfunck/selectActivatedCkrwByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+                }
+                break;
+            case 'outputOperation':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '出库操作-查询-出库单据';
+                        req = autoUrl(req, '/mfunck/selectOperateCkDocByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+               case 'outputShipment':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '出库发运-分页查询';
+                        req = autoUrl(req, '/mfunck/selectDespatchCkrwByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+
+             case 'recoveryArchive':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '回收存档- 分页查询';
+                        req = autoUrl(req, '/mfunck/selectConserveCkDocByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+
+
+
             case 'inputDaily':
                 switch (parseInt(req.params._status)) {
                     case 0:
