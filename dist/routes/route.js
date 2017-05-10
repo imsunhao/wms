@@ -744,7 +744,7 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 9:
-                        urlName = '出库预约-查询-出库单-详细';
+                        urlName = '出库预约-查询-出库单-详细         ';
                         req = autoUrl(req, '/mfunck/mfunckdocAdd', "GET", function (json) {
                             res.send(json);
                         });

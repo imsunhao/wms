@@ -412,17 +412,8 @@
                                             placeholder="选择到车时间">
                                     </el-date-picker>
                                 </el-form-item>
-                                <el-form-item label="实际到车时间" :label-width="formLabelWidth">
-                                    <el-date-picker
-                                            v-model="outputAppointmentCombinationDetails.ckrwSjdcsj"
-                                            type="datetime"
-                                            placeholder="选择到车时间">
-                                    </el-date-picker>
-                                </el-form-item>
                             </el-col>
                             <el-col :span="10" :offset="2">
-
-
                                 <el-form-item label="车牌号" :label-width="formLabelWidth">
                                     <el-input
                                             v-model="outputAppointmentCombinationDetails.ckrwCph"
@@ -488,51 +479,52 @@
                     </el-row>
                     <el-row>
                         <el-col :span="10">
-                            <el-form-item
-                                    label="出库单号"
-                                    prop="ckCkdjNo"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model="form.ckCkdjNo"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
                             <el-form-item label="所属仓库" :label-width="formLabelWidth">
                                 <el-select v-model.number="form.ckArehouseId" placeholder="请选择所属仓库">
                                     <el-option :label="obj.baName" :value="obj.baArehouseId"
                                                v-for="obj of baseArehouses"></el-option>
                                 </el-select>
                             </el-form-item>
-                            <el-form-item label="单据类型" :label-width="formLabelWidth">
-                                <el-select v-model.number="form.ckCkdjType" placeholder="请选择单据类型">
-                                    <el-option label="正常单据" :value.number="0"></el-option>
-                                    <el-option label="挂起单据" :value.number="1"></el-option>
-                                    <el-option label="滞留单据" :value.number="2"></el-option>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item label="出库备注" :label-width="formLabelWidth">
+                            <el-form-item label="客户名称" :label-width="formLabelWidth">
                                 <el-input
-                                        type="textarea"
-                                        :rows="2"
-                                        v-model="form.ckRemarks"
+                                        v-model="form.ckCkdjClientname"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item label="联系电话" :label-width="formLabelWidth">
+                                <el-input
+                                        v-model="form.ckTel"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item label="客户地址" :label-width="formLabelWidth">
+                                <el-input
+                                        v-model="form.ckAdress"
+                                        auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item label="联系人" :label-width="formLabelWidth">
+                                <el-input
+                                        v-model="form.ckContacts"
                                         auto-complete="off"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col :span="12" :offset="2">
-                            <el-form-item label="发货状态">
-                                {{auto_ckStatus(form.ckStatus)}}
+                            <el-form-item label="出库单号">
+                                <el-tag type="success">{{form.ckCkdjNo}}</el-tag>
                             </el-form-item>
                             <el-form-item label="出库数量">
                                 {{form.cksGoodsCount}}
                             </el-form-item>
                             <el-form-item label="出库体积">
-                                {{form.allTj }}
+                                {{form.allTj}}
                             </el-form-item>
                             <el-form-item label="出库重量">
-                                {{form.allTj }}
+                                {{form.allTj}}
                             </el-form-item>
-
-                            <el-form-item label="制作方式">
-                                {{form.ckIsauto }}
+                            <el-form-item>
+                                <el-input
+                                        type="textarea"
+                                        :rows="2"
+                                        v-model="form.ckRemarks"
+                                        auto-complete="off"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -557,7 +549,7 @@
                                     :label-width="formLabelWidth">
                                 <el-input
                                         :disabled="form.selectGood.value==''"
-                                        v-model.number="form.selectGood.rksCount"
+                                        v-model.number="form.selectGood.cksGoodsCount"
                                         auto-complete="off"></el-input>
                             </el-form-item>
                         </el-col>
@@ -586,9 +578,9 @@
                     <el-row>
                         <el-col :span="8" :offset="16" v-show="!watchView">
                             <el-button size="small" @click="saveDocsList"
-                                       :disabled="form.saveARkDocsList">保存明细
+                                       :disabled="form.saveAmfunckDocs">保存明细
                             </el-button>
-                            <el-button size="small" @click="deleteARkDocsList" :disabled="form.deleteARkDocsList"
+                            <el-button size="small" @click="deleteAmfunckDocs" :disabled="form.deleteAmfunckDocs"
                                        type="danger">删除明细
                             </el-button>
                         </el-col>
@@ -598,7 +590,7 @@
                             <el-table
                                     @row-click="GoodClick"
                                     height="200"
-                                    :data="form.ckDocsList">
+                                    :data="form.mfunckDocs">
                                 <el-table-column
                                         type="index"
                                         width="55">
@@ -626,7 +618,7 @@
                                         label="数量"
                                         width="100"
                                         show-overflow-tooltip
-                                        prop="rksCount"
+                                        prop="cksGoodsCount"
                                         align="center">
                                 </el-table-column>
                             </el-table>
@@ -640,10 +632,10 @@
             <el-button type="primary" @click="prev" v-show="dialogFormActive">上一步</el-button>
             <el-button type="primary" @click="next" v-show="dialogFormActive < 1">下一步</el-button>
             <el-button type="primary" @click="submit" :loading="submitLoading" v-show="dialogFormActive >= 1"
-                       :disabled="form.ckDocsList.length==0" v-if="!watchView">保存
+                       :disabled="form.mfunckDocs.length==0" v-if="!watchView">保存
             </el-button>
             <el-button type="primary" @click="submitWatchView" :loading="submitLoading" v-show="dialogFormActive >= 1"
-                       :disabled="form.ckDocsList.length==0" v-if="watchView">确认
+                       :disabled="form.mfunckDocs.length==0" v-if="watchView">确认
             </el-button>
         </div>
     </el-dialog>
@@ -733,16 +725,15 @@
 
                     ckCkdjNo: this.ckCkdjNo,
 
-                    "ckStatus": -1,
-                    "ckCkdjClientname": "",
-                    "ckCkdjType": -1,
-                    "ckArehouseId": -1
+//                    "ckStatus": -1,
+//                    "ckCkdjClientname": "",
+//                    "ckCkdjType": -1,
+//                    "ckArehouseId": -1
                 }
             },
         },
         methods: {
             View: function (index, row) {
-                var obj = this;
                 var step = form();
                 allPrposCb(step, function (obj, index) {
                     if (typeof row[index] !== 'undefined') step[index] = row[index];
@@ -755,9 +746,9 @@
                 if (typeof this.$refs.carousel !== 'undefined') this.$refs.carousel.setActiveItem(0);
                 this.form = step;
                 this.dialogFormActive = 0;
-                if (typeof (this.form.ckDocsList) === 'undefined') {
+                if (typeof (this.form.mfunckDocs) === 'undefined') {
                     postGoods(obj, {ckCkdjNo: row.ckCkdjNo}, function (json) {
-                        obj.form.ckDocsList = json;
+                        obj.form.mfunckDocs = json;
                         obj.dialogFormVisible = true;
                     });
                 } else {
@@ -765,7 +756,7 @@
                 }
             },                                        //行内按钮-观察
             inlineEdit: function (index, row) {
-                p[8].post({rkRkdjId: row.rkRkdjId}, function (json) {
+                p[8].post({id: row.ckCkdjId}, function (json) {
                     var step = form();
                     allPrposCb(step, function (obj, index) {
                         if (typeof row[index] !== 'undefined') step[index] = row[index];
@@ -775,44 +766,42 @@
                     console.log(step);
                     /*</debug>*/
                     step.title = '编辑';
-                    step.ckDocsList = json;
+                    step.mfunckDocs = json.model;
                     if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
                     obj.form = step;
                     obj.dialogFormActive = 0;
                     obj.dialogFormVisible = true;
                 });
-            },                                        //行内按钮-编辑
+            },                                  //行内按钮-编辑
             inlineDeleteOlder: function (index, row) {
-                var _this = this;
-                _this.$confirm('确定作废? 单号：' + row.ckCkdjNo, '提示', {
+                obj.$confirm('确定作废? 单号：' + row.ckCkdjNo, '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.outputAppointment);
-                    postDelete(_this, {
-                        id: [row.rkdjNo]
+                    remove(row, obj.outputAppointment);
+                    p[11].post({
+                        id: row.ckCkdjId
                     });
                 }).catch(function () {
-                    _this.$message({
+                    obj.$message({
                         type: 'info',
                         message: '已取消作废'
                     });
                 });
-            },                                 //行内按钮-作废
+            },                           //行内按钮-作废
             inlineRetentionInput: function (index, row) {
-                var _this = this;
-                _this.$confirm('确定滞留出库？ 单号：' + row.ckCkdjNo, '提示', {
+                obj.$confirm('确定滞留出库？ 单号：' + row.ckCkdjNo, '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    _this.outputAppointment[index].ckCkdjType = 1;
-                    postRetentionInput(_this, {
-                        id: [row.rkdjNo]
+                    obj.outputAppointment[index].ckCkdjType = 1;
+                    postRetentionInput(obj, {
+                        id: [row.ckCkdjId]
                     });
                 }).catch(function () {
-                    _this.$message({
+                    obj.$message({
                         type: 'info',
                         message: '已取消操作'
                     });
@@ -875,18 +864,10 @@
                 p[7].post(this.option);
             },                                //分页 当前页
             newInput: function () {
+                if (this.form.ckCkdjNo === '') {
+                    p[9].post();
+                }
                 this.dialogFormVisible = true;
-//                this.$msgbox({
-//                    title: '消息',
-//                    message: 'sadgasd',
-//                    showCancelButton: true,
-//                    confirmButtonText: '确定',
-//                    cancelButtonText: '取消',
-//                    beforeClose: function (action, instance, done) {
-//                        done();
-//                    }
-//                });
-
             },                                              //按钮 新建出库单
             expandChange: function (row, expanded) {
 //                if (typeof (row.history) == 'undefined') {
@@ -902,15 +883,14 @@
                 this.$refs.carouselWaiting.prev();
             },                                              //form 前一个
             nextForm: function () {
-                if (this.outputAppointmentCombinationDetails.rkrwNo === "") {
-                    postCombinationDetails(this);
+                if (this.outputAppointmentCombinationDetails.ckrwNo === "") {
+                    obj.showLoading = true;
+                    p[10].post();
                 }
-                this.outputAppointmentCombinationDetails.rkrwDhrq = new Date();
                 this.formActive++;
                 this.$refs.carouselWaiting.next();
             },                                              //form 后一个
             submitForm: function () {
-                var _this = this;
                 this.formActive++;
                 this.submitLoading = true;
 
@@ -918,40 +898,36 @@
                 /*<prod>*/
                 var Combination = post_Combination();
 
-                allPrposCb(Combination, function (obj, index) {
-                    if (typeof _this.outputAppointmentCombinationDetails[index] !== 'undefined') Combination[index] = _this.outputAppointmentCombinationDetails[index];
+                allPrposCb(Combination, function (obj2, index) {
+                    if (typeof obj.outputAppointmentCombinationDetails[index] !== 'undefined') Combination[index] = obj.outputAppointmentCombinationDetails[index];
                 });
-                Combination.docList = [];
+                Combination.ckCkdjIds = [];
                 for (var i = 0; i < outputAppointment.outputAppointmentCombination.length; i++) {
-                    Combination.docList.push({rkRkdjId: outputAppointment.outputAppointmentCombination[i].rkRkdjId});
+                    Combination.ckCkdjIds.push(outputAppointment.outputAppointmentCombination[i].ckCkdjId);
                 }
 
-                Combination.rkrwDhrq = new Date(Combination.rkrwDhrq).toJSON();
+                Combination.ckrwYjdcsj = Combination.ckrwYjdcsj.toJSON();
 
-                console.log(Combination);
-
-
-                p[0].post(Combination);
-
+                p[1].post(Combination);
                 /*</prod>*/
 
 
                 /*<debug>*/
                 setTimeout(function () {
-                    _this.submitLoading = false;
-                    _this.$notify({
+                    obj.submitLoading = false;
+                    obj.$notify({
                         title: '成功',
                         message: '保存成功！',
                         type: 'success'
                     });
-//                    _this.$refs['outputAppointmentCombinationDetails'].resetFields();
-                    _this.outputAppointmentCombinationDetails = CombinationDetails();
-                    _this.outputAppointmentCombination = [];
-                    _this.multipleSelection = [];
-                    _this.multipleSelectionCombination = [];
+//                    obj.$refs['outputAppointmentCombinationDetails'].resetFields();
+                    obj.outputAppointmentCombinationDetails = CombinationDetails();
+                    obj.outputAppointmentCombination = [];
+                    obj.multipleSelection = [];
+                    obj.multipleSelectionCombination = [];
 
-                    _this.formActive = 0;
-                    _this.$refs.carouselWaiting.setActiveItem(0);
+                    obj.formActive = 0;
+                    obj.$refs.carouselWaiting.setActiveItem(0);
                     p[7].post();
                 }, 1500);
                 /*</debug>*/
@@ -971,30 +947,30 @@
                 this.$refs.carousel.next();
             },                                                  //新建 弹出层banner控制 后一个
             submit: function () {
-                var _this = this;
                 this.dialogFormActive++;
                 this.submitLoading = true;
 
                 /*<prod>*/
                 var form = post_form();
 
-                allPrposCb(form, function (obj, index) {
-                    if (typeof _this.form[index] !== 'undefined') form[index] = _this.form[index];
+                allPrposCb(form, function (val, index) {
+                    if (typeof obj.form[index] !== 'undefined') form[index] = obj.form[index];
                 });
 
                 form.rkCreatetime = new Date().toJSON();
-                form.ckDocsList = [];
-                for (var i = 0; i < _this.form.ckDocsList.length; i++) {
-                    var form_rkDocsList = post_form_rkDocsList();
-                    (function (i, form_rkDocsList) {
-                        allPrposCb(form_rkDocsList, function (val, index) {
-                            if (typeof _this.form.ckDocsList[i][index] !== 'undefined') form_rkDocsList[index] = _this.form.ckDocsList[i][index];
+                form.mfunckDocs = [];
+                for (var i = 0; i < obj.form.mfunckDocs.length; i++) {
+                    var form_mfunckDocs = post_form_mfunckDocs();
+                    (function (i, form_mfunckDocs) {
+                        allPrposCb(form_mfunckDocs, function (val, index) {
+                            console.log(index);
+                            if (typeof obj.form.mfunckDocs[i][index] !== 'undefined') form_mfunckDocs[index] = obj.form.mfunckDocs[i][index];
                         })
-                    })(i, form_rkDocsList);
-                    form.ckDocsList.push(form_rkDocsList);
+                    })(i, form_mfunckDocs);
+                    form.mfunckDocs.push(form_mfunckDocs);
                 }
                 if (this.form.title === '新建出库单') {
-                    p[2].post(form);
+                    p[0].post(form);
                 } else {
                     p[3].post(form);
                 }
@@ -1003,16 +979,16 @@
 
                 /*<debug>*/
                 setTimeout(function () {
-                    _this.submitLoading = false;
-                    _this.$notify({
+                    obj.submitLoading = false;
+                    obj.$notify({
                         title: '成功',
                         message: '保存成功！',
                         type: 'success'
                     });
-                    _this.dialogFormVisible = false;
-                    _this.form = form();
-                    _this.dialogFormActive = 0;
-                    _this.$refs.carousel.setActiveItem(0);
+                    obj.dialogFormVisible = false;
+                    obj.form = form();
+                    obj.dialogFormActive = 0;
+                    obj.$refs.carousel.setActiveItem(0);
                     p[7].post(outputAppointment.options);
                 }, 1500);
                 /*</debug>*/
@@ -1054,8 +1030,8 @@
             },                       //货品异步查询
             GoodSelect: function (item) {
                 this.form.selectGood = selectGood();
-                this.form.saveARkDocsList = false;
-                this.form.deleteARkDocsList = true;
+                this.form.saveAmfunckDocs = false;
+                this.form.deleteAmfunckDocs = true;
                 this.form.selectGood = {
                     baseGoods: {
                         bgGoodsNo: item.data.bgGoodsNo,
@@ -1072,17 +1048,17 @@
                 };
             },                                        //货品明细控制 选中下拉菜单中的货品
             GoodClick: function (item) {
-                this.form.saveARkDocsList = true;
-                this.form.deleteARkDocsList = false;
+                this.form.saveAmfunckDocs = true;
+                this.form.deleteAmfunckDocs = false;
                 this.form.selectGood = item;
             },                                         //货品明细控制 选中form中的货品
             saveDocsList: function () {
-                this.form.ckDocsList.push(this.form.selectGood);
+                this.form.mfunckDocs.push(this.form.selectGood);
                 this.form.selectGood = selectGood();
-                this.form.saveARkDocsList = true;
+                this.form.saveAmfunckDocs = true;
             },                                          //货品明细控制 保存
-            deleteARkDocsList: function () {
-                remove(this.form.selectGood, this.form.ckDocsList);
+            deleteAmfunckDocs: function () {
+                remove(this.form.selectGood, this.form.mfunckDocs);
                 this.form.selectGood = selectGood();
             },                                     //货品明细控制 删除
 
@@ -1182,7 +1158,7 @@
             },
             form: function () {
                 if (isNaN(this.form.selectGood.count)) {
-                    this.saveARkDocsList = false;
+                    this.saveAmfunckDocs = false;
                 }
             },
             ckCkdjNo: function () {
@@ -1201,79 +1177,38 @@
     });
     var obj = outputAppointment;
     var p = [];
-    // 0 新增-出库预约
+    // 0 出库预约 新增 出库单据/包含出库单明细
     p[0] = autoPost({
         urlHock: "/hock/outputAppointment/page.json",
         urlProd: "/route/outputAppointment/0",
         success: function (json) {
-            obj = outputAppointment;
             obj.dialogFormVisible = false;
             obj.submitLoading = false;
-            if (json.status > 19999 && json.status < 30000) {
-                /*<debug>*/
-                obj.$notify({
-                    title: '成功',
-                    message: '保存成功',
-                    type: 'success'
-                });
-                /*</debug>*/
-                /*<prod>*/
-                obj.$notify({
-                    title: '成功',
-                    message: window.statusConfig[json.status],
-                    type: 'success'
-                });
-                /*</prod>*/
+            this.callbackAfter({status: json.status, model: '新建出库单'}, function () {
+                obj.form = form();
+                obj.dialogFormActive = 0;
+                if (obj.$refs.carousel) obj.$refs.carousel.setActiveItem(0);
+                p[7].post(obj.option);
+            })
+        }
+    });
+    // 1 出库预约-组合
+    p[1] = autoPost({
+        urlHock: "../../hock/form/inputOption.json",
+        urlProd: "/route/outputAppointment/1",
+        success: function (json) {
+            obj.dialogFormVisible = false;
+            obj.submitLoading = false;
+            this.callbackAfter({status: json.status, model: '组合出库单'}, function () {
                 obj.outputAppointmentCombinationDetails = CombinationDetails();
                 obj.outputAppointmentCombination = [];
                 obj.multipleSelection = [];
                 obj.multipleSelectionCombination = [];
 
                 obj.formActive = 0;
-                obj.$refs.carouselWaiting.setActiveItem(0);
+                if (obj.$refs.carouselWaiting) obj.$refs.carouselWaiting.setActiveItem(0);
                 p[7].post(outputAppointment.option);
-            } else {
-                /*<debug>*/
-                obj.$notify({
-                    title: '失败',
-                    message: '保存失败',
-                    type: 'error'
-                });
-                /*</debug>*/
-                /*<prod>*/
-                obj.$notify({
-                    title: '失败',
-                    message: window.statusConfig[json.status],
-                    type: 'error'
-                });
-                /*</prod>*/
-            }
-        }
-    });
-    // 2 新增-出库单
-    p[2] = autoPost({
-        urlHock: "../../hock/form/inputOption.json",
-        urlProd: "/route/outputAppointment/2",
-        success: function (json) {
-            obj.dialogFormVisible = false;
-            obj.submitLoading = false;
-            if (json.status > 19999 && json.status < 30000) {
-                obj.$notify({
-                    title: '成功',
-                    message: '保存成功！',
-                    type: 'success'
-                });
-                obj.form = form();
-                obj.dialogFormActive = 0;
-                obj.$refs.carousel.setActiveItem(0);
-                p[7].post(obj.option);
-            } else {
-                obj.$notify({
-                    title: '失败',
-                    message: json.model,
-                    type: 'error'
-                });
-            }
+            })
         }
     });
     // 3 编辑-出库单
@@ -1283,22 +1218,12 @@
         success: function (json) {
             obj.dialogFormVisible = false;
             obj.submitLoading = false;
-            if (json.status > 19999 && json.status < 30000) {
-                obj.$notify({
-                    title: '成功',
-                    message: '保存成功！',
-                    type: 'success'
-                });
+            this.callbackAfter({status: json.status, model: '修改出库单'}, function () {
                 obj.form = form();
                 obj.dialogFormActive = 0;
-                obj.$refs.carousel.setActiveItem(0);
-            } else {
-                obj.$notify({
-                    title: '失败',
-                    message: json.model,
-                    type: 'error'
-                });
-            }
+                if (obj.$refs.carousel) obj.$refs.carousel.setActiveItem(0);
+                p[7].post(obj.option);
+            })
         }
     });
     // 7 出库预约分页查询接口
@@ -1319,19 +1244,45 @@
         urlHock: "../../hock/form/inputOption.json",
         urlProd: "/route/outputAppointment/8"
     });
+    // 9 出库预约-查询-出库单据-出库单号
+    p[9] = autoPost({
+        urlHock: "../../hock/form/inputOption.json",
+        urlProd: "/route/outputAppointment/9",
+        success: function (json) {
+            //TODO 状态值
+            obj.form.ckCkdjNo = json.model;
+        }
+    });
+    // 10 出库预约-查询-出库任务-出库任务
+    p[10] = autoPost({
+        urlHock: "../../hock/form/inputOption.json",
+        urlProd: "/route/outputAppointment/10",
+        success: function (json) {
+            //TODO 状态值
+            obj.outputAppointmentCombinationDetails.ckrwNo = json.model;
+            obj.showLoading = false;
+        }
+    });
+    // 11 出库预约-作废-出库单据
+    p[11] = autoPost({
+        urlHock: "../../hock/form/inputOption.json",
+        urlProd: "/route/outputAppointment/11"
+    });
 
     function CombinationDetails() {
         return {
-            rkrwId: '',         //id
-            rkrwNo: '',         //出库任务号
-            rkrwDhrq: '',       //预计到货日期
-            rkrwDbd: '',        //调拨地
-            rkrwCys: '',        //承运商
-            rkrwCph: '',        //车牌号
-            rkrwSjxm: '',       //司机姓名
-            rkrwDh: '',         //司机电话
-            rkrwStatus: ''      //任务状态
+            "ckrwNo": "",
+            "ckrwYjdcsj": new Date(),
+            "ckrwCph": "",
+            "ckrwWls": "",
+            "ckrwQhStatus": 1,
+            "ckrwZlStatus": 1,
+            "ckrwArehouseId": 1,
+            "ckrwClientId": 1,
+            "userName": app.rmsUser.ruUserName,
+            "ckCkdjIds": []
         }
+
     }
 
     function selectGood() {
@@ -1344,7 +1295,7 @@
                 bdDwid: '',
                 bdName: ''
             },
-            cksCount: 0,
+            cksGoodsCount: 0,
             cksDwid: '',
             cksGoodsId: ''
         }
@@ -1352,68 +1303,41 @@
 
     function form() {
         return {
-            ckCkdjId: '',
-            "ckCkdjNo": "CK1482398743793",
-            "ckErpNo": "hk45645",
-            "ckCkdjClientno": "hlcs2001",
-            "ckCkdjClientname": "济南华联超市王舍人店",
-            "ckContacts": "张三丰",
-            "ckTel": "18856568985",
-            "ckAdress": "济南市历城区工业北路",
-            "ckYfhsj": "2017-04-17T05:46:21.260Z",
-            "ckRemarks": "备注",
-            "userId": 2,
-            "mfunckDocs": [
-                {
-                    "cksGoodsId": 1,
-                    "cksGoodsCount": 50,
-                    "cksDwid": 1,
-                    "cksCkfs": "先进先出",
-                    "cksZdpc": "X",
-                    "cksLocationId": 1
-                },
-                {
-                    "cksGoodsId": 2,
-                    "cksGoodsCount": 100,
-                    "cksDwid": 2,
-                    "cksCkfs": "先进先出",
-                    "cksZdpc": "X",
-                    "cksLocationId": 1
-                }
-            ],
-
+            "ckCkdjId": "",
+            "ckCkdjNo": "",
+            "ckErpNo": "",
+            "ckCkdjClientno": "",
+            "ckCkdjClientname": "",
+            "ckContacts": "",
+            "ckTel": "",
+            "ckAdress": "",
+            "ckRemarks": "",
+            "ckIsyadan": 0,
+            "ckIsqianhuo": 0,
+            "ckArehouseId": 1,
+            "ckClientId": 1,
+            "userId": app.rmsUser.userId,
+            "mfunckDocs": [],
 
             title: '新建出库单',
 
-
-            ckDocsList: [],
-
-            ckArehouseId: '',
-            ckClientId: '',
-
-            rkUserId: app.rmsUser.ruUserId,
-            rkCreatetime: '',
-            rkCreateUserId: app.rmsUser.ruUserId,
-
-            "rkStatus": 1,
-            "rkRwStatus": 1,
-            "rkZdfs": 1,
-            "rkStartwith": 1,
+            "ckYfhsj": (new Date()).toJSON(),
+            "ckEndtime": (new Date()).toJSON(),
+            "ckCkdjType": 1,
 
             allCount: 0,
             allTj: 0,
 
             bgGoodsNo: '',
             selectGood: selectGood(),
-            saveARkDocsList: true,
-            deleteARkDocsList: true
+            saveAmfunckDocs: true,
+            deleteAmfunckDocs: true
         }
-            ;
     }
 
     function post_form() {
         return {
-            "ckCkdjId":"",
+            "ckCkdjId": "",
             "ckCkdjNo": "CK1482398743793",
             "ckErpNo": "hk45645",
             "ckCkdjType": 0,
@@ -1422,57 +1346,40 @@
             "ckContacts": "张三丰",
             "ckTel": "18856568985",
             "ckAdress": "济南市历城区工业北路",
-            "ckYfhsj": "2017-04-17T05:46:21.260Z",
+            "ckYfhsj": (new Date()).toJSON(),
             "ckRemarks": "备注",
             "ckIsyadan": 0,
             "ckIsqianhuo": 0,
             "ckArehouseId": 1,
             "ckClientId": 1,
-            "ckEndtime": "2017-04-17T05:46:21.261Z",
-            "userId": 2,
-            "mfunckDocs": [
-                {
-                    "cksGoodsId": 1,
-                    "cksGoodsCount": 50,
-                    "cksDwid": 1,
-                    "cksCkfs": "先进先出",
-                    "cksZdpc": "X"
-                },
-                {
-                    "cksGoodsId": 2,
-                    "cksGoodsCount": 100,
-                    "cksDwid": 2,
-                    "cksCkfs": "先进先出",
-                    "cksZdpc": "X"
-                }
-            ]
+            "ckEndtime": (new Date()).toJSON(),
+            "userId": app.rmsUser.ruUserId,
+            "mfunckDocs": []
         }
     }
 
-    function post_form_rkDocsList() {
+    function post_form_mfunckDocs() {
         return {
-            "rksGoodsId": 9,
-            "rksDwid": 1,
-            "rksCount": 100,
-            "rksStatus": 1
+            "cksGoodsId": 2,
+            "cksGoodsCount": 100,
+            "cksDwid": 2,
+            "cksCkfs": "先进先出",
+            "cksZdpc": "X"
         }
     }
 
     function post_Combination() {
         return {
-            "rkrwId": 0,
-            "rkrwNo": "string",
-            "rkrwDhrq": "2017-04-13T08:25:12.866Z",
-            "rkrwDbd": "string",
-            "rkrwCys": "string",
-            "rkrwCph": "string",
-            "rkrwSjxm": "string",
-            "rkrwDh": "string",
-            "rkrwStatus": "string",
-            "rkrwArehouseId": 0,
-            "rkrwClientId": 0,
-            "rkrwCreateUserid": app.rmsUser.ruUserId,
-            docList: []
+            "ckrwNo": "",
+            "ckrwYjdcsj": new Date(),
+            "ckrwCph": "",
+            "ckrwWls": "",
+            "ckrwQhStatus": 1,
+            "ckrwZlStatus": 1,
+            "ckrwArehouseId": 1,
+            "ckrwClientId": 1,
+            "userName": app.rmsUser.userName,
+            "ckCkdjIds": []
         }
     }
 
@@ -1496,51 +1403,6 @@
 
     p[7].post(outputAppointment.option);
 
-    function postCombinationDetails(obj) {
-        obj.showLoading = true;
-        /*<debug>*/
-        var json = {
-            model: 'RK' + dateFormat(new Date(), "yyyyMMdd") + '-' + (++id)
-        };
-        console.log(json);
-        setTimeout(function () {
-            obj.outputAppointmentCombinationDetails.rkrwNo = json.model;
-            obj.showLoading = false;
-        }, 500);
-        /*</debug>*/
-
-        /*<prod>*/
-
-
-        var json = {
-            model: 'RK' + dateFormat(new Date(), "yyyyMMdd") + '-' + (++id)
-        };
-        console.log(json);
-        setTimeout(function () {
-            obj.outputAppointmentCombinationDetails.rkrwNo = json.model;
-            obj.showLoading = false;
-        }, 500);
-
-
-//        url = "/route/outputAppointment/1";
-//
-//        $.ajax(url, {
-//            type: "GET",
-//            data: option | {
-//                "id": 1                        //* 出库单号id
-//            },
-//            error: function (error) {
-//                errorTip(obj, error);
-//            },
-//            success: function (json) {
-//                obj.outputAppointmentCombinationDetails.rkrwNo = json.model;
-//            },
-//            complete: function () {
-//                obj.showLoading = false;
-//            }
-//        });
-        /*</prod>*/
-    }         // 9 获取任务号
     function postGoods(obj, option, cb) {
         //TODO 此处应为AJAX请求,待完善 querySearchAsync
 
