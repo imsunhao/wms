@@ -856,6 +856,17 @@ router.param('_url', function (req, res, next, url) {
 
                 }
                 break;
+            case 'outputOperation':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '出库操作-查询-出库单据';
+                        req = autoUrl(req, '/mfunck/selectOperateCkDocByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+
 
             case 'inputDaily':
                 switch (parseInt(req.params._status)) {

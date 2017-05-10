@@ -2971,11 +2971,11 @@
  *  * 参数
          {
          "draw": 0,
-         "ckrwNo": "liujingTwo",                    (任务单号)
-         "ckrwCph": "鲁B 55455",                    (车牌号)
-         "ckrwWls": "青岛",                         (物流商)
-         "ckrwStartYjdcsj": "1493628943000",        (预计到车时间)
-         "ckrwEndSjdcsj": "1493801758000",          (实际倒车时间)
+         "ckrwNo": "",                    (任务单号)
+         "ckrwCph": "",                    (车牌号)
+         "ckrwWls": "",                         (物流商)
+         "ckrwStartYjdcsj": "",        (预计到车时间)
+         "ckrwEndSjdcsj": "",          (实际倒车时间)
          "ckrwStartGreatTime": "",                  (创建时间/制作时间)
          "ckrwEndGreatTime": "",                    (创建结束时间)
          "pageNum": 1,
@@ -2985,6 +2985,28 @@
 /**
  * TODO 1 激活任务
  */
+/**
+ * TODO 出库操作
+ */
+/**
+ * TODO 0 出库操作 出库单据分页查询 POST /mfunck/selectOperateCkDocByPage
+          {
+          "draw": 0,
+          "ckCkdjNo": "",           (出库单号)
+          "pageNum": 1,
+          "pageSize": 10,
+          "ckStatus": -1,           (状态)
+          "ckCkdjClientname": "",   (客户名称)
+          "ckrwCph": "",            (车牌号)
+          "ckrwWls": "",            (物流商)
+          "mhStartCreateTime": "",  (制作时间)
+          "mhEndCreateTime": "",
+          "ckStartXdsj": "",        (下单时间)
+          "ckEndXdsj": ""
+         }
+
+ */
+
 
 
 
