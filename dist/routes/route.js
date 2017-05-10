@@ -866,11 +866,22 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
-             case 'outputShipment':
+               case 'outputShipment':
                 switch (parseInt(req.params._status)) {
                     case 0:
-                        urlName = '出库发运- 分页查询';
+                        urlName = '出库发运-分页查询';
                         req = autoUrl(req, '/mfunck/selectDespatchCkrwByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+
+             case 'recoveryArchive':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '回收存档- 分页查询';
+                        req = autoUrl(req, '/mfunck/selectConserveCkDocByPage', "POST", function (json) {
                             res.send(json);
                         });
                         break;

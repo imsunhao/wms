@@ -3029,6 +3029,24 @@
 
  *
  */
+/**
+ * TODO 回收存档
+ */
+/**
+ * TODO 0 分页查询 POST /mfunck/selectConserveCkDocByPage
+ * 参数
+     {
+      "draw": 0,
+      "ckCkdjNo": "",
+      "pageNum": 1,
+      "pageSize": 10,
+      "mhStartCreateTime": "",
+      "mhEndCreateTime": "",
+      "ckStartXdsj": "",
+      "ckEndXdsj": ""
+    }
+ */
+
 
 
 
