@@ -845,6 +845,18 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
+             case 'activationBill':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '激活单据-查询-任务单据';
+                        req = autoUrl(req, '/mfunck/selectActivatedCkrwByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
+                }
+                break;
+
             case 'inputDaily':
                 switch (parseInt(req.params._status)) {
                     case 0:

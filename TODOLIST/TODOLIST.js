@@ -2964,11 +2964,23 @@
          *
          */
 /**
- * TODO 激活单据
+ * TODO  激活单据分页查询
  */
-
 /**
- * TODO 0 激活单据-查询-任务单 /mfunck/selectActivatedCkrwByPage
+ * TODO 0 激活单据-查询-任务单  POST /mfunck/selectActivatedCkrwByPage
+ *  * 参数
+         {
+         "draw": 0,
+         "ckrwNo": "liujingTwo",                    (任务单号)
+         "ckrwCph": "鲁B 55455",                    (车牌号)
+         "ckrwWls": "青岛",                         (物流商)
+         "ckrwStartYjdcsj": "1493628943000",        (预计到车时间)
+         "ckrwEndSjdcsj": "1493801758000",          (实际倒车时间)
+         "ckrwStartGreatTime": "",                  (创建时间/制作时间)
+         "ckrwEndGreatTime": "",                    (创建结束时间)
+         "pageNum": 1,
+         "pageSize": 10
+        }
  */
 /**
  * TODO 1 激活任务
