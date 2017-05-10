@@ -1,0 +1,38 @@
+[
+  {
+    "blLocationId": 1,
+    "blLname": "H01-01-A1",
+    "blRegionId": 1,
+    "blLtray": 2,
+    "blLorder": 1,
+    "blStatus": 1,
+    "blArehouseId": 1
+  },
+  {
+    "blLocationId": 2,
+    "blLname": "H01-01-A2",
+    "blRegionId": 1,
+    "blLtray": 2,
+    "blLorder": 2,
+    "blStatus": 1,
+    "blArehouseId": 1
+  },
+  {
+    "blLocationId": 3,
+    "blLname": "H01-01-A3",
+    "blRegionId": 1,
+    "blLtray": 2,
+    "blLorder": 3,
+    "blStatus": 1,
+    "blArehouseId": 1
+  },
+  {
+    "blLocationId": 5,
+    "blLname": "H01-01-A4",
+    "blRegionId": 1,
+    "blLtray": 2,
+    "blLorder": 4,
+    "blStatus": 1,
+    "blArehouseId": 1
+  }
+]

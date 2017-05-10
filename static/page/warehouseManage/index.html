@@ -1,7 +1,8 @@
 <div id="aa">
     <plan :observer="false"
           :new_role="false"
-          :warehouse_id="1"></plan>
+          ref="plan"
+    ></plan>
 </div>
 <style>
     .clearfix:after {
@@ -106,7 +107,6 @@
 
     }
 
-
     #plan p {
         margin: 0;
     }
@@ -179,6 +179,7 @@
 
 </style>
 <script>
+    // :warehouse_id="1"
     /*<prod>*/
     console.log('线上版本');
     /*</prod>*/
@@ -189,106 +190,47 @@
             var e = this.element;
             var click = this.clc;
             var dClick = this.dclc;
+            var step = [1, false, false, false, false, false, false];
+            step[e.brgRegionStatus] = true;
+            var _class = {
+                selectedState: e.select,
+                aisle: step[1],
+                undefined: step[2],
+                storageArea: step[3],
+                sortingArea: step[4],
+                temporaryStorageArea: step[5],
+                unqualifiedArea: step[6]
+            };
 
             return h('li', {
-                "class": {
-                    selectedState: e.select,
-                    aisle: e.statusColor[0],
-                    undefined: e.statusColor[1],
-                    storageArea: e.statusColor[2],
-                    sortingArea: e.statusColor[3],
-                    temporaryStorageArea: e.statusColor[4],
-                    unqualifiedArea: e.statusColor[5]
-                },
+                "class": _class,
                 style: {
-                    color: this.kuQuColor(e.id[0])
+                    color: '#000'
                 },
                 attrs: {
                     row: e.row,
-                    col: e.col,
-                    status: e.status
+                    col: e.col
                 },
                 on: {
                     click: function () {
-                        if (e.id == -1)return;
+                        if (e.brgRegionStatus == -1)return;
                         click(e.click());
                     },
                     dblclick: function () {
-                        if (e.id == -1)return;
+                        if (e.brgRegionStatus == -1)return;
                         dClick(e.click());
                     }
                 }
-            }, e.id)
+            }, e.brgRegionNo)
         },
         props: {
             element: {
                 type: Object,
                 required: true
             },
+            elementPId: 0,
             clc: '',
             dclc: ''
-        },
-        methods: {
-            kuQuColor: function (kuQu) {
-                // 适配颜色 在 http://www.bootcss.com/p/websafecolors/ 中挑选26种颜色，最好这些颜色还得兼容咱们的五种区域色 imzhangxing
-                // 待测试
-                switch (kuQu) {
-                    case 'A':
-                        return '#000099';
-                    case 'B':
-                        return '#FFFFCC';
-                    case 'C':
-                        return '#990033';
-                    case 'D':
-                        return '#660066';
-                    case 'E':
-                        return '#666600';
-                    case 'F':
-                        return '#003300';
-                    case 'G':
-                        return '#006666';
-                    case 'H':
-                        return '#990066';
-                    case 'I':
-                        return '#00CCFF';
-                    case 'J':
-                        return '#3300FF';
-                    case 'K':
-                        return '#990066';
-                    case 'L':
-                        return '#330033';
-                    case 'M':
-                        return '#000033';
-                    case 'N':
-                        return '#000000';
-                    case 'O':
-                        return '#003333';
-                    case 'P':
-                        return '#00FF66';
-                    case 'Q':
-                        return '#330000';
-                    case 'R':
-                        return '#333300';
-                    case 'S':
-                        return '#660000';
-                    case 'T':
-                        return '#666633';
-                    case 'U':
-                        return '#990000';
-                    case 'V':
-                        return '#996666';
-                    case 'W':
-                        return '#999966';
-                    case 'X':
-                        return '#CC0000';
-                    case 'Y':
-                        return '#FF9900';
-                    case 'Z':
-                        return '#FFFFFF';
-                    default:
-                        return '#000'
-                }
-            }
         }
     });
 
@@ -296,7 +238,7 @@
         template: '\
     <div id="plan">\
         <div class="inner">\
-        <div class="HouseStructureGroup clearfix" v-show="HouseStructure" v-if="!observer">\
+        <div class="HouseStructureGroup clearfix">\
         <el-input type="textarea" v-model="desc" class="HouseStructure"></el-input>\
         <div class="HouseStructure__label">\
         <p>库区代码结构, 可点击右侧图标显示！</p>\
@@ -308,7 +250,7 @@
         <div class="sign"><span class="sign__block sortingArea"></span><span class="sign__label">分拣区</span></div>\
         <div class="sign"><span class="sign__block temporaryStorageArea"></span><span class="sign__label">暂存区</span>\
         </div>\
-        <div class="sign"><span class="sign__block unqualifiedArea"></span><span class="sign__label">不合格区</span>\
+        <div class="sign"><span class="sign__block unqualifiedArea"></span><span class="sign__label">破损区</span>\
         </div>\
         <div class="sign"><span class="sign__block selectedState"></span><span class="sign__label">选中状态</span></div>\
         <div class="sign"><span class="sign__block aisle"></span><span class="sign__label">过道</span></div>                     \
@@ -316,7 +258,7 @@
         <div id="tag" style="max-height:350px;">\
         <ul v-for="a of list" :style="{width:listWidth}" class="clearfix">\
         <plan-block\
-    v-for="a1 of a"\
+      v-for="a1 of a"\
         :clc="eClick"\
     :dclc="eDoubleClick"\
     :element="a1">\
@@ -325,9 +267,9 @@
         </div>\
         <p v-if="!observer">快速选择库区</p>\
         <el-checkbox-group v-model="checkList" @change="checkListChange" class="checkList">\
-        <el-checkbox :label="big.id" v-for="big of bigKuQu"></el-checkbox>\
+        <el-checkbox :label="big.baqKqName" v-for="big of Kqs"></el-checkbox>\
         </el-checkbox-group>\
-        <div class="btnGroup" v-if="!observer">\
+        <div class="btnGroup" v-if="false">\
         <el-row>\
         <el-col :span="4">\
         <button class="btn storageArea" @click="set(2)">设为存储区</button>\
@@ -353,7 +295,7 @@
         <button class="btn sortingArea" @click="set(3)">设为分拣区</button>\
         </el-col>\
         <el-col :span="4">\
-        <button class="btn unqualifiedArea" @click="set(5)">设为不合格区</button>\
+        <button class="btn unqualifiedArea" @click="set(5)">设为破损区</button>\
         </el-col>\
         <el-col :span="4" :offset="8">\
         <button class="btn unqualifiedArea" v-if="!new_role" @click="submit" >保存修改</button>\
@@ -366,11 +308,12 @@
     @open="dialogOpen"\
     v-model="dialogTableVisible">\
         <el-table :data="form.tableData">\
-        <el-table-column property="row" label="row" width="150"></el-table-column>\
-        <el-table-column property="col" label="col" width="200"></el-table-column>\
-        <el-table-column property="status" label="status"></el-table-column>\
+        <el-table-column property="blLname" label="储位名称" align="center"></el-table-column>\
+        <el-table-column property="blLtray" label="托盘数量" align="center"></el-table-column>\
+        <el-table-column label="可用操作" align="center">\
+        <template scope="props"><el-button size="small" type="info" @click="inlinePrint(props.$index, props.row)">打印</el-button></template>\
+        </el-table-column>\
         </el-table>\
-        <div id="dialogECharts" style="width: 600px;height:400px;"></div>\
         </el-dialog>\
         </div>\
         </div>\
@@ -380,12 +323,13 @@
             return {
                 isdb: false,
                 desc: '',                        // TODO 平面图 总数据信息 (未解析)
-                kuQu: [[]],                      // 库区
-                bigKuQu: {},                     // 库区组
+                regions: [],                     // 库区
+                regionR: [[]],                     // 库区
+                Kqs: [],                       // 库区组
 
-                oldKuQu: [],                     // 旧的库区备份
                 form: this.new_form(),           // 弹出层 基础数据
                 dialogTableVisible: false,       // 弹出层 维护
+
                 dialogECharts: {
                     title: {
                         text: '某站点用户访问来源',
@@ -424,6 +368,13 @@
                         }
                     ]
                 },            // 弹出层 图表
+                p: [autoPost({
+                    urlHock: "hock/warehouse/id.json",
+                    urlProd: "/route/warehouseManage/0"
+                }), autoPost({
+                    urlHock: "hock/warehouse/region.json",
+                    urlProd: "/route/warehouseManage/1"
+                })],
 
                 checkList: [],                   // 快捷多选 维护
                 selected: [],                    // 被选中的库区
@@ -432,19 +383,72 @@
         },
         computed: {
             list: function () {
-                var obj = [[]];
-                var kuQu = {};
+                var obj = this;
+                var Kqs = [];
+                _Kq(-1, '过');
+                _Kq(1, '存');
+                _Kq(2, '拣');
+                _Kq(3, '暂');
+                _Kq(4, '破');
+                _Kq(5, '其');
+                var regionsR = [[]];
+                var regions = [];
                 var row = 0;
                 var rRow = 0;
                 var col = 1;
                 var step = {};
 
                 var ifAisle = false;
+                var desc = this.desc;
 
-                for (var i = 0; i < this.desc.length; i++) {
-                    switch (this.desc[i]) {
+                function auto_Kq_region(data, index) {
+                    ifAisle = true;
+                    step = _region();
+                    step.row = row;
+                    step.col = col++;
+                    step.brgRegionNo = auto_number(row + 1, 1) + '-' + auto_number(col - 1, 1);
+                    step.brgRegionStatus = data;
+                    console.log(Kqs, index);
+
+                    Kqs[index].baseRegions.push(step);
+                    regions.push(step);
+                    regionsR[rRow].push(step);
+                }
+
+                function _Kq(id, baqKqName, baqArehouseId, baseRegions) {
+                    return {
+                        "baqKqId": id,
+                        "baqArehouseId": baqArehouseId || 1,
+                        "baqKqName": baqKqName,
+                        "baqIsdel": 1,
+                        "baqStatus": id,
+                        "baseRegions": baseRegions || []
+                    }
+                }
+
+                function _region() {
+                    return {
+                        "brgRegionId": 0,
+                        "brgArehouseId": 0,
+                        "brgRegionNo": "",
+                        "brgKqId": 0,
+                        "brgRegionStatus": 0,
+                        "baseLocationList": [],
+
+                        row: 0,
+                        col: 0,
+                        click: function () {
+                            return this;
+                        },
+                        select: false
+                    }
+
+                }
+
+                for (var i = 0; i < desc.length; i++) {
+                    switch (desc[i]) {
                         case ' ':       //过道
-                            obj[rRow].push({id: -1, status: 0, statusColor: [true, false, false, false, false, false]});
+                            auto_Kq_region(-1, '过');
                             break;
                         case '\n':      //换行
                             rRow++;
@@ -455,40 +459,37 @@
                                 ifAisle = false;
                             }
                             col = 1;
-                            obj.push([]);
+                            Kqs.push([]);
+                            break;
+                        case '存':
+                            auto_Kq_region(1, '存');
+                            break;
+                        case '拣':
+                            auto_Kq_region(2, '拣');
+                            break;
+                        case '暂':
+                            auto_Kq_region(3, '暂');
+                            break;
+                        case '破':
+                            auto_Kq_region(4, '破');
                             break;
                         default:        //仓库
-                            ifAisle = true;
-                            if (typeof kuQu[this.desc[i]] == 'undefined') {
-                                kuQu[this.desc[i]] = {color: '', src: [], id: this.desc[i].toUpperCase()};
-                            }
-                            step = {
-                                row: row,
-                                col: col++,
-                                statusColor: [false, true, false, false, false, false],
-                                status: 1,
-//                                id: kuQu[this.desc[i]].id + kuQu[this.desc[i]].src.length,
-                                id: kuQu[this.desc[i]].id + (row + 1) + '-' + (col - 1),
-//                                id: (row+1) + '-' + (col-1) + '-' + kuQu[this.desc[i]].id
-                                click: function () {
-                                    return this;
-                                },
-                                select: false
-                            };
-                            kuQu[this.desc[i]].src.push(step);                  //库区
-                            obj[rRow].push(step);
+                            console.log("错误！");
+                            auto_Kq_region(5, '其');
+                            break;
                     }
                 }
-                this.bigKuQu = kuQu;
-                this.kuQu = obj;
+                this.Kqs = Kqs;
+                this.regions = regions;
+                this.regionR = regionsR;
 
-                return obj;
+                return regionsR;
             },           // list所有的储存区域
             listWidth: function () {
-                var maxNumber = this.kuQu[0].length;
-                for (var i = 1; i < this.kuQu.length; i++) {
-                    if (this.kuQu[i].length > maxNumber)
-                        maxNumber = this.kuQu[i].length;
+                var maxNumber = this.regionR[0].length;
+                for (var i = 1; i < this.regionR.length; i++) {
+                    if (this.regionR[i].length > maxNumber)
+                        maxNumber = this.regionR[i].length;
                 }
                 return maxNumber * 58 + 'px';
             }       // 维护最大平面图宽度
@@ -502,24 +503,24 @@
                 }
             },
             dialogOpen: function () {
-                var obj = this;
-                Vue.nextTick(function () {
-                    var myChart = echarts.init(document.getElementById('dialogECharts'));
-                    myChart.setOption(obj.$data.dialogECharts);
-                });
+//                var obj = this;
+//                Vue.nextTick(function () {
+//                    var myChart = echarts.init(document.getElementById('dialogECharts'));
+//                    myChart.setOption(obj.$data.dialogECharts);
+//                });
             },
             checkListChange: function () {
-                this.resetSelectC(this.kuQu);
-                this.selected = [];
-                for (var b = 0; b < this.checkList.length; b++) {
-                    var step = this.checkList[b].toLowerCase();
-                    for (var i = 0; i < this.bigKuQu[step].src.length; i++) {
-                        this.bigKuQu[step].src[i].select = true;
-                        this.selected.push(this.bigKuQu[step].src[i]);
-                    }
-                }
+//                this.resetSelectC(this.regions);
+//                this.selected = [];
+//                for (var b = 0; b < this.checkList.length; b++) {
+//                    var step = this.checkList[b].toLowerCase();
+//                    for (var i = 0; i < this.Kqs[step].src.length; i++) {
+//                        this.Kqs[step].src[i].select = true;
+//                        this.selected.push(this.Kqs[step].src[i]);
+//                    }
+//                }
             },
-            selectedKuQu: function (e) {
+            selectedregions: function (e) {
                 e.select = !e.select;
                 if (e.select) {
                     this.selected.push(e);
@@ -541,7 +542,7 @@
                 }
             },
             resetSelect: function () {
-                this.resetSelectC(this.kuQu);
+                this.resetSelectC(this.regions);
                 this.checkList = [];
                 this.selected = [];
             },
@@ -559,36 +560,43 @@
 
             },
 
+            inlinePrint: function (index, row) {
+                console.log(row);
+            },
+
             eClick: function (e) {
                 var obj = this;
                 obj.isdb = false;
                 window.setTimeout(function () {
                     if (obj.isdb != false)return;
-                    obj.selectedKuQu(e);
+                    obj.selectedregions(e);
                 }, 300);
             },      // 单击库区 选中
             eDoubleClick: function (e) {
                 //TODO 模拟弹出层 完整版
                 this.isdb = true;
                 var obj = this;
-//                    console.log(e);
+
                 if (this.selected.length < 2) {
-                    obj.$data.form.tableData = [e];
-                    obj.$data.form.title = e.id;
+                    obj.$data.form.title = '查看\t' + e.id;
                 } else {
-                    obj.$data.form.tableData = this.selected;
                     obj.$data.form.title = '选中区域信息';
                 }
-                obj.$data.dialogTableVisible = true;
+
+                this.p[1].post({ids: [1]}, function (json) {
+                    obj.$data.form.tableData = json;
+                    obj.$data.dialogTableVisible = true;
+                });
+
             },// 双击库区 查看详细信息
 
             resetHouse: function () {
                 this.HouseStructure = !this.HouseStructure;
             },
-            resetSelectC: function (kuQu) {
-                for (var b = 0; b < kuQu.length; b++) {
-                    for (var i = 0; i < kuQu[b].length; i++) {
-                        kuQu[b][i].select = false;
+            resetSelectC: function (regions) {
+                for (var b = 0; b < regions.length; b++) {
+                    for (var i = 0; i < regions[b].length; i++) {
+                        regions[b][i].select = false;
                     }
                 }
             },
@@ -609,100 +617,44 @@
             },
             init: function () {
                 var obj = this;
-                var complie = 0;                                //统计页面是否全部完成
-                var end = 1;
                 app.$data.fullscreenLoading = true;             //显示加载
 
-                function Loading() {
-                    complie++;
-                    if (complie >= end) {
-                        app.$data.fullscreenLoading = false; //结束加载
-                    }
-                }
-
-                //------------------------- 加载 kuQu      -----------------------
-
-                (function () {
-                    /*<debug>*/
-                    url = 'hock/warehouse/id.json';
-                    /*</debug>*/
-
-                    /*<prod>*/
-                    // TODO 配置 kuQu 获取地址
-                    url = 'hock/warehouse/id';
-                    /*</prod>*/
-
-                    $.ajax(url, {
-                        type: "GET",
-                        data: {},
-                        error: function () {
-                        },
-                        success: function (json) {
-                            obj.$data.desc = json.desc;
-                            setTimeout(function () {
-                                (function (json) {
-                                    for (var i = 0; i < json.length; i++) {
-                                        for (var b = 0; b < json[i].length; b++) {
-                                            if (typeof obj.$data.kuQu[i][b] === 'undefined') continue;
-                                            obj.$data.kuQu[i][b].row = json[i][b].row;
-                                            obj.$data.kuQu[i][b].col = json[i][b].col;
-                                            obj.$data.kuQu[i][b].statusColor = json[i][b].statusColor;
-                                            obj.$data.kuQu[i][b].status = json[i][b].status;
-                                            obj.$data.kuQu[i][b].select = json[i][b].select;
-                                        }
-                                    }
-                                })(json.kuQu);
-                                obj.$data.oldKuQu = json.kuQu;
-                            }, 0);
-                        },
-                        complete: function () {
-                            Loading();
-                        }
-                    });
-                })();
-
-                //------------------------- 是否启用 观察模式-----------------------
-                if (this.observer) obj.$data.observer = true;
-            },
-            submit:function () {
-                if(typeof this.warehouse_id==='undefined'){
-
-                }else{
-
-                }
-            },
-            post:function () {
-
-            }
-        },
-        mounted: function () {
-
-            /*<debug>*/
-            console.log(this.observer, this.warehouse_id);
-            /*</debug>*/
-            if (this.warehouse_id) this.init();
-            if(this.new_role) this.resetHouse();
-        },
-        watch: {
-            desc: function () {
-                var obj = this;
-                if (this.$data.oldKuQu.length != 0) {
+                //------------------------- 加载 regions      -----------------------
+                this.p[0].post({warehouse_id: this.warehouse_id}, function (json) {
+                    obj.$data.desc = json.desc;
                     setTimeout(function () {
                         (function (json) {
                             for (var i = 0; i < json.length; i++) {
                                 for (var b = 0; b < json[i].length; b++) {
-                                    if (typeof obj.$data.kuQu[i][b] === 'undefined') continue;
-                                    obj.$data.kuQu[i][b].row = json[i][b].row;
-                                    obj.$data.kuQu[i][b].col = json[i][b].col;
-                                    obj.$data.kuQu[i][b].statusColor = json[i][b].statusColor;
-                                    obj.$data.kuQu[i][b].status = json[i][b].status;
-                                    obj.$data.kuQu[i][b].select = json[i][b].select;
+                                    if (typeof obj.$data.regions[i][b] === 'undefined') continue;
+                                    for (index in json[i][b]) {
+                                        if (index === 'id')continue;
+                                        obj.$data.regions[i][b][index] = json[i][b][index];
+                                    }
                                 }
                             }
-                        })(obj.$data.oldKuQu);
+                        })(json.regions);
+                        app.$data.fullscreenLoading = false;
                     }, 0);
+                });
+
+                //------------------------- 是否启用 观察模式-----------------------
+                if (this.observer) obj.$data.observer = true;
+            },
+            submit: function () {
+                if (typeof this.warehouse_id === 'undefined') {
+
+                } else {
+
                 }
             }
+        },
+        mounted: function () {
+            /*<debug>*/
+            console.log(this.observer, this.warehouse_id);
+            /*</debug>*/
+            if (this.warehouse_id) this.init();
+            if (this.new_role) this.resetHouse();
         }
     });
 

@@ -1,0 +1,21 @@
+{
+  "data": [
+    {
+      "bdDwId": 1,
+      "bdName": "台",
+      "bdStatus": 2,
+      "bdIsdel": true,
+      "bdCreatetime": 1488786104000
+    },
+    {
+      "bdDwId": 2,
+      "bdName": "箱",
+      "bdStatus": 1,
+      "bdIsdel": true,
+      "bdCreatetime": 1488786130000
+    }
+  ],
+  "draw": 0,
+  "recordsTotal": 2,
+  "recordsFiltered": 2
+}

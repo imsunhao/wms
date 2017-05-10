@@ -935,7 +935,7 @@
                 allPrposCb(step, function (obj, index) {
                     if (typeof row[index] !== 'undefined') step[index] = row[index];
                 });
-                step.rksCountMax=step.rksCount;
+                step.rksCountMax = step.rksCount;
                 this.form.location.selectGood = step;
                 this.dialogLocationVisible = true;
             },
@@ -1152,7 +1152,7 @@
             expandChange: function (row, expanded) {
                 console.log(row.rkRkdjId);
                 if (expanded && row.history.length === 0) {
-                    postHistory(row);
+                    postHistory({rkRkdjId: row.rkRkdjId}, row);
                     p[3].post({rkRkdjId: row.rkRkdjId}, function (json) {
                         row.rkDocsList = json.rkDocsList;
                     })
@@ -1512,7 +1512,7 @@
         });
     }           //0 分页获取 入库操作详情
 
-    function postHistory(option) {
+    function postHistory(option, row) {
         obj.historyLoading = true;
 
         /*<debug>*/
@@ -1551,8 +1551,8 @@
                     json[i].createTime = dateFormat(new Date(json[i].mhCreatetime), 'MM-dd hh:mm');
                     json[i].description = "由 " + json[i].rmsUser.ruUserName + " " + temp[json[i].mhStatus]
                 }
-                option.history = json;
-                option.historyLength = json.length;
+                row.history = json;
+                row.historyLength = json.length;
                 obj.historyLoading = false;
             },
             complete: function () {
