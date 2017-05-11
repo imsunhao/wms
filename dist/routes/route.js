@@ -869,8 +869,8 @@ router.param('_url', function (req, res, next, url) {
                case 'outputShipment':
                 switch (parseInt(req.params._status)) {
                     case 0:
-                        urlName = '出库发运-分页查询';
-                        req = autoUrl(req, '/mfunck/selectDespatchCkrwByPage', "POST", function (json) {
+                        urlName = '出库发运-查询-出库单据';
+                        req = autoUrl(req, '/mfunck//mfunck/selectDespatchCkrwByPage', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -989,7 +989,7 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '出库单据查询 分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mfunck/findMfunckDocByPage', "POST", function (json) {
                             res.send(json);
                         });
                         break;

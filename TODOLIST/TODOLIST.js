@@ -3022,30 +3022,23 @@
 
  *
  */
-/**
- * TODO 回收存档
- */
-/**
- * TODO 0 分页查询 POST /mfunck/selectConserveCkDocByPage
- * 参数
-     {
-      "draw": 0,
-      "ckCkdjNo": "",
-      "pageNum": 1,
-      "pageSize": 10,
-      "mhStartCreateTime": "",
-      "mhEndCreateTime": "",
-      "ckStartXdsj": "",
-      "ckEndXdsj": ""
-    }
- */
-
-
-
-
-
-
-
+    /**
+     * TODO 回收存档
+     */
+        /**
+         * TODO 0 分页查询 POST /mfunck/selectConserveCkDocByPage
+         * 参数
+         * {
+                "draw": 0,
+                "ckCkdjNo": "jy33333",                              (出库单号)
+                "pageNum": 1,
+                "pageSize": 10,
+                "mhStartCreateTime": "2017-04-01T00:00:00.000Z",    (创建时间/制作时间)
+                "mhEndCreateTime": "2017-04-22T00:00:00.000Z",      (创建时间/制作时间)
+                "ckStartXdsj": "2017-02-01T00:00:00.000Z",          (下单时间)
+                "ckEndXdsj": "2017-02-22T00:00:00.000Z"             (下单时间)
+            }
+         */
         /**
          *  参数类：ckDocPageModel
          *  实例：
@@ -4382,7 +4375,7 @@
  * TODO 库存冻结查询
      */
         /**
-         * TODO 0 库存冻结过程 分页获取库存冻结单据(包含明细) POST /stockDjDoc/selectByPage
+         * TODO 0 库存冻结过程 分页获取库存冻结单据 POST /stockDjDoc/page
          */
     /**
         * TODO 盘点查询
@@ -4431,6 +4424,12 @@
          */
         /**
          * TODO 2 导出
+         */
+    /**
+     * TODO 出库单据查询
+     */
+        /**
+         * TODO 0 分页查询  POST /mfunck/findMfunckDocByPage
          */
 
 
