@@ -870,7 +870,7 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '出库发运-查询-出库单据';
-                        req = autoUrl(req, '/mfunck//mfunck/selectDespatchCkrwByPage', "POST", function (json) {
+                        req = autoUrl(req, '/mfunck/selectDespatchCkrwByPage', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -910,13 +910,13 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '出库日报 分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mfunck/SelectCkRb', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 1:
                         urlName = '出库日报 导出';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, 'mfunck/exportCkRbByExcel', "POST", function (json) {
                             res.send(json);
                         });
                         break;

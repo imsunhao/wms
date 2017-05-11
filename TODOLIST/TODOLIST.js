@@ -4366,6 +4366,21 @@
  * TODO 业务查询
  */
     /**
+     * TODO 出库日报
+     */
+        /**
+         * TODO 0 分页查询 outputDaily
+         */
+        /**
+         * TODO 1 导出
+         */
+/**
+ * TODO 出库单据查询
+ */
+    /**
+     * TODO 0 分页查询  POST /mfunck/findMfunckDocByPage
+     */
+    /**
      * TODO 库存转移查询
      */
         /**
@@ -4425,12 +4440,7 @@
         /**
          * TODO 2 导出
          */
-    /**
-     * TODO 出库单据查询
-     */
-        /**
-         * TODO 0 分页查询  POST /mfunck/findMfunckDocByPage
-         */
+
 
 
 
