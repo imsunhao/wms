@@ -136,6 +136,10 @@
                         </el-form>
                     </template>
                 </el-table-column>
+                <!--<el-table-column-->
+                <!--type="index"-->
+                <!--width="55">-->
+                <!--</el-table-column>-->
                 <el-table-column
                         label="作业人员"
                         show-overflow-tooltip
@@ -181,23 +185,26 @@
                         </template>
                 </el-table-column>
                 <el-table-column
-                        label="欠货状态"
+                        label="状态"
                         align="center">
                         <template scope="scope">
                             <el-tag
-                                    close-transition>{{auto_cksQhStatus(scope.row.cksQhStatus)}}
+                                    close-transition>{{auto_ckStatus(scope.row.ckStatus)}}
                             </el-tag>
                         </template>
                 </el-table-column>
+
                     <el-table-column
-                        label="滞留状态"
+                        label="状态"
                         align="center">
                         <template scope="scope">
                             <el-tag
-                                    close-transition>{{auto_cksZlStatus(scope.row.cksZlStatus)}}
+                                    close-transition>{{auto_ckStatus(scope.row.ckStatus)}}
                             </el-tag>
                         </template>
                 </el-table-column>
+
+
                 <el-table-column
                         v-if="multiSelect"
                         type="selection"
@@ -933,7 +940,6 @@
         }
     }
     var obj=outputDaily;
-    var p=[];
     // 0 出库日报 分页查询
     p[0] = autoPost({
         urlHock: "/hock/outputDaily/page.json",
