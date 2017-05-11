@@ -922,6 +922,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
+
             case 'stockSelect':
                 switch (parseInt(req.params._status)) {
                     case 0:
@@ -1074,7 +1075,7 @@ router.param('_url', function (req, res, next, url) {
             case 'aLibraryFrozenSelect':
                 switch (parseInt(req.params._status)) {
                     case 0:
-                        urlName = '库位冻结查询  分页获取库存冻结单据(包含明细)';
+                        urlName = '库位冻结查询  分页获取库存冻结单据';
                         req = autoUrl(req, '/stockDjDoc/selectByPage', "POST", function (json) {
                             res.send(json);
                         });
