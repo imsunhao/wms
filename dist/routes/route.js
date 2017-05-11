@@ -927,7 +927,7 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '库存查询 分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/repertory/groupPage', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -1043,7 +1043,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '货品流向查询 导出';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mfunck/exportHplxCxByExcel', "POST", function (json) {
                             res.send(json);
                         });
                         break;

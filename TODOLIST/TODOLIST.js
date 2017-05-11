@@ -4366,28 +4366,69 @@
  * TODO 业务查询
  */
     /**
+     * TODO 入库日报
+     *
+     */
+        /**
+        * TODO 0 分页查询
+        */
+        /**
+         * TODO 1 导出
+         */
+    /**
      * TODO 出库日报
      */
         /**
-         * TODO 0 分页查询 outputDaily
+         * TODO 0 分页查询  POST /mfunck/SelectCkRb
+         */
+        /**
+         * TODO 1 导出 post /mfunck/exportCkRbByExcel
+         */
+    /**
+     * 库存查询
+      */
+        /**
+         * TODO 0 分页查询 POST /repertory/groupPage
          */
         /**
          * TODO 1 导出
          */
-/**
- * TODO 出库单据查询
- */
     /**
-     * TODO 0 分页查询  POST /mfunck/findMfunckDocByPage
+     * TODO 入库单据查询
      */
+        /**
+         * TODO 0 分页查询
+         */
+        /**
+        * TODO 1 导出
+        */
+    /**
+     * TODO 出库单据查询
+     */
+        /**
+         * TODO 0 分页查询  POST /mfunck/findMfunckDocByPage
+         */
+        /**
+         * TODO 1 导出
+         */
+    /**
+     * TODO 货品流向查询
+     */
+        /**
+         * TODO 0 分页查询  post /mfunck/selectHplxCx
+         */
+        /**
+         * TODO 1 导出  post /mfunck/exportHplxCxByExcel
+
+         */
     /**
      * TODO 库存转移查询
      */
         /**
          * TODO 0  库存转移过程 分页获取库存转移单据(包含详细信息) POST /stockZyDoc/selectByPage
          */
-/**
- * TODO 库存冻结查询
+    /**
+    * TODO 库存冻结查询
      */
         /**
          * TODO 0 库存冻结过程 分页获取库存冻结单据 POST /stockDjDoc/page
