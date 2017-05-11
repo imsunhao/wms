@@ -1036,7 +1036,7 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '货品流向查询  分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mfunck/exportHplxCxByExcel', "POST", function (json) {
                             res.send(json);
                         });
                         break;
