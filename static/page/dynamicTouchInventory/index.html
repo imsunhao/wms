@@ -321,7 +321,7 @@
         </el-col>
     </el-row>
     <el-dialog
-            size="small"
+            size="tiny"
             v-model="dialogFormVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">{{form.title}}</span>
@@ -775,13 +775,8 @@
     });
     function form() {
         return {
-            zyCreateTime:'',
-            zyMentionUserName:'',
-            zyCreateUserName:'',
-            zyConfirmUserName:'',
-            zyReason:'',
-            zyConfirmTime:'',
-            zyStatus:''
+            pdYdBeginTime:'',
+            pdYdEndTime:'',
         }
     }
     var obj=dynamicTouchInventory;
