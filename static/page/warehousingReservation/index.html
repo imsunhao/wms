@@ -661,7 +661,6 @@
                 </el-carousel-item>
             </el-carousel>
         </el-form>
-
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="prev" v-show="dialogFormActive">上一步</el-button>
             <el-button type="primary" @click="next" v-show="dialogFormActive < 1">下一步</el-button>
@@ -1438,7 +1437,6 @@
     var validateRule = {
         a: new RegExp("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", "g")
     };
-
 
     // 高级 监视器的 使用方法
     warehousingReservation.$watch('date', function () {

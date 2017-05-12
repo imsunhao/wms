@@ -80,14 +80,10 @@
                         </el-form>
                     </template>
                 </el-table-column>
-                <!--<el-table-column-->
-                <!--type="index"-->
-                <!--width="55">-->
-                <!--</el-table-column>-->
                 <el-table-column
                         label="仓库"
                         show-overflow-tooltip
-                        prop="ckArehouseId"
+                        prop="baseArehouse.baName"
                         align="center">
                 </el-table-column>
                 <el-table-column
@@ -118,9 +114,8 @@
                 </el-table-column>
                 <el-table-column
                         label="联系电话"
-                        prop="ckTel"
-                        align="center"
-                        width="100">
+                        show-overflow-tooltip
+                        prop="ckTel">
                 </el-table-column>
                 <el-table-column
                         v-if="multiSelect"

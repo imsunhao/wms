@@ -211,7 +211,7 @@
                         <el-col :span="14">
                             <el-form label-position="left" inline class="demo-table-expand">
                                 <el-form-item label="库位数">
-                                    <span>{{ props.row.a  }}</span>
+                                    <span>{{ props.row.locationCount  }}</span>
                                 </el-form-item>
                                 <el-form-item label="可用操作">
                                     <el-button
@@ -245,7 +245,7 @@
                     label="库位数"
                     align="center">
                 <template scope="scope">
-                    <span>{{ scope.row.a}}</span>
+                    <span>{{ scope.row.locationCount}}</span>
                 </template>
             </el-table-column>
             <el-table-column

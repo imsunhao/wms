@@ -2929,18 +2929,11 @@
 }
 
  */
-
-
-
 /**
  * TODO 挑选单据
  */
         /**
          *  TODO 0 挑选单据-查询-任务单据 POST /mfunck/selectChooseCkrwByPage
-         *
-         *
-         *
-         *
          {
            "draw": 0,
            "ckrwNo": "",               任务单号（可模糊查询）
@@ -2966,25 +2959,25 @@
 /**
  * TODO  激活单据分页查询
  */
-/**
- * TODO 0 激活单据-查询-任务单  POST /mfunck/selectActivatedCkrwByPage
- *  * 参数
-         {
-         "draw": 0,
-         "ckrwNo": "",                    (任务单号)
-         "ckrwCph": "",                    (车牌号)
-         "ckrwWls": "",                         (物流商)
-         "ckrwStartYjdcsj": "",        (预计到车时间)
-         "ckrwEndSjdcsj": "",          (实际倒车时间)
-         "ckrwStartGreatTime": "",                  (创建时间/制作时间)
-         "ckrwEndGreatTime": "",                    (创建结束时间)
-         "pageNum": 1,
-         "pageSize": 10
-        }
- */
-/**
- * TODO 1 激活任务
- */
+    /**
+     * TODO 0 激活单据-查询-任务单  POST /mfunck/selectActivatedCkrwByPage
+     *  * 参数
+             {
+             "draw": 0,
+             "ckrwNo": "",                    (任务单号)
+             "ckrwCph": "",                    (车牌号)
+             "ckrwWls": "",                         (物流商)
+             "ckrwStartYjdcsj": "",        (预计到车时间)
+             "ckrwEndSjdcsj": "",          (实际倒车时间)
+             "ckrwStartGreatTime": "",                  (创建时间/制作时间)
+             "ckrwEndGreatTime": "",                    (创建结束时间)
+             "pageNum": 1,
+             "pageSize": 10
+            }
+     */
+    /**
+     * TODO 1 激活任务
+     */
 /**
  * TODO 出库操作
  */
@@ -3029,32 +3022,37 @@
 
  *
  */
-/**
- * TODO 回收存档
- */
-/**
- * TODO 0 分页查询 POST /mfunck/selectConserveCkDocByPage
- * 参数
-     {
-      "draw": 0,
-      "ckCkdjNo": "",
-      "pageNum": 1,
-      "pageSize": 10,
-      "mhStartCreateTime": "",
-      "mhEndCreateTime": "",
-      "ckStartXdsj": "",
-      "ckEndXdsj": ""
-    }
- */
-
-
-
-
-
-
-
+    /**
+     * TODO 回收存档
+     */
         /**
-         *  参数类：ckDocPageModel
+         * TODO 0 分页查询 POST /mfunck/selectConserveCkDocByPage
+         * 参数
+         * {
+                "draw": 0,
+                "ckCkdjNo": "jy33333",                              (出库单号)
+                "pageNum": 1,
+                "pageSize": 10,
+                "mhStartCreateTime": "2017-04-01T00:00:00.000Z",    (创建时间/制作时间)
+                "mhEndCreateTime": "2017-04-22T00:00:00.000Z",      (创建时间/制作时间)
+                "ckStartXdsj": "2017-02-01T00:00:00.000Z",          (下单时间)
+                "ckEndXdsj": "2017-02-22T00:00:00.000Z"             (下单时间)
+            }
+         */
+        /**
+         * TODO 1 欠货不发信息
+         */
+        /**
+        * TODO 2 滞留不发信息
+        */
+        /**
+         * TODO 3 导出欠货
+         */
+        /**
+         * TODO 4 导出滞留
+         */
+/**
+ *  参数类：ckDocPageModel
          *  实例：
          *  {
               "draw": 0,
@@ -4380,16 +4378,72 @@
  * TODO 业务查询
  */
     /**
+     * TODO 入库日报
+     *
+     */
+        /**
+        * TODO 0 分页查询
+        */
+        /**
+         * TODO 1 导出
+         */
+    /**
+     * TODO 出库日报
+     */
+        /**
+         * TODO 0 分页查询  POST /mfunck/SelectCkRb
+         */
+        /**
+         * TODO 1 导出 post /mfunck/exportCkRbByExcel
+         */
+    /**
+     * 库存查询
+      */
+        /**
+         * TODO 0 分页查询 POST /repertory/groupPage
+         */
+        /**
+         * TODO 1 导出
+         */
+    /**
+     * TODO 入库单据查询
+     */
+        /**
+         * TODO 0 分页查询
+         */
+        /**
+        * TODO 1 导出
+        */
+    /**
+     * TODO 出库单据查询
+     */
+        /**
+         * TODO 0 分页查询  POST /mfunck/findMfunckDocByPage
+         */
+        /**
+         * TODO 1 导出
+         */
+    /**
+     * TODO 货品流向查询
+     */
+        /**
+         * TODO 0 分页查询  post /mfunck/selectHplxCx
+         */
+        /**
+         * TODO 1 导出  post /mfunck/exportHplxCxByExcel
+
+         */
+    /**
      * TODO 库存转移查询
      */
         /**
          * TODO 0  库存转移过程 分页获取库存转移单据(包含详细信息) POST /stockZyDoc/selectByPage
          */
-/**
- * TODO 库存冻结查询
+    /**
+    * TODO 库存冻结查询
      */
         /**
-         * TODO 0 库存冻结过程 分页获取库存冻结单据(包含明细) POST /stockDjDoc/selectByPage
+         * TODO 0 库存冻结过程 分页获取库存冻结单据 POST /stockDjDoc/page
          */
     /**
         * TODO 盘点查询
@@ -4439,6 +4493,7 @@
         /**
          * TODO 2 导出
          */
+
 
 
 

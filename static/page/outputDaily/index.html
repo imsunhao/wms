@@ -154,6 +154,21 @@
                         {{auto_msxQrsj(scope.row.msxQrsj,true)}}
                     </template>
                 </el-table-column>
+
+                <el-table-column
+                        label="作业体积"
+                        show-overflow-tooltip
+                        prop=""
+                        align="center">
+                </el-table-column>
+                <el-table-column
+                        label="下单时间"
+                        show-overflow-tooltip
+                        align="center">
+                    <template scope="scope">
+                        {{auto_ckXdsj(scope.row.ckXdsj,true)}}
+                    </template>
+                </el-table-column>
                 <el-table-column
                         label="出库单号"
                         show-overflow-tooltip
@@ -161,27 +176,35 @@
                         prop="ckCkdjNo">
                 </el-table-column>
                 <el-table-column
-                        label="货品编号"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="cksGoodsId">
-                </el-table-column>
-                <el-table-column
-                        label="客户编号"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="ckCkdjClientno">
-                </el-table-column>
-                <el-table-column
                         label="状态"
-                        align="center"
-                        width="100">
+                        align="center">
                         <template scope="scope">
                             <el-tag
                                     close-transition>{{auto_ckStatus(scope.row.ckStatus)}}
                             </el-tag>
                         </template>
                 </el-table-column>
+                <el-table-column
+                        label="状态"
+                        align="center">
+                        <template scope="scope">
+                            <el-tag
+                                    close-transition>{{auto_ckStatus(scope.row.ckStatus)}}
+                            </el-tag>
+                        </template>
+                </el-table-column>
+
+                    <el-table-column
+                        label="状态"
+                        align="center">
+                        <template scope="scope">
+                            <el-tag
+                                    close-transition>{{auto_ckStatus(scope.row.ckStatus)}}
+                            </el-tag>
+                        </template>
+                </el-table-column>
+
+
                 <el-table-column
                         v-if="multiSelect"
                         type="selection"
