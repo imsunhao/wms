@@ -951,14 +951,14 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 1:
-                        urlName = '出库发运-查询-出库单据';
-                        req = autoUrl(req, '/mfunck/selectDespatchCkrwByPage', "POST", function (json) {
+                        urlName = '出库发运-发运';
+                        req = autoUrl(req, '/mfunck/ckFayunRw', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
-                        urlName = '出库发运-查询-出库单据';
-                        req = autoUrl(req, '/mfunck/selectDespatchCkrwByPage', "POST", function (json) {
+                        urlName = '出库发运-修改发运数量';
+                        req = autoUrl(req, '/mfunck/updateFysl', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -970,6 +970,36 @@ router.param('_url', function (req, res, next, url) {
                     case 0:
                         urlName = '回收存档- 分页查询';
                         req = autoUrl(req, '/mfunck/selectConserveCkDocByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '回收存档- 欠货补发信息（整单）';
+                        req = autoUrl(req, '/mfunck/QianHuoBuFaZd', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '回收存档- 欠货补发信息（明细）';
+                        req = autoUrl(req, '/mfunck/QianHuoBuFaMx', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '回收存档- 滞留补发信息';
+                        req = autoUrl(req, '/mfunck/zhiLiuBuFa', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 4:
+                        urlName = '回收存档- 欠货导出';
+                        req = autoUrl(req, '/mfunck/exportQhdocByExcel', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 5:
+                        urlName = '回收存档- 滞留导出';
+                        req = autoUrl(req, '/mfunck/exportZldocByExcel', "POST", function (json) {
                             res.send(json);
                         });
                         break;
