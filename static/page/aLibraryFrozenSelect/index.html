@@ -45,10 +45,10 @@
                                                     {{ auto_djCreateTime(props.row.djCreateTime) }}</span>
                                             </el-form-item>
                                             <el-form-item label="创建人">
-                                                <span>{{props.row.djCreateUserId}}</span>
+                                                <span>{{props.row.djCreateUserName}}</span>
                                             </el-form-item>
                                             <el-form-item label="解冻人">
-                                                <span>{{props.row.djJdUserId}}</span>
+                                                <span>{{props.row.djJdUserName}}</span>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :span="10" :offset="2">
@@ -134,7 +134,7 @@
                 <el-table-column
                         label="仓库"
                         show-overflow-tooltip
-                        prop="djArehouseId"
+                        prop="baseArehouse.baName"
                         align="center">
                 </el-table-column>
                 <el-table-column
@@ -150,13 +150,13 @@
                         label="创建人"
                         show-overflow-tooltip
                         align="center"
-                        prop="djCreateUserId">
+                        prop="djCreateUserName">
                 </el-table-column>
                 <el-table-column
                         label="解冻人"
                         show-overflow-tooltip
                         align="center"
-                        prop="djJdUserId">
+                        prop="djJdUserName">
                 </el-table-column>
                 <el-table-column
                         label="解冻时间"
@@ -234,7 +234,7 @@
             <el-form-item label="创建人"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="form.djCreateUserId"
+                        v-model="form.djCreateUserName"
                         class="input"
                         icon="search"
                         placeholder="创建人"></el-input>
@@ -242,7 +242,7 @@
             <el-form-item label="解冻人"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="form.djJdUserId"
+                        v-model="form.djJdUserName"
                         class="input"
                         icon="search"
                         placeholder="解冻人"></el-input>
@@ -781,7 +781,7 @@
             djCreateTime:[null,null],//模糊查询--创建时间
             djJdTime:[null,null],//模糊查询--解冻时间
             djCreateUserId:'',//模糊查询--创建人
-            djJdUserId:'',//模糊查询--解冻人
+            djJdUserName:'',//模糊查询--解冻人
             djArehouseId:'',//模糊查询--仓库
             djStatus:'',//模糊查询--冻结状态
         }
