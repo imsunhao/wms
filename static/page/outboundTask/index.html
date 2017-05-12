@@ -568,57 +568,6 @@
     }
 </style>
 <script>
-    function form() {
-        return {
-            rkrwId: '',
-            title: "新建入库任务",
-            rkrwN: '',
-            rkrwCph: '',
-            dds: '',
-            pxs: '',
-            rkrwSjxm: '',
-            rkrwDhrq: '',
-            rkrwDbd: '',
-            rkrwCys: '',
-            rkrwDh: '',
-            rkrwStatus: '',
-            ckrwCph: '',//模糊查询 --车牌号
-            ckrwNo: '',//模糊查询 --任务
-            ckrwHistoryCzsj: [null,null],//模糊查询--制作时间
-            ckrwStatus: '',//模糊查询--任务状态
-            ckrwQhStatus: '',//模糊查询--欠货状态
-            ckrwZlStatus: '',//模糊查询--滞留状态
-        }
-    };
-    function formCar() {
-        return {
-            ckrwId:'',
-            ckrwSjdcsj:''//实际到车时间
-        }
-    };             //TODO 到车信息
-    function formModifyTask() {
-        return {
-            ckrwId:'',
-            ckCkdjNo:'',            //出库单号
-            ckCkdjClientno:'',      //客户编号
-            ckCkdjClientname:'',    //客户名称
-            ckContacts:'',          //联系人
-            ckTel:'',               //联系电话
-            ckXdsj:'',              //地址
-            ckCkdjNo:'',            //下单时间
-        }
-    };      //TODO 修改任务
-    function formSortingMethod() {
-        return {
-            ckrwId:'',
-            ckhpbh:'',            //货品编号
-            ckhpjc:'',            //货品简称
-            ckhpszdw:'',         //货品单位(最小单位--散支单位)
-            //:'',                //货品数量
-            ckhppc:'',              //批次
-            //:'',                //库位
-        }
-    };  //TODO 修改分拣方式
     var outboundTask = new Vue({
         el: '#outboundTask',
         prop: {},
@@ -810,14 +759,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                //分页 当前页
             newInput: function () {
                 this.dialogFormVisible = true;
@@ -861,12 +810,12 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(outboundTask);
+                    p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                post(this, {});
+                p[0].post( {});
             },                                          //详细查询 提交
             carSubmit: function () {
 
@@ -894,14 +843,14 @@
                     }
                 }else{
                     temp={
-                       '初始'   :10,
-                       '下发'    :11,
-                       '已挑选'  :21  ,
-                       '已激活'  :31 ,
-                       '部分出库':41 ,
-                       '全部出库':42 ,
-                       '部分发运':51 ,
-                       '部分发运':52
+                        '初始'   :10,
+                        '下发'    :11,
+                        '已挑选'  :21  ,
+                        '已激活'  :31 ,
+                        '部分出库':41 ,
+                        '全部出库':42 ,
+                        '部分发运':51 ,
+                        '部分发运':52
                     }
                 }
                 return temp[value];
@@ -915,8 +864,8 @@
                     }
                 }else{
                     temp={
-                       '欠货'   : 1 ,
-                       '未欠货' : 2
+                        '欠货'   : 1 ,
+                        '未欠货' : 2
 
                     }
                 }
@@ -931,8 +880,8 @@
                     }
                 }else{
                     temp={
-                       '滞留'   : 1 ,
-                       '未滞留' : 2
+                        '滞留'   : 1 ,
+                        '未滞留' : 2
 
                     }
                 }
@@ -941,6 +890,69 @@
         },
         watch: {}
     });
+    function form() {
+        return {
+            rkrwId: '',
+            title: "新建入库任务",
+            rkrwN: '',
+            rkrwCph: '',
+            dds: '',
+            pxs: '',
+            rkrwSjxm: '',
+            rkrwDhrq: '',
+            rkrwDbd: '',
+            rkrwCys: '',
+            rkrwDh: '',
+            rkrwStatus: '',
+            ckrwCph: '',//模糊查询 --车牌号
+            ckrwNo: '',//模糊查询 --任务
+            ckrwHistoryCzsj: [null,null],//模糊查询--制作时间
+            ckrwStatus: '',//模糊查询--任务状态
+            ckrwQhStatus: '',//模糊查询--欠货状态
+            ckrwZlStatus: '',//模糊查询--滞留状态
+        }
+    };
+    var obj=outboundTask;
+    var p=[];
+    // 0 出库任务 分页查询
+    p[0] = autoPost({
+        urlHock: "../../hock/outboundTask/page.json",
+        urlProd: "/route/outboundTask/0",
+        success: function (json) {
+            obj.$data.outboundTask = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+    function formCar() {
+        return {
+            ckrwId:'',
+            ckrwSjdcsj:''//实际到车时间
+        }
+    };             //TODO 到车信息
+    function formModifyTask() {
+        return {
+            ckrwId:'',
+            ckCkdjNo:'',            //出库单号
+            ckCkdjClientno:'',      //客户编号
+            ckCkdjClientname:'',    //客户名称
+            ckContacts:'',          //联系人
+            ckTel:'',               //联系电话
+            ckXdsj:'',              //地址
+            ckCkdjNo:'',            //下单时间
+        }
+    };      //TODO 修改任务
+    function formSortingMethod() {
+        return {
+            ckrwId:'',
+            ckhpbh:'',            //货品编号
+            ckhpjc:'',            //货品简称
+            ckhpszdw:'',         //货品单位(最小单位--散支单位)
+            //:'',                //货品数量
+            ckhppc:'',              //批次
+            //:'',                //库位
+        }
+    };  //TODO 修改分拣方式
+
     // 高级 监视器的 使用方法
     //    outboundTask.$watch('date', function () {
     //        if (!this.option.dateStart)return;
@@ -949,37 +961,7 @@
     //        /*</debug>*/
     //        post(this, this.option);
     //    }, {deep: true});
-    post(outboundTask, outboundTask.option);
-    function post(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/outboundTask/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/outboundTask/0";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                obj.$data.outboundTask = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                           //TODO 出库任务分页查询接口
+    p[0].post(outboundTask.option);
     function printfCompile(obj) {
         var resoleveStep = [];
         for (var i = 0; i < obj.multipleSelection.length; i++) {

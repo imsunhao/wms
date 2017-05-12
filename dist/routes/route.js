@@ -869,7 +869,7 @@ router.param('_url', function (req, res, next, url) {
                case 'outputShipment':
                 switch (parseInt(req.params._status)) {
                     case 0:
-                        urlName = '出库发运-分页查询';
+                        urlName = '出库发运-查询-出库单据';
                         req = autoUrl(req, '/mfunck/selectDespatchCkrwByPage', "POST", function (json) {
                             res.send(json);
                         });
@@ -910,23 +910,24 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '出库日报 分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mfunck/SelectCkRb', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 1:
                         urlName = '出库日报 导出';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, 'mfunck/exportCkRbByExcel', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                 }
                 break;
+
             case 'stockSelect':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '库存查询 分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/repertory/groupPage', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -989,7 +990,7 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '出库单据查询 分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mfunck/findMfunckDocByPage', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -1036,13 +1037,13 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '货品流向查询  分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mfunck/selectHplxCx', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 1:
                         urlName = '货品流向查询 导出';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mfunck/exportHplxCxByExcel', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -1074,7 +1075,7 @@ router.param('_url', function (req, res, next, url) {
             case 'aLibraryFrozenSelect':
                 switch (parseInt(req.params._status)) {
                     case 0:
-                        urlName = '库位冻结查询  分页获取库存冻结单据(包含明细)';
+                        urlName = '库位冻结查询  分页获取库存冻结单据';
                         req = autoUrl(req, '/stockDjDoc/selectByPage', "POST", function (json) {
                             res.send(json);
                         });

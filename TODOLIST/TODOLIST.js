@@ -1427,10 +1427,12 @@
          *   allCount 总数量
          *   allTj 总体积
          */
+
         /** TODO 8 入库单 详细信息
          *
          *
          * */
+
     /**
      *      TODO 入库任务 warehousingTask
          */
@@ -2134,10 +2136,14 @@
             /**
              *  TODO 6 数量不允许为负数
              */
-    /**
-    TODO 出库预约
-    **/
+
+
+
         /**
+             TODO 出库预约
+
+             **/
+            /**
              * 7 TODO 出库预约 获取 根据分页要求获取没有出库任务的出库单信息 POST /mfunck/selectMfunckDocByPage
              *
              *
@@ -2250,86 +2256,95 @@
              * ]
              * }
              */
-        /**
-         *  TODO 1 出库预约-组合  /mfunck/insertCkrw
-         {
-          "ckrwNo": "CK20170509-03",
-          "ckrwYjdcsj": "2017-04-18T03:45:44.353Z",
-          "ckrwCph": "鲁A56895",
-          "ckrwQhStatus": "1",
-          "ckrwZlStatus": "1",
-          "ckrwWls": "佳怡物流",
-          "ckrwArehouseId": 1,
-          "ckrwClientId": 1,
-        "userName":"超级管理员",
-          "ckCkdjIds": [
-            43,
-            44
-          ]
-        }
-        *
-        */
-        /**
-         *  TODO 3 出库预约-修改-出库单
-         *
-         *
-         */
-        /**
-         *  TODO 8 出库预约-查询-出库单-详细 /mfunck/checkMfunckDocsByCkdjId
-         *
-         *
-         {
-          "id": 29
-        }
-         *
-         *
-         */
-        /**
-         *  TODO 9 出库预约-查询-出库单据-出库单号 /mfunck/mfunckdocAdd
-         *
-         *
-         *
-         *  {
-          "status": 20000,
-          "model": "CK1494319702504"
-        }
-         *
-         *
-         */
-        /**
-         *  TODO 10 出库预约-查询-出库任务-出库单号 /mfunck/greatCkrwNo
-         *
-         *
-         {
-          "status": null,
-          "model": "CK20170509-01"
-        }
-         *
-         *
-         */
-        /**
-         *  TODO 11 出库预约-作废-出库单据-出库单号 POST /mfunck/cancelMfunckDocByCkdjId
-         *
-         *
-         *
-         {
-          "id": 0
-         }
-         *
-         *
-         */
-        /**
-         * TODO 出库单管理 根据出库单Id查询出库明细详情 POST /mfunck/checkMfunckDocsByCkdjId
-         * 参数类： setModel
-         * {
-         *  "id": 1
-         *  }
-         *  返回 jsonModel mfunckDocs 出库明细集合
-         *  mfunckDocs.getBaseGoods.getBgGoodsNo (货品编号)
-         *  mfunckDocs.getBaseGoods.getBgGoodsName (货品名称)
-         *  mfunckDocs.getBaseDw.getBdName （单位名称）
-         *  mfunckDocs.getCksGoodsCount （货品数量）
-         */
+
+/**
+ *  TODO 1 出库预约-组合  /mfunck/insertCkrw
+
+ {
+  "ckrwNo": "CK20170509-03",
+  "ckrwYjdcsj": "2017-04-18T03:45:44.353Z",
+  "ckrwCph": "鲁A56895",
+  "ckrwQhStatus": "1",
+  "ckrwZlStatus": "1",
+  "ckrwWls": "佳怡物流",
+  "ckrwArehouseId": 1,
+  "ckrwClientId": 1,
+"userName":"超级管理员",
+  "ckCkdjIds": [
+    43,
+    44
+  ]
+}
+
+
+ *
+ */
+
+/**
+ *  TODO 3 出库预约-修改-出库单
+ *
+ *
+ */
+/**
+ *  TODO 8 出库预约-查询-出库单-详细 /mfunck/checkMfunckDocsByCkdjId
+ *
+ *
+ {
+  "id": 29
+}
+ *
+ *
+ */
+/**
+ *  TODO 9 出库预约-查询-出库单据-出库单号 /mfunck/mfunckdocAdd
+ *
+ *
+ *
+ *  {
+  "status": 20000,
+  "model": "CK1494319702504"
+}
+ *
+ *
+ */
+/**
+ *  TODO 10 出库预约-查询-出库任务-出库单号 /mfunck/greatCkrwNo
+ *
+ *
+ {
+  "status": null,
+  "model": "CK20170509-01"
+}
+ *
+ *
+ */
+/**
+ *  TODO 11 出库预约-作废-出库单据-出库单号 POST /mfunck/cancelMfunckDocByCkdjId
+ *
+ *
+ *
+ {
+  "id": 0
+ }
+ *
+ *
+ */
+
+
+
+
+/**
+ * TODO 出库单管理 根据出库单Id查询出库明细详情 POST /mfunck/checkMfunckDocsByCkdjId
+ * 参数类： setModel
+ * {
+ *  "id": 1
+ *  }
+ *  返回 jsonModel mfunckDocs 出库明细集合
+ *  mfunckDocs.getBaseGoods.getBgGoodsNo (货品编号)
+ *  mfunckDocs.getBaseGoods.getBgGoodsName (货品名称)
+ *  mfunckDocs.getBaseDw.getBdName （单位名称）
+ *  mfunckDocs.getCksGoodsCount （货品数量）
+ */
         /**
  * TODO 出库单管理 修改出库单及明细 POST /mfunck/editMfunckDocAndDocs
  * 参数类： mfunckDoc 出库单对象
@@ -2380,6 +2395,9 @@
  * }
  * 返回 jsonModel 20002 成功 50002 失败！
  */
+
+
+
     /**
          * TODO 出库任务
          */
@@ -2911,16 +2929,11 @@
 }
 
  */
-
-    /**
-     * TODO 挑选单据
-     */
+/**
+ * TODO 挑选单据
+ */
         /**
          *  TODO 0 挑选单据-查询-任务单据 POST /mfunck/selectChooseCkrwByPage
-         *
-         *
-         *
-         *
          {
            "draw": 0,
            "ckrwNo": "",               任务单号（可模糊查询）
@@ -2943,89 +2956,103 @@
          }
          *
          */
+/**
+ * TODO  激活单据分页查询
+ */
     /**
-     * TODO  激活单据
-     */
-        /**
-         * TODO 0 激活单据-查询-任务单  POST /mfunck/selectActivatedCkrwByPage
-         *  * 参数
-                 {
-                 "draw": 0,
-                 "ckrwNo": "",                    (任务单号)
-                 "ckrwCph": "",                    (车牌号)
-                 "ckrwWls": "",                         (物流商)
-                 "ckrwStartYjdcsj": "",        (预计到车时间)
-                 "ckrwEndSjdcsj": "",          (实际倒车时间)
-                 "ckrwStartGreatTime": "",                  (创建时间/制作时间)
-                 "ckrwEndGreatTime": "",                    (创建结束时间)
-                 "pageNum": 1,
-                 "pageSize": 10
-                }
-         */
-        /**
-         * TODO 1 激活任务
-         */
-    /**
-     * TODO 出库操作
-     */
-        /**
-         * TODO 0 出库操作 出库单据分页查询 POST /mfunck/selectOperateCkDocByPage
-         *  {
-               "draw": 0,
-               "ckCkdjNo": "CK2017040175562",               (出库单号)
-               "pageNum": 1,
-               "pageSize": 1,
-               "ckStatus": -1,                                 (状态)
-               "ckCkdjClientname": "太阳神",                   (客户名称)
-               "ckrwCph": "CPH",                               (车牌号)
-               "ckrwWls": "无限极",                             (物流商)
-               "mhStartCreateTime": "2017-04-01T00:00:00.000Z", (制作时间)
-               "mhEndCreateTime": "2017-04-10T00:00:00.000Z",
-               "ckStartXdsj": "2017-04-01T00:00:00.000Z",       (下单时间)
-               "ckEndXdsj": "2017-04-20T00:00:00.000Z"
+     * TODO 0 激活单据-查询-任务单  POST /mfunck/selectActivatedCkrwByPage
+     *  * 参数
+             {
+             "draw": 0,
+             "ckrwNo": "",                    (任务单号)
+             "ckrwCph": "",                    (车牌号)
+             "ckrwWls": "",                         (物流商)
+             "ckrwStartYjdcsj": "",        (预计到车时间)
+             "ckrwEndSjdcsj": "",          (实际倒车时间)
+             "ckrwStartGreatTime": "",                  (创建时间/制作时间)
+             "ckrwEndGreatTime": "",                    (创建结束时间)
+             "pageNum": 1,
+             "pageSize": 10
             }
-         */
-    /**
-     * TODO 出库发运
      */
-        /**
-         * TODO 0 分页查询 POST /mfunck/selectDespatchCkrwByPage
-         * 参数：
-         *  {
-              "draw": 0,
-              "ckrwNo": "CK20170406-02",                            (出库任务单号)
-              "ckrwCph": "CPH",                                     (车牌号)
-              "ckrwWls": "无限极",                                 (物流商)
-              "ckrwStartYjdcsj": "2017-03-01T00:00:00.000Z",        (预计倒车时间)
-              "ckrwStartSjdcsj": "2017-03-01T00:00:00.000Z",        (实际倒车时间)
-               "ckrwEndYjdcsj": "",
-              "ckrwEndSjdcsj": "",
-               "ckrwStartGreatTime": "",                            (制作时间/创建时间)
-              "ckrwEndGreatTime": "",
-              "pageNum": 1,
-              "pageSize": 10
-            }
-         *
-         */
+    /**
+     * TODO 1 激活任务
+     */
+/**
+ * TODO 出库操作
+ */
+/**
+ * TODO 0 出库操作 出库单据分页查询 POST /mfunck/selectOperateCkDocByPage
+          {
+          "draw": 0,
+          "ckCkdjNo": "",           (出库单号)
+          "pageNum": 1,
+          "pageSize": 10,
+          "ckStatus": -1,           (状态)
+          "ckCkdjClientname": "",   (客户名称)
+          "ckrwCph": "",            (车牌号)
+          "ckrwWls": "",            (物流商)
+          "mhStartCreateTime": "",  (制作时间)
+          "mhEndCreateTime": "",
+          "ckStartXdsj": "",        (下单时间)
+          "ckEndXdsj": ""
+         }
+
+ */
+/**
+ * TODO 出库发运
+ */
+/**
+ * TODO 0 分页查询 POST /mfunck/selectDespatchCkrwByPage
+ * 参数：
+      {
+      "draw": 0,
+      "ckrwNo": "",
+      "ckrwCph": "",
+      "ckrwWls": "",
+      "ckrwStartYjdcsj": "",
+      "ckrwEndSjdcsj": "",
+      "ckrwStartSjdcsj": "",
+      "ckrwEndYjdcsj": "",
+      "ckrwStartGreatTime": "",
+      "ckrwEndGreatTime": "",
+      "pageNum": 1,
+      "pageSize": 10
+    }
+
+ *
+ */
     /**
      * TODO 回收存档
      */
         /**
          * TODO 0 分页查询 POST /mfunck/selectConserveCkDocByPage
          * 参数
-         {
-            "draw": 0,
-            "ckCkdjNo": "jy33333",                              (出库单号)
-            "pageNum": 1,
-            "pageSize": 10,
-            "mhStartCreateTime": "2017-04-01T00:00:00.000Z",     (创建时间)
-            "mhEndCreateTime": "2017-04-22T00:00:00.000Z",
-            "ckStartXdsj": "2017-02-01T00:00:00.000Z",           (下单时间)
-            "ckEndXdsj": "2017-02-22T00:00:00.000Z"
-          }
+         * {
+                "draw": 0,
+                "ckCkdjNo": "jy33333",                              (出库单号)
+                "pageNum": 1,
+                "pageSize": 10,
+                "mhStartCreateTime": "2017-04-01T00:00:00.000Z",    (创建时间/制作时间)
+                "mhEndCreateTime": "2017-04-22T00:00:00.000Z",      (创建时间/制作时间)
+                "ckStartXdsj": "2017-02-01T00:00:00.000Z",          (下单时间)
+                "ckEndXdsj": "2017-02-22T00:00:00.000Z"             (下单时间)
+            }
          */
         /**
-         *  参数类：ckDocPageModel
+         * TODO 1 欠货不发信息
+         */
+        /**
+        * TODO 2 滞留不发信息
+        */
+        /**
+         * TODO 3 导出欠货
+         */
+        /**
+         * TODO 4 导出滞留
+         */
+/**
+ *  参数类：ckDocPageModel
          *  实例：
          *  {
               "draw": 0,
@@ -4351,16 +4378,72 @@
  * TODO 业务查询
  */
     /**
+     * TODO 入库日报
+     *
+     */
+        /**
+        * TODO 0 分页查询
+        */
+        /**
+         * TODO 1 导出
+         */
+    /**
+     * TODO 出库日报
+     */
+        /**
+         * TODO 0 分页查询  POST /mfunck/SelectCkRb
+         */
+        /**
+         * TODO 1 导出 post /mfunck/exportCkRbByExcel
+         */
+    /**
+     * 库存查询
+      */
+        /**
+         * TODO 0 分页查询 POST /repertory/groupPage
+         */
+        /**
+         * TODO 1 导出
+         */
+    /**
+     * TODO 入库单据查询
+     */
+        /**
+         * TODO 0 分页查询
+         */
+        /**
+        * TODO 1 导出
+        */
+    /**
+     * TODO 出库单据查询
+     */
+        /**
+         * TODO 0 分页查询  POST /mfunck/findMfunckDocByPage
+         */
+        /**
+         * TODO 1 导出
+         */
+    /**
+     * TODO 货品流向查询
+     */
+        /**
+         * TODO 0 分页查询  post /mfunck/selectHplxCx
+         */
+        /**
+         * TODO 1 导出  post /mfunck/exportHplxCxByExcel
+
+         */
+    /**
      * TODO 库存转移查询
      */
         /**
          * TODO 0  库存转移过程 分页获取库存转移单据(包含详细信息) POST /stockZyDoc/selectByPage
          */
-/**
- * TODO 库存冻结查询
+    /**
+    * TODO 库存冻结查询
      */
         /**
-         * TODO 0 库存冻结过程 分页获取库存冻结单据(包含明细) POST /stockDjDoc/selectByPage
+         * TODO 0 库存冻结过程 分页获取库存冻结单据 POST /stockDjDoc/page
          */
     /**
         * TODO 盘点查询
@@ -4410,6 +4493,7 @@
         /**
          * TODO 2 导出
          */
+
 
 
 

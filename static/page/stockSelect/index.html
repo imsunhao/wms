@@ -39,10 +39,10 @@
                                         <span>{{ props.row.mrLocationId }}</span>
                                     </el-form-item>
                                     <el-form-item label="货品编号">
-                                        <span>{{ props.row.mrGoodsId }}</span>
+                                        <span>{{ props.row.baseGoods.bgGoodsNo }}</span>
                                     </el-form-item>
                                     <el-form-item label="货品名称">
-                                        <span>{{ props.row.mrGoodsId }}</span>
+                                        <span>{{ props.row.base }}</span>
                                     </el-form-item>
                                     <el-form-item label="货品批次">
                                         <span>{{ props.row.mrGoodsBatch }}</span>
@@ -81,21 +81,35 @@
                         </el-form>
                     </template>
                 </el-table-column>
-                <!--<el-table-column-->
-                <!--type="index"-->
-                <!--width="55">-->
-                <!--</el-table-column>-->
+                <el-table-column
+                        label="仓库"
+                        show-overflow-tooltip
+                        prop="baseArehouse.baName"
+                        align="center">
+                </el-table-column>
                 <el-table-column
                         label="库位名称"
                         show-overflow-tooltip
-                        prop="mrLocationId"
+                        prop="baseLocation.blLname"
                         align="center">
                 </el-table-column>
                 <el-table-column
                         label="货品编号"
                         show-overflow-tooltip
                         align="center"
-                        prop="mrGoodsId">
+                        prop="baseGoods.bgGoodsNo">
+                </el-table-column>
+                 <el-table-column
+                        label="货品名称"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="baseGoods.bgGoodsNo">
+                </el-table-column>
+                 <el-table-column
+                        label="货品批次"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="mrGoodsBatch">
                 </el-table-column>
                 <el-table-column
                         label="数量"
@@ -107,23 +121,7 @@
                         label="可用数量"
                         show-overflow-tooltip
                         align="center"
-                        prop="kysl">
-                </el-table-column>
-                <el-table-column
-                        label="待下架数量"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="mrDxjCount">
-                </el-table-column>
-                <el-table-column
-                        label="异动时间"
-                        show-overflow-tooltip
-                        align="center">
-                    <template scope="scope">
-                        {{auto_mrKcydsj(scope.row.mrKcydsj,true)}}
-                    </template>
-                </el-table-column>
-
+                        prop="kyCount">
                 </el-table-column>
                 <el-table-column
                         v-if="multiSelect"
@@ -168,7 +166,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="form.mrGoodsId"
+                        v-model="form.bgGoodsNo"
                         icon="search"
                         placeholder="货品编号"></el-input>
             </el-form-item>
@@ -176,7 +174,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="form.mrGoodsId"
+                        v-model="form.bgGoodsName"
                         icon="search"
                         placeholder="货品姓名"></el-input>
             </el-form-item>
@@ -184,7 +182,7 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="form.mrLocationId"
+                        v-model="form.blLname"
                         icon="search"
                         placeholder="库位名称"></el-input>
             </el-form-item>
@@ -198,7 +196,7 @@
             </el-form-item>
             <el-form-item label="仓库"
                           :label-width="formLabelWidth">
-                <el-select v-model="form.mrArehouseId" placeholder="请选择">
+                <el-select v-model="form.baName" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
                 </el-select>
             </el-form-item>
@@ -613,11 +611,18 @@
             rkrwDh: '',
             rkrwStatus: '',
             mrKcydsj:[null,null],    //模糊查询--异动时间
-            mrGoodsId:'',   //模糊查询--货品编号
-            mrGoodsId:'',    //模糊查询--货品名称
-            mrLocationId:'',//模糊查询--库位名称
+            bgGoodsNo:'',   //模糊查询--货品编号
+            bgGoodsName:'',    //模糊查询--货品名称
+            blLname:'',//模糊查询--库位名称
             mrGoodsBatch:'',//模糊查询--货品批次
-            mrArehouseId:'' //模糊查询--仓库
+            baName:'' //模糊查询--仓库
+            /*
+            baseGoods.bgGoodsNo:'',   //模糊查询--货品编号
+            baseGoods.bgGoodsName:'',    //模糊查询--货品名称
+            baseLocation.blLname:'',//模糊查询--库位名称
+            mrGoodsBatch:'',//模糊查询--货品批次
+            baseArehouse.baName:'' //模糊查询--仓库
+            */
         }
     }
     var obj=stockSelect;
@@ -631,18 +636,13 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-      // 1 库存查询 分页查询
+      // 1 库存查询 导出
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/stockSelect/1",
         success: function (json) {
-
         }
     });
-
-
-
-
     // 高级 监视器的 使用方法
     //    stockSelect.$watch('date', function () {
     //        if (!this.option.dateStart)return;
@@ -652,149 +652,6 @@
     //        post(this, this.option);
     //    }, {deep: true});
     p[0].post( stockSelect.option);
-//    function post(obj, option) {
-//        obj.showLoading = true;
-//
-//        /*<debug>*/
-//        url = "/hock/stockSelect/page.json";
-//        /*</debug>*/
-//
-//        /*<prod>*/
-//        url = "/data/inputOption/" + option;
-//        /*</prod>*/
-//
-//        $.ajax(url, {
-//            type: "GET",
-//            data: option | {
-//                "draw": 1,                      //* 没有意义
-//                "pageNum": 1,                   //* 当前页
-//                "pageSize": 10                  //* 每页大小
-//            },
-//            error: function (error) {
-//                errorTip(obj, error);
-//            },
-//            success: function (json) {
-//                stockSelect.$data.stockSelect = json;
-//            },
-//            complete: function () {
-//                obj.showLoading = false;
-//            }
-//        });
-//    }                        //TODO 获取入库日报主页面
-    function postRkrwNo(obj, option, resolve) {
-        /*<debug>*/
-        url = "/hock/stockSelect/rkrwNo.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                var resoleveStep = [];
-                for (var i = 0; i < json.data.length; i++) {
-                    resoleveStep.push({
-                        name: json.data[i].rkdjId,
-                        rkrwNo:option.rkrwNo,
-                        rkrwDhrq:option.rkrwDhrq});
-                }
-                return resolve(resoleveStep);
-            },
-            complete: function () {
-
-            }
-        });
-    }          //TODO 获取任务单号中详细信息
-    function postRkdjId(obj, option, resolve) {
-        /*<debug>*/
-        url = "/hock/stockSelect/rkdjId.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                var resoleveStep = [];
-                for (var i = 0; i < json.length; i++) {
-                    resoleveStep.push({
-                        name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgNamejc,
-                        val2:json[i].baseGoods.bgGoodsNo,
-                        val:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        rwdh:option.rkrwNo,
-                        dhrq:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        dysj:changeDate(new Date())
-                    });
-                }
-                return resolve(resoleveStep);
-            },
-            complete: function () {
-
-            }
-        });
-    }          //TODO 获取入库单号中详细信息
-    function changeDate(date) {
-        return dateFormat(new Date(date), 'MM-dd hh:mm');
-    }
-    function errorTip(obj, error) {                    // 错误提示
-        /*<debug>*/
-        console.log(error);
-        /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
-    function dateFormat(date, fmt) {
-        var o = {
-            "M+": date.getMonth() + 1,                 //月份
-            "d+": date.getDate(),                    //日
-            "h+": date.getHours(),                   //小时
-            "m+": date.getMinutes(),                 //分
-            "s+": date.getSeconds(),                 //秒
-            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-            "S": date.getMilliseconds()             //毫秒
-        };
-        if (/(y+)/.test(fmt))
-            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-
-                    console.log(temp);
-                }
-                data.pop();
-            }
-        }
-    }
     function printfCompile(obj) {
         var resoleveStep = [];
         for (var i = 0; i < obj.multipleSelection.length; i++) {
