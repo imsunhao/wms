@@ -707,8 +707,30 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-
-
+                    case 7:
+                        urlName = '上架';
+                        req = autoUrl(req, '/mfunrkDoc/shelves', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 8:
+                        urlName = '分配';
+                        req = autoUrl(req, '/mfunrkDistributionlist', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 9:
+                        urlName = '追加分配';//TODO
+                        req = autoUrl(req, '/mfunrkDistributionlist', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 10:
+                        urlName = '上架';
+                        req = autoUrl(req, '/mfunrkDistributionlist', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
                 }
                 break;
             case 'outputAppointment':
@@ -758,6 +780,12 @@ router.param('_url', function (req, res, next, url) {
                     case 11:
                         urlName = '出库预约-作废-出库单据-出库单号';
                         req = autoUrl(req, '/mfunck/cancelMfunckDocByCkdjId', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 12:
+                        urlName = '出库预约-出库单据-滞留出库';
+                        req = autoUrl(req, '/mfunck/quxiaozhiliu', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -853,6 +881,42 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 1:
+                        urlName = '激活单据-激活任务';
+                        req = autoUrl(req, '/mfunck/rwJiHuo', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '激活单据-修改-分拣方式';
+                        req = autoUrl(req, '/mfunck/selectActivatedCkrwByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '激活单据-追加分拣';
+                        req = autoUrl(req, '/mfunck/bujianById', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 4:
+                        urlName = '激活单据-挂起确认';
+                        req = autoUrl(req, '/mfunck/guaQiById', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 5:
+                        urlName = '激活单据-激活单据';
+                        req = autoUrl(req, '/mfunck/fenjianById', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 6:
+                        urlName = '激活单据-修改-分拣明细数量';
+                        req = autoUrl(req, '/mfunck/xiugaifenjian', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
 
                 }
                 break;
@@ -864,11 +928,35 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 1:
+                        urlName = '出库操作-查询-历史记录';
+                        req = autoUrl(req, '/history/' + 1 + '/mhCkdjId', "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '出库操作-下架';
+                        req = autoUrl(req, '/mfunck/xiajiaById', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
                 }
                 break;
                case 'outputShipment':
                 switch (parseInt(req.params._status)) {
                     case 0:
+                        urlName = '出库发运-查询-出库单据';
+                        req = autoUrl(req, '/mfunck/selectDespatchCkrwByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '出库发运-查询-出库单据';
+                        req = autoUrl(req, '/mfunck/selectDespatchCkrwByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
                         urlName = '出库发运-查询-出库单据';
                         req = autoUrl(req, '/mfunck/selectDespatchCkrwByPage', "POST", function (json) {
                             res.send(json);
