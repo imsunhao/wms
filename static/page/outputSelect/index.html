@@ -41,7 +41,7 @@
                             <el-row>
                                 <el-col :span="10">
                                     <el-form-item label="仓库">
-                                        <span>{{ props.row.ckArehouseId }}</span>
+                                        <span>{{ props.row.baName }}</span>
                                     </el-form-item>
                                     <el-form-item label="出库单号">
                                         <span>{{ props.row.ckCkdjNo }}</span>
@@ -150,7 +150,7 @@
                 <el-table-column
                         label="仓库"
                         show-overflow-tooltip
-                        prop=""
+                        prop="baseArehouse.baName"
                         align="center">
                 </el-table-column>
                 <el-table-column
@@ -1076,7 +1076,7 @@
             ckZlStatus:'',//模糊查询--单据类型
             ckIsauto:'',//模糊查询--制单方式
             ckStartwith:'',//模糊查询--操作方式
-            ckArehouseId:'',//模糊查询--仓库
+            baName:'',//模糊查询--仓库
         }
     }
     var obj=outputSelect;
