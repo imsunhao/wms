@@ -682,7 +682,6 @@
     </el-dialog>
 </div>
 <script>
-    var id = 0;
     var warehousingReservation = new Vue({
         el: '#warehousingReservation',
         prop: {},
@@ -1471,54 +1470,7 @@
         else this.watchView = false;
     }, {deep: true});
 
-
     p[7].post(warehousingReservation.option);
-
-    function postCombinationDetails(obj) {
-        obj.showLoading = true;
-        /*<debug>*/
-        var json = {
-            model: 'RK' + dateFormat(new Date(), "yyyyMMdd") + '-' + (++id)
-        };
-        console.log(json);
-        setTimeout(function () {
-            obj.warehousingReservationCombinationDetails.rkrwNo = json.model;
-            obj.showLoading = false;
-        }, 500);
-        /*</debug>*/
-
-        /*<prod>*/
-
-
-        var json = {
-            model: 'RK' + dateFormat(new Date(), "yyyyMMdd") + '-' + (++id)
-        };
-        console.log(json);
-        setTimeout(function () {
-            obj.warehousingReservationCombinationDetails.rkrwNo = json.model;
-            obj.showLoading = false;
-        }, 500);
-
-
-//        url = "/route/warehousingReservation/1";
-//
-//        $.ajax(url, {
-//            type: "GET",
-//            data: option | {
-//                "id": 1                        //* 入库单号id
-//            },
-//            error: function (error) {
-//                errorTip(obj, error);
-//            },
-//            success: function (json) {
-//                obj.warehousingReservationCombinationDetails.rkrwNo = json.model;
-//            },
-//            complete: function () {
-//                obj.showLoading = false;
-//            }
-//        });
-        /*</prod>*/
-    }         // 9 获取任务号
     function postGoods(obj, option, cb) {
         //TODO 此处应为AJAX请求,待完善 querySearchAsync
 
