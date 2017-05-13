@@ -417,10 +417,7 @@
                                 <el-form-item
                                         label="入库任务单号"
                                         :label-width="formLabelWidth">
-                                    <el-input
-                                            v-model="warehousingReservationCombinationDetails.rkrwNo"
-                                            :disabled="true"
-                                            auto-complete="off"></el-input>
+                                    <el-tag type="success">{{warehousingReservationCombinationDetails.rkrwNo}}</el-tag>
                                 </el-form-item>
                                 <el-form-item label="调拨地" :label-width="formLabelWidth">
                                     <el-input
@@ -514,10 +511,7 @@
                                     label="入库单号"
                                     prop="rkRkdjNo"
                                     :label-width="formLabelWidth">
-                                <el-input
-                                        :disabled="watchView"
-                                        v-model="form.rkRkdjNo"
-                                        auto-complete="off"></el-input>
+                                <el-tag type="success">{{form.rkRkdjNo}}</el-tag>
                             </el-form-item>
                             <el-form-item label="所属仓库" :label-width="formLabelWidth">
                                 <el-select
@@ -884,8 +878,12 @@
                 p[7].post(this.option);
             },                                //分页 当前页
             newInput: function () {
-                this.form = form();
-                this.dialogFormVisible = true;
+                if(this.form.rkRkdjNo===''){
+                    obj.showLoading=true;
+                    p[9].post();
+                }else {
+                    obj.dialogFormVisible = true;
+                }
             },                                              //按钮 新建入库单
             importExcel: function () {
                 this.dialogExcelVisible = true;
@@ -908,7 +906,7 @@
             },                                              //form 前一个
             nextForm: function () {
                 if (this.warehousingReservationCombinationDetails.rkrwNo === "") {
-                    postCombinationDetails(this);
+                    p[10].post();
                 }
                 this.warehousingReservationCombinationDetails.rkrwDhrq = new Date();
                 this.formActive++;
@@ -1322,6 +1320,29 @@
     p[8] = autoPost({
         urlHock: "../../hock/form/inputOption.json",
         urlProd: "/route/warehousingReservation/8"
+    });
+    // 9 入库任务 单号
+    p[9] = autoPost({
+        urlHock: "/hock/warehousingReservation/rkrwNo.json",
+        urlProd: "/route/warehousingReservation/9",
+        success:function (json) {
+            obj.showLoading=false;
+            this.callbackAfter({status:json.status,model:'获取入库单据单号'},function () {
+                obj.form.rkRkdjNo = json.model;
+                obj.dialogFormVisible = true;
+            });
+        }
+    });
+    // 10 入库单据 单号
+    p[10] = autoPost({
+        urlHock: "/hock/warehousingReservation/rkdjNo.json",
+        urlProd: "/route/warehousingReservation/10",
+        success:function (json) {
+            obj.showLoading=false;
+            this.callbackAfter({status:json.status,model:'获取入库任务单号'},function () {
+                obj.warehousingReservationCombinationDetails.rkrwNo = json.model;
+            });
+        }
     });
 
     function CombinationDetails() {

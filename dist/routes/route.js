@@ -199,6 +199,18 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 9:
+                        urlName = '入库预约-入库任务 单号';
+                        req = autoUrl(req, '/mfunrkRwDoc/greatRkrwNo', "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 10:
+                        urlName = '入库预约-入库单据 单号';
+                        req = autoUrl(req, '/mfunrkDoc/greatRcDocNo', "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
 
                 }
                 break;
@@ -673,7 +685,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '入库操作－历史记录';
-                        req = autoUrl(req, '/history/' + 1 + '/mhRkdjId', "GET", function (json) {
+                        req = autoUrl(req, '/history/' +   req.query.id + '/mhRkdjId', "GET", function (json) {
                             res.send(json);
                         });
                         break;
@@ -930,7 +942,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '出库操作-查询-历史记录';
-                        req = autoUrl(req, '/history/' + 1 + '/mhCkdjId', "GET", function (json) {
+                        req = autoUrl(req, '/history/' + req.query.id + '/mhCkdjId', "GET", function (json) {
                             res.send(json);
                         });
                         break;
