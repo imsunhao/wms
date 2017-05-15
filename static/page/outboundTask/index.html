@@ -4,6 +4,25 @@
             element-loading-text="拼命加载中">
         <el-col :span="24">
             <div class="inner btn-nav">
+                <el-input
+                        v-model="ckrwNo"
+                        class="input"
+                        icon="search"
+                        placeholder="任务号"></el-input>
+                <el-date-picker
+                        v-model="date"
+                        type="daterange"
+                        align="right"
+                        placeholder="选择日期"
+                        class="datePicker"
+                        :picker-options="pickerOptions">
+                </el-date-picker>
+                <el-input
+                        class="input"
+                        v-model="ckrwCph"
+                        icon="search"
+                        placeholder="车牌号"></el-input>
+
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
@@ -322,6 +341,7 @@
             <el-form-item label="欠货状态"
                           :label-width="formLabelWidth">
                 <el-select v-model="form.ckrwQhStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
                 <el-option :value="1" label="欠货"></el-option>
                 <el-option :value="2" label="未欠货"></el-option>
                 </el-select>
@@ -329,6 +349,7 @@
             <el-form-item label="滞留状态"
                           :label-width="formLabelWidth">
                 <el-select v-model="form.ckrwZlStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
                 <el-option :value="1" label="滞留"></el-option>
                 <el-option :value="2" label="未滞留"></el-option>
                 </el-select>
@@ -688,7 +709,8 @@
                 currentPage: 1,
                 pageSize: 10,
                 date: [null, null],                 //主页面 选择日期 搜索
-                rkRkdjNo: '',                       //主页面 入库单号 搜索
+                ckrwNo: '',                       //主页面 入库单号 搜索
+                ckrwCph:'',                         //主页面 车牌号
                 formLabelWidth: '120px',           //表单   配置
                 form: form(),                        //表单   弹出层 信息集合
                 dialogFormActive: 0,                //新建    弹出层 steps 当前进度
@@ -947,7 +969,7 @@
                         41:'部分出库',
                         42:'全部出库',
                         51:'部分发运',
-                        52:'部分发运'
+                        52:'全部发运'
                     }
                 }else{
                     temp={
@@ -958,7 +980,7 @@
                         '部分出库':41 ,
                         '全部出库':42 ,
                         '部分发运':51 ,
-                        '部分发运':52
+                        '全部发运':52
                     }
                 }
                 return temp[value];
