@@ -225,182 +225,190 @@
         </el-col>
     </el-row>
     <el-dialog
-            size="tiny"
+            size="large"
             class="select"
             v-model="dialogSelectVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
         </div>
-        <el-form :model="select">
-            <el-form-item label="下单时间"
-                          :label-width="formLabelWidth">
-                <el-date-picker
-                        v-model="form.ckXdsj"
-                        type="daterange"
-                        align="right"
-                        placeholder="下单时间"
-                        class="input"
-                        :picker-options="pickerOptions">
-                </el-date-picker>
-            </el-form-item>
-            <el-form-item label="分拣时间"
-                          :label-width="formLabelWidth">
-                <el-date-picker
-                        v-model="form.mhCreatetime"
-                        type="daterange"
-                        align="right"
-                        placeholder="分拣时间"
-                        class="input"
-                        :picker-options="pickerOptions">
-                </el-date-picker>
-            </el-form-item>
-            <el-form-item label="下架时间"
-                          :label-width="formLabelWidth">
-                <el-date-picker
-                        v-model="form.ckCksj"
-                        type="daterange"
-                        align="right"
-                        placeholder="下架时间"
-                        class="input"
-                        :picker-options="pickerOptions">
-                </el-date-picker>
-            </el-form-item>
-            <el-form-item label="操作时间"
-                          :label-width="formLabelWidth">
-                <el-date-picker
-                        v-model="form.msxQrsj"
-                        type="daterange"
-                        align="right"
-                        placeholder="操作时间"
-                        class="input"
-                        :picker-options="pickerOptions">
-                </el-date-picker>
-            </el-form-item>
-            <el-form-item label="出库状态"
-                          :label-width="formLabelWidth">
-                <el-select v-model="form.ckStatus" placeholder="请选择">
-                    <el-option :value="-1" label="全部"></el-option>
-                    <el-option :value="21" label="部分分拣"></el-option>
-                    <el-option :value="31"label="全部分拣"></el-option>
-                    <el-option :value="23" label="部分出库"></el-option>
-                    <el-option :value="32" label="全部出库"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="是否滞留"
-                          :label-width="formLabelWidth">
-                <el-select v-model="form.cksZlStatus" placeholder="请选择">
-                    <el-option :value="-1" label="全部"></el-option>
-                    <el-option :value="1" label="未到车滞留"></el-option>
-                    <el-option :value="2" label="到车滞留"></el-option>
-                    <el-option :value="3" label="未滞留"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="制作方式"
-                          :label-width="formLabelWidth">
-                <el-select v-model="form.ckIsauto" placeholder="请选择">
-                    <el-option :value="-1" label="全部"></el-option>
-                    <el-option :value="1" label="手工"></el-option>
-                    <el-option :value="2" label="导入"></el-option>
-                    <el-option :value="3" label="接口"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="操作方式"
-                          :label-width="formLabelWidth">
-                <el-select v-model="form.ckStartwith" placeholder="请选择">
-                    <el-option :value="-1" label="全部"></el-option>
-                    <el-option :value="1" label="电脑"></el-option>
-                    <el-option :value="2" label="PDA"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="是否欠货"
-                          :label-width="formLabelWidth">
-                <el-select v-model="form.cksQhStatus" placeholder="请选择">
-                    <el-option :value="-1" label="全部"></el-option>
-                    <el-option :value="2" label="部分欠货"></el-option>
-                    <el-option :value="3" label="未欠货"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="联系电话"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.ckTel"
-                        icon="search"
-                        placeholder="联系电话"></el-input>
-            </el-form-item>
-            <el-form-item label="联系人"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.ckContacts"
-                        icon="search"
-                        placeholder="联系人"></el-input>
-            </el-form-item>
-            <el-form-item label="出库单号"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.ckCkdjNo"
-                        icon="search"
-                        placeholder="出库单号"></el-input>
-            </el-form-item>
-            <el-form-item label="货品名称"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.cksGoodsId"
-                        icon="search"
-                        placeholder="货品名称"></el-input>
-            </el-form-item>
-            <el-form-item label="货品编号"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.cksGoodsId"
-                        icon="search"
-                        placeholder="货品单号"></el-input>
-            </el-form-item>
-            <el-form-item label="客户编号"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.ckCkdjClientno"
-                        icon="search"
-                        placeholder="客户编号"></el-input>
-            </el-form-item>
-            <el-form-item label="客户名称"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.ckCkdjClientname"
-                        icon="search"
-                        placeholder="客户名称"></el-input>
-            </el-form-item>
-            <el-form-item label="作业人员"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.msxXjry"
-                        icon="search"
-                        placeholder="作业人员"></el-input>
-            </el-form-item>
-            <el-form-item label="下架库位"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.msxHpkcid"
-                        icon="search"
-                        placeholder="下架库位"></el-input>
-            </el-form-item>
-            <el-form-item label="客户地址"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.ckAdress"
-                        icon="search"
-                        placeholder="客户地址"></el-input>
-            </el-form-item>
-        </el-form>
+        <el-col :span="10">
+            <el-form :model="select">
+                <el-form-item label="下单时间"
+                              :label-width="formLabelWidth">
+                    <el-date-picker
+                            v-model="form.ckXdsj"
+                            type="daterange"
+                            align="right"
+                            placeholder="下单时间"
+                            class="input"
+                            :picker-options="pickerOptions">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="分拣时间"
+                              :label-width="formLabelWidth">
+                    <el-date-picker
+                            v-model="form.mhCreatetime"
+                            type="daterange"
+                            align="right"
+                            placeholder="分拣时间"
+                            class="input"
+                            :picker-options="pickerOptions">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="下架时间"
+                              :label-width="formLabelWidth">
+                    <el-date-picker
+                            v-model="form.ckCksj"
+                            type="daterange"
+                            align="right"
+                            placeholder="下架时间"
+                            class="input"
+                            :picker-options="pickerOptions">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="操作时间"
+                              :label-width="formLabelWidth">
+                    <el-date-picker
+                            v-model="form.msxQrsj"
+                            type="daterange"
+                            align="right"
+                            placeholder="操作时间"
+                            class="input"
+                            :picker-options="pickerOptions">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="客户地址"
+                              :label-width="formLabelWidth">
+                    <el-input
+                            class="input"
+                            v-model="form.ckAdress"
+                            icon="search"
+                            placeholder="客户地址"></el-input>
+                </el-form-item>
+                <el-form-item label="出库状态"
+                              :label-width="formLabelWidth">
+                    <el-select v-model="form.ckStatus" placeholder="请选择">
+                        <el-option :value="-1" label="全部"></el-option>
+                        <el-option :value="21" label="部分分拣"></el-option>
+                        <el-option :value="31"label="全部分拣"></el-option>
+                        <el-option :value="23" label="部分出库"></el-option>
+                        <el-option :value="32" label="全部出库"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="是否滞留"
+                              :label-width="formLabelWidth">
+                    <el-select v-model="form.cksZlStatus" placeholder="请选择">
+                        <el-option :value="-1" label="全部"></el-option>
+                        <el-option :value="1" label="未到车滞留"></el-option>
+                        <el-option :value="2" label="到车滞留"></el-option>
+                        <el-option :value="3" label="未滞留"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="制作方式"
+                              :label-width="formLabelWidth">
+                    <el-select v-model="form.ckIsauto" placeholder="请选择">
+                        <el-option :value="-1" label="全部"></el-option>
+                        <el-option :value="1" label="手工"></el-option>
+                        <el-option :value="2" label="导入"></el-option>
+                        <el-option :value="3" label="接口"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="操作方式"
+                              :label-width="formLabelWidth">
+                    <el-select v-model="form.ckStartwith" placeholder="请选择">
+                        <el-option :value="-1" label="全部"></el-option>
+                        <el-option :value="1" label="电脑"></el-option>
+                        <el-option :value="2" label="PDA"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="是否欠货"
+                              :label-width="formLabelWidth">
+                    <el-select v-model="form.cksQhStatus" placeholder="请选择">
+                        <el-option :value="-1" label="全部"></el-option>
+                        <el-option :value="2" label="部分欠货"></el-option>
+                        <el-option :value="3" label="未欠货"></el-option>
+                    </el-select>
+                </el-form-item>
+
+            </el-form>
+        </el-col>
+        <el-col :span="10" :offset="2">
+            <el-form :model="select">
+                <el-form-item label="联系电话"
+                              :label-width="formLabelWidth">
+                    <el-input
+                            class="input"
+                            v-model="form.ckTel"
+                            icon="search"
+                            placeholder="联系电话"></el-input>
+                </el-form-item>
+                <el-form-item label="联系人"
+                              :label-width="formLabelWidth">
+                    <el-input
+                            class="input"
+                            v-model="form.ckContacts"
+                            icon="search"
+                            placeholder="联系人"></el-input>
+                </el-form-item>
+                <el-form-item label="出库单号"
+                              :label-width="formLabelWidth">
+                    <el-input
+                            class="input"
+                            v-model="form.ckCkdjNo"
+                            icon="search"
+                            placeholder="出库单号"></el-input>
+                </el-form-item>
+                <el-form-item label="货品名称"
+                              :label-width="formLabelWidth">
+                    <el-input
+                            class="input"
+                            v-model="form.cksGoodsId"
+                            icon="search"
+                            placeholder="货品名称"></el-input>
+                </el-form-item>
+                <el-form-item label="货品编号"
+                              :label-width="formLabelWidth">
+                    <el-input
+                            class="input"
+                            v-model="form.cksGoodsId"
+                            icon="search"
+                            placeholder="货品单号"></el-input>
+                </el-form-item>
+                <el-form-item label="客户编号"
+                              :label-width="formLabelWidth">
+                    <el-input
+                            class="input"
+                            v-model="form.ckCkdjClientno"
+                            icon="search"
+                            placeholder="客户编号"></el-input>
+                </el-form-item>
+                <el-form-item label="客户名称"
+                              :label-width="formLabelWidth">
+                    <el-input
+                            class="input"
+                            v-model="form.ckCkdjClientname"
+                            icon="search"
+                            placeholder="客户名称"></el-input>
+                </el-form-item>
+                <el-form-item label="作业人员"
+                              :label-width="formLabelWidth">
+                    <el-input
+                            class="input"
+                            v-model="form.msxXjry"
+                            icon="search"
+                            placeholder="作业人员"></el-input>
+                </el-form-item>
+                <el-form-item label="下架库位"
+                              :label-width="formLabelWidth">
+                    <el-input
+                            class="input"
+                            v-model="form.msxHpkcid"
+                            icon="search"
+                            placeholder="下架库位"></el-input>
+                </el-form-item>
+
+            </el-form>
+        </el-col>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
         </div>
