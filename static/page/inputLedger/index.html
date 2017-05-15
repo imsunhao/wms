@@ -4,6 +4,27 @@
             element-loading-text="拼命加载中">
         <el-col :span="24">
             <div class="inner btn-nav">
+                <el-input
+                        class="input"
+                        v-model="rkrwNo"
+                        icon="search"
+                        placeholder="调拨单号"></el-input>
+                <el-date-picker
+                        v-model="rkCreatetime"
+                        type="daterange"
+                        align="right"
+                        placeholder="始发日期"
+                        class="datePicker"
+                        :picker-options="pickerOptions">
+                </el-date-picker>
+                <el-date-picker
+                        v-model="rkSjsj"
+                        type="daterange"
+                        align="right"
+                        placeholder="到货日期"
+                        class="datePicker"
+                        :picker-options="pickerOptions">
+                </el-date-picker>
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
@@ -274,66 +295,113 @@
         </div>
     </el-dialog>
     <el-dialog
-            size="small"
+            size="large"
             v-model="dialogSelectVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
-            <el-date-picker
-                    v-model="form.rkCreatetime"
-                    type="daterange"
-                    align="right"
-                    placeholder="始发日期"
-                    class="datePicker"
-                    :picker-options="pickerOptions">
-            </el-date-picker>
-            <el-date-picker
-                    v-model="form.rkSjsj"
-                    type="daterange"
-                    align="right"
-                    placeholder="到货日期"
-                    class="datePicker"
-                    :picker-options="pickerOptions">
-            </el-date-picker>
-            <el-date-picker
-                    v-model="form.rkSjsj"
-                    type="daterange"
-                    align="right"
-                    placeholder="收货日期"
-                    class="datePicker"
-                    :picker-options="pickerOptions">
-            </el-date-picker>
-            <el-input
-                    v-model="form.rkErpNo"
-                    icon="search"
-                    placeholder="调拨单号"></el-input>
-            <el-input
-                    v-model="form.rkrwDbd"
-                    icon="search"
-                    placeholder="调拨地"></el-input>
-            <el-input
-                    v-model="form.rkrwCph"
-                    icon="search"
-                    placeholder="车牌号"></el-input>
-            <el-input
-                    v-model="form.ruUserName"
-                    icon="search"
-                    placeholder="收货人"></el-input>
-            <el-input
-                    v-model="form.baName"
-                    icon="search"
-                    placeholder="收货仓库"></el-input>
-            <el-input
-                    v-model="form.bgGoodsNo"
-                    icon="search"
-                    placeholder="物料编号"></el-input>
-            <el-input
-                    v-model="form.bgGoodsName"
-                    icon="search"
-                    placeholder="物料描述"></el-input>
         </div>
+        <el-row>
+            <el-col :span="8">
+                <el-form :model="select">
+                    <el-form-item label="始发日期"
+                                  :label-width="formLabelWidth">
+                        <el-date-picker
+                                v-model="form.rkCreatetime"
+                                type="daterange"
+                                align="right"
+                                placeholder="始发日期"
+                                class="input"
+                                :picker-options="pickerOptions">
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="到货日期"
+                                  :label-width="formLabelWidth">
+                        <el-date-picker
+                                v-model="form.rkSjsj"
+                                type="daterange"
+                                align="right"
+                                placeholder="到货日期"
+                                class="input"
+                                :picker-options="pickerOptions">
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="到货日期"
+                                  :label-width="formLabelWidth">
+                        <el-date-picker
+                                v-model="form.rkSjsj"
+                                type="daterange"
+                                align="right"
+                                placeholder="收货日期"
+                                class="input"
+                                :picker-options="pickerOptions">
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="调拨单号"
+                                  :label-width="formLabelWidth">
+                        <el-input
+                                class="input"
+                                v-model="form.rkErpNo"
+                                icon="search"
+                                placeholder="调拨单号"></el-input>
+                    </el-form-item>
+                    <el-form-item label="调拨地"
+                                  :label-width="formLabelWidth">
+                        <el-input
+                                class="input"
+                                v-model="form.rkrwDbd"
+                                icon="search"
+                                placeholder="调拨地"></el-input>
+                    </el-form-item>
+
+                </el-form>
+            </el-col>
+            <el-col :span="10" :offset="2">
+                <el-form :model="select">
+                    <el-form-item label="车牌号"
+                                  :label-width="formLabelWidth">
+                        <el-input
+                                class="input"
+                                v-model="form.rkrwCph"
+                                icon="search"
+                                placeholder="车牌号"></el-input>
+                    </el-form-item>
+                    <el-form-item label="收货人"
+                                  :label-width="formLabelWidth">
+                        <el-input
+                                class="input"
+                                v-model="form.ruUserName"
+                                icon="search"
+                                placeholder="收货人"></el-input>
+                    </el-form-item>
+                    <el-form-item label="收货仓库"
+                                  :label-width="formLabelWidth">
+                        <el-input
+                                class="input"
+                                v-model="form.baName"
+                                icon="search"
+                                placeholder="收货仓库"></el-input>
+                    </el-form-item>
+                    <el-form-item label="物料编号"
+                                  :label-width="formLabelWidth">
+                        <el-input
+                                class="input"
+                                v-model="form.bgGoodsNo"
+                                icon="search"
+                                placeholder="物料编号"></el-input>
+                    </el-form-item>
+                    <el-form-item label="物料名称"
+                                  :label-width="formLabelWidth">
+                        <el-input
+                                class="input"
+                                v-model="form.bgGoodsName"
+                                icon="search"
+                                placeholder="物料名称"></el-input>
+                    </el-form-item>
+                </el-form>
+            </el-col>
         <el-form :model="select">
         </el-form>
-
+        </el-row>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
         </div>
