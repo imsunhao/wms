@@ -1099,7 +1099,7 @@
                     for (var i = 0; i < obj.multipleSelection.length; i++) {
                         step.push(obj.multipleSelection[i].ruUserId);
                     }
-                    postPassword(warehousingTask, {ids: step});
+                    p[7].post({ids: step});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -1399,6 +1399,12 @@
     p[5] = autoPost({
         urlHock: "/hock/inputOption/location.json",
         urlProd: "/route/inputOperation/5"
+    });
+
+    //7 上架
+    p[7] = autoPost({
+        urlHock: "/hock/inputOption/location.json",
+        urlProd: "/route/inputOperation/7"
     });
 
     function locationFather() {
