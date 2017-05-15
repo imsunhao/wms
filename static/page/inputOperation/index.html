@@ -16,7 +16,7 @@
                         class="datePicker"
                         :picker-options="pickerOptions">
                 </el-date-picker>
-                <el-select v-model="form.rkStatus" placeholder="请选择">
+                <el-select v-model="rkStatus" placeholder="请选择">
                     <el-option :value="1" label="初始"></el-option>
                     <el-option :value="21" label="部分分配"></el-option>
                     <el-option :value="22" label="全部分配"></el-option>
@@ -297,7 +297,7 @@
                     class="steps"
                     :space="120"
                     :active="dialogFormActive"
-                    finish-rkStatus="success">
+                    finish-status="success">
                 <el-step title="基础信息"></el-step>
                 <el-step title="入库明细"></el-step>
             </el-steps>
@@ -690,7 +690,6 @@
         cursor: pointer;
         padding: 0;
         margin: 0;
-        float: left;
         font-size: 14px;
         color: #1f2d3d;
         margin-top: 29px;
@@ -839,9 +838,10 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "rkRkdjNo": this.rkRkdjNo.trim()
-//                    "dateStart": this.date[0],
-//                    "dateStop": this.date[1]
+                    "rkRkdjNo": this.rkRkdjNo.trim(),
+                    "startTimeParam": tsf_date(this.date[0]),
+                    "endTimeParam": tsf_date(this.date[1]),
+                    rkStatus:this.rkStatus
                 }
             },
             distributionForm: function () {
@@ -1358,6 +1358,12 @@
                 console.log(this.option);
                 /*</debug>*/
                 post(this.option);
+            },
+            rkStatus: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                post(this.option);
             }
         }
     });
@@ -1461,15 +1467,12 @@
             this.form.saveARkDocsList = true
     });
     inputOperation.$watch('date', function () {
-        if (!this.option.dateStart)return;
+        if (!this.option.startTimeParam)return;
         /*<debug>*/
         console.log(this.option);
         /*</debug>*/
         post(this.option);
     }, {deep: true});
-    //    , {
-    //        deep: true
-    //    }
 
     post(inputOperation.option);
     function post(option) {
