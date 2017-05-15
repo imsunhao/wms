@@ -200,14 +200,14 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 9:
-                        urlName = '入库预约-入库任务 单号';
-                        req = autoUrl(req, '/mfunrkRwDoc/greatRkrwNo', "GET", function (json) {
+                        urlName = '入库预约-入库单据 单号';
+                        req = autoUrl(req, '/mfunrkDoc/greatRcDocNo', "GET", function (json) {
                             res.send(json);
                         });
                         break;
                     case 10:
-                        urlName = '入库预约-入库单据 单号';
-                        req = autoUrl(req, '/mfunrkDoc/greatRcDocNo', "GET", function (json) {
+                        urlName = '入库预约-入库任务 单号';
+                        req = autoUrl(req, '/mfunrkRwDoc/greatRkrwNo', "GET", function (json) {
                             res.send(json);
                         });
                         break;
