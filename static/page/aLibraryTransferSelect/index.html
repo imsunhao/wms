@@ -4,6 +4,25 @@
             element-loading-text="拼命加载中">
         <el-col :span="24">
             <div class="inner btn-nav">
+                <el-date-picker
+                        v-model="zyCreateTime"
+                        type="daterange"
+                        align="right"
+                        placeholder="创建时间"
+                        class="input"
+                        :picker-options="pickerOptions">
+                </el-date-picker>
+                <el-input
+                        v-model="zyCreateUserId"
+                        class="input"
+                        icon="search"
+                        placeholder="创建人"></el-input>
+                <el-select v-model="zyStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="0" label="初始"></el-option>
+                    <el-option :value="1" label="已确认"></el-option>
+                    <el-option :value="2" label="作废"></el-option>
+                </el-select>
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
@@ -630,8 +649,9 @@
                 currentPage: 1,
                 pageSize: 10,
 
-                date: [null, null],                 //主页面 选择日期 搜索
-                rkRkdjNo: '',                       //主页面 入库单号 搜索
+                zyCreateTime: [null, null],                 //主页面 创建时间 搜索
+                zyCreateUserId: '',                       //主页面 创建人 搜索
+                zyStatus:'',                                //主页面 状态
 
                 formLabelWidth: '120px',            //表单 配置
                 form: form(),                           //表单 弹出层 信息集合
