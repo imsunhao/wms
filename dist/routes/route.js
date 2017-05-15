@@ -649,7 +649,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 2:
                         urlName = '获取入库单号中详细信息';
-                        req = autoUrl(req, '/mfunrkDocs/byDoc', "POST", function (json) {
+                        req = autoUrl(req, '/mfunrkDocs/byDoc/'+req.query.rksRkdjId, "GET", function (json) {
                             res.send(json);
                         });
                         break;
@@ -685,7 +685,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '入库操作－历史记录';
-                        req = autoUrl(req, '/history/' +   req.query.id + '/mhRkdjId', "GET", function (json) {
+                        req = autoUrl(req, '/history/' +   req.query.rkRkdjId + '/mhRkdjId', "GET", function (json) {
                             res.send(json);
                         });
                         break;
