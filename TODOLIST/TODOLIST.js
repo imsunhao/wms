@@ -2330,7 +2330,12 @@
  *
  */
 
-
+/** 12
+ * {
+"ids":[],
+"useId":1
+}
+ */
 
 
 /**
@@ -2513,17 +2518,7 @@
  * }
  * 返回 jsonModel  20002成功 50002失败
  */
-        /**
- * TODO 根据出库明细id修改分拣方式 POST /mfunck/editCkDocsFJFSByCkmxId
- * 参数 参数对象：paramsModel
- * {
- *   "cksCkmxId": ,     出库明细id
- *   "cksCkfs": "",     分拣方式 先进先出,指定批次,指定库位(x：p：k)
- *   "cksZdpc": "",     指定批次（x,k时为空，不用传）
- *   "cksLocationId": 1  指定库位（x,p时为空，不用传）
- * }
- * 返回 jsonModel  20002成功 50002失败
- */
+
         /**
  * TODO 根据任务ID填写实际到车时间 POST /mfunck/editSJdcsjByCkrwId
  * 参数类：setModel
@@ -2977,7 +2972,61 @@
      */
     /**
      * TODO 1 激活任务
+     *
+     * 参数 setModel
+     {
+         "ids": [ 1,2,3,4], 任务ID（多个）
+        "useId": 1,      操作员ID
+        "userName": "超级管理员"   操作员名称
+}
      */
+    /**
+ * TODO 2 根据出库明细id修改分拣方式 POST /mfunck/editCkDocsFJFSByCkmxId
+ * 参数 参数对象：paramsModel
+ * {
+ *   "cksCkmxId": ,     出库明细id
+ *   "cksCkfs": "",     分拣方式 先进先出,指定批次,指定库位(x：p：k)
+ *   "cksZdpc": "",     指定批次（x,k时为空，不用传）
+ *   "cksLocationId": 1  指定库位（x,p时为空，不用传）
+ * }
+ * 返回 jsonModel  20002成功 50002失败
+ */
+/**
+ * TODO 3 追加分拣  POST /mfunck/bujianById
+ *          参数名称 ：serModel
+ *        {
+         *           "id": 43, 出库单据ID
+         *          "useId": 1  操作员ID
+         *         }
+ */
+/**
+ *  TODO 4 挂起确认 POST  /mfunck/guaQiById
+ *      参数名称 ：serModel
+ *      {
+         *          "id": 37,  出库单据ID
+         *          "useId": 1  操作员ID
+         *          "userName": "超级管理员"   操作员名称
+         *      }
+ */
+/**
+ *  TODO 5 激活单据 POST /mfunck/fenjianById
+ *      参数名称 ：serModel
+ *      {
+         *         "id": 44,  出库单据ID
+         *         "useId": 1  操作员ID
+         *       }
+ */
+/**
+ *  TODO 6 修改出库明细分拣数量 POST /mfunck/xiugaifenjian
+ *          参数名称 ：serModel
+ *      {
+         *           "id": 123, 出库单明细ID
+         *          "useId": 1,  操作员ID
+         *        "mxCount": 7，  修改后的数量（小于分拣数量）
+         *        "mxsXt": 1,修改数量原因(下拉框选择 1货品损坏2库存不足3其它)
+         *     }
+ */
+
 /**
  * TODO 出库操作
  */

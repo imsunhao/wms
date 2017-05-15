@@ -199,6 +199,18 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 9:
+                        urlName = '入库预约-入库单据 单号';
+                        req = autoUrl(req, '/mfunrkDoc/greatRcDocNo', "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 10:
+                        urlName = '入库预约-入库任务 单号';
+                        req = autoUrl(req, '/mfunrkRwDoc/greatRkrwNo', "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
 
                 }
                 break;
@@ -637,7 +649,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 2:
                         urlName = '获取入库单号中详细信息';
-                        req = autoUrl(req, '/mfunrkDocs/byDoc', "POST", function (json) {
+                        req = autoUrl(req, '/mfunrkDocs/byDoc/'+req.query.rksRkdjId, "GET", function (json) {
                             res.send(json);
                         });
                         break;
@@ -673,7 +685,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '入库操作－历史记录';
-                        req = autoUrl(req, '/history/' + 1 + '/mhRkdjId', "GET", function (json) {
+                        req = autoUrl(req, '/history/' +   req.query.rkRkdjId + '/mhRkdjId', "GET", function (json) {
                             res.send(json);
                         });
                         break;
@@ -707,8 +719,30 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-
-
+                    case 7:
+                        urlName = '上架';
+                        req = autoUrl(req, '/mfunrkDoc/shelves', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 8:
+                        urlName = '分配';
+                        req = autoUrl(req, '/mfunrkDistributionlist', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 9:
+                        urlName = '追加分配';//TODO
+                        req = autoUrl(req, '/mfunrkDistributionlist', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 10:
+                        urlName = '上架';
+                        req = autoUrl(req, '/mfunrkDistributionlist', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
                 }
                 break;
             case 'outputAppointment':
@@ -758,6 +792,12 @@ router.param('_url', function (req, res, next, url) {
                     case 11:
                         urlName = '出库预约-作废-出库单据-出库单号';
                         req = autoUrl(req, '/mfunck/cancelMfunckDocByCkdjId', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 12:
+                        urlName = '出库预约-出库单据-滞留出库';
+                        req = autoUrl(req, '/mfunck/quxiaozhiliu', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -853,6 +893,42 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 1:
+                        urlName = '激活单据-激活任务';
+                        req = autoUrl(req, '/mfunck/rwJiHuo', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '激活单据-修改-分拣方式';
+                        req = autoUrl(req, '/mfunck/selectActivatedCkrwByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '激活单据-追加分拣';
+                        req = autoUrl(req, '/mfunck/bujianById', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 4:
+                        urlName = '激活单据-挂起确认';
+                        req = autoUrl(req, '/mfunck/guaQiById', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 5:
+                        urlName = '激活单据-激活单据';
+                        req = autoUrl(req, '/mfunck/fenjianById', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 6:
+                        urlName = '激活单据-修改-分拣明细数量';
+                        req = autoUrl(req, '/mfunck/xiugaifenjian', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
 
                 }
                 break;
@@ -861,6 +937,18 @@ router.param('_url', function (req, res, next, url) {
                     case 0:
                         urlName = '出库操作-查询-出库单据';
                         req = autoUrl(req, '/mfunck/selectOperateCkDocByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '出库操作-查询-历史记录';
+                        req = autoUrl(req, '/history/' + req.query.id + '/mhCkdjId', "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '出库操作-下架';
+                        req = autoUrl(req, '/mfunck/xiajiaById', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -874,6 +962,18 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 1:
+                        urlName = '出库发运-发运';
+                        req = autoUrl(req, '/mfunck/ckFayunRw', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '出库发运-修改发运数量';
+                        req = autoUrl(req, '/mfunck/updateFysl', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
                 }
                 break;
 
@@ -882,6 +982,36 @@ router.param('_url', function (req, res, next, url) {
                     case 0:
                         urlName = '回收存档- 分页查询';
                         req = autoUrl(req, '/mfunck/selectConserveCkDocByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '回收存档- 欠货补发信息（整单）';
+                        req = autoUrl(req, '/mfunck/QianHuoBuFaZd', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '回收存档- 欠货补发信息（明细）';
+                        req = autoUrl(req, '/mfunck/QianHuoBuFaMx', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 3:
+                        urlName = '回收存档- 滞留补发信息';
+                        req = autoUrl(req, '/mfunck/zhiLiuBuFa', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 4:
+                        urlName = '回收存档- 欠货导出';
+                        req = autoUrl(req, '/mfunck/exportQhdocByExcel', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 5:
+                        urlName = '回收存档- 滞留导出';
+                        req = autoUrl(req, '/mfunck/exportZldocByExcel', "POST", function (json) {
                             res.send(json);
                         });
                         break;
