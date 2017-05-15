@@ -2825,7 +2825,7 @@
  * TODO 0 出库任务-查询-任务单 /mfunck/selectMfunckRwByPage
  */
 /**
- * TODO 1 出库任务-查询-任务单-详情 /mfunck/selectMfunckRwByPage
+ * TODO 1 出库任务-查询-任务单-详情 /mfunck/checkCkrwInfoByCkrwId
  */
 /**
  * TODO 2 出库任务-查询-任务单-详细-明细 /mfunck/checkMfunckDocsByCkdjId
