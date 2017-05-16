@@ -5,13 +5,13 @@
         <el-col :span="24">
             <div class="inner btn-nav">
                 <el-input
-                        v-model="msxHpkid"
+                        v-model="bgGoodsName"
                         class="input"
                         icon="search"
                         placeholder="货品名称"></el-input>
                 <el-input
                         class="input"
-                        v-model="msxHpkid"
+                        v-model="bgGoodsNo"
                         icon="search"
                         placeholder="货品编号"></el-input>
                 <el-input
@@ -465,8 +465,8 @@
                 pageSize: 10,
 
                 date: [null, null],                 //主页面 选择日期 搜索
-                msxHpkid: '',                       //主页面 货品编号 搜索
-                msxHpkid: '',                       //主页面 货品名称 搜索
+                bgGoodsNo: '',                       //主页面 货品编号 搜索
+                bgGoodsName: '',                       //主页面 货品名称 搜索
                 ckCkdjClientname: '',              //主页面 客户名称 搜索
 
 
@@ -493,7 +493,10 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
+                    "pageSize": this.pageSize,
+                    "bgGoodsName":this.bgGoodsName.trim(),
+                    "bgGoodsNo":this.bgGoodsNo.trim(),
+                    "ckCkdjClientname":this.ckCkdjClientname.trim(),
                 }
             },
             search: function () {
@@ -707,6 +710,26 @@
 
 
 
+        },
+        watch: {
+            bgGoodsName: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+            bgGoodsNo: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+            ckCkdjClientname: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
         }
     });
     function form() {
