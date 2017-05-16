@@ -6,17 +6,17 @@
             <div class="inner btn-nav">
                 <el-input
                         class="input"
-                        v-model="form.blLname"
+                        v-model="blLname"
                         icon="search"
                         placeholder="库位名称"></el-input>
                 <el-input
                         class="input"
-                        v-model="form.bgGoodsNo"
+                        v-model="bgGoodsNo"
                         icon="search"
                         placeholder="货品编号"></el-input>
                 <el-input
                         class="input"
-                        v-model="form.bgGoodsName"
+                        v-model="bgGoodsName"
                         icon="search"
                         placeholder="货品姓名"></el-input>
 
@@ -82,7 +82,7 @@
                                         <span>{{ props.row.mrDjCount }}</span>
                                     </el-form-item>
                                     <el-form-item label="异动时间">
-                                        <span>{{ auto_mrKcydsj(props.row.mrKcydsj) }}</span>
+                                        <span>{{ auto_time_new(props.row.mrKcydsj) }}</span>
                                     </el-form-item>
                                     <el-form-item
                                             label="可用操作">
@@ -119,6 +119,7 @@
                  <el-table-column
                         label="货品名称"
                         show-overflow-tooltip
+
                         align="center"
                         prop="baseGoods.bgGoodsNo">
                 </el-table-column>
@@ -608,30 +609,26 @@
                     case 3:
                         return resolve([]);
                 }
-            },
-            auto_mrKcydsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');             //异动时间
-            },
+            }
         },
         watch: {
             blLname: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                post(this.option);
+                p[0].post(this.option);
             },
             bgGoodsNo: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                post(this.option);
+                p[0].post(this.option);
             },
             bgGoodsName: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                post(this.option);
+                p[0].post(this.option);
             },
         }
     });
