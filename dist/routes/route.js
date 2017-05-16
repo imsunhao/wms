@@ -745,6 +745,23 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
+           case 'inputLedger':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '入库台账-分页查询入库台账信息';
+                        req = autoUrl(req, '/mfunrktzDoc', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '入库台账－制作/欠货 修改入库台账信息';
+                        req = autoUrl(req, '/mfunrktzDoc/updateDocs/', function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+
             case 'outputAppointment':
                 switch (parseInt(req.params._status)) {
                     case 0:
