@@ -10,7 +10,7 @@
                         icon="search"
                         placeholder="出库单号"></el-input>
                 <el-date-picker
-                        v-model="ckXdsj"
+                        v-model="date"
                         type="daterange"
                         align="right"
                         placeholder="下单时间"
@@ -763,7 +763,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-                ckXdsj: [null, null],                 //主页面 下单时间 搜索
+                date: [null, null],                 //主页面 下单时间 搜索
                 ckCkdjNo: '',                       //主页面 出库单号 搜索
                 ckCkdjClientno: '',                       //主页面 客户名称 搜索
                 formLabelWidth: '120px',          //表单 配置
@@ -794,6 +794,9 @@
             option: function () {
                 return {
                     "draw": 1,
+                    "ckCkdjNo":this.ckCkdjNo.trim(),
+                    "ckCkdjClientno":this.ckCkdjClientno.trim(),
+                    "ckXdsj": tsf_date(this.date[0]),
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize
                 }
@@ -1087,6 +1090,20 @@
                 }
                 return temp[value];
             },                                  //操作方式
+        },
+        watch: {
+            ckCkdjNo: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+            ckCkdjClientno: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            }
         }
     });
     function form() {

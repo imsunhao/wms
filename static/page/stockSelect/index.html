@@ -109,6 +109,7 @@
                         prop="baseLocation.blLname"
                         align="center">
                 </el-table-column>
+
                 <el-table-column
                         label="货品编号"
                         show-overflow-tooltip
@@ -440,7 +441,6 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-
                 date: [null, null],                 //主页面 选择日期 搜索
                 blLname: '',                       //主页面 库位名称 搜索
                 bgGoodsNo:'',                       //主页面 货品编号 搜索
@@ -450,14 +450,12 @@
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
-
                 select: form(),                         //搜索 弹出层 信息集合,
                 printf: [],                         //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 dialogPrintfVisible: false,
                 selectLoading: false,
                 printfLoading: false,
-
                 printDatas: [],          // 打印数据
             }
         },
@@ -467,7 +465,10 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
+                    "pageSize": this.pageSize,
+                    "blLname": this.blLname.trim(),
+                    "bgGoodsNo": this.bgGoodsNo.trim(),
+                    "bgGoodsName": this.bgGoodsName.trim(),
                 }
             },
             search: function () {
@@ -612,6 +613,26 @@
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');             //异动时间
             },
+        },
+        watch: {
+            blLname: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                post(this.option);
+            },
+            bgGoodsNo: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                post(this.option);
+            },
+            bgGoodsName: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                post(this.option);
+            },
         }
     });
     function form() {
@@ -632,13 +653,6 @@
             blLname:'',//模糊查询--库位名称
             mrGoodsBatch:'',//模糊查询--货品批次
             baName:'' //模糊查询--仓库
-            /*
-            baseGoods.bgGoodsNo:'',   //模糊查询--货品编号
-            baseGoods.bgGoodsName:'',    //模糊查询--货品名称
-            baseLocation.blLname:'',//模糊查询--库位名称
-            mrGoodsBatch:'',//模糊查询--货品批次
-            baseArehouse.baName:'' //模糊查询--仓库
-            */
         }
     }
     var obj=stockSelect;
