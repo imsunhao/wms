@@ -488,17 +488,17 @@
                                         width="55">
                                 </el-table-column>
                                 <el-table-column
-                                        label="货品名称"
+                                        align="center"
                                         width="140"
-                                        show-overflow-tooltip
-                                        align="center"
-                                        prop="selectGood.baseGoods.bgGoodsName">
-                                </el-table-column>
-                                <el-table-column
-                                        align="center"
                                         prop="selectGood.baseGoods.bgGoodsNo"
                                         show-overflow-tooltip
                                         label="货品编号">
+                                </el-table-column>
+                                <el-table-column
+                                        label="货品名称"
+                                        show-overflow-tooltip
+                                        align="center"
+                                        prop="selectGood.baseGoods.bgGoodsName">
                                 </el-table-column>
                                 <el-table-column
                                         label="数量"
@@ -546,15 +546,15 @@
                 <div class="dialog-title clearfix" slot="title">
                     <span class="el-dialog__title">关联</span>
                 </div>
+                <el-form-item label="货品编号" :label-width="formLabelWidth">
+                    {{form.location.selectGood.baseGoods.bgGoodsNo}}
+                </el-form-item>
                 <el-form-item label="货品名称" :label-width="formLabelWidth">
                     <el-tooltip class="item" effect="dark"
                                 :content="form.location.selectGood.baseGoods.bgGoodsName"
                                 placement="top">
                         <span class="bgGoodsNameLocation">{{form.location.selectGood.baseGoods.bgGoodsName}}</span>
                     </el-tooltip>
-                </el-form-item>
-                <el-form-item label="货品编号" :label-width="formLabelWidth">
-                    {{form.location.selectGood.baseGoods.bgGoodsNo}}
                 </el-form-item>
                 <el-form-item label="分配数量" :label-width="formLabelWidth">
                     <el-slider
@@ -567,7 +567,6 @@
                     <el-autocomplete
                             :fetch-suggestions="queryLocationAsync"
                             v-model="form.location.blLname"
-                            @select="locationSelect"
                             auto-complete="off"></el-autocomplete>
                 </el-form-item>
                 <el-form-item label="货品批号" :label-width="formLabelWidth">
