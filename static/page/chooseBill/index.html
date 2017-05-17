@@ -498,7 +498,11 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
+                    "pageSize": this.pageSize,
+                    "ckrwNo":this.ckrwNo.trim(),
+                    "ckrwCph":this.ckrwCph.trim(),
+                    "ckrwStartGreatTime": tsf_date(this.date[0]),
+                    "ckrwEndGreatTime": tsf_date(this.date[1]),
                 }
             },
             search: function () {
@@ -705,8 +709,35 @@
 
 
         },
-        watch: {}
+        watch: {
+            ckrwNo: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+            ckrwCph: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            }
+        },
     });
+    chooseBill.$watch('date', function () {
+        if (!this.option.ckrwStartGreatTime)return;
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        p[0].post( this.option);
+    }, {deep: true});
+    chooseBill.$watch('date', function () {
+        if (!this.option.ckrwEndGreatTime)return;
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        p[0].post( this.option);
+    }, {deep: true});
     var obj=chooseBill;
     var p=[];
     // 0 挑选单据 分页查询
@@ -718,14 +749,6 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-    // 高级 监视器的 使用方法
-    //    chooseBill.$watch('date', function () {
-    //        if (!this.option.dateStart)return;
-    //        /*<debug>*/
-    //        console.log(this.option);
-    //        /*</debug>*/
-    //        post(this, this.option);
-    //    }, {deep: true});
     p[0].post( chooseBill.option);
     function printfCompile(obj) {
         var resoleveStep = [];
