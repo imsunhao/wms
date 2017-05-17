@@ -12,7 +12,7 @@
                         v-model="date"
                         type="daterange"
                         align="right"
-                        placeholder="选择日期"
+                        placeholder="预计到货"
                         class="datePicker"
                         :picker-options="pickerOptions">
                 </el-date-picker>
@@ -921,6 +921,8 @@
                     "pageSize": this.pageSize,
                     "rkrwCph":this.rkrwCph.trim(),
                     "rkrwNo":this.rkrwNo.trim(),
+                    "": tsf_date(this.date[0]),
+                    "": tsf_date(this.date[1]),
 
                 }
             },
@@ -1276,6 +1278,13 @@
             },
         }
     });
+    // 高级 监视器的 使用方法
+    warehousingTask.$watch('date', function () {
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        p[0].post( this.option);
+    }, {deep: true});;
     var obj = warehousingTask;
     var p = [];
     obj.$watch('form.list2.date', function () {
