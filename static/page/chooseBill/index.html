@@ -16,7 +16,7 @@
                         v-model="date"
                         type="daterange"
                         align="right"
-                        placeholder="选择日期"
+                        placeholder="制作时间"
                         class="datePicker"
                         :picker-options="pickerOptions">
                 </el-date-picker>
@@ -476,7 +476,6 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-
                 date: [null, null],                 //主页面 选择日期 搜索
                 ckrwNo: '',                       //主页面 任务号 搜索
                 ckrwCph:'',                        //主页面 车牌号 搜索
@@ -725,7 +724,6 @@
         },
     });
     chooseBill.$watch('date', function () {
-        if (!this.option.ckrwStartGreatTime)return;
         /*<debug>*/
         console.log(this.option);
         /*</debug>*/
