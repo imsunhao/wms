@@ -918,7 +918,10 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
+                    "pageSize": this.pageSize,
+                    "rkrwCph":this.rkrwCph.trim(),
+                    "rkrwNo":this.rkrwNo.trim(),
+
                 }
             },
             list2_option: function () {
@@ -1258,7 +1261,20 @@
                 return temp[value];
             },                                      //制单方式
         },
-        watch: {}
+        watch: {
+            rkrwCph: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+            rkrwNo: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+        }
     });
     var obj = warehousingTask;
     var p = [];
