@@ -342,16 +342,16 @@
                           :label-width="formLabelWidth">
                 <el-select v-model="form.ckrwQhStatus" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
-                <el-option :value="1" label="欠货"></el-option>
-                <el-option :value="2" label="未欠货"></el-option>
+                    <el-option :value="1" label="欠货"></el-option>
+                    <el-option :value="2" label="未欠货"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="滞留状态"
                           :label-width="formLabelWidth">
                 <el-select v-model="form.ckrwZlStatus" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
-                <el-option :value="1" label="滞留"></el-option>
-                <el-option :value="2" label="未滞留"></el-option>
+                    <el-option :value="1" label="滞留"></el-option>
+                    <el-option :value="2" label="未滞留"></el-option>
                 </el-select>
             </el-form-item>
         </el-form>
@@ -360,298 +360,298 @@
         </div>
     </el-dialog>
     <el-dialog
-        size="tiny"
-        title="到车信息"
-        v-model="dialogCarVisible">
-    <el-form
-            :model="car">
-        <el-form-item
-                label="实际到车时间"
-                :label-width="formLabelWidth"
-        >
-            <el-date-picker
-                    v-model="car.ckrwSjdcsj"
-                    type="datetime"
-                    placeholder="选择到车时间">
-            </el-date-picker>
-        </el-form-item>
-    </el-form>
-    <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="carSubmit" :loading="submitLoading">保存
-        </el-button>
-    </div>
-</el-dialog>
+            size="tiny"
+            title="到车信息"
+            v-model="dialogCarVisible">
+        <el-form
+                :model="car">
+            <el-form-item
+                    label="实际到车时间"
+                    :label-width="formLabelWidth"
+            >
+                <el-date-picker
+                        v-model="car.ckrwSjdcsj"
+                        type="datetime"
+                        placeholder="选择到车时间">
+                </el-date-picker>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="carSubmit" :loading="submitLoading">保存
+            </el-button>
+        </div>
+    </el-dialog>
     <!--<el-dialog-->
-            <!--size="large"-->
-            <!--title="修改任务"-->
-            <!--v-model="dialogModifyTaskVisible">-->
-                <!--<el-carousel-->
-                        <!--ref="carouselWaiting"-->
-                        <!--:autoplay="false"-->
-                        <!--arrow="never"-->
-                        <!--indicator-position="none"-->
-                        <!--height="65vh">-->
-                    <!--<el-carousel-item>-->
-                        <!--<el-row>-->
-                            <!--<el-col :span="24"><h4>预约详细</h4></el-col>-->
-                        <!--</el-row>-->
-                        <!--<el-row class="modifyTask.outputAppointmentCombinationDetails">-->
-                            <!--<el-form-->
-                                    <!--ref="outputAppointmentCombinationDetails"-->
-                                    <!--:data="outputAppointmentCombinationDetails">-->
-                                <!--<el-col :span="10">-->
-                                    <!--<el-form-item-->
-                                            <!--label="出库任务单号"-->
-                                            <!--:label-width="formLabelWidth">-->
-                                        <!--<el-input-->
-                                                <!--v-model="outputAppointmentCombinationDetails.ckrwNo"-->
-                                                <!--:disabled="true"-->
-                                                <!--auto-complete="off"></el-input>-->
-                                    <!--</el-form-item>-->
-                                    <!--<el-form-item label="预计到车时间" :label-width="formLabelWidth">-->
-                                        <!--<el-date-picker-->
-                                                <!--v-model="outputAppointmentCombinationDetails.ckrwYjdcsj"-->
-                                                <!--type="datetime"-->
-                                                <!--placeholder="选择到车时间">-->
-                                        <!--</el-date-picker>-->
-                                    <!--</el-form-item>-->
-                                <!--</el-col>-->
-                                <!--<el-col :span="10" :offset="2">-->
-                                    <!--<el-form-item label="车牌号" :label-width="formLabelWidth">-->
-                                        <!--<el-input-->
-                                                <!--v-model="outputAppointmentCombinationDetails.ckrwCph"-->
-                                                <!--v-model="outputAppointmentCombinationDetails.ckrwCph"-->
-                                                <!--auto-complete="off"></el-input>-->
-                                    <!--</el-form-item>-->
-                                    <!--<el-form-item label="物流商" :label-width="formLabelWidth">-->
-                                        <!--<el-input-->
-                                                <!--v-model="outputAppointmentCombinationDetails.ckrwWls"-->
-                                                <!--auto-complete="off"></el-input>-->
-                                    <!--</el-form-item>-->
-                                <!--</el-col>-->
-                            <!--</el-form>-->
-                        <!--</el-row>-->
-                    <!--</el-carousel-item>-->
-                    <!--<el-carousel-item>-->
-                        <!--<el-row>-->
-                            <!--<el-col :span="24">-->
-                                <!--<div class="inner btn-nav">-->
-                                    <!--<el-input-->
-                                            <!--v-model="ckCkdjNo"-->
-                                            <!--icon="search"-->
-                                            <!--placeholder="出库单号"></el-input>-->
-                                    <!--<el-date-picker-->
-                                            <!--v-model="date"-->
-                                            <!--type="daterange"-->
-                                            <!--align="right"-->
-                                            <!--placeholder="选择日期"-->
-                                            <!--class="datePicker"-->
-                                            <!--:picker-options="pickerOptions">-->
-                                    <!--</el-date-picker>-->
-                                    <!--<el-select v-model.number="ckCkdjType" placeholder="请选择">-->
-                                        <!--<el-option :value.number="-1" label="全部"></el-option>-->
-                                        <!--<el-option :value.number="0" label="正常单据"></el-option>-->
-                                        <!--<el-option :value.number="1" label="挂起单据"></el-option>-->
-                                        <!--<el-option :value.number="2" label="滞留单据"></el-option>-->
-                                    <!--</el-select>-->
-                                    <!--<button @click="newInput" class="btn btn-add"><i class="icon add"></i><span>添加</span>-->
-                                    <!--</button>-->
-                                    <!--<button @click="multiSelectClick" class="btn btn-multiSelect"><i-->
-                                            <!--class="icon sel"></i><span>多选</span>-->
-                                    <!--</button>-->
-                                    <!--<button @click="moreOperationDelete" class="btn btn-del" v-show="multiSelect"><i-->
-                                            <!--class="icon del"></i><span>批量删除</span>-->
-                                    <!--</button>-->
-                                <!--</div>-->
-                            <!--</el-col>-->
-                        <!--</el-row>-->
-                        <!--<el-row>-->
-                            <!--<el-col :span="12">-->
-                                <!--<h4>等待选择</h4>-->
-                                <!--<el-table-->
-                                        <!--:data="outputAppointment"-->
-                                        <!--:default-sort="{prop: 'sjsj', order: 'descending'}"-->
-                                        <!--:max-height="350"-->
-                                        <!--@toggleRowSelection="rowSelection"-->
-                                        <!--@expand="expandChange"-->
-                                        <!--@select="handleSelectionChange"-->
-                                        <!--@select-all="handleSelectionChangeAll"-->
-                                        <!--ref="table"-->
-                                        <!--class="outputAppointmentTable"-->
-                                        <!--style="width: 100%">-->
-                                    <!--<el-table-column-->
-                                            <!--type="expand">-->
-                                        <!--<template scope="props">-->
-                                            <!--<el-row>-->
-                                                <!--<el-col :span="24">-->
-                                                    <!--<el-form label-position="left" inline class="demo-table-expand">-->
-                                                        <!--<el-form-item label="下单时间">-->
-                                                            <!--<el-icon name="time"></el-icon>-->
-                                                            <!--<span style="margin-left: 10px">{{ auto_ckXdsj(props.row.ckXdsj) }}</span>-->
-                                                        <!--</el-form-item>-->
-                                                        <!--<el-form-item label="出库单号">-->
-                                                            <!--<span>{{ props.row.ckCkdjNo }}</span>-->
-                                                        <!--</el-form-item>-->
-                                                        <!--<el-form-item label="单据类型">-->
-                                                            <!--<span>{{auto_ckCkdjType(props.row.ckCkdjType) }}</span>-->
-                                                        <!--</el-form-item>-->
-                                                        <!--<el-form-item label="客户编号">-->
-                                                            <!--<span>{{ props.row.ckCkdjClientno }}</span>-->
-                                                        <!--</el-form-item>-->
-                                                        <!--<el-form-item label="客户名称">-->
-                                                            <!--<span>{{ props.row.ckCkdjClientname }}</span>-->
-                                                        <!--</el-form-item>-->
-                                                        <!--<el-form-item label="联系人">-->
-                                                            <!--<span>{{ props.row.ckContacts }}</span>-->
-                                                        <!--</el-form-item>-->
-                                                        <!--<el-form-item label="联系电话">-->
-                                                            <!--<span>{{ props.row.ckTel }}</span>-->
-                                                        <!--</el-form-item>-->
-                                                        <!--<el-form-item label="地址">-->
-                                                            <!--<span>{{ props.row.ckAdress }}</span>-->
-                                                        <!--</el-form-item>-->
-                                                        <!--<el-form-item label="总数量">-->
-                                                            <!--<span>{{ props.row.allCount }}</span>-->
-                                                        <!--</el-form-item>-->
-                                                        <!--<el-form-item label="总体积">-->
-                                                            <!--<span>{{ props.row.allTj    }}</span>-->
-                                                        <!--</el-form-item>-->
-                                                        <!--<el-form-item label="制单方式">-->
-                                                            <!--<span>{{auto_ckIsauto(props.row.ckIsauto)   }}</span>-->
-                                                        <!--</el-form-item>-->
+    <!--size="large"-->
+    <!--title="修改任务"-->
+    <!--v-model="dialogModifyTaskVisible">-->
+    <!--<el-carousel-->
+    <!--ref="carouselWaiting"-->
+    <!--:autoplay="false"-->
+    <!--arrow="never"-->
+    <!--indicator-position="none"-->
+    <!--height="65vh">-->
+    <!--<el-carousel-item>-->
+    <!--<el-row>-->
+    <!--<el-col :span="24"><h4>预约详细</h4></el-col>-->
+    <!--</el-row>-->
+    <!--<el-row class="modifyTask.outputAppointmentCombinationDetails">-->
+    <!--<el-form-->
+    <!--ref="outputAppointmentCombinationDetails"-->
+    <!--:data="outputAppointmentCombinationDetails">-->
+    <!--<el-col :span="10">-->
+    <!--<el-form-item-->
+    <!--label="出库任务单号"-->
+    <!--:label-width="formLabelWidth">-->
+    <!--<el-input-->
+    <!--v-model="outputAppointmentCombinationDetails.ckrwNo"-->
+    <!--:disabled="true"-->
+    <!--auto-complete="off"></el-input>-->
+    <!--</el-form-item>-->
+    <!--<el-form-item label="预计到车时间" :label-width="formLabelWidth">-->
+    <!--<el-date-picker-->
+    <!--v-model="outputAppointmentCombinationDetails.ckrwYjdcsj"-->
+    <!--type="datetime"-->
+    <!--placeholder="选择到车时间">-->
+    <!--</el-date-picker>-->
+    <!--</el-form-item>-->
+    <!--</el-col>-->
+    <!--<el-col :span="10" :offset="2">-->
+    <!--<el-form-item label="车牌号" :label-width="formLabelWidth">-->
+    <!--<el-input-->
+    <!--v-model="outputAppointmentCombinationDetails.ckrwCph"-->
+    <!--v-model="outputAppointmentCombinationDetails.ckrwCph"-->
+    <!--auto-complete="off"></el-input>-->
+    <!--</el-form-item>-->
+    <!--<el-form-item label="物流商" :label-width="formLabelWidth">-->
+    <!--<el-input-->
+    <!--v-model="outputAppointmentCombinationDetails.ckrwWls"-->
+    <!--auto-complete="off"></el-input>-->
+    <!--</el-form-item>-->
+    <!--</el-col>-->
+    <!--</el-form>-->
+    <!--</el-row>-->
+    <!--</el-carousel-item>-->
+    <!--<el-carousel-item>-->
+    <!--<el-row>-->
+    <!--<el-col :span="24">-->
+    <!--<div class="inner btn-nav">-->
+    <!--<el-input-->
+    <!--v-model="ckCkdjNo"-->
+    <!--icon="search"-->
+    <!--placeholder="出库单号"></el-input>-->
+    <!--<el-date-picker-->
+    <!--v-model="date"-->
+    <!--type="daterange"-->
+    <!--align="right"-->
+    <!--placeholder="选择日期"-->
+    <!--class="datePicker"-->
+    <!--:picker-options="pickerOptions">-->
+    <!--</el-date-picker>-->
+    <!--<el-select v-model.number="ckCkdjType" placeholder="请选择">-->
+    <!--<el-option :value.number="-1" label="全部"></el-option>-->
+    <!--<el-option :value.number="0" label="正常单据"></el-option>-->
+    <!--<el-option :value.number="1" label="挂起单据"></el-option>-->
+    <!--<el-option :value.number="2" label="滞留单据"></el-option>-->
+    <!--</el-select>-->
+    <!--<button @click="newInput" class="btn btn-add"><i class="icon add"></i><span>添加</span>-->
+    <!--</button>-->
+    <!--<button @click="multiSelectClick" class="btn btn-multiSelect"><i-->
+    <!--class="icon sel"></i><span>多选</span>-->
+    <!--</button>-->
+    <!--<button @click="moreOperationDelete" class="btn btn-del" v-show="multiSelect"><i-->
+    <!--class="icon del"></i><span>批量删除</span>-->
+    <!--</button>-->
+    <!--</div>-->
+    <!--</el-col>-->
+    <!--</el-row>-->
+    <!--<el-row>-->
+    <!--<el-col :span="12">-->
+    <!--<h4>等待选择</h4>-->
+    <!--<el-table-->
+    <!--:data="outputAppointment"-->
+    <!--:default-sort="{prop: 'sjsj', order: 'descending'}"-->
+    <!--:max-height="350"-->
+    <!--@toggleRowSelection="rowSelection"-->
+    <!--@expand="expandChange"-->
+    <!--@select="handleSelectionChange"-->
+    <!--@select-all="handleSelectionChangeAll"-->
+    <!--ref="table"-->
+    <!--class="outputAppointmentTable"-->
+    <!--style="width: 100%">-->
+    <!--<el-table-column-->
+    <!--type="expand">-->
+    <!--<template scope="props">-->
+    <!--<el-row>-->
+    <!--<el-col :span="24">-->
+    <!--<el-form label-position="left" inline class="demo-table-expand">-->
+    <!--<el-form-item label="下单时间">-->
+    <!--<el-icon name="time"></el-icon>-->
+    <!--<span style="margin-left: 10px">{{ auto_ckXdsj(props.row.ckXdsj) }}</span>-->
+    <!--</el-form-item>-->
+    <!--<el-form-item label="出库单号">-->
+    <!--<span>{{ props.row.ckCkdjNo }}</span>-->
+    <!--</el-form-item>-->
+    <!--<el-form-item label="单据类型">-->
+    <!--<span>{{auto_ckCkdjType(props.row.ckCkdjType) }}</span>-->
+    <!--</el-form-item>-->
+    <!--<el-form-item label="客户编号">-->
+    <!--<span>{{ props.row.ckCkdjClientno }}</span>-->
+    <!--</el-form-item>-->
+    <!--<el-form-item label="客户名称">-->
+    <!--<span>{{ props.row.ckCkdjClientname }}</span>-->
+    <!--</el-form-item>-->
+    <!--<el-form-item label="联系人">-->
+    <!--<span>{{ props.row.ckContacts }}</span>-->
+    <!--</el-form-item>-->
+    <!--<el-form-item label="联系电话">-->
+    <!--<span>{{ props.row.ckTel }}</span>-->
+    <!--</el-form-item>-->
+    <!--<el-form-item label="地址">-->
+    <!--<span>{{ props.row.ckAdress }}</span>-->
+    <!--</el-form-item>-->
+    <!--<el-form-item label="总数量">-->
+    <!--<span>{{ props.row.allCount }}</span>-->
+    <!--</el-form-item>-->
+    <!--<el-form-item label="总体积">-->
+    <!--<span>{{ props.row.allTj    }}</span>-->
+    <!--</el-form-item>-->
+    <!--<el-form-item label="制单方式">-->
+    <!--<span>{{auto_ckIsauto(props.row.ckIsauto)   }}</span>-->
+    <!--</el-form-item>-->
 
-                                                        <!--<el-form-item label="发货状态">-->
-                                                            <!--<span>{{auto_ckStatus(props.row.ckStatus)    }}</span>-->
-                                                        <!--</el-form-item>-->
-                                                        <!--<el-form-item label="备注">-->
-                                                            <!--<span>{{ props.row.ckRemarks    }}</span>-->
-                                                        <!--</el-form-item>-->
+    <!--<el-form-item label="发货状态">-->
+    <!--<span>{{auto_ckStatus(props.row.ckStatus)    }}</span>-->
+    <!--</el-form-item>-->
+    <!--<el-form-item label="备注">-->
+    <!--<span>{{ props.row.ckRemarks    }}</span>-->
+    <!--</el-form-item>-->
 
 
-                                                        <!--<el-form-item label="可用操作">-->
-                                                            <!--<el-button-->
-                                                                    <!--size="small"-->
-                                                                    <!--icon="edit"-->
-                                                                    <!--@click="inlineEdit(props.$index, props.row)">-->
-                                                            <!--</el-button>-->
-                                                            <!--<el-button-->
-                                                                    <!--size="small"-->
-                                                                    <!--type="info"-->
-                                                                    <!--@click="inlineRetentionInput(props.$index, props.row)">-->
-                                                                <!--滞留出库-->
-                                                            <!--</el-button>-->
-                                                            <!--<el-button-->
-                                                                    <!--size="small"-->
-                                                                    <!--icon="delete"-->
-                                                                    <!--type="danger"-->
-                                                                    <!--@click="inlineDeleteOlder(props.$index, props.row)">-->
-                                                            <!--</el-button>-->
-                                                        <!--</el-form-item>-->
-                                                    <!--</el-form>-->
-                                                <!--</el-col>-->
-                                            <!--</el-row>-->
-                                        <!--</template>-->
-                                    <!--</el-table-column>-->
-                                    <!--<el-table-column-->
-                                            <!--label="所属仓库"-->
-                                            <!--align="center"-->
-                                            <!--prop="ckArehouseId">-->
-                                        <!--<template scope="scope">-->
-                                            <!--<el-tag-->
-                                                    <!--type="success"-->
-                                                    <!--close-transition>-->
-                                                <!--{{auto_ckArehouseId(scope.row.ckArehouseId)}}-->
-                                            <!--</el-tag>-->
-                                        <!--</template>-->
-                                    <!--</el-table-column>-->
-                                    <!--<el-table-column-->
-                                            <!--label="出库单号"-->
-                                            <!--show-overflow-tooltip-->
-                                            <!--align="center"-->
-                                            <!--prop="ckCkdjNo">-->
-                                    <!--</el-table-column>-->
+    <!--<el-form-item label="可用操作">-->
+    <!--<el-button-->
+    <!--size="small"-->
+    <!--icon="edit"-->
+    <!--@click="inlineEdit(props.$index, props.row)">-->
+    <!--</el-button>-->
+    <!--<el-button-->
+    <!--size="small"-->
+    <!--type="info"-->
+    <!--@click="inlineRetentionInput(props.$index, props.row)">-->
+    <!--滞留出库-->
+    <!--</el-button>-->
+    <!--<el-button-->
+    <!--size="small"-->
+    <!--icon="delete"-->
+    <!--type="danger"-->
+    <!--@click="inlineDeleteOlder(props.$index, props.row)">-->
+    <!--</el-button>-->
+    <!--</el-form-item>-->
+    <!--</el-form>-->
+    <!--</el-col>-->
+    <!--</el-row>-->
+    <!--</template>-->
+    <!--</el-table-column>-->
+    <!--<el-table-column-->
+    <!--label="所属仓库"-->
+    <!--align="center"-->
+    <!--prop="ckArehouseId">-->
+    <!--<template scope="scope">-->
+    <!--<el-tag-->
+    <!--type="success"-->
+    <!--close-transition>-->
+    <!--{{auto_ckArehouseId(scope.row.ckArehouseId)}}-->
+    <!--</el-tag>-->
+    <!--</template>-->
+    <!--</el-table-column>-->
+    <!--<el-table-column-->
+    <!--label="出库单号"-->
+    <!--show-overflow-tooltip-->
+    <!--align="center"-->
+    <!--prop="ckCkdjNo">-->
+    <!--</el-table-column>-->
 
-                                    <!--<el-table-column-->
-                                            <!--width="80"-->
-                                            <!--align="center"-->
-                                            <!--label="时间">-->
-                                        <!--<template scope="scope">-->
-                                            <!--{{auto_ckXdsj(scope.row.ckXdsj,true)}}-->
-                                        <!--</template>-->
-                                    <!--</el-table-column>-->
-                                    <!--<el-table-column-->
-                                            <!--type="selection"-->
-                                            <!--width="60">-->
-                                    <!--</el-table-column>-->
-                                <!--</el-table>-->
-                            <!--</el-col>-->
-                            <!--<el-col :span="12">-->
-                                <!--<h4>等待组合</h4>-->
-                                <!--<el-table-->
-                                        <!--:data="outputAppointmentCombination"-->
-                                        <!--:default-sort="{prop: 'sjsj', order: 'descending'}"-->
-                                        <!--:max-height="350"-->
-                                        <!--@toggleRowSelection="rowSelection"-->
-                                        <!--@expand="expandChange"-->
-                                        <!--@selection-change="handleSelectionChangeCombination"-->
-                                        <!--ref="table"-->
-                                        <!--class="outputAppointmentTable"-->
-                                        <!--style="width: 100%">-->
-                                    <!--<el-table-column-->
-                                            <!--type="index"-->
-                                            <!--width="55">-->
-                                    <!--</el-table-column>-->
-                                    <!--<el-table-column-->
-                                            <!--label="出库单号"-->
-                                            <!--show-overflow-tooltip-->
-                                            <!--align="center"-->
-                                            <!--prop="ckCkdjNo">-->
-                                    <!--</el-table-column>-->
-                                    <!--<el-table-column-->
-                                            <!--label="单据类型"-->
-                                            <!--align="center">-->
-                                        <!--<template scope="scope">-->
-                                            <!--{{auto_ckCkdjType(scope.row.ckCkdjType)}}-->
-                                        <!--</template>-->
-                                    <!--</el-table-column>-->
-                                    <!--<el-table-column-->
-                                            <!--width="80"-->
-                                            <!--align="center"-->
-                                            <!--label="时间">-->
-                                        <!--<template scope="scope">-->
-                                            <!--{{auto_ckXdsj(scope.row.ckXdsj,true)}}-->
-                                        <!--</template>-->
-                                    <!--</el-table-column>-->
-                                    <!--<el-table-column-->
-                                            <!--v-if="multiSelect"-->
-                                            <!--type="selection"-->
-                                            <!--width="60">-->
-                                    <!--</el-table-column>-->
-                                <!--</el-table>-->
-                            <!--</el-col>-->
-                        <!--</el-row>-->
-                    <!--</el-carousel-item>-->
-                <!--</el-carousel>-->
-                <!--<el-row class="formBottom">-->
-                    <!--<el-col :span="18" :offset="1">-->
-                        <!--<el-steps-->
-                                <!--:space="200"-->
-                                <!--:active="formActive"-->
-                                <!--finish-status="success">-->
-                            <!--<el-step title="选择订单"></el-step>-->
-                            <!--<el-step title="预约详细"></el-step>-->
-                        <!--</el-steps>-->
-                    <!--</el-col>-->
-                    <!--<el-col :span="5">-->
-                        <!--<el-button class='formBottom' type="primary" @click="prevForm" v-show="formActive">上一步</el-button>-->
-                        <!--<el-button class='formBottom' type="primary" @click="nextForm" v-show="formActive<1"-->
-                                   <!--:disabled="outputAppointmentCombination.length==0">下一步-->
-                        <!--</el-button>-->
-                        <!--<el-button class='formBottom' type="primary" @click="submitForm" :loading="submitLoading"-->
-                                   <!--v-show="formActive>=1">保存-->
-                        <!--</el-button>-->
-                    <!--</el-col>-->
-                <!--</el-row>-->
+    <!--<el-table-column-->
+    <!--width="80"-->
+    <!--align="center"-->
+    <!--label="时间">-->
+    <!--<template scope="scope">-->
+    <!--{{auto_ckXdsj(scope.row.ckXdsj,true)}}-->
+    <!--</template>-->
+    <!--</el-table-column>-->
+    <!--<el-table-column-->
+    <!--type="selection"-->
+    <!--width="60">-->
+    <!--</el-table-column>-->
+    <!--</el-table>-->
+    <!--</el-col>-->
+    <!--<el-col :span="12">-->
+    <!--<h4>等待组合</h4>-->
+    <!--<el-table-->
+    <!--:data="outputAppointmentCombination"-->
+    <!--:default-sort="{prop: 'sjsj', order: 'descending'}"-->
+    <!--:max-height="350"-->
+    <!--@toggleRowSelection="rowSelection"-->
+    <!--@expand="expandChange"-->
+    <!--@selection-change="handleSelectionChangeCombination"-->
+    <!--ref="table"-->
+    <!--class="outputAppointmentTable"-->
+    <!--style="width: 100%">-->
+    <!--<el-table-column-->
+    <!--type="index"-->
+    <!--width="55">-->
+    <!--</el-table-column>-->
+    <!--<el-table-column-->
+    <!--label="出库单号"-->
+    <!--show-overflow-tooltip-->
+    <!--align="center"-->
+    <!--prop="ckCkdjNo">-->
+    <!--</el-table-column>-->
+    <!--<el-table-column-->
+    <!--label="单据类型"-->
+    <!--align="center">-->
+    <!--<template scope="scope">-->
+    <!--{{auto_ckCkdjType(scope.row.ckCkdjType)}}-->
+    <!--</template>-->
+    <!--</el-table-column>-->
+    <!--<el-table-column-->
+    <!--width="80"-->
+    <!--align="center"-->
+    <!--label="时间">-->
+    <!--<template scope="scope">-->
+    <!--{{auto_ckXdsj(scope.row.ckXdsj,true)}}-->
+    <!--</template>-->
+    <!--</el-table-column>-->
+    <!--<el-table-column-->
+    <!--v-if="multiSelect"-->
+    <!--type="selection"-->
+    <!--width="60">-->
+    <!--</el-table-column>-->
+    <!--</el-table>-->
+    <!--</el-col>-->
+    <!--</el-row>-->
+    <!--</el-carousel-item>-->
+    <!--</el-carousel>-->
+    <!--<el-row class="formBottom">-->
+    <!--<el-col :span="18" :offset="1">-->
+    <!--<el-steps-->
+    <!--:space="200"-->
+    <!--:active="formActive"-->
+    <!--finish-status="success">-->
+    <!--<el-step title="选择订单"></el-step>-->
+    <!--<el-step title="预约详细"></el-step>-->
+    <!--</el-steps>-->
+    <!--</el-col>-->
+    <!--<el-col :span="5">-->
+    <!--<el-button class='formBottom' type="primary" @click="prevForm" v-show="formActive">上一步</el-button>-->
+    <!--<el-button class='formBottom' type="primary" @click="nextForm" v-show="formActive<1"-->
+    <!--:disabled="outputAppointmentCombination.length==0">下一步-->
+    <!--</el-button>-->
+    <!--<el-button class='formBottom' type="primary" @click="submitForm" :loading="submitLoading"-->
+    <!--v-show="formActive>=1">保存-->
+    <!--</el-button>-->
+    <!--</el-col>-->
+    <!--</el-row>-->
     <!--</el-dialog>-->
     <el-dialog
             size="large"
@@ -696,13 +696,13 @@
                     align="center"
                     prop="ckTel">
             </el-table-column>
-             <el-table-column
+            <el-table-column
                     label="地址"
                     show-overflow-tooltip
                     align="center"
                     prop="ckAdress">
             </el-table-column>
-             <el-table-column
+            <el-table-column
                     label="下单时间"
                     show-overflow-tooltip
                     align="center"
@@ -724,63 +724,118 @@
         </el-table>
     </el-dialog>
     <el-dialog
-            size="large"
-            title="修改分拣方式"
-            v-model="dialogSortingMethodVisible">
+            v-model="dialogListsVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">出库明细 单号：{{lists.ckCkdjNo}}</span>
+        </div>
         <el-table
-                :data="sortingMethod"
+                :data="lists.data"
                 highlight-current-row
                 style="width: 100%">
+            <el-table-column
+                    type="index"
+                    width="55">
+            </el-table-column>
             <el-table-column
                     label="货品编号"
                     show-overflow-tooltip
                     align="center"
-                    prop="ckhpbh">
+                    prop="baseGoods.bgGoodsNo">
             </el-table-column>
             <el-table-column
                     label="货品名称"
                     show-overflow-tooltip
                     align="center"
-                    prop="ckhpmc">
-            </el-table-column>
-            <el-table-column
-                    label="货品单位"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="ckhpszdw">
+                    prop="baseGoods.bgGoodsName">
             </el-table-column>
             <el-table-column
                     label="货品数量"
                     show-overflow-tooltip
                     align="center"
-                    prop="ckTel">
+                    prop="cksGoodsCount">
             </el-table-column>
-             <el-table-column
+            <el-table-column
+                    label="分拣方式"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="cksCkfs">
+            </el-table-column>
+            <el-table-column
                     label="批次"
                     show-overflow-tooltip
                     align="center"
-                    prop="ckhppc">
+                    prop="cksZdpc">
             </el-table-column>
-             <el-table-column
+            <el-table-column
                     label="库位"
                     show-overflow-tooltip
-                    align="center"
+                    align="cksLocationId"
                     prop="ckXdsj">
             </el-table-column>
             <el-table-column
-                    label="操作"
+                    label="修改分拣方式"
                     prop="rksCount"
                     align="center">
                 <template scope="scope">
                     <el-button
                             size="small"
-                            type="danger"
-                            icon="assignment"
-                            @click="deleteInlineOperation(scope.$index, scope.row)">更换
+                            type="info"
+                            icon="edit"
+                            @click="inlineModifySorting(scope.$index, scope.row)">
                     </el-button>
                 </template>
             </el-table-column>
         </el-table>
+
+
+        <el-dialog
+                :modal="false"
+                size="small"
+                v-model="lists.dialogLocationVisible">
+            <div class="dialog-title clearfix" slot="title">
+                <span class="el-dialog__title">关联</span>
+            </div>
+            <el-form-item label="分拣方式" :label-width="formLabelWidth">
+                <el-select v-model="lists.sort.cksCkfs" placeholder="请选择">
+                    <el-option
+                            key="X"
+                            label="先进先出"
+                            value="X">
+                    </el-option>
+                    <el-option
+                            key="K"
+                            label="指定储位"
+                            value="K">
+                    </el-option>
+                    <el-option
+                            key="P"
+                            label="指定批次"
+                            value="P">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="库位" :label-width="formLabelWidth" v-show="lists.sort.cksCkfs=='K'">
+                <el-autocomplete
+                        :fetch-suggestions="queryLocationAsync"
+                        v-model="lists.sort.location.cksLocationId"
+                        @select="locationSelect"
+                        auto-complete="off"></el-autocomplete>
+            </el-form-item>
+            <el-form-item label="批次" :label-width="formLabelWidth" v-show="lists.sort.cksCkfs=='P'">
+                <el-input
+                        v-model="lists.sort.cksZdpc"
+                        auto-complete="off"></el-input>
+            </el-form-item>
+
+            <div slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="locationSubmit" :loading="lists.locationLoading">修改</el-button>
+            </div>
+        </el-dialog>
+
+
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="dialogListsVisible=false">关闭</el-button>
+        </div>
     </el-dialog>
 </div>
 <style>
@@ -982,7 +1037,7 @@
                 pageSize: 10,
                 date: [null, null],                   //主页面 选择日期 搜索
                 ckrwNo: '',                         //主页面 入库单号 搜索
-                ckrwCph:'',                           //主页面 车牌号
+                ckrwCph: '',                           //主页面 车牌号
                 formLabelWidth: '120px',              //表单   配置
                 form: form(),                         //表单   弹出层 信息集合
                 dialogFormActive: 0,                  //新建    弹出层 steps 当前进度
@@ -997,11 +1052,11 @@
                 dialogModifyTaskVisible: false,        //修改任务信息  弹出层 是否可见
 
 
-                sortingMethod:[],                      //修改分拣方式信息  弹出层 信息集合
+                sortingMethod: [],                      //修改分拣方式信息  弹出层 信息集合
                 dialogSortingMethodVisible: false,     //修改分拣方式信息  弹出层 是否可见
 
-                dialogListsVisible:false,              //单据详细 查询
-                lists:formList(),                      //出库详细 弹出层 信息集合
+                dialogListsVisible: false,              //单据详细 查询
+                lists: formList(),                      //出库详细 弹出层 信息集合
 
 
                 select: form(),                     //搜索      弹出层 信息集合,
@@ -1039,7 +1094,7 @@
             },                                      //分配 表单
         },
         methods: {
-            inlineIssued:function(){
+            inlineIssued: function () {
                 var obj = this;
                 obj.$confirm('此操作将此单据下发, 是否继续?', '提示', {
                     confirmButtonText: '确定',
@@ -1054,10 +1109,10 @@
                     });
                 });
             },                                              //TODO 行内按钮-下发
-            inlineArriveCar:function(){
+            inlineArriveCar: function () {
                 this.dialogCarVisible = true;
             },                                           //TODO 行内按钮-到车
-            inlineModifyTask:function(){
+            inlineModifyTask: function () {
                 this.dialogModifyTaskVisible = true;
             },                                          //TODO 行内按钮-修改任务
             inlineCancelTask: function () {
@@ -1075,7 +1130,7 @@
                     });
                 });
             },                                       //TODO 行内按钮-取消任务
-            inlineHangBill:function(){
+            inlineHangBill: function () {
                 var obj = this;
                 obj.$confirm('此操作将此单据挂起, 是否继续?', '提示', {
                     confirmButtonText: '确定',
@@ -1090,10 +1145,10 @@
                     });
                 });
             },                                            //TODO 行内按钮-挂起单据
-            inlineModifySorting:function(){
+            inlineModifySorting: function () {
                 this.dialogSortingMethodVisible = true;
             },                                       //TODO 行内按钮-修改分拣方式
-            inlineCancelHang:function(){
+            inlineCancelHang: function () {
                 var obj = this;
                 obj.$confirm('此操作将此任务取消挂起, 是否继续?', '提示', {
                     confirmButtonText: '确定',
@@ -1137,19 +1192,38 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                p[0].post( this.option);
+                p[0].post(this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                p[0].post( this.option);
+                p[0].post(this.option);
             },                                //分页 当前页
             newInput: function () {
                 this.dialogFormVisible = true;
 
             },                                              //按钮 新建入库单
+            queryLocationAsync: function (queryString, cb) {
+                p[5].post({
+                    "pageNum": 1,
+                    "pageSize": 10,
+                    "draw": 0,
+                    blLName: queryString
+                }, function (json) {
+                    json = json.data;
+                    var step = [];
+                    var length = json.length > 20 ? 20 : json.length;
+                    for (var i = 0; i < length; i++) {
+                        step.push({data: json[i], value: json[i].blLname})
+                    }
+                    cb(step);
+                });
+            },
+            locationSelect: function (item) {
+                console.log(item);
+            },
             expandChange: function (row, expanded) {
                 if (expanded && (typeof (row.mfunckDoc) === 'undefined' || row.mfunckDoc.length === 0)) {
                     p[1].post({id: row.ckrwId}, function (json) {
@@ -1164,7 +1238,7 @@
                 console.log(expanded);
                 /*</debug>*/
             },                             //下拉 选择
-            dblClick:function (row, event) {
+            dblClick: function (row, event) {
                 console.log(row);
                 if (row.mfunckDocs === null || typeof row.mfunckDocs === 'undefined' || row.mfunckDocs.length < 1) {
                     p[2].post({id: row.ckCkdjId}, function (json) {
@@ -1174,7 +1248,7 @@
                         obj.dialogListsVisible = true;
                     })
                 } else {
-                    obj.lists.data = row.model;
+                    obj.lists.data = row.mfunckDocs;
                     obj.lists.ckCkdjNo = row.ckCkdjNo;
                     obj.dialogListsVisible = true;
                 }
@@ -1222,7 +1296,7 @@
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                p[0].post( {});
+                p[0].post({});
             },                                          //详细查询 提交
             carSubmit: function () {
 
@@ -1235,60 +1309,60 @@
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
             },                            //TODO 实际到车时间
-            auto_ckrwStatus:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        10:'初始',
-                        11:'下发',
-                        21:'已挑选',
-                        31:'已激活',
-                        41:'部分出库',
-                        42:'全部出库',
-                        51:'部分发运',
-                        52:'全部发运'
+            auto_ckrwStatus: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        10: '初始',
+                        11: '下发',
+                        21: '已挑选',
+                        31: '已激活',
+                        41: '部分出库',
+                        42: '全部出库',
+                        51: '部分发运',
+                        52: '全部发运'
                     }
-                }else{
-                    temp={
-                        '初始'   :10,
-                        '下发'    :11,
-                        '已挑选'  :21  ,
-                        '已激活'  :31 ,
-                        '部分出库':41 ,
-                        '全部出库':42 ,
-                        '部分发运':51 ,
-                        '全部发运':52
+                } else {
+                    temp = {
+                        '初始': 10,
+                        '下发': 11,
+                        '已挑选': 21,
+                        '已激活': 31,
+                        '部分出库': 41,
+                        '全部出库': 42,
+                        '部分发运': 51,
+                        '全部发运': 52
                     }
                 }
                 return temp[value];
             },                                     //TODO 任务状态
-            auto_ckrwQhStatus:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        1:'欠货',
-                        2:'未欠货'
+            auto_ckrwQhStatus: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '欠货',
+                        2: '未欠货'
                     }
-                }else{
-                    temp={
-                        '欠货'   : 1 ,
-                        '未欠货' : 2
+                } else {
+                    temp = {
+                        '欠货': 1,
+                        '未欠货': 2
 
                     }
                 }
                 return temp[value];
             },                                   //TODO 欠货状态
-            auto_ckrwZlStatus:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        1:'滞留',
-                        2:'未滞留'
+            auto_ckrwZlStatus: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '滞留',
+                        2: '未滞留'
                     }
-                }else{
-                    temp={
-                        '滞留'   : 1 ,
-                        '未滞留' : 2
+                } else {
+                    temp = {
+                        '滞留': 1,
+                        '未滞留': 2
 
                     }
                 }
@@ -1299,25 +1373,25 @@
     });
     function form() {
         return {
-            ckrwId:'',
-            ckCkdjNo:'',            //出库单号
-            ckCkdjClientno:'',      //客户编号
-            ckCkdjClientname:'',    //客户名称
-            ckContacts:'',          //联系人
-            ckTel:'',               //联系电话
-            ckAdress:'',              //地址
-            ckXdsj:'',            //下单时间
+            ckrwId: '',
+            ckCkdjNo: '',            //出库单号
+            ckCkdjClientno: '',      //客户编号
+            ckCkdjClientname: '',    //客户名称
+            ckContacts: '',          //联系人
+            ckTel: '',               //联系电话
+            ckAdress: '',              //地址
+            ckXdsj: '',            //下单时间
         }
     }
-    var obj=outboundTask;
-    var p=[];
+    var obj = outboundTask;
+    var p = [];
     // 0 出库任务 分页查询
     p[0] = autoPost({
         urlHock: "../../hock/outboundTask/page.json",
         urlProd: "/route/outboundTask/0",
         success: function (json) {
-            for(var i=0;i<json.data.length;i++){
-                json.data[i].mfunckDoc=[];
+            for (var i = 0; i < json.data.length; i++) {
+                json.data[i].mfunckDoc = [];
             }
             obj.$data.outboundTask = json.data;
             obj.$data.currentTotal = json.recordsFiltered;
@@ -1336,31 +1410,44 @@
         urlProd: "/route/outboundTask/2"
     });
 
+    //5 查询-储位
+    p[5] = autoPost({
+        urlHock: "/hock/inputOption/location.json",
+        urlProd: "/route/inputOperation/5"
+    });
+
     function formCar() {
         return {
-            ckrwId:'',
-            ckrwSjdcsj:''//实际到车时间
+            ckrwId: '',
+            ckrwSjdcsj: ''//实际到车时间
         }
     }             //TODO 到车信息
     function formModifyTask() {
-        return {
-        }
+        return {}
     }      //TODO 修改任务
-    function formSortingMethod() {
-        return {
-            ckrwId:'',
-            ckhpbh:'',            //货品编号
-            ckhpjc:'',            //货品简称
-            ckhpszdw:'',          //货品单位(最小单位--散支单位)
-            //:'',                //货品数量
-            ckhppc:'',            //批次
-            //:'',                //库位
-        }
-    }  //TODO 修改分拣方式
     function formList() {
         return {
+            data: [],
+
             ckCkdjNo: '',
-            data: []
+            dialogLocationVisible: false,
+            locationLoading: false,
+
+            sort: formListSort()
+        }
+    }
+    function formListSort() {
+        return {
+            "cksCkmxId": 1,
+            "cksCkfs": "X",  // X K P
+
+            cksLocationId: 1,
+
+            location: {
+                cksLocationId: 1
+            },
+
+            cksZdpc: auto_time_new(new Date(), 3)
         }
     }
 
@@ -1378,8 +1465,8 @@
         for (var i = 0; i < obj.multipleSelection.length; i++) {
             resoleveStep.push({
                 name: obj.multipleSelection[i].rkrwNo,
-                rkrwNo:obj.multipleSelection[i].rkrwNo,
-                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
+                rkrwNo: obj.multipleSelection[i].rkrwNo,
+                rkrwDhrq: obj.multipleSelection[i].rkrwDhrq
             });
         }
         obj.printf = resoleveStep;
