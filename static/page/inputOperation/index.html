@@ -12,7 +12,7 @@
                         v-model="date"
                         type="daterange"
                         align="right"
-                        placeholder="选择日期"
+                        placeholder="下架时间"
                         class="datePicker"
                         :picker-options="pickerOptions">
                 </el-date-picker>
@@ -1367,6 +1367,23 @@
             }
         }
     });
+    // 高级 监视器的 使用方法
+    inputOperation.$watch('form.selectGood.rksCount', function () {
+        if (!this.form.deleteARkDocsList)return;
+        var valid = false;
+        inputOperation.$refs['newForm'].validate(function (_valid) {
+            valid = _valid;
+        });
+        valid ?
+            this.form.saveARkDocsList = false :
+            this.form.saveARkDocsList = true
+    });
+    inputOperation.$watch('date', function () {
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        post(this.option);
+    }, {deep: true});
     function form() {
         return {
             title: '新建入库单',
@@ -1455,24 +1472,7 @@
         }
     }
 
-    // 高级 监视器的 使用方法
-    inputOperation.$watch('form.selectGood.rksCount', function () {
-        if (!this.form.deleteARkDocsList)return;
-        var valid = false;
-        inputOperation.$refs['newForm'].validate(function (_valid) {
-            valid = _valid;
-        });
-        valid ?
-            this.form.saveARkDocsList = false :
-            this.form.saveARkDocsList = true
-    });
-    inputOperation.$watch('date', function () {
-        if (!this.option.startTimeParam)return;
-        /*<debug>*/
-        console.log(this.option);
-        /*</debug>*/
-        post(this.option);
-    }, {deep: true});
+
 
     post(inputOperation.option);
     function post(option) {
