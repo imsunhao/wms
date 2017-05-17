@@ -17,7 +17,7 @@
                         :picker-options="pickerOptions">
                 </el-date-picker>
                 <el-date-picker
-                        v-model="date"
+                        v-model="date2"
                         type="daterange"
                         align="right"
                         placeholder="制作时间"
@@ -797,19 +797,15 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-
-
                 date:[null,null],                 //TODO 主页面 下单时间 搜索
                 ckCkdjNo:'',                        //TODO 主页面 出库单号 搜索
-               mhCreatetime:[null,null],          //TODO 主页面 制作时间 搜索
+                date2:[null,null],          //TODO 主页面 制作时间 搜索
                 ckStatus:'',                        //TODO 主页面 出库状态 搜索
                 formLabelWidth: '120px',            //表单 配置
                 form: form(),                       //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
-
-
                 dialogDistributionForm: false,      //分配 弹出层 是否可见
                 dialogLocationVisible: false,       //关联 弹出层 是否可见
                 select: {},                         //搜索 弹出层 信息集合
@@ -829,8 +825,8 @@
                     "ckStatus":this.ckStatus.trim(),
                     "ckStartXdsj": tsf_date(this.date[0]),
                     "ckEndXdsj": tsf_date(this.date[1]),
-                    "mhStartCreateTime": tsf_date(this.date[0]),
-                    "mhEndCreateTime": tsf_date(this.date[1]),
+                    "mhStartCreateTime": tsf_date(this.date2[0]),
+                    "mhEndCreateTime": tsf_date(this.date2[1]),
                 }
             },
             distributionForm: function () {
@@ -1249,35 +1245,12 @@
             this.form.saveARkDocsList = true
     });
     outputOperation.$watch('date', function () {
-        if (!this.option.dateStart)return;
         /*<debug>*/
         console.log(this.option);
         /*</debug>*/
         p[0].post( this.option);
     }, {deep: true});
-    outputOperation.$watch('date', function () {
-        if (!this.option.ckStartXdsj)return;
-        /*<debug>*/
-        console.log(this.option);
-        /*</debug>*/
-        p[0].post( this.option);
-    }, {deep: true});
-    outputOperation.$watch('date', function () {
-        if (!this.option.ckEndXdsj)return;
-        /*<debug>*/
-        console.log(this.option);
-        /*</debug>*/
-        p[0].post( this.option);
-    }, {deep: true});
-    outputOperation.$watch('date', function () {
-        if (!this.option.mhStartCreateTime)return;
-        /*<debug>*/
-        console.log(this.option);
-        /*</debug>*/
-        p[0].post( this.option);
-    }, {deep: true});
-    outputOperation.$watch('date', function () {
-        if (!this.option.mhStartCreateTime)return;
+    outputOperation.$watch('date2', function () {
         /*<debug>*/
         console.log(this.option);
         /*</debug>*/
