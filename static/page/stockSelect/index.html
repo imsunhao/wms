@@ -210,10 +210,14 @@
                         icon="search"
                         placeholder="货品批次"></el-input>
             </el-form-item>
-            <el-form-item label="仓库"
-                          :label-width="formLabelWidth">
-                <el-select v-model="form.baName" placeholder="请选择">
+            <el-form-item label="所属仓库" :label-width="formLabelWidth">
+                <el-select
+                        :disabled="watchView"
+                        v-model="form.baArehouseId"
+                        placeholder="请选择所属仓库">
                     <el-option :value="-1" label="全部"></el-option>
+                    <el-option :label="obj.baName" :value="obj.baArehouseId"
+                               v-for="obj of baseArehouses"></el-option>
                 </el-select>
             </el-form-item>
         </el-form>
@@ -408,6 +412,8 @@
         prop: {},
         data: function () {
             return {
+                baseArehouses: window.dbmessage.baseArehouses,
+                watchView: false,                           //观察状态量-是否为查看
                 stockSelect: [],
                 multipleSelection: [],
                 multiSelect: false,
@@ -648,7 +654,7 @@
             bgGoodsName:'',    //模糊查询--货品名称
             blLname:'',//模糊查询--库位名称
             mrGoodsBatch:'',//模糊查询--货品批次
-            baName:'' //模糊查询--仓库
+            baArehouseId:'' //模糊查询--仓库
         }
     }
     var obj=stockSelect;
