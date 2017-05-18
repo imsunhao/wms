@@ -348,8 +348,10 @@
                                   :label-width="formLabelWidth">
                         <el-select v-model="form.ckQhStatus" placeholder="请选择">
                             <el-option :value="-1" label="全部"></el-option>
-                            <el-option :value="2" label="欠货"></el-option>
+                            <el-option :value="1" label="整单欠货"></el-option>
+                            <el-option :value="2" label="部分欠货"></el-option>
                             <el-option :value="3" label="未欠货"></el-option>
+
                         </el-select>
                     </el-form-item>
                 </el-form>
@@ -822,6 +824,9 @@
             },
             form_pop:function(){
                 return{
+                    "draw": 1,
+                    "pageNum": this.currentPage,
+                    "pageSize": this.pageSize,
                     "ckStartXdsj": tsf_date(this.form.ckXdsj[0]),
                     "ckEndXdsj": tsf_date(this.form.ckXdsj[1]),
                     "mhStartCreateTime":tsf_date(this.form.mhCreatetime[0]),
@@ -835,28 +840,12 @@
                     "ckContacts": this.form.ckContacts,
                     "ckTel": this.form.ckTel,
                     "ckStatus":this.form.ckStatus,
-                    "cksQhStatus": this.form.cksQhStatus,
+                    "ckQhStatus": this.form.ckQhStatus,
                     "ckZlStatus": this.form.ckZlStatus,
                     "ckIsauto": this.form.ckIsauto,
                     "ckStartwith":this.form.ckStartwith,
                     "blLname": this.form.blLname,
                      "ckArehouseId":this.form.ckArehouseId,
-//                    "startTimeParam":this.form.,
-//                    "endTimeParam": this.form.,
-//                    "pageNum": this.form.,
-//                    "pageSize":this.form.,
-//                    "ckrwCph": this.form.,
-//                    "ckrwWls": this.form.,
-//                    "ckCkdjType": this.form.,
-
-//                    "ckClientId": this.form.,
-//                    "cksGoodsId": this.form.,
-//                    "msxStartQrsj"this.form.,
-//                    "msxEndQrsj": this.form.,
-//                    "bgGoodsName":this.form.,
-//                    "msxXjry": this.form.,
-//                    "ckQhStatus": this.form.,
-//                    "bgGoodsNo": this.form.,
                 }
             },
             distributionForm: function () {
