@@ -4,6 +4,26 @@
             element-loading-text="拼命加载中">
         <el-col :span="24">
             <div class="inner btn-nav">
+                <el-input
+                        class="input"
+                        v-model="ckCkdjNo"
+                        icon="search"
+                        placeholder="出库单号"></el-input>
+                <el-date-picker
+                        v-model="date"
+                        type="daterange"
+                        align="right"
+                        placeholder="下单时间"
+                        class="input"
+                        :picker-options="pickerOptions">
+                </el-date-picker>
+                <el-select v-model="ckStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="21" label="部分分拣"></el-option>
+                    <el-option :value="31" label="全部分拣"></el-option>
+                    <el-option :value="23" label="部分出库"></el-option>
+                    <el-option :value="32" label="全部出库"></el-option>
+                </el-select>
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
@@ -98,9 +118,9 @@
                                     <el-form-item label="应下数量">
                                         <span>{{ props.row.cksGoodsCount }}</span>
                                     </el-form-item>
-                                    <el-form-item label="下架数量">
+                                    <el-eform-item label="下架数量">
                                         <span>{{ props.row.msxMxCount }}</span>
-                                    </el-form-item>
+                                    </el-eform-item>
                                     <el-form-item label="制作方式">
                                         <span>{{ auto_ckIsauto(props.row.ckIsauto) }}</span>
                                     </el-form-item>
@@ -139,24 +159,27 @@
                 <el-table-column
                         label="作业人员"
                         show-overflow-tooltip
-                        prop="mfunckSortingMx.msxXjry"
                         align="center">
+                    <template scope="scope">
+                        {{scope.row.mfunckDocs[0].mfunckSortingMx[0].rmsUser.ruUserName}}
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="作业时间"
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        <!--{{auto_time(scope.row.mfunckSortingMx.msxQrsj,true)}}-->
-
+                        {{auto_time(scope.row.mfunckDocs[0].mfunckSortingMx[0].msxQrsj,true)}}
                     </template>
                 </el-table-column>
-
                 <el-table-column
                         label="作业体积"
                         show-overflow-tooltip
-                        prop=""
+                        prop="mfunckSortingMx.getGoodsTj"
                         align="center">
+                    <template scope="scope">
+                        {{scope.row.mfunckDocs[0].mfunckSortingMx[0].goodsTj }}
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="下单时间"
@@ -175,30 +198,29 @@
                 <el-table-column
                         label="出库状态"
                         align="center">
-                        <template scope="scope">
-                            <el-tag
-                                    close-transition>{{ auto_ckStatus(scope.row.ckStatus)}}
-                            </el-tag>
-                        </template>
+                    <template scope="scope">
+                        <el-tag
+                                close-transition>{{ auto_ckStatus(scope.row.ckStatus)}}
+                        </el-tag>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="欠货状态"
                         align="center">
-                        <template scope="scope">
-                            <el-tag
-                                    close-transition>{{auto_cksQhStatus(scope.row.cksQhStatus)}}
-                            </el-tag>
-                        </template>
+                    <template scope="scope">
+                        <el-tag
+                                close-transition>{{auto_cksQhStatus(scope.row.mfunckDocs[0].cksQhStatus)}}
+                        </el-tag>
+                    </template>
                 </el-table-column>
-
-                    <el-table-column
+                <el-table-column
                         label="滞留状态"
                         align="center">
-                        <template scope="scope">
-                            <el-tag
-                                    close-transition>{{auto_cksZlStatus(scope.row.ckZlStatus)}}
-                            </el-tag>
-                        </template>
+                    <template scope="scope">
+                        <el-tag
+                                close-transition>{{auto_cksZlStatus(scope.row.mfunckDocs[0].cksZlStatus )}}
+                        </el-tag>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         v-if="multiSelect"
@@ -226,9 +248,9 @@
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
         </div>
+        <el-form :model="form">
         <el-row>
             <el-col :span="7">
-                <el-form :model="select">
                     <el-form-item label="下单时间"
                                   :label-width="formLabelWidth">
                         <el-date-picker
@@ -286,7 +308,7 @@
                         <el-select v-model="form.ckStatus" placeholder="请选择">
                             <el-option :value="-1" label="全部"></el-option>
                             <el-option :value="21" label="部分分拣"></el-option>
-                            <el-option :value="31"label="全部分拣"></el-option>
+                            <el-option :value="31" label="全部分拣"></el-option>
                             <el-option :value="23" label="部分出库"></el-option>
                             <el-option :value="32" label="全部出库"></el-option>
                         </el-select>
@@ -300,10 +322,8 @@
                             <el-option :value="3" label="未滞留"></el-option>
                         </el-select>
                     </el-form-item>
-                </el-form>
             </el-col>
             <el-col :span="6" :offset="2">
-                <el-form :model="select">
                     <el-form-item label="联系电话"
                                   :label-width="formLabelWidth">
                         <el-input
@@ -353,15 +373,13 @@
                             <el-option :value="3" label="未欠货"></el-option>
                         </el-select>
                     </el-form-item>
-                </el-form>
             </el-col>
             <el-col :span="6" :offset="2">
-                <el-form :model="select">
                     <el-form-item label="货品名称"
                                   :label-width="formLabelWidth">
                         <el-input
                                 class="input"
-                                v-model="form.cksGoodsId"
+                                v-model="form.bgGoodsName"
                                 icon="search"
                                 placeholder="货品名称"></el-input>
                     </el-form-item>
@@ -369,7 +387,7 @@
                                   :label-width="formLabelWidth">
                         <el-input
                                 class="input"
-                                v-model="form.cksGoodsId"
+                                v-model="form.bgGoodsNo"
                                 icon="search"
                                 placeholder="货品单号"></el-input>
                     </el-form-item>
@@ -401,13 +419,13 @@
                                   :label-width="formLabelWidth">
                         <el-input
                                 class="input"
-                                v-model="form.msxHpkcid"
+                                v-model="form.blLname"
                                 icon="search"
                                 placeholder="下架库位"></el-input>
                     </el-form-item>
-                </el-form>
             </el-col>
         </el-row>
+        </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
         </div>
@@ -529,7 +547,6 @@
         cursor: pointer;
         padding: 0;
         margin: 0;
-        float: left;
         font-size: 14px;
         color: #1f2d3d;
         margin-top: 29px;
@@ -594,356 +611,384 @@
 </style>
 <script>
     var outputDaily = new Vue({
-        el: '#outputDaily',
-        prop: {},
-        data: function () {
-            return {
-                outputDaily: [],
-                multipleSelection: [],
-                multiSelect: false,
-                pickerOptions: {
-                    shortcuts: [{
-                        text: '最近一周',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近一个月',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近三个月',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }]
+            el: '#outputDaily',
+            prop: {},
+            data: function () {
+                return {
+                    outputDaily: [],
+                    multipleSelection: [],
+                    multiSelect: false,
+                    pickerOptions: {
+                        shortcuts: [{
+                            text: '最近一周',
+                            onClick: function (picker) {
+                                var end = new Date();
+                                var start = new Date();
+                                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                                picker.$emit('pick', [start, end]);
+                            }
+                        }, {
+                            text: '最近一个月',
+                            onClick: function (picker) {
+                                var end = new Date();
+                                var start = new Date();
+                                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                                picker.$emit('pick', [start, end]);
+                            }
+                        }, {
+                            text: '最近三个月',
+                            onClick: function (picker) {
+                                var end = new Date();
+                                var start = new Date();
+                                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                                picker.$emit('pick', [start, end]);
+                            }
+                        }]
+                    },
+                    showLoading: false,
+                    currentPage: 1,
+                    pageSize: 10,
+                    date: [null, null],                 //主页面 选择日期 搜索
+                    ckCkdjNo: '',                       //主页面 出库单号 搜索
+                    ckStatus: '',                         //主页面 出库状态 搜索
+                    formLabelWidth: '120px',            //表单 配置
+                    form: _form(),                           //表单 弹出层 信息集合
+                    dialogFormActive: 0,                //新建 弹出层 steps 当前进度
+                    dialogFormVisible: false,           //新建 弹出层 是否可见
+                    submitLoading: false,               //新建 弹出层 提交等待
+                    select: _form(),                         //搜索 弹出层 信息集合,
+                    printf: [],                         //搜索 弹出层 信息集合,
+                    dialogSelectVisible: false,
+                    dialogPrintfVisible: false,
+                    selectLoading: false,
+                    printfLoading: false,
+                    printDatas: [],          // 打印数据
+                }
+            },
+            computed: {
+                // TODO 表格提交
+                option: function () {
+                    return {
+                        "draw": 1,
+                        "pageNum": this.currentPage,
+                        "pageSize": this.pageSize,
+                        "ckStatus": this.ckStatus,
+                        "ckCkdjNo": this.ckCkdjNo.trim(),
+                        "ckStartXdsj": tsf_date(this.date[0]),
+                        "ckEndXdsj": tsf_date(this.date[1]),
+                    }
                 },
-                showLoading: false,
-                currentPage: 1,
-                pageSize: 10,
-
-                date: [null, null],                 //主页面 选择日期 搜索
-                rkRkdjNo: '',                       //主页面 入库单号 搜索
-
-                formLabelWidth: '120px',            //表单 配置
-                form: form(),                           //表单 弹出层 信息集合
-                dialogFormActive: 0,                //新建 弹出层 steps 当前进度
-                dialogFormVisible: false,           //新建 弹出层 是否可见
-                submitLoading: false,               //新建 弹出层 提交等待
-
-                select: form(),                         //搜索 弹出层 信息集合,
-                printf: [],                         //搜索 弹出层 信息集合,
-                dialogSelectVisible: false,
-                dialogPrintfVisible: false,
-                selectLoading: false,
-                printfLoading: false,
-
-                printDatas: [],          // 打印数据
-            }
-        },
-        computed: {
-            // TODO 表格提交
-            option: function () {
-                return {
-                    "draw": 1,
-                    "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
-                }
+                form_pop: function () {
+                    return {
+                        "draw": 1,
+                        "pageNum": this.currentPage,
+                        "pageSize": this.pageSize,
+                        "ckStartXdsj": tsf_date( this.form.ckXdsj[0]),
+                        "ckEndXdsj": tsf_date( this.form.ckXdsj[1]),
+                        "mhStartCreateTime": tsf_date(this.form.mhCreatetime[0]),
+                        "mhEndCreateTime": tsf_date(this.form.mhCreatetime[1]),
+                        "ckCksj":tsf_date(this.form.ckCksj[0]),
+                        "ckEndtime": tsf_date(this.form.ckCksj[1]),
+                        "msxStartQrsj": tsf_date(this.form.msxQrsj[0]),
+                        "msxEndQrsj": tsf_date(this.form.msxQrsj[0]),
+                        "ckStatus": this.form.ckStatus,
+                        "cksZlStatus": this.form.cksZlStatus,
+                        "ckIsauto": this.form.ckIsauto,
+                        "ckStartwith": this.form.ckStartwith,
+                        "cksQhStatus": this.form.cksQhStatus,
+                        "ckTel": this.form.ckTel,
+                        "ckContacts": this.form.ckContacts,
+                        "ckCkdjClientno": this.form.ckCkdjClientno,
+                        "ckCkdjClientname": this.form.ckCkdjClientname,
+                        "ckrwCph": this.form.ckrwCph,
+                        "ckrwWls": this.form.ckrwWls,
+                        "ckCkdjType": this.form.ckCkdjType,
+                        "ckArehouseId": this.form.ckArehouseId,
+                        "ckClientId": this.form.ckClientId,
+                        "cksGoodsId": this.form.cksGoodsId,
+                        "bgGoodsName": this.form.bgGoodsName,
+                        "msxXjry": this.form.msxXjry,
+                        "blLname": this.form.blLname,
+                        "ckAdress": this.form.ckAdress,
+                        "ckCkdjNo":this.form.ckCkdjNo,
+                        "ckQhStatus": this.form.ckQhStatus,
+                        "bgGoodsNo": this.form.bgGoodsNo
+                    }
+                },
+                distributionForm: function () {
+                    return {
+                        distribution: this.distribution
+                    }
+                },                                      //分配 表单
             },
-            search: function () {
-                return {
-                    "draw": 1,
-                    "pageNum": this.currentPage,
-                    "pageSize": this.pageSize,
-                    "rkrwN": this.form.rkrwN,
-                    "rkrwCph": this.form.rkrwCph,
-                    "dds": this.form.dds,
-                    "pxs": this.form.pxs,
-                    "rkrwSjxm": this.form.rkrwSjxm,
-                    "rkrwDhrq": this.form.rkrwDhrq,
-                    "rkrwDbd": this.form.rkrwDbd,
-                    "rkrwCys": this.form.rkrwCys,
-                    "rkrwDh": this.form.rkrwDh,
-                    "rkrwStatus": this.form.rkrwStatus
-                }
+            methods: {
+                inlineModify: function (index, row) {
+                    this.multipleSelection = [row];
+                    printfCompile(this);
+                    this.dialogPrintfVisible = !this.dialogPrintfVisible;
+                },                                //行内按钮 打印标签页
+                multiSelectClick: function () {
+                    this.multiSelect = !this.multiSelect;
+                },                                      //多选 状态维护
+                multiSelectionChange: function (val) {
+                    /*<debug>*/
+                    console.log(this.multipleSelection);
+                    /*</debug>*/
+                    this.multipleSelection = val;
+                },                               //多选 选中控制
+                moreOperationModify: function () {
+                    printfCompile(this);
+                    this.dialogPrintfVisible = !this.dialogPrintfVisible;
+                },                                   //多选 打印标签页
+                handleSizeChange: function (val) {
+                    /*<debug>*/
+                    console.log('每页' + val + '条');
+                    /*</debug>*/
+                    this.pageSize = val;
+                    p[0].post(this.option);
+                },                                   //分页 Size
+                handleCurrentChange: function (val) {
+                    /*<debug>*/
+                    console.log('当前第' + val + '页');
+                    /*</debug>*/
+                    this.currentPage = val;
+                    p[0].post(this.option);
+                },                                //分页 当前页
+                prev: function () {
+                    this.dialogFormActive--;
+                    this.$refs.carousel.prev();
+                },                                                  //新建 弹出层banner控制 前一个
+                next: function () {
+                    this.dialogFormActive++;
+                    this.$refs.carousel.next();
+                },                                                  //新建 弹出层banner控制 后一个
+                submit: function () {
+                    var _this = this;
+                    this.dialogFormActive++;
+                    this.submitLoading = true;
+                    //TODO 此处应是ajax请求
+                    setTimeout(function () {
+                        _this.submitLoading = false;
+                        _this.$notify({
+                            title: '成功',
+                            message: '保存成功！',
+                            type: 'success'
+                        });
+                        _this.dialogFormVisible = false;
+                        _this.form = {
+                            rkRkdjNo: '',
+                            rkType: '',
+                            rkRemarks: '',
+                            rkDocsList: [],
+                            bgGoodsNo: '',
+                            selectGood: {
+                                value: '',
+                                bgGoodsName: '',
+                                count: 0,
+                                bgGoodsId: ''
+                            },
+                            saveARkDocsList: true,
+                            deleteARkDocsList: true
+                        };
+                        _this.dialogFormActive = 0;
+                        _this.$refs.carousel.setActiveItem(0);
+                        p[0].post();
+                    }, 1500);
+                },                                                //新建 表单提交
+                selectSubmit: function () {
+                    p[0].post(obj.form_pop);
+                    this.dialogSelectVisible = false;
+                },                                          //详细查询 提交
+                printfSubmit: function () {
+                    var datas = [];
+                    var checkData = outputDaily.$refs.printf.getCheckedNodes();
+                    for (var i in checkData) {
+                        if (typeof checkData[i].val2 !== 'undefined') {
+                            datas.push(checkData[i]);
+                        }
+                    }
+                    this.printDatas = datas;
+                    this.dialogPelectVisible = !this.dialogPrintfVisible;
+                    wap.print(this);
+                },                                          //打印 提交
+                printfCheckChange: function () {
+
+                },                                     //打印 选中维护
+                printfLoadNode: function (node, resolve) {
+                    console.log(node.data);
+                    switch (node.level) {
+                        case 0:
+                            return resolve(this.printf);
+                        case 1:
+                            postRkrwNo(this, {
+                                rkrwNo: node.data.rkrwNo,
+                                rkrwDhrq: node.data.rkrwDhrq
+                            }, resolve);
+                            break;
+                        case 2:
+                            console.log(node.data.name);
+                            postRkdjId(this, {
+                                rkrwNo: node.data.rkrwNo,
+                                rkrwDhrq: node.data.rkrwDhrq
+                            }, resolve);
+                            break;
+                        case 3:
+                            return resolve([]);
+                    }
+                },
+                auto_ckXdsj: function (value, bool) {
+                    if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                    else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                },                                  //下单时间
+                auto_ckCksj: function (value, bool) {
+                    if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                    else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+                },                                  //下架开始时间
+                auto_ckEndtime: function (value, bool) {
+                    if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                    else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+                },                                  //下架结束时间                                                                             //下架结束时间
+                auto_ckStatus: function (value) {
+                    var temp = {};
+                    if (!isNaN(value)) {
+                        temp = {
+                            1: '初始',
+                            21: '部分分拣',
+                            22: '部分下架',
+                            31: '全部分拣',
+                            32: '全部下架',
+                            50: '作废'
+                        }
+                    } else {
+                        temp = {
+                            '初始': 1,
+                            '部分分拣': 21,
+                            '部分下架': 22,
+                            '全部分拣': 31,
+                            '全部下架': 32,
+                            '作废': 50
+
+                        }
+                    }
+                    return temp[value];
+                },                                           //出库状态
+                auto_cksZlStatus: function (value) {
+                    var temp = {};
+                    if (!isNaN(value)) {
+                        temp = {
+                            1: '未到车滞留',
+                            2: '到车滞留',
+                            3: '未滞留',
+                        }
+                    } else {
+                        temp = {
+                            '未到车滞留': 1,
+                            '到车滞留': 2,
+                            '未滞留': 3,
+                        }
+                    }
+                    return temp[value];
+                },                                           //滞留状态
+                auto_cksQhStatus: function (value) {
+                    var temp = {};
+                    if (!isNaN(value)) {
+                        temp = {
+                            1: '全部欠货',
+                            2: '部分欠货',
+                            3: '未欠货',
+                        }
+                    } else {
+                        temp = {
+                            '全部欠货': 1,
+                            '部分欠货': 2,
+                            '未欠货': 3,
+                        }
+                    }
+                    return temp[value];
+                },                                           //欠货状态
+                auto_ckIsauto: function (value) {
+                    var temp = {};
+                    if (!isNaN(value)) {
+                        temp = {
+                            1: '手动',
+                            2: '导入',
+                            3: '接口',
+                        }
+                    } else {
+                        temp = {
+                            '手动': 1,
+                            '导入': 2,
+                            '接口': 3,
+                        }
+                    }
+                    return temp[value];
+                },                                           //制作方式
+                auto_ckStartwith: function (value) {
+                    var temp = {};
+                    if (!isNaN(value)) {
+                        temp = {
+                            1: '电脑端',
+                            2: 'PDA',
+                        }
+                    } else {
+                        temp = {
+                            '电脑端': 1,
+                            'PDA': 2,
+                        }
+                    }
+                    return temp[value];
+                }                                           //操作方式
+
+
             },
-            distributionForm: function () {
-                return {
-                    distribution: this.distribution
-                }
-            },                                      //分配 表单
-        },
-        methods: {
-            inlineModify: function (index, row) {
-                this.multipleSelection = [row];
-                printfCompile(this);
-                this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                //行内按钮 打印标签页
-            multiSelectClick: function () {
-                this.multiSelect = !this.multiSelect;
-            },                                      //多选 状态维护
-            multiSelectionChange: function (val) {
-                /*<debug>*/
-                console.log(this.multipleSelection);
-                /*</debug>*/
-                this.multipleSelection = val;
-            },                               //多选 选中控制
-            moreOperationModify: function () {
-                printfCompile(this);
-                this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                   //多选 打印标签页
-            handleSizeChange: function (val) {
-                /*<debug>*/
-                console.log('每页' + val + '条');
-                /*</debug>*/
-                this.pageSize = val;
-                p[0].post( this.option);
-            },                                   //分页 Size
-            handleCurrentChange: function (val) {
-                /*<debug>*/
-                console.log('当前第' + val + '页');
-                /*</debug>*/
-                this.currentPage = val;
-                p[0].post( this.option);
-            },                                //分页 当前页
-            prev: function () {
-                this.dialogFormActive--;
-                this.$refs.carousel.prev();
-            },                                                  //新建 弹出层banner控制 前一个
-            next: function () {
-                this.dialogFormActive++;
-                this.$refs.carousel.next();
-            },                                                  //新建 弹出层banner控制 后一个
-            submit: function () {
-                var _this = this;
-                this.dialogFormActive++;
-                this.submitLoading = true;
-                //TODO 此处应是ajax请求
-                setTimeout(function () {
-                    _this.submitLoading = false;
-                    _this.$notify({
-                        title: '成功',
-                        message: '保存成功！',
-                        type: 'success'
-                    });
-                    _this.dialogFormVisible = false;
-                    _this.form = {
-                        rkRkdjNo: '',
-                        rkType: '',
-                        rkRemarks: '',
-                        rkDocsList: [],
-                        bgGoodsNo: '',
-                        selectGood: {
-                            value: '',
-                            bgGoodsName: '',
-                            count: 0,
-                            bgGoodsId: ''
-                        },
-                        saveARkDocsList: true,
-                        deleteARkDocsList: true
-                    };
-                    _this.dialogFormActive = 0;
-                    _this.$refs.carousel.setActiveItem(0);
-                    p[0].post();
-                }, 1500);
-            },                                                //新建 表单提交
-            selectSubmit: function () {
-                this.dialogSelectVisible = !this.dialogSelectVisible;
-                p[0].post( {});
-            },                                          //详细查询 提交
-            printfSubmit: function () {
-                var datas=[];
-                var checkData=outputDaily.$refs.printf.getCheckedNodes();
-                for(var i in checkData){
-                    if(typeof checkData[i].val2!=='undefined'){
-                        datas.push(checkData[i]);
-                    }
-                }
-                this.printDatas=datas;
-                this.dialogPelectVisible = !this.dialogPrintfVisible;
-                wap.print(this);
-            },                                          //打印 提交
-            printfCheckChange: function () {
-
-            },                                     //打印 选中维护
-            printfLoadNode: function (node, resolve) {
-                console.log(node.data);
-                switch (node.level) {
-                    case 0:
-                        return resolve(this.printf);
-                    case 1:
-                        postRkrwNo(this, {
-                            rkrwNo:node.data.rkrwNo,
-                            rkrwDhrq:node.data.rkrwDhrq
-                        }, resolve);
-                        break;
-                    case 2:
-                        console.log(node.data.name);
-                        postRkdjId(this, {
-                            rkrwNo:node.data.rkrwNo,
-                            rkrwDhrq:node.data.rkrwDhrq
-                        }, resolve);
-                        break;
-                    case 3:
-                        return resolve([]);
-                }
+            watch: {
+                ckStatus: function () {
+                    /*<debug>*/
+                    console.log(this.option);
+                    /*</debug>*/
+                    p[0].post(this.option);
+                },
+                ckCkdjNo: function () {
+                    /*<debug>*/
+                    console.log(this.option);
+                    /*</debug>*/
+                    p[0].post(this.option);
+                },
             },
-            auto_ckXdsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                                  //下单时间
-            auto_ckCksj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                                  //下架开始时间
-            auto_ckEndtime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                                  //下架结束时间                                                                             //下架结束时间
-            auto_ckStatus:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        1:'初始',
-                        21:'部分分拣',
-                        22:'部分下架',
-                        31:'全部分拣',
-                        32:'全部下架',
-                        50:'作废'
-                    }
-                }else{
-                    temp={
-                        '初始': 1,
-                        '部分分拣': 21,
-                        '部分下架': 22,
-                        '全部分拣': 31,
-                        '全部下架': 32,
-                        '作废': 50
-
-                    }
-                }
-                return temp[value];
-            },                                           //出库状态
-            auto_cksZlStatus:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        1:'未到车滞留',
-                        2:'到车滞留',
-                        3:'未滞留',
-                    }
-                }else{
-                    temp={
-                        '未到车滞留': 1,
-                        '到车滞留': 2,
-                        '未滞留': 3,
-                    }
-                }
-                return temp[value];
-            },                                           //滞留状态
-            auto_cksQhStatus:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        1:'全部欠货',
-                        2:'部分欠货',
-                        3:'未欠货',
-                    }
-                }else{
-                    temp={
-                        '全部欠货': 1,
-                        '部分欠货': 2,
-                        '未欠货': 3,
-                    }
-                }
-                return temp[value];
-            },                                           //欠货状态
-            auto_ckIsauto:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        1:'手动',
-                        2:'导入',
-                        3:'接口',
-                    }
-                }else{
-                    temp={
-                        '手动': 1,
-                        '导入': 2,
-                        '接口': 3,
-                    }
-                }
-                return temp[value];
-            },                                           //制作方式
-            auto_ckStartwith:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        1:'电脑端',
-                        2:'PDA',
-                    }
-                }else{
-                    temp={
-                        '电脑端': 1,
-                        'PDA': 2,
-                    }
-                }
-                return temp[value];
-            }                                           //操作方式
-
-
-
-
-
-
-
         }
-    });
-    function form() {
+    );
+    // 高级 监视器的 使用方法
+    outputDaily.$watch('date', function () {
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        p[0].post(this.option);
+    }, {deep: true});
+    function _form() {
         return {
-            rkrwN: '',
-            rkrwCph: '',
-            dds: '',
-            pxs: '',
-            rkrwSjxm: '',
-            rkrwDhrq: '',
-            rkrwDbd: '',
-            rkrwCys: '',
-            rkrwDh: '',
-            rkrwStatus: '',
-            ckXdsj:[null,null],         //模糊查询--下单时间
-            mhCreatetime:[null,null],  //模糊查询--分拣时间
-            ckCksj:[null,null],         //模糊查询--下架时间
-            msxQrsj:[null,null],        //模糊查询--操作时间
-            ckStatus:'',                 //模糊查询--出库状态
-            cksZlStatus:'',              //模糊查询--是否滞留
-            ckIsauto:'',                //模糊查询--制作方式
-            ckStartwith:'',             //模糊查询--操作方式
-            cksQhStatus:'',              //模糊查询--是否欠货
-            ckTel:'',                     //模糊查询--联系电话
-            ckContacts:'',              //模糊查询--联系人
-            ckCkdjNo:'',                 //模糊查询--出库单号
-            cksGoodsId:'',              //模糊查询--货品名称
-            cksGoodsId:'',              //模糊查询--货品编号
-            ckCkdjClientno:'',          //模糊查询--客户编号
-            ckCkdjClientname:'',        //模糊查询--客户名称
-            msxXjry:'',                  //模糊查询--作业人员
-            msxHpkcid:'',                //模糊查询--下架库位
-            ckAdress:''                  //模糊查询--客户地址
+            ckXdsj: [null, null],         //模糊查询--下单时间
+            mhCreatetime: [null, null],  //模糊查询--分拣时间
+            ckCksj: [null, null],         //模糊查询--下架时间
+            msxQrsj: [null, null],        //模糊查询--操作时间
+            ckStatus: '',                 //模糊查询--出库状态
+            cksZlStatus: '',              //模糊查询--是否滞留
+            ckIsauto: '',                //模糊查询--制作方式
+            ckStartwith: '',             //模糊查询--操作方式
+            cksQhStatus: '',              //模糊查询--是否欠货
+            ckTel: '',                     //模糊查询--联系电话
+            ckContacts: '',              //模糊查询--联系人
+            ckCkdjNo: '',                 //模糊查询--出库单号
+            bgGoodsName: '',              //模糊查询--货品名称
+            bgGoodsNo: '',              //模糊查询--货品编号
+            ckCkdjClientno: '',          //模糊查询--客户编号
+            ckCkdjClientname: '',        //模糊查询--客户名称
+            msxXjry: '',                  //模糊查询--作业人员
+            blLname: '',                //模糊查询--下架库位
+            ckAdress: ''                  //模糊查询--客户地址
         }
     }
-    var obj=outputDaily;
-    var p=[];
+    var obj = outputDaily;
+    var p = [];
     // 0 出库日报 分页查询
     p[0] = autoPost({
         urlHock: "/hock/outputDaily/page.json",
@@ -953,22 +998,15 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-     // 1 出库日报 导出
+    // 1 出库日报 导出
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/outputDaily/1",
         success: function (json) {
         }
     });
-    // 高级 监视器的 使用方法
-    //    outputDaily.$watch('date', function () {
-    //        if (!this.option.dateStart)return;
-    //        /*<debug>*/
-    //        console.log(this.option);
-    //        /*</debug>*/
-    //        post(this, this.option);
-    //    }, {deep: true});
-    p[0].post( outputDaily.option);
+
+    p[0].post(outputDaily.option);
 
 </script>
 
