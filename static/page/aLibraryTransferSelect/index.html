@@ -5,7 +5,7 @@
         <el-col :span="24">
             <div class="inner btn-nav">
                 <el-date-picker
-                        v-model="zyCreateTime"
+                        v-model="date"
                         type="daterange"
                         align="right"
                         placeholder="创建时间"
@@ -13,7 +13,7 @@
                         :picker-options="pickerOptions">
                 </el-date-picker>
                 <el-input
-                        v-model="zyCreateUserId"
+                        v-model="zyCreateUserName"
                         class="input"
                         icon="search"
                         placeholder="创建人"></el-input>
@@ -67,7 +67,7 @@
                                                 <span>{{props.row.zyConfirmUserId}}</span>
                                             </el-form-item>
                                             <el-form-item label="创建人">
-                                                <span>{{props.row.zyCreateUserId}}</span>
+                                                <span>{{props.row.zyCreateUserName}}</span>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :span="10" :offset="2">
@@ -277,7 +277,7 @@
             <el-form-item label="创建人"
                           :label-width="formLabelWidth">
                 <el-input
-                        v-model="form.zyCreateUserId"
+                        v-model="form.zyCreateUserName"
                         class="input"
                         icon="search"
                         placeholder="创建人"></el-input>
@@ -523,7 +523,6 @@
         cursor: pointer;
         padding: 0;
         margin: 0;
-        float: left;
         font-size: 14px;
         color: #1f2d3d;
         margin-top: 29px;
@@ -603,7 +602,7 @@
             rkrwStatus: '',
             zyCreateTime:[null,null],//模糊查询--创建时间
             zyConfirmTime:[null,null],//模糊查询--确认时间
-            zyCreateUserId:'',//模糊查询--创建人
+            zyCreateUserName:'',//模糊查询--创建人
             zyConfirmUserId:'',//模糊查询--确认人
             zyMentionUserId:'',//模糊查询--提起人
             zyArehouseId:'',//模糊查询--仓库
@@ -649,10 +648,9 @@
                 currentPage: 1,
                 pageSize: 10,
 
-                zyCreateTime: [null, null],                 //主页面 创建时间 搜索
-                zyCreateUserId: '',                       //主页面 创建人 搜索
+                date: [null, null],                 //主页面 创建时间 搜索
+                zyCreateUserName: '',                       //主页面 创建人 搜索
                 zyStatus:'',                                //主页面 状态
-
                 formLabelWidth: '120px',            //表单 配置
                 form: form(),                           //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
@@ -670,7 +668,11 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
+                    "pageSize": this.pageSize,
+                    "zyCreateUserName":this.zyCreateUserName.trim(),
+                    "zyStatus":this.zyStatus,
+                    "startCreateTimeParam": tsf_date(this.date[0]),
+                    "endCreateTimeParam": tsf_date(this.date[1]),
                 }
             },
             search: function () {
@@ -834,8 +836,28 @@
             },                                    //任务状态,
 
         },
-        watch: {}
+        watch: {
+            zyCreateUserName: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+            zyStatus: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+        }
     });
+    // 高级 监视器的 使用方法
+    aLibraryTransferSelect.$watch('date', function () {
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        p[0].post( this.option);
+    }, {deep: true});
     var obj=aLibraryTransferSelect;
     var p=[];
     // 0 库位转移查询 分页查询
@@ -862,16 +884,6 @@
 
         }
     });
-
-
-    // 高级 监视器的 使用方法
-    //        aLibraryTransferSelect.$watch('aLibraryTransferSelect.inputOperation', function () {
-    //            if (!this.option.dateStart)return;
-    //            /*<debug>*/
-    //            console.log(this.option);
-    //            /*</debug>*/
-    //            post(this, this.option);
-    //        }, {deep: true});
     p[0].post(aLibraryTransferSelect.option);
     function printfCompile(obj) {
         var resoleveStep = [];

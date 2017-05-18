@@ -201,7 +201,7 @@
                                         v-model="date"
                                         type="daterange"
                                         align="right"
-                                        placeholder="选择日期"
+                                        placeholder="下单时间"
                                         class="datePicker"
                                         :picker-options="pickerOptions">
                                 </el-date-picker>
@@ -720,6 +720,8 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
+                    "ckCkdjType":this.ckCkdjType,
+                    "ckCkdjNo":this.ckCkdjNo,
                     "startTimeParam": tsf_date(this.date[0]),
                     "endTimeParam": tsf_date(this.date[1]),
 
@@ -1175,6 +1177,13 @@
             }
         }
     });
+    // 高级 监视器的 使用方法
+    outputAppointment.$watch('date', function () {
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        p[7].post(this.option);
+    }, {deep: true});
     var obj = outputAppointment;
     var p = [];
     // 0 出库预约 新增 出库单据/包含出库单明细
@@ -1386,15 +1395,6 @@
     var validateRule = {
         a: new RegExp("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", "g")
     };
-
-
-    // 高级 监视器的 使用方法
-    outputAppointment.$watch('date', function () {
-        /*<debug>*/
-        console.log(this.option);
-        /*</debug>*/
-        p[7].post(this.option);
-    }, {deep: true});
     outputAppointment.$watch('form.title', function () {
         if (this.form.title === '查看') this.watchView = true;
         else this.watchView = false;

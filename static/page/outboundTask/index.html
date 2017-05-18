@@ -13,7 +13,7 @@
                         v-model="date"
                         type="daterange"
                         align="right"
-                        placeholder="选择日期"
+                        placeholder="制作时间"
                         class="datePicker"
                         :picker-options="pickerOptions">
                 </el-date-picker>
@@ -1036,20 +1036,20 @@
                 currentPage: 1,
                 pageSize: 10,
                 date: [null, null],                   //主页面 选择日期 搜索
+
                 ckrwNo: '',                         //主页面 入库单号 搜索
                 ckrwCph: '',                           //主页面 车牌号
+
                 formLabelWidth: '120px',              //表单   配置
                 form: form(),                         //表单   弹出层 信息集合
                 dialogFormActive: 0,                  //新建    弹出层 steps 当前进度
                 dialogFormVisible: false,             //新建    弹出层 是否可见
                 submitLoading: false,                 //新建     弹出层 提交等待
-
                 car: formCar(),                       //到车信息  弹出层 信息集合
                 dialogCarVisible: false,              //到车信息  弹出层 是否可见
-
-
                 modifyTask: [],                        //修改任务信息  弹出层 信息集合
                 dialogModifyTaskVisible: false,        //修改任务信息  弹出层 是否可见
+
 
 
                 sortingMethod: [],                      //修改分拣方式信息  弹出层 信息集合
@@ -1070,7 +1070,11 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
+                    "pageSize": this.pageSize,
+                    "ckrwNo":this.ckrwNo.trim(),
+                    "ckrwCph":this.ckrwCph.trim(),
+                    "ckrwStartGreatTime": tsf_date(this.date[0]),
+                    "ckrwEndGreatTime": tsf_date(this.date[1]),
                 }
             },
             search: function () {
@@ -1369,8 +1373,28 @@
                 return temp[value];
             },                                   //TODO 滞留状态
         },
-        watch: {}
+        watch: {
+            ckrwNo: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+            ckrwCph: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+        }
     });
+    // 高级 监视器的 使用方法
+        outboundTask.$watch('date', function () {
+            /*<debug>*/
+            console.log(this.option);
+            /*</debug>*/
+            p[0].post( this.option);
+        }, {deep: true});
     function form() {
         return {
             ckrwId: '',
@@ -1451,14 +1475,7 @@
         }
     }
 
-    // 高级 监视器的 使用方法
-    //    outboundTask.$watch('date', function () {
-    //        if (!this.option.dateStart)return;
-    //        /*<debug>*/
-    //        console.log(this.option);
-    //        /*</debug>*/
-    //        post(this, this.option);
-    //    }, {deep: true});
+
     p[0].post(outboundTask.option);
     function printfCompile(obj) {
         var resoleveStep = [];

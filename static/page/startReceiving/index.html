@@ -12,7 +12,7 @@
                         v-model="date"
                         type="daterange"
                         align="right"
-                        placeholder="选择日期"
+                        placeholder="预计到货"
                         class="datePicker"
                         :picker-options="pickerOptions">
                 </el-date-picker>
@@ -487,7 +487,9 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
+                    "pageSize": this.pageSize,
+                    "rkrwCph":this.rkrwCph.trim(),
+                    "rkrwNo":this.rkrwNo.trim(),
                 }
             },
             search: function () {
@@ -661,6 +663,20 @@
                 }
                 return temp[value];
             },                                     //任务状态
+        },
+        watch: {
+            rkrwCph: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+            rkrwNo: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
         }
     });
 

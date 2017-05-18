@@ -2070,8 +2070,8 @@
     /**
      *      TODO 入库台账       inputLedger
          */
-            /**
-             *         TODO 0 入库台账主页面
+        /**
+             *         TODO 0  分页查询入库台账信息 POST /mfunrktzDoc
              *             rkCreatetime    始发日期
              *             rkSjsj        到货日期
              *             rkSjsj         收货日期
@@ -2101,8 +2101,11 @@
              *             rksCljg         处理结果(操作员手动输入)
              *             rksJssj         结算时间,可以为空操作员手动输入
              */
-            /**
-             *  TODO  1 制作台账
+        /**
+             * TODO 1 制作/欠货 修改入库台账信息  POST /mfunrktzDoc/updateDocs
+             */
+    /**
+ *  TODO  2 制作台账
              *  rkspm       泡沫(可以为0,操作员手动输入)
              *  rksDbPswb   调拨破损外包(可以为0,操作员手动输入)
              *  rksYtPswb   源头破损外包(可以为0,操作员手动输入)
@@ -2115,7 +2118,7 @@
              *  rksJssj     结算时间,可以为空操作员手动输入
              */
             /**
-             *  TODO 2 制作台账明细
+             *  TODO 3 制作台账明细
              *  rkRkdjNo    入库单号
              *  bgGoodsName 货品名称
              *  bgGoodsNo   货品编号
@@ -2123,18 +2126,18 @@
              *  ruUserName  收货人
              */
             /**
-             *          TODO 3 导出按钮
+             *          TODO 4 导出按钮
              */
             /**
-             *  TODO 4 欠货完结
+             *  TODO 5 欠货完结
              *  rkQhWjyy    欠货完结原因/完结原因
              *  rkQhBfdh  (欠货补发单号)
              */
             /**
-             *  TODO 5 入库单号不允许重复
+             *  TODO 6 入库单号不允许重复
              */
             /**
-             *  TODO 6 数量不允许为负数
+             *  TODO 7 数量不允许为负数
              */
 
 

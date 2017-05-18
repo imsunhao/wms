@@ -13,7 +13,7 @@
                         v-model="date"
                         type="daterange"
                         align="right"
-                        placeholder="选择日期"
+                        placeholder="制作时间"
                         class="datePicker"
                         :picker-options="pickerOptions">
                 </el-date-picker>
@@ -765,7 +765,11 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
+                    "pageSize": this.pageSize,
+                    "ckrwNo":this.ckrwNo.trim(),
+                    "ckrwCph":this.ckrwCph.trim(),
+                    "ckrwStartGreatTime": tsf_date(this.date[0]),
+                    "ckrwEndGreatTime": tsf_date(this.date[1]),
                 }
             },
             search: function () {
@@ -989,8 +993,28 @@
                 return temp[value];
             },                                //滞留状态
         },
-        watch: {}
+        watch: {
+            ckrwNo: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+            ckrwCph: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+        }
     });
+    // 高级 监视器的 使用方法
+        outputShipment.$watch('date', function () {
+            /*<debug>*/
+            console.log(this.option);
+            /*</debug>*/
+            p[0].post(this.option);
+        }, {deep: true});
     function form() {
         return {
             ckrwId: '',
@@ -1056,14 +1080,7 @@
     }
 
 
-    // 高级 监视器的 使用方法
-    //    outputShipment.$watch('date', function () {
-    //        if (!this.option.dateStart)return;
-    //        /*<debug>*/
-    //        console.log(this.option);
-    //        /*</debug>*/
-    //        post(this, this.option);
-    //    }, {deep: true});
+
     p[0].post( outputShipment.option);
     function printfCompile(obj) {
         var resoleveStep = [];

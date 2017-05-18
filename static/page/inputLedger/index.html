@@ -447,7 +447,7 @@
                 <el-carousel-item>
                     <el-row>
                         <el-row>
-                            <el-col :span="8" :offset="0" >
+                            <el-col :span="8" :offset="1" >
                                 <el-form-item
                                         label="始发日期"
                                         :label-width="formLabelWidth">
@@ -494,7 +494,7 @@
                                     {{ledger.rkRkdjNo}}
                                 </el-form-item>
                             </el-col>
-                            <el-col :span="8" :offset="0" >
+                            <el-col :span="8" :offset="1" >
                                 <el-form-item
                                         label="承运件数(箱)"
                                         :label-width="formLabelWidth">
@@ -765,58 +765,6 @@
     }
 </style>
 <script>
-    function form() {
-        return {
-            rkCreatetime: [null],//模糊查询--始发时间
-            rkSjsj: [null],//模糊查询--到货时间
-            rkSjsj: [null],//模糊查询--收货时间
-            rksJssj: [null],//模糊查询--结算时间
-            rkErpNo: '',//模糊查询--调拨单号
-            rkrwDbd: '',//模糊查询--调拨地
-            rkrwCph: '',//模糊查询--车牌号
-            ruUserName: '',//模糊查询--收货人
-            baName: '',//模糊查询--收货仓库
-            bgGoodsNo: '',//模糊查询--物料编号
-            bgGoodsName: '',//模糊查询--物料描述
-        }
-    }
-    function formEnd() {
-        return {
-            rksWjReason: '',             //完结原因
-            rksBfdh: '',             //补发单号
-        }
-    }
-    function formLedger() {
-        return {
-            rkCreatetime:'',      //始发日期
-            rkSjsj:'',           //到货日期
-            rkSjsj:'',           //收货日期
-            rkrwDbd:'',         //--调拨地点
-            rkrwCph:'',         //--承运商
-            rkrwCph:'',          // --车牌号
-            ruUserName:'',      //--收货人
-            baName:'',          //--收货仓库
-            rkRkdjNo:'',        //--单号
-            rkErpNo:'',         //-调拨单号
-                                 //承运件数(台)
-                                //承运件数(箱子)
-                                //方数
-            bgGoodsNo:'',      //--物料编号
-            bgGoodsName:'',    //--物料描述
-            rksPm: '',          //--泡沫
-                                //台数
-                               //件数
-                               //方数
-            rksDbPswb: '',   //--调拨破损外包
-            rksYtPswb: '',   //--源头破损外包
-            rksDbPsnb: '',   //--调拨破损内保
-            rksYtPsnb: '',   //--源头破损内保
-            rksYcyy: '',    // --异常原因
-            rksCljg: '',    // ---处理结果
-            rksPsts: '',    // --破损台数
-            rksJssj: '',    // --结算时间
-        }
-    }
     var inputLedger = new Vue({
         el: '#inputLedger',
         prop: {},
@@ -1043,14 +991,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                //分页 当前页
             newInput: function () {
                 this.dialogFormVisible = true;
@@ -1120,7 +1068,7 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(inputLedger);
+                    p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
             formValidateField: function (formName) {
@@ -1208,49 +1156,91 @@
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                post(this, this.option);
+                p[0].post( this.option);
             }
         }
     });
+    var obj=inputLedger;
+    var p=[];
+    // 0 入库台账 分页查询
+    p[0] = autoPost({
+        urlHock: "../../hock/inputLedger/page.json",
+        urlProd: "/route/inputLedger/0",
+        success: function (json) {
+            obj.$data.inputLedger = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+     // 0 入库台账 制作/欠货 修改入库台账信息
+    p[0] = autoPost({
+        urlHock: "",
+        urlProd: "/route/inputLedger/1",
+        success: function (json) {
+        }
+    });
+
+    function form() {
+        return {
+            rkCreatetime: [null],//模糊查询--始发时间
+            rkSjsj: [null],//模糊查询--到货时间
+            rkSjsj: [null],//模糊查询--收货时间
+            rksJssj: [null],//模糊查询--结算时间
+            rkErpNo: '',//模糊查询--调拨单号
+            rkrwDbd: '',//模糊查询--调拨地
+            rkrwCph: '',//模糊查询--车牌号
+            ruUserName: '',//模糊查询--收货人
+            baName: '',//模糊查询--收货仓库
+            bgGoodsNo: '',//模糊查询--物料编号
+            bgGoodsName: '',//模糊查询--物料描述
+        }
+    }
+    function formEnd() {
+        return {
+            rksWjReason: '',             //完结原因
+            rksBfdh: '',             //补发单号
+        }
+    }
+    function formLedger() {
+        return {
+            rkCreatetime:'',      //始发日期
+            rkSjsj:'',           //到货日期
+            rkSjsj:'',           //收货日期
+            rkrwDbd:'',         //--调拨地点
+            rkrwCph:'',         //--承运商
+            rkrwCph:'',          // --车牌号
+            ruUserName:'',      //--收货人
+            baName:'',          //--收货仓库
+            rkRkdjNo:'',        //--单号
+            rkErpNo:'',         //-调拨单号
+                                 //承运件数(台)
+                                //承运件数(箱子)
+                                //方数
+            bgGoodsNo:'',      //--物料编号
+            bgGoodsName:'',    //--物料描述
+            rksPm: '',          //--泡沫
+                                //台数
+                               //件数
+                               //方数
+            rksDbPswb: '',   //--调拨破损外包
+            rksYtPswb: '',   //--源头破损外包
+            rksDbPsnb: '',   //--调拨破损内保
+            rksYtPsnb: '',   //--源头破损内保
+            rksYcyy: '',    // --异常原因
+            rksCljg: '',    // ---处理结果
+            rksPsts: '',    // --破损台数
+            rksJssj: '',    // --结算时间
+        }
+    }
+
     // 高级 监视器的 使用方法
     inputLedger.$watch('date', function () {
         if (!this.option.dateStart)return;
         /*<debug>*/
         console.log(this.option);
         /*</debug>*/
-        post(this, this.option);
+        p[0].post(this.option);
     }, {deep: true});
 
-    post(inputLedger);
-    function post(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/inputLedger/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputLedger/0";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                inputLedger.$data.inputLedger = json.data;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }               //TODO 入库台账的主页面
-
+    p[0].post(inputLedger.option);
 
 </script>
