@@ -246,7 +246,7 @@
         </div>
         <el-row>
             <el-col :span="7">
-                <el-form :model="select">
+                <el-form :model="form">
                     <el-form-item label="下单时间"
                                   :label-width="formLabelWidth">
                         <el-date-picker
@@ -308,7 +308,7 @@
                 </el-form>
             </el-col>
             <el-col :span="7">
-                <el-form :model="select">
+                <el-form :model="form">
                     <el-form-item label="客户地址"
                                   :label-width="formLabelWidth">
                         <el-input
@@ -355,7 +355,7 @@
                 </el-form>
             </el-col>
             <el-col :span="7" :offset="2">
-                <el-form :model="select">
+                <el-form :model="form">
                     <el-form-item label="滞留状态"
                                   :label-width="formLabelWidth">
                         <el-select v-model="form.ckZlStatus" placeholder="请选择">
@@ -391,14 +391,11 @@
                             <el-option :value="2" label="PDA">PDA</el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="所属仓库" :label-width="formLabelWidth">
-                        <el-select
-                                :disabled="watchView"
-                                v-model="form.ckArehouseId"
-                                placeholder="请选择所属仓库">
+
+                    <el-form-item label="仓库"
+                                  :label-width="formLabelWidth">
+                        <el-select v-model="form.ckArehouseId" placeholder="请选择">
                             <el-option :value="-1" label="全部"></el-option>
-                            <el-option :label="obj.baName" :value="obj.baArehouseId"
-                                       v-for="obj of baseArehouses"></el-option>
                         </el-select>
                     </el-form-item>
                 </el-form>
@@ -734,8 +731,6 @@
         prop: {},
         data: function () {
             return {
-                baseArehouses: window.dbmessage.baseArehouses,
-                watchView: false,                           //观察状态量-是否为查看
                 outputSelect: [],
                 multipleSelection: [],
                 multiSelect: false,
@@ -773,7 +768,7 @@
                 ckCkdjNo: '',                       //主页面 出库单号 搜索
                 ckCkdjClientno: '',                       //主页面 客户名称 搜索
                 formLabelWidth: '120px',          //表单 配置
-                form: form(),                       //表单 弹出层 信息集合
+                form: _form(),                       //表单 弹出层 信息集合
                 dialogFormActive: 0,              //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,         //新建 弹出层 是否可见
                 submitLoading: false,             //新建 弹出层 提交等待
@@ -785,7 +780,7 @@
                 storage: [],           //查看入库储位信息 弹出层 信息集合
                 dialogStorageVisible: false,     //查看入库储位信息 弹出层 是否可见
 
-                select: form(),                      //搜索 弹出层 信息集合,
+                select: _form(),                      //搜索 弹出层 信息集合,
                 printf: [],                         //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 dialogPrintfVisible: false,
@@ -823,6 +818,45 @@
                     "rkrwCys": this.form.rkrwCys,
                     "rkrwDh": this.form.rkrwDh,
                     "rkrwStatus": this.form.rkrwStatus
+                }
+            },
+            form_pop:function(){
+                return{
+                    "ckStartXdsj": tsf_date(this.form.ckXdsj[0]),
+                    "ckEndXdsj": tsf_date(this.form.ckXdsj[1]),
+                    "mhStartCreateTime":tsf_date(this.form.mhCreatetime[0]),
+                    "mhEndCreateTime": tsf_date(this.form.mhCreatetime[1]),
+                    "ckCksj": tsf_date(this.form.ckCksj[0]),
+                    "ckEndtime": tsf_date(this.form.ckCksj[1]),
+                    "ckCkdjNo": this.form.ckCkdjNo,
+                    "ckCkdjClientno": this.form.ckCkdjClientno,
+                    "ckCkdjClientname":this.form.ckCkdjClientname,
+                    "ckAdress": this.form.ckAdress,
+                    "ckContacts": this.form.ckContacts,
+                    "ckTel": this.form.ckTel,
+                    "ckStatus":this.form.ckStatus,
+                    "cksQhStatus": this.form.cksQhStatus,
+                    "ckZlStatus": this.form.ckZlStatus,
+                    "ckIsauto": this.form.ckIsauto,
+                    "ckStartwith":this.form.ckStartwith,
+                    "blLname": this.form.blLname,
+                     "ckArehouseId":this.form.ckArehouseId,
+//                    "startTimeParam":this.form.,
+//                    "endTimeParam": this.form.,
+//                    "pageNum": this.form.,
+//                    "pageSize":this.form.,
+//                    "ckrwCph": this.form.,
+//                    "ckrwWls": this.form.,
+//                    "ckCkdjType": this.form.,
+
+//                    "ckClientId": this.form.,
+//                    "cksGoodsId": this.form.,
+//                    "msxStartQrsj"this.form.,
+//                    "msxEndQrsj": this.form.,
+//                    "bgGoodsName":this.form.,
+//                    "msxXjry": this.form.,
+//                    "ckQhStatus": this.form.,
+//                    "bgGoodsNo": this.form.,
                 }
             },
             distributionForm: function () {
@@ -928,8 +962,8 @@
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
-                this.dialogSelectVisible = !this.dialogSelectVisible;
-                p[0].post( {});
+                p[0].post( obj.form_pop);
+                this.dialogSelectVisible = false;
             },                                          //详细查询 提交
             printfSubmit: function () {
                 var datas=[];
@@ -1116,18 +1150,8 @@
         p[0].post(this.option);
     }, {deep: true});
 
-    function form() {
+    function _form() {
         return {
-            rkrwN: '',
-            rkrwCph: '',
-            dds: '',
-            pxs: '',
-            rkrwSjxm: '',
-            rkrwDhrq: '',
-            rkrwDbd: '',
-            rkrwCys: '',
-            rkrwDh: '',
-            rkrwStatus: '',
             ckXdsj:[null,null],//模糊查询--下单时间
             mhCreatetime:[null,null],//模糊查询--激活时间
             ckCksj:[null,null],//模糊查询--下架时间
@@ -1143,7 +1167,7 @@
             ckCkdjType:'',//模糊查询--单据类型
             ckIsauto:'',//模糊查询--制单方式
             ckStartwith:'',//模糊查询--操作方式
-            ckArehouseId:'',//模糊查询--仓库
+            baName:'',//模糊查询--仓库
         }
     }
     var obj=outputSelect;
