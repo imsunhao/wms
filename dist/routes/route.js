@@ -298,14 +298,14 @@ router.param('_url', function (req, res, next, url) {
             case 'inputLedger':
                 switch (parseInt(req.params._status)) {
                     case 0:
-                        urlName = '入库台账管理-加载入库台账管理页面';
-                        req = autoUrl(req, 't', "POST", function (json) {
+                        urlName = '入库台账-分页查询入库台账信息';
+                        req = autoUrl(req, '/mfunrktzDoc', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 1:
-                        urlName = '制作台账';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '入库台账－制作/欠货 修改入库台账信息';
+                        req = autoUrl(req, '/mfunrktzDoc/updateDocs/', function (json) {
                             res.send(json);
                         });
                         break;
@@ -649,7 +649,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 2:
                         urlName = '获取入库单号中详细信息';
-                        req = autoUrl(req, '/mfunrkDocs/byDoc/'+req.query.rksRkdjId, "GET", function (json) {
+                        req = autoUrl(req, '/mfunrkDocs/byDoc/' + req.query.rksRkdjId, "GET", function (json) {
                             res.send(json);
                         });
                         break;
@@ -685,7 +685,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '入库操作－历史记录';
-                        req = autoUrl(req, '/history/' +   req.query.rkRkdjId + '/mhRkdjId', "GET", function (json) {
+                        req = autoUrl(req, '/history/' + req.query.rkRkdjId + '/mhRkdjId', "GET", function (json) {
                             res.send(json);
                         });
                         break;
@@ -732,30 +732,8 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 9:
-                        urlName = '追加分配';//TODO
+                        urlName = '取消分配';//TODO
                         req = autoUrl(req, '/mfunrkDistributionlist', "POST", function (json) {
-                            res.send(json);
-                        });
-                        break;
-                    case 10:
-                        urlName = '上架';
-                        req = autoUrl(req, '/mfunrkDistributionlist', "POST", function (json) {
-                            res.send(json);
-                        });
-                        break;
-                }
-                break;
-           case 'inputLedger':
-                switch (parseInt(req.params._status)) {
-                    case 0:
-                        urlName = '入库台账-分页查询入库台账信息';
-                        req = autoUrl(req, '/mfunrktzDoc', "POST", function (json) {
-                            res.send(json);
-                        });
-                        break;
-                    case 1:
-                        urlName = '入库台账－制作/欠货 修改入库台账信息';
-                        req = autoUrl(req, '/mfunrktzDoc/updateDocs/', function (json) {
                             res.send(json);
                         });
                         break;
@@ -902,7 +880,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
-             case 'activationBill':
+            case 'activationBill':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '激活单据-查询-任务单据';
@@ -971,7 +949,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
-               case 'outputShipment':
+            case 'outputShipment':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '出库发运-查询-出库单据';
@@ -994,7 +972,7 @@ router.param('_url', function (req, res, next, url) {
                 }
                 break;
 
-             case 'recoveryArchive':
+            case 'recoveryArchive':
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '回收存档- 分页查询';
@@ -1034,7 +1012,6 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
-
 
 
             case 'inputDaily':
