@@ -46,7 +46,7 @@
                         type="expand">
                     <template scope="props">
                         <el-row>
-                            <h3 style="margin-top: 0; margin-left: -15px;">盘点查询详细</h3>
+                            <h3 style="margin-top: 0; margin-left: -15px;">盘点查询</h3>
                         </el-row>
                         <el-form label-position="left" inline class="demo-table-expand">
                             <el-row>
@@ -224,8 +224,8 @@
                           :label-width="formLabelWidth">
                 <el-select v-model="form.pdDiffStatus" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
-                    <el-option :value="1" label="无差异"></el-option>
-                    <el-option :value="2" label="有差异"></el-option>
+                    <el-option :value="0" label="无差异"></el-option>
+                    <el-option :value="1" label="有差异"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="所属仓库" :label-width="formLabelWidth">
