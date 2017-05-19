@@ -102,6 +102,7 @@
                                         <el-button
                                                 size="small"
                                                 type="success"
+                                                v-show="props.row.ckrwStatus==21"
                                                 @click="inlineActivateTask(props.$index, props.row)">激活任务
                                         </el-button>
                                         <el-button
