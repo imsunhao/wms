@@ -265,22 +265,6 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        label="异动开始时间"
-                        show-overflow-tooltip
-                        align="center">
-                    <template scope="scope">
-                        <span>{{ auto_pdYdBeginTime(scope.row.pdYdBeginTime,true) }}</span>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        label="异动结束时间"
-                        show-overflow-tooltip
-                        align="center">
-                <template scope="scope">
-                    <span>{{ auto_pdYdEndTime(scope.row.pdYdEndTime,true) }}</span>
-                </template>
-                </el-table-column>
-                <el-table-column
                         label="负责人"
                         show-overflow-tooltip
                         align="center"
@@ -303,6 +287,19 @@
                         </el-tag>
                     </template>
                 </el-table-column>
+
+                   <el-table-column
+                        label="差异状态"
+                        prop="pdStatus"
+                        align="center"
+                        width="100">
+                    <template scope="scope">
+                        <el-tag
+                                close-transition>{{auto_pdDiffStatus(scope.row.pdDiffStatus)}}
+                        </el-tag>
+                    </template>
+                </el-table-column>
+
                 <el-table-column
                         v-if="multiSelect"
                         type="selection"
