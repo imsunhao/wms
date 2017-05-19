@@ -725,7 +725,7 @@
                     "startTimeParam": tsf_date(this.date[0]),
                     "endTimeParam": tsf_date(this.date[1]),
 
-                    ckCkdjNo: this.ckCkdjNo,
+//                    ckCkdjNo: this.ckCkdjNo,
 
 //                    "ckStatus": -1,
 //                    "ckCkdjClientname": "",
@@ -1043,9 +1043,9 @@
                         bdDwid: item.data.bgZxdw,
                         bdName: item.data.bgZxdw
                     },
-                    rksCount: 0,
-                    rksDwid: item.data.bgZxdw,
-                    rksGoodsId: item.data.bgGoodsId,
+                    cksCount: 0,
+                    cksDwid: item.data.bgZxdw,
+                    cksGoodsId: item.data.bgGoodsId,
                     data: item.data
                 };
             },                                        //货品明细控制 选中下拉菜单中的货品
@@ -1383,8 +1383,6 @@
             "ckrwYjdcsj": new Date(),
             "ckrwCph": "",
             "ckrwWls": "",
-            "ckrwQhStatus": 1,
-            "ckrwZlStatus": 1,
             "ckrwArehouseId": 1,
             "ckrwClientId": 1,
             "userName": app.rmsUser.userName,
@@ -1395,11 +1393,11 @@
     var validateRule = {
         a: new RegExp("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", "g")
     };
+
     outputAppointment.$watch('form.title', function () {
         if (this.form.title === '查看') this.watchView = true;
         else this.watchView = false;
     }, {deep: true});
-
 
     p[7].post(outputAppointment.option);
 
