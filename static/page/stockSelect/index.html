@@ -166,56 +166,62 @@
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
         </div>
-        <el-form :model="select">
-            <el-form-item label="异动时间"
-                          :label-width="formLabelWidth">
-                <el-date-picker
-                        v-model="form.mrKcydsj"
-                        type="daterange"
-                        align="right"
-                        placeholder="异动时间"
-                        class="input"
-                        :picker-options="pickerOptions">
-                </el-date-picker>
-            </el-form-item>
-            <el-form-item label="货品编号"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.bgGoodsNo"
-                        icon="search"
-                        placeholder="货品编号"></el-input>
-            </el-form-item>
-            <el-form-item label="货品姓名"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.bgGoodsName"
-                        icon="search"
-                        placeholder="货品姓名"></el-input>
-            </el-form-item>
-            <el-form-item label="库位名称"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.blLname"
-                        icon="search"
-                        placeholder="库位名称"></el-input>
-            </el-form-item>
-            <el-form-item label="货品批次"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.mrGoodsBatch"
-                        icon="search"
-                        placeholder="货品批次"></el-input>
-            </el-form-item>
-            <el-form-item label="仓库"
-                          :label-width="formLabelWidth">
-                <el-select v-model="form.baName" placeholder="请选择">
-                    <el-option :value="-1" label="全部"></el-option>
-                </el-select>
-            </el-form-item>
+        <el-form :model="form">
+            <el-row>
+                <el-form-item label="异动时间"
+                              :label-width="formLabelWidth">
+                    <el-date-picker
+                            v-model="form.mrKcydsj"
+                            type="daterange"
+                            align="right"
+                            placeholder="异动时间"
+                            class="input"
+                            :picker-options="pickerOptions">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="货品编号"
+                              :label-width="formLabelWidth">
+                    <el-input
+                            class="input"
+                            v-model="form.bgGoodsNo"
+                            icon="search"
+                            placeholder="货品编号"></el-input>
+                </el-form-item>
+                <el-form-item label="货品姓名"
+                              :label-width="formLabelWidth">
+                    <el-input
+                            class="input"
+                            v-model="form.bgGoodsName"
+                            icon="search"
+                            placeholder="货品姓名"></el-input>
+                </el-form-item>
+                <el-form-item label="库位名称"
+                              :label-width="formLabelWidth">
+                    <el-input
+                            class="input"
+                            v-model="form.blLname"
+                            icon="search"
+                            placeholder="库位名称"></el-input>
+                </el-form-item>
+                <el-form-item label="货品批次"
+                              :label-width="formLabelWidth">
+                    <el-input
+                            class="input"
+                            v-model="form.mrGoodsBatch"
+                            icon="search"
+                            placeholder="货品批次"></el-input>
+                </el-form-item>
+                <el-form-item label="所属仓库" :label-width="formLabelWidth">
+                    <el-select
+                            :disabled="watchView"
+                            v-model="form.baArehouseId"
+                            placeholder="请选择所属仓库">
+                        <el-option :value="-1" label="全部"></el-option>
+                        <el-option :label="obj.baName" :value="obj.baArehouseId"
+                                   v-for="obj of baseArehouses"></el-option>
+                    </el-select>
+                </el-form-item>
+            </el-row>
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
@@ -408,6 +414,8 @@
         prop: {},
         data: function () {
             return {
+                baseArehouses: window.dbmessage.baseArehouses,
+                watchView: false,                           //观察状态量-是否为查看
                 stockSelect: [],
                 multipleSelection: [],
                 multiSelect: false,
@@ -446,11 +454,11 @@
                 bgGoodsNo:'',                       //主页面 货品编号 搜索
                 bgGoodsName:'',                     //主页面 货品编号 搜索
                 formLabelWidth: '120px',            //表单 配置
-                form: form(),                           //表单 弹出层 信息集合
+                form: _form(),                           //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
-                select: form(),                         //搜索 弹出层 信息集合,
+                select: _form(),                         //搜索 弹出层 信息集合,
                 printf: [],                         //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 dialogPrintfVisible: false,
@@ -487,6 +495,22 @@
                     "rkrwDh": this.form.rkrwDh,
                     "rkrwStatus": this.form.rkrwStatus
                 }
+            },
+            form_pop:function(){
+                return{
+                    "draw": 1,
+                    "pageNum": this.currentPage,
+                    "pageSize": this.pageSize,
+                    "startTimeParam": tsf_date(this.form.mrKcydsj[0]),
+                    "endTimeParam": tsf_date(this.form.mrKcydsj[1]),
+                    "bgGoodsNo": this.form.bgGoodsNo,
+                    "bgGoodsName": this.form.bgGoodsName,
+                    "mrGoodsBatch": this.form.mrGoodsBatch,
+                    "blLname": this.form.blLname,
+                    "mrArehouseId": this.form.mrArehouseId,
+                    "mrDjStatus": this.form.mrDjStatus,
+                }
+
             },
             distributionForm: function () {
                 return {
@@ -569,8 +593,9 @@
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
-                this.dialogSelectVisible = !this.dialogSelectVisible;
-                p[0].post( {});
+                p[0].post( obj.form_pop);
+                this.dialogSelectVisible = false;
+
             },                                          //详细查询 提交
             printfSubmit: function () {
                 var datas=[];
@@ -631,24 +656,14 @@
             },
         }
     });
-    function form() {
+    function _form() {
         return {
-            rkrwN: '',
-            rkrwCph: '',
-            dds: '',
-            pxs: '',
-            rkrwSjxm: '',
-            rkrwDhrq: '',
-            rkrwDbd: '',
-            rkrwCys: '',
-            rkrwDh: '',
-            rkrwStatus: '',
             mrKcydsj:[null,null],    //模糊查询--异动时间
             bgGoodsNo:'',   //模糊查询--货品编号
             bgGoodsName:'',    //模糊查询--货品名称
             blLname:'',//模糊查询--库位名称
             mrGoodsBatch:'',//模糊查询--货品批次
-            baName:'' //模糊查询--仓库
+            baArehouseId:'' //模糊查询--仓库
         }
     }
     var obj=stockSelect;

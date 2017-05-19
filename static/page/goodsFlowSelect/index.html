@@ -152,28 +152,29 @@
         </el-col>
     </el-row>
     <el-dialog
-            size="small"
+            size="large"
             class="select"
             v-model="dialogSelectVisible">
+
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
         </div>
-        <el-row>
-            <el-col span="7">
-                <el-form :model="select">
+        <el-form :model="form">
+            <el-row>
+                <el-col span="7">
                     <el-form-item label="货品名称"
                                   :label-width="formLabelWidth">
                         <el-input
-                                v-model="form.msxHpkid"
+                                v-model="form.bgGoodsName"
                                 class="input"
                                 icon="search"
-                                placeholder="货品编号"></el-input>
+                                placeholder="货品名称"></el-input>
                     </el-form-item>
                     <el-form-item label="货品编号"
                                   :label-width="formLabelWidth">
                         <el-input
                                 class="input"
-                                v-model="form.msxHpkid"
+                                v-model="form.bgGoodsNo"
                                 icon="search"
                                 placeholder="货品编号"></el-input>
                     </el-form-item>
@@ -201,10 +202,9 @@
                                 icon="search"
                                 placeholder="联系人"></el-input>
                     </el-form-item>
-                </el-form>
-            </el-col>
-            <el-col span="7" offset="2">
-                <el-form>
+
+                </el-col>
+                <el-col span="7" offset="2">
                     <el-form-item label="联系电话"
                                   :label-width="formLabelWidth">
                         <el-input
@@ -229,16 +229,19 @@
                                 icon="search"
                                 placeholder="出库单号"></el-input>
                     </el-form-item>
-                    <el-form-item label="仓库"
-                                  :label-width="formLabelWidth">
-                        <el-select v-model="form.ckArehouseId" placeholder="请选择">
+                    <el-form-item label="所属仓库" :label-width="formLabelWidth">
+                        <el-select
+                                :disabled="watchView"
+                                v-model="form.ckArehouseId"
+                                placeholder="请选择所属仓库">
                             <el-option :value="-1" label="全部"></el-option>
-
+                            <el-option :label="obj.baName" :value="obj.baArehouseId"
+                                       v-for="obj of baseArehouses"></el-option>
                         </el-select>
                     </el-form-item>
-                </el-form>
-            </el-col>
-        </el-row>
+                </el-col>
+            </el-row>
+        </el-form>
 
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
@@ -430,6 +433,7 @@
         prop: {},
         data: function () {
             return {
+                baseArehouses: window.dbmessage.baseArehouses,
                 goodsFlowSelect: [],
                 multipleSelection: [],
                 multiSelect: false,
@@ -463,28 +467,23 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-
                 date: [null, null],                 //主页面 选择日期 搜索
                 bgGoodsNo: '',                       //主页面 货品编号 搜索
                 bgGoodsName: '',                       //主页面 货品名称 搜索
                 ckCkdjClientname: '',              //主页面 客户名称 搜索
-
-
-
                 formLabelWidth: '120px',            //表单 配置
-                form: form(),                           //表单 弹出层 信息集合
+                form: _form(),                           //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
-
-                select: form(),                         //搜索 弹出层 信息集合,
+                select: _form(),                         //搜索 弹出层 信息集合,
                 printf: [],                         //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 dialogPrintfVisible: false,
                 selectLoading: false,
                 printfLoading: false,
-
-                printDatas: [],          // 打印数据
+                printDatas: [],                             // 打印数据
+                watchView: false,                           //观察状态量-是否为查看
             }
         },
         computed: {
@@ -494,9 +493,9 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "bgGoodsName":this.bgGoodsName.trim(),
-                    "bgGoodsNo":this.bgGoodsNo.trim(),
-                    "ckCkdjClientname":this.ckCkdjClientname.trim(),
+                    "bgGoodsName": this.bgGoodsName.trim(),
+                    "bgGoodsNo": this.bgGoodsNo.trim(),
+                    "ckCkdjClientname": this.ckCkdjClientname.trim(),
                 }
             },
             search: function () {
@@ -514,6 +513,23 @@
                     "rkrwCys": this.form.rkrwCys,
                     "rkrwDh": this.form.rkrwDh,
                     "rkrwStatus": this.form.rkrwStatus
+                }
+            },
+            form_pop: function () {
+                return {
+                    "draw": 1,
+                    "pageNum": this.currentPage,
+                    "pageSize": this.pageSize,
+                    "bgGoodsNo": this.form.bgGoodsNo,
+                    "bgGoodsName": this.form.bgGoodsName,
+                    "ckCkdjClientname": this.form.ckCkdjClientname,
+                    "ckAdress": this.form.ckAdress,
+                    "ckContacts": this.form.ckContacts,
+                    "ckTel": this.form.ckTel,
+                    "ckCkdjClientno": this.form.ckCkdjClientno,
+                    "ckCkdjNo": this.form.ckCkdjNo,
+                    "ckArehouseId": this.form.ckArehouseId,
+                    "blLname": this.form.blLname,
                 }
             },
             distributionForm: function () {
@@ -597,18 +613,18 @@
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
-                this.dialogSelectVisible = !this.dialogSelectVisible;
-                p[0].post( {});
+                this.dialogSelectVisible = false;
+                p[0].post(obj.form_pop);
             },                                          //详细查询 提交
             printfSubmit: function () {
-                var datas=[];
-                var checkData=goodsFlowSelect.$refs.printf.getCheckedNodes();
-                for(var i in checkData){
-                    if(typeof checkData[i].val2!=='undefined'){
+                var datas = [];
+                var checkData = goodsFlowSelect.$refs.printf.getCheckedNodes();
+                for (var i in checkData) {
+                    if (typeof checkData[i].val2 !== 'undefined') {
                         datas.push(checkData[i]);
                     }
                 }
-                this.printDatas=datas;
+                this.printDatas = datas;
                 this.dialogPelectVisible = !this.dialogPrintfVisible;
                 wap.print(this);
             },                                          //打印 提交
@@ -622,15 +638,15 @@
                         return resolve(this.printf);
                     case 1:
                         postRkrwNo(this, {
-                            rkrwNo:node.data.rkrwNo,
-                            rkrwDhrq:node.data.rkrwDhrq
+                            rkrwNo: node.data.rkrwNo,
+                            rkrwDhrq: node.data.rkrwDhrq
                         }, resolve);
                         break;
                     case 2:
                         console.log(node.data.name);
                         postRkdjId(this, {
-                            rkrwNo:node.data.rkrwNo,
-                            rkrwDhrq:node.data.rkrwDhrq
+                            rkrwNo: node.data.rkrwNo,
+                            rkrwDhrq: node.data.rkrwDhrq
                         }, resolve);
                         break;
                     case 3:
@@ -653,61 +669,59 @@
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
             },                                  //下单时间
-            auto_rkStatus:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        1:'原始状态',
-                        21:'部分分配',
-                        22:'全部分配',
-                        31:'部分收货',
-                        32:'完全收货',
+            auto_rkStatus: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '原始状态',
+                        21: '部分分配',
+                        22: '全部分配',
+                        31: '部分收货',
+                        32: '完全收货',
                     }
-                }else{
-                    temp={
-                        '原始状态':1,
-                        '部分分配':21,
-                        '全部分配':22,
-                        '部分收货':31,
-                        '完全收货':32
+                } else {
+                    temp = {
+                        '原始状态': 1,
+                        '部分分配': 21,
+                        '全部分配': 22,
+                        '部分收货': 31,
+                        '完全收货': 32
                     }
                 }
                 return temp[value];
             },                                         //入库状态
-            auto_rkZdfs:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        1:'手动',
-                        2:'导入',
-                        3:'接口',
+            auto_rkZdfs: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '手动',
+                        2: '导入',
+                        3: '接口',
                     }
-                }else{
-                    temp={
-                        '手动':1,
-                        '导入':2,
-                        '接口':3,
+                } else {
+                    temp = {
+                        '手动': 1,
+                        '导入': 2,
+                        '接口': 3,
                     }
                 }
                 return temp[value];
             },                                         //操作方式
-            auto_rkStartwith:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        1:'电脑端',
-                        2:'PDA',
+            auto_rkStartwith: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '电脑端',
+                        2: 'PDA',
                     }
-                }else{
-                    temp={
-                        '电脑端':1,
-                        'PDA':2,
+                } else {
+                    temp = {
+                        '电脑端': 1,
+                        'PDA': 2,
                     }
                 }
                 return temp[value];
             },                                         //入库状态
-
-
 
 
         },
@@ -732,31 +746,21 @@
             },
         }
     });
-    function form() {
+    function _form() {
         return {
-            rkrwN: '',
-            rkrwCph: '',
-            dds: '',
-            pxs: '',
-            rkrwSjxm: '',
-            rkrwDhrq: '',
-            rkrwDbd: '',
-            rkrwCys: '',
-            rkrwDh: '',
-            rkrwStatus: '',
-            msxHpkid:'',//模糊查询--货品名称
-            msxHpkid:'',//模糊查询--货品编号
-            ckCkdjClientname:'',//模糊查询--客户名称
-            ckAdress:'',//模糊查询--客户地址
-            ckContacts:'',//模糊查询--联系人
-            ckTel:'',//模糊查询--联系电话
-            ckCkdjClientno:'',//模糊查询--客户编号
-            ckCkdjNo:'',//模糊查询--出库单号
-            ckArehouseId:'',//模糊查询--仓库
+            bgGoodsName: '',//模糊查询--货品名称
+            bgGoodsNo: '',//模糊查询--货品编号
+            ckCkdjClientname: '',//模糊查询--客户名称
+            ckAdress: '',//模糊查询--客户地址
+            ckContacts: '',//模糊查询--联系人
+            ckTel: '',//模糊查询--联系电话
+            ckCkdjClientno: '',//模糊查询--客户编号
+            ckCkdjNo: '',//模糊查询--出库单号
+            ckArehouseId: '',//模糊查询--仓库
         }
     }
-    var obj=goodsFlowSelect;
-    var p=[];
+    var obj = goodsFlowSelect;
+    var p = [];
     // 0 货品流向查询 分页查询
     p[0] = autoPost({
         urlHock: "/hock/goodsFlowSelect/page.json",
@@ -766,14 +770,13 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-     // 1 货品流向查询 导出
+    // 1 货品流向查询 导出
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/goodsFlowSelect/1",
         success: function (json) {
         }
     });
-
 
 
     // 高级 监视器的 使用方法
@@ -786,162 +789,7 @@
     //    }, {deep: true});
 
     p[0].post(goodsFlowSelect.option);
-    function post(obj, option) {
-        obj.showLoading = true;
 
-        /*<debug>*/
-        url = "/hock/goodsFlowSelect/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                obj.$data.goodsFlowSelect = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                        //TODO 获取入库日报主页面
-    function postRkrwNo(obj, option, resolve) {
-        /*<debug>*/
-        url = "/hock/goodsFlowSelect/rkrwNo.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                var resoleveStep = [];
-                for (var i = 0; i < json.data.length; i++) {
-                    resoleveStep.push({
-                        name: json.data[i].rkdjId,
-                        rkrwNo:option.rkrwNo,
-                        rkrwDhrq:option.rkrwDhrq});
-                }
-                return resolve(resoleveStep);
-            },
-            complete: function () {
-
-            }
-        });
-    }          //TODO 获取任务单号中详细信息
-    function postRkdjId(obj, option, resolve) {
-        /*<debug>*/
-        url = "/hock/goodsFlowSelect/rkdjId.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/" + option;
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option | {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                var resoleveStep = [];
-                for (var i = 0; i < json.length; i++) {
-                    resoleveStep.push({
-                        name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgNamejc,
-                        val2:json[i].baseGoods.bgGoodsNo,
-                        val:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        rwdh:option.rkrwNo,
-                        dhrq:dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        dysj:changeDate(new Date())
-                    });
-                }
-                return resolve(resoleveStep);
-            },
-            complete: function () {
-
-            }
-        });
-    }          //TODO 获取入库单号中详细信息
-    function changeDate(date) {
-        return dateFormat(new Date(date), 'MM-dd hh:mm');
-    }
-    function errorTip(obj, error) {                    // 错误提示
-        /*<debug>*/
-        console.log(error);
-        /*</debug>*/
-        obj.$alert(error.status + '\n' + error.statusText, '网络异常');
-    }
-    function dateFormat(date, fmt) {
-        var o = {
-            "M+": date.getMonth() + 1,                 //月份
-            "d+": date.getDate(),                    //日
-            "h+": date.getHours(),                   //小时
-            "m+": date.getMinutes(),                 //分
-            "s+": date.getSeconds(),                 //秒
-            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-            "S": date.getMilliseconds()             //毫秒
-        };
-        if (/(y+)/.test(fmt))
-            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
-    function remove(obj, data) {
-        for (var i = 0; i < data.length; i++) {
-            var temp = data[i];
-            if (!isNaN(obj)) {
-                temp = i;
-            }
-            if (temp == obj) {
-                for (var j = i; j < data.length; j++) {
-                    data[j] = data[j + 1];
-
-                    console.log(temp);
-                }
-                data.pop();
-            }
-        }
-    }
-    function printfCompile(obj) {
-        var resoleveStep = [];
-        for (var i = 0; i < obj.multipleSelection.length; i++) {
-            resoleveStep.push({
-                name: obj.multipleSelection[i].rkrwNo,
-                rkrwNo:obj.multipleSelection[i].rkrwNo,
-                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
-            });
-        }
-        obj.printf = resoleveStep;
-    }
 
 </script>
 

@@ -298,12 +298,6 @@
                         icon="search"
                         placeholder="提起人"></el-input>
             </el-form-item>
-            <el-form-item label="仓库"
-                          :label-width="formLabelWidth">
-                <el-select v-model="form.zyArehouseId" placeholder="请选择">
-                    <el-option :value="-1" label="全部"></el-option>
-                </el-select>
-            </el-form-item>
             <el-form-item label="转移状态"
                           :label-width="formLabelWidth">
                 <el-select v-model="form.zyStatus" placeholder="请选择">
@@ -311,6 +305,16 @@
                     <el-option :value="0" label="初始"></el-option>
                     <el-option :value="1" label="已确认"></el-option>
                     <el-option :value="2" label="作废"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="所属仓库" :label-width="formLabelWidth">
+                <el-select
+                        :disabled="watchView"
+                        v-model="form.zyArehouseId"
+                        placeholder="请选择所属仓库">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :label="obj.baName" :value="obj.baArehouseId"
+                               v-for="obj of baseArehouses"></el-option>
                 </el-select>
             </el-form-item>
         </el-form>
@@ -614,6 +618,7 @@
         prop: {},
         data: function () {
             return {
+                baseArehouses: window.dbmessage.baseArehouses,
                 aLibraryTransferSelect: [],
                 multipleSelection: [],
                 multiSelect: false,
@@ -647,19 +652,19 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-
                 date: [null, null],                 //主页面 创建时间 搜索
-                zyCreateUserName: '',                       //主页面 创建人 搜索
-                zyStatus:'',                                //主页面 状态
+                zyCreateUserName: '',                //主页面 创建人 搜索
+                zyStatus:'',                         //主页面 状态
                 formLabelWidth: '120px',            //表单 配置
-                form: form(),                           //表单 弹出层 信息集合
+                form: form(),                        //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
-                dialogFormVisible: false,           //新建 弹出层 是否可见
+                dialogFormVisible: false,          //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
-
-                select: form(),                         //搜索 弹出层 信息集合,
+                select: form(),                       //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
-                selectLoading: false
+                selectLoading: false,
+                watchView: false,                      //观察状态量-是否为查看
+
             }
         },
         computed: {
