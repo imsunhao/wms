@@ -690,16 +690,21 @@
             },                                      //分配 表单
         },
         methods: {
-            inlineActivateTask: function () {                           //TODO 行内按钮 激活任务
+            inlineActivateTask: function (index, row) {                           //TODO 行内按钮 激活任务
                 var _this = this;
                 _this.$confirm('此操作将此出库单激活任务, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.activationBill);
-                    postDelete(_this, {
-                        id: [row.rkdjNo]
+                    p[1].post({
+                        "ids": [row.ckrwId],
+                        "useId": app.rmsUser.ruUserId,
+                        "userName": app.rmsUser.ruUserName
+                    }, function (json) {
+                        this.callbackAfter({status: json.status, model: '激活任务'}, function () {
+                            p[0].post(obj.option);
+                        })
                     });
                 }).catch(function () {
                     _this.$message({
@@ -985,6 +990,11 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
+    // 1 激活单据-激活任务
+    p[1] = autoPost({
+        urlHock: "../../hock/activationBill/page.json",
+        urlProd: "/route/activationBill/1"
+    });
 
     function formSortingMethod() {
         return {
@@ -997,7 +1007,7 @@
             //:'',                //库位
         }
     }
-    ;  //TODO 修改分拣方式
+    //TODO 修改分拣方式
 
     p[0].post(activationBill.option);
     function printfCompile(obj) {
