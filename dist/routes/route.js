@@ -874,7 +874,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '挑选单据-挑选完成';
-                        req = autoUrl(req, '/mfunck/selectActivatedCkrwByPage', "POST", function (json) {
+                        req = autoUrl(req, '/mfunck/chooseCompleteByCkrwId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
