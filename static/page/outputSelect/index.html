@@ -392,11 +392,14 @@
                             <el-option :value="2" label="PDA">PDA</el-option>
                         </el-select>
                     </el-form-item>
-
-                    <el-form-item label="仓库"
-                                  :label-width="formLabelWidth">
-                        <el-select v-model="form.ckArehouseId" placeholder="请选择">
+                    <el-form-item label="所属仓库" :label-width="formLabelWidth">
+                        <el-select
+                                :disabled="watchView"
+                                v-model="form.ckArehouseId"
+                                placeholder="请选择所属仓库">
                             <el-option :value="-1" label="全部"></el-option>
+                            <el-option :label="obj.baName" :value="obj.baArehouseId"
+                                       v-for="obj of baseArehouses"></el-option>
                         </el-select>
                     </el-form-item>
                 </el-form>
@@ -732,6 +735,8 @@
         prop: {},
         data: function () {
             return {
+                baseArehouses: window.dbmessage.baseArehouses,
+                watchView: false,                           //观察状态量-是否为查看
                 outputSelect: [],
                 multipleSelection: [],
                 multiSelect: false,
@@ -1157,6 +1162,7 @@
             ckIsauto:'',//模糊查询--制单方式
             ckStartwith:'',//模糊查询--操作方式
             baName:'',//模糊查询--仓库
+            ckArehouseId:'',//模糊查询 --仓库id
         }
     }
     var obj=outputSelect;
