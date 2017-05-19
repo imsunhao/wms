@@ -176,7 +176,8 @@ function auto_time(value, bool) {
     else return dateFormat(new Date(value), 'MM-dd');
 }     //自动转换 表格中的日期
 function auto_time_new(value, number) {
-    switch (number){
+    if (value === '')return '';
+    switch (number) {
         case 1:
             return dateFormat(new Date(value), 'yyyy年 MM月 dd日');
         case 2:
