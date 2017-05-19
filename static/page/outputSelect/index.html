@@ -370,10 +370,9 @@
                                   :label-width="formLabelWidth">
                         <el-select v-model="form.ckCkdjType" placeholder="请选择">
                             <el-option :value="-1" label="全部"></el-option>
-                            <el-option :value="0" label="正常数据"></el-option>
-                            <el-option :value="0" label="正常数据"></el-option>
-                            <el-option :value="1" label="挂起数据"></el-option>
-                            <el-option :value="2" label="滞留数据"></el-option>
+                            <el-option :value="0" label="正常单据"></el-option>
+                            <el-option :value="1" label="挂起单据"></el-option>
+                            <el-option :value="2" label="滞留单据"></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item label="制单方式"
@@ -846,6 +845,7 @@
                     "ckStartwith":this.form.ckStartwith,
                     "blLname": this.form.blLname,
                      "ckArehouseId":this.form.ckArehouseId,
+                    "ckCkdjType":this.form.ckCkdjType,
                 }
             },
             distributionForm: function () {

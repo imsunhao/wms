@@ -93,7 +93,6 @@
         cursor: pointer;
         padding: 0;
         margin: 0;
-        float: left;
         font-size: 14px;
         color: #1f2d3d;
         margin-top: 29px;
@@ -517,7 +516,6 @@
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
-
                 select: form(),                         //搜索 弹出层 信息集合,
                 printf: [],                         //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
@@ -534,7 +532,12 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
+                    "pageSize": this.pageSize,
+                    "zyMentionUserName":this.zyMentionUserName.trim(),
+                    "zyCreateUserName":this.zyCreateUserName.trim(),
+                    "zyStatus":this.zyStatus,
+                    "startCreateTimeParam": tsf_date(this.date[0]),
+                    "endCreateTimeParam": tsf_date(this.date[1]),
                 }
             },
             search: function () {
@@ -763,8 +766,35 @@
             },                                        //转移状态
 
 
+        },
+        watch: {
+            zyMentionUserName: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+            zyCreateUserName: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+            zyStatus: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
         }
     });
+    // 高级 监视器的 使用方法
+        aLibraryTransfer.$watch('date', function () {
+            /*<debug>*/
+            console.log(this.option);
+            /*</debug>*/
+            p[0].post( this.option);
+        }, {deep: true});
     function form() {
         return {
             zyCreateTime:'',
@@ -840,14 +870,7 @@
         success: function (json) {
         }
     });
-    // 高级 监视器的 使用方法
-    //    aLibraryTransfer.$watch('date', function () {
-    //        if (!this.option.dateStart)return;
-    //        /*<debug>*/
-    //        console.log(this.option);
-    //        /*</debug>*/
-    //        post(this, this.option);
-    //    }, {deep: true});
+
     p[0].post(aLibraryTransfer.option);
     function printfCompile(obj) {
         var resoleveStep = [];
