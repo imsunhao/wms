@@ -118,21 +118,25 @@
 
                                                 <el-button
                                                         size="small"
+                                                        v-if="props.row.rkStatus==1"
                                                         @click="distributionBtn(props.$index, props.row)">分配
                                                 </el-button>
                                                 <el-button
                                                         size="small"
                                                         type="success"
+                                                        v-if="props.row.rkStatus==21||props.row.rkStatus==22"
                                                         @click="inlineCancelAllocation(props.$index, props.row)">取消分配
                                                 </el-button>
                                                 <el-button
                                                         size="small"
                                                         type="success"
+                                                        v-if="props.row.rkStatus==21||props.row.rkStatus==22"
                                                         @click="inlineGrounding(props.$index, props.row)">上架
                                                 </el-button>
 
                                                 <el-button
                                                         size="small"
+                                                        v-if="props.row.rkStatus==31"
                                                         @click="distributionBtn(props.$index, props.row)">再次收货
                                                 </el-button>
                                             </el-form-item>
@@ -444,16 +448,17 @@
                                         label="货品名称">
                                 </el-table-column>
                                 <el-table-column
-                                        label="单位"
-                                        width="80"
-                                        prop="baseDw.bdName"
-                                        align="center">
-                                </el-table-column>
-                                <el-table-column
                                         label="数量"
                                         width="100"
                                         show-overflow-tooltip
                                         prop="rksCount"
+                                        align="center">
+                                </el-table-column>
+                                <el-table-column
+                                        label="可用"
+                                        width="100"
+                                        show-overflow-tooltip
+                                        prop="rksKyCount"
                                         align="center">
                                 </el-table-column>
                                 <el-table-column
@@ -517,7 +522,7 @@
                                         label="货品批号"
                                         width="100"
                                         show-overflow-tooltip
-                                        prop="lala"
+                                        prop="mdtBatch"
                                         align="center">
                                 </el-table-column>
                                 <el-table-column
@@ -558,7 +563,7 @@
                 </el-form-item>
                 <el-form-item label="分配数量" :label-width="formLabelWidth">
                     <el-slider
-                            :max="form.location.selectGood.rksCountMax"
+                            :max="form.location.selectGood.rksKyCount"
                             v-model="form.location.selectGood.rksCount"
                             show-input>
                     </el-slider>
@@ -566,12 +571,13 @@
                 <el-form-item label="库位名称" :label-width="formLabelWidth">
                     <el-autocomplete
                             :fetch-suggestions="queryLocationAsync"
+                            @select="handleSelect"
                             v-model="form.location.blLname"
                             auto-complete="off"></el-autocomplete>
                 </el-form-item>
                 <el-form-item label="货品批号" :label-width="formLabelWidth">
                     <el-input
-                            v-model.number="form.location.lala"
+                            v-model.number="form.location.mdtBatch"
                             auto-complete="off"></el-input>
                 </el-form-item>
 
@@ -840,7 +846,7 @@
                     "rkRkdjNo": this.rkRkdjNo.trim(),
                     "startTimeParam": tsf_date(this.date[0]),
                     "endTimeParam": tsf_date(this.date[1]),
-                    rkStatus:this.rkStatus
+                    rkStatus: this.rkStatus
                 }
             },
             distributionForm: function () {
@@ -853,7 +859,7 @@
             distributionBtn: function (index, row) {
                 var obj = this;
                 var step = form();
-                allPrposCb(step, function (obj, index) {
+                allPrposCb(step, function (obj2, index) {
                     if (typeof row[index] !== 'undefined') step[index] = row[index];
                 });
                 /*<debug>*/
@@ -864,6 +870,12 @@
                 this.form = step;
                 this.dialogDistributionForm = true;
                 this.dialogFormActive = 1;
+                if (this.form.rkStatus === 1) {
+                    for (var i = 0; i < this.form.rkDocsList.length; i++) {
+                        this.form.rkDocsList[i].rksKyCount = this.form.rkDocsList[i].rksCount
+                    }
+
+                }
                 if (typeof (this.form.rkDocsList) === 'undefined') {
                     postGoods({rkRkdjNo: row.rkRkdjNo}, function (json) {
                         obj.form.rkDocsList = json;
@@ -874,107 +886,125 @@
                 }
             },                             //分配 行内按钮
             inlineCancelAllocation: function (index, row) {
-                var _this = this;
-                _this.$confirm('此操作将这单任务单据取消分配, 是否继续?', '提示', {
+                var obj = this;
+                obj.$confirm('此操作将这单任务单据取消分配, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.warehousingTask);
+                    remove(row, obj.warehousingTask);
                     postDelete({
                         id: [row.rkdjNo]
                     });
                 }).catch(function () {
-                    _this.$message({
+                    obj.$message({
                         type: 'info',
                         message: '已取消下发'
                     });
                 });
             },                      //TODO 行内按钮 取消分配
             inlineGrounding: function (index, row) {
-                var _this = this;
-                _this.$confirm('此操作将这单任务单据上架, 是否继续?', '提示', {
+                var obj = this;
+                obj.$confirm('此操作将这单任务单据上架, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.warehousingTask);
-                    postDelete({
-                        id: [row.rkdjNo]
-                    });
+                    p[7].post({ids: [row.rkRkdjId]})
                 }).catch(function () {
-                    _this.$message({
+                    obj.$message({
                         type: 'info',
                         message: '已取消下发'
                     });
                 });
             },                             //TODO 行内按钮 上架
             distributionBtnSubmit: function () {
-                var _this = this;
+                var obj = this;
                 this.dialogFormActive++;
                 this.submitLoading = true;
                 //TODO 此处应是ajax请求
-                setTimeout(function () {
-                    _this.submitLoading = false;
-                    _this.$notify({
-                        title: '成功',
-                        message: '分配成功！',
-                        type: 'success'
-                    });
-                    _this.dialogFormVisible = false;
-                    _this.form = form();
-                    _this.dialogFormActive = 0;
-                    _this.dialogDistributionForm = false;
-                    _this.$refs.carousel.setActiveItem(0);
-                    post();
-                }, 1500);
+
+
+                var distributionlists = [];
+                for (var i = 0; i < obj.location.length; i++) {
+                    var step = postDistributionLists();
+                    step.mdtRkdjId = obj.location[i].selectGood.rksRkdjId;
+                    step.mdtRkmxId = obj.location[i].selectGood.rksRkmxId;
+                    step.mdtBatch = obj.location[i].mdtBatch;
+                    step.mdtDwid = obj.location[i].selectGood.baseDw.bdDwId;
+                    step.mdtCount = obj.location[i].selectGood.rksCount;
+                    distributionlists.push(step);
+                }
+                p[8].post({
+                    "distributionlists": distributionlists
+                }, function (json) {
+                    obj.submitLoading = false;
+                    this.callbackAfter({status: json.status, model: '分配'}, function () {
+                        obj.dialogFormVisible = false;
+                        obj.form = form();
+                        obj.dialogFormActive = 0;
+                        obj.dialogDistributionForm = false;
+                        obj.$refs.carousel.setActiveItem(0);
+                        post(inputOperation.option);
+                    })
+                });
             },
             distributionBtnLocation: function (index, row) {
                 var step = selectGood();
-                allPrposCb(step, function (obj, index) {
+                allPrposCb(step, function (obj2, index) {
                     if (typeof row[index] !== 'undefined') step[index] = row[index];
                 });
-                step.rksCountMax = step.rksCount;
                 this.form.location.selectGood = step;
+                this.form.location.index = index;
                 this.dialogLocationVisible = true;
             },
             distributionBtnLocationDelete: function (index, row) {
-                var _this = this;
-                _this.$confirm('此操作将删除该条库存储位信息, 是否继续?', '提示', {
+                obj.$confirm('此操作将删除该条库存储位信息, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.location);
-                    _this.$message({
+                    for (var i = 0; i < obj.form.rkDocsList.length; i++) {
+                        if (obj.form.rkDocsList[i].rksRkmxId === row.rksRkmxId) {
+                            obj.form.rkDocsList[i].rksKyCount += row.rksCount;
+                        }
+                    }
+
+                    remove(row, obj.location);
+                    obj.$message({
                         type: 'success',
                         message: '已删除'
                     });
                 }).catch(function () {
-                    _this.$message({
+                    obj.$message({
                         type: 'info',
                         message: '已取消删除'
                     });
                 });
             },
             locationSubmit: function () {
-                var _this = this;
                 this.locationLoading = true;
                 //TODO 此处应是ajax请求
                 setTimeout(function () {
-                    _this.locationLoading = false;
-                    _this.$notify({
+                    obj.locationLoading = false;
+                    obj.$notify({
                         title: '成功',
                         message: '关联成功！',
                         type: 'success'
                     });
                     var step = locationFather();
-                    allPrposCb(step, function (obj, index) {
-                        if (typeof _this.form.location[index] !== 'undefined') step[index] = _this.form.location[index];
+                    allPrposCb(step, function (obj2, index) {
+                        if (typeof obj.form.location[index] !== 'undefined') step[index] = obj.form.location[index];
                     });
-                    _this.location.push(step);
-                    _this.form.location = newLocation();
-                    _this.dialogLocationVisible = false;
+                    obj.location.push(step);
+                    obj.form.rkDocsList[obj.form.location.index].rksKyCount -= step.selectGood.rksCount;
+                    obj.form.location = newLocation();
+//                    for (var i = 0; i < obj.form.rkDocsList.length; i++) {
+//                        if (obj.form.rkDocsList[i].rksRkmxId === step.rksRkmxId) {
+//                            obj.form.rkDocsList[i].rksKyCount -= step.rksCount;
+//                        }
+//                    }
+                    obj.dialogLocationVisible = false;
                 }, 250);
             },                                        //关联 表单提交
             locationSelect: function (item) {
@@ -1096,7 +1126,7 @@
                     // TODO
                     var step = [];
                     for (var i = 0; i < obj.multipleSelection.length; i++) {
-                        step.push(obj.multipleSelection[i].ruUserId);
+                        step.push(obj.multipleSelection[i].rkRkdjId);
                     }
                     p[7].post({ids: step});
                 }).catch(function () {
@@ -1169,22 +1199,22 @@
                 this.$refs.carousel.next();
             },                                                  //新建 弹出层banner控制 后一个
             submit: function () {
-                var _this = this;
+                var obj = this;
                 this.dialogFormActive++;
                 this.submitLoading = true;
                 //TODO 此处应是ajax请求
                 setTimeout(function () {
-                    _this.submitLoading = false;
-                    _this.$notify({
+                    obj.submitLoading = false;
+                    obj.$notify({
                         title: '成功',
                         message: '保存成功！',
                         type: 'success'
                     });
-                    _this.dialogFormVisible = false;
-                    _this.form = form();
-                    _this.dialogFormActive = 0;
+                    obj.dialogFormVisible = false;
+                    obj.form = form();
+                    obj.dialogFormActive = 0;
                     this.dialogDistributionForm = false;
-                    _this.$refs.carousel.setActiveItem(0);
+                    obj.$refs.carousel.setActiveItem(0);
                     //post(inputOperation);
                 }, 1500);
             },                                                //新建 表单提交
@@ -1216,6 +1246,9 @@
                     }
                     cb(step);
                 });
+            },
+            handleSelect: function (item) {
+                obj.form.location.mdtLocationId = item.data.blLocationId
             },
             GoodSelect: function (item) {
                 this.form.saveARkDocsList = false;
@@ -1253,18 +1286,18 @@
                 console.log('select!');
             },
             deleteOlder: function (index, row) {
-                var _this = this;
-                _this.$confirm('此操作将永久删除该入库单, 是否继续?', '提示', {
+                var obj = this;
+                obj.$confirm('此操作将永久删除该入库单, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.inputOperation);
+                    remove(row, obj.inputOperation);
                     postDelete({
                         id: [row.rkdjNo]
                     });
                 }).catch(function () {
-                    _this.$message({
+                    obj.$message({
                         type: 'info',
                         message: '已取消删除'
                     });
@@ -1349,7 +1382,6 @@
                 }
                 return temp[value];
             },                                      //制单方式
-
         },
         watch: {
             rkRkdjNo: function () {
@@ -1428,6 +1460,11 @@
         urlHock: "/hock/inputOption/location.json",
         urlProd: "/route/inputOperation/7"
     });
+    //8 分配
+    p[8] = autoPost({
+        urlHock: "/hock/inputOption/location.json",
+        urlProd: "/route/inputOperation/8"
+    });
 
     function locationFather() {
         return {
@@ -1438,8 +1475,24 @@
                 },
                 rksCount: ''
             },
-            lala: '',
-            blLname: ''
+            blLname: '',
+            mdtBatch: '',
+            mdtLocationId: '',
+            rksRkdjId: '',
+            rksRkmxId: ''
+        }
+    }
+
+    function postDistributionLists() {
+        return {
+            "mdtRkdjId": 2,
+            "mdtRkmxId": 3,
+            "mdtBatch": "20170508-A001",
+            "mdtDwid": 2,
+            "mdtLocationId": 1,
+            "mdtCount": 50,
+            "mdtUserId": app.rmsUser.ruUserId,
+            "mdtArehouseId": obj.form.rkArehouseId
         }
     }
 
@@ -1453,6 +1506,9 @@
                 bdName: ''
             },
             rksCount: 0,
+            rksKyCount: 0,
+            rksRkdjId: '',
+            rksRkmxId: '',
             bgGoodsId: ''
         }
     }
@@ -1467,10 +1523,9 @@
             "blStatus": 0,
             "blArehouseId": 0,
             selectGood: selectGood(),
-            lala: dateFormat(new Date(), 'yyyyMMdd')
+            mdtBatch: dateFormat(new Date(), 'yyyyMMdd')
         }
     }
-
 
 
     post(inputOperation.option);
@@ -1541,7 +1596,7 @@
             },
             success: function (json) {
                 var temp = {
-                    1: '创建出库单(出库)',
+                    1: '创建出库单',
                     2: '分拣(出库)',
                     3: '下架(出库)',
                     4: '编辑(出库)',
@@ -1550,10 +1605,21 @@
                     7: 'PDA上架(入库)',
                     8: 'PDA分拣(出库)',
                     9: 'PDA下架(出库)',
-                    10: '创建入库单(入库)',
+                    10: '创建入库单',
                     11: '编辑入库单(手工制作可以编辑)(入库)',
                     12: '作废入库单(手工制作可以作废)(入库)',
-                    13: '分配入库单(入库)'
+                    13: '分配入库单(入库)',
+                    14: '取消分配(入库)',
+                    15: '上架(入库)',
+                    16: '再次收货(入库)',
+                    17: '欠货完结(入库)',
+                    18: '欠货补发(出库)',
+                    19: '滞留补发(出库)',
+                    20: '挂起单据(出库)',
+                    21: '制作台帐(入库)',
+                    22: '出库发运（出库）',
+                    23: '激活（出库）',
+                    24: '取消挂起'
                 };
                 for (var i = 0; i < json.length; i++) {
                     json[i].createTime = dateFormat(new Date(json[i].mhCreatetime), 'MM-dd hh:mm');

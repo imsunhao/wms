@@ -64,6 +64,7 @@
                         <el-carousel
                                 arrow="hover"
                                 indicator-position="none"
+                                height="600px"
                                 :autoplay="false">
                             <el-carousel-item>
                                 <el-row>
@@ -132,14 +133,14 @@
                                                         size="small"
                                                         @click="inlinePrintSortingList(props.$index, props.row)">打印分拣单
                                                 </el-button>
-                                                 <el-button
-                                                        size="small"
-                                                        @click="inlinePrintCombinationSortingList(props.$index, props.row)">打印组合分拣单
-                                                </el-button>
-
-                                                  <el-button
+                                                <el-button
                                                         size="small"
                                                         @click="inlinePrintOrder(props.$index, props.row)">打印追加分拣单
+                                                </el-button>
+                                                 <el-button
+                                                        size="small"
+                                                        type="info"
+                                                        @click="inlineXj(props.$index, props.row)">下架
                                                 </el-button>
                                             </el-form-item>
                                             <el-form-item label="入库备注">
@@ -837,7 +838,7 @@
         },
         methods: {
             inlinePrintSortingList:function(){},                                       //TODO 行内按钮-打印分拣单
-            inlinePrintCombinationSortingList:function(){},                            //TODO 行内按钮-打印组合分拣单
+            inlineXj:function(){},                            //TODO 行内按钮-打印组合分拣单
             inlinePrintOrder:function(){},                                            //TODO 行内按钮-打印追加分拣单
             distributionBtnSubmit: function () {
                 var _this = this;
@@ -1351,9 +1352,7 @@
 
         $.ajax(url, {
             type: "GET",
-            data: option | {
-                "id": 1                        //* 入库单号id
-            },
+            data: option,
             error: function (error) {
                 errorTip(obj, error);
             },
@@ -1474,20 +1473,6 @@
             }
         });
     }
-
-    function printfCompile(obj) {
-        var resoleveStep = [];
-        for (var i = 0; i < obj.multipleSelection.length; i++) {
-            resoleveStep.push({
-                name: obj.multipleSelection[i].rkrwNo,
-                rkrwNo:obj.multipleSelection[i].rkrwNo,
-                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
-            });
-        }
-        obj.printf = resoleveStep;
-    }				 //打印
-
-
 </script>
 
 
