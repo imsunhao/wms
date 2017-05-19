@@ -105,26 +105,26 @@
                                                 v-show="props.row.ckrwStatus==21"
                                                 @click="inlineActivateTask(props.$index, props.row)">激活任务
                                         </el-button>
-                                        <el-button
-                                                size="small"
-                                                type="success"
-                                                @click="inlineSupplementaryDistribution(props.$index, props.row)">追加分拣
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                @click="inlineModifySorting(props.$index, props.row)">修改分拣方式
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                type="success"
-                                                @click="inlinePendingConfirmation(props.$index, props.row)">挂起确认
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                type="success"
-                                                @click="inlineActivateDocument(props.$index, props.row)">激活单据
+                                        <!--<el-button-->
+                                                <!--size="small"-->
+                                                <!--type="success"-->
+                                                <!--@click="inlineSupplementaryDistribution(props.$index, props.row)">追加分拣-->
+                                        <!--</el-button>-->
+                                        <!--<el-button-->
+                                                <!--size="small"-->
+                                                <!--@click="inlineModifySorting(props.$index, props.row)">修改分拣方式-->
+                                        <!--</el-button>-->
+                                        <!--<el-button-->
+                                                <!--size="small"-->
+                                                <!--type="success"-->
+                                                <!--@click="inlinePendingConfirmation(props.$index, props.row)">挂起确认-->
+                                        <!--</el-button>-->
+                                        <!--<el-button-->
+                                                <!--size="small"-->
+                                                <!--type="success"-->
+                                                <!--@click="inlineActivateDocument(props.$index, props.row)">激活单据-->
 
-                                        </el-button>
+                                        <!--</el-button>-->
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -978,7 +978,6 @@
             ckrwYjdcsj: [null, null],     //模糊查询--预计到车时间
         }
     }
-    ;
     var obj = activationBill;
     var p = [];
     // 0 激活单据 分页查询
@@ -1010,17 +1009,6 @@
     //TODO 修改分拣方式
 
     p[0].post(activationBill.option);
-    function printfCompile(obj) {
-        var resoleveStep = [];
-        for (var i = 0; i < obj.multipleSelection.length; i++) {
-            resoleveStep.push({
-                name: obj.multipleSelection[i].rkrwNo,
-                rkrwNo: obj.multipleSelection[i].rkrwNo,
-                rkrwDhrq: obj.multipleSelection[i].rkrwDhrq
-            });
-        }
-        obj.printf = resoleveStep;
-    }				 //打印
 
 
 </script>
