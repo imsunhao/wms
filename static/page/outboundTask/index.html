@@ -200,20 +200,21 @@
                                     </el-table-column>
                                     <el-table-column
                                             width="80"
+                                            v-if="props.row.ckrwStatus>10&&props.row.ckrwStatus<42"
                                             label="挂起">
                                         <template scope="scope">
                                             <el-button
                                                     size="small"
                                                     type="success"
                                                     icon="circle-check"
-                                                    v-show="scope.row.ckGqStatus==1"
+                                                    v-if="scope.row.ckGqStatus==1"
                                                     @click="inlineHangBill(scope.$index, scope.row)">
                                             </el-button>
                                             <el-button
                                                     size="small"
                                                     type="danger"
                                                     icon="circle-close"
-                                                    v-show="scope.row.ckGqStatus==2"
+                                                    v-if="scope.row.ckGqStatus==2"
                                                     @click="inlineCancelHang(scope.$index, scope.row)">
                                             </el-button>
                                         </template>
@@ -1187,7 +1188,7 @@
                     type: 'warning'
                 }).then(function () {
                     p[7].post({
-                        "id": row.ckCkdjId,
+                        "ids": [row.ckCkdjId],
                         "userName": app.rmsUser.ruUserName
                     },function (json) {
                         this.callbackAfter({status: json.status, model: '单据挂起'}, function () {
