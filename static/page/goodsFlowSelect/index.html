@@ -155,12 +155,13 @@
             size="large"
             class="select"
             v-model="dialogSelectVisible">
+
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
         </div>
-        <el-row>
-            <el-col span="7">
-                <el-form :model="form">
+        <el-form :model="form">
+            <el-row>
+                <el-col span="7">
                     <el-form-item label="货品名称"
                                   :label-width="formLabelWidth">
                         <el-input
@@ -201,10 +202,9 @@
                                 icon="search"
                                 placeholder="联系人"></el-input>
                     </el-form-item>
-                </el-form>
-            </el-col>
-            <el-col span="7" offset="2">
-                <el-form>
+
+                </el-col>
+                <el-col span="7" offset="2">
                     <el-form-item label="联系电话"
                                   :label-width="formLabelWidth">
                         <el-input
@@ -239,9 +239,9 @@
                                        v-for="obj of baseArehouses"></el-option>
                         </el-select>
                     </el-form-item>
-                </el-form>
-            </el-col>
-        </el-row>
+                </el-col>
+            </el-row>
+        </el-form>
 
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
@@ -493,9 +493,9 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "bgGoodsName":this.bgGoodsName.trim(),
-                    "bgGoodsNo":this.bgGoodsNo.trim(),
-                    "ckCkdjClientname":this.ckCkdjClientname.trim(),
+                    "bgGoodsName": this.bgGoodsName.trim(),
+                    "bgGoodsNo": this.bgGoodsNo.trim(),
+                    "ckCkdjClientname": this.ckCkdjClientname.trim(),
                 }
             },
             search: function () {
@@ -515,8 +515,8 @@
                     "rkrwStatus": this.form.rkrwStatus
                 }
             },
-            form_pop:function(){
-                return{
+            form_pop: function () {
+                return {
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
@@ -526,10 +526,10 @@
                     "ckAdress": this.form.ckAdress,
                     "ckContacts": this.form.ckContacts,
                     "ckTel": this.form.ckTel,
-                    "ckCkdjClientno":this.form.ckCkdjClientno ,
+                    "ckCkdjClientno": this.form.ckCkdjClientno,
                     "ckCkdjNo": this.form.ckCkdjNo,
-                    "ckArehouseId":this.form.ckArehouseId,
-                    "blLname":this.form.blLname,
+                    "ckArehouseId": this.form.ckArehouseId,
+                    "blLname": this.form.blLname,
                 }
             },
             distributionForm: function () {
@@ -614,17 +614,17 @@
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = false;
-                p[0].post( obj.form_pop);
+                p[0].post(obj.form_pop);
             },                                          //详细查询 提交
             printfSubmit: function () {
-                var datas=[];
-                var checkData=goodsFlowSelect.$refs.printf.getCheckedNodes();
-                for(var i in checkData){
-                    if(typeof checkData[i].val2!=='undefined'){
+                var datas = [];
+                var checkData = goodsFlowSelect.$refs.printf.getCheckedNodes();
+                for (var i in checkData) {
+                    if (typeof checkData[i].val2 !== 'undefined') {
                         datas.push(checkData[i]);
                     }
                 }
-                this.printDatas=datas;
+                this.printDatas = datas;
                 this.dialogPelectVisible = !this.dialogPrintfVisible;
                 wap.print(this);
             },                                          //打印 提交
@@ -638,15 +638,15 @@
                         return resolve(this.printf);
                     case 1:
                         postRkrwNo(this, {
-                            rkrwNo:node.data.rkrwNo,
-                            rkrwDhrq:node.data.rkrwDhrq
+                            rkrwNo: node.data.rkrwNo,
+                            rkrwDhrq: node.data.rkrwDhrq
                         }, resolve);
                         break;
                     case 2:
                         console.log(node.data.name);
                         postRkdjId(this, {
-                            rkrwNo:node.data.rkrwNo,
-                            rkrwDhrq:node.data.rkrwDhrq
+                            rkrwNo: node.data.rkrwNo,
+                            rkrwDhrq: node.data.rkrwDhrq
                         }, resolve);
                         break;
                     case 3:
@@ -669,61 +669,59 @@
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
             },                                  //下单时间
-            auto_rkStatus:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        1:'原始状态',
-                        21:'部分分配',
-                        22:'全部分配',
-                        31:'部分收货',
-                        32:'完全收货',
+            auto_rkStatus: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '原始状态',
+                        21: '部分分配',
+                        22: '全部分配',
+                        31: '部分收货',
+                        32: '完全收货',
                     }
-                }else{
-                    temp={
-                        '原始状态':1,
-                        '部分分配':21,
-                        '全部分配':22,
-                        '部分收货':31,
-                        '完全收货':32
+                } else {
+                    temp = {
+                        '原始状态': 1,
+                        '部分分配': 21,
+                        '全部分配': 22,
+                        '部分收货': 31,
+                        '完全收货': 32
                     }
                 }
                 return temp[value];
             },                                         //入库状态
-            auto_rkZdfs:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        1:'手动',
-                        2:'导入',
-                        3:'接口',
+            auto_rkZdfs: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '手动',
+                        2: '导入',
+                        3: '接口',
                     }
-                }else{
-                    temp={
-                        '手动':1,
-                        '导入':2,
-                        '接口':3,
+                } else {
+                    temp = {
+                        '手动': 1,
+                        '导入': 2,
+                        '接口': 3,
                     }
                 }
                 return temp[value];
             },                                         //操作方式
-            auto_rkStartwith:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        1:'电脑端',
-                        2:'PDA',
+            auto_rkStartwith: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '电脑端',
+                        2: 'PDA',
                     }
-                }else{
-                    temp={
-                        '电脑端':1,
-                        'PDA':2,
+                } else {
+                    temp = {
+                        '电脑端': 1,
+                        'PDA': 2,
                     }
                 }
                 return temp[value];
             },                                         //入库状态
-
-
 
 
         },
@@ -750,19 +748,19 @@
     });
     function _form() {
         return {
-            bgGoodsName:'',//模糊查询--货品名称
-            bgGoodsNo:'',//模糊查询--货品编号
-            ckCkdjClientname:'',//模糊查询--客户名称
-            ckAdress:'',//模糊查询--客户地址
-            ckContacts:'',//模糊查询--联系人
-            ckTel:'',//模糊查询--联系电话
-            ckCkdjClientno:'',//模糊查询--客户编号
-            ckCkdjNo:'',//模糊查询--出库单号
-            ckArehouseId:'',//模糊查询--仓库
+            bgGoodsName: '',//模糊查询--货品名称
+            bgGoodsNo: '',//模糊查询--货品编号
+            ckCkdjClientname: '',//模糊查询--客户名称
+            ckAdress: '',//模糊查询--客户地址
+            ckContacts: '',//模糊查询--联系人
+            ckTel: '',//模糊查询--联系电话
+            ckCkdjClientno: '',//模糊查询--客户编号
+            ckCkdjNo: '',//模糊查询--出库单号
+            ckArehouseId: '',//模糊查询--仓库
         }
     }
-    var obj=goodsFlowSelect;
-    var p=[];
+    var obj = goodsFlowSelect;
+    var p = [];
     // 0 货品流向查询 分页查询
     p[0] = autoPost({
         urlHock: "/hock/goodsFlowSelect/page.json",
@@ -772,14 +770,13 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-     // 1 货品流向查询 导出
+    // 1 货品流向查询 导出
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/goodsFlowSelect/1",
         success: function (json) {
         }
     });
-
 
 
     // 高级 监视器的 使用方法
