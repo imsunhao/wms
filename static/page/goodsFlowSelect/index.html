@@ -47,7 +47,7 @@
                             <el-row>
                                 <el-col :span="10">
                                     <el-form-item label="仓库">
-                                        <span>{{ props.row.ckArehouseId }}</span>
+                                        <span>{{ props.row.baseArehouse.baName }}</span>
                                     </el-form-item>
                                     <el-form-item label="出库单号">
                                         <span>{{props.row.ckCkdjNo }}</span>
@@ -67,17 +67,17 @@
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="货品编号">
-                                        <span>{{ props.row.msxHpkid }}</span>
+                                        <span>{{ props.row.mfunckDocs[0].baseGoods.bgGoodsNo }}</span>
                                     </el-form-item>
                                     <el-form-item label="货品名称">
-                                        <span>{{ props.row.msxHpkid }}</span>
+                                        <span>{{ props.row.mfunckDocs[0].baseGoods.bgGoodsName }}</span>
                                     </el-form-item>
 
                                     <el-form-item label="货品数量">
-                                        <span>{{ props.row.msxMxCount }}</span>
+                                        <span>{{ props.row.mfunckDocs[0].mfunckSortingMx[0].msxMxCount }}</span>
                                     </el-form-item>
                                     <el-form-item label="货品体积">
-                                        <span>{{ props.row.hptj }}</span>
+                                        <span>{{ props.row.mfunckDocs[0].baseGoods.bgGoodsTj }}</span>
                                     </el-form-item>
                                     <el-form-item label="客户地址">
                                         <span>{{ props.row.ckAdress }}</span>
@@ -202,7 +202,6 @@
                                 icon="search"
                                 placeholder="联系人"></el-input>
                     </el-form-item>
-
                 </el-col>
                 <el-col span="7" offset="2">
                     <el-form-item label="联系电话"
