@@ -1179,7 +1179,6 @@
 
             },                                              //按钮 新建入库单
             expandChange: function (row, expanded) {
-                console.log(row.rkRkdjId);
                 if (expanded && row.history.length === 0) {
                     postHistory({rkRkdjId: row.rkRkdjId}, row);
                     p[3].post({rkRkdjId: row.rkRkdjId}, function (json) {
