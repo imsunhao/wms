@@ -48,29 +48,30 @@
                             <el-row>
                                 <el-col :span="10">
                                     <el-form-item label="仓库">
-                                        <span>{{ props.row.mrArehouseId }}</span>
+                                        <span>{{ props.row.baseArehouse.baName }}</span>
                                     </el-form-item>
 
                                     <el-form-item label="库位名称">
-                                        <span>{{ props.row.mrLocationId }}</span>
+                                        <span>{{ props.row.baseLocation.blLname }}</span>
                                     </el-form-item>
                                     <el-form-item label="货品编号">
                                         <span>{{ props.row.baseGoods.bgGoodsNo }}</span>
                                     </el-form-item>
-                                    <el-form-item label="货品名称">
-                                        <span>{{ props.row.base }}</span>
-                                    </el-form-item>
+
                                     <el-form-item label="货品批次">
                                         <span>{{ props.row.mrGoodsBatch }}</span>
                                     </el-form-item>
                                     <el-form-item label="数量">
                                         <span>{{ props.row.mrCount }}</span>
                                     </el-form-item>
+                                    <el-form-item label="货品名称">
+                                        <span>{{ props.row.baseGoods.bgGoodsName }}</span>
+                                    </el-form-item>
 
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="可用数量">
-                                        <span>{{ props.row.kysl }}</span>
+                                        <span>{{ props.row.kyCount }}</span>
                                     </el-form-item>
                                     <el-form-item label="待下架数量">
                                         <span>{{ props.row.mrDxjCount }}</span>

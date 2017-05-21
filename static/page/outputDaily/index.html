@@ -52,16 +52,16 @@
                             <el-row>
                                 <el-col :span="10">
                                     <el-form-item label="作业人员">
-                                        <span>{{ props.row.msxXjry }}</span>
+                                        <span>{{ props.row.mfunckDocs[0].mfunckSortingMx[0].rmsUser.ruUserName }}</span>
                                     </el-form-item>
                                     <el-form-item label="作业时间">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            <!--{{ auto_time(props.row.mfunckSorting.msxQrsj) }}-->
+                                            {{ auto_time(props.row.mfunckDocs[0].mfunckSortingMx[0].msxQrsj) }}
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="作业体积">
-                                        <span>{{ props.row.bgGoodsTj }}</span>
+                                        <span>{{ props.row.mfunckDocs[0].mfunckSortingMx[0].goodsTj }}</span>
                                     </el-form-item>
                                     <el-form-item label="下架时间">
                                         <span>
@@ -82,10 +82,10 @@
                                         <span>{{ auto_ckStatus(props.row.ckStatus)}}</span>
                                     </el-form-item>
                                     <el-form-item label="欠货状态">
-                                        <span>{{ auto_cksQhStatus(props.row.cksQhStatus) }}</span>
+                                        <span>{{ auto_cksQhStatus(props.row.mfunckDocs[0].cksQhStatus) }}</span>
                                     </el-form-item>
                                     <el-form-item label="滞留状态">
-                                        <span>{{ auto_cksZlStatus(props.row.cksZlStatus) }}</span>
+                                        <span>{{ auto_cksZlStatus(props.row.mfunckDocs[0].cksQhStatus) }}</span>
                                     </el-form-item>
                                     <el-form-item label="下架开始">
                                         <span>
@@ -100,26 +100,27 @@
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="货品编号">
-                                        <span>{{ props.row.cksGoodsId }}</span>
+                                        <span>{{ props.row.mfunckDocs[0].baseGoods.bgGoodsNo}}</span>
+                                    </el-form-item>
+                                    <el-form-item label="货品名称">
+                                        <span>{{ props.row.mfunckDocs[0].baseGoods.bgGoodsName }}</span>
                                     </el-form-item>
 
                                 </el-col>
                                 <el-col :span="10" :offset="2">
-                                    <el-form-item label="货品名称">
-                                        <span>{{ props.row.cksGoodsId }}</span>
-                                    </el-form-item>
+
                                     <el-form-item label="货品批次">
-                                        <span>{{ props.row.msxHpkcid }}</span>
+                                        <span>{{ props.row.mfunckDocs[0].mfunRepertory.mrGoodsBatch }}</span>
                                     </el-form-item>
 
                                     <el-form-item label="下架库位">
-                                        <span>{{ props.row.msxHpkcid }}</span>
+                                        <span>{{ props.row.mfunckDocs[0].baseLocation.blLname }}</span>
                                     </el-form-item>
                                     <el-form-item label="应下数量">
-                                        <span>{{ props.row.cksGoodsCount }}</span>
+                                        <span>{{ props.row.mfunckDocs[0].cksGoodsCount }}</span>
                                     </el-form-item>
                                     <el-eform-item label="下架数量">
-                                        <span>{{ props.row.msxMxCount }}</span>
+                                        <span>{{ props.row.mfunckDocs[0].mfunckSortingMx[0].msxMxCount }}</span>
                                     </el-eform-item>
                                     <el-form-item label="制作方式">
                                         <span>{{ auto_ckIsauto(props.row.ckIsauto) }}</span>
