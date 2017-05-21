@@ -60,7 +60,7 @@
                             <el-row>
                                 <el-col :span="10">
                                     <el-form-item label="仓库">
-                                        <span>{{ props.row.baName }}</span>
+                                        <span>{{ props.row.baseArehouse.baName  }}</span>
                                     </el-form-item>
                                     <el-form-item label="出库单号">
                                         <span>{{ props.row.ckCkdjNo }}</span>
@@ -78,10 +78,10 @@
                                         <span>{{ auto_ckZlStatus(props.row.ckZlStatus) }}</span>
                                     </el-form-item>
                                     <el-form-item label="总数量">
-                                        <span>{{props.row.allSL }}</span>
+                                        <span>{{props.row.allCount }}</span>
                                     </el-form-item>
                                     <el-form-item label="总体积">
-                                        <span>{{ props.row.allTJ}}</span>
+                                        <span>{{ props.row.allTj}}</span>
                                     </el-form-item>
                                     <el-form-item label="下架数量">
                                         <span>{{ props.row.xjsl }}</span>
@@ -440,56 +440,48 @@
                 style="width: 100%">
             <el-table-column
                     label="货品编号"
-
                     show-overflow-tooltip
                     align="center"
                     prop="cksGoodsId">
             </el-table-column>
             <el-table-column
                     label="货品名称"
-
                     show-overflow-tooltip
                     align="center"
                     prop="cksGoodsId">
             </el-table-column>
             <el-table-column
                     label="货品数量"
-
                     show-overflow-tooltip
                     align="center"
                     prop="cksGoodsCount">
             </el-table-column>
             <el-table-column
                     label="货品体积"
-
                     show-overflow-tooltip
                     align="center"
                     prop="hptj">
             </el-table-column>
             <el-table-column
                     label="下架数量"
-
                     show-overflow-tooltip
                     align="center"
                     prop="msxMxCount">
             </el-table-column>
             <el-table-column
                     label="下架体积"
-
                     show-overflow-tooltip
                     align="center"
                     prop="msxMxCount*bgGoodsTj">
             </el-table-column>
             <el-table-column
                     label="欠货数量"
-
                     show-overflow-tooltip
                     align="center"
                     prop="cksQhCounts">
             </el-table-column>
             <el-table-column
                     label="欠货体积"
-
                     show-overflow-tooltip
                     align="center"
                     prop="cksQhCounts*bgGoodsTj">
@@ -781,10 +773,10 @@
 
                 //detailed: formDetailed(), //表单           //查看入库明细信息 弹出层 信息集合(表单格式)
                 detailed:[],
-                dialogDetailedVisible: false,    //查看入库明细信息 弹出层 是否可见
+                dialogDetailedVisible: false,    //查看出库明细信息 弹出层 是否可见
 
-                storage: [],           //查看入库储位信息 弹出层 信息集合
-                dialogStorageVisible: false,     //查看入库储位信息 弹出层 是否可见
+                storage: [],           //查看分拣明细信息 弹出层 信息集合
+                dialogStorageVisible: false,     //查看储位信息 弹出层 是否可见
 
                 select: _form(),                      //搜索 弹出层 信息集合,
                 printf: [],                         //搜索 弹出层 信息集合,
@@ -864,8 +856,11 @@
             inlineExportOutputDetailed:function(){},                                    //TODO 行内按钮-导出出库明细
             inlineExportOutputStorage:function(){},                                     //TODO 行内按钮-导出出库储位
             inlineExportOutput:function(){},                                            //TODO 行内按钮-导出出库
-            inlineSelectOutputDetailed:function(){
-                this.dialogDetailedVisible = true;
+            inlineSelectOutputDetailed:function(index,row){
+                p[1].post({id:row.ckCkdjId},function(json){
+                    detailed=json.model;
+                    obj.dialogDetailedVisible = true;
+                })
             },                                //TODO 行内按钮-查看出库明细信息
             inlineSelectSortingDetailed:function(){
                 this.dialogStorageVisible = true;
@@ -1176,7 +1171,7 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-    // 1 出库单据查询
+    // 1 根据出库单id查询出库明细（二级菜单）
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/outputSelect/1",
@@ -1184,7 +1179,7 @@
 
         }
     });
-    // 2 出库单据查询
+    // 2 根据出库明细id查询分拣明细集合（三级菜单）
     p[2] = autoPost({
         urlHock: "",
         urlProd: "/route/outputSelect/2",

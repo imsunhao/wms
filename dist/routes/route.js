@@ -1120,13 +1120,13 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '出库单据查询 出库单明细查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mfunck/findMfunckDocsByCkCkdjId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
                         urlName = '出库单据查询 分拣明细查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mfunck/findMfunckSortingMxByCkmxId', "POST", function (json) {
                             res.send(json);
                         });
                         break;

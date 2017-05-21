@@ -10,7 +10,7 @@
                         icon="search"
                         placeholder="调拨单号"></el-input>
                 <el-date-picker
-                        v-model="rkCreatetime"
+                        v-model="sfrq"
                         type="daterange"
                         align="right"
                         placeholder="始发日期"
@@ -18,7 +18,7 @@
                         :picker-options="pickerOptions">
                 </el-date-picker>
                 <el-date-picker
-                        v-model="rkSjsj"
+                        v-model="dhsj"
                         type="daterange"
                         align="right"
                         placeholder="到货日期"
@@ -57,91 +57,95 @@
                                 <el-col :span="11">
                                     <el-form-item label="始发日期">
                                         <el-icon name="time"></el-icon>
-                                        <span style="margin-left: 10px">{{ auto_rkCreatetime(props.row.rkCreatetime) }}</span>
+                                        <span style="margin-left: 10px">{{ auto_sfrq(props.row.sfrq) }}</span>
                                     </el-form-item>
                                     <el-form-item label="调拨地点">
-                                        <span>{{ props.row.rkrwDbd }}</span>
+                                        <span>{{ props.row.dbdd }}</span>
                                     </el-form-item>
                                     <el-form-item label="承运商">
                                         <span>{{ props.row.rkrwCys }}</span>
                                     </el-form-item>
                                     </el-form-item>
                                     <el-form-item label="车牌号">
-                                        <span>{{ props.row.rkrwCph }}</span>
+                                        <span>{{ props.row.cph }}</span>
                                     </el-form-item>
                                     <el-form-item label="收货人">
-                                        <span>{{ props.row.ruUserName }}</span>
+                                        <span>{{ props.row.shr }}</span>
                                     </el-form-item>
                                     <el-form-item label="收货仓库">
-                                        <span>{{ props.row.baName }}</span>
+                                        <span>{{ props.row.shck }}</span>
                                     </el-form-item>
                                     <el-form-item label="单号">
-                                        <span>{{ props.row.rkRkdjNo }}</span>
+                                        <span>{{ props.row.dh }}</span>
                                     </el-form-item>
                                     <el-form-item label="调拨单号">
-                                        <span>{{ props.row.rkErpNo }}</span>
+                                        <span>{{ props.row.dbdh }}</span>
                                     </el-form-item>
                                     <el-form-item label="承运件数(台)">
-                                        <!--<span>{{ props.row }}</span>-->
+                                        <span>{{ props.row.cyts }}</span>
                                     </el-form-item>
                                     <el-form-item label="承运件数(箱)">
-                                        <!--<span>{{ props.row }}</span>-->
+                                        <span>{{ props.row.cyxs }}</span>
                                     </el-form-item>
+                                    <el-form-item label="预计方数">
+                                        <span>{{ props.row.cytj }}</span>
+                                    </el-form-item>
+
                                     <el-form-item label="物料编码">
-                                        <span>{{ props.row.bgGoodsNo }}</span>
+                                        <span>{{ props.row.wlbm }}</span>
                                     </el-form-item>
                                     <el-form-item label="物料描述">
-                                        <span>{{ props.row.bgGoodsName }}</span>
+                                        <span>{{ props.row.wlms }}</span>
                                     </el-form-item>
                                     <el-form-item label="台数">
-                                        <!--<span>{{ props.row }}</span>-->
+                                        <span>{{ props.row.ts }}</span>
                                     </el-form-item>
                                     <el-form-item label="件数">
-                                        <!--<span>{{ props.row }}</span>-->
+                                        <span>{{ props.row.js }}</span>
                                     </el-form-item>
-                                    <el-form-item label="方数">
-                                        <!--<span>{{ props.row }}</span>-->
+                                    <el-form-item label="实发方数">
+                                        <span>{{ props.row.tj }}</span>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="11" :offset="2">
                                     <el-form-item label="到货日期">
                                         <el-icon name="time"></el-icon>
-                                        <span style="margin-left: 10px">{{auto_rkSjsj(props.row.rkSjsj)  }}</span>
+                                        <span style="margin-left: 10px">{{auto_dhsj(props.row.dhsj)  }}</span>
                                     </el-form-item>
                                     <el-form-item label="收货日期">
                                         <el-icon name="time"></el-icon>
-                                        <span style="margin-left: 10px">{{ auto_rkSjsj(props.row.rkSjsj) }}</span>
+                                        <span style="margin-left: 10px">{{ auto_dhsj(props.row.dhsj) }}</span>
                                     </el-form-item>
                                     <el-form-item label="破损/台数">
-                                        <span>{{ props.row.rksPsts }}</span>
+                                        <span>{{ props.row.psts }}</span>
                                     </el-form-item>
                                     <el-form-item label="破损外包(调)">
-                                        <span>{{ props.row.rksDbPswb }}</span>
+                                        <span>{{ props.row.dbpswb }}</span>
                                     </el-form-item>
                                     <el-form-item label="破损外包(源)">
-                                        <span>{{ props.row.rksYtPswb }}</span>
+                                        <span>{{ props.row.ytpswb }}</span>
                                     </el-form-item>
                                     <el-form-item label="破损内保(调)">
-                                        <span>{{ props.row.rksDbPsnb }}</span>
+                                        <span>{{ props.row.dbpsnb }}</span>
                                     </el-form-item>
                                     <el-form-item label="破损内保(源)">
-                                        <span>{{ props.row.rksYtPsnb }}</span>
+                                        <span>{{ props.row. ytpsnb }}</span>
                                     </el-form-item>
                                     <el-form-item label="泡沫">
-                                        <span>{{ props.row.rksPm }}</span>
+                                        <span>{{ props.row.pm }}</span>
                                     </el-form-item>
                                     <el-form-item label="缺机/台">
-                                        <span>{{ props.row.rksQhsl }}</span>
+                                        <span>{{ props.row.qhsl }}</span>
                                     </el-form-item>
                                     <el-form-item label="异常原因">
-                                        <span>{{ props.row.rksYcyy }}</span>
+                                        <span>{{ props.row.ycyy }}</span>
                                     </el-form-item>
                                     <el-form-item label="处理结果">
-                                        <span>{{ props.row.rksCljg }}</span>
+                                        <span>{{ props.row.cljg }}</span>
                                     </el-form-item>
                                     <el-form-item label="结算时间">
                                         <el-icon name="time"></el-icon>
-                                        <span style="margin-left: 10px">{{ auto_rksJssj(props.row.rksJssj) }}</span>
+                                        <span style="margin-left: 10px">{{ auto_jssj(props.row.jssj) }}</span>
                                     </el-form-item>
                                     <el-form-item label="可用操作">
                                         <el-button
@@ -180,7 +184,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_rkCreatetime(scope.row.rkCreatetime,true)}}
+                        {{auto_sfrq(scope.row.sfrq,true)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -189,7 +193,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_rkSjsj(scope.row.rkSjsj,true)}}
+                        {{auto_dhsj(scope.row.dhsj,true)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -198,7 +202,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_rkSjsj(scope.row.rkSjsj,true)}}
+                        {{auto_dhsj(scope.row.dhsj,true)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -206,7 +210,7 @@
                         width="150"
                         show-overflow-tooltip
                         align="center"
-                        prop="rkrwDbd">
+                        prop="dbdd">
                 </el-table-column>
                 <el-table-column
                         label="承运商"
@@ -220,12 +224,12 @@
                         width="100"
                         show-overflow-tooltip
                         align="center"
-                        prop="rkrwCph">
+                        prop="cph">
                 </el-table-column>
                 <el-table-column
                         label="收货人"
                         align="center"
-                        prop="ruUserName">
+                        prop="shr">
                 </el-table-column>
                 <el-table-column
                         v-if="multiSelect"
@@ -306,7 +310,7 @@
                     <el-form-item label="始发日期"
                                   :label-width="formLabelWidth">
                         <el-date-picker
-                                v-model="form.rkCreatetime"
+                                v-model="form.sfrq"
                                 type="daterange"
                                 align="right"
                                 placeholder="始发日期"
@@ -317,7 +321,7 @@
                     <el-form-item label="到货日期"
                                   :label-width="formLabelWidth">
                         <el-date-picker
-                                v-model="form.rkSjsj"
+                                v-model="form.dhsj"
                                 type="daterange"
                                 align="right"
                                 placeholder="到货日期"
@@ -328,7 +332,7 @@
                     <el-form-item label="到货日期"
                                   :label-width="formLabelWidth">
                         <el-date-picker
-                                v-model="form.rkSjsj"
+                                v-model="form.dhsj"
                                 type="daterange"
                                 align="right"
                                 placeholder="收货日期"
@@ -340,7 +344,7 @@
                                   :label-width="formLabelWidth">
                         <el-input
                                 class="input"
-                                v-model="form.rkErpNo"
+                                v-model="form.dbdh"
                                 icon="search"
                                 placeholder="调拨单号"></el-input>
                     </el-form-item>
@@ -348,7 +352,7 @@
                                   :label-width="formLabelWidth">
                         <el-input
                                 class="input"
-                                v-model="form.rkrwDbd"
+                                v-model="form.dbdd"
                                 icon="search"
                                 placeholder="调拨地"></el-input>
                     </el-form-item>
@@ -361,7 +365,7 @@
                                   :label-width="formLabelWidth">
                         <el-input
                                 class="input"
-                                v-model="form.rkrwCph"
+                                v-model="form.cph"
                                 icon="search"
                                 placeholder="车牌号"></el-input>
                     </el-form-item>
@@ -369,7 +373,7 @@
                                   :label-width="formLabelWidth">
                         <el-input
                                 class="input"
-                                v-model="form.ruUserName"
+                                v-model="form.shr"
                                 icon="search"
                                 placeholder="收货人"></el-input>
                     </el-form-item>
@@ -377,7 +381,7 @@
                                   :label-width="formLabelWidth">
                         <el-input
                                 class="input"
-                                v-model="form.baName"
+                                v-model="form.shck"
                                 icon="search"
                                 placeholder="收货仓库"></el-input>
                     </el-form-item>
@@ -385,7 +389,7 @@
                                   :label-width="formLabelWidth">
                         <el-input
                                 class="input"
-                                v-model="form.bgGoodsNo"
+                                v-model="form.wlbm"
                                 icon="search"
                                 placeholder="物料编号"></el-input>
                     </el-form-item>
@@ -393,7 +397,7 @@
                                   :label-width="formLabelWidth">
                         <el-input
                                 class="input"
-                                v-model="form.bgGoodsName"
+                                v-model="form.wlms"
                                 icon="search"
                                 placeholder="物料名称"></el-input>
                     </el-form-item>
@@ -451,47 +455,47 @@
                                 <el-form-item
                                         label="始发日期"
                                         :label-width="formLabelWidth">
-                                    {{ledger.rkCreatetime}}
+                                    {{ledger.sfrq}}
                                 </el-form-item>
                                 <el-form-item
                                         label="到货日期"
                                         :label-width="formLabelWidth">
-                                    {{ledger.rkSjsj}}
+                                    {{ledger.dhsj}}
                                 </el-form-item>
                                 <el-form-item
                                         label="收货日期"
                                         :label-width="formLabelWidth">
-                                    {{ledger.rkSjsj}}
+                                    {{ledger.dhsj}}
                                 </el-form-item>
                                 <el-form-item
                                         label="调拨地点"
                                         :label-width="formLabelWidth">
-                                    {{ledger.rkrwDbd}}
+                                    {{ledger.dbdd}}
                                 </el-form-item>
                                 <el-form-item
                                         label="承运商"
                                         :label-width="formLabelWidth">
-                                    {{ledger.rkrwCph}}
+                                    {{ledger.cph}}
                                 </el-form-item>
                                 <el-form-item
                                         label="车牌号"
                                         :label-width="formLabelWidth">
-                                    {{ledger.rkrwCph}}
+                                    {{ledger.cph}}
                                 </el-form-item>
                                 <el-form-item
                                         label="收货人"
                                         :label-width="formLabelWidth">
-                                    {{ledger.ruUserName}}
+                                    {{ledger.shr}}
                                 </el-form-item>
                                 <el-form-item
                                         label="收货仓库"
                                         :label-width="formLabelWidth">
-                                    {{ledger.baName}}
+                                    {{ledger.shck}}
                                 </el-form-item>
                                 <el-form-item
                                         label="单号"
                                         :label-width="formLabelWidth">
-                                    {{ledger.rkRkdjNo}}
+                                    {{ledger.dh}}
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8" :offset="1" >
@@ -508,12 +512,12 @@
                                 <el-form-item
                                         label="物料编号"
                                         :label-width="formLabelWidth">
-                                    {{ledger.bgGoodsNo}}
+                                    {{ledger.wlbm}}
                                 </el-form-item>
                                 <el-form-item
                                         label="物料描述"
                                         :label-width="formLabelWidth">
-                                    {{ledger.bgGoodsName}}
+                                    {{ledger.wlms}}
                                 </el-form-item>
                                 <el-form-item
                                         label="台数"
@@ -536,68 +540,68 @@
                                         label="泡沫"
                                         :label-width="formLabelWidth">
                                     <el-input
-                                            v-model.number="ledger.rksPm"
+                                            v-model.number="ledger.pm"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
                                 <el-form-item
                                         label="调拨破损外包"
                                         :label-width="formLabelWidth">
                                     <el-input
-                                            v-model.number="ledger.rksDbPswb"
+                                            v-model.number="ledger.dbpswb"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
                                 <el-form-item
                                         label="源头破损外包"
                                         :label-width="formLabelWidth">
                                     <el-input
-                                            v-model.number="ledger.rksYtPswb"
+                                            v-model.number="ledger.ytpswb"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
                                 <el-form-item
                                         label="调拨破损内保"
                                         :label-width="formLabelWidth">
                                     <el-input
-                                            v-model.number="ledger.rksDbPsnb"
+                                            v-model.number="ledger.dbpsnb"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
                                 <el-form-item
                                         label="源头破损内保"
                                         :label-width="formLabelWidth">
                                     <el-input
-                                            v-model.number="ledger.rksYtPsnb"
+                                            v-model.number="ledger. ytpsnb"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
                                 <el-form-item
                                     label="缺机/台"
                                     :label-width="formLabelWidth">
                                 <el-input
-                                        v-model.number="ledger.rksQhsl"
+                                        v-model.number="ledger.qhsl"
                                         auto-complete="off"></el-input>
                             </el-form-item>
                                 <el-form-item
                                         label="异常原因"
                                         :label-width="formLabelWidth">
                                     <el-input
-                                            v-model.number="ledger.rksYcyy"
+                                            v-model.number="ledger.ycyy"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
                                 <el-form-item
                                         label="处理结果"
                                         :label-width="formLabelWidth">
                                     <el-input
-                                            v-model.number="ledger.rksCljg"
+                                            v-model.number="ledger.cljg"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
                                 <el-form-item
                                         label="破损台数"
                                         :label-width="formLabelWidth">
                                     <el-input
-                                            v-model.number="ledger.rksPsts"
+                                            v-model.number="ledger.psts"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
                                 <el-form-item label="结算时间" :label-width="formLabelWidth">
                                     <el-date-picker
-                                            v-model="ledger.rksJssj"
+                                            v-model="ledger.jssj"
                                             type="datetime"
                                             placeholder="选择结算时间">
                                     </el-date-picker>
@@ -804,18 +808,18 @@
                 currentPage: 1,
                 pageSize: 10,
                 rkrwNo:'',                              //主页面 调拨单号 搜索
-                rkCreatetime:[null,null],             //主页面 始发日期 搜索
-                rkSjsj:[null,null],                    //主页面 到货日期 搜索
+                sfrq:[null,null],             //主页面 始发日期 搜索
+                dhsj:[null,null],                    //主页面 到货日期 搜索
                 formLabelWidth: '120px',            //表单 配置
                 form: {
-                    rkRkdjNo: '',
+                    dh: '',
                     rkType: '',
                     rkRemarks: '',
                     rkDocsList: [],
-                    bgGoodsNo: '',
+                    wlbm: '',
                     selectGood: {
                         value: '',
-                        bgGoodsName: '',
+                        wlms: '',
                         count: 0,
                         bgGoodsId: ''
                     },
@@ -833,7 +837,7 @@
 
                 distribution: {
                     value: '',
-                    bgGoodsName: '',
+                    wlms: '',
                     count: 0,
                     bgGoodsId: ''
                 },     //导出 弹出层 信息集合
@@ -865,28 +869,28 @@
             inlineExport:function(){},                                                 //TODO 行内按钮-导出
             inlineProductionLedger:function(index, row){
                 this.dialogLedgerVisible = true;
-                this.ledger.rksPm=row.rksPm;        //  --泡沫
-                this.ledger.rksDbPswb =row.rksDbPswb;  //--调拨破损外包
-                this.ledger.rksYtPswb =row.rksYtPswb;  //--源头破损外包
-                this.ledger.rksDbPsnb =row.rksDbPsnb;  //--调拨破损内保
-                this.ledger.rksYtPsnb =row.rksYtPsnb;  //--源头破损内保
-                this.ledger.rksQhsl =row.rksQhsl;   //--缺机/台
-                this.ledger.rksYcyy =row.rksYcyy;   //--异常原因
-                this.ledger.rksCljg =row.rksCljg;   //---处理结果
-                this.ledger.rksPsts =row.rksPsts;   //--破损台数
-                this.ledger.rksJssj =row.rksJssj;   //--结算时间
-                this.ledger.rkCreatetime=row.rkCreatetime;//--始发日期
-                this.ledger.rkSjsj =row.rkSjsj ;      //--到货日期
-                this.ledger.rkSjsj =row.rkSjsj ;      //--收货日期
-                this.ledger.rkrwDbd=row.rkrwDbd;     //--调拨地点
-                this.ledger.rkrwCph=row.rkrwCph;     //--承运商
-                this.ledger.rkrwCph=row.rkrwCph;     //--车牌号
-                this.ledger.ruUserName=row.ruUserName; //--收货人
-                this.ledger.baName    =row.baName    ; //--收货仓库
-                this.ledger.rkRkdjNo  =row.rkRkdjNo  ; //--单号
-                this.ledger.rkErpNo   =row.rkErpNo   ; //-调拨单号
-                this.ledger.bgGoodsNo =row.bgGoodsNo ; //--物料编号
-                this.ledger.bgGoodsName=row.bgGoodsName; //--物料描述
+                this.ledger.pm=row.pm;        //  --泡沫
+                this.ledger.dbpswb =row.dbpswb;  //--调拨破损外包
+                this.ledger.ytpswb =row.ytpswb;  //--源头破损外包
+                this.ledger.dbpsnb =row.dbpsnb;  //--调拨破损内保
+                this.ledger. ytpsnb =row. ytpsnb;  //--源头破损内保
+                this.ledger.qhsl =row.qhsl;   //--缺机/台
+                this.ledger.ycyy =row.ycyy;   //--异常原因
+                this.ledger.cljg =row.cljg;   //---处理结果
+                this.ledger.psts =row.psts;   //--破损台数
+                this.ledger.jssj =row.jssj;   //--结算时间
+                this.ledger.sfrq=row.sfrq;//--始发日期
+                this.ledger.dhsj =row.dhsj ;      //--到货日期
+                this.ledger.dhsj =row.dhsj ;      //--收货日期
+                this.ledger.dbdd=row.dbdd;     //--调拨地点
+                this.ledger.cph=row.cph;     //--承运商
+                this.ledger.cph=row.cph;     //--车牌号
+                this.ledger.shr=row.shr; //--收货人
+                this.ledger.shck    =row.shck    ; //--收货仓库
+                this.ledger.dh  =row.dh  ; //--单号
+                this.ledger.dbdh   =row.dbdh   ; //-调拨单号
+                this.ledger.wlbm =row.wlbm ; //--物料编号
+                this.ledger.wlms=row.wlms; //--物料描述
             },                                       //TODO 行内按钮-制作台账
             inlineOweEnd: function () {
                 this.dialogEndVisible = true;
@@ -1050,14 +1054,14 @@
                     });
                     _this.dialogFormVisible = false;
                     _this.form = {
-                        rkRkdjNo: '',
+                        dh: '',
                         rkType: '',
                         rkRemarks: '',
                         rkDocsList: [],
-                        bgGoodsNo: '',
+                        wlbm: '',
                         selectGood: {
                             value: '',
-                            bgGoodsName: '',
+                            wlms: '',
                             count: 0,
                             bgGoodsId: ''
                         },
@@ -1080,7 +1084,7 @@
 //                },0);
             },                             //表单 string验证
             querySearchAsync: function (queryString, cb) {
-                postGoods(this, {bgGoodsNo: queryString}, cb);
+                postGoods(this, {wlbm: queryString}, cb);
             },
             GoodSelect: function (item) {
                 this.form.saveARkDocsList = false;
@@ -1096,7 +1100,7 @@
                 this.form.rkDocsList.push(this.form.selectGood);
                 this.form.selectGood = {
                     value: '',
-                    bgGoodsName: '',
+                    wlms: '',
                     count: 0
                 };
                 this.form.saveARkDocsList = true;
@@ -1105,7 +1109,7 @@
                 remove(this.form.selectGood, this.form.rkDocsList);
                 this.form.selectGood = {
                     value: '',
-                    bgGoodsName: '',
+                    wlms: '',
                     count: 0
                 };
             },
@@ -1123,19 +1127,19 @@
                 this.dialogSelectVisible = false;
                 console.log('select!');
             },
-            auto_rkCreatetime: function (value, bool) {
+            auto_sfrq: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                           //始发日期
-            auto_rkSjsj: function (value, bool) {
+            auto_dhsj: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                                 //到货日期
-            auto_rkSjsj: function (value, bool) {
+            auto_dhsj: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                                 //收货日期
-            auto_rksJssj: function (value, bool) {
+            auto_jssj: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                                //结算时间
@@ -1150,7 +1154,7 @@
                     this.saveARkDocsList = false;
                 }
             },
-            rkRkdjNo: function () {
+            dh: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
@@ -1179,17 +1183,17 @@
 
     function form() {
         return {
-            rkCreatetime: [null],//模糊查询--始发时间
-            rkSjsj: [null],//模糊查询--到货时间
-            rkSjsj: [null],//模糊查询--收货时间
-            rksJssj: [null],//模糊查询--结算时间
-            rkErpNo: '',//模糊查询--调拨单号
-            rkrwDbd: '',//模糊查询--调拨地
-            rkrwCph: '',//模糊查询--车牌号
-            ruUserName: '',//模糊查询--收货人
-            baName: '',//模糊查询--收货仓库
-            bgGoodsNo: '',//模糊查询--物料编号
-            bgGoodsName: '',//模糊查询--物料描述
+            sfrq: [null],//模糊查询--始发时间
+            dhsj: [null],//模糊查询--到货时间
+            dhsj: [null],//模糊查询--收货时间
+            jssj: [null],//模糊查询--结算时间
+            dbdh: '',//模糊查询--调拨单号
+            dbdd: '',//模糊查询--调拨地
+            cph: '',//模糊查询--车牌号
+            shr: '',//模糊查询--收货人
+            shck: '',//模糊查询--收货仓库
+            wlbm: '',//模糊查询--物料编号
+            wlms: '',//模糊查询--物料描述
         }
     }
     function formEnd() {
@@ -1200,33 +1204,33 @@
     }
     function formLedger() {
         return {
-            rkCreatetime:'',      //始发日期
-            rkSjsj:'',           //到货日期
-            rkSjsj:'',           //收货日期
-            rkrwDbd:'',         //--调拨地点
-            rkrwCph:'',         //--承运商
-            rkrwCph:'',          // --车牌号
-            ruUserName:'',      //--收货人
-            baName:'',          //--收货仓库
-            rkRkdjNo:'',        //--单号
-            rkErpNo:'',         //-调拨单号
+            sfrq:'',      //始发日期
+            dhsj:'',           //到货日期
+            dhsj:'',           //收货日期
+            dbdd:'',         //--调拨地点
+            cph:'',         //--承运商
+            cph:'',          // --车牌号
+            shr:'',      //--收货人
+            shck:'',          //--收货仓库
+            dh:'',        //--单号
+            dbdh:'',         //-调拨单号
                                  //承运件数(台)
                                 //承运件数(箱子)
                                 //方数
-            bgGoodsNo:'',      //--物料编号
-            bgGoodsName:'',    //--物料描述
-            rksPm: '',          //--泡沫
+            wlbm:'',      //--物料编号
+            wlms:'',    //--物料描述
+            pm: '',          //--泡沫
                                 //台数
                                //件数
                                //方数
-            rksDbPswb: '',   //--调拨破损外包
-            rksYtPswb: '',   //--源头破损外包
-            rksDbPsnb: '',   //--调拨破损内保
-            rksYtPsnb: '',   //--源头破损内保
-            rksYcyy: '',    // --异常原因
-            rksCljg: '',    // ---处理结果
-            rksPsts: '',    // --破损台数
-            rksJssj: '',    // --结算时间
+            dbpswb: '',   //--调拨破损外包
+            ytpswb: '',   //--源头破损外包
+            dbpsnb: '',   //--调拨破损内保
+             ytpsnb: '',   //--源头破损内保
+            ycyy: '',    // --异常原因
+            cljg: '',    // ---处理结果
+            psts: '',    // --破损台数
+            jssj: '',    // --结算时间
         }
     }
 

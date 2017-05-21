@@ -4473,10 +4473,27 @@
          * TODO 0 分页查询  POST /mfunck/findMfunckDocByPage
          */
         /**
-         * TODO 1 导出
+         * TODO 1 业务查询 根据出库单id查询出库明细（二级菜单）POST /mfunck/findMfunckDocsByCkCkdjId
          */
+        /**
+         * TODO 2 业务查询 根据出库明细id查询分拣明细集合（三级菜单） POST /mfunck/findMfunckSortingMxByCkmxId
+          */
+        /**
+         * TODO 3 导出出库单
+          */
+        /**
+         * TODO 4 导出明细
+          */
+        /**
+         * TODO 5 导出分拣明细
+          */
+        /**
+         * TODO 6 导出出库
+          */
+
+
     /**
-     * TODO 货品流向查询
+ * TODO 货品流向查询
      */
         /**
          * TODO 0 分页查询  post /mfunck/selectHplxCx
