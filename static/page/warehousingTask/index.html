@@ -294,18 +294,18 @@
                         placeholder="任务号"></el-input>
             </el-form-item>
             <!--<el-form-item label="任务状态"-->
-                          <!--:label-width="formLabelWidth">-->
-                <!--<el-select-->
-                        <!--v-model="form.rkrwStatus"-->
-                        <!--placeholder="请选择任务状态">-->
-                    <!--<el-option label="全部" :value="-1"></el-option>-->
-                    <!--<el-option label="初始" :value="1"></el-option>-->
-                    <!--<el-option label="已下发任务" :value="2"></el-option>-->
-                    <!--<el-option label="已开始收货" :value="3"></el-option>-->
-                    <!--<el-option label="收货中" :value="4"></el-option>-->
-                    <!--<el-option label="部分收货" :value="51"></el-option>-->
-                    <!--<el-option label="全部收货" :value="52"></el-option>-->
-                <!--</el-select>-->
+            <!--:label-width="formLabelWidth">-->
+            <!--<el-select-->
+            <!--v-model="form.rkrwStatus"-->
+            <!--placeholder="请选择任务状态">-->
+            <!--<el-option label="全部" :value="-1"></el-option>-->
+            <!--<el-option label="初始" :value="1"></el-option>-->
+            <!--<el-option label="已下发任务" :value="2"></el-option>-->
+            <!--<el-option label="已开始收货" :value="3"></el-option>-->
+            <!--<el-option label="收货中" :value="4"></el-option>-->
+            <!--<el-option label="部分收货" :value="51"></el-option>-->
+            <!--<el-option label="全部收货" :value="52"></el-option>-->
+            <!--</el-select>-->
             <!--</el-form-item>-->
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -900,7 +900,7 @@
                 pageSize: 10,
                 date: [null, null],                 //主页面 选择日期 搜索
                 rkrwNo: '',                       //主页面 入库单号 搜索
-                rkrwCph:'',                       //主页面 车牌号
+                rkrwCph: '',                       //主页面 车牌号
                 formLabelWidth: '120px',            //表单 配置
                 form: _form(),                      //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
@@ -919,8 +919,8 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "rkrwCph":this.rkrwCph.trim(),
-                    "rkrwNo":this.rkrwNo.trim(),
+                    "rkrwCph": this.rkrwCph.trim(),
+                    "rkrwNo": this.rkrwNo.trim(),
                     "": tsf_date(this.date[0]),
                     "": tsf_date(this.date[1]),
 
@@ -933,7 +933,9 @@
                     "pageSize": 20,
                     startTimeParam: tsf_date(this.form.list2.date[0]),
                     endTimeParam: tsf_date(this.form.list2.date[1]),
-                    rkRkdjNo: this.form.list2.rkRkdjNo
+                    rkRkdjNo: this.form.list2.rkRkdjNo,
+                    rkStatus: 1,
+                    rkRwStatus: 0
                 }
             },
             search: function () {
@@ -1283,8 +1285,9 @@
         /*<debug>*/
         console.log(this.option);
         /*</debug>*/
-        p[0].post( this.option);
-    }, {deep: true});;
+        p[0].post(this.option);
+    }, {deep: true});
+    ;
     var obj = warehousingTask;
     var p = [];
     obj.$watch('form.list2.date', function () {
