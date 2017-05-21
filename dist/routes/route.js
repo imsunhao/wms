@@ -1373,7 +1373,7 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 6:
-                        urlName = '全面盘点 根据盘点计划id确认盘点信息（修改库存）';
+                        urlName = '全面盘点 盘点详情页面根据盘点计划ID查询详情';
                         req = autoUrl(req, '/mfunpd/selectPdInfoByPdsPdId', "POST", function (json) {
                             res.send(json);
                         });
