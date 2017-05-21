@@ -921,8 +921,8 @@
                     "pageSize": this.pageSize,
                     "rkrwCph": this.rkrwCph.trim(),
                     "rkrwNo": this.rkrwNo.trim(),
-                    "": tsf_date(this.date[0]),
-                    "": tsf_date(this.date[1]),
+                    "startTimeParam": tsf_date(this.date[0]), //TODO 查询参数
+                    "endTimeParam": tsf_date(this.date[1]),
 
                 }
             },
@@ -1287,7 +1287,6 @@
         /*</debug>*/
         p[0].post(this.option);
     }, {deep: true});
-    ;
     var obj = warehousingTask;
     var p = [];
     obj.$watch('form.list2.date', function () {
