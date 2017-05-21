@@ -24,13 +24,13 @@
                         class="datePicker"
                         :picker-options="pickerOptions">
                 </el-date-picker>
-                    <el-select v-model="ckStatus" placeholder="请选择">
-                        <el-option :value="-1" label="全部"></el-option>
-                        <el-option :value="21" label="部分分拣"></el-option>
-                        <el-option :value="22" label="全部分拣"></el-option>
-                        <el-option :value="31" label="部分出库"></el-option>
-                        <el-option :value="32" label="全部出库"></el-option>
-                    </el-select>
+                <el-select v-model="ckStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="21" label="部分分拣"></el-option>
+                    <el-option :value="22" label="全部分拣"></el-option>
+                    <el-option :value="31" label="部分出库"></el-option>
+                    <el-option :value="32" label="全部出库"></el-option>
+                </el-select>
                 </el-form-item>
 
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
@@ -64,7 +64,7 @@
                         <el-carousel
                                 arrow="hover"
                                 indicator-position="none"
-                                height="600px"
+                                height="500px"
                                 :autoplay="false">
                             <el-carousel-item>
                                 <el-row>
@@ -129,7 +129,7 @@
                                             </el-form-item>
                                             <el-form-item label="可用操作">
 
-                                                  <el-button
+                                                <el-button
                                                         size="small"
                                                         @click="inlinePrintSortingList(props.$index, props.row)">打印分拣单
                                                 </el-button>
@@ -137,7 +137,7 @@
                                                         size="small"
                                                         @click="inlinePrintOrder(props.$index, props.row)">打印追加分拣单
                                                 </el-button>
-                                                 <el-button
+                                                <el-button
                                                         size="small"
                                                         type="info"
                                                         @click="inlineXj(props.$index, props.row)">下架
@@ -798,10 +798,10 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-                date:[null,null],                 //TODO 主页面 下单时间 搜索
-                ckCkdjNo:'',                        //TODO 主页面 出库单号 搜索
-                date2:[null,null],          //TODO 主页面 制作时间 搜索
-                ckStatus:'',                        //TODO 主页面 出库状态 搜索
+                date: [null, null],                 //TODO 主页面 下单时间 搜索
+                ckCkdjNo: '',                        //TODO 主页面 出库单号 搜索
+                date2: [null, null],          //TODO 主页面 制作时间 搜索
+                ckStatus: '',                        //TODO 主页面 出库状态 搜索
                 formLabelWidth: '120px',            //表单 配置
                 form: form(),                       //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
@@ -822,8 +822,8 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "ckCkdjNo":this.ckCkdjNo.trim(),
-                    "ckStatus":this.ckStatus,
+                    "ckCkdjNo": this.ckCkdjNo.trim(),
+                    "ckStatus": this.ckStatus,
                     "ckStartXdsj": tsf_date(this.date[0]),
                     "ckEndXdsj": tsf_date(this.date[1]),
                     "mhStartCreateTime": tsf_date(this.date2[0]),
@@ -837,31 +837,53 @@
             },                                      //分配 表单
         },
         methods: {
-            inlinePrintSortingList:function(){},                                       //TODO 行内按钮-打印分拣单
-            inlineXj:function(){},                            //TODO 行内按钮-打印组合分拣单
-            inlinePrintOrder:function(){},                                            //TODO 行内按钮-打印追加分拣单
+            inlinePrintSortingList: function (index, row) {
+            },                      //TODO 行内按钮-打印分拣单
+            inlineXj: function (index, row) {
+                obj.$confirm('此操作将此出库单据下架 单据单号：' + row.ckCkdjNo, '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    p[2].post({
+                        ids: [row.ckCkdjId],
+                        userName: app.rmsUser.ruUserName,
+                        useId: app.rmsUser.ruUserId
+                    }, function (json) {
+                        this.callbackAfter({status: json.status, model: "下架"}, function () {
+                            p[0].post(obj.option);
+                        })
+                    });
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消激活任务'
+                    });
+                });
+            },                                    //TODO 行内按钮-下架
+            inlinePrintOrder: function (index, row) {
+            },                            //TODO 行内按钮-打印追加分拣单
             distributionBtnSubmit: function () {
-                var _this = this;
                 this.dialogFormActive++;
                 this.submitLoading = true;
                 //TODO 此处应是ajax请求
                 setTimeout(function () {
-                    _this.submitLoading = false;
-                    _this.$notify({
+                    obj.submitLoading = false;
+                    obj.$notify({
                         title: '成功',
                         message: '分配成功！',
                         type: 'success'
                     });
-                    _this.dialogFormVisible = false;
-                    _this.form = form();
-                    _this.dialogFormActive = 0;
-                    _this.dialogDistributionForm = false;
-                    _this.$refs.carousel.setActiveItem(0);
+                    obj.dialogFormVisible = false;
+                    obj.form = form();
+                    obj.dialogFormActive = 0;
+                    obj.dialogDistributionForm = false;
+                    obj.$refs.carousel.setActiveItem(0);
                     p[0].post();
                 }, 1500);
             },
             distributionBtnLocation: function (index, row) {
-                var step=selectGood();
+                var step = selectGood();
                 allPrposCb(step, function (obj, index) {
                     if (typeof row[index] !== 'undefined') step[index] = row[index];
                 });
@@ -869,42 +891,42 @@
                 this.dialogLocationVisible = true;
             },
             distributionBtnLocationDelete: function (index, row) {
-                var _this = this;
-                _this.$confirm('此操作将删除该条库存储位信息, 是否继续?', '提示', {
+                var obj = this;
+                obj.$confirm('此操作将删除该条库存储位信息, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.location);
-                    _this.$message({
+                    remove(row, obj.location);
+                    obj.$message({
                         type: 'success',
                         message: '已删除'
                     });
                 }).catch(function () {
-                    _this.$message({
+                    obj.$message({
                         type: 'info',
                         message: '已取消删除'
                     });
                 });
             },
             locationSubmit: function () {
-                var _this = this;
+                var obj = this;
                 this.locationLoading = true;
                 //TODO 此处应是ajax请求
                 setTimeout(function () {
-                    _this.locationLoading = false;
-                    _this.$notify({
+                    obj.locationLoading = false;
+                    obj.$notify({
                         title: '成功',
                         message: '关联成功！',
                         type: 'success'
                     });
                     var step = locationFather();
                     allPrposCb(step, function (obj, index) {
-                        if (typeof _this.form.location[index] !== 'undefined') step[index] = _this.form.location[index];
+                        if (typeof obj.form.location[index] !== 'undefined') step[index] = obj.form.location[index];
                     });
-                    _this.location.push(step);
-                    _this.form.location = newLocation();
-                    _this.dialogLocationVisible = false;
+                    obj.location.push(step);
+                    obj.form.location = newLocation();
+                    obj.dialogLocationVisible = false;
                 }, 250);
             },                                        //关联 表单提交
             locationSelect: function (item) {
@@ -990,12 +1012,12 @@
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
-            multiSelectPrintCombinedSortingList:function () {
+            multiSelectPrintCombinedSortingList: function () {
                 this.multiSelect = !this.multiSelect;
-            },                    //TODO 多选 打印组合分拣单
-            multiSelectOffTheShelf:function () {
+            },                   //TODO 多选 打印组合分拣单
+            multiSelectOffTheShelf: function () {
                 this.multiSelect = !this.multiSelect;
-            },                                 //TODO 多选 下架
+            },                                //TODO 多选 下架
             handleSelectionChange: function (val) {
                 /*<debug>*/
                 console.log(this.multipleSelection);
@@ -1021,7 +1043,7 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                p[0].post( this.option);
+                p[0].post(this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
@@ -1045,10 +1067,44 @@
 
             },                                              //按钮 新建入库单
             expandChange: function (row, expanded) {
-                if (typeof (row.history) == 'undefined') {
-                    postHistory(row);
+                if (expanded && row.history.length === 0) {
+                    obj.historyLoading = true;
+                    p[1].post({id: row.ckCkdjId}, function (json) {
+                        var temp = {
+                            1: '创建出库单',
+                            2: '分拣(出库)',
+                            3: '下架(出库)',
+                            4: '编辑(出库)',
+                            5: '删除(出库)',
+                            6: '追加分拣(出库)',
+                            7: 'PDA上架(入库)',
+                            8: 'PDA分拣(出库)',
+                            9: 'PDA下架(出库)',
+                            10: '创建入库单',
+                            11: '编辑入库单(手工制作可以编辑)(入库)',
+                            12: '作废入库单(手工制作可以作废)(入库)',
+                            13: '分配入库单(入库)',
+                            14: '取消分配(入库)',
+                            15: '上架(入库)',
+                            16: '再次收货(入库)',
+                            17: '欠货完结(入库)',
+                            18: '欠货补发(出库)',
+                            19: '滞留补发(出库)',
+                            20: '挂起单据(出库)',
+                            21: '制作台帐(入库)',
+                            22: '出库发运（出库）',
+                            23: '激活（出库）',
+                            24: '取消挂起'
+                        };
+                        for (var i = 0; i < json.length; i++) {
+                            json[i].createTime = dateFormat(new Date(json[i].mhCreatetime), 'MM-dd hh:mm');
+                            json[i].description = "由 " + json[i].rmsUser.ruUserName + " " + temp[json[i].mhStatus]
+                        }
+                        row.history = json;
+                        row.historyLength = json.length;
+                        obj.historyLoading = false;
+                    });
                 }
-                console.log(row);
             },                             //下拉 选择
             rowSelection: function (row, selected) {
 //                console.log(selected)
@@ -1062,22 +1118,22 @@
                 this.$refs.carousel.next();
             },                                                  //新建 弹出层banner控制 后一个
             submit: function () {
-                var _this = this;
+                var obj = this;
                 this.dialogFormActive++;
                 this.submitLoading = true;
                 //TODO 此处应是ajax请求
                 setTimeout(function () {
-                    _this.submitLoading = false;
-                    _this.$notify({
+                    obj.submitLoading = false;
+                    obj.$notify({
                         title: '成功',
                         message: '保存成功！',
                         type: 'success'
                     });
-                    _this.dialogFormVisible = false;
-                    _this.form = form();
-                    _this.dialogFormActive = 0;
+                    obj.dialogFormVisible = false;
+                    obj.form = form();
+                    obj.dialogFormActive = 0;
                     this.dialogDistributionForm = false;
-                    _this.$refs.carousel.setActiveItem(0);
+                    obj.$refs.carousel.setActiveItem(0);
                     //post(outputOperation);
                 }, 1500);
             },                                                //新建 表单提交
@@ -1133,18 +1189,18 @@
                 console.log('select!');
             },
             deleteOlder: function (index, row) {
-                var _this = this;
-                _this.$confirm('此操作将永久删除该入库单, 是否继续?', '提示', {
+                var obj = this;
+                obj.$confirm('此操作将永久删除该入库单, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.outputOperation);
-                    postDelete(_this, {
+                    remove(row, obj.outputOperation);
+                    postDelete(obj, {
                         id: [row.rkdjNo]
                     });
                 }).catch(function () {
-                    _this.$message({
+                    obj.$message({
                         type: 'info',
                         message: '已取消删除'
                     });
@@ -1176,19 +1232,19 @@
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                                //TODO 下单时间
-            auto_ckStatus:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        1:'初始',
-                        21:'部分分拣',
-                        22:'部分下架',
-                        31:'全部分拣',
-                        32:'全部下架',
-                        50:'作废'
+            auto_ckStatus: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '初始',
+                        21: '部分分拣',
+                        22: '部分下架',
+                        31: '全部分拣',
+                        32: '全部下架',
+                        50: '作废'
                     }
-                }else{
-                    temp={
+                } else {
+                    temp = {
                         '初始': 1,
                         '部分分拣': 21,
                         '部分下架': 22,
@@ -1199,24 +1255,24 @@
                     }
                 }
                 return temp[value];
-            },                                      //TODO 单据状态
-            auto_ckIsauto:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        1:'手动',
-                        2:'导入',
-                        3:'接口'
+            },                                    //TODO 单据状态
+            auto_ckIsauto: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '手动',
+                        2: '导入',
+                        3: '接口'
                     }
-                }else{
-                    temp={
+                } else {
+                    temp = {
                         '手动': 1,
                         '导入': 2,
                         '接口': 3
                     }
                 }
                 return temp[value];
-            },                                      //TODO 制单方式
+            },                                    //TODO 制单方式
 
         },
         watch: {
@@ -1224,13 +1280,13 @@
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                p[0].post( this.option);
+                p[0].post(this.option);
             },
             ckStatus: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                p[0].post( this.option);
+                p[0].post(this.option);
             },
         }
     });
@@ -1249,13 +1305,13 @@
         /*<debug>*/
         console.log(this.option);
         /*</debug>*/
-        p[0].post( this.option);
+        p[0].post(this.option);
     }, {deep: true});
     outputOperation.$watch('date2', function () {
         /*<debug>*/
         console.log(this.option);
         /*</debug>*/
-        p[0].post( this.option);
+        p[0].post(this.option);
     }, {deep: true});
     function form() {
         return {
@@ -1272,16 +1328,35 @@
             deleteARkDocsList: true
         };
     }
-    var obj=outputOperation;
-    var p=[];
+    var obj = outputOperation;
+    var p = [];
     // 0 出库操作 分页查询
     p[0] = autoPost({
         urlHock: "../../hock/outputOperation/page.json",
         urlProd: "/route/outputOperation/0",
         success: function (json) {
+            var temp = [];
+            for (var i = 0; i < json.data.length; i++) {
+                temp[i] = json.data[i];
+                temp[i].history = [];
+                temp[i].historyLoading = false;
+                temp[i].historyLength = 0;
+            }
             obj.$data.outputOperation = json.data;
             obj.$data.currentTotal = json.recordsFiltered;
         }
+    });
+
+    // 1 出库操作-查询-历史记录
+    p[1] = autoPost({
+        urlHock: "../../hock/outputOperation/page.json",
+        urlProd: "/route/outputOperation/1"
+    });
+
+    // 2 出库操作-下架
+    p[2] = autoPost({
+        urlHock: "../../hock/outputOperation/page.json",
+        urlProd: "/route/outputOperation/2"
     });
 
     /*<debug>*/
@@ -1301,7 +1376,7 @@
                 rksCount: ''
             },
             lala: '',
-            blLname:''
+            blLname: ''
         }
     }
 
@@ -1338,36 +1413,6 @@
 
     p[0].post(outputOperation.option);
 
-
-    function postHistory(obj, option) {
-        obj.historyLoading = true;
-
-        /*<debug>*/
-        url = "/hock/form/inputOptionDetialHistory.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/data/inputOption/history";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option,
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                for (var i = 0; i < json.history.length; i++) {
-                    json.history[i].createTime = changeDate(json.history[i].createTime);
-                }
-                obj.history = json.history;
-                obj.historyLength = json.history.length - 1;
-            },
-            complete: function () {
-                obj.historyLoading = false;
-            }
-        });
-    }
 
     function postLocation(obj, option, cb) {
 

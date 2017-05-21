@@ -852,9 +852,7 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize,
-                    "dateStart": this.date[0],
-                    "dateStop": this.date[1]
+                    "pageSize": this.pageSize
                 }
             },
             distributionForm: function () {
@@ -1015,10 +1013,10 @@
 
             },                                              //按钮 新建入库单
             expandChange: function (row, expanded) {
-                if (typeof (row.history) == 'undefined') {
-                    postHistory(row);
-                }
-                console.log(row);
+//                if (typeof (row.history) == 'undefined') {
+//                    postHistory(row);
+//                }
+//                console.log(row);
             },                             //下拉 选择
             rowSelection: function (row, selected) {
 //                console.log(selected)
@@ -1167,12 +1165,12 @@
         urlHock: "../../hock/inputLedger/page.json",
         urlProd: "/route/inputLedger/0",
         success: function (json) {
-            obj.$data.inputLedger = json.data;
-            obj.$data.currentTotal = json.recordsFiltered;
+            obj.$data.inputLedger = json.records;
+            obj.$data.currentTotal = json.totalRecord;
         }
     });
-     // 0 入库台账 制作/欠货 修改入库台账信息
-    p[0] = autoPost({
+     // 1 入库台账 制作/欠货 修改入库台账信息
+    p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/inputLedger/1",
         success: function (json) {
