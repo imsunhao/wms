@@ -514,13 +514,6 @@
                                                 <el-form-item label="制作方式">
                                                     <span>{{ auto_rkZdfs(props.row.rkZdfs) }}</span>
                                                 </el-form-item>
-                                                <el-form-item label="可用操作">
-                                                    <el-button
-                                                            size="small"
-                                                            icon="view"
-                                                            @click="list2_View(props.$index, props.row)">
-                                                    </el-button>
-                                                </el-form-item>
                                                 <el-form-item label="入库备注">
                                                     <el-tooltip class="item" effect="dark"
                                                                 :content="props.row.rkRemarks"
