@@ -766,8 +766,8 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "ckrwNo":this.ckrwNo.trim(),
-                    "ckrwCph":this.ckrwCph.trim(),
+                    "ckrwNo": this.ckrwNo.trim(),
+                    "ckrwCph": this.ckrwCph.trim(),
                     "ckrwStartGreatTime": tsf_date(this.date[0]),
                     "ckrwEndGreatTime": tsf_date(this.date[1]),
                 }
@@ -805,7 +805,7 @@
                 /*</debug>*/
                 this.multipleSelection = val;
             },                               //多选 选中控制
-            multiOperationShipment:function(){
+            multiOperationShipment: function () {
                 var _this = this;
                 _this.$confirm('此操作将此任务单据发运, 是否继续?', '提示', {
                     confirmButtonText: '确定',
@@ -824,16 +824,21 @@
                 });
             },                                   //TODO 多选-发运
 
-            inlineShipment:function(){
+            inlineShipment: function (index,row) {
                 var _this = this;
-                _this.$confirm('此操作将此任务单据发运, 是否继续?', '提示', {
+                _this.$confirm('此操作将此任务单据发运 任务号：'+row.ckrwNo, '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.warehousingTask);
-                    postDelete(_this, {
-                        id: [row.rkdjNo]
+                    p[1].post({
+                        "ids": [row.ckrwId],
+                        "useId": app.rmsUser.ruUserId,
+                        "userName": app.rmsUser.ruUserName
+                    }, function (json) {
+                        this.callbackAfter({status: json.status, model: '任务单据发运'}, function () {
+                            p[0].post(obj.option);
+                        })
                     });
                 }).catch(function () {
                     _this.$message({
@@ -858,14 +863,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                p[0].post( this.option);
+                p[0].post(this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                p[0].post( this.option);
+                p[0].post(this.option);
             },                                //分页 当前页
             newInput: function () {
                 this.dialogFormVisible = true;
@@ -914,7 +919,7 @@
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                p[0].post( {});
+                p[0].post({});
             },                                          //详细查询 提交
             GoodClick: function (item) {
                 if (this.dialogDistributionForm) return;
@@ -1009,12 +1014,12 @@
         }
     });
     // 高级 监视器的 使用方法
-        outputShipment.$watch('date', function () {
-            /*<debug>*/
-            console.log(this.option);
-            /*</debug>*/
-            p[0].post(this.option);
-        }, {deep: true});
+    outputShipment.$watch('date', function () {
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        p[0].post(this.option);
+    }, {deep: true});
     function form() {
         return {
             ckrwId: '',
@@ -1029,17 +1034,17 @@
             ckrwCys: '',
             ckrwDh: '',
             ckrwStatus: '',
-            ckrwCph:'',                    //模糊查询--车牌号
-            ckrwWls:'',                    //模糊查询--物流商
-            ckrwNo :'',                    //模糊查询--任务号
-            ckrwHistoryCzsj:[null,null], //模糊查询--制作时间
-            ckrwYjdcsj:[null,null],      //模糊查询--预计到车时间
-            ckrwSjdcsj:[null,null],      //模糊查询--实际到车时间
+            ckrwCph: '',                    //模糊查询--车牌号
+            ckrwWls: '',                    //模糊查询--物流商
+            ckrwNo: '',                    //模糊查询--任务号
+            ckrwHistoryCzsj: [null, null], //模糊查询--制作时间
+            ckrwYjdcsj: [null, null],      //模糊查询--预计到车时间
+            ckrwSjdcsj: [null, null],      //模糊查询--实际到车时间
 
         }
     }
-    var obj=outputShipment;
-     var p=[];
+    var obj = outputShipment;
+    var p = [];
     // 0 出库发运 分页查询
     p[0] = autoPost({
         urlHock: "../../hock/outputShipment/page.json",
@@ -1049,6 +1054,12 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
+    // 1 出库发运 发运
+    p[1] = autoPost({
+        urlHock: "../../hock/outputShipment/page.json",
+        urlProd: "/route/outputShipment/1"
+    });
+
     function selectGood() {
         return {
             baseGoods: {
@@ -1080,19 +1091,7 @@
     }
 
 
-
-    p[0].post( outputShipment.option);
-    function printfCompile(obj) {
-        var resoleveStep = [];
-        for (var i = 0; i < obj.multipleSelection.length; i++) {
-            resoleveStep.push({
-                name: obj.multipleSelection[i].rkrwNo,
-                rkrwNo:obj.multipleSelection[i].rkrwNo,
-                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
-            });
-        }
-        obj.printf = resoleveStep;
-    }				 //打印
+    p[0].post(outputShipment.option);
 
 </script>
 
