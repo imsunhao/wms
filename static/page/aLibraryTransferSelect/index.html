@@ -44,7 +44,7 @@
                         type="expand">
                     <template scope="props">
                         <el-row>
-                            <h3 style="margin-top: 0; margin-left: -15px;">库位转移查询</h3>
+                            <h3 style="margin-top: 0; margin-left: -15px;">库位转移查询详细</h3>
                         </el-row>
                         <el-carousel
                                 arrow="hover"
@@ -56,7 +56,7 @@
                                     <el-row>
                                         <el-col :span="10">
                                             <el-form-item label="仓库">
-                                                <span>{{ props.row.zyArehouseId }}</span>
+                                                <span>{{ props.row.baseArehouse.baName }}</span>
                                             </el-form-item>
                                             <el-form-item label="创建时间">
                                                 <span>
@@ -64,7 +64,7 @@
                                                     {{ auto_zyCreateTime(props.row.zyCreateTime) }}</span>
                                             </el-form-item>
                                             <el-form-item label="提起人">
-                                                <span>{{props.row.zyConfirmUserId}}</span>
+                                                <span>{{props.row.zyMentionUserName}}</span>
                                             </el-form-item>
                                             <el-form-item label="创建人">
                                                 <span>{{props.row.zyCreateUserName}}</span>
@@ -72,7 +72,7 @@
                                         </el-col>
                                         <el-col :span="10" :offset="2">
                                             <el-form-item label="确认人">
-                                                <span>{{props.row.zyConfirmUserId }}</span>
+                                                <span>{{props.row.zyConfirmUserName }}</span>
                                             </el-form-item>
                                             <el-form-item label="转移原因">
                                                 <span>{{ props.row.zyReason }}</span>
