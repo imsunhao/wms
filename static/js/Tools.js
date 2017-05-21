@@ -177,6 +177,7 @@ function auto_time(value, bool) {
 }     //自动转换 表格中的日期
 function auto_time_new(value, number) {
     if (value === '')return '';
+    if (value === null)return '';
     switch (number) {
         case 1:
             return dateFormat(new Date(value), 'yyyy年 MM月 dd日');
