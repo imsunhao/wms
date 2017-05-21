@@ -1,276 +1,285 @@
 {
   "data": [
     {
-      "id":12,
+      "id": 12,
       "head": "资源管理",
       "children": [
         {
-          "id":13,
+          "id": 13,
           "label": "仓库管理",
-          "url":"page/warehouseManage",
-          "bmMenuIcon":"e3"
+          "url": "page/warehouseManage",
+          "bmMenuIcon": "e3"
         },
         {
-          "id":14,
+          "id": 14,
           "label": "货品管理",
-          "url":"page/goodsManage",
-          "bmMenuIcon":"e4"
+          "url": "page/goodsManage",
+          "bmMenuIcon": "e4"
         },
         {
-          "id":15,
+          "id": 15,
           "label": "RF管理",
-          "url":"page/RFManage",
-          "bmMenuIcon":"e1"
+          "url": "page/RFManage",
+          "bmMenuIcon": "e1"
         },
         {
-          "id":16,
+          "id": 16,
           "label": "作业区管理",
-          "url":"page/operationAreaManage",
-          "bmMenuIcon":"e5"
+          "url": "page/operationAreaManage",
+          "bmMenuIcon": "e5"
         }
       ]
     },
     {
-      "id":48,
+      "id": 48,
       "head": "业务处理",
       "children": [
         {
-          "id":1,
+          "id": 1,
           "label": "入库预约",
-          "url":"page/warehousingReservation",
-          "bmMenuIcon":"aa1"
+          "url": "page/warehousingReservation",
+          "bmMenuIcon": "aa1"
         },
         {
-          "id":2,
+          "id": 2,
           "label": "入库任务",
-          "url":"page/warehousingTask",
-          "bmMenuIcon":"aa2"
+          "url": "page/warehousingTask",
+          "bmMenuIcon": "aa2"
         },
         {
-          "id":3,
+          "id": 3,
           "label": "开始收货",
-          "url":"page/startReceiving",
-          "bmMenuIcon":"aa3"
+          "url": "page/startReceiving",
+          "bmMenuIcon": "aa3"
         },
         {
-          "id":4,
+          "id": 4,
           "label": "入库操作",
-          "url":"page/inputOperation",
-          "bmMenuIcon":"a2"
+          "url": "page/inputOperation",
+          "bmMenuIcon": "a2"
         },
         {
-          "id":5,
+          "id": 5,
           "label": "入库台账",
-          "url":"page/inputLedger",
-          "bmMenuIcon":"aa4"
+          "url": "page/inputLedger",
+          "bmMenuIcon": "aa4"
         },
         {
-          "id":6,
+          "id": 6,
           "label": "出库预约",
-          "url":"page/outputAppointment",
-          "bmMenuIcon":"aa5"
+          "url": "page/outputAppointment",
+          "bmMenuIcon": "aa5"
         },
         {
-          "id":7,
+          "id": 7,
           "label": "出库任务",
-          "url":"page/outboundTask",
-          "bmMenuIcon":""
+          "url": "page/outboundTask",
+          "bmMenuIcon": ""
         },
-
         {
-          "id":8,
+          "id": 8,
           "label": "挑选单据",
-          "url":"page/chooseBill",
-          "bmMenuIcon":"aa6"
+          "url": "page/chooseBill",
+          "bmMenuIcon": "aa6"
         },
         {
-          "id":9,
+          "id": 9,
           "label": "激活单据",
-          "url":"page/activationBill",
-          "bmMenuIcon":"aa7"
+          "url": "page/activationBill",
+          "bmMenuIcon": "aa7"
         },
         {
-          "id":10,
+          "id": 10,
           "label": "出库操作",
-          "url":"page/outputOperation",
-          "bmMenuIcon":"a3"
+          "url": "page/outputOperation",
+          "bmMenuIcon": "a3"
         },
         {
-          "id":11,
+          "id": 11,
           "label": "出库发运",
-          "url":"page/outputShipment",
-          "bmMenuIcon":"aa8"
+          "url": "page/outputShipment",
+          "bmMenuIcon": "aa8"
         },
         {
-          "id":12,
+          "id": 12,
           "label": "回收存档",
-          "url":"page/recoveryArchive",
-          "bmMenuIcon":"aa9"
+          "url": "page/recoveryArchive",
+          "bmMenuIcon": "aa9"
         }
       ]
     },
     {
-      "id":19,
+      "id": 19,
       "head": "库内管理",
       "children": [
         {
-          "id":20,
+          "id": 20,
           "label": "库存转移",
-          "url":"page/aLibraryTransfer",
-          "bmMenuIcon":"d1"
+          "url": "page/aLibraryTransfer",
+          "bmMenuIcon": "d1"
         },
         {
-          "id":21,
+          "id": 21,
           "label": "库存转移确认",
-          "url":"page/stockTransferConfirm",
-          "bmMenuIcon":"d2"
+          "url": "page/stockTransferConfirm",
+          "bmMenuIcon": "d2"
+        },
+        {
+          "id": 23,
+          "label": "库存冻结/解冻",
+          "url": "page/stockFrozenThaw",
+          "bmMenuIcon": "d5"
+        }
+      ]
     },
-
     {
-      "id":23,
-      "label": "库存冻结/解冻",
-      "url":"page/stockFrozenThaw",
-      "bmMenuIcon":"d5"
-    }
-  ]
-},
-{
-"id":36,
+      "id": 36,
       "head": "盘点作业",
       "children": [
         {
-          "id":37,
+          "id": 37,
           "label": "动碰盘点",
-          "url":"page/dynamicTouchInventory",
-          "bmMenuIcon":"b12"
+          "url": "page/dynamicTouchInventory",
+          "bmMenuIcon": "b12"
         },
         {
-          "id":38,
+          "id": 38,
           "label": "循环盘点",
-          "url":"page/loopInventory",
-          "bmMenuIcon":"b13"
+          "url": "page/loopInventory",
+          "bmMenuIcon": "b13"
         },
         {
-          "id":39,
+          "id": 39,
           "label": "全面盘点",
-          "url":"page/comprehensiveInventory",
-          "bmMenuIcon":"b14"
+          "url": "page/comprehensiveInventory",
+          "bmMenuIcon": "b14"
         }
       ]
     },
     {
-      "id":25,
+      "id": 25,
       "head": "业务查询",
       "children": [
         {
-          "id":26,
+          "id": 26,
           "label": "入库日报",
-          "url":"page/inputDaily",
-          "bmMenuIcon":"b1"
+          "url": "page/inputDaily",
+          "bmMenuIcon": "b1"
         },
         {
-          "id":27,
+          "id": 27,
           "label": "出库日报",
-          "url":"page/outputDaily",
-          "bmMenuIcon":"b2"
+          "url": "page/outputDaily",
+          "bmMenuIcon": "b2"
         },
         {
-          "id":28,
+          "id": 28,
           "label": "库存查询",
-          "url":"page/stockSelect",
-          "bmMenuIcon":"b4"
+          "url": "page/stockSelect",
+          "bmMenuIcon": "b4"
         },
         {
-          "id":29,
+          "id": 29,
           "label": "入库单据查询",
-          "url":"page/inputSelect",
-          "bmMenuIcon":"b5"
+          "url": "page/inputSelect",
+          "bmMenuIcon": "b5"
         },
         {
-          "id":30,
+          "id": 30,
           "label": "出库单据查询",
-          "url":"page/outputSelect",
-          "bmMenuIcon":"b6"
+          "url": "page/outputSelect",
+          "bmMenuIcon": "b6"
         },
         {
-          "id":31,
+          "id": 31,
           "label": "货品流向查询",
-          "url":"page/goodsFlowSelect",
-          "bmMenuIcon":"b9"
+          "url": "page/goodsFlowSelect",
+          "bmMenuIcon": "b9"
         },
         {
-          "id":32,
+          "id": 32,
           "label": "库位转移查询",
-          "url":"page/aLibraryTransferSelect",
-          "bmMenuIcon":""
+          "url": "page/aLibraryTransferSelect",
+          "bmMenuIcon": ""
         },
         {
-          "id":33,
+          "id": 33,
           "label": "库位冻结查询",
-          "url":"page/aLibraryFrozenSelect",
-          "bmMenuIcon":""
+          "url": "page/aLibraryFrozenSelect",
+          "bmMenuIcon": ""
         },
         {
-          "id":34,
+          "id": 34,
           "label": "盘点查询",
-          "url":"page/inventorySelect",
-          "bmMenuIcon":""
+          "url": "page/inventorySelect",
+          "bmMenuIcon": ""
         }
       ]
     },
     {
-      "id":40,
+      "id": 40,
       "head": "系统设置",
       "children": [
         {
-          "id":41,
+          "id": 41,
           "label": "用户管理",
-          "url":"page/userManagement",
-          "bmMenuIcon":"f1"
+          "url": "page/userManagement",
+          "bmMenuIcon": "f1"
         },
         {
-          "id":42,
+          "id": 42,
           "label": "角色管理",
-          "url":"page/roleManagement",
-          "bmMenuIcon":"f2"
+          "url": "page/roleManagement",
+          "bmMenuIcon": "f2"
         },
         {
-          "id":43,
+          "id": 43,
           "label": "模块管理",
-          "url":"page/moduleManagement",
-          "bmMenuIcon":"f3"
+          "url": "page/moduleManagement",
+          "bmMenuIcon": "f3"
         },
         {
-          "id":44,
+          "id": 44,
           "label": "仓库配置",
-          "url":"page/warehouseConfiguration",
-          "bmMenuIcon":"ff1"
+          "url": "page/warehouseConfiguration",
+          "bmMenuIcon": "ff1"
         },
         {
-          "id":45,
+          "id": 45,
           "label": "客户配置",
-          "url":"page/clientConfiguration",
-          "bmMenuIcon":"f4"
+          "url": "page/clientConfiguration",
+          "bmMenuIcon": "f4"
         }
       ]
     },
     {
-      "id":46,
+      "id": 46,
       "head": "关于本系统",
       "children": [
         {
-          "id":47,
+          "id": 47,
           "label": "关于本系统",
-          "url":"page/aboutThisSystem",
-          "bmMenuIcon":"g1"
+          "url": "page/aboutThisSystem",
+          "bmMenuIcon": "g1"
         },
-          {
-          "id":48,
+        {
+          "id": 48,
           "label": "测试页面",
-          "url":"page/testPage",
-          "bmMenuIcon":""
+          "url": "page/testPage",
+          "bmMenuIcon": "g1"
+        },
+        {
+          "id": 49,
+          "label": "打印 承运协议",
+          "url": "page/print1",
+          "bmMenuIcon": "g1"
+        },
+        {
+          "id": 50,
+          "label": "打印 分拣单",
+          "url": "page/print2",
+          "bmMenuIcon": "g1"
         }
-
       ]
     }
   ]
