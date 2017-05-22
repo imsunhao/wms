@@ -135,17 +135,17 @@
                                         <el-button
                                                 size="small"
                                                 type="success"
-                                                @click="inlineExportOutputList(props.$index, props.row)">导出出库单
+                                                @click="inlineExportOutputList(props.$index, props.row)">导出出库单据
                                         </el-button>
                                         <el-button
                                                 size="small"
                                                 type="success"
-                                                @click="inlineExportOutputDetailed(props.$index, props.row)">导出出库明细
+                                                @click="inlineExportOutputDetailed(props.$index, props.row)">导出出库单据明细
                                         </el-button>
                                         <el-button
                                                 size="small"
                                                 type="success"
-                                                @click="inlineExportOutputStorage(props.$index, props.row)">导出出库储位
+                                                @click="inlineExportSortingDetailed(props.$index, props.row)">导出分拣明细
                                         </el-button>
                                         <el-button
                                                 size="small"
@@ -491,9 +491,9 @@
     <el-dialog
             size="large"
             title="分拣明细信息"
-            v-model="dialogStorageVisible">
+            v-model="dialogSortingVisible">
         <el-table
-                :data="storage"
+                :data="sorting"
                 highlight-current-row
                 style="width: 100%">
             <el-table-column
@@ -775,8 +775,8 @@
                 detailed:[],
                 dialogDetailedVisible: false,    //查看出库明细信息 弹出层 是否可见
 
-                storage: [],           //查看分拣明细信息 弹出层 信息集合
-                dialogStorageVisible: false,     //查看储位信息 弹出层 是否可见
+                sorting: [],           //查看分拣明细信息 弹出层 信息集合
+                dialogSortingVisible: false,     //查看储位信息 弹出层 是否可见
 
                 select: _form(),                      //搜索 弹出层 信息集合,
                 printf: [],                         //搜索 弹出层 信息集合,
@@ -854,7 +854,7 @@
         methods: {
             inlineExportOutputList:function(){},                                        //TODO 行内按钮-导出出库单
             inlineExportOutputDetailed:function(){},                                    //TODO 行内按钮-导出出库明细
-            inlineExportOutputStorage:function(){},                                     //TODO 行内按钮-导出出库储位
+            inlineExportSortingDetailed:function(){},                                     //TODO 行内按钮-导出分拣明细
             inlineExportOutput:function(){},                                            //TODO 行内按钮-导出出库
             inlineSelectOutputDetailed:function(index,row){
                 p[1].post({Id: row.Id});
@@ -863,10 +863,8 @@
 //                    obj.dialogDetailedVisible = true;
 //                })
             },                       //TODO  行内按钮-查看出库明细信息
-
-
             inlineSelectSortingDetailed:function(){
-                p[1].post({Id: row.pdId});
+//                p[1].post({Id: row.pdId});
             },                               //TODO 行内按钮-查看出库储位信息
             inlineModify: function (index, row) {
                 this.multipleSelection = [row];
@@ -975,7 +973,7 @@
             detailedSubmit: function () {
 
             },
-            storageSubmit: function () {
+            sortingSubmit: function () {
 
             },
             printfLoadNode: function (node, resolve) {
@@ -1191,7 +1189,7 @@
 
         }
     });
-    // 3 出库单据查询
+    // 3 出库单据查询 根据出库ID导出出库单
     p[3] = autoPost({
         urlHock: "",
         urlProd: "/route/outputSelect/3",
@@ -1199,7 +1197,7 @@
 
         }
     });
-    // 4 出库单据查询
+    // 4 出库单据查询 根据出库单ID导出出库明细
     p[4] = autoPost({
         urlHock: "",
         urlProd: "/route/outputSelect/4",
@@ -1207,7 +1205,7 @@
 
         }
     });
-    // 5 出库单据查询
+    // 5 出库单据查询 根据出库单ID导出分拣明细
     p[5] = autoPost({
         urlHock: "",
         urlProd: "/route/outputSelect/5",
@@ -1223,11 +1221,6 @@
 
         }
     });
-
-
-
-
-
     function formDetailed() {
         return {
             rksGoodsId: '',     // 货品编号
@@ -1241,7 +1234,7 @@
             mdtUserId: ''       // 上架人员
         }
     }//明细
-    function formStorage() {
+    function formsorting() {
         return {
             rksGoodsId: '',     //货品编号
             rksGoodsId1: '',     //货品名称
