@@ -293,7 +293,8 @@
     </el-dialog>
     <el-dialog
             @open="dialogFormActiveOpen"
-            size="full"
+            size="large"
+            top="5%"
             v-model="dialogFormVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">{{form.title}}</span>
@@ -313,7 +314,7 @@
                     :autoplay="false"
                     arrow="never"
                     indicator-position="none"
-                    height="55vh">
+                    height="70vh">
                 <el-carousel-item>
                     <el-row>
                         <el-col :span="24"><h3>入库基础信息</h3></el-col>
