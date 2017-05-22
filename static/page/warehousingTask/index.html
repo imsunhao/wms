@@ -96,6 +96,7 @@
                                                 <el-button
                                                         size="small"
                                                         type="success"
+                                                        v-if="props.row.rkrwStatus==1"
                                                         @click="inlineIssued(props.$index, props.row)">下发
                                                 </el-button>
                                             </el-form-item>
