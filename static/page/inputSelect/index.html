@@ -22,9 +22,6 @@
                  <button @click="multiExportInput" class="btn btn-modify" v-show="multiSelect"><i
                         class="icon modify"></i><span>导出入库</span>
                 </button>
-
-
-
             </div>
             <el-table
                     :data="inputSelect"
@@ -74,15 +71,15 @@
                                     <el-form-item label="上架开始">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_ sjsj(props.row. sjsj) }}</span>
+                                            {{ auto_sjsj(props.row.sjsj) }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架结束">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_ jssj(props.row.jssj) }}</span>
+                                            {{ auto_jssj(props.row.jssj) }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架人员">
-                                        <span>{{ props.row.sjryName }}</span>
+                                        <span>{{ props.row. sjryName }}</span>
                                     </el-form-item>
                                     <el-form-item label="制作方式">
                                         <span>{{ auto_zdfs(props.row.zdfs) }}</span>
@@ -127,15 +124,35 @@
                         </el-form>
                     </template>
                 </el-table-column>
-                <!--<el-table-column-->
-                <!--type="index"-->
-                <!--width="55">-->
-                <!--</el-table-column>-->
+                <el-table-column
+                        label="仓库"
+                        show-overflow-tooltip
+                        prop="ckmc"
+                        align="center">
+                </el-table-column>
                 <el-table-column
                         label="入库单号"
                         show-overflow-tooltip
                         prop="rjdkNo"
                         align="center">
+                </el-table-column>
+                  <el-table-column
+                        label="总数量"
+                        show-overflow-tooltip
+                        prop="zsl"
+                        align="center">
+                </el-table-column>
+                  <el-table-column
+                        label="总体积"
+                        show-overflow-tooltip
+                        prop="ztj"
+                        align="center">
+                </el-table-column>
+                <el-table-column
+                        label="实收数量"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="sssl">
                 </el-table-column>
                 <el-table-column
                         label="下单时间"
@@ -146,30 +163,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        label="上架人员"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="sjryName">
-                </el-table-column>
-                <el-table-column
-                        label="实收数量"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="sssl">
-                </el-table-column>
-                <el-table-column
-                        label="制作方式"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="zdfs">
-                    <template scope="scope">
-                        <el-tag
-                                close-transition> {{auto_zdfs(scope.row.zdfs,true)}}
-                        </el-tag>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        label="入库状态"
+                        label="收货状态"
                         prop="shzt"
                         align="center"
                         width="100">
@@ -220,7 +214,7 @@
             <el-form-item label="上架时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="form. sjsj"
+                        v-model="form.sjsj"
                         type="daterange"
                         align="right"
                         placeholder="上架时间"
@@ -352,7 +346,7 @@
                     width="140"
                     show-overflow-tooltip
                     align="center"
-                    prop="sjryName">
+                    prop=" sjryName">
             </el-table-column>
         </el-table>
     </el-dialog>
@@ -411,7 +405,7 @@
                     width="140"
                     show-overflow-tooltip
                     align="center"
-                    prop="sjryName">
+                    prop=" sjryName">
             </el-table-column>
             <el-table-column
                     label="上架时间"
@@ -750,7 +744,7 @@
                     });
                     _this.dialogFormVisible = false;
                     _this.form = {
-                        rjdkNo: '',
+                        rkRkdjNo: '',
                         rkType: '',
                         rkRemarks: '',
                         rkDocsList: [],
@@ -800,7 +794,6 @@
             storageSubmit: function () {
 
             },
-
             printfLoadNode: function (node, resolve) {
                 console.log(node.data);
                 switch (node.level) {
@@ -814,7 +807,7 @@
                         break;
                     case 2:
                         console.log(node.data.name);
-                        postrjdkNo(this, {
+                        postRkdjId(this, {
                             rkrwNo:node.data.rkrwNo,
                             rkrwDhrq:node.data.rkrwDhrq
                         }, resolve);
@@ -911,11 +904,10 @@
             rkrwDh: '',
             rkrwStatus: '',
             xdsj:[null,null],//模糊查询--下单时间
-             sjsj:[null,null],     //模糊查询--上架时间
+            sjsj:[null,null],     //模糊查询--上架时间
             rjdkNo:'',                //模糊查询--入库单号
             shzt:'',                 //模糊查询--入库状态
             zdfs:'',                   //模糊查询--制单方式
-            czfs:'',              //模糊查询--操作方式
             czfs:'',              //模糊查询--操作方式
         }
     }
@@ -982,7 +974,7 @@
             sssl: '',           // 实收数量
             sstj:'',            //实收体积
             rksStatus: '',      //入库明细状态
-            sjryName: ''       // 上架人员
+             sjryName: ''       // 上架人员
         }
     }//明细
     function formStorage() {
@@ -993,7 +985,7 @@
             mdtLocationId: '',  //上架库位
             mdtCount: '',       //上架数量
             sstj:'',             //实收体积
-            sjryName:'',       //上架人员
+             sjryName:'',       //上架人员
             mdtSjsj: ''         //上架时间
         }
     }//储位
