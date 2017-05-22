@@ -37,7 +37,6 @@
                     :data="aLibraryTransferSelect"
                     :max-height="570"
                     ref="table"
-                    @expand="expandChange"
                     class="aLibraryTransferSelectTable"
                     style="width: 100%">
                 <el-table-column
@@ -100,7 +99,7 @@
                             </el-carousel-item>
                             <el-carousel-item>
                                 <el-table
-                                        :data="props.row.inputOperation"
+                                        :data="props.row.zyDocsList"
                                         :max-height="240">
                                     <el-table-column
                                             type="expand">
@@ -109,22 +108,22 @@
                                             label="货品编号"
                                             show-overflow-tooltip
                                             align="center"
-                                            prop="zyDocsList[0].mfunRepertory.baseGoods.bgGoodsNo">
+                                            prop="mfunRepertory.baseGoods.bgGoodsNo">
                                     </el-table-column>
                                     <el-table-column
                                             align="center"
-                                            prop="zyDocsList[0].mfunRepertory.baseGoods.bgGoodsName"
+                                            prop="mfunRepertory.baseGoods.bgGoodsName"
                                             label="货品名称">
 
                                     </el-table-column>
                                     <el-table-column
                                             label="货品批次"
-                                            prop="zyDocsList[0].mfunRepertory.mrGoodsBatch"
+                                            prop="mfunRepertory.mrGoodsBatch"
                                             align="center">
                                     </el-table-column>
                                     <el-table-column
                                             label="转移前库位"
-                                            prop="zyDocsList[0].mfunRepertory.baseLocation.blLname"
+                                            prop="mfunRepertory.baseLocation.blLname"
                                             align="center">
                                     </el-table-column>
                                     <el-table-column
@@ -137,7 +136,7 @@
                                             label="转移数量"
                                             align="center"
                                             show-overflow-tooltip
-                                            prop="zysZyBeforeKyCount ">
+                                            prop="zysZyBeforeKyCount">
                                     </el-table-column>
                                 </el-table>
                             </el-carousel-item>
@@ -686,9 +685,7 @@
                 p[0].post(this.option);
             },                                   //分页 Size
             expandChange: function (row, expanded) {
-                if (typeof (row.inputOperation) === 'undefined' && expanded) {
-                    postInputOperation(this, row);
-                }
+
                 /*<debug>*/
                 console.log(row);
                 console.log(expanded);
@@ -832,15 +829,4 @@
         }
     });
     p[0].post(aLibraryTransferSelect.option);
-    function printfCompile(obj) {
-        var resoleveStep = [];
-        for (var i = 0; i < obj.multipleSelection.length; i++) {
-            resoleveStep.push({
-                name: obj.multipleSelection[i].rkrwNo,
-                rkrwNo:obj.multipleSelection[i].rkrwNo,
-                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
-            });
-        }
-        obj.printf = resoleveStep;
-    }				 //打印
 </script>

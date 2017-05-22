@@ -114,7 +114,8 @@
                                             <el-form-item label="制作方式">
                                                 <span>{{ auto_rkZdfs(props.row.rkZdfs) }}</span>
                                             </el-form-item>
-                                            <el-form-item label="可用操作">
+                                            <el-form-item label="可用操作"
+                                                          v-if="props.row.rkStatus!=32">
 
                                                 <el-button
                                                         size="small"
@@ -292,7 +293,8 @@
     </el-dialog>
     <el-dialog
             @open="dialogFormActiveOpen"
-            size="small"
+            size="large"
+            top="5%"
             v-model="dialogFormVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">{{form.title}}</span>
@@ -312,7 +314,7 @@
                     :autoplay="false"
                     arrow="never"
                     indicator-position="none"
-                    height="55vh">
+                    height="70vh">
                 <el-carousel-item>
                     <el-row>
                         <el-col :span="24"><h3>入库基础信息</h3></el-col>
@@ -892,10 +894,11 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, obj.warehousingTask);
-                    postDelete({
-                        id: [row.rkdjNo]
-                    });
+                    p[9].post({ids: [row.rkRkdjId]}, function (json) {
+                        this.callbackAfter({status: json.status, model: "取消分配"}, function () {
+                            p[0].post(obj.option);
+                        })
+                    })
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -910,7 +913,11 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    p[7].post({ids: [row.rkRkdjId]})
+                    p[7].post({ids: [row.rkRkdjId]}, function (json) {
+                        this.callbackAfter({status: json.status, model: "上架"}, function () {
+                            p[0].post(obj.option);
+                        })
+                    })
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -965,11 +972,10 @@
                     type: 'warning'
                 }).then(function () {
                     for (var i = 0; i < obj.form.rkDocsList.length; i++) {
-                        if (obj.form.rkDocsList[i].rksRkmxId === row.rksRkmxId) {
-                            obj.form.rkDocsList[i].rksKyCount += row.rksCount;
+                        if (obj.form.rkDocsList[i].rksRkmxId === row.selectGood.rksRkmxId) {
+                            obj.form.rkDocsList[i].rksKyCount += row.selectGood.rksCount;
                         }
                     }
-
                     remove(row, obj.location);
                     obj.$message({
                         type: 'success',
@@ -1103,12 +1109,15 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    // TODO
                     var step = [];
                     for (var i = 0; i < obj.multipleSelection.length; i++) {
-                        step.push(obj.multipleSelection[i].ruUserId);
+                        step.push(obj.multipleSelection[i].rkRkdjId);
                     }
-                    postPassword(warehousingTask, {ids: step});
+                    p[9].post({ids: step}, function (json) {
+                        this.callbackAfter({status: json.status, model: "取消分配"}, function () {
+                            p[0].post(obj.option);
+                        })
+                    });
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -1123,12 +1132,15 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    // TODO
                     var step = [];
                     for (var i = 0; i < obj.multipleSelection.length; i++) {
                         step.push(obj.multipleSelection[i].rkRkdjId);
                     }
-                    p[7].post({ids: step});
+                    p[7].post({ids: step}, function (json) {
+                        this.callbackAfter({status: json.status, model: "上架"}, function () {
+                            p[0].post(obj.option);
+                        })
+                    });
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -1463,6 +1475,11 @@
     p[8] = autoPost({
         urlHock: "/hock/inputOption/location.json",
         urlProd: "/route/inputOperation/8"
+    });
+    //9 取消分配
+    p[9] = autoPost({
+        urlHock: "/hock/inputOption/location.json",
+        urlProd: "/route/inputOperation/9"
     });
 
     function locationFather() {

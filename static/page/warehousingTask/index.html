@@ -96,6 +96,7 @@
                                                 <el-button
                                                         size="small"
                                                         type="success"
+                                                        v-if="props.row.rkrwStatus==1"
                                                         @click="inlineIssued(props.$index, props.row)">下发
                                                 </el-button>
                                             </el-form-item>
@@ -615,7 +616,7 @@
                 下一步
             </el-button>
             <el-button class='formBottom' type="primary" @click="submit" :loading="submitLoading"
-                       v-show="dialogFormActive>=1||form.rkrwStatus==2">保存
+                       v-show="dialogFormActive>=1||form.rkrwStatus>2">保存
             </el-button>
         </div>
     </el-dialog>

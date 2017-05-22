@@ -45,8 +45,6 @@
                 <button @click="multiSelectOffTheShelf" class="btn btn-Issued" v-show="multiSelect"><i
                         class="icon issued1"></i><span>下架</span>
                 </button>
-
-
             </div>
             <el-table
                     :data="outputOperation"
@@ -140,6 +138,7 @@
                                                 <el-button
                                                         size="small"
                                                         type="info"
+                                                        v-if="props.row.ckStatus<=21"
                                                         @click="inlineXj(props.$index, props.row)">下架
                                                 </el-button>
                                             </el-form-item>
@@ -156,7 +155,7 @@
                             <el-carousel-item>
                                 <h3>入库明细</h3>
                                 <el-table
-                                        :data="props.row.rkDocsList"
+                                        :data="props.row.mfunckDocs"
                                         highlight-current-row
                                         style="width: 100%">
                                     <el-table-column
@@ -165,29 +164,39 @@
                                     </el-table-column>
                                     <el-table-column
                                             label="货品编号"
-                                            width="140"
                                             show-overflow-tooltip
                                             align="center"
                                             prop="baseGoods.bgGoodsNo">
                                     </el-table-column>
                                     <el-table-column
+                                            label="货品名称"
+                                            show-overflow-tooltip
                                             align="center"
-                                            prop="baseGoods.bgGoodsName"
-                                            show-overflow-tooltip
-                                            label="货品名称">
+                                            prop="baseGoods.bgGoodsName">
                                     </el-table-column>
                                     <el-table-column
-                                            label="单位"
-                                            width="80"
-                                            prop="baseDw.bdName"
-                                            align="center">
+                                            label="货品数量"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="cksGoodsCount">
                                     </el-table-column>
                                     <el-table-column
-                                            label="数量"
-                                            width="100"
+                                            label="分拣方式"
                                             show-overflow-tooltip
-                                            prop="rksCount"
-                                            align="center">
+                                            align="center"
+                                            prop="cksCkfs">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="批次"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="cksZdpc">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="库位"
+                                            show-overflow-tooltip
+                                            align="baseLocation.blLname"
+                                            prop="ckXdsj">
                                     </el-table-column>
                                 </el-table>
                             </el-carousel-item>
@@ -798,25 +807,24 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-                date: [null, null],                 //TODO 主页面 下单时间 搜索
+                date: [null, null],                  //TODO 主页面 下单时间 搜索
                 ckCkdjNo: '',                        //TODO 主页面 出库单号 搜索
-                date2: [null, null],          //TODO 主页面 制作时间 搜索
+                date2: [null, null],                 //TODO 主页面 制作时间 搜索
                 ckStatus: '',                        //TODO 主页面 出库状态 搜索
-                formLabelWidth: '120px',            //表单 配置
-                form: form(),                       //表单 弹出层 信息集合
-                dialogFormActive: 0,                //新建 弹出层 steps 当前进度
-                dialogFormVisible: false,           //新建 弹出层 是否可见
-                submitLoading: false,               //新建 弹出层 提交等待
-                dialogDistributionForm: false,      //分配 弹出层 是否可见
-                dialogLocationVisible: false,       //关联 弹出层 是否可见
-                select: {},                         //搜索 弹出层 信息集合
+                formLabelWidth: '120px',             //表单 配置
+                form: form(),                        //表单 弹出层 信息集合
+                dialogFormActive: 0,                 //新建 弹出层 steps 当前进度
+                dialogFormVisible: false,            //新建 弹出层 是否可见
+                submitLoading: false,                //新建 弹出层 提交等待
+                dialogDistributionForm: false,       //分配 弹出层 是否可见
+                dialogLocationVisible: false,        //关联 弹出层 是否可见
+                select: {},                          //搜索 弹出层 信息集合
                 dialogSelectVisible: false,
                 selectLoading: false,
                 locationLoading: false
             }
         },
         computed: {
-            // TODO 表格提交
             option: function () {
                 return {
                     "draw": 1,
@@ -1105,6 +1113,12 @@
                         obj.historyLoading = false;
                     });
                 }
+                if (expanded && row.mfunckDocs.length === 0) {
+                    p[101].post({id: row.ckCkdjId}, function (json) {
+                        row.mfunckDocs = json.model;
+                    })
+
+                }
             },                             //下拉 选择
             rowSelection: function (row, selected) {
 //                console.log(selected)
@@ -1357,6 +1371,12 @@
     p[2] = autoPost({
         urlHock: "../../hock/outputOperation/page.json",
         urlProd: "/route/outputOperation/2"
+    });
+
+    // 101 查询-出库单号-出库明细
+    p[101] = autoPost({
+        urlHock: "/hock/warehousingTask/mfunckDoc.json",
+        urlProd: "/route/outboundTask/2"
     });
 
     /*<debug>*/
