@@ -616,7 +616,7 @@
                 下一步
             </el-button>
             <el-button class='formBottom' type="primary" @click="submit" :loading="submitLoading"
-                       v-show="dialogFormActive>=1||form.rkrwStatus==2">保存
+                       v-show="dialogFormActive>=1||form.rkrwStatus>2">保存
             </el-button>
         </div>
     </el-dialog>

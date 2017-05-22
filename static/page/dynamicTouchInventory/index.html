@@ -385,19 +385,19 @@
                     label="库位名称"
                     show-overflow-tooltip
                     align="center"
-                    prop="pdsLocationId">
+                    prop="baseLocation.blLname">
             </el-table-column>
             <el-table-column
                     label="货品编号"
                     show-overflow-tooltip
                     align="center"
-                    prop="pdsGoodsId">
+                    prop="baseGoods.bgGoodsNo">
             </el-table-column>
             <el-table-column
                     label="货品名称"
                     show-overflow-tooltip
                     align="center"
-                    prop="pdsGoodsId">
+                    prop="baseGoods.bgGoodsName">
             </el-table-column>
             <el-table-column
                     label="库存数量"
@@ -434,19 +434,19 @@
                     label="库位名称"
                     show-overflow-tooltip
                     align="center"
-                    prop="pdsLocationId">
+                    prop="baseLocation.blLname">
             </el-table-column>
             <el-table-column
                     label="货品编号"
                     show-overflow-tooltip
                     align="center"
-                    prop="pdsGoodsId">
+                    prop="baseGoods.bgGoodsNo">
             </el-table-column>
             <el-table-column
                     label="货品名称"
                     show-overflow-tooltip
                     align="center"
-                    prop="pdsGoodsId">
+                    prop="baseGoods.bgGoodsName">
             </el-table-column>
             <el-table-column
                     label="库存数量"
@@ -576,8 +576,8 @@
             }
         },
         methods: {
-            inlineAssignment: function () {
-                this.dialogAssignmentVisible = true;
+            inlineAssignment: function (index, row) {
+                p[5].post({pdId: row.pdId});
             },                                     //行内按钮-分配任务
             inlineInventoryDetails:function(){
                 this.dialogDetailsVisible = true;
@@ -818,6 +818,8 @@
         urlHock: "",
         urlProd: "/route/dynamicTouchInventory/5",
         success: function (json) {
+            obj.assignment = json.model;
+            obj.dialogAssignmentVisible = true;
         }
     });
      // 6 动碰盘点 盘点详情页面根据盘点计划ID查询详情
