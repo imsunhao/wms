@@ -1188,8 +1188,8 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 2:
-                        urlName = '库位转移查询 导出';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '库位转移查询 库存转移报表导出';
+                        req = autoUrl(req, '/stockZyDoc/exportStockZyDocByExcel', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -1211,8 +1211,8 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 2:
-                        urlName = '库位冻结查询 导出';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '库位冻结查询 库存冻结报表导出';
+                        req = autoUrl(req, '/stockDjDoc/exportStockDjDocByExcel', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -1234,8 +1234,8 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 2:
-                        urlName = '盘点查询 导出';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '盘点查询 导根据盘点计划ID导出盘点计划及详情出';
+                        req = autoUrl(req, '/mfunpd/exportMfunpdByExcel', "POST", function (json) {
                             res.send(json);
                         });
                         break;
