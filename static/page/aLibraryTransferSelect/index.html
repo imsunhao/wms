@@ -869,12 +869,11 @@
         success: function (json) {
         }
     });
-    // 2 库位转移查询
+    // 2 库位转移查询  库存转移报表导出
     p[2] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryTransferSelect/2",
         success: function (json) {
-
         }
     });
     p[0].post(aLibraryTransferSelect.option);
