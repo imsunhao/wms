@@ -757,7 +757,7 @@
                     "endTimeParam": tsf_date(this.date[1]),
                     rkRkdjNo: this.rkRkdjNo,
                     rkRwStatus: this.rkRwStatus,
-                    rkStatus:1
+                    rkStatus: 1
                 }
             },
 
@@ -776,11 +776,11 @@
                 if (typeof this.$refs.carousel !== 'undefined') this.$refs.carousel.setActiveItem(0);
                 this.form = step;
                 this.dialogFormActive = 0;
-                if (typeof (this.form.rkDocsList) === 'undefined') {
-                    postGoods(obj, {rkRkdjNo: row.rkRkdjNo}, function (json) {
-                        obj.form.rkDocsList = json;
+                if (typeof (this.form.rkDocsList) === 'undefined' || this.form.rkDocsList.length === 0) {
+                    p[101].post({rkRkdjId: row.rkRkdjId}, function (json) {
+                        obj.form.rkDocsList = json.rkDocsList;
                         obj.dialogFormVisible = true;
-                    });
+                    })
                 } else {
                     obj.dialogFormVisible = true;
                 }
@@ -878,10 +878,10 @@
                 p[7].post(this.option);
             },                                //分页 当前页
             newInput: function () {
-                if(this.form.rkRkdjNo===''){
-                    obj.showLoading=true;
+                if (this.form.rkRkdjNo === '') {
+                    obj.showLoading = true;
                     p[9].post();
-                }else {
+                } else {
                     obj.dialogFormVisible = true;
                 }
             },                                              //按钮 新建入库单
@@ -1325,9 +1325,9 @@
     p[9] = autoPost({
         urlHock: "/hock/warehousingReservation/rkrwNo.json",
         urlProd: "/route/warehousingReservation/9",
-        success:function (json) {
-            obj.showLoading=false;
-            this.callbackAfter({status:json.status,model:'获取入库单据单号'},function () {
+        success: function (json) {
+            obj.showLoading = false;
+            this.callbackAfter({status: json.status, model: '获取入库单据单号'}, function () {
                 obj.form.rkRkdjNo = json.model;
                 obj.dialogFormVisible = true;
             });
@@ -1337,12 +1337,19 @@
     p[10] = autoPost({
         urlHock: "/hock/warehousingReservation/rkdjNo.json",
         urlProd: "/route/warehousingReservation/10",
-        success:function (json) {
-            obj.showLoading=false;
-            this.callbackAfter({status:json.status,model:'获取入库任务单号'},function () {
+        success: function (json) {
+            obj.showLoading = false;
+            this.callbackAfter({status: json.status, model: '获取入库任务单号'}, function () {
                 obj.warehousingReservationCombinationDetails.rkrwNo = json.model;
             });
         }
+    });
+
+
+    //101 查询-入库单号-入库明细
+    p[101] = autoPost({
+        urlHock: "/hock/warehousingTask/docList.json",
+        urlProd: "/route/inputOperation/3"
     });
 
     function CombinationDetails() {
