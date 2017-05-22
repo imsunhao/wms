@@ -65,12 +65,17 @@
                                     <el-form-item label="异动开始">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_pdYdBeginTime(props.row.pdYdBeginTime) }}</span>
+                                            <!--{{ auto_pdYdBeginTime(props.row.pdYdBeginTime) }}-->
+                                             {{auto_time_new(props.row.pdYdBeginTime,1)}}
+                                        </span>
+
                                     </el-form-item>
                                     <el-form-item label="异动结束">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_pdYdEndTime(props.row.pdYdEndTime) }}</span>
+                                            <!--{{ auto_pdYdEndTime(props.row.pdYdEndTime) }}-->
+                                             {{auto_time_new(props.row.pdYdEndTime,1)}}
+                                        </span>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10" :offset="2">
@@ -135,7 +140,8 @@
                         align="center"
                         prop="mdtCount">
                     <template scope="scope">
-                        {{auto_pdYdBeginTime(scope.row.pdYdBeginTime,true)}}
+                        {{auto_time_new(scope.row.pdYdBeginTime,1)}}
+                        <!--{{auto_pdYdBeginTime(scope.row.pdYdBeginTime,true)}}-->
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -143,7 +149,8 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_pdYdEndTime(scope.row.pdYdEndTime,true)}}
+                        <!--{{auto_pdYdEndTime(scope.row.pdYdEndTime,true)}}-->
+                        {{auto_time_new(scope.row.pdYdEndTime,1)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -255,7 +262,7 @@
                     label="库位名称"
                     show-overflow-tooltip
                     align="center"
-                    prop="pdsRepertoryId">
+                    prop="baseLocation.blLname">
             </el-table-column>
             <el-table-column
                     label="货品编号"
@@ -267,7 +274,7 @@
                     label="货品名称"
                     show-overflow-tooltip
                     align="center"
-                    prop="pdsGoodsId">
+                    prop="baseGoods.bgGoodsName">
             </el-table-column>
             <el-table-column
                     label="计划数量"
@@ -608,8 +615,8 @@
                     p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
-            inlineInventoryDetails: function () {
-                this.dialogInventoryVisible = true;
+            inlineInventoryDetails: function (index,row) {
+                p[1].post({pdId: row.pdId});
             },                                 //TODO 行内按钮-盘点详情
             inlineExport: function () {
             },                                                  //TODO 行内按钮--导出
@@ -736,7 +743,8 @@
         urlHock: "",
         urlProd: "/route/inventorySelect/1",
         success: function (json) {
-
+            obj.inventory = json.model;
+            obj.dialogInventoryVisible = true;
         }
     });
     // 1 盘点查询

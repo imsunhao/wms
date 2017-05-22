@@ -84,24 +84,24 @@
                                         <span>{{ props.row.allTj}}</span>
                                     </el-form-item>
                                     <el-form-item label="下架数量">
-                                        <span>{{ props.row.xjsl }}</span>
+                                        <span>{{ props.row.allSortingCount  }}</span>
                                     </el-form-item>
                                     <el-form-item label="下架体积">
-                                        <span>{{props.row.xjtj }}</span>
+                                        <span>{{props.row.allSortingTj  }}</span>
                                     </el-form-item>
                                     <el-form-item label="欠货数量">
-                                        <span>{{props.row.qhsl}}</span>
+                                        <span>{{props.row.allQhCount }}</span>
                                     </el-form-item>
                                     <el-form-item label="欠货体积">
-                                        <span>{{props.row.qhtj}}</span>
+                                        <span>{{props.row.allQhTj }}</span>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="滞留数量">
-                                        <span>{{props.row.cksZlCount}}</span>
+                                        <span>{{props.row.allZlCount }}</span>
                                     </el-form-item>
                                     <el-form-item label="滞留体积">
-                                        <span>{{props.row.zltj}}</span>
+                                        <span>{{props.row.allZlTj }}</span>
                                     </el-form-item>
                                     <el-form-item label="客户编号">
                                         <span>{{props.row.ckCkdjClientno}}</span>
@@ -857,13 +857,16 @@
             inlineExportOutputStorage:function(){},                                     //TODO 行内按钮-导出出库储位
             inlineExportOutput:function(){},                                            //TODO 行内按钮-导出出库
             inlineSelectOutputDetailed:function(index,row){
-                p[1].post({id:row.ckCkdjId},function(json){
-                    detailed=json.model;
-                    obj.dialogDetailedVisible = true;
-                })
-            },                                //TODO 行内按钮-查看出库明细信息
+                p[1].post({Id: row.Id});
+//                p[1].post({id:row.ckCkdjId},function(json){
+//                    detailed=json.model;
+//                    obj.dialogDetailedVisible = true;
+//                })
+            },                       //TODO  行内按钮-查看出库明细信息
+
+
             inlineSelectSortingDetailed:function(){
-                this.dialogStorageVisible = true;
+                p[1].post({Id: row.pdId});
             },                               //TODO 行内按钮-查看出库储位信息
             inlineModify: function (index, row) {
                 this.multipleSelection = [row];
@@ -1176,7 +1179,8 @@
         urlHock: "",
         urlProd: "/route/outputSelect/1",
         success: function (json) {
-
+            obj.detailed = json.model;
+            obj.dialogDetailedVisible = true;
         }
     });
     // 2 根据出库明细id查询分拣明细集合（三级菜单）

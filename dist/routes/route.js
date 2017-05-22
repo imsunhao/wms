@@ -1057,7 +1057,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '库存查询 导出';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/repertory/exportRepertoryByExcel', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -1067,7 +1067,7 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '入库单据查询 分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mfunrkDoc/findvrkdjcx', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -1131,20 +1131,20 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 3:
-                        urlName = '出库单据查询 导出出库单';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '出库单据查询 根据出库ID导出出库单';
+                        req = autoUrl(req, '/mfunck/exportMfunckdocByExcel', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 4:
-                        urlName = '出库单据查询 导出出库明细';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '出库单据查询 根据出库单ID导出出库明细';
+                        req = autoUrl(req, '/mfunck/exportMfunckDocsByExcel', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 5:
-                        urlName = '出库单据查询 导出分拣明细';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '出库单据查询 根据出库单ID导出分拣明细';
+                        req = autoUrl(req, '/mfunck/exportMfunckSortingMxByExcel', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -1373,7 +1373,7 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 6:
-                        urlName = '全面盘点 根据盘点计划id确认盘点信息（修改库存）';
+                        urlName = '全面盘点 盘点详情页面根据盘点计划ID查询详情';
                         req = autoUrl(req, '/mfunpd/selectPdInfoByPdsPdId', "POST", function (json) {
                             res.send(json);
                         });
