@@ -104,66 +104,28 @@
                                         :max-height="240">
                                     <el-table-column
                                             type="expand">
-                                        <!--<template scope="props">-->
-                                            <!--<h3>入库明细</h3>-->
-                                            <!--<el-table-->
-                                                    <!--:data="props.row.rkDocsList"-->
-                                                    <!--highlight-current-row-->
-                                                    <!--style="width: 100%">-->
-                                                <!--<el-table-column-->
-                                                        <!--label="货品编号"-->
-                                                        <!--width="140"-->
-                                                        <!--show-overflow-tooltip-->
-                                                        <!--align="center"-->
-                                                        <!--prop="baseGoods.bgGoodsNo">-->
-                                                <!--</el-table-column>-->
-                                                <!--<el-table-column-->
-                                                        <!--align="center"-->
-                                                        <!--prop="baseGoods.bgGoodsName"-->
-                                                        <!--show-overflow-tooltip-->
-                                                        <!--label="货品名称">-->
-                                                <!--</el-table-column>-->
-                                                <!--<el-table-column-->
-                                                        <!--label="单位"-->
-                                                        <!--width="80"-->
-                                                        <!--prop="baseDw.bdName"-->
-                                                        <!--align="center">-->
-                                                <!--</el-table-column>-->
-                                                <!--<el-table-column-->
-                                                        <!--label="数量"-->
-                                                        <!--width="100"-->
-                                                        <!--show-overflow-tooltip-->
-                                                        <!--prop="rksCount"-->
-                                                        <!--align="center">-->
-                                                <!--</el-table-column>-->
-                                            <!--</el-table>-->
-                                        <!--</template>-->
                                     </el-table-column>
                                     <el-table-column
                                             label="货品编号"
-                                            width="170"
                                             show-overflow-tooltip
                                             align="center"
-                                            prop="zysRepertoryId">
+                                            prop="zyDocsList[0].mfunRepertory.baseGoods.bgGoodsNo">
                                     </el-table-column>
                                     <el-table-column
-                                            width="150"
                                             align="center"
-                                            prop="zysRepertoryId"
+                                            prop="zyDocsList[0].mfunRepertory.baseGoods.bgGoodsName"
                                             label="货品名称">
 
                                     </el-table-column>
                                     <el-table-column
                                             label="货品批次"
-                                            prop="zysRepertoryId"
-                                            align="center"
-                                            width="100">
+                                            prop="zyDocsList[0].mfunRepertory.mrGoodsBatch"
+                                            align="center">
                                     </el-table-column>
                                     <el-table-column
                                             label="转移前库位"
-                                            prop="zysZyBeforeLocationId"
-                                            align="center"
-                                            width="100">
+                                            prop="zyDocsList[0].mfunRepertory.baseLocation.blLname"
+                                            align="center">
                                     </el-table-column>
                                     <el-table-column
                                             label="转移后的库位"
@@ -175,7 +137,7 @@
                                             label="转移数量"
                                             align="center"
                                             show-overflow-tooltip
-                                            prop="zysZyCount">
+                                            prop="zysZyBeforeKyCount ">
                                     </el-table-column>
                                 </el-table>
                             </el-carousel-item>
@@ -862,17 +824,10 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-    // 1 库位转移查询
+    // 1 库位转移查询  库存转移报表导出
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryTransferSelect/1",
-        success: function (json) {
-        }
-    });
-    // 2 库位转移查询  库存转移报表导出
-    p[2] = autoPost({
-        urlHock: "",
-        urlProd: "/route/aLibraryTransferSelect/2",
         success: function (json) {
         }
     });
