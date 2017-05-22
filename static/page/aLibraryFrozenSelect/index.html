@@ -79,7 +79,7 @@
                                                 <span>{{ auto_djStatus(props.row.djStatus) }}</span>
                                             </el-form-item>
                                             <el-form-item label="作废人">
-                                                <span>{{ (props.row.djZfUserId) }}</span>
+                                                <span>{{ (props.row.djZfUserName) }}</span>
                                             </el-form-item>
                                             <el-form-item label="作废时间">
                                                 <span>
@@ -836,7 +836,7 @@
 
         }
     });
-    // 2 库位冻结查询 导出
+    // 2 库位冻结查询 库存冻结报表导出
     p[2] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryFrozenSelect/2",
@@ -844,15 +844,4 @@
         }
     });
     p[0].post( aLibraryFrozenSelect.option);
-    function printfCompile(obj) {
-        var resoleveStep = [];
-        for (var i = 0; i < obj.multipleSelection.length; i++) {
-            resoleveStep.push({
-                name: obj.multipleSelection[i].rkrwNo,
-                rkrwNo:obj.multipleSelection[i].rkrwNo,
-                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
-            });
-        }
-        obj.printf = resoleveStep;
-    }							//打印
 </script>
