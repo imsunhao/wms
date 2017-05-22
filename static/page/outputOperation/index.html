@@ -140,6 +140,7 @@
                                                 <el-button
                                                         size="small"
                                                         type="info"
+                                                        v-if="props.row.ckStatus<=21"
                                                         @click="inlineXj(props.$index, props.row)">下架
                                                 </el-button>
                                             </el-form-item>
