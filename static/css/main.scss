@@ -374,22 +374,31 @@ html, body {
     overflow: visible;
     position: static;
   }
-  .divImsunhao {
-    width: 88.2mm;
-    height: 57.6mm;
-    padding: 3.4mm 3.7mm;
-    position: relative;
-    margin-bottom: 0.5mm;
-  }
-  p {
-    font: 0.200in/100% '宋体';
-    padding: 0;
-    margin: 0;
-    height: 9.5mm;
-    line-height: 9.5mm;
-    span {
-      padding-left: 3.3mm;
+
+  .p0{
+    .divImsunhao {
+      width: 88.2mm;
+      height: 57.6mm;
+      padding: 3.4mm 3.7mm;
+      position: relative;
+      margin-bottom: 0.5mm;
     }
+    p {
+      font: 0.200in/100% '宋体';
+      padding: 0;
+      margin: 0;
+      height: 9.5mm;
+      line-height: 9.5mm;
+      span {
+        padding-left: 3.3mm;
+      }
+    }
+  }
+  .p1{
+
+  }
+  .p2{
+
   }
 }
 
