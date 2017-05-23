@@ -74,7 +74,7 @@
                                             </el-form-item>
                                         </el-col>
                                         <el-col :span="10" :offset="2">
-                                            <el-form-item label="到货日期">
+                                            <el-form-item label="预计到货">
                                                 <span>{{auto_rkrwDhrq(props.row.rkrwDhrq) }}</span>
                                             </el-form-item>
                                             <el-form-item label="承运商">
@@ -207,14 +207,11 @@
                         prop="rkrwSjxm">
                 </el-table-column>
                 <el-table-column
-                        label="状态"
-                        prop="status"
-                        align="center"
-                        width="130">
+                        label="预计到货"
+                        show-overflow-tooltip
+                        align="center">
                     <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_rkrwStatus(scope.row.rkrwStatus)}}
-                        </el-tag>
+                        {{auto_rkrwDhrq(scope.row.rkrwDhrq,true)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -1147,11 +1144,11 @@
             list2_View: function (index, row) {
 
             },
-
             auto_rkrwDhrq: function (value, bool) {
-                if (!bool)return dateFormat(new Date(value), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Data(value), 'MMdd');
-            },                              //预计到货日期
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+            },      //预计到货时间
+
             auto_rkrwStatus: function (value) {
 
                 if (!isNaN(value)) {
