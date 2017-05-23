@@ -32,10 +32,6 @@
                     <el-option :value="32" label="全部出库"></el-option>
                 </el-select>
                 </el-form-item>
-
-                <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
-                        class="icon search"></i><span>详细查询</span>
-                </button>
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                         class="icon sel"></i><span>多选</span>
                 </button>
@@ -92,15 +88,14 @@
                                         <h3>出库操作详细</h3>
                                         <el-form label-position="left" inline class="demo-table-expand">
                                             <el-form-item label="物流商">
-                                                <span>{{ props.row.ckrwWls	 }}</span>
+                                                <span>{{ props.row.rwDoc.ckrwWls	 }}</span>
                                             </el-form-item>
                                             <el-form-item label="任务号">
-                                                <span>{{ props.row.ckrwNo }}</span>
+                                                <span>{{ props.row.rwDoc.ckrwNo }}</span>
                                             </el-form-item>
                                             <el-form-item label="车牌号">
-                                                <span>{{ props.row.ckrwCph}}</span>
+                                                <span>{{ props.row.rwDoc.ckrwCph}}</span>
                                             </el-form-item>
-
                                             <el-form-item label="出库单号">
                                                 <span>{{ props.row.ckCkdjNo }}</span>
                                             </el-form-item>
@@ -110,23 +105,32 @@
                                                     {{ auto_ckXdsj(props.row.ckXdsj) }}
                                                 </span>
                                             </el-form-item>
+                                            <el-form-item label="客户编号">
+                                                <span>{{ props.row.ckCkdjClientno }}</span>
+                                            </el-form-item>
                                             <el-form-item label="客户名称">
                                                 <span>{{ props.row.ckCkdjClientname }}</span>
                                             </el-form-item>
                                             <el-form-item label="联系人">
                                                 <span>{{ props.row.ckContacts }}</span>
                                             </el-form-item>
+                                            <el-form-item label="电话">
+                                                <span>{{ props.row.ckTel }}</span>
+                                            </el-form-item>
                                             <el-form-item label="地址">
                                                 <span>{{ props.row.ckAdress }}</span>
                                             </el-form-item>
-                                            <el-form-item label="状态">
-                                                <span>{{ auto_ckStatus(props.row.ckStatus) }}</span>
+                                             <el-form-item label="预发货时间">
+                                                 <span>{{ auto_ckYfhsj(props.row.ckYfhsj) }}</span>
                                             </el-form-item>
                                             <el-form-item label="制作方式">
                                                 <span>{{ auto_ckIsauto(props.row.ckIsauto) }}</span>
                                             </el-form-item>
-                                            <el-form-item label="可用操作">
+                                            <el-form-item label="备注">
+                                                <span>{{ props.row.ckRemarks }}</span>
+                                            </el-form-item>
 
+                                            <el-form-item label="可用操作">
                                                 <el-button
                                                         size="small"
                                                         @click="inlinePrintSortingList(props.$index, props.row)">打印分拣单
@@ -203,10 +207,24 @@
                         </el-carousel>
                     </template>
                 </el-table-column>
-                <!--<el-table-column-->
-                <!--type="index"-->
-                <!--width="55">-->
-                <!--</el-table-column>-->
+                <el-table-column
+                        label="物流商"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="rwDoc.ckrwWls">
+                </el-table-column>
+                <el-table-column
+                        label="任务号"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="rwDoc.ckrwNo">
+                </el-table-column>
+                <el-table-column
+                        label="车牌号"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="rwDoc.ckrwCph">
+                </el-table-column>
                 <el-table-column
                         label="出库单号"
                         width="170"
@@ -224,37 +242,10 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        label="客户名称"
+                        label="客户编号"
                         align="center"
                         show-overflow-tooltip
-                        prop="ckCkdjClientname">
-                </el-table-column>
-                <el-table-column
-                        label="联系人"
-                        align="center"
-                        show-overflow-tooltip
-                        prop="ckContacts">
-                </el-table-column>
-                <el-table-column
-                        label="地址"
-                        align="center"
-                        show-overflow-tooltip
-                        prop="ckAdress">
-                </el-table-column>
-                <el-table-column
-                        label="状态"
-                        align="center"
-                        width="100">
-                    <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_ckStatus(scope.row.ckStatus)}}
-                        </el-tag>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        label="备注"
-                        show-overflow-tooltip
-                        prop="ckRemarks">
+                        prop="ckCkdjClientno">
                 </el-table-column>
                 <el-table-column
                         v-if="multiSelect"
@@ -278,10 +269,6 @@
     <el-dialog
             size="small"
             v-model="dialogSelectVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">详细查询</span>
-        </div>
-
         </el-form>
 
         <div slot="footer" class="dialog-footer">
@@ -1246,6 +1233,10 @@
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                                //TODO 下单时间
+            auto_ckYfhsj: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+            },                                //TODO 预发货时间
             auto_ckStatus: function (value) {
                 var temp = {};
                 if (!isNaN(value)) {
