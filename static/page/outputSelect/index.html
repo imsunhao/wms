@@ -581,59 +581,62 @@
             </el-table-column>
             <el-table-column
                     label="货品名称"
-
                     show-overflow-tooltip
-                    align="center"
-                    prop="msxHpkcid">
+                    align="center">
+            <template scope="scope">
+                {{detailedTemp.baseGoods.bgGoodsName}}
+            </template>
             </el-table-column>
             <el-table-column
                     label="下架库位"
-
                     show-overflow-tooltip
                     align="center"
-                    prop="msxHpkcid">
+                    prop="mfunRepertory.baseLocation.blLname">
             </el-table-column>
             <el-table-column
                     label="下架数量"
-
                     show-overflow-tooltip
-                    align="center"
-                    prop="msxMxCount">
+                    align="center">
+                <template scope="scope">
+                    {{detailedTemp.sortingCount}}
+                </template>
             </el-table-column>
             <el-table-column
                     label="下架体积"
-
                     show-overflow-tooltip
-                    align="center"
-                    prop="xjtj">
+                    align="center">
+                <template scope="scope">
+                    {{detailedTemp.sortingTj}}
+                </template>
             </el-table-column>
             <el-table-column
                     label="下架批次"
-
                     show-overflow-tooltip
                     align="center"
-                    prop="msx_hpkcid">
+                    prop="mfunRepertory.mrGoodsBatch">
             </el-table-column>
             <el-table-column
                     label="操作人员"
-
                     show-overflow-tooltip
                     align="center"
-                    prop="msxXjry">
+                    prop="rmUser.ruUserName">
             </el-table-column>
             <el-table-column
                     label="操作时间"
-
                     show-overflow-tooltip
                     align="center"
                     prop="msxQrsj">
+                <template scope="scope">
+                    {{ auto_time_new(scope.row.msxQrsj)}}
+                </template>
             </el-table-column>
             <el-table-column
                     label="修改原因"
-
                     show-overflow-tooltip
-                    align="center"
-                    prop="msxWt">
+                    align="center">
+                <template scope="scope">
+                {{ auto_msxWt(scope.row.msxWt)}}
+                </template>
             </el-table-column>
 
         </el-table>
@@ -1339,6 +1342,27 @@
                 }
                 return temp[value];
             },                                  //操作方式
+            auto_msxWt: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        0:'未修改',
+                        1: '货品损坏',
+                        2: '库存不足',
+                        3:'其他',
+                    }
+                } else {
+                    temp = {
+                        '未修改':0,
+                        '货品损坏': 1,
+                        '库存不足': 2,
+                        '其他':3,
+                    }
+                }
+                return temp[value];
+            },                                  //操作方式
+
+
         },
         watch: {
             ckCkdjNo: function () {
