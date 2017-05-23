@@ -180,13 +180,11 @@
                 </el-date-picker>
                 <el-select
                         v-model="zyStatus"
-                        placeholder="请选择转移状态">
+                        placeholder="请选择">
                     <el-option label="全部" :value.number="-1"></el-option>
                     <el-option label="未确认" :value.number="0"></el-option>
                     <el-option label="已确认" :value.number="1"></el-option>
                 </el-select>
-
-
             </div>
             <el-table
                     :data="stockTransferConfirm"
@@ -432,7 +430,7 @@
                           :label-width="formLabelWidth">
                 <el-select v-model="form.zyStatus" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
-                    <el-option :value="0" label="初始"></el-option>
+                    <el-option :value="0" label="未确认"></el-option>
                     <el-option :value="1" label="已确认"></el-option>
                     <el-option :value="2" label="作废"></el-option>
                 </el-select>
@@ -498,25 +496,21 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-
                 date: [null, null],                 //主页面 选择日期 搜索
                 zyMentionUserName: '',             //主页面 提起人 搜索
                 zyCreateUserName:'',                 //主页面 创建人 搜索
                 zyStatus:'',                        //主页面 转移状态
-
                 formLabelWidth: '120px',            //表单 配置
                 form: form(),                           //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
-
                 select: form(),                         //搜索 弹出层 信息集合,
                 printf: [],                         //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 dialogPrintfVisible: false,
                 selectLoading: false,
                 printfLoading: false,
-
                 printDatas: [],          // 打印数据
             }
         },
@@ -526,7 +520,12 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
+                    "pageSize": this.pageSize,
+                    "zyMentionUserName":this.zyMentionUserName.trim(),
+                    "zyCreateUserName":this.zyCreateUserName.trim(),
+                    "zyStatus":this.zyStatus,
+                    "startCreateTimeParam": tsf_date(this.date[0]),
+                    "endCreateTimeParam": tsf_date(this.date[1]),
                 }
             },
             search: function () {
@@ -711,13 +710,13 @@
                 var temp={}
                 if(!isNaN(value)){
                     temp={
-                        0:'初始',
+                        0:'未确认',
                         1:'确认',
                         2:'作废',
                     }
                 }else{
                     temp={
-                        '初始':0,
+                        '未确认':0,
                         '确认':1,
                         '作废':2
                     }
@@ -726,8 +725,35 @@
             },                                       //转移状态
 
 
+        },
+        watch: {
+            zyMentionUserName: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+            zyCreateUserName: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+            zyStatus: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
         }
     });
+    // 高级 监视器的 使用方法
+        stockTransferConfirm.$watch('date', function () {
+            /*<debug>*/
+            console.log(this.option);
+            /*</debug>*/
+            p[0].post( this.option);
+        }, {deep: true});
     function form() {
         return {
             zyCreateTime:'',
@@ -805,14 +831,7 @@
 
 
 
-    // 高级 监视器的 使用方法
-    //    stockTransferConfirm.$watch('date', function () {
-    //        if (!this.option.dateStart)return;
-    //        /*<debug>*/
-    //        console.log(this.option);
-    //        /*</debug>*/
-    //        post(this, this.option);
-    //    }, {deep: true});
+
     p[0].post(stockTransferConfirm.option);
     function printfCompile(obj) {
         var resoleveStep = [];
