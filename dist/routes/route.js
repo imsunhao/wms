@@ -1188,12 +1188,6 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 1:
-                        urlName = '库位转移查询 库存转移明细';
-                        req = autoUrl(req, '', "POST", function (json) {
-                            res.send(json);
-                        });
-                        break;
-                    case 2:
                         urlName = '库位转移查询 库存转移报表导出';
                         req = autoUrl(req, '/stockZyDoc/exportStockZyDocByExcel', "POST", function (json) {
                             res.send(json);
