@@ -171,57 +171,85 @@
                 :val="printData.val"></sh-print>
     </el-dialog>
     <el-dialog custom-class="p1" v-model="dialogTableVisible1" size="full" :show-close="false">
-        <h4 style="text-align: center">整车货物运输承运协议</h4>
-        <p>托运方（以下简称甲方）： ___联系人： _________________ ；承运方（以下简称乙方）：__ _____ 联系人： _________________；</p>
-        <p>承运人姓名：ckrwWls 车牌号码：ckrwCph 证件号：________ _____联系方式：_____________________；</p>
-        <p>根据《中华人民共和国合同法》及相关法律法规，甲乙双方经友好协商，就甲方委托乙方提供货物运输服务事宜达成本协议，以便双方共同遵守。</p>
-        <p>一、货物信息</p>
-        <el-table
-                :data="printDatas.data"
-                show-summary>
-            <el-table-column
-                    prop="订单号"
-                    label="订单号">
-            </el-table-column>
-            <el-table-column
-                    prop="体积"
-                    label="体积">
-            </el-table-column>
-            <el-table-column
-                    prop="联系方式"
-                    label="联系方式">
-            </el-table-column>
-            <el-table-column
-                    prop="收货人"
-                    label="收货人">
-            </el-table-column>
-            <el-table-column
-                    prop="发运数量"
-                    label="发运数量">
-            </el-table-column>
-            <el-table-column
-                    prop="任务单号"
-                    label="任务单号">
-            </el-table-column>
-            <el-table-column
-                    prop="地址"
-                    label="地址">
-            </el-table-column>
-            <el-table-column
-                    prop="货品名称"
-                    label="货品名称">
-            </el-table-column>
-        </el-table>
+        <div class="p1_inner">
 
-        <p>二、运输价格及付款方式：本次运输价格:<u>按合同规定</u>，付款方式： <u>月结</u></p>
-        <p>三、到货时限：要求于 年 月 日 前到达目的地，联系指定收货人签收货物。</p>
-        <p>四、回执单签收： 回单份数：<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>份</p>
-        <p>五、乙方义务</p>
-        <p>1：乙方必须按照甲方指定的收货人以及收货地址交货物安全、准确、及时送达甲方指定目的地，运输过程中如出现灭失、短少、污染、损坏，乙方必须按照货物的实际价值赔偿甲方并赔偿因此给甲方造成的一切损失。2：甲乙双方风险责任的转移：货物经甲乙双方清点、验收无误并由乙方在本协议收签字确认后，货物到达目的地收货人签收之前，货物的风险责任全部由乙方承担。3：乙方必须保证联系方式24小时开机并随时接听电话，确保甲方对运输信息跟踪的及时性。在运输过程中如有货物不能按时到达目的地，乙方必须提前与甲方联系，以便甲方协助解决，由于货物延迟到达给甲方造成的损失由乙方承担。4：乙方必须保证送达目的地后在货物交接时，如收货方对货物有任何意见，乙方应立即与甲方联系处理，不得与收货方发生争执。要求必须由收货人出具身份证明或收货人委托代理人出具书面委托证明及身份证明，乙方核实后，由收货人或委托代理人签收，回执单签收有特殊要求的依据其要求，否则签收无效。</p>
-        <p>六：本协议一式四份，经双方签字后生效，具有同等法律效力。甲、乙双方各持一份，第一联托运人留存、第二承运人留存联、第三联报销联、第四联账务留存联。甲乙双方在履行本协议过程中发生纠纷时，应及时协商解决，协商不成时，任何一方都可向济南市历城区人民法院起诉。</p>
-        <p>甲方：            乙方：    </p>
-        <p>日期： {{auto_time_new(new Date(),1)}}   日期：{{auto_time_new(new Date(),1)}}</p>
-        <p>经办人：</p>
+            <h4 style="text-align: center">整车货物运输承运协议</h4>
+            <p>托运方（以下简称甲方）： {{printDatas.info['托运方']||'____________'}} 联系人：
+                {{printDatas.info['托运方联系人']||'____________'}}；承运方（以下简称乙方）：{{printDatas.info['承运方']||'____________'}}
+                联系人： {{printDatas.info['承运方联系人']||'____________'}}；</p>
+            <p>承运人姓名：{{printDatas.info['承运人']['姓名']||'____________'}} 车牌号码：{{printDatas.info['车牌号码']||'____________'}}
+                证件号：{{printDatas.info['承运人']['证件号']||'____________'}}
+                联系方式：{{printDatas.info['承运人']['联系方式']||'____________'}}；</p>
+            <p>根据《中华人民共和国合同法》及相关法律法规，甲乙双方经友好协商，就甲方委托乙方提供货物运输服务事宜达成本协议，以便双方共同遵守。</p>
+            <p>一、货物信息</p>
+            <el-table
+                    :data="printDatas.data"
+                    :border="true"
+                    show-summary>
+                <el-table-column
+                        prop="任务单号"
+                        align="center"
+                        label="任务号">
+                </el-table-column>
+                <el-table-column
+                        prop="订单号"
+                        align="center"
+                        label="订单号">
+                </el-table-column>
+                <el-table-column
+                        prop="货品名称"
+                        width="220"
+                        align="center"
+                        label="货品名称">
+                </el-table-column>
+                <el-table-column
+                        prop="发运数量"
+                        align="center"
+                        label="数量">
+                </el-table-column>
+                <el-table-column
+                        align="center"
+                        prop="体积"
+                        label="体积">
+                </el-table-column>
+                <el-table-column
+                        prop="收货人"
+                        align="center"
+                        label="收货人">
+                </el-table-column>
+                <el-table-column
+                        align="center"
+                        label="联系">
+                    <template scope="scope">
+                        {{scope.row['联系方式']}}
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        prop="地址"
+                        align="center"
+                        label="地址">
+                </el-table-column>
+            </el-table>
+            <p>二、运输价格及付款方式：本次运输价格:<u>按合同规定</u>，付款方式： <u>月结</u></p>
+            <p>三、到货时限：要求于 {{auto_time_new(printDatas.info['到货时限'],1)}} 前到达目的地，联系指定收货人签收货物。</p>
+            <p>四、回执单签收： 回单份数：{{printDatas.info['回单份数']||'_________'}} 份</p>
+            <p>五、乙方义务</p>
+            <p>
+                1：乙方必须按照甲方指定的收货人以及收货地址交货物安全、准确、及时送达甲方指定目的地，运输过程中如出现灭失、短少、污染、损坏，乙方必须按照货物的实际价值赔偿甲方并赔偿因此给甲方造成的一切损失。2：甲乙双方风险责任的转移：货物经甲乙双方清点、验收无误并由乙方在本协议收签字确认后，货物到达目的地收货人签收之前，货物的风险责任全部由乙方承担。3：乙方必须保证联系方式24小时开机并随时接听电话，确保甲方对运输信息跟踪的及时性。在运输过程中如有货物不能按时到达目的地，乙方必须提前与甲方联系，以便甲方协助解决，由于货物延迟到达给甲方造成的损失由乙方承担。4：乙方必须保证送达目的地后在货物交接时，如收货方对货物有任何意见，乙方应立即与甲方联系处理，不得与收货方发生争执。要求必须由收货人出具身份证明或收货人委托代理人出具书面委托证明及身份证明，乙方核实后，由收货人或委托代理人签收，回执单签收有特殊要求的依据其要求，否则签收无效。</p>
+            <p>
+                六：本协议一式四份，经双方签字后生效，具有同等法律效力。甲、乙双方各持一份，第一联托运人留存、第二承运人留存联、第三联报销联、第四联账务留存联。甲乙双方在履行本协议过程中发生纠纷时，应及时协商解决，协商不成时，任何一方都可向济南市历城区人民法院起诉。</p>
+            <div class="clearfix">
+                <div class="p1_2">
+                    <p>甲方：</p>
+                    <p>日期： {{auto_time_new(new Date(),1)}}</p>
+                </div>
+                <div class="p1_2">
+                    <p>乙方：</p>
+                    <p>日期： {{auto_time_new(new Date(),1)}}</p>
+                </div>
+            </div>
+            <p>经办人：</p>
+        </div>
     </el-dialog>
     <el-dialog custom-class="p2" v-model="dialogTableVisible2" size="full" :show-close="false">
 

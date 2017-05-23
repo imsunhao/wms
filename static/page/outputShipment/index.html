@@ -393,8 +393,7 @@
                                 :data="outputShipment"
                                 :max-height="570"
                                 @cell-dblclick="cellDblClick"
-                                style="width: 100%"
-                        >
+                                style="width: 100%">
                             <el-table-column
                                     type="index"
                                     width="55">
@@ -755,7 +754,7 @@
                 change: changeForm(),                   //搜索 弹出层 信息集合
 
 
-                printDatas: _printDatas(),                   //打印 承运协议 信息集合
+                printDatas: _printDatas(),              //打印 承运协议 信息集合
 
 
                 changeoutputShipment: [],
@@ -827,7 +826,7 @@
                         message: '已取消发运'
                     });
                 });
-            },                                   //TODO 多选-发运
+            },                                //TODO 多选-发运
 
             inlineShipment: function (index, row) {
                 var _this = this;
@@ -851,7 +850,7 @@
                         message: '已取消发运'
                     });
                 });
-            },                                           //TODO 行内按钮--发运
+            },                              //TODO 行内按钮--发运
 
             inlineModifyShipmentNumber: function (index, row) {
                 this.dialogChangeVisible = true;
@@ -866,15 +865,18 @@
                     p[3].post({
                         id: row.ckrwId
                     }, function (json) {
-                        json.status=20000;// TODO
+                        json.status = 20000;// TODO
                         this.callbackAfter({status: json.status, model: "打印承运协议"}, function () {
-                            var step=_printDatas_info();
+                            var step = _printDatas_info();
                             allPrposCb(step, function (obj2, index) {
                                 if (typeof json.model[json.model.length - 1][index] !== 'undefined') step[index] = json.model[json.model.length - 1][index];
                             });
-                            obj.printDatas.info=step;
+                            obj.printDatas.info = step;
                             json.model.pop();
-                            obj.printDatas.data=json.model;
+                            for (var i = 0; i < json.model.length; i++) {
+                                json.model[i]['体积'] = json.model[i]['体积'].toFixed(4);
+                            }
+                            obj.printDatas.data = json.model;
 
                             wap.print1(obj);
                         })
@@ -885,7 +887,8 @@
                         message: '已取消打印'
                     });
                 });
-            },                 //TODO 行内按钮-打印承运协议
+            },                 //行内按钮-打印承运协议
+
             moreOperationModify: function () {
 
             },                                   //TODO 多选 修改
@@ -1096,7 +1099,17 @@
             "到达地": "山东济南",
             "托运日期": "2017-05-23 15:37:09",
             "回单份数": 1,
-            "承运方": "佳怡物流"
+            "承运方": "佳怡物流",
+
+            "车牌号码": '',
+            "托运方": '',
+            "托运方联系人": '',
+            "承运人": {
+                "姓名": '',
+                "证件号": '',
+                "联系人": ''
+            },
+            "到货时限": new Date()
         }
     }
 
