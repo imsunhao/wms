@@ -969,6 +969,12 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 3:
+                        urlName = '出库发运-打印承运协议';
+                        req = autoUrl(req, '/mfunck/dayinChenyun', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
                 }
                 break;
 

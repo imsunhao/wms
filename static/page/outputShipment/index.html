@@ -393,8 +393,7 @@
                                 :data="outputShipment"
                                 :max-height="570"
                                 @cell-dblclick="cellDblClick"
-                                style="width: 100%"
-                        >
+                                style="width: 100%">
                             <el-table-column
                                     type="index"
                                     width="55">
@@ -739,8 +738,8 @@
                 pageSize: 10,
 
                 date: [null, null],                     //主页面 选择日期 搜索
-                ckrwNo: '',                           //主页面 任务号 搜索
-                ckrwCph: '',                           //主页面 车牌号 搜索
+                ckrwNo: '',                             //主页面 任务号 搜索
+                ckrwCph: '',                            //主页面 车牌号 搜索
                 formLabelWidth: '120px',                //表单 配置
                 form: form(),                           //表单 弹出层 信息集合
 
@@ -753,6 +752,11 @@
 
                 dialogChangeVisible: false,             //新建 弹出层 是否可见
                 change: changeForm(),                   //搜索 弹出层 信息集合
+
+
+                printDatas: _printDatas(),              //打印 承运协议 信息集合
+
+
                 changeoutputShipment: [],
 
                 dialogSelectVisible: false,
@@ -822,11 +826,11 @@
                         message: '已取消发运'
                     });
                 });
-            },                                   //TODO 多选-发运
+            },                                //TODO 多选-发运
 
-            inlineShipment: function (index,row) {
+            inlineShipment: function (index, row) {
                 var _this = this;
-                _this.$confirm('此操作将此任务单据发运 任务号：'+row.ckrwNo, '提示', {
+                _this.$confirm('此操作将此任务单据发运 任务号：' + row.ckrwNo, '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -846,15 +850,45 @@
                         message: '已取消发运'
                     });
                 });
-            },                                           //TODO 行内按钮--发运
+            },                              //TODO 行内按钮--发运
 
             inlineModifyShipmentNumber: function (index, row) {
                 this.dialogChangeVisible = true;
             },                  //TODO 行内按钮-修改发运数量
 
             inlinePrintCarrierAgreement: function (index, row) {
+                obj.$confirm('打印承运协议 任务号：' + row.ckrwNo, '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    p[3].post({
+                        id: row.ckrwId
+                    }, function (json) {
+                        json.status = 20000;// TODO
+                        this.callbackAfter({status: json.status, model: "打印承运协议"}, function () {
+                            var step = _printDatas_info();
+                            allPrposCb(step, function (obj2, index) {
+                                if (typeof json.model[json.model.length - 1][index] !== 'undefined') step[index] = json.model[json.model.length - 1][index];
+                            });
+                            obj.printDatas.info = step;
+                            json.model.pop();
+                            for (var i = 0; i < json.model.length; i++) {
+                                json.model[i]['体积'] = json.model[i]['体积'].toFixed(4);
+                            }
+                            obj.printDatas.data = json.model;
 
-            },                 //TODO 行内按钮-打印承运协议
+                            wap.print1(obj);
+                        })
+                    });
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消打印'
+                    });
+                });
+            },                 //行内按钮-打印承运协议
+
             moreOperationModify: function () {
 
             },                                   //TODO 多选 修改
@@ -1020,6 +1054,7 @@
         /*</debug>*/
         p[0].post(this.option);
     }, {deep: true});
+
     function form() {
         return {
             ckrwId: '',
@@ -1043,6 +1078,41 @@
 
         }
     }
+    function _printDatas() {
+        return {
+            data: [{
+                "体积": 1596.0800000000002,
+                "订单号": "CKD201705191540",
+                "联系方式": "15853130911",
+                "收货人": "吴金霏101",
+                "发运数量": 50,
+                "任务单号": "CKRW20170519-02",
+                "地址": "山东济南",
+                "货品名称": "酥油茶机、SY-T5、主体木纹部分金色镶件、Ⅰ类电气结构、1300W、220V、50HZ"
+            }],
+            info: _printDatas_info()
+        }
+    }
+    function _printDatas_info() {
+        return {
+            "起运地": "九阳齐河仓",
+            "到达地": "山东济南",
+            "托运日期": "2017-05-23 15:37:09",
+            "回单份数": 1,
+            "承运方": "佳怡物流",
+
+            "车牌号码": '',
+            "托运方": '',
+            "托运方联系人": '',
+            "承运人": {
+                "姓名": '',
+                "证件号": '',
+                "联系人": ''
+            },
+            "到货时限": new Date()
+        }
+    }
+
     var obj = outputShipment;
     var p = [];
     // 0 出库发运 分页查询
@@ -1058,6 +1128,16 @@
     p[1] = autoPost({
         urlHock: "../../hock/outputShipment/page.json",
         urlProd: "/route/outputShipment/1"
+    });
+    // 2 出库发运-修改发运数量
+    p[2] = autoPost({
+        urlHock: "../../hock/outputShipment/page.json",
+        urlProd: "/route/outputShipment/2"
+    });
+    // 3 出库发运-打印承运协议
+    p[3] = autoPost({
+        urlHock: "../../hock/outputShipment/page.json",
+        urlProd: "/route/outputShipment/3"
     });
 
     function selectGood() {

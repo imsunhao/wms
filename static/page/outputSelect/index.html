@@ -1070,13 +1070,31 @@
             },                                      //分配 表单
         },
         methods: {
-            inlineExportOutputList: function () {
+            inlineExportOutputList: function (index,row) {
+                obj.$confirm('导出出库单 单据单号：' + row.ckCkdjNo, '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    p[3].post({
+                        ids: [row.ckCkdjId]
+                    }, function (json) {
+                        this.callbackAfter({status: json.status, model: "导出出库单"}, function () {
+
+                        })
+                    });
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消导出'
+                    });
+                });
             },                                        //TODO 行内按钮-导出出库单
-            inlineExportOutputDetailed: function () {
+            inlineExportOutputDetailed: function (index,row) {
             },                                    //TODO 行内按钮-导出出库明细
-            inlineExportSortingDetailed: function () {
+            inlineExportSortingDetailed: function (index,row) {
             },                                     //TODO 行内按钮-导出分拣明细
-            inlineExportOutput: function () {
+            inlineExportOutput: function (index,row) {
             },                                            //TODO 行内按钮-导出出库
             inlineSelectOutputDetailed: function (index, row) {
                 p[1].post({id: row.ckCkdjId}, function (json) {
