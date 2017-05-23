@@ -579,8 +579,9 @@
             inlineAssignment: function (index, row) {
                 p[5].post({pdId: row.pdId});
             },                                     //行内按钮-分配任务
-            inlineInventoryDetails:function(){
-                this.dialogDetailsVisible = true;
+            inlineInventoryDetails:function(index,row){
+                p[6].post({pdId: row.pdId});
+//                this.dialogDetailsVisible = true;
             },                                  //行内按钮-盘点详情
             inlineInventoryConfirm: function (index, row) {
                 var obj = this;
@@ -827,7 +828,8 @@
         urlHock: "",
         urlProd: "/route/dynamicTouchInventory/6",
         success: function (json) {
-
+            obj.details = json.model;
+            obj.dialogDetailsVisible = true;
         }
     });
 
