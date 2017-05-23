@@ -4,9 +4,6 @@
             element-loading-text="拼命加载中">
         <el-col :span="24">
             <div class="inner btn-nav">
-                <!--<button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i-->
-                        <!--class="icon search"></i><span>详细查询</span>-->
-                <!--</button>-->
                 <el-input
                         v-model="ckrwNo"
                         class="input"
@@ -106,10 +103,6 @@
                         </el-form>
                     </template>
                 </el-table-column>
-                <!--<el-table-column-->
-                <!--type="index"-->
-                <!--width="55">-->
-                <!--</el-table-column>-->
                 <el-table-column
                         label="物流商"
                         show-overflow-tooltip
@@ -129,6 +122,23 @@
                         prop="ckrwCph">
                 </el-table-column>
                 <el-table-column
+                        label="预计到车"
+                        show-overflow-tooltip
+                        align="center">
+                    <template scope="scope">
+                        {{auto_ckrwYjdcsj(scope.row.ckrwYjdcsj,true)}}
+                    </template>
+                </el-table-column>
+                 <el-table-column
+                        label="实际到车"
+                        show-overflow-tooltip
+                        align="center">
+                    <template scope="scope">
+                        {{auto_ckrwSjdcsj(scope.row.ckrwSjdcsj,true)}}
+                    </template>
+                </el-table-column>
+
+                <el-table-column
                         label="订单数"
                         show-overflow-tooltip
                         align="center"
@@ -140,41 +150,6 @@
                         align="center"
                         prop="goodsTypeNum">
                 </el-table-column>
-                <el-table-column
-                        label="任务状态"
-                        prop="status1"
-                        align="center"
-                        width="100">
-                    <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_ckrwStatus(scope.row.ckrwStatus)}}
-                        </el-tag>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        label="欠货状态"
-                        prop="status"
-                        align="center"
-                        width="100">
-                    <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_ckrwQhStatus(scope.row.ckrwQhStatus)}}
-                        </el-tag>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        label="滞留状态"
-                        prop="status"
-                        align="center"
-                        width="100">
-                    <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_ckrwZlStatus(scope.row.ckrwZlStatus)}}
-                        </el-tag>
-                    </template>
-                </el-table-column>
-
-
                 <el-table-column
                         v-if="multiSelect"
                         type="selection"
@@ -201,35 +176,6 @@
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
         </div>
-        <!--<el-form :model="select">-->
-            <!--<el-form-item label="车牌号"-->
-                          <!--:label-width="formLabelWidth">-->
-                <!--<el-input-->
-                        <!--class="input"-->
-                        <!--v-model="form.ckrwCph"-->
-                        <!--icon="search"-->
-                        <!--placeholder="车牌号"></el-input>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="任务号"-->
-                          <!--:label-width="formLabelWidth">-->
-                <!--<el-input-->
-                        <!--v-model="form.ckrwNo"-->
-                        <!--class="input"-->
-                        <!--icon="search"-->
-                        <!--placeholder="任务号"></el-input>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="制作时间"-->
-                          <!--:label-width="formLabelWidth">-->
-                <!--<el-date-picker-->
-                        <!--v-model="form.ckrwHistoryCzsj"-->
-                        <!--type="daterange"-->
-                        <!--align="right"-->
-                        <!--placeholder="制作时间"-->
-                        <!--class="input"-->
-                        <!--:picker-options="pickerOptions">-->
-                <!--</el-date-picker>-->
-            <!--</el-form-item>-->
-        <!--</el-form>-->
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
         </div>
@@ -645,11 +591,11 @@
             },                                          //详细查询 提交
             auto_ckrwYjdcsj: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                            //预计到车时间
             auto_ckrwSjdcsj: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                            //实际到车时间
             auto_ckrwStatus:function(value){
                 var temp={};
