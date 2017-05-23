@@ -60,8 +60,18 @@
         methods: {
             print1: function () {
                 this.printModel = false;
+                p[0].post({id:37});
                 wap.print1(this);
             }
+        }
+    });
+
+    var p=[];
+    p[0]=autoPost({
+        urlHock: "/hock/print/page1.json",
+        urlProd: "/route/outputSelect/4",
+        success: function (json) {
+
         }
     });
 </script>
