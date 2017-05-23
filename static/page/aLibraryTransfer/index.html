@@ -179,7 +179,7 @@
                 </el-date-picker>
                 <el-select
                         v-model="zyStatus"
-                        placeholder="请选择转移状态">
+                        placeholder="请选择">
                     <el-option label="全部" :value.number="-1"></el-option>
                     <el-option label="未确认" :value.number="0"></el-option>
                     <el-option label="已确认" :value.number="1"></el-option>
@@ -751,13 +751,13 @@
                 var temp={}
                 if(!isNaN(value)){
                     temp={
-                        0:'初始',
+                        0:'未确认',
                         1:'确认',
                         2:'作废',
                     }
                 }else{
                     temp={
-                        '初始':0,
+                        '未确认':0,
                         '确认':1,
                         '作废':2
                     }
