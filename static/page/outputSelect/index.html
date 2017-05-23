@@ -358,7 +358,7 @@
                                   :label-width="formLabelWidth">
                         <el-select v-model="form.ckZlStatus" placeholder="请选择">
                             <el-option :value="-1" label="全部"></el-option>
-                            <el-option :value="2" label="滞留" ></el-option>
+                            <el-option :value="2" label="滞留"></el-option>
                             <el-option :value="3" label="未滞留 "></el-option>
                         </el-select>
                     </el-form-item>
@@ -455,16 +455,16 @@
                                     <el-row>
                                         <el-col :span="10">
                                             <el-form-item label="货品编号">
-                                            <span>{{ props.row.baseGoods.bgGoodsNo  }}</span>
+                                                <span>{{ props.row.baseGoods.bgGoodsNo  }}</span>
                                             </el-form-item>
                                             <el-form-item label="货品名称">
                                                 <span>{{ props.row.baseGoods.bgGoodsName  }}</span>
                                             </el-form-item>
                                             <el-form-item label="货品数量">
-                                            <span>{{ props.row.cksGoodsCount  }}</span>
+                                                <span>{{ props.row.cksGoodsCount  }}</span>
                                             </el-form-item>
                                             <el-form-item label="货品体积">
-                                            <span>{{ props.row.goodsTj  }}</span>
+                                                <span>{{ props.row.goodsTj  }}</span>
                                             </el-form-item>
                                             <el-form-item label="下架数量">
                                                 <span>{{ props.row.sortingCount  }}</span>
@@ -478,7 +478,7 @@
                                             <el-form-item label="欠货体积">
                                                 <span>{{ props.row.cksQhTj  }}</span>
                                             </el-form-item>
-                                     </el-col>
+                                        </el-col>
                                         <el-col :span="10" :offset="2">
                                             <el-form-item label="滞留数量">
                                                 <span>{{ props.row.cksZlCount  }}</span>
@@ -507,9 +507,10 @@
                                             <el-form-item
                                                     label="可用操作">
                                                 <el-button
-                                                    size="small"
-                                                    @click="inlineSelectSortingDetailed(props.$index, props.row)">查看分拣明细信息
-                                            </el-button>
+                                                        size="small"
+                                                        @click="inlineSelectSortingDetailed(props.$index, props.row)">
+                                                    查看分拣明细信息
+                                                </el-button>
                                             </el-form-item>
                                         </el-col>
                                     </el-row>
@@ -560,17 +561,6 @@
                         width="60">
                 </el-table-column>
             </el-table>
-            <div class="block">
-                <el-pagination
-                        @size-change="handleSizeChange"
-                        @current-change="handleCurrentChange"
-                        :current-page="1"
-                        :page-sizes="[5, 10, 15, 20]"
-                        :page-size="pageSize"
-                        layout="total, sizes, prev, pager, next, jumper"
-                        :total="outputSelect.length">
-                </el-pagination>
-            </div>
         </el-col>
     </el-dialog>
     <el-dialog
@@ -584,8 +574,10 @@
             <el-table-column
                     label="货品编号"
                     show-overflow-tooltip
-                    align="center"
-                    prop="baseGoods.bgGoodsNo">
+                    align="center">
+                <template scope="scope">
+                    {{detailedTemp.baseGoods.bgGoodsNo}}
+                </template>
             </el-table-column>
             <el-table-column
                     label="货品名称"
@@ -856,7 +848,146 @@
                 submitLoading: false,             //新建 弹出层 提交等待
 
                 //detailed: formDetailed(), //表单           //查看入库明细信息 弹出层 信息集合(表单格式)
-                detailed:[],
+                detailed: [],
+                detailedTemp: {
+                    "cksCkmxId": 106,
+                    "cksGoodsId": 9774,
+                    "cksGoodsCount": 10,
+                    "cksDwid": 2,
+                    "cksCkfs": "X",
+                    "cksZdpc": "X",
+                    "cksLocationId": 2,
+                    "cksStatus": 22,
+                    "cksCkdjId": 88,
+                    "cksQhStatus": 2,
+                    "cksQhCount": 3,
+                    "cksZlStatus": 1,
+                    "cksZlCount": 0,
+                    "cksQhbfInfo": null,
+                    "cksZlbfInfo": null,
+                    "cksFyCount": 3,
+                    "cksBfNo": null,
+                    "cksQhRemarks": null,
+                    "cksBfStatus": null,
+                    "baseGoods": {
+                        "bgGoodsId": 9774,
+                        "bgGoodsNo": "10201037018",
+                        "bgGoodsName": "厨房机械（原汁机）、JYZ-E91、主体白色+两侧烫金紫色、Ⅰ类电器、150W、220V、50Hz",
+                        "bgNamejc": "",
+                        "bgT": null,
+                        "bgI": null,
+                        "bgHsl": 3,
+                        "bgZxdw": 2,
+                        "bgSzdw": 1,
+                        "bgStatus": 1,
+                        "bgArehouseId": 1,
+                        "bgClientId": 1,
+                        "bgGoodsType": null,
+                        "bgGoodsTj": 26.2808,
+                        "bgGoodsZl": 0,
+                        "bgGoodsPrice": null,
+                        "bgCreatetime": 1494825251000,
+                        "bgRemarks": null,
+                        "bgGoodsGg": null,
+                        "baseDws": null
+                    },
+                    "baseDw": {
+                        "bdDwId": 2,
+                        "bdName": "箱",
+                        "bdStatus": 1,
+                        "bdIsdel": true,
+                        "bdCreatetime": 1488786130000
+                    },
+                    "ckDoc": {
+                        "ckCkdjId": 88,
+                        "ckCkdjNo": "CK1495166289874",
+                        "ckErpNo": "",
+                        "ckCkdjType": 0,
+                        "ckCkdjClientno": "",
+                        "ckCkdjClientname": "张三",
+                        "ckContacts": "李四",
+                        "ckTel": "130",
+                        "ckAdress": "山东济南",
+                        "ckXdsj": 1495166346000,
+                        "ckBjsj": 1495166346000,
+                        "ckYfhsj": 1495166286000,
+                        "ckRemarks": "112",
+                        "ckStatus": 22,
+                        "ckIsauto": 1,
+                        "ckCksj": 1495181518000,
+                        "ckStartwith": 1,
+                        "ckIsyadan": 2,
+                        "ckIsqianhuo": 1,
+                        "ckArehouseId": 1,
+                        "ckClientId": 1,
+                        "ckEndtime": 1495166286000,
+                        "ckRwStatus": 41,
+                        "ckQhStatus": 2,
+                        "ckZlStatus": 3,
+                        "ckGqStatus": 1,
+                        "ckrwId": 36,
+                        "ckZjStatus": 0,
+                        "ckZlfyStatus": 0,
+                        "mfunckDocs": null,
+                        "mfunckSortingMx": null,
+                        "baseLocation": null,
+                        "mfunHistory": null,
+                        "mfunRepertory": null,
+                        "mfunckSorting": null,
+                        "xjry": null,
+                        "msUserName": null,
+                        "rwOperator": null,
+                        "allCount": null,
+                        "allTj": null,
+                        "allHeight": null,
+                        "rwDoc": null,
+                        "baseArehouse": null,
+                        "allSortingCount": null,
+                        "allSortingTj": null,
+                        "allQhCount": null,
+                        "allQhTj": null,
+                        "allZlCount": null,
+                        "allZlTj": null,
+                        "userId": null,
+                        "rmsUser": null
+                    },
+                    "rwDoc": {
+                        "ckrwId": 36,
+                        "ckrwNo": null,
+                        "ckrwYjdcsj": null,
+                        "ckrwCph": null,
+                        "ckrwSjdcsj": null,
+                        "ckrwStatus": null,
+                        "ckrwQhStatus": null,
+                        "ckrwZlStatus": null,
+                        "ckrwWls": null,
+                        "ckrwArehouseId": null,
+                        "ckrwClientId": null,
+                        "orderNum": null,
+                        "goodsTypeNum": null,
+                        "mfunckDoc": null,
+                        "ckCkdjIds": null,
+                        "userName": null,
+                        "mfunckRwHistory": null
+                    },
+                    "mfunckSortingMx": [],
+                    "mfunRepertory": null,
+                    "sortingCount": 7,
+                    "sortingTj": 183.9656,
+                    "goodsTj": 262.808,
+                    "cksQhTj": 78.8424,
+                    "cksZlTj": 0,
+                    "cksFyTj": 78.8424,
+                    "baseLocation": {
+                        "blLocationId": 8,
+                        "blLname": "H16-43-A3",
+                        "blRegionId": 4,
+                        "blLtray": 2,
+                        "blLorder": 7,
+                        "blStatus": 1,
+                        "blArehouseId": 1
+                    }
+                },
                 dialogDetailedVisible: false,    //查看出库明细信息 弹出层 是否可见
 
                 sorting: [],           //查看分拣明细信息 弹出层 信息集合
@@ -877,8 +1008,8 @@
             option: function () {
                 return {
                     "draw": 1,
-                    "ckCkdjNo":this.ckCkdjNo.trim(),
-                    "ckCkdjClientno":this.ckCkdjClientno.trim(),
+                    "ckCkdjNo": this.ckCkdjNo.trim(),
+                    "ckCkdjClientno": this.ckCkdjClientno.trim(),
                     "ckStartXdsj": tsf_date(this.date[0]),
                     "ckEndXdsj": tsf_date(this.date[1]),
                     "pageNum": this.currentPage,
@@ -902,31 +1033,31 @@
                     "rkrwStatus": this.form.rkrwStatus
                 }
             },
-            form_pop:function(){
-                return{
+            form_pop: function () {
+                return {
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
                     "ckStartXdsj": tsf_date(this.form.ckXdsj[0]),
                     "ckEndXdsj": tsf_date(this.form.ckXdsj[1]),
-                    "mhStartCreateTime":tsf_date(this.form.mhCreatetime[0]),
+                    "mhStartCreateTime": tsf_date(this.form.mhCreatetime[0]),
                     "mhEndCreateTime": tsf_date(this.form.mhCreatetime[1]),
                     "ckCksj": tsf_date(this.form.ckCksj[0]),
                     "ckEndtime": tsf_date(this.form.ckCksj[1]),
                     "ckCkdjNo": this.form.ckCkdjNo,
                     "ckCkdjClientno": this.form.ckCkdjClientno,
-                    "ckCkdjClientname":this.form.ckCkdjClientname,
+                    "ckCkdjClientname": this.form.ckCkdjClientname,
                     "ckAdress": this.form.ckAdress,
                     "ckContacts": this.form.ckContacts,
                     "ckTel": this.form.ckTel,
-                    "ckStatus":this.form.ckStatus,
+                    "ckStatus": this.form.ckStatus,
                     "ckQhStatus": this.form.ckQhStatus,
                     "ckZlStatus": this.form.ckZlStatus,
                     "ckIsauto": this.form.ckIsauto,
-                    "ckStartwith":this.form.ckStartwith,
+                    "ckStartwith": this.form.ckStartwith,
                     "blLname": this.form.blLname,
-                     "ckArehouseId":this.form.ckArehouseId,
-                    "ckCkdjType":this.form.ckCkdjType,
+                    "ckArehouseId": this.form.ckArehouseId,
+                    "ckCkdjType": this.form.ckCkdjType,
                 }
             },
             distributionForm: function () {
@@ -936,23 +1067,28 @@
             },                                      //分配 表单
         },
         methods: {
-            inlineExportOutputList:function(){},                                        //TODO 行内按钮-导出出库单
-            inlineExportOutputDetailed:function(){},                                    //TODO 行内按钮-导出出库明细
-            inlineExportSortingDetailed:function(){},                                     //TODO 行内按钮-导出分拣明细
-            inlineExportOutput:function(){},                                            //TODO 行内按钮-导出出库
-                inlineSelectOutputDetailed:function(index,row){
-                p[1].post({id:row.ckCkdjId},function(json){
-                    obj.detailed=json.model;
+            inlineExportOutputList: function () {
+            },                                        //TODO 行内按钮-导出出库单
+            inlineExportOutputDetailed: function () {
+            },                                    //TODO 行内按钮-导出出库明细
+            inlineExportSortingDetailed: function () {
+            },                                     //TODO 行内按钮-导出分拣明细
+            inlineExportOutput: function () {
+            },                                            //TODO 行内按钮-导出出库
+            inlineSelectOutputDetailed: function (index, row) {
+                p[1].post({id: row.ckCkdjId}, function (json) {
+                    obj.detailed = json.model;
                     obj.dialogDetailedVisible = true;
                 })
             },                       //TODO  行内按钮-查看出库明细信息
-            inlineSelectSortingDetailed:function(index,row){
-                p[2].post({id:row.cksCkmxId},function(json){
-                    obj.sorting=json.model;
-                    obj.dialogSortingVisible = true;s
+            inlineSelectSortingDetailed: function (index, row) {
+                this.detailedTemp = row;
+                p[2].post({id: row.cksCkmxId}, function (json) {
+                    obj.sorting = json.model;
+                    obj.dialogSortingVisible = true;
                 })
 
-            },                               //TODO 行内按钮-查看出库储位信息
+            },                               //TODO 行内按钮-查看分拣明细信息
             inlineModify: function (index, row) {
                 this.multipleSelection = [row];
                 printfCompile(this);
@@ -988,14 +1124,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                p[0].post( this.option);
+                p[0].post(this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                p[0].post( this.option);
+                p[0].post(this.option);
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
@@ -1039,18 +1175,18 @@
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
-                p[0].post( obj.form_pop);
+                p[0].post(obj.form_pop);
                 this.dialogSelectVisible = false;
             },                                          //详细查询 提交
             printfSubmit: function () {
-                var datas=[];
-                var checkData=outputSelect.$refs.printf.getCheckedNodes();
-                for(var i in checkData){
-                    if(typeof checkData[i].val2!=='undefined'){
+                var datas = [];
+                var checkData = outputSelect.$refs.printf.getCheckedNodes();
+                for (var i in checkData) {
+                    if (typeof checkData[i].val2 !== 'undefined') {
                         datas.push(checkData[i]);
                     }
                 }
-                this.printDatas=datas;
+                this.printDatas = datas;
                 this.dialogPelectVisible = !this.dialogPrintfVisible;
                 wap.print(this);
             },                                          //打印 提交
@@ -1069,15 +1205,15 @@
                         return resolve(this.printf);
                     case 1:
                         postRkrwNo(this, {
-                            rkrwNo:node.data.rkrwNo,
-                            rkrwDhrq:node.data.rkrwDhrq
+                            rkrwNo: node.data.rkrwNo,
+                            rkrwDhrq: node.data.rkrwDhrq
                         }, resolve);
                         break;
                     case 2:
                         console.log(node.data.name);
                         postRkdjId(this, {
-                            rkrwNo:node.data.rkrwNo,
-                            rkrwDhrq:node.data.rkrwDhrq
+                            rkrwNo: node.data.rkrwNo,
+                            rkrwDhrq: node.data.rkrwDhrq
                         }, resolve);
                         break;
                     case 3:
@@ -1096,37 +1232,37 @@
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
             },                        //激活时间
-            auto_ckCkdjType:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        0:'正常单据',
-                        1:'挂起单据',
-                        2:'滞留单据',
+            auto_ckCkdjType: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        0: '正常单据',
+                        1: '挂起单据',
+                        2: '滞留单据',
                     }
-                }else{
-                    temp={
-                        '正常单据':0,
-                        '挂起单据':1,
-                        '滞留单据':2,
+                } else {
+                    temp = {
+                        '正常单据': 0,
+                        '挂起单据': 1,
+                        '滞留单据': 2,
                     }
                 }
                 return temp[value];
             },                                   //单据类型
-            auto_ckStatus:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        1:'初始',
-                        21:'部分分拣',
-                        22:'部分出库',
-                        31:'全部分拣',
-                        32:'全部出库',
-                        50:'作废',
+            auto_ckStatus: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '初始',
+                        21: '部分分拣',
+                        22: '部分出库',
+                        31: '全部分拣',
+                        32: '全部出库',
+                        50: '作废',
                     }
-                }else{
-                    temp={
-                        '初始': 1 ,
+                } else {
+                    temp = {
+                        '初始': 1,
                         '部分分拣': 21,
                         '部分出库': 22,
                         '全部分拣': 31,
@@ -1136,69 +1272,69 @@
                 }
                 return temp[value];
             },                                     //单据状态
-            auto_ckQhStatus:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        1:'整单欠货',
-                        2:'部分欠货',
-                        3:'未欠货',
+            auto_ckQhStatus: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '整单欠货',
+                        2: '部分欠货',
+                        3: '未欠货',
                     }
-                }else{
-                    temp={
-                        '整单欠货':1,
-                        '部分欠货':2,
-                        '未欠货':3,
+                } else {
+                    temp = {
+                        '整单欠货': 1,
+                        '部分欠货': 2,
+                        '未欠货': 3,
                     }
                 }
                 return temp[value];
             },                                   //欠货状态
-            auto_ckZlStatus:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        1:'未到车滞留',
-                        2:'到车滞留',
-                        3:'未滞留',
+            auto_ckZlStatus: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '未到车滞留',
+                        2: '到车滞留',
+                        3: '未滞留',
                     }
-                }else{
-                    temp={
-                        '未到车滞留':1,
-                        '到车滞留':2,
-                        '未滞留':3,
+                } else {
+                    temp = {
+                        '未到车滞留': 1,
+                        '到车滞留': 2,
+                        '未滞留': 3,
                     }
                 }
                 return temp[value];
             },                                   //滞留状态
-            auto_ckIsauto:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        1:'手动',
-                        2:'导入',
-                        3:'接口',
+            auto_ckIsauto: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '手动',
+                        2: '导入',
+                        3: '接口',
                     }
-                }else{
-                    temp={
-                        '手动':1,
-                        '导入':2,
-                        '接口':3,
+                } else {
+                    temp = {
+                        '手动': 1,
+                        '导入': 2,
+                        '接口': 3,
                     }
                 }
                 return temp[value];
             },                                     //制作方式
-            auto_ckStartwith:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        1:'电脑端',
-                        2:'PDA',
+            auto_ckStartwith: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '电脑端',
+                        2: 'PDA',
 
                     }
-                }else{
-                    temp={
-                        '电脑端':1,
-                        'PDA':2,
+                } else {
+                    temp = {
+                        '电脑端': 1,
+                        'PDA': 2,
                     }
                 }
                 return temp[value];
@@ -1229,27 +1365,27 @@
 
     function _form() {
         return {
-            ckXdsj:[null,null],//模糊查询--下单时间
-            mhCreatetime:[null,null],//模糊查询--激活时间
-            ckCksj:[null,null],//模糊查询--下架时间
-            ckCkdjNo:'',//模糊查询--出库单号
-            ckCkdjClientno:'',//模糊查询--客户编号
-            ckCkdjClientname:'',//模糊查询--客户名称
-            ckAdress:'',//模糊查询--客户地址
-            ckContacts:'',//模糊查询--联系人
-            ckTel:'',//模糊查询--联系电话
-            ckStatus:'',//--模糊查询--单据状态
-            ckQhStatus:'',//模糊查询--欠货状态
-            ckZlStatus:'',//模糊查询--滞留状态
-            ckCkdjType:'',//模糊查询--单据类型
-            ckIsauto:'',//模糊查询--制单方式
-            ckStartwith:'',//模糊查询--操作方式
-            baName:'',//模糊查询--仓库
-            ckArehouseId:'',//模糊查询 --仓库id
+            ckXdsj: [null, null],//模糊查询--下单时间
+            mhCreatetime: [null, null],//模糊查询--激活时间
+            ckCksj: [null, null],//模糊查询--下架时间
+            ckCkdjNo: '',//模糊查询--出库单号
+            ckCkdjClientno: '',//模糊查询--客户编号
+            ckCkdjClientname: '',//模糊查询--客户名称
+            ckAdress: '',//模糊查询--客户地址
+            ckContacts: '',//模糊查询--联系人
+            ckTel: '',//模糊查询--联系电话
+            ckStatus: '',//--模糊查询--单据状态
+            ckQhStatus: '',//模糊查询--欠货状态
+            ckZlStatus: '',//模糊查询--滞留状态
+            ckCkdjType: '',//模糊查询--单据类型
+            ckIsauto: '',//模糊查询--制单方式
+            ckStartwith: '',//模糊查询--操作方式
+            baName: '',//模糊查询--仓库
+            ckArehouseId: '',//模糊查询 --仓库id
         }
     }
-    var obj=outputSelect;
-    var p=[];
+    var obj = outputSelect;
+    var p = [];
     // 0 出库单据查询 分页查询
     p[0] = autoPost({
         urlHock: "/hock/outputSelect/page.json",
@@ -1314,9 +1450,9 @@
             rksGoodsId1: '',     // 货品名称
             mdtBatch: '',       // 货品批次
             rksCount: '',       // 货品数量
-            bgGoodsTj:'',       //货品体积
+            bgGoodsTj: '',       //货品体积
             sssl: '',           // 实收数量
-            sstj:'',            //实收体积
+            sstj: '',            //实收体积
             rksStatus: '',      //入库明细状态
             mdtUserId: ''       // 上架人员
         }
@@ -1328,12 +1464,12 @@
             mdtBatch: '',       //货品批次
             mdtLocationId: '',  //上架库位
             mdtCount: '',       //上架数量
-            sstj:'',             //实收体积
-            mdtUserId:'',       //上架人员
+            sstj: '',             //实收体积
+            mdtUserId: '',       //上架人员
             mdtSjsj: ''         //下架时间
         }
     }//储位
-    p[0].post( outputSelect.option);
+    p[0].post(outputSelect.option);
 </script>
 
 
