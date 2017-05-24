@@ -178,7 +178,7 @@
                         :page-sizes="[5, 10, 15, 20]"
                         :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="inventorySelect.length">
+                        :total="currentTotal">
                 </el-pagination>
             </div>
         </el-col>
@@ -490,6 +490,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
+                currentTotal:0,
                 date: [null, null],                   //主页面 创建时间 搜索
                 rmsUser: {
                     ruUserName: ''

@@ -13,7 +13,7 @@
                         v-model="date"
                         type="daterange"
                         align="right"
-                        placeholder="选择日期"
+                        placeholder="制作时间"
                         class="datePicker"
                         :picker-options="pickerOptions">
                 </el-date-picker>
@@ -284,7 +284,7 @@
                         :page-sizes="[5, 10, 15, 20]"
                         :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="outboundTask.length">
+                        :total="currentTotal">
                 </el-pagination>
             </div>
         </el-col>
@@ -961,11 +961,12 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
+                currentTotal:0,
                 date: [null, null],                   //主页面 选择日期 搜索
                 ckrwNo: '',                           //主页面 入库单号 搜索
                 ckrwCph: '',                          //主页面 车牌号
                 formLabelWidth: '120px',              //表单   配置
-                form: form(),                         //表单   弹出层 信息集合
+                form: _form(),                         //表单   弹出层 信息集合
 
 
                 formActive: 0,                        //新建   弹出层 steps 当前进度
@@ -989,7 +990,7 @@
                 lists: formList(),                      //出库详细 弹出层 信息集合
 
 
-                select: form(),                         //搜索      弹出层 信息集合,
+                select: _form(),                         //搜索      弹出层 信息集合,
                 dialogSelectVisible: false,
                 selectLoading: false
             }
@@ -1000,7 +1001,11 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
+                    "pageSize": this.pageSize,
+                    "ckrwNo":this.ckrwNo.trim(),
+                    "ckrwCph":this.ckrwCph.trim(),
+                    "ckrwStartGreatTime": tsf_date(this.date[0]),
+                    "ckrwEndGreatTime": tsf_date(this.date[1]),
                 }
             },
             search: function () {
@@ -1015,6 +1020,18 @@
                     "rkrwCys": this.form.rkrwCys,
                     "rkrwDh": this.form.rkrwDh,
                     "rkrwStatus": this.form.rkrwStatus
+                }
+            },
+            form_pop:function(){
+                return{
+                    "draw": 1,
+                    "pageNum": this.currentPage,
+                    "pageSize": this.pageSize,
+                    "ckrwStartGreatTime": tsf_date(this.form.ckrwGreatTime[0]),
+                    "ckrwEndGreatTime": tsf_date(this.form.ckrwGreatTime[1]),
+                    "ckrwStatus": this.form.ckrwStatus,
+                    "ckrwQhStatus": this.form.ckrwQhStatus,
+                    "ckrwZlStatus": this.form.ckrwZlStatus,
                 }
             },
             modifyTask_prop: function () {
@@ -1419,8 +1436,9 @@
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
+                p[0].post(obj.form_pop);
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                p[0].post({});
+
             },                                          //详细查询 提交
             auto_ckrwYjdcsj: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
@@ -1535,18 +1553,36 @@
                 }
             },                            //出库仓库id 自动匹配
         },
-        watch: {}
+        watch: {
+            ckrwNo: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+            ckrwCph: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+        }
     });
-    function form() {
+    // 高级 监视器的 使用方法
+        outboundTask.$watch('date', function () {
+            /*<debug>*/
+            console.log(this.option);
+            /*</debug>*/
+            p[0].post( this.option);
+        }, {deep: true});
+    function _form() {
         return {
-            ckrwId: '',
-            ckCkdjNo: '',            //出库单号
-            ckCkdjClientno: '',      //客户编号
-            ckCkdjClientname: '',    //客户名称
-            ckContacts: '',          //联系人
-            ckTel: '',               //联系电话
-            ckAdress: '',              //地址
-            ckXdsj: '',            //下单时间
+            ckrwCph: '',        //车牌号
+            ckrwNo: '',         //任务号
+            ckrwGreatTime: '', //制作时间
+            ckrwStatus:'',     //任务状态
+            ckrwQhStatus:'',    //欠货状态
+            ckrwZlStatus:'',    //滞留状态
         }
     }
     var obj = outboundTask;
@@ -1732,16 +1768,6 @@
             "ckCkdjIds": []
         }
     }
-
-
-    // 高级 监视器的 使用方法
-    //    outboundTask.$watch('date', function () {
-    //        if (!this.option.dateStart)return;
-    //        /*<debug>*/
-    //        console.log(this.option);
-    //        /*</debug>*/
-    //        post(this, this.option);
-    //    }, {deep: true});
     p[0].post(outboundTask.option);
 </script>
 
