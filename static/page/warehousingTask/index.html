@@ -814,6 +814,7 @@
             rkrwSjxm: '',//模糊查询--司机姓名
             rkrwDbd: '',//模糊查询--调拨地
             rkrwCys: '',//模糊查询--承运商
+            rkrwStatus: 0,
 
             list2: _form_list2()
         }
@@ -835,6 +836,7 @@
             docList: []
         }
     }
+
     function _lists() {
         return {
             rkrwNo: '',
@@ -881,7 +883,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-                currentTotal:0,
+                currentTotal: 0,
 
                 rkrwSjxm: '',                       //主页面 司机姓名 搜索
                 rkrwNo: '',                         //主页面 入库单号 搜索
