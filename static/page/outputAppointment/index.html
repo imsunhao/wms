@@ -451,7 +451,19 @@
                 </el-col>
             </el-row>
         </el-col>
+        <div class="block">
+            <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="[5, 10, 15, 20]"
+                    :page-size="pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="currentTotal">
+            </el-pagination>
+        </div>
     </el-row>
+
     <el-dialog
             size="small"
             v-model="dialogFormVisible">
@@ -694,6 +706,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
+                currentTotal:0,
 
                 formLabelWidth: '120px',       //表单 配置
                 form: form(),                  //表单 弹出层 信息集合
