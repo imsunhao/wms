@@ -267,11 +267,11 @@ $(function () {
                 this.printDatas = obj.printDatas;
                 this.dialogTableVisible1 = true;
                 var _this = this;
-                // setTimeout(function () {
-                //     window.print();
-                //     obj.printModel = true;
-                //     _this.dialogTableVisible1 = false;
-                // }, 500);
+                setTimeout(function () {
+                    window.print();
+                    obj.printModel = true;
+                    _this.dialogTableVisible1 = false;
+                }, 500);
             },
             print2: function (obj) {
                 if (typeof (obj.printDatas) === 'undefined') return;

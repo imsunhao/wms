@@ -881,7 +881,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-                rkrwSjxm:'',                       //主页面 司机姓名 搜索
+                rkrwSjxm: '',                       //主页面 司机姓名 搜索
                 rkrwNo: '',                       //主页面 入库单号 搜索
                 rkrwCph: '',                       //主页面 车牌号
                 formLabelWidth: '120px',            //表单 配置
@@ -903,11 +903,11 @@
                     "pageSize": this.pageSize,
                     "rkrwCph": this.rkrwCph.trim(),
                     "rkrwNo": this.rkrwNo.trim(),
-                    "rkrwSjxm":this.rkrwSjxm.trim(),
+                    "rkrwSjxm": this.rkrwSjxm.trim(),
 
                 }
             },
-            list2_option: function ()   {
+            list2_option: function () {
                 return {
                     "draw": 1,
                     "pageNum": 1,
@@ -929,24 +929,24 @@
                     "dds": this.form.dds,
                     "pxs": this.form.pxs,
                     "rkrwSjxm": this.form.rkrwSjxm,
-                    "rkrwDhrq": tsf_date(this.form.rkrwDhrq),
+                    "rkrwDhrq": tsf_date(this.form.rkrwDhrq, 1),
                     "rkrwDbd": this.form.rkrwDbd,
                     "rkrwCys": this.form.rkrwCys,
                     "rkrwDh": this.form.rkrwDh,
                     "rkrwStatus": this.form.rkrwStatus
                 }
             },
-            form_pop:function(){
-                return{
+            form_pop: function () {
+                return {
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "startDhrqTimeParam": tsf_date(this.form.rkrwDhrq),
+                    "startDhrqTimeParam": tsf_date(this.form.rkrwDhrq, 1),
                     "rkrwNo": this.form.rkrwNo,
                     "rkrwCph": this.form.rkrwCph,
                     "rkrwSjxm": this.form.rkrwSjxm,
                     "rkrwDbd": this.form.rkrwDbd,
-                    "rkrwCys":this.form.rkrwCys,
+                    "rkrwCys": this.form.rkrwCys,
 
                 }
             },
