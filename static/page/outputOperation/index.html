@@ -97,7 +97,7 @@
                                                 </span>
                                             </el-form-item>
                                             <!--<el-form-item label="客户编号">-->
-                                                <!--<span>{{ props.row.ckCkdjClientno }}</span>-->
+                                            <!--<span>{{ props.row.ckCkdjClientno }}</span>-->
                                             <!--</el-form-item>-->
                                             <el-form-item label="客户名称">
                                                 <span>{{ props.row.ckCkdjClientname }}</span>
@@ -111,8 +111,8 @@
                                             <el-form-item label="地址">
                                                 <span>{{ props.row.ckAdress }}</span>
                                             </el-form-item>
-                                             <el-form-item label="预发货时间">
-                                                 <span>{{ auto_ckYfhsj(props.row.ckYfhsj) }}</span>
+                                            <el-form-item label="预发货时间">
+                                                <span>{{ auto_ckYfhsj(props.row.ckYfhsj) }}</span>
                                             </el-form-item>
                                             <el-form-item label="制作方式">
                                                 <span>{{ auto_ckIsauto(props.row.ckIsauto) }}</span>
@@ -257,7 +257,6 @@
             size="small"
             v-model="dialogSelectVisible">
         </el-form>
-
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
         </div>
@@ -568,6 +567,28 @@
             </el-button>
         </div>
     </el-dialog>
+
+    <el-dialog
+            size="large"
+            class="printf"
+            v-model="dialogPrintfVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">打印分拣单</span>
+        </div>
+
+        <el-tree
+                :data="printf"
+                :props="{label: 'name',children: 'children'}"
+                :load="printfLoadNode"
+                lazy
+                show-checkbox
+                ref="printf"
+                @check-change="printfCheckChange">
+        </el-tree>
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="printfSubmit" :loading="printfLoading">打印</el-button>
+        </div>
+    </el-dialog>
 </div>
 <style>
     #outputOperation {
@@ -749,7 +770,6 @@
                 },                  //validate 入库单号
                 outputOperation: [],
                 multipleSelection: [],
-                location: [],
                 multiSelect: false,
                 pickerOptions: {
                     shortcuts: [{
@@ -790,12 +810,23 @@
                 dialogFormActive: 0,                 //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,            //新建 弹出层 是否可见
                 submitLoading: false,                //新建 弹出层 提交等待
+
+                location: [],                        //分配 弹出层 信息集合,
                 dialogDistributionForm: false,       //分配 弹出层 是否可见
-                dialogLocationVisible: false,        //关联 弹出层 是否可见
+                locationLoading: false,
+
+
+                printf: [],                          //打印 弹出层 信息集合
+                printfLoading: false,
+                printDatas: [],                      // 打印数据
+                dialogPrintfVisible: false,
+
                 select: {},                          //搜索 弹出层 信息集合
+                dialogLocationVisible: false,        //关联 弹出层 是否可见
                 dialogSelectVisible: false,
                 selectLoading: false,
-                locationLoading: false
+
+
             }
         },
         computed: {
@@ -820,6 +851,9 @@
         },
         methods: {
             inlinePrintSortingList: function (index, row) {
+                this.multipleSelection = [row];
+                printfCompile(this);
+                this.dialogPrintfVisible = !this.dialogPrintfVisible;
             },                      //TODO 行内按钮-打印分拣单
             inlineXj: function (index, row) {
                 obj.$confirm('此操作将此出库单据下架 单据单号：' + row.ckCkdjNo, '提示', {
@@ -839,11 +873,12 @@
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
-                        message: '已取消激活任务'
+                        message: '已取消'
                     });
                 });
             },                                    //TODO 行内按钮-下架
             inlinePrintOrder: function (index, row) {
+
             },                            //TODO 行内按钮-打印追加分拣单
             distributionBtnSubmit: function () {
                 this.dialogFormActive++;
@@ -991,14 +1026,39 @@
             filterType: function (value, row) {
                 return row.type == value;
             },                                  //单据 过滤函数
+
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
             multiSelectPrintCombinedSortingList: function () {
-                this.multiSelect = !this.multiSelect;
+                printfCompile(this);
+                this.dialogPrintfVisible = !this.dialogPrintfVisible;
             },                   //TODO 多选 打印组合分拣单
             multiSelectOffTheShelf: function () {
-                this.multiSelect = !this.multiSelect;
+                obj.$confirm('此操作将这些出库单据下架', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    var ids=[];
+                    for(var i=0;i<obj.multipleSelection.length;i++){
+                        ids.push(obj.multipleSelection[i].ckCkdjId);
+                    }
+                    p[2].post({
+                        ids: ids,
+                        userName: app.rmsUser.ruUserName,
+                        useId: app.rmsUser.ruUserId
+                    }, function (json) {
+                        this.callbackAfter({status: json.status, model: "下架"}, function () {
+                            p[0].post(obj.option);
+                        })
+                    });
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
             },                                //TODO 多选 下架
             handleSelectionChange: function (val) {
                 /*<debug>*/
@@ -1020,6 +1080,8 @@
                 })
 
             },                                   //多选 删除
+
+
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -1034,6 +1096,7 @@
                 this.currentPage = val;
                 p[0].post(this.option);
             },                                //分页 当前页
+
             newInput: function () {
                 this.dialogFormVisible = true;
 //                this.$msgbox({
@@ -1097,6 +1160,41 @@
             rowSelection: function (row, selected) {
 //                console.log(selected)
             },                             //选中 当前行
+
+
+            printfSubmit: function () {
+                var datas = [];
+                var checkData = startReceiving.$refs.printf.getCheckedNodes();
+                for (var i in checkData) {
+                    if (typeof checkData[i].val2 !== 'undefined') {
+                        datas.push(checkData[i]);
+                    }
+                }
+                this.printDatas = datas;
+                this.dialogPelectVisible = !this.dialogPrintfVisible;
+                wap.print2(this);
+            },                                          //打印 提交
+            printfCheckChange: function () {
+
+            },                                     //打印 选中维护
+            printfLoadNode: function (node, resolve) {
+                switch (node.level) {
+                    case 0:
+                        return resolve(this.printf);
+                    case 1:
+                        console.log(node.data)
+                        var resoleveStep = [];
+                        for (var i = 0; i < node.data.mfunckDocs.length; i++) {
+                            resoleveStep.push({
+                                name: node.data.mfunckDocs[i].baseGoods.bgGoodsName
+                            });
+                        }
+                        return resolve(resoleveStep);
+                    case 2:
+                        return resolve([]);
+                }
+            },                           //打印 加载数据
+
             prev: function () {
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
@@ -1135,12 +1233,14 @@
 //                    })
 //                },0);
             },                             //表单 string验证
+
             querySearchAsync: function (queryString, cb) {
                 postGoods(this, {bgGoodsNo: queryString}, cb);
             },
             queryLocationAsync: function (queryString, cb) {
                 postLocation(this, {blLname: queryString}, cb);
             },
+
             GoodSelect: function (item) {
                 this.form.saveARkDocsList = false;
                 this.form.deleteARkDocsList = true;
@@ -1194,6 +1294,7 @@
                     });
                 });
             },
+
             auto_rkArehouseId: function (data, set) {
                 /*<debug>*/
                 //console.log(rkArehouseId);
@@ -1223,7 +1324,7 @@
             auto_ckYfhsj: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                                //TODO 预发货时间
+            },                               //TODO 预发货时间
             auto_ckStatus: function (value) {
                 var temp = {};
                 if (!isNaN(value)) {
@@ -1349,6 +1450,11 @@
     p[2] = autoPost({
         urlHock: "../../hock/outputOperation/page.json",
         urlProd: "/route/outputOperation/2"
+    });
+    // 3 出库操作-打印分拣单
+    p[3] = autoPost({
+        urlHock: "../../hock/outputOperation/page.json",
+        urlProd: "/route/outputOperation/3"
     });
 
     // 101 查询-出库单号-出库明细
@@ -1515,6 +1621,27 @@
 
             }
         });
+    }
+
+    function printfCompile(obj) {
+        console.log(obj.multipleSelection[0]);
+        var resoleveStep = [];
+        var ids = [];
+        for (var i = 0; i < obj.multipleSelection.length; i++) {
+            ids.push(obj.multipleSelection[i].ckCkdjId);
+            resoleveStep.push({
+                name: obj.multipleSelection[i].ckCkdjNo,
+                mfunckDocs: obj.multipleSelection[i].mfunckDocs
+            });
+        }
+//        p[3].post({rwIds: ids}, function (json) {
+//            for (var i = 0; i < obj.multipleSelection.length; i++) {
+//                obj.multipleSelection[i].rkrwStatus = 3;
+//            }
+////            this.callbackAfter({status:json.status,model:'已经进行标签打印'},function () {
+////            })
+//        });
+        obj.printf = resoleveStep;
     }
 </script>
 
