@@ -70,7 +70,7 @@
                                             </el-form-item>
                                         </el-col>
                                         <el-col :span="10" :offset="2">
-                                            <el-form-item label="到货日期">
+                                            <el-form-item label="预计到货">
                                                 <span>{{auto_rkrwDhrq(props.row.rkrwDhrq) }}</span>
                                             </el-form-item>
                                             <el-form-item label="承运商">
@@ -1154,7 +1154,7 @@
             },
 
             auto_rkrwDhrq: function (value, bool) {
-                if (!bool)return dateFormat(new Date(value), 'yyyy年 MM月 dd日 hh时 mm分 ss秒');
+                if (!bool)return dateFormat(new Date(value), 'yyyy年 MM月 dd日 hh时 mm分 ');
                 else return dateFormat(new Data(value), 'MMdd');
             },                              //预计到货日期
             auto_rkrwStatus: function (value) {

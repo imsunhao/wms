@@ -237,7 +237,7 @@
                         :page-sizes="[5, 10, 15, 20]"
                         :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="outputDaily.length">
+                        :total="currentTotal">
                 </el-pagination>
             </div>
         </el-col>
@@ -649,6 +649,7 @@
                     showLoading: false,
                     currentPage: 1,
                     pageSize: 10,
+                    currentTotal:0,
                     date: [null, null],                 //主页面 选择日期 搜索
                     ckCkdjNo: '',                       //主页面 出库单号 搜索
                     ckStatus: '',                         //主页面 出库状态 搜索

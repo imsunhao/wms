@@ -252,7 +252,7 @@
                         :page-sizes="[5, 10, 15, 20]"
                         :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="stockFrozenThaw.length">
+                        :total="currentTotal">
                 </el-pagination>
             </div>
         </el-col>
@@ -517,6 +517,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
+                currentTotal:0,
                 date: [null, null],                //主页面 解冻时间 搜索
                 date1: [null, null],                 //主页面 冻结时间  搜索
                 djCreateUserName: '',                //主页面 操作员 搜索

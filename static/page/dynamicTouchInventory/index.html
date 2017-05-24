@@ -315,7 +315,7 @@
                         :page-sizes="[5, 10, 15, 20]"
                         :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="dynamicTouchInventory.length">
+                        :total="currentTotal">
                 </el-pagination>
             </div>
         </el-col>
@@ -517,6 +517,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
+                currentTotal:0,
                 formLabelWidth: '120px',            //表单 配置
                 form: _form(),                        //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度

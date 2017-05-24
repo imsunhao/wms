@@ -188,7 +188,7 @@
                         :page-sizes="[5, 10, 15, 20]"
                         :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="activationBill.length">
+                        :total="currentTotal">
                 </el-pagination>
             </div>
         </el-col>
@@ -609,6 +609,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
+                currentTotal:0,
                 date: [null, null],          //主页面 制作日期 搜索
                 date2: [null, null],        //主页面 预计到车 搜索
                 ckrwNo: '',                       //主页面 任务号 搜索

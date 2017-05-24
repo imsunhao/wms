@@ -146,7 +146,7 @@
                         :page-sizes="[5, 10, 15, 20]"
                         :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="goodsFlowSelect.length">
+                        :total="currentTotal">
                 </el-pagination>
             </div>
         </el-col>
@@ -466,6 +466,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
+                currentTotal:0,
                 date: [null, null],                 //主页面 选择日期 搜索
                 bgGoodsNo: '',                       //主页面 货品编号 搜索
                 bgGoodsName: '',                       //主页面 货品名称 搜索
