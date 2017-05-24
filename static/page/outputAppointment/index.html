@@ -451,17 +451,6 @@
                 </el-col>
             </el-row>
         </el-col>
-        <div class="block">
-            <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page="currentPage"
-                    :page-sizes="[5, 10, 15, 20]"
-                    :page-size="pageSize"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="currentTotal">
-            </el-pagination>
-        </div>
     </el-row>
 
     <el-dialog
@@ -732,7 +721,7 @@
                 return {
                     "draw": 1,
                     "pageNum": 1,
-                    "pageSize": 20,
+                    "pageSize": 19,
                     "ckCkdjType":this.ckCkdjType,
                     "ckCkdjNo":this.ckCkdjNo,
                     "startTimeParam": tsf_date(this.date[0]),
@@ -1382,11 +1371,9 @@
 
     function post_form_mfunckDocs() {
         return {
-            "cksGoodsId": 2,
-            "cksGoodsCount": 100,
-            "cksDwid": 2,
-            "cksCkfs": "先进先出",
-            "cksZdpc": "X"
+            "cksGoodsId": 0,
+            "cksGoodsCount": 0,
+            "cksDwid": 0
         }
     }
 
