@@ -608,14 +608,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                p[0].pos( this.option);
+                p[0].post( this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                p[0].pos(this.option);
+                p[0].post(this.option);
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
