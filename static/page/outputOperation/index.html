@@ -248,7 +248,7 @@
                         :page-sizes="[5, 10, 15, 20]"
                         :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="outputOperation.length">
+                        :total="currentTotal">
                 </el-pagination>
             </div>
         </el-col>
@@ -781,6 +781,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
+                currentTotal:0,
                 date: [null, null],                  //TODO 主页面 下单时间 搜索
                 ckCkdjNo: '',                        //TODO 主页面 出库单号 搜索
                 date2: [null, null],                 //TODO 主页面 制作时间 搜索
