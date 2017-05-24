@@ -243,6 +243,22 @@
                         prop="ckrwCph">
                 </el-table-column>
                 <el-table-column
+                        label="预计到车"
+                        show-overflow-tooltip
+                        align="center">
+                    <template scope="scope">
+                        {{auto_ckrwYjdcsj(scope.row.ckrwYjdcsj,true)}}
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        label="实际到车"
+                        show-overflow-tooltip
+                        align="center">
+                    <template scope="scope">
+                        {{auto_ckrwSjdcsj(scope.row.ckrwSjdcsj,true)}}
+                    </template>
+                </el-table-column>
+                <el-table-column
                         label="订单数"
                         show-overflow-tooltip
                         align="center"
@@ -253,36 +269,6 @@
                         show-overflow-tooltip
                         align="center"
                         prop="goodsTypeNum">
-                </el-table-column>
-                <el-table-column
-                        label="任务状态"
-                        align="center"
-                        width="100">
-                    <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_ckrwStatus(scope.row.ckrwStatus)}}
-                        </el-tag>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        label="欠货状态"
-                        align="center"
-                        width="100">
-                    <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_ckrwQhStatus(scope.row.ckrwQhStatus)}}
-                        </el-tag>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        label="滞留状态"
-                        align="center"
-                        width="100">
-                    <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_ckrwZlStatus(scope.row.ckrwZlStatus)}}
-                        </el-tag>
-                    </template>
                 </el-table-column>
                 <el-table-column
                         v-if="multiSelect"
@@ -1376,11 +1362,11 @@
             },                                          //详细查询 提交
             auto_ckrwYjdcsj: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                            //预计到车时间
             auto_ckrwSjdcsj: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                            //实际到车时间
             auto_ckrwStatus: function (value) {
                 var temp = {};

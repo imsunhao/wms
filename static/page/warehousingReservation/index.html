@@ -269,6 +269,10 @@
                                         <el-row>
                                             <el-col :span="24">
                                                 <el-form label-position="left" inline class="demo-table-expand">
+
+                                                    <el-form-item label="仓库">
+                                                        <span>{{auto_rkArehouseId(props.row.rkArehouseId)}}</span>
+                                                    </el-form-item>
                                                     <el-form-item label="入库单号">
                                                         <span>{{ props.row.rkRkdjNo }}</span>
                                                     </el-form-item>
@@ -282,15 +286,20 @@
                                                     <el-form-item label="入库状态">
                                                         <span>{{ auto_rkStatus(props.row.rkStatus) }}</span>
                                                     </el-form-item>
-                                                    <el-form-item label="入库数量">
+                                                    <el-form-item label="总数量">
                                                         <span>{{ props.row.allCount }}</span>
                                                     </el-form-item>
-                                                    <el-form-item label="入库体积">
+                                                    <el-form-item label="总体积">
                                                         <span>{{ props.row.allTj    }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="制作方式">
                                                         <span>{{ auto_rkZdfs(props.row.rkZdfs) }}</span>
                                                     </el-form-item>
+                                                    <el-form-item label="备注">
+                                                        <span>{{ props.row.rkRemarks    }}</span>
+                                                    </el-form-item>
+
+
                                                     <el-form-item label="可用操作">
                                                         <el-button
                                                                 size="small"

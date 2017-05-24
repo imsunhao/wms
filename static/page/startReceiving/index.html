@@ -99,21 +99,11 @@
                         </el-form>
                     </template>
                 </el-table-column>
-                <!--<el-table-column-->
-                <!--type="index"-->
-                <!--width="55">-->
-                <!--</el-table-column>-->
-                <el-table-column
-                        label="任务号"
-                        show-overflow-tooltip
-                        prop="rkrwNo"
-                        align="center">
-                </el-table-column>
                 <el-table-column
                         label="车牌号"
                         show-overflow-tooltip
-                        align="center"
-                        prop="rkrwCph">
+                        prop="rkrwCph"
+                        align="center">
                 </el-table-column>
                 <el-table-column
                         label="订单数"
@@ -134,15 +124,24 @@
                         prop="rkrwSjxm">
                 </el-table-column>
                 <el-table-column
-                        label="状态"
-                        prop="status"
-                        align="center"
-                        width="100">
+                        label="预计到货"
+                        show-overflow-tooltip
+                        align="center">
                     <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_rkrwStatus(scope.row.rkrwStatus)}}
-                        </el-tag>
+                        {{auto_rkrwDhrq(scope.row.rkrwDhrq,true)}}
                     </template>
+                </el-table-column>
+                <el-table-column
+                        label="调拨地"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="rkrwDbd">
+                </el-table-column>
+                <el-table-column
+                        label="承运商"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="rkrwCys">
                 </el-table-column>
                 <el-table-column
                         v-if="multiSelect"
@@ -634,8 +633,8 @@
                 }
             },
             auto_rkrwDhrq: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日-hh:mm:ss');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                              //预计到货时间
             auto_rkrwStatus: function (value) {
                 if (!isNaN(value)) {

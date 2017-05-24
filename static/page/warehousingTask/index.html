@@ -243,7 +243,7 @@
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
         </div>
-        <el-form :model="select">
+        <el-form :model="form">
             <el-form-item label="车牌号"
                           :label-width="formLabelWidth">
                 <el-input
@@ -920,7 +920,7 @@
 
                 }
             },
-            list2_option: function () {
+            list2_option: function ()   {
                 return {
                     "draw": 1,
                     "pageNum": 1,

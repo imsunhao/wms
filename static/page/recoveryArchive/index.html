@@ -56,13 +56,13 @@
                             <el-row>
                                 <el-col :span="10">
                                     <el-form-item label="物流商">
-                                        <span>{{ props.row.ckrwWls }}</span>
+                                        <span>{{ props.row.rwDoc.ckrwWls }}</span>
                                     </el-form-item>
                                     <el-form-item label="任务号">
-                                        <span>{{ props.row.ckrwNo }}</span>
+                                        <span>{{ props.row.rwDoc.ckrwNo }}</span>
                                     </el-form-item>
                                     <el-form-item label="车牌号">
-                                        <span>{{ props.row.ckrwCph }}</span>
+                                        <span>{{ props.row.rwDoc.ckrwCph }}</span>
                                     </el-form-item>
                                     <el-form-item label="出库单号">
                                         <span>{{props.row.ckCkdjNo}}</span>
@@ -88,7 +88,7 @@
                                         <span>{{ props.row.ckAdress }}</span>
                                     </el-form-item>
                                     <el-form-item label="预发货时间">
-                                        <span>{{ props.row.ckYfhsj }}</span>
+                                        <span>{{ auto_ckYfhsj(props.row.ckYfhsj) }}</span>
                                     </el-form-item>
                                     <el-form-item label="制作方式">
                                         <span>{{ auto_ckIsauto(props.row.ckIsauto) }}</span>
@@ -123,6 +123,24 @@
                     </template>
                 </el-table-column>
                 <el-table-column
+                        label="物流商"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="rwDoc.ckrwWls">
+                </el-table-column>
+                <el-table-column
+                        label="任务号"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="rwDoc.ckrwNo">
+                </el-table-column>
+                <el-table-column
+                        label="车牌号"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="rwDoc.ckrwCph">
+                </el-table-column>
+                <el-table-column
                         label="出库单号"
                         show-overflow-tooltip
                         align="center"
@@ -136,9 +154,6 @@
                         {{auto_ckXdsj(scope.row.ckXdsj,true)}}
                     </template>
                 </el-table-column>
-
-
-                </el-table-column>
                 <el-table-column
                         label="客户编号"
                         show-overflow-tooltip
@@ -150,29 +165,6 @@
                         show-overflow-tooltip
                         align="center"
                         prop="ckCkdjClientname">
-                </el-table-column>
-                <el-table-column
-                        label="联系人"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="ckContacts">
-                </el-table-column>
-                <el-table-column
-                        label="电话"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="ckTel">
-                </el-table-column>
-                <el-table-column
-                        label="地址"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="ckAdress">
-                </el-table-column>
-                <el-table-column
-                        v-if="multiSelect"
-                        type="selection"
-                        width="60">
                 </el-table-column>
             </el-table>
             <div class="block">
@@ -195,38 +187,6 @@
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
         </div>
-        <!--<el-form :model="select">-->
-        <!--<el-form-item label="出库单号"-->
-        <!--:label-width="formLabelWidth">-->
-        <!--<el-input-->
-        <!--class="input"-->
-        <!--v-model="form.ckCkdjNo"-->
-        <!--icon="search"-->
-        <!--placeholder="出库单号"></el-input>-->
-        <!--</el-form-item>-->
-        <!--<el-form-item label="下单时间"-->
-        <!--:label-width="formLabelWidth">-->
-        <!--<el-date-picker-->
-        <!--v-model="form.ckXdsj"-->
-        <!--type="daterange"-->
-        <!--align="right"-->
-        <!--placeholder="下单时间"-->
-        <!--class="input"-->
-        <!--:picker-options="pickerOptions">-->
-        <!--</el-date-picker>-->
-        <!--</el-form-item>-->
-        <!--<el-form-item label="制作时间"-->
-        <!--:label-width="formLabelWidth">-->
-        <!--<el-date-picker-->
-        <!--v-model="form.mhCreatetime"-->
-        <!--type="daterange"-->
-        <!--align="right"-->
-        <!--placeholder="制作时间"-->
-        <!--class="input"-->
-        <!--:picker-options="pickerOptions">-->
-        <!--</el-date-picker>-->
-        <!--</el-form-item>-->
-        <!--</el-form>-->
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
         </div>
@@ -771,9 +731,14 @@
                 return temp[value];
             },                                    //制单方式
             auto_ckXdsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },
+            auto_ckYfhsj: function (value, bool) {
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
+            },
+
 
 
         },
