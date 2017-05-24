@@ -157,17 +157,17 @@
                         align="center"
                         prop="goodsTypeNum">
                 </el-table-column>
-                <!--<el-table-column-->
-                        <!--label="任务状态"-->
-                        <!--prop="status1"-->
-                        <!--align="center"-->
-                        <!--width="100">-->
-                    <!--<template scope="scope">-->
-                        <!--<el-tag-->
-                                <!--close-transition>{{auto_ckrwStatus(scope.row.ckrwStatus)}}-->
-                        <!--</el-tag>-->
-                    <!--</template>-->
-                <!--</el-table-column>-->
+                <el-table-column
+                        label="任务状态"
+                        prop="status1"
+                        align="center"
+                        width="100">
+                    <template scope="scope">
+                        <el-tag
+                                close-transition>{{auto_ckrwStatus(scope.row.ckrwStatus)}}
+                        </el-tag>
+                    </template>
+                </el-table-column>
                 <!--<el-table-column-->
                         <!--label="欠货状态"-->
                         <!--prop="status"-->
