@@ -245,7 +245,7 @@
                         :page-sizes="[5, 10, 15, 20]"
                         :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="inputLedger.length">
+                        :total="currentTotal">
                 </el-pagination>
             </div>
         </el-col>
@@ -807,6 +807,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
+                currentTotal:0,
                 rkrwNo:'',                              //主页面 调拨单号 搜索
                 sfrq:[null,null],             //主页面 始发日期 搜索
                 dhsj:[null,null],                    //主页面 到货日期 搜索
