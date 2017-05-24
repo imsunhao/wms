@@ -947,6 +947,12 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 3:
+                        urlName = '出库操作-打印分拣单';
+                        req = autoUrl(req, '/mfunck/dayinfenjiandan', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
                 }
                 break;
             case 'outputShipment':
