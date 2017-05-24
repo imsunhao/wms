@@ -156,9 +156,15 @@ function autoPost(option) {
     };          //post父类
     return Object.create(_post, autoValue(option));
 }           //post核心
-function tsf_date(date) {
+function tsf_date(date, number) {
     if (typeof date !== 'undefined' && date !== null && date !== '') {
-        return dateFormat(date, 'yyyy-MM-dd hh:mm:ss')
+        switch (number) {
+            case 1:
+                return dateFormat(date, 'yyyy-MM-dd hh:mm');
+            default:
+                return dateFormat(date, 'yyyy-MM-dd hh:mm:ss')
+
+        }
     } else {
         return null;
     }

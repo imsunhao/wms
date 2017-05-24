@@ -875,21 +875,18 @@
                     p[3].post({
                         id: row.ckrwId
                     }, function (json) {
-                        json.status = 20000;// TODO
-                        this.callbackAfter({status: json.status, model: "打印承运协议"}, function () {
-                            var step = _printDatas_info();
-                            allPrposCb(step, function (obj2, index) {
-                                if (typeof json.model[json.model.length - 1][index] !== 'undefined') step[index] = json.model[json.model.length - 1][index];
-                            });
-                            obj.printDatas.info = step;
-                            json.model.pop();
-                            for (var i = 0; i < json.model.length; i++) {
-                                json.model[i]['体积'] = json.model[i]['体积'].toFixed(4);
-                            }
-                            obj.printDatas.data = json.model;
+                        var step = _printDatas_info();
+                        allPrposCb(step, function (obj2, index) {
+                            if (typeof json.model[json.model.length - 1][index] !== 'undefined') step[index] = json.model[json.model.length - 1][index];
+                        });
+                        obj.printDatas.info = step;
+                        json.model.pop();
+                        for (var i = 0; i < json.model.length; i++) {
+                            json.model[i]['体积'] = json.model[i]['体积'].toFixed(4);
+                        }
+                        obj.printDatas.data = json.model;
 
-                            wap.print1(obj);
-                        })
+                        wap.print1(obj);
                     });
                 }).catch(function () {
                     obj.$message({
@@ -1179,7 +1176,6 @@
             deleteARkDocsList: true
         };
     }
-
 
     p[0].post(outputShipment.option);
 
