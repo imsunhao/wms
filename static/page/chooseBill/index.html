@@ -164,7 +164,7 @@
                         :page-sizes="[5, 10, 15, 20]"
                         :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="chooseBill.length">
+                        :total="currentTotal">
                 </el-pagination>
             </div>
         </el-col>
@@ -423,6 +423,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
+                currentTotal:0,
                 date: [null, null],                 //主页面 选择日期 搜索
                 ckrwNo: '',                       //主页面 任务号 搜索
                 ckrwCph:'',                        //主页面 车牌号 搜索
