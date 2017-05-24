@@ -266,7 +266,7 @@
                         :page-sizes="[5, 10, 15, 20]"
                         :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="inputOperation.length">
+                        :total="currentTotal">
                 </el-pagination>
             </div>
         </el-col>
@@ -814,6 +814,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
+                currentTotal:0,
 
                 date: [null, null],                 //TODO 主页面 选择日期 搜索
                 rkRkdjNo: '',                       //TODO 主页面 入库单号 搜索
@@ -853,8 +854,8 @@
         },
         methods: {
             distributionBtn: function (index, row) {
-                var obj = this;
                 var step = form();
+                obj.location = [];
                 allPrposCb(step, function (obj2, index) {
                     if (typeof row[index] !== 'undefined') step[index] = row[index];
                 });

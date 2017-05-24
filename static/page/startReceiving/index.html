@@ -154,7 +154,7 @@
                         :page-sizes="[5, 10, 15, 20]"
                         :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="startReceiving.length">
+                        :total="currentTotal">
                 </el-pagination>
             </div>
         </el-col>
@@ -457,6 +457,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
+                currentTotal:0,
 
                 rkrwNo: '',                         //主页面 任务单号 搜索
                 rkrwCph:'',                          //主页面 车牌号 搜索
@@ -467,13 +468,15 @@
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
                 select: from(),                         //搜索 弹出层 信息集合,
-                printf: [],                         //搜索 弹出层 信息集合,
-                dialogSelectVisible: false,
-                dialogPrintfVisible: false,
-                selectLoading: false,
-                printfLoading: false,
 
-                printDatas: [],          // 打印数据
+                printf: [],                         //打印 弹出层 信息集合,
+                printfLoading: false,
+                printDatas: [],                     // 打印数据
+                dialogPrintfVisible: false,
+
+
+                dialogSelectVisible: false,
+                selectLoading: false,
             }
         },
         computed: {
