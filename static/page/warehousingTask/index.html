@@ -8,14 +8,10 @@
                         v-model="rkrwNo"
                         icon="search"
                         placeholder="任务单号"></el-input>
-                <el-date-picker
-                        v-model="date"
-                        type="daterange"
-                        align="right"
-                        placeholder="预计到货"
-                        class="datePicker"
-                        :picker-options="pickerOptions">
-                </el-date-picker>
+                <el-input
+                        v-model="rkrwSjxm"
+                        icon="search"
+                        placeholder="司机姓名"></el-input>
                 <el-input
                         v-model="rkrwCph"
                         icon="search"
@@ -812,14 +808,7 @@
     }
     function _form() {
         return {
-            rkrwId: '',
-            title: "新建入库任务",
-            rkrwN: '',
-            dds: '',
-            pxs: '',
-            rkrwDh: '',
-            rkrwStatus: '',
-            rkrwDhrq: null,//模糊查询--到货日期
+            rkrwDhrq: '',//模糊查询--预计到货日期
             rkrwNo: '',//模糊查询--任务号
             rkrwCph: '',//模糊查询--车牌号
             rkrwSjxm: '',//模糊查询--司机姓名
@@ -892,7 +881,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-                date: [null, null],                 //主页面 选择日期 搜索
+                rkrwSjxm:'',                       //主页面 司机姓名 搜索
                 rkrwNo: '',                       //主页面 入库单号 搜索
                 rkrwCph: '',                       //主页面 车牌号
                 formLabelWidth: '120px',            //表单 配置
@@ -900,7 +889,6 @@
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
-
                 select: _form(),                    //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 selectLoading: false
@@ -915,8 +903,7 @@
                     "pageSize": this.pageSize,
                     "rkrwCph": this.rkrwCph.trim(),
                     "rkrwNo": this.rkrwNo.trim(),
-                    "startTimeParam": tsf_date(this.date[0]), //TODO 查询参数
-                    "endTimeParam": tsf_date(this.date[1]),
+                    "rkrwSjxm":this.rkrwSjxm.trim(),
 
                 }
             },
@@ -947,6 +934,20 @@
                     "rkrwCys": this.form.rkrwCys,
                     "rkrwDh": this.form.rkrwDh,
                     "rkrwStatus": this.form.rkrwStatus
+                }
+            },
+            form_pop:function(){
+                return{
+                    "draw": 1,
+                    "pageNum": this.currentPage,
+                    "pageSize": this.pageSize,
+                    "startDhrqTimeParam": tsf_date(this.form.rkrwDhrq),
+                    "rkrwNo": this.form.rkrwNo,
+                    "rkrwCph": this.form.rkrwCph,
+                    "rkrwSjxm": this.form.rkrwSjxm,
+                    "rkrwDbd": this.form.rkrwDbd,
+                    "rkrwCys":this.form.rkrwCys,
+
                 }
             },
             distributionForm: function () {
@@ -1098,8 +1099,10 @@
                 });
             },                                                //新建 表单提交
             selectSubmit: function () {
+//                p[0].post(warehousingTask.search);
+                p[0].post(obj.form_pop);
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                p[0].post(warehousingTask.search);
+
             },                                          //详细查询 提交
 
             list2_handleSelectionChange: function (val, row) {
@@ -1149,7 +1152,7 @@
             },
 
             auto_rkrwDhrq: function (value, bool) {
-                if (!bool)return dateFormat(new Date(value), 'yyyy年 MM月 dd日');
+                if (!bool)return dateFormat(new Date(value), 'yyyy年 MM月 dd日 hh时 mm分 ss秒');
                 else return dateFormat(new Data(value), 'MMdd');
             },                              //预计到货日期
             auto_rkrwStatus: function (value) {
@@ -1267,6 +1270,12 @@
                 p[0].post(this.option);
             },
             rkrwNo: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+            rkrwSjxm: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
