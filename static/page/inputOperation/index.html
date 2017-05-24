@@ -267,7 +267,7 @@
                         :page-sizes="[5, 10, 15, 20]"
                         :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="inputOperation.length">
+                        :total="currentTotal">
                 </el-pagination>
             </div>
         </el-col>
@@ -815,6 +815,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
+                currentTotal: 0,
 
                 date: [null, null],                 //TODO 主页面 选择日期 搜索
                 rkRkdjNo: '',                       //TODO 主页面 入库单号 搜索
@@ -854,8 +855,8 @@
         },
         methods: {
             distributionBtn: function (index, row) {
-                var obj = this;
                 var step = form();
+                obj.location = [];
                 allPrposCb(step, function (obj2, index) {
                     if (typeof row[index] !== 'undefined') step[index] = row[index];
                 });
@@ -897,7 +898,7 @@
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
-                        message: '已取消下发'
+                        message: '已取消'
                     });
                 });
             },                      //TODO 行内按钮 取消分配
@@ -916,7 +917,7 @@
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
-                        message: '已取消下发'
+                        message: '已取消'
                     });
                 });
             },                             //TODO 行内按钮 上架
@@ -947,7 +948,7 @@
                         obj.dialogFormActive = 0;
                         obj.dialogDistributionForm = false;
                         obj.$refs.carousel.setActiveItem(0);
-                        post(inputOperation.option);
+                        p[0].post(obj.option);
                     })
                 });
             },
@@ -1162,14 +1163,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this.option);
+                p[0].post(obj.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this.option);
+                p[0].post(obj.option);
             },                                //分页 当前页
             newInput: function () {
                 this.dialogFormVisible = true;
@@ -1394,13 +1395,13 @@
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                post(this.option);
+                p[0].post(obj.option);
             },
             rkStatus: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                post(this.option);
+                p[0].post(obj.option);
             }
         }
     });
@@ -1419,7 +1420,7 @@
         /*<debug>*/
         console.log(this.option);
         /*</debug>*/
-        post(this.option);
+        p[0].post(obj.option);
     }, {deep: true});
     function form() {
         return {
@@ -1442,9 +1443,17 @@
     // 0 入库操作 分页查询
     p[0] = autoPost({
         urlHock: "../../hock/userControl/page.json",
-        urlProd: "/route/userManagement/0",
+        urlProd: "/route/inputOperation/0",
         success: function (json) {
-            obj.$data.userManagement = json.data;
+
+            var temp = [];
+            for (var i = 0; i < json.data.length; i++) {
+                temp[i] = json.data[i];
+                temp[i].history = [];
+                temp[i].historyLoading = false;
+                temp[i].historyLength = 0;
+            }
+            obj.$data.inputOperation = json.data;
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
@@ -1537,54 +1546,7 @@
             mdtBatch: dateFormat(new Date(), 'yyyyMMdd')
         }
     }
-
-
-    post(inputOperation.option);
-    function post(option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/form/inputOption.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/inputOperation/0";//post
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-
-                /*<debug>*/
-                console.log(json);
-                /*</debug>*/
-                if (json.code !== 500) {
-                    var temp = [];
-                    for (var i = 0; i < json.data.length; i++) {
-                        temp[i] = json.data[i];
-                        temp[i].history = [];
-                        temp[i].historyLoading = false;
-                        temp[i].historyLength = 0;
-                    }
-                    obj.$data.inputOperation = json.data;
-                    obj.$data.currentTotal = json.recordsFiltered;
-                } else {
-                    errorTip(obj, json);
-                }
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }           //0 分页获取 入库操作详情
+    p[0].post(obj.option);
 
     function postHistory(option, row) {
         obj.historyLoading = true;
