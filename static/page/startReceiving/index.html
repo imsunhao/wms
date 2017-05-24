@@ -141,6 +141,16 @@
                         prop="rkrwCys">
                 </el-table-column>
                 <el-table-column
+                        label="任务状态"
+                        prop="status"
+                        align="center">
+                    <template scope="scope">
+                        <el-tag
+                                close-transition>{{auto_rkrwStatus(scope.row.rkrwStatus)}}
+                        </el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column
                         v-if="multiSelect"
                         type="selection"
                         width="60">
