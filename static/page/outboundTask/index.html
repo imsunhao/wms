@@ -307,7 +307,7 @@
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
         </div>
-        <el-form :model="select">
+        <el-form :model="form">
             <el-form-item label="车牌号"
                           :label-width="formLabelWidth">
                 <el-input
@@ -327,7 +327,7 @@
             <el-form-item label="制作时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="form.ckrwHistoryCzsj"
+                        v-model="form.ckrwGreatTime"
                         type="daterange"
                         align="right"
                         placeholder="制作时间"
@@ -941,8 +941,6 @@
                 outboundTask: [],
                 multipleSelection: [],
                 multiSelect: false,
-
-
                 pickerOptions: {
                     shortcuts: [{
                         text: '最近一周',
@@ -1039,11 +1037,13 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "ckrwStartGreatTime": tsf_date(this.form.ckrwGreatTime[0]),
-                    "ckrwEndGreatTime": tsf_date(this.form.ckrwGreatTime[1]),
-                    "ckrwStatus": this.form.ckrwStatus,
+                    "ckrwCph": this.form.ckrwCph,
+                    "ckrwNo": this.form.ckrwNo,
                     "ckrwQhStatus": this.form.ckrwQhStatus,
                     "ckrwZlStatus": this.form.ckrwZlStatus,
+                    "ckrwStatus": this.form.ckrwStatus,
+                    "ckrwStartGreatTime": tsf_date(this.form.ckrwGreatTime[0]),
+                    "ckrwEndGreatTime": tsf_date(this.form.ckrwGreatTime[1]),
                 }
             },
             modifyTask_prop: function () {

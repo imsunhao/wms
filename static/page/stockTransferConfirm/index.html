@@ -226,7 +226,7 @@
                                     <el-form-item label="确认时间">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_zyConfirmTime(props.row.zyConfirmTime) }}
+                                            {{ auto_time_new(props.row.zyConfirmTime) }}
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="转移状态">
@@ -292,7 +292,7 @@
                         align="center">
                     <template scope="scope">
                         <span>
-                            {{auto_zyConfirmTime(scope.row.zyConfirmTime,true)}}
+                            {{auto_time_new(scope.row.zyConfirmTime)}}
                         </span>
                     </template>
                 </el-table-column>
