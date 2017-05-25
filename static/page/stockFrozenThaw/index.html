@@ -64,10 +64,10 @@
                                                 <span>{{ auto_djCreateTime(props.row.djCreateTime) }}</span>
                                             </el-form-item>
                                             <el-form-item label="解冻日期">
-                                                <span>{{ auto_djJdTime(props.row.djJdTime) }}</span>
+                                                <span>{{ auto_time_new(props.row.djJdTime) }}</span>
                                             </el-form-item>
                                             <el-form-item label="冻结日期">
-                                                <span>{{auto_djDjTime(props.row.djDjTime)}}</span>
+                                                <span>{{auto_time_new(props.row.djDjTime)}}</span>
                                             </el-form-item>
 
                                         </el-col>
@@ -205,7 +205,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_djJdTime(scope.row.djJdTime,true)}}
+                        {{auto_time_new(scope.row.djJdTime,true)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -213,7 +213,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_djDjTime(scope.row.djDjTime,true)}}
+                        {{auto_time_new(scope.row.djDjTime,true)}}
                     </template>
                 </el-table-column>
                 <el-table-column
