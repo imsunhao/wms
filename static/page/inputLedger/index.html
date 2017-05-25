@@ -6,11 +6,11 @@
             <div class="inner btn-nav">
                 <el-input
                         class="input"
-                        v-model="rkrwNo"
+                        v-model="dbdh"
                         icon="search"
                         placeholder="调拨单号"></el-input>
                 <el-date-picker
-                        v-model="sfrq"
+                        v-model="date"
                         type="daterange"
                         align="right"
                         placeholder="始发日期"
@@ -18,7 +18,7 @@
                         :picker-options="pickerOptions">
                 </el-date-picker>
                 <el-date-picker
-                        v-model="dhsj"
+                        v-model="date1"
                         type="daterange"
                         align="right"
                         placeholder="到货日期"
@@ -329,7 +329,7 @@
                                 :picker-options="pickerOptions">
                         </el-date-picker>
                     </el-form-item>
-                    <el-form-item label="到货日期"
+                    <el-form-item label="收货日期"
                                   :label-width="formLabelWidth">
                         <el-date-picker
                                 v-model="form.dhsj"
@@ -808,9 +808,9 @@
                 currentPage: 1,
                 pageSize: 10,
                 currentTotal:0,
-                rkrwNo:'',                              //主页面 调拨单号 搜索
-                sfrq:[null,null],             //主页面 始发日期 搜索
-                dhsj:[null,null],                    //主页面 到货日期 搜索
+                dbdh:'',                              //主页面 调拨单号 搜索
+                date:[null,null],             //主页面 始发日期 搜索
+                date1:[null,null],                    //主页面 到货日期 搜索
                 formLabelWidth: '120px',            //表单 配置
                 form: {
                     dh: '',
@@ -857,7 +857,10 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
+                    "pageSize": this.pageSize,
+                    "dbdh":this.rkrwNo.dbdh(),
+                    "pdStartCreateTime": tsf_date(this.date[0]),
+                    "pdEndCreateTime": tsf_date(this.date[1]),
                 }
             },
             distributionForm: function () {
@@ -1147,6 +1150,12 @@
 
         },
         watch: {
+            dbdh: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
             inputLedger: function () {
 
             },
@@ -1163,6 +1172,19 @@
             }
         }
     });
+    // 高级 监视器的 使用方法
+    inputLedger.$watch('date', function () {
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        p[0].post(this.option);
+    }, {deep: true});
+    inputLedger.$watch('date1', function () {
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        p[0].post(this.option);
+    }, {deep: true});
     var obj=inputLedger;
     var p=[];
     // 0 入库台账 分页查询
@@ -1235,14 +1257,7 @@
         }
     }
 
-    // 高级 监视器的 使用方法
-    inputLedger.$watch('date', function () {
-        if (!this.option.dateStart)return;
-        /*<debug>*/
-        console.log(this.option);
-        /*</debug>*/
-        p[0].post(this.option);
-    }, {deep: true});
+
 
     p[0].post(inputLedger.option);
 
