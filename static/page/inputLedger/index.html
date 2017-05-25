@@ -812,6 +812,8 @@
                 date:[null,null],             //主页面 始发日期 搜索
                 date1:[null,null],                    //主页面 到货日期 搜索
                 formLabelWidth: '120px',            //表单 配置
+                form: _form(),                         //表单   弹出层 信息集合
+                select: _form(),                        //搜索      弹出层 信息集合,
                 form: {
                     dh: '',
                     rkType: '',
@@ -858,9 +860,27 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "dbdh":this.rkrwNo.dbdh(),
+                    "dbdh":this.dbdh.trim(),
                     "pdStartCreateTime": tsf_date(this.date[0]),
                     "pdEndCreateTime": tsf_date(this.date[1]),
+                }
+            },
+            form_pop:function(){
+                return{
+                    "draw": 1,
+                    "pageNum": this.currentPage,
+                    "pageSize": this.pageSize,
+                    "dbdh": this.form.dbdh,
+                    "dbdd":this.form.dbdd,
+                    "cph": this.form.cph,
+                    "shr":this.form.shr,
+                   "shck": this.form.shck,
+                    "wlbm":this.form.wlbm,
+                    "wlms":this.form.wlms,
+                    "ckrwStartGreatTime": tsf_date(this.form.sfrq[0]),
+                    "ckrwEndGreatTime": tsf_date(this.form.sfrq[1]),
+                    "ckrwStartGreatTime": tsf_date(this.form.sfrq[0]),
+                    "ckrwEndGreatTime": tsf_date(this.form.sfrq[1]),
                 }
             },
             distributionForm: function () {
@@ -1128,6 +1148,7 @@
                 this.dialogDistributionVisible = !this.dialogDistributionVisible;
             },                                        //分配 控制按钮
             selectSubmit: function () {
+                p[0].post(obj.form_pop);
                 this.dialogSelectVisible = false;
                 console.log('select!');
             },
@@ -1204,7 +1225,7 @@
         }
     });
 
-    function form() {
+    function _form() {
         return {
             sfrq: [null],//模糊查询--始发时间
             dhsj: [null],//模糊查询--到货时间
