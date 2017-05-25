@@ -17,11 +17,12 @@
                         :picker-options="pickerOptions">
                 </el-date-picker>
                 <el-select v-model="rkStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="1" label="初始"></el-option>
                     <el-option :value="21" label="部分分配"></el-option>
                     <el-option :value="22" label="全部分配"></el-option>
                     <el-option :value="31" label="部分收货"></el-option>
-                    <el-option :value="32" label="全都收货"></el-option>
+                    <el-option :value="32" label="全部收货"></el-option>
                 </el-select>
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                         class="icon sel"></i><span>多选</span>

@@ -64,7 +64,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10" :offset="2">
-                                    <el-form-item label="到货日期">
+                                    <el-form-item label="预计到货">
                                         <span>{{auto_rkrwDhrq(props.row.rkrwDhrq) }}</span>
                                     </el-form-item>
                                     <el-form-item label="承运商">
@@ -141,6 +141,16 @@
                         prop="rkrwCys">
                 </el-table-column>
                 <el-table-column
+                        label="任务状态"
+                        prop="status"
+                        align="center">
+                    <template scope="scope">
+                        <el-tag
+                                close-transition>{{auto_rkrwStatus(scope.row.rkrwStatus)}}
+                        </el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column
                         v-if="multiSelect"
                         type="selection"
                         width="60">
@@ -166,7 +176,7 @@
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
         </div>
-        <el-form :model="select">
+        <el-form :model="form">
             <el-form-item label="车牌号"
                           :label-width="formLabelWidth">
                 <el-input
@@ -404,21 +414,6 @@
 </style>
 
 <script>
-    function from() {
-        return {
-            rkrwN: '',
-            dds: '',
-            pxs: '',
-            rkrwDh: '',
-            rkrwStatus: '',
-            rkrwDhrq: '',//模糊查询--到车日期
-            rkrwNo: '',//模糊查询--任务号
-            rkrwCph: '',//模糊查询--车牌号
-            rkrwSjxm: '',//模糊查询--司机姓名
-            rkrwDbd: '',//模糊查询--调拨地
-            rkrwCys: '',//模糊查询--承运商
-        }
-    }
     var startReceiving = new Vue({
         el: '#startReceiving',
         prop: {},
@@ -463,11 +458,11 @@
                 rkrwCph:'',                          //主页面 车牌号 搜索
                 rkrwSjxm:'',                         //主页面 司机姓名 搜索
                 formLabelWidth: '120px',            //表单配置
-                form: from(),                         //表单 弹出层 信息集合
+                form: _form(),                         //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
-                select: from(),                         //搜索 弹出层 信息集合,
+                select: _form(),                         //搜索 弹出层 信息集合,
 
                 printf: [],                         //打印 弹出层 信息集合,
                 printfLoading: false,
@@ -489,6 +484,19 @@
                     "rkrwCph":this.rkrwCph.trim(),
                     "rkrwNo":this.rkrwNo.trim(),
                     "rkrwSjxm":this.rkrwSjxm.trim(),
+                }
+            },
+            form_pop:function(){
+                return{
+                    "draw": 1,
+                    "pageNum": this.currentPage,
+                    "pageSize": this.pageSize,
+                    "startDhrqTimeParam": tsf_date(this.form.rkrwDhrq, 1),
+                    "rkrwCph": this.form.rkrwCph,
+                    "rkrwSjxm": this.form.rkrwSjxm,
+                    "rkrwDbd":this.form.rkrwDbd,
+                    "rkrwCys":this.form.rkrwCys,
+                    "rkrwNo":this.form.rkrwNo,
                 }
             },
             search: function () {
@@ -538,14 +546,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this, this.option);
+                p[0].post( this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this, this.option);
+                p[0].post(this.option);
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
@@ -585,12 +593,12 @@
                     };
                     _this.dialogFormActive = 0;
                     _this.$refs.carousel.setActiveItem(0);
-                    post(startReceiving);
+                    p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
+                p[0].post(obj.form_pop);
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                post(this, {});
             },                                          //详细查询 提交
             printfSubmit: function () {
                 var datas = [];
@@ -633,7 +641,7 @@
                 }
             },
             auto_rkrwDhrq: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日 hh时 mm分 ');
                 else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                              //预计到货时间
             auto_rkrwStatus: function (value) {
@@ -684,6 +692,32 @@
             },
         }
     });
+    function _form() {
+        return {
+            rkrwDhrq: '',//模糊查询--到车日期
+            rkrwNo: '',//模糊查询--任务号
+            rkrwCph: '',//模糊查询--车牌号
+            rkrwSjxm: '',//模糊查询--司机姓名
+            rkrwDbd: '',//模糊查询--调拨地
+            rkrwCys: '',//模糊查询--承运商
+        }
+    }
+    var obj=startReceiving;
+    var p=[];
+    // 0 开始收货 分页查询
+    p[0] = autoPost({
+        urlHock: "../../hock/startReceiving/page.json",
+        urlProd: "/route/startReceiving/0",
+        success: function (json) {
+            obj.$data.startReceiving = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+    p[3]=autoPost({
+        urlHock: "../../hock/form/inputOption.json",
+        urlProd: "/route/startReceiving/3"
+    });    //TODO 3 开始打印 状态变化
+
 
     // 高级 监视器的 使用方法
     //    startReceiving.$watch('date', function () {
@@ -691,42 +725,9 @@
     //        /*<debug>*/
     //        console.log(this.option);
     //        /*</debug>*/
-    //        post(this, this.option);
+    //        p[0].post(this.option);
     //    }, {deep: true});
-    post(startReceiving, startReceiving.option);
-
-    function post(obj, option) {
-        obj.showLoading = true;
-
-        /*<debug>*/
-        url = "/hock/startReceiving/page.json";
-        /*</debug>*/
-
-        /*<prod>*/
-        url = "/route/startReceiving/0";
-        /*</prod>*/
-
-        $.ajax(url, {
-            type: "GET",
-            data: option || {
-                "draw": 1,                      //* 没有意义
-                "pageNum": 1,                   //* 当前页
-                "pageSize": 10                  //* 每页大小
-            },
-            error: function (error) {
-                errorTip(obj, error);
-            },
-            success: function (json) {
-                console.log(json);
-                obj.$data.startReceiving = json.data;
-                obj.$data.currentTotal = json.recordsFiltered;
-            },
-            complete: function () {
-                obj.showLoading = false;
-            }
-        });
-    }                         // 0 开始收货分页查询的接口
-
+    p[0].post( startReceiving.option);
     function postRkrwNo(obj, option, resolve) {
         /*<debug>*/
         url = "/hock/startReceiving/rkrwNo.json";
@@ -800,13 +801,6 @@
             }
         });
     }          //TODO 2 获取入库单号中详细信息
-
-    var p = [];
-    p[3]=autoPost({
-        urlHock: "../../hock/form/inputOption.json",
-        urlProd: "/route/startReceiving/3"
-    });    //TODO 3 开始打印 状态变化
-
     function printfCompile(obj) {
         console.log(obj.multipleSelection[0]);
         var resoleveStep = [];

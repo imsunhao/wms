@@ -271,6 +271,17 @@
                         prop="goodsTypeNum">
                 </el-table-column>
                 <el-table-column
+                        label="任务状态"
+                        prop="status"
+                        align="center">
+                    <template scope="scope">
+                        <el-tag
+                                close-transition>{{auto_ckrwStatus(scope.row.ckrwStatus)}}
+                        </el-tag>
+                    </template>
+                </el-table-column>
+
+                <el-table-column
                         v-if="multiSelect"
                         type="selection"
                         width="60">
@@ -327,6 +338,7 @@
             <el-form-item label="任务状态"
                           :label-width="formLabelWidth">
                 <el-select v-model="form.ckrwStatus" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="10" label="初始"></el-option>
                     <el-option :value="11" label="下发"></el-option>
                     <el-option :value="21" label="已挑选"></el-option>
