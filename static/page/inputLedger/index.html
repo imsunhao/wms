@@ -63,7 +63,7 @@
                                         <span>{{ props.row.dbdd }}</span>
                                     </el-form-item>
                                     <el-form-item label="承运商">
-                                        <span>{{ props.row.rkrwCys }}</span>
+                                        <span>{{ props.row.cys }}</span>
                                     </el-form-item>
                                     </el-form-item>
                                     <el-form-item label="车牌号">
@@ -217,7 +217,7 @@
                         width="120"
                         show-overflow-tooltip
                         align="center"
-                        prop="rkrwCys">
+                        prop="cys">
                 </el-table-column>
                 <el-table-column
                         label="车牌号"
@@ -475,7 +475,7 @@
                                 <el-form-item
                                         label="承运商"
                                         :label-width="formLabelWidth">
-                                    {{ledger.cph}}
+                                    {{ledger.cys}}
                                 </el-form-item>
                                 <el-form-item
                                         label="车牌号"
@@ -907,7 +907,7 @@
                 this.ledger.dhsj =row.dhsj ;      //--到货日期
                 this.ledger.dhsj =row.dhsj ;      //--收货日期
                 this.ledger.dbdd=row.dbdd;     //--调拨地点
-                this.ledger.cph=row.cph;     //--承运商
+                this.ledger.cys=row.cys;     //--承运商
                 this.ledger.cph=row.cph;     //--车牌号
                 this.ledger.shr=row.shr; //--收货人
                 this.ledger.shck    =row.shck    ; //--收货仓库
@@ -1252,7 +1252,7 @@
             dhsj:'',           //到货日期
             dhsj:'',           //收货日期
             dbdd:'',         //--调拨地点
-            cph:'',         //--承运商
+            cys:'',         //--承运商
             cph:'',          // --车牌号
             shr:'',      //--收货人
             shck:'',          //--收货仓库
