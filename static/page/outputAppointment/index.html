@@ -876,6 +876,8 @@
                 } else if (Id === '') {
                     this.form.ckCkdjNo = No;
                 }
+                if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
+                obj.dialogFormActive = 0;
                 obj.dialogFormVisible = true;
             },                                              //按钮 新建出库单
             expandChange: function (row, expanded) {
