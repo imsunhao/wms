@@ -765,7 +765,7 @@
                 change: changeForm(),                   //搜索 弹出层 信息集合
 
 
-                printDatas: _printDatas(),              //打印 承运协议 信息集合
+                printDatas: _printDatas_p1(),              //打印 承运协议 信息集合
 
 
                 changeoutputShipment: [],
@@ -892,7 +892,7 @@
                     p[3].post({
                         id: row.ckrwId
                     }, function (json) {
-                        var step = _printDatas_info();
+                        var step = _printDatas_p1_info();
                         allPrposCb(step, function (obj2, index) {
                             if (typeof json.model[json.model.length - 1][index] !== 'undefined') step[index] = json.model[json.model.length - 1][index];
                         });
@@ -1008,7 +1008,7 @@
                         41: '部分出库',
                         42: '全部出库',
                         51: '部分发运',
-                        52: '部分发运'
+                        52: '全部发运'
                     }
                 } else {
                     temp = {
@@ -1019,7 +1019,7 @@
                         '部分出库': 41,
                         '全部出库': 42,
                         '部分发运': 51,
-                        '部分发运': 52
+                        '全部发运': 52
                     }
                 }
                 return temp[value];
@@ -1089,40 +1089,6 @@
             ckrwYjdcsj: [null, null],      //模糊查询--预计到车时间
             ckrwSjdcsj: [null, null],      //模糊查询--实际到车时间
 
-        }
-    }
-    function _printDatas() {
-        return {
-            data: [{
-                "体积": 1596.0800000000002,
-                "订单号": "CKD201705191540",
-                "联系方式": "15853130911",
-                "收货人": "吴金霏101",
-                "发运数量": 50,
-                "任务单号": "CKRW20170519-02",
-                "地址": "山东济南",
-                "货品名称": "酥油茶机、SY-T5、主体木纹部分金色镶件、Ⅰ类电气结构、1300W、220V、50HZ"
-            }],
-            info: _printDatas_info()
-        }
-    }
-    function _printDatas_info() {
-        return {
-            "起运地": "九阳齐河仓",
-            "到达地": "山东济南",
-            "托运日期": "2017-05-23 15:37:09",
-            "回单份数": 1,
-            "承运方": "佳怡物流",
-
-            "车牌号码": '',
-            "托运方": '',
-            "托运方联系人": '',
-            "承运人": {
-                "姓名": '',
-                "证件号": '',
-                "联系人": ''
-            },
-            "到货时限": new Date()
         }
     }
 

@@ -620,7 +620,6 @@
                     case 0:
                         return resolve(this.printf);
                     case 1:
-                        console.log(node.data)
                         postRkrwNo(this, {
                             "pageNum": 1,
                             "pageSize": 999,
@@ -630,7 +629,6 @@
                         }, resolve);
                         break;
                     case 2:
-                        console.log(node.data)
                         postRkdjId(this, {
                             "rksRkdjId": node.data.rksRkdjId,
                             rkrwDhrq:node.data.rkrwDhrq
@@ -727,7 +725,7 @@
     //        /*</debug>*/
     //        p[0].post(this.option);
     //    }, {deep: true});
-    p[0].post( startReceiving.option);
+    p[0].post(startReceiving.option);
     function postRkrwNo(obj, option, resolve) {
         /*<debug>*/
         url = "/hock/startReceiving/rkrwNo.json";
@@ -786,7 +784,7 @@
                 var resoleveStep = [];
                 for (var i = 0; i < json.length; i++) {
                     resoleveStep.push({
-                        name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgName,
+                        name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgGoodsName,
                         val2: json[i].baseGoods.bgGoodsNo,
                         val: dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
                         rwdh: option.rkrwDhrq,

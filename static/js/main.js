@@ -240,11 +240,54 @@ $(function () {
             }
         }
     });
+    function _printDatas() {
+        return {
+            p0: [],
+            p1: _printDatas_p1()
+        }
+    }
+
+    function _printDatas_p1() {
+        return {
+            data: [{
+                "体积": 1596.0800000000002,
+                "订单号": "CKD201705191540",
+                "联系方式": "15853130911",
+                "收货人": "吴金霏101",
+                "发运数量": 50,
+                "任务单号": "CKRW20170519-02",
+                "地址": "山东济南",
+                "货品名称": "酥油茶机、SY-T5、主体木纹部分金色镶件、Ⅰ类电气结构、1300W、220V、50HZ"
+            }],
+            info: _printDatas_p1_info()
+        }
+    }
+
+    function _printDatas_p1_info() {
+        return {
+            "起运地": "九阳齐河仓",
+            "到达地": "山东济南",
+            "托运日期": "2017-05-23 15:37:09",
+            "回单份数": 1,
+            "承运方": "佳怡物流",
+
+            "车牌号码": '',
+            "托运方": '',
+            "托运方联系人": '',
+            "承运人": {
+                "姓名": '',
+                "证件号": '',
+                "联系人": ''
+            },
+            "到货时限": new Date()
+        }
+    }
+
     wap = new Vue({
         el: '#wap',
         data: function () {
             return {
-                printDatas: [],
+                printDatas: _printDatas(),
                 dialogTableVisible: false,
                 dialogTableVisible1: false,
                 dialogTableVisible2: false
@@ -253,7 +296,8 @@ $(function () {
         methods: {
             print: function (obj) {
                 if (typeof (obj.printDatas) === 'undefined') return;
-                this.printDatas = obj.printDatas;
+                this.printDatas = _printDatas();
+                this.printDatas.p0 = obj.printDatas;
                 this.dialogTableVisible = true;
                 var _this = this;
                 setTimeout(function () {
@@ -264,7 +308,8 @@ $(function () {
             },
             print1: function (obj) {
                 if (typeof (obj.printDatas) === 'undefined') return;
-                this.printDatas = obj.printDatas;
+                this.printDatas = _printDatas();
+                this.printDatas.p1 = obj.printDatas;
                 this.dialogTableVisible1 = true;
                 var _this = this;
                 setTimeout(function () {
