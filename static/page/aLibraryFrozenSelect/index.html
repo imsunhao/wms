@@ -73,7 +73,7 @@
                                             <el-form-item label="解冻时间">
                                                 <span>
                                                     <el-icon name="time"></el-icon>
-                                                    {{auto_djJdTime(props.row.djJdTime) }}</span>
+                                                    {{auto_time_new(props.row.djJdTime) }}</span>
                                             </el-form-item>
                                             <el-form-item label="冻结状态">
                                                 <span>{{ auto_djStatus(props.row.djStatus) }}</span>
@@ -84,7 +84,7 @@
                                             <el-form-item label="作废时间">
                                                 <span>
                                                     <el-icon name="time"></el-icon>
-                                                    {{ auto_djZfTime(props.row.djZfTime) }}</span>
+                                                    {{ auto_time_new(props.row.djZfTime) }}</span>
                                             </el-form-item>
                                             <el-form-item
                                                     label="可用操作">
@@ -181,7 +181,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_djJdTime(scope.row.djJdTime,true)}}
+                        {{auto_time_new(scope.row.djJdTime,true)}}
                     </template>
                 </el-table-column>
                 <el-table-column
