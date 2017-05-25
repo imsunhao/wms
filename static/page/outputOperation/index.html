@@ -441,6 +441,7 @@
                                         <el-button
                                                 size="small"
                                                 type="info"
+                                                :disabled="!scope.row.rksKyCount"
                                                 :loading="locationLoading"
                                                 @click="distributionBtnLocation(scope.$index, scope.row)">关联
                                         </el-button>
@@ -550,7 +551,10 @@
                 </el-form-item>
 
                 <div slot="footer" class="dialog-footer">
-                    <el-button type="primary" @click="locationSubmit" :loading="locationLoading">关联</el-button>
+                    <el-button
+                            type="primary"
+                            @click="locationSubmit"
+                            :loading="locationLoading">关联</el-button>
                 </div>
             </el-dialog>
         </el-form>
