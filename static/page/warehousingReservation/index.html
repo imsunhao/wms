@@ -1089,6 +1089,7 @@
                 this.form.saveARkDocsList = true;
                 this.form.deleteARkDocsList = false;
                 this.form.selectGood = item;
+                console.log(item);
             },                                         //货品明细控制 选中form中的货品
             GoodEnter:function () {
                 if(this.form.deleteARkDocsList === false){
@@ -1107,6 +1108,7 @@
             deleteARkDocsList: function () {
                 remove(this.form.selectGood, this.form.rkDocsList);
                 this.form.selectGood = selectGood();
+                this.form.deleteARkDocsList = true;
             },                                     //货品明细控制 删除
 
             selectSubmit: function () {
@@ -1497,6 +1499,7 @@
         if (this.form.title === '查看') this.watchView = true;
         else this.watchView = false;
     }, {deep: true});
+
 
     p[7].post(warehousingReservation.option);
     function postGoods(obj, option, cb) {
