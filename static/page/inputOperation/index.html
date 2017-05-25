@@ -214,12 +214,10 @@
                         label="类型"
                         prop="rkType"
                         align="center"
-                        width="100"
-                        :filters="[{ text: '采购订单', value: '采购订单' }, { text: '仓间挑拨', value: '仓间挑拨' }, { text: '退货入库', value: '退货入库' }]"
-                        :filter-method="filterType">
+                        width="100">
                     <template scope="scope">
                         <el-tag
-                                :type="typeWatch(scope.row.type)"
+                                :type="typeWatch(scope.row.rkType)"
                                 close-transition>{{auto_rkType(scope.row.rkType)}}
                         </el-tag>
                     </template>
@@ -228,9 +226,7 @@
                         label="状态"
                         prop="rkStatus"
                         align="center"
-                        width="100"
-                        :filters="[{ text: '初始状态', value: '初始状态' }, { text: '部分分配', value: '部分分配' }, { text: '全部分配', value: '全部分配' }, { text: '部分收货', value: '部分收货' }, { text: '全部收货', value: '全部收货' }]"
-                        :filter-method="filteRrkStatus">
+                        width="100">
                     <template scope="scope">
                         <el-tag
                                 :type="rkStatusWatch(scope.row.rkStatus)"
@@ -1051,35 +1047,35 @@
             rkStatusWatch: function (rkStatus) {
                 var str = '';
                 switch (rkStatus) {
-                    case '初始状态':
+                    case 1:
                         str = 'info';
                         break;
-                    case '部分分配':
+                    case 21:
                         str = 'danger';
                         break;
-                    case '全部分配':
+                    case 22:
                         str = 'warning';
                         break;
-                    case '部分收货':
+                    case 31:
                         str = 'success';
                         break;
-                    case '全部收货':
+                    case 32:
                         str = 'primary';
                         break;
                 }
                 return str;
             },                                 //状态 标签颜色
-            typeWatch: function (type) {
+            typeWatch: function (rkType) {
                 var str = '';
-                switch (type) {
-                    case '采购订单':
-                        str = 'warning';
+                switch (rkType) {
+                    case 0:
+                        str = 'primary';
                         break;
-                    case '仓间挑拨':
+                    case 1:
                         str = 'success';
                         break;
-                    case '退货入库':
-                        str = 'default';
+                    case 2:
+                        str = 'warning';
                         break;
                 }
                 return str;
