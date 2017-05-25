@@ -105,13 +105,11 @@
                                                     <el-icon name="time"></el-icon>
                                                     {{ auto_rkCreatetime(props.row.rkCreatetime) }}</span>
                                             </el-form-item>
-
                                             <el-form-item label="制作方式">
                                                 <span>{{ auto_rkZdfs(props.row.rkZdfs) }}</span>
                                             </el-form-item>
                                             <el-form-item label="可用操作"
                                                           v-if="props.row.rkStatus!=32">
-
                                                 <el-button
                                                         size="small"
                                                         v-if="props.row.rkStatus==1"
@@ -129,7 +127,6 @@
                                                         v-if="props.row.rkStatus==21||props.row.rkStatus==22"
                                                         @click="inlineGrounding(props.$index, props.row)">上架
                                                 </el-button>
-
                                                 <el-button
                                                         size="small"
                                                         v-if="props.row.rkStatus==31"
@@ -468,6 +465,7 @@
                                         <el-button
                                                 size="small"
                                                 type="info"
+                                                :disabled="!scope.row.rksKyCount"
                                                 :loading="locationLoading"
                                                 @click="distributionBtnLocation(scope.$index, scope.row)">关联
                                         </el-button>
