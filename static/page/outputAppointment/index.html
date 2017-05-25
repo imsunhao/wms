@@ -868,10 +868,15 @@
                 p[7].post(this.option);
             },                                //分页 当前页
             newInput: function () {
-                if (this.form.ckCkdjNo === '') {
+                var No = this.form.ckCkdjNo;
+                var Id = this.form.ckCkdjId;
+                obj.form = _form();
+                if (No === '' || Id !== '') {
                     p[9].post();
+                } else if (Id === '') {
+                    this.form.ckCkdjNo = No;
                 }
-                this.dialogFormVisible = true;
+                obj.dialogFormVisible = true;
             },                                              //按钮 新建出库单
             expandChange: function (row, expanded) {
 //                if (typeof (row.history) == 'undefined') {
