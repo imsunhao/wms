@@ -1091,12 +1091,12 @@
                 this.form.selectGood = item;
                 console.log(item);
             },                                         //货品明细控制 选中form中的货品
-            GoodEnter:function () {
-                if(this.form.deleteARkDocsList === false){
+            GoodEnter: function () {
+                if (this.form.deleteARkDocsList === false) {
                     this.form.selectGood = selectGood();
                     this.form.saveARkDocsList = true;
                     this.form.deleteARkDocsList = true;
-                }else{
+                } else if (this.form.saveARkDocsList === false) {
                     this.saveDocsList();
                 }
             },

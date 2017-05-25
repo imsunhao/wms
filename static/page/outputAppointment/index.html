@@ -1045,7 +1045,7 @@
                         bdDwid: item.data.bgZxdw,
                         bdName: item.data.bgZxdw
                     },
-                    cksCount: 0,
+                    cksGoodsCount: 0,
                     cksDwid: item.data.bgZxdw,
                     cksGoodsId: item.data.bgGoodsId,
                     data: item.data
@@ -1066,7 +1066,7 @@
                     this.form.selectGood = selectGood();
                     this.form.saveAmfunckDocs = true;
                     this.form.deleteAmfunckDocs = true;
-                } else {
+                } else if (this.form.saveAmfunckDocs === false) {
                     this.saveDocsList();
                 }
             },
