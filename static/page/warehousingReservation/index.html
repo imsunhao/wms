@@ -597,6 +597,7 @@
                                 <el-autocomplete
                                         :fetch-suggestions="querySearchAsync"
                                         v-model="form.selectGood.baseGoods.bgGoodsNo"
+                                        :disabled="!form.deleteARkDocsList"
                                         @select="GoodSelect"
                                         auto-complete="off"></el-autocomplete>
                             </el-form-item>
@@ -607,6 +608,7 @@
                                     :label-width="formLabelWidth">
                                 <el-input
                                         :disabled="form.selectGood.value==''"
+                                        @keyup.enter.native="GoodEnter"
                                         v-model.number="form.selectGood.rksCount"
                                         auto-complete="off"></el-input>
                             </el-form-item>
@@ -1088,6 +1090,15 @@
                 this.form.deleteARkDocsList = false;
                 this.form.selectGood = item;
             },                                         //货品明细控制 选中form中的货品
+            GoodEnter:function () {
+                if(this.form.deleteARkDocsList === false){
+                    this.form.selectGood = selectGood();
+                    this.form.saveARkDocsList = true;
+                    this.form.deleteARkDocsList = true;
+                }else{
+                    this.saveDocsList();
+                }
+            },
             saveDocsList: function () {
                 this.form.rkDocsList.push(this.form.selectGood);
                 this.form.selectGood = selectGood();
