@@ -47,40 +47,40 @@
                             <el-row>
                                 <el-col :span="10">
                                     <el-form-item label="仓库">
-                                        <span>{{ props.row.baseArehouse.baName }}</span>
+                                        <span>{{ props.row.mfunckDoc.baseArehouse.baName }}</span>
                                     </el-form-item>
                                     <el-form-item label="出库单号">
-                                        <span>{{props.row.ckCkdjNo }}</span>
+                                        <span>{{props.row.mfunckDoc.ckCkdjNo }}</span>
                                     </el-form-item>
                                     <el-form-item label="客户编号">
-                                        <span>{{ props.row.ckCkdjClientno }}</span>
+                                        <span>{{ props.row.mfunckDoc.ckCkdjClientno }}</span>
                                     </el-form-item>
                                     <el-form-item label="客户名称">
-                                        <span>{{ props.row.ckCkdjClientname }}</span>
+                                        <span>{{ props.row.mfunckDoc.ckCkdjClientname  }}</span>
                                     </el-form-item>
                                     <el-form-item label="联系人">
-                                        <span>{{ props.row.ckContacts }}</span>
+                                        <span>{{ props.row.mfunckDoc.ckContacts }}</span>
                                     </el-form-item>
                                     <el-form-item label="联系电话">
-                                        <span>{{props.row.ckTel}}</span>
+                                        <span>{{props.row.mfunckDoc.ckTel }}</span>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="货品编号">
-                                        <span>{{ props.row.mfunckDocs[0].baseGoods.bgGoodsNo }}</span>
+                                        <span>{{ props.row.mfunRepertory.baseGoods.bgGoodsNo }}</span>
                                     </el-form-item>
                                     <el-form-item label="货品名称">
-                                        <span>{{ props.row.mfunckDocs[0].baseGoods.bgGoodsName }}</span>
+                                        <span>{{ props.row.mfunRepertory.baseGoods.bgGoodsName }}</span>
                                     </el-form-item>
 
                                     <el-form-item label="货品数量">
-                                        <span>{{ props.row.mfunckDocs[0].mfunckSortingMx[0].msxMxCount }}</span>
+                                        <span>{{ props.row.msxMxCount   }}</span>
                                     </el-form-item>
                                     <el-form-item label="货品体积">
-                                        <span>{{ props.row.mfunckDocs[0].baseGoods.bgGoodsTj }}</span>
+                                        <span>{{ props.row.goodsTj   }}</span>
                                     </el-form-item>
                                     <el-form-item label="客户地址">
-                                        <span>{{ props.row.ckAdress }}</span>
+                                        <span>{{ props.row.mfunckDoc.ckAdress }}</span>
                                     </el-form-item>
                                     <el-form-item
                                             label="可用操作">
@@ -98,39 +98,37 @@
                 <el-table-column
                         label="仓库"
                         show-overflow-tooltip
-                        prop="baseArehouse.baName"
+                        prop="mfunckDoc.baseArehouse.baName"
                         align="center">
                 </el-table-column>
                 <el-table-column
                         label="出库单号"
                         show-overflow-tooltip
-                        align="center">
-                    <template scope="scope">
-                        {{scope.row.ckCkdjNo}}
-                    </template>
+                        align="center"
+                        prop="mfunckDoc.ckCkdjNo">
                 </el-table-column>
                 <el-table-column
                         label="客户编号"
                         show-overflow-tooltip
                         align="center"
-                        prop="ckCkdjClientno">
+                        prop="mfunckDoc.ckCkdjClientno">
                 </el-table-column>
                 <el-table-column
                         label="客户名称"
                         show-overflow-tooltip
                         align="center"
-                        prop="ckCkdjClientname">
+                        prop="mfunckDoc.ckCkdjClientname">
                 </el-table-column>
                 <el-table-column
                         label="联系人"
                         show-overflow-tooltip
                         align="center"
-                        prop="ckContacts">
+                        prop="mfunckDoc.ckContacts">
                 </el-table-column>
                 <el-table-column
                         label="联系电话"
                         show-overflow-tooltip
-                        prop="ckTel">
+                        prop="mfunckDoc.ckTel">
                 </el-table-column>
                 <el-table-column
                         v-if="multiSelect"
@@ -562,14 +560,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                post(this.option);
+                p[0].post(this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                post(this.option);
+                p[0].post(this.option);
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
