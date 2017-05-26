@@ -66,7 +66,7 @@
                                         <span>
                                             <el-icon name="time"></el-icon>
                                             <!--{{ auto_pdYdBeginTime(props.row.pdYdBeginTime) }}-->
-                                             {{auto_time_new(props.row.pdYdBeginTime,1)}}
+                                             {{auto_time_new(props.row.pdYdBeginTime,2)}}
                                         </span>
 
                                     </el-form-item>
@@ -140,8 +140,7 @@
                         align="center"
                         prop="mdtCount">
                     <template scope="scope">
-                        {{auto_time_new(scope.row.pdYdBeginTime,1)}}
-                        <!--{{auto_pdYdBeginTime(scope.row.pdYdBeginTime,true)}}-->
+                        {{auto_time_new(scope.row.pdYdBeginTime,0)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -149,8 +148,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        <!--{{auto_pdYdEndTime(scope.row.pdYdEndTime,true)}}-->
-                        {{auto_time_new(scope.row.pdYdEndTime,1)}}
+                        {{auto_time_new(scope.row.pdYdEndTime,0)}}
                     </template>
                 </el-table-column>
                 <el-table-column
