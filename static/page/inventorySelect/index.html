@@ -66,7 +66,7 @@
                                         <span>
                                             <el-icon name="time"></el-icon>
                                             <!--{{ auto_pdYdBeginTime(props.row.pdYdBeginTime) }}-->
-                                             {{auto_time_new(props.row.pdYdBeginTime,2)}}
+                                             {{auto_time_new(props.row.pdYdBeginTime)}}
                                         </span>
 
                                     </el-form-item>
@@ -74,7 +74,7 @@
                                         <span>
                                             <el-icon name="time"></el-icon>
                                             <!--{{ auto_pdYdEndTime(props.row.pdYdEndTime) }}-->
-                                             {{auto_time_new(props.row.pdYdEndTime,1)}}
+                                             {{auto_time_new(props.row.pdYdEndTime)}}
                                         </span>
                                     </el-form-item>
                                 </el-col>
@@ -150,6 +150,12 @@
                     <template scope="scope">
                         {{auto_time_new(scope.row.pdYdEndTime,0)}}
                     </template>
+                </el-table-column>
+                <el-table-column
+                        label="创建人"
+                        show-overflow-tooltip
+                        prop="rmsUser.ruUserName"
+                        align="center">
                 </el-table-column>
                 <el-table-column
                         label="盘点状态"

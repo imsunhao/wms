@@ -265,15 +265,24 @@
                                 :picker-options="pickerOptions">
                         </el-date-picker>
                     </el-form-item>
-                    <el-form-item label="下架时间"
+                    <el-form-item label="下架开始"
                                   :label-width="formLabelWidth">
                         <el-date-picker
                                 v-model="form.ckCksj"
-                                type="daterange"
+                                type="date"
                                 align="right"
-                                placeholder="下架时间"
-                                class="input"
-                                :picker-options="pickerOptions">
+                                placeholder="下架开始"
+                                class="input">
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="下架结束"
+                                  :label-width="formLabelWidth">
+                        <el-date-picker
+                                v-model="form.ckEndtime"
+                                type="date"
+                                align="right"
+                                placeholder="下架结束"
+                                class="input">
                         </el-date-picker>
                     </el-form-item>
                     <el-form-item label="出库单号"
@@ -335,8 +344,8 @@
                             <el-option :value="-1" label="全部"></el-option>
                             <el-option :value="1" label="初始"></el-option>
                             <el-option :value="21" label="部分分拣"></el-option>
-                            <el-option :value="32" label="全部分拣"></el-option>
-                            <el-option :value="22" label="部分出库"></el-option>
+                            <el-option :value="22" label="全部分拣"></el-option>
+                            <el-option :value="31" label="部分出库"></el-option>
                             <el-option :value="32" label="全部出库"></el-option>
                         </el-select>
                     </el-form-item>
@@ -1016,8 +1025,8 @@
                     "ckEndXdsj": tsf_date(this.form.ckXdsj[1]),
                     "mhStartCreateTime": tsf_date(this.form.mhCreatetime[0]),
                     "mhEndCreateTime": tsf_date(this.form.mhCreatetime[1]),
-                    "ckCksj": tsf_date(this.form.ckCksj[0]),
-                    "ckEndtime": tsf_date(this.form.ckCksj[1]),
+                    "ckCksj": tsf_date(this.form.ckCksj),
+                    "ckEndtime": tsf_date(this.form.ckEndtime),
                     "ckCkdjNo": this.form.ckCkdjNo,
                     "ckCkdjClientno": this.form.ckCkdjClientno,
                     "ckCkdjClientname": this.form.ckCkdjClientname,
@@ -1474,7 +1483,8 @@
         return {
             ckXdsj: [null, null],//模糊查询--下单时间
             mhCreatetime: [null, null],//模糊查询--激活时间
-            ckCksj: [null, null],//模糊查询--下架时间
+            ckCksj: '',//模糊查询--下架开始时间
+            ckEndtime:'',//模糊查询--下架结束时间
             ckCkdjNo: '',//模糊查询--出库单号
             ckCkdjClientno: '',//模糊查询--客户编号
             ckCkdjClientname: '',//模糊查询--客户名称

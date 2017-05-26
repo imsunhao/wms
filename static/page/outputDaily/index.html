@@ -63,10 +63,16 @@
                                     <el-form-item label="作业体积">
                                         <span>{{ props.row.mfunckDocs[0].mfunckSortingMx[0].goodsTj }}</span>
                                     </el-form-item>
-                                    <el-form-item label="下架时间">
+                                    <el-form-item label="下单时间">
                                         <span>
                                             <el-icon name="time"></el-icon>
                                             {{ auto_ckXdsj(props.row.ckXdsj) }}
+                                        </span>
+                                    </el-form-item>
+                                    <el-form-item label="下架开始">
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{ auto_ckCksj(props.row.ckCksj) }}
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="上架结束">
@@ -274,17 +280,26 @@
                                 :picker-options="pickerOptions">
                         </el-date-picker>
                     </el-form-item>
-                    <el-form-item label="下架时间"
-                                  :label-width="formLabelWidth">
-                        <el-date-picker
-                                v-model="form.ckCksj"
-                                type="daterange"
-                                align="right"
-                                placeholder="下架时间"
-                                class="input"
-                                :picker-options="pickerOptions">
-                        </el-date-picker>
-                    </el-form-item>
+                    <el-form-item label="下架开始"
+                              :label-width="formLabelWidth">
+                    <el-date-picker
+                            v-model="form.ckCksj"
+                            type="date"
+                            align="right"
+                            placeholder="下架开始"
+                            class="input">
+                    </el-date-picker>
+                </el-form-item>
+                    <el-form-item label="下架结束"
+                              :label-width="formLabelWidth">
+                    <el-date-picker
+                            v-model="form.ckEndtime"
+                            type="date"
+                            align="right"
+                            placeholder="下架结束"
+                            class="input">
+                    </el-date-picker>
+                </el-form-item>
                     <el-form-item label="操作时间"
                                   :label-width="formLabelWidth">
                         <el-date-picker
@@ -689,8 +704,8 @@
                         "ckEndXdsj": tsf_date( this.form.ckXdsj[1]),
                         "mhStartCreateTime": tsf_date(this.form.mhCreatetime[0]),
                         "mhEndCreateTime": tsf_date(this.form.mhCreatetime[1]),
-                        "ckCksj":tsf_date(this.form.ckCksj[0]),
-                        "ckEndtime": tsf_date(this.form.ckCksj[1]),
+                        "ckCksj":tsf_date(this.form.ckCksj),
+                        "ckEndtime": tsf_date(this.form.ckEndtime),
                         "msxStartQrsj": tsf_date(this.form.msxQrsj[0]),
                         "msxEndQrsj": tsf_date(this.form.msxQrsj[0]),
                         "ckStatus": this.form.ckStatus,
@@ -970,7 +985,8 @@
         return {
             ckXdsj: [null, null],         //模糊查询--下单时间
             mhCreatetime: [null, null],  //模糊查询--分拣时间
-            ckCksj: [null, null],         //模糊查询--下架时间
+            ckCksj: '',         //模糊查询--下架开始时间
+            ckEndtime: '',         //模糊查询--下架开始时间
             msxQrsj: [null, null],        //模糊查询--操作时间
             ckStatus: '',                 //模糊查询--出库状态
             cksZlStatus: '',              //模糊查询--是否滞留
