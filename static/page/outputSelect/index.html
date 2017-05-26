@@ -406,27 +406,6 @@
         </div>
     </el-dialog>
     <el-dialog
-            size="large"
-            class="printf"
-            class="printf"
-            v-model="dialogPrintfVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">打印标签页</span>
-        </div>
-        <el-tree
-                :data="printf"
-                :props="{label: 'name',children: 'children'}"
-                :load="printfLoadNode"
-                lazy
-                show-checkbox
-                ref="printf"
-                @check-change="printfCheckChange">
-        </el-tree>
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="printfSubmit" :loading="printfLoading">打印</el-button>
-        </div>
-    </el-dialog>
-    <el-dialog
             size="full"
             title="出库单明细信息"
             v-model="dialogDetailedVisible">
@@ -554,11 +533,6 @@
                         show-overflow-tooltip
                         align="center"
                         prop="sortingTj">
-                </el-table-column>
-                <el-table-column
-                        v-if="multiSelect"
-                        type="selection"
-                        width="60">
                 </el-table-column>
             </el-table>
         </el-col>
@@ -807,7 +781,7 @@
         data: function () {
             return {
                 baseArehouses: window.dbmessage.baseArehouses,
-                watchView: false,                           //观察状态量-是否为查看
+                watchView: false,                   //观察状态量-是否为查看
                 outputSelect: [],
                 multipleSelection: [],
                 multiSelect: false,
@@ -997,13 +971,10 @@
                 dialogSortingVisible: false,        //查看储位信息 弹出层 是否可见
 
                 select: _form(),                    //搜索 弹出层 信息集合,
-                printf: [],                         //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 dialogPrintfVisible: false,
                 selectLoading: false,
-                printfLoading: false,
 
-                printDatas: [],                     // 打印数据
             }
         },
         computed: {
@@ -1113,7 +1084,7 @@
                         message: '已取消导出'
                     });
                 });
-            },                  //TODO 行内按钮-导出出库明细
+            },                  //行内按钮-导出出库明细
             inlineExportSortingDetailed: function (index, row) {
                 obj.$confirm('导出分拣明细 单据单号：' + row.ckCkdjNo, '提示', {
                     confirmButtonText: '确定',
@@ -1135,7 +1106,7 @@
                         message: '已取消导出'
                     });
                 });
-            },                 //TODO 行内按钮-导出分拣明细
+            },                 //行内按钮-导出分拣明细
             inlineExportOutput: function (index, row) {
             },                          //TODO 行内按钮-导出出库
 
@@ -1144,7 +1115,7 @@
                     obj.detailed = json.model;
                     obj.dialogDetailedVisible = true;
                 })
-            },                  //TODO 行内按钮-查看出库明细信息
+            },                  //行内按钮-查看出库明细信息
             inlineSelectSortingDetailed: function (index, row) {
                 this.detailedTemp = row;
                 p[2].post({id: row.cksCkmxId}, function (json) {
@@ -1152,7 +1123,7 @@
                     obj.dialogSortingVisible = true;
                 })
 
-            },                 //TODO 行内按钮-查看分拣明细信息
+            },                 //行内按钮-查看分拣明细信息
             inlineModify: function (index, row) {
                 this.multipleSelection = [row];
                 printfCompile(this);
@@ -1192,7 +1163,7 @@
                         message: '已取消导出'
                     });
                 });
-            },                                 //TODO 多选 导出出库单据
+            },                                 //多选 导出出库单据
             multiExportOutputDetailed: function () {
                 obj.$confirm('确定导出出库明细?', '提示', {
                     confirmButtonText: '确定',
@@ -1218,7 +1189,7 @@
                         message: '已取消导出'
                     });
                 });
-            },                             //TODO 多选 导出出库单据明细
+            },                             //多选 导出出库单据明细
             multiExportSortingDetailed: function () {
                 obj.$confirm('确定导出分拣明细?', '提示', {
                     confirmButtonText: '确定',
@@ -1244,11 +1215,11 @@
                         message: '已取消导出'
                     });
                 });
-            },                            //TODO 多选 导出分拣明细
+            },                            //多选 导出分拣明细
             multiExportOutput: function () {
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
-            },                                      //TODO 多选 导出出库
+            },                                     //TODO 多选 导出出库
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -1308,21 +1279,7 @@
                 p[0].post(obj.form_pop);
                 this.dialogSelectVisible = false;
             },                                          //详细查询 提交
-            printfSubmit: function () {
-                var datas = [];
-                var checkData = outputSelect.$refs.printf.getCheckedNodes();
-                for (var i in checkData) {
-                    if (typeof checkData[i].val2 !== 'undefined') {
-                        datas.push(checkData[i]);
-                    }
-                }
-                this.printDatas = datas;
-                this.dialogPelectVisible = !this.dialogPrintfVisible;
-                wap.print(this);
-            },                                          //打印 提交
-            printfCheckChange: function () {
 
-            },                                     //打印 选中维护
             detailedSubmit: function () {
 
             },
@@ -1350,18 +1307,19 @@
                         return resolve([]);
                 }
             },
+
             auto_ckCksj: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },                              //上架开始时间
+            },                                //上架开始时间
             auto_ckEndtime: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },                           //上架结束时间
+            },                             //上架结束时间
             auto_mhCreatetime: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年-MM月-dd日');
                 else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },                        //激活时间
+            },                          //激活时间
             auto_ckCkdjType: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {
@@ -1378,7 +1336,7 @@
                     }
                 }
                 return temp[value];
-            },                                   //单据类型
+            },                                  //单据类型
             auto_ckStatus: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {
@@ -1401,7 +1359,7 @@
                     }
                 }
                 return temp[value];
-            },                                     //单据状态
+            },                                    //单据状态
             auto_ckQhStatus: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {
@@ -1418,7 +1376,7 @@
                     }
                 }
                 return temp[value];
-            },                                   //欠货状态
+            },                                  //欠货状态
             auto_ckZlStatus: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {
@@ -1435,7 +1393,7 @@
                     }
                 }
                 return temp[value];
-            },                                   //滞留状态
+            },                                  //滞留状态
             auto_ckIsauto: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {
@@ -1452,7 +1410,7 @@
                     }
                 }
                 return temp[value];
-            },                                     //制作方式
+            },                                    //制作方式
             auto_ckStartwith: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {
@@ -1468,7 +1426,7 @@
                     }
                 }
                 return temp[value];
-            },                                  //操作方式
+            },                                 //操作方式
             auto_msxWt: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {
@@ -1487,9 +1445,7 @@
                     }
                 }
                 return temp[value];
-            },                                  //操作方式
-
-
+            },                                       //操作方式
         },
         watch: {
             ckCkdjNo: function () {
