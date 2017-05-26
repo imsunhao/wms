@@ -73,25 +73,22 @@
                                                     <el-form-item label="品项数">
                                                         <span>{{props.row.goodsTypeNum}}</span>
                                                     </el-form-item>
-
                                                 </el-col>
                                                 <el-col :span="10" :offset="2">
                                                     <el-form-item label="任务状态">
                                                         <span>{{ auto_ckrwStatus(props.row.ckrwStatus) }}</span>
                                                     </el-form-item>
-                                                    <el-form-item label="预计到车">
-                                        <span>
+                                                    <el-form-item label="预计到车"><span>
                                              <el-icon name="time"></el-icon>
                                             {{auto_ckrwYjdcsj(props.row.ckrwYjdcsj) }}
                                         </span>
                                                     </el-form-item>
-                                                    <el-form-item label="实际到车">
-                                        <span>
+                                                    <el-form-item label="实际到车"
+                                                                  v-show="props.row.ckrwSjdcsj!=null"><span>
                                              <el-icon name="time"></el-icon>
                                             {{ auto_ckrwSjdcsj(props.row.ckrwSjdcsj) }}
                                         </span>
                                                     </el-form-item>
-
                                                     <el-form-item label="欠货状态">
                                                         <span>{{ auto_ckrwQhStatus(props.row.ckrwQhStatus) }}</span>
                                                     </el-form-item>
@@ -104,21 +101,19 @@
                                                         <el-button
                                                                 size="small"
                                                                 type="success"
-                                                                @click="inlineSelectFinish(props.$index, props.row)">挑选完成
+                                                                @click="inlineSelectFinish(props.$index, props.row)">
+                                                            挑选完成
                                                         </el-button>
                                                     </el-form-item>
-
                                                 </el-col>
                                             </el-row>
                                         </el-form>
                                     </el-carousel-item>
                                     <el-carousel-item>
                                         <el-row>
-                                            <h3>出库任务单据<span
-                                                    style="font-size: 14px;
+                                            <h3>出库任务单据<span style="font-size: 14px;
                                             font-weight: normal;
-                                            margin-left: 5px;">（双击查看单据明细）</span>
-                                            </h3>
+                                            margin-left: 5px;">（双击查看单据明细）</span></h3>
                                         </el-row>
                                         <el-table
                                                 :data="props.row.mfunckDoc"
@@ -179,25 +174,25 @@
                                                 </template>
                                             </el-table-column>
                                             <!--<el-table-column-->
-                                                    <!--width="80"-->
-                                                    <!--v-if="props.row.ckrwStatus>10&&props.row.ckrwStatus<42"-->
-                                                    <!--label="挂起">-->
-                                                <!--<template scope="scope">-->
-                                                    <!--<el-button-->
-                                                            <!--size="small"-->
-                                                            <!--type="success"-->
-                                                            <!--icon="circle-check"-->
-                                                            <!--v-if="scope.row.ckGqStatus==1"-->
-                                                            <!--@click="inlineHangBill(scope.$index, scope.row)">-->
-                                                    <!--</el-button>-->
-                                                    <!--<el-button-->
-                                                            <!--size="small"-->
-                                                            <!--type="danger"-->
-                                                            <!--icon="circle-close"-->
-                                                            <!--v-if="scope.row.ckGqStatus==2"-->
-                                                            <!--@click="inlineCancelHang(scope.$index, scope.row)">-->
-                                                    <!--</el-button>-->
-                                                <!--</template>-->
+                                            <!--width="80"-->
+                                            <!--v-if="props.row.ckrwStatus>10&&props.row.ckrwStatus<42"-->
+                                            <!--label="挂起">-->
+                                            <!--<template scope="scope">-->
+                                            <!--<el-button-->
+                                            <!--size="small"-->
+                                            <!--type="success"-->
+                                            <!--icon="circle-check"-->
+                                            <!--v-if="scope.row.ckGqStatus==1"-->
+                                            <!--@click="inlineHangBill(scope.$index, scope.row)">-->
+                                            <!--</el-button>-->
+                                            <!--<el-button-->
+                                            <!--size="small"-->
+                                            <!--type="danger"-->
+                                            <!--icon="circle-close"-->
+                                            <!--v-if="scope.row.ckGqStatus==2"-->
+                                            <!--@click="inlineCancelHang(scope.$index, scope.row)">-->
+                                            <!--</el-button>-->
+                                            <!--</template>-->
                                             <!--</el-table-column>-->
                                         </el-table>
                                     </el-carousel-item>
@@ -232,7 +227,7 @@
                         {{auto_ckrwYjdcsj(scope.row.ckrwYjdcsj,true)}}
                     </template>
                 </el-table-column>
-                 <el-table-column
+                <el-table-column
                         label="实际到车"
                         show-overflow-tooltip
                         align="center">
@@ -537,7 +532,7 @@
 <script>
     function form() {
         return {
-            ckrwId:'',
+            ckrwId: '',
             title: "新建入库任务",
             ckrwN: '',
             ckrwCph: '',
@@ -549,9 +544,9 @@
             ckrwCys: '',
             ckrwDh: '',
             ckrwStatus: '',
-            ckrwCph:'',//模糊查询--车牌号
-            ckrwNo:'',//模糊查询--任务号
-            ckrwHistoryCzsj:[null,null],//模糊查询--制作时间
+            ckrwCph: '',//模糊查询--车牌号
+            ckrwNo: '',//模糊查询--任务号
+            ckrwHistoryCzsj: [null, null],//模糊查询--制作时间
         }
     }
     var chooseBill = new Vue({
@@ -592,10 +587,10 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-                currentTotal:0,
+                currentTotal: 0,
                 date: [null, null],                 //主页面 选择日期 搜索
                 ckrwNo: '',                         //主页面 任务号 搜索
-                ckrwCph:'',                         //主页面 车牌号 搜索
+                ckrwCph: '',                         //主页面 车牌号 搜索
 
                 formLabelWidth: '120px',            //表单 配置
                 form: form(),                       //表单 弹出层 信息集合
@@ -620,8 +615,8 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "ckrwNo":this.ckrwNo.trim(),
-                    "ckrwCph":this.ckrwCph.trim(),
+                    "ckrwNo": this.ckrwNo.trim(),
+                    "ckrwCph": this.ckrwCph.trim(),
                     "ckrwStartGreatTime": tsf_date(this.date[0]),
                     "ckrwEndGreatTime": tsf_date(this.date[1]),
                 }
@@ -658,7 +653,7 @@
                     type: 'warning'
                 }).then(function () {
                     p[1].post({
-                        "ids":[row.ckrwId],
+                        "ids": [row.ckrwId],
                         "userName": app.rmsUser.ruUserName
                     });
                 }).catch(function () {
@@ -689,7 +684,7 @@
                         ids.push(obj.multipleSelection[i].ckrwId);
                     }
                     p[1].post({
-                        "ids":ids,
+                        "ids": ids,
                         "userName": app.rmsUser.ruUserName
                     });
                 }).catch(function () {
@@ -706,14 +701,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                p[0].post( this.option);
+                p[0].post(this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                p[0].post( this.option);
+                p[0].post(this.option);
             },                                //分页 当前页
 
             expandChange: function (row, expanded) {
@@ -792,7 +787,7 @@
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                p[0].post( {});
+                p[0].post({});
             },                                          //详细查询 提交
             auto_ckrwYjdcsj: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
@@ -802,60 +797,60 @@
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                            //实际到车时间
-            auto_ckrwStatus:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        10:'初始',
-                        11:'下发',
-                        21:'已挑选',
-                        31:'已激活',
-                        41:'部分出库',
-                        42:'全部出库',
-                        51:'部分发运',
-                        52:'全部发运'
+            auto_ckrwStatus: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        10: '初始',
+                        11: '下发',
+                        21: '已挑选',
+                        31: '已激活',
+                        41: '部分出库',
+                        42: '全部出库',
+                        51: '部分发运',
+                        52: '全部发运'
                     }
-                }else{
-                    temp={
-                        '初始'   :10,
-                        '下发'    :11,
-                        '已挑选'  :21  ,
-                        '已激活'  :31 ,
-                        '部分出库':41 ,
-                        '全部出库':42 ,
-                        '部分发运':51 ,
-                        '全部发运':52
+                } else {
+                    temp = {
+                        '初始': 10,
+                        '下发': 11,
+                        '已挑选': 21,
+                        '已激活': 31,
+                        '部分出库': 41,
+                        '全部出库': 42,
+                        '部分发运': 51,
+                        '全部发运': 52
                     }
                 }
                 return temp[value];
             },                                     //任务状态
-            auto_ckrwQhStatus:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        1:'欠货',
-                        2:'未欠货'
+            auto_ckrwQhStatus: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '欠货',
+                        2: '未欠货'
                     }
-                }else{
-                    temp={
-                        '欠货'   : 1 ,
-                        '未欠货' : 2
+                } else {
+                    temp = {
+                        '欠货': 1,
+                        '未欠货': 2
 
                     }
                 }
                 return temp[value];
             },                                   //欠货状态
-            auto_ckrwZlStatus:function(value){
-                var temp={};
-                if(!isNaN(value)){
-                    temp={
-                        1:'滞留',
-                        2:'未滞留'
+            auto_ckrwZlStatus: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '滞留',
+                        2: '未滞留'
                     }
-                }else{
-                    temp={
-                        '滞留'   : 1 ,
-                        '未滞留' : 2
+                } else {
+                    temp = {
+                        '滞留': 1,
+                        '未滞留': 2
 
                     }
                 }
@@ -883,10 +878,10 @@
         /*<debug>*/
         console.log(this.option);
         /*</debug>*/
-        p[0].post( this.option);
+        p[0].post(this.option);
     }, {deep: true});
-    var obj=chooseBill;
-    var p=[];
+    var obj = chooseBill;
+    var p = [];
     // 0 挑选单据 分页查询
     p[0] = autoPost({
         urlHock: "../../hock/chooseBill/page.json",
@@ -904,7 +899,7 @@
         urlHock: "../../hock/chooseBill/page.json",
         urlProd: "/route/chooseBill/1",
         success: function (json) {
-            this.callbackAfter({status:json.status,model:"挑选单据"},function () {
+            this.callbackAfter({status: json.status, model: "挑选单据"}, function () {
                 p[0].post(obj.option);
             })
         }
@@ -943,14 +938,11 @@
                 blLocationId: 1,
                 blLname: ''
             },
-
             cksZdpc: auto_time_new(new Date(), 3),
-
             index: 0
         }
     }
-
-    p[0].post( chooseBill.option);
+    p[0].post(chooseBill.option);
 </script>
 
 
