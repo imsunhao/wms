@@ -1588,6 +1588,7 @@
                     23: '激活（出库）',
                     24: '取消挂起'
                 };
+                json = json.reverse();
                 for (var i = 0; i < json.length; i++) {
                     json[i].createTime = dateFormat(new Date(json[i].mhCreatetime), 'MM-dd hh:mm');
                     json[i].description = "由 " + json[i].rmsUser.ruUserName + " " + temp[json[i].mhStatus]
