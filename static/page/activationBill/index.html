@@ -112,11 +112,6 @@
                                                         v-show="props.row.ckrwStatus==21"
                                                         @click="inlineActivateTask(props.$index, props.row)">激活任务
                                                 </el-button>
-                                                <!--<el-button-->
-                                                <!--size="small"-->
-                                                <!--type="success"-->
-                                                <!--@click="inlineSupplementaryDistribution(props.$index, props.row)">追加分拣-->
-                                                <!--</el-button>-->
                                             </el-form-item>
                                         </el-col>
                                     </el-row>
@@ -196,9 +191,15 @@
                                             <el-button
                                                     size="mini"
                                                     type="success"
-                                                    v-if="scope.row.ckGqStatus==1"
-                                                    v-show="scope.row.ckCkdjType==0&&scope.row.ckStatus==1"
+                                                    v-if="scope.row.ckGqStatus==1&&scope.row.ckCkdjType==0&&scope.row.ckStatus==1"
                                                     @click="inlineActivateDocument(scope.$index, scope.row)">激活
+                                            </el-button>
+                                            <el-button
+                                                    size="mini"
+                                                    type="info"
+                                                    v-if="scope.row.ckStatus==21"
+                                                    @click="inlineSupplementaryDistribution(props.$index, props.row)">
+                                                追加分拣
                                             </el-button>
                                             <el-button
                                                     size="mini"
@@ -843,17 +844,22 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.activationBill);
-                    postDelete(_this, {
-                        id: [row.rkdjNo]
+                    p[3].post({
+                        "id": row.ckCkdjId,
+                        "useId": app.rmsUser.ruUserId,
+                        "userName": app.rmsUser.ruUserName
+                    }, function (json) {
+                        this.callbackAfter({status: json.status, model: '追加分拣'}, function () {
+                            p[0].post(obj.option);
+                        })
                     });
                 }).catch(function () {
                     _this.$message({
                         type: 'info',
-                        message: '已取消下发'
+                        message: '已取消'
                     });
                 });
-            },            //TODO 行内按钮-追加分拣
+            },            //行内按钮-追加分拣
             inlineModifySorting: function (index, row) {
                 var step = formListSort();
                 allPrposCb(step, function (obj2, index) {
@@ -887,7 +893,7 @@
                         message: '已取消'
                     });
                 });
-            },                  //TODO 行内按钮-挂起确认
+            },                  //行内按钮-挂起确认
             inlineActivateDocument: function (index, row) {
                 var _this = this;
                 _this.$confirm('此操作将激活出库单据, 是否继续?', '提示', {
@@ -911,7 +917,7 @@
                         message: '已取消'
                     });
                 });
-            },                     //TODO 行内按钮-激活单据
+            },                     //行内按钮-激活单据
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                     //多选 状态维护
@@ -1261,6 +1267,11 @@
             obj.$data.activationBill = json.data;
             obj.$data.currentTotal = json.recordsFiltered;
         }
+    });
+    // 1 激活单据-激活任务
+    p[1] = autoPost({
+        urlHock: "../../hock/activationBill/page.json",
+        urlProd: "/route/activationBill/1"
     });
     // 2 激活单据-修改-分拣方式
     p[2] = autoPost({
