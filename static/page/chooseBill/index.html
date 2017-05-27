@@ -73,11 +73,11 @@
                                                     <el-form-item label="品项数">
                                                         <span>{{props.row.goodsTypeNum}}</span>
                                                     </el-form-item>
-                                                </el-col>
-                                                <el-col :span="10" :offset="2">
                                                     <el-form-item label="任务状态">
                                                         <span>{{ auto_ckrwStatus(props.row.ckrwStatus) }}</span>
                                                     </el-form-item>
+                                                </el-col>
+                                                <el-col :span="10" :offset="2">
                                                     <el-form-item label="预计到车"><span>
                                              <el-icon name="time"></el-icon>
                                             {{auto_ckrwYjdcsj(props.row.ckrwYjdcsj) }}
