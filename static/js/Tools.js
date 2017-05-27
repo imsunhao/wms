@@ -189,8 +189,8 @@ function auto_time_new(value, number) {
             return dateFormat(new Date(value), 'yyyy年 MM月 dd日');
         case 2:
             return dateFormat(new Date(value), 'MM-dd');
-        case 3:
-            return dateFormat(new Date(value), 'yyyyMMdd');
+        case 3:    //批次
+            return dateFormat(new Date(value), 'yyyy-MM-dd');
         case 4:
             return dateFormat(new Date(value), 'yyyy/MM/dd hh:mm');
         case 5:
