@@ -32,7 +32,7 @@
                 </button>
                 <button
                         class="btn btn-distribution"
-                        @click="distributionBtn" v-show="multiSelect">导出
+                        @click="moreOperationModify" v-show="multiSelect">导出
                 </button>
             </div>
             <el-table
@@ -323,7 +323,7 @@
                     <el-form-item label="到货日期"
                                   :label-width="formLabelWidth">
                         <el-date-picker
-                                v-model="form.dhsj"
+                                v-model="form.dhrq"
                                 type="daterange"
                                 align="right"
                                 placeholder="到货日期"
@@ -334,7 +334,7 @@
                     <el-form-item label="收货日期"
                                   :label-width="formLabelWidth">
                         <el-date-picker
-                                v-model="form.dhsj"
+                                v-model="form.shrq"
                                 type="daterange"
                                 align="right"
                                 placeholder="收货日期"
@@ -358,11 +358,10 @@
                                 icon="search"
                                 placeholder="调拨地"></el-input>
                     </el-form-item>
-
                 </el-form>
             </el-col>
             <el-col :span="10" :offset="2">
-                <el-form :model="select">
+                <el-form :model="form">
                     <el-form-item label="车牌号"
                                   :label-width="formLabelWidth">
                         <el-input
@@ -375,7 +374,7 @@
                                   :label-width="formLabelWidth">
                         <el-input
                                 class="input"
-                                v-model="form.shr"
+                                v-model="form.shr_"
                                 icon="search"
                                 placeholder="收货人"></el-input>
                     </el-form-item>
@@ -395,18 +394,16 @@
                                 icon="search"
                                 placeholder="物料编号"></el-input>
                     </el-form-item>
-                    <el-form-item label="物料名称"
+                    <el-form-item label="物料描述"
                                   :label-width="formLabelWidth">
                         <el-input
                                 class="input"
                                 v-model="form.wlms"
                                 icon="search"
-                                placeholder="物料名称"></el-input>
+                                placeholder="物料描述"></el-input>
                     </el-form-item>
                 </el-form>
             </el-col>
-        <el-form :model="select">
-        </el-form>
         </el-row>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
@@ -815,21 +812,6 @@
                 date1:[null,null],                    //主页面 到货日期 搜索
                 formLabelWidth: '120px',            //表单 配置
                 form: _form(),                         //表单   弹出层 信息集合
-                form: {
-                    dh: '',
-                    rkType: '',
-                    rkRemarks: '',
-                    rkDocsList: [],
-                    wlbm: '',
-                    selectGood: {
-                        value: '',
-                        wlms: '',
-                        count: 0,
-                        bgGoodsId: ''
-                    },
-                    saveARkDocsList: true,
-                    deleteARkDocsList: true
-                },          //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
@@ -838,8 +820,6 @@
                 ledger: formLedger(),                 //TODO 制作台账结信息 弹出层 信息集合
                 dialogLedgerVisible: false,         //TODO 制作台账信息 弹出层 是否可见
                 select: _form(),                        //搜索      弹出层 信息集合,
-
-
                 distribution: {
                     value: '',
                     wlms: '',
@@ -847,12 +827,8 @@
                     bgGoodsId: ''
                 },     //导出 弹出层 信息集合
                 dialogDistributionVisible: false,   //导出 弹出层 是否可见
-
-                select: {},                         //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 selectLoading: false
-
-
             }
         },
         computed: {
@@ -865,8 +841,8 @@
                     "dbdh":this.dbdh.trim(),
                     "sfrqStart": tsf_date(this.date[0]),
                     "sfrqEnd": tsf_date(this.date[1]),
-                    "dhrqStart": tsf_date(this.date[0]),
-                    "dhrqEnd": tsf_date(this.date[1]),
+                    "dhrqStart": tsf_date(this.date1[0]),
+                    "dhrqEnd": tsf_date(this.date1[1]),
                 }
             },
             form_pop:function(){
@@ -874,19 +850,19 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "dbdh": this.form.dbdh,
-                    "dbdd":this.form.dbdd,
-                    "cph": this.form.cph,
-                    "shr":this.form.shr,
-                   "shck": this.form.shck,
-                    "wlbm":this.form.wlbm,
-                    "wlms":this.form.wlms,
                     "sfrqStart": tsf_date(this.form.sfrq[0]),
                     "sfrqEnd": tsf_date(this.form.sfrq[1]),
                     "dhrqStart": tsf_date(this.form.dhrq[0]),
                     "dhrqEnd": tsf_date(this.form.dhrq[1]),
                     "shrqStart": tsf_date(this.form.shrq[0]),
                     "shrqEnd": tsf_date(this.form.shrq[1]),
+                    "dbdh": this.form.dbdh,
+                    "dbdd":this.form.dbdd,
+                    "cph": this.form.cph,
+                    "shr_":this.form.shr_,
+                    "shck": this.form.shck,
+                    "wlbm":this.form.wlbm,
+                    "wlms":this.form.wlms,
                 }
             },
             distributionForm: function () {
@@ -990,20 +966,8 @@
                 })
 
             },                                   //多选 删除
-            export: function () {
-                /*<debug>*/
-                console.log('选中的删除');
-                /*</debug>*/
-                var listID = [];
-                for (var i = 0; i < this.multipleSelection.length; i++) {
-                    remove(this.multipleSelection[i], this.inputLedger);
-                    listID.push(this.inputLedger.rkdjNo);
-                }
-                postDelete(this, {
-                    id: listID
-                })
-
-            },                                            //TODO 多选导出
+            moreOperationModify: function () {
+            },                                 //TODO 多选导出
             oweEnd: function () {
                 /*<debug>*/
                 console.log('选中的删除');
@@ -1156,7 +1120,6 @@
             selectSubmit: function () {
                 p[0].post(obj.form_pop);
                 this.dialogSelectVisible = false;
-                console.log('select!');
             },
             auto_sfrq: function (value, bool) {
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
@@ -1219,8 +1182,8 @@
         urlHock: "../../hock/inputLedger/page.json",
         urlProd: "/route/inputLedger/0",
         success: function (json) {
-            obj.$data.inputLedger = json.records;
-            obj.$data.currentTotal = json.totalRecord;
+            obj.$data.inputLedger = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
         }
     });
      // 1 入库台账 制作/欠货 修改入库台账信息
@@ -1233,17 +1196,18 @@
 
     function _form() {
         return {
-            sfrq: [null],//模糊查询--始发时间
-            dhsj: [null],//模糊查询--到货时间
-            dhsj: [null],//模糊查询--收货时间
-            jssj: [null],//模糊查询--结算时间
+            sfrq: [null,null],//模糊查询--始发时间
+            dhrq: [null,null],//模糊查询--到货时间
+            shrq: [null,null],//模糊查询--收货时间
             dbdh: '',//模糊查询--调拨单号
             dbdd: '',//模糊查询--调拨地
             cph: '',//模糊查询--车牌号
-            shr: '',//模糊查询--收货人
+            shr_: '',//模糊查询--收货人
             shck: '',//模糊查询--收货仓库
             wlbm: '',//模糊查询--物料编号
             wlms: '',//模糊查询--物料描述
+//            jssj: [null,null],//模糊查询--结算时间
+//            shrq:[null,null],
         }
     }
     function formEnd() {

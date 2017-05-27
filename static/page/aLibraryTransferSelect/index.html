@@ -61,7 +61,7 @@
                                             <el-form-item label="创建时间">
                                                 <span>
                                                     <el-icon name="time"></el-icon>
-                                                    {{ auto_zyCreateTime(props.row.zyCreateTime) }}</span>
+                                                    {{ auto_time_new(props.row.zyCreateTime,6) }}</span>
                                             </el-form-item>
                                             <el-form-item label="提起人">
                                                 <span>{{props.row.zyMentionUserName}}</span>
@@ -80,7 +80,7 @@
                                             <el-form-item label="确认时间">
                                                 <span>
                                                     <el-icon name="time"></el-icon>
-                                                    {{ auto_time_new(props.row.zyConfirmTime) }}</span>
+                                                    {{ auto_time_new(props.row.zyConfirmTime,6) }}</span>
                                             </el-form-item>
                                             <el-form-item label="转移状态">
                                                 <span>{{ auto_zyStatus(props.row.zyStatus) }}</span>
@@ -157,7 +157,7 @@
                         align="center"
                         prop="zyCreateTime">
                     <template scope="scope">
-                        {{auto_zyCreateTime(scope.row.zyCreateTime,true)}}
+                        {{auto_time_new(scope.row.zyCreateTime)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -786,15 +786,6 @@
                 this.dialogSelectVisible = false;
 
             },                                          //详细查询 提交
-
-            auto_zyCreateTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },//创建时间
-            auto_zyConfirmTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },//确认时间
             auto_zyStatus: function (value) {
 
                 if (!isNaN(value)) {

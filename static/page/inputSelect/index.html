@@ -4,6 +4,27 @@
             element-loading-text="拼命加载中">
         <el-col :span="24">
             <div class="inner btn-nav">
+                <el-input
+                        class="input"
+                        v-model="rjdkNo"
+                        icon="search"
+                        placeholder="入库单号"></el-input>
+                <el-date-picker
+                        v-model="date"
+                        type="daterange"
+                        align="right"
+                        placeholder="下单时间"
+                        class="input"
+                        :picker-options="pickerOptions">
+                </el-date-picker>
+                <el-select v-model="shzt" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="1" label="原始状态"></el-option>
+                    <el-option :value="21" label="部分分配"></el-option>
+                    <el-option :value="22" label="全部分配"></el-option>
+                    <el-option :value="31" label="部分收货"></el-option>
+                    <el-option :value="32" label="完全收货"></el-option>
+                </el-select>
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
@@ -199,7 +220,7 @@
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
         </div>
-        <el-form :model="select">
+        <el-form :model="form">
             <el-form-item label="下单时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
@@ -211,18 +232,26 @@
                         :picker-options="pickerOptions">
                 </el-date-picker>
             </el-form-item>
-            <el-form-item label="上架时间"
+            <el-form-item label="上架开始"
                           :label-width="formLabelWidth">
                 <el-date-picker
                         v-model="form.sjsj"
-                        type="daterange"
+                        type="date"
                         align="right"
-                        placeholder="上架时间"
-                        class="input"
-                        :picker-options="pickerOptions">
+                        placeholder="上架开始"
+                        class="input">
                 </el-date-picker>
             </el-form-item>
-
+            <el-form-item label="上架结束"
+                          :label-width="formLabelWidth">
+                <el-date-picker
+                        v-model="form.jssj"
+                        type="date"
+                        align="right"
+                        placeholder="上架结束"
+                        class="input">
+                </el-date-picker>
+            </el-form-item>
             <el-form-item label="入库单号"
                           :label-width="formLabelWidth">
                 <el-input
@@ -231,14 +260,15 @@
                         icon="search"
                         placeholder="入库单号"></el-input>
             </el-form-item>
-            <el-form-item label="入库状态"
+            <el-form-item label="收库状态"
                           :label-width="formLabelWidth">
                 <el-select v-model="form.shzt" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="1" label="原始状态"></el-option>
                     <el-option :value="21" label="部分分配"></el-option>
                     <el-option :value="22" label="全部分配"></el-option>
-                    <el-option :value="31" label="部分上架"></el-option>
-                    <el-option :value="32" label="全部上架"></el-option>
+                    <el-option :value="31" label="部分收货"></el-option>
+                    <el-option :value="32" label="完全收货"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="制单方式"
@@ -494,7 +524,6 @@
         cursor: pointer;
         padding: 0;
         margin: 0;
-        float: left;
         font-size: 14px;
         color: #1f2d3d;
         margin-top: 29px;
@@ -599,8 +628,9 @@
                 currentTotal:0,
                 date: [null, null],                 //主页面 选择日期 搜索
                 rjdkNo: '',                       //主页面 入库单号 搜索
+                shzt:'',                           //主页面 收货状态
                 formLabelWidth: '120px',          //表单 配置
-                form: form(),                       //表单 弹出层 信息集合
+                form: _form(),                       //表单 弹出层 信息集合
                 dialogFormActive: 0,              //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,         //新建 弹出层 是否可见
                 submitLoading: false,             //新建 弹出层 提交等待
@@ -612,7 +642,7 @@
                 storage: [],           //查看入库储位信息 弹出层 信息集合
                 dialogStorageVisible: false,     //查看入库储位信息 弹出层 是否可见
 
-                select: form(),                      //搜索 弹出层 信息集合,
+                select: _form(),                      //搜索 弹出层 信息集合,
                 printf: [],                         //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 dialogPrintfVisible: false,
@@ -628,7 +658,26 @@
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
+                    "pageSize": this.pageSize,
+                    "shzt":this.shzt.trim(),
+                    "rjdkNo":this.rjdkNo.trim(),
+                    "xdsjStart":tsf_date(this.date[0]),
+                    "xdsjEnd":tsf_date(this.date[1]),
+                }
+            },
+            form_pop:function(){
+                return{
+                    "draw": 1,
+                    "pageNum": this.currentPage,
+                    "pageSize": this.pageSize,
+                    "xdsjStart": tsf_date(this.form.xdsj[0]),
+                    "xdsjEnd": tsf_date(this.form.xdsj[1]),
+                    "sjsj": tsf_date(this.form.sjsj),
+                    "jssj": tsf_date(this.form.jssj),
+                    "rjdkNo": tsf_date(this.form.rjdkNo),
+                    "shzt": tsf_date(this.form.shzt),
+                    "zdfs": this.form.zdfs,
+                    "czfs": this.form.czfs,
                 }
             },
             search: function () {
@@ -746,8 +795,9 @@
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
+                p[0].post(obj.form_pop);
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                p[0].post( {});
+
             },                                          //详细查询 提交
             printfSubmit: function () {
                 var datas=[];
@@ -871,26 +921,38 @@
 
 
 
+        },
+        watch:{
+            rjdkNo: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+            shzt: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
         }
     });
-    function form() {
+    // 高级 监视器的 使用方法
+        inputSelect.$watch('date', function () {
+            /*<debug>*/
+            console.log(this.option);
+            /*</debug>*/
+            p[0].post( this.option);
+        }, {deep: true});
+    function _form() {
         return {
-            rkrwN: '',
-            rkrwCph: '',
-            dds: '',
-            pxs: '',
-            rkrwSjxm: '',
-            rkrwDhrq: '',
-            rkrwDbd: '',
-            rkrwCys: '',
-            rkrwDh: '',
-            rkrwStatus: '',
-            xdsj:[null,null],//模糊查询--下单时间
-            sjsj:[null,null],     //模糊查询--上架时间
-            rjdkNo:'',                //模糊查询--入库单号
-            shzt:'',                 //模糊查询--入库状态
-            zdfs:'',                   //模糊查询--制单方式
-            czfs:'',              //模糊查询--操作方式
+            xdsj:[null,null],     //模糊查询--下单时间
+            sjsj:[null,null],     //模糊查询--上架开始时间
+            jssj:[null,null],       //模糊查询--上架结束时间
+            rjdkNo:'',             //模糊查询--入库单号
+            shzt:'',                //模糊查询--入库状态
+            zdfs:'',                //模糊查询--制单方式
+            czfs:'',                 //模糊查询--操作方式
         }
     }
     var obj=inputSelect;
@@ -971,14 +1033,7 @@
             mdtSjsj: ''         //上架时间
         }
     }//储位
-    // 高级 监视器的 使用方法
-    //    inputSelect.$watch('date', function () {
-    //        if (!this.option.dateStart)return;
-    //        /*<debug>*/
-    //        console.log(this.option);
-    //        /*</debug>*/
-    //        post(this, this.option);
-    //    }, {deep: true});
+
 
     p[0].post( inputSelect.option);
     function printfCompile(obj) {
