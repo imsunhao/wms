@@ -72,13 +72,13 @@
                                     <el-form-item label="下架开始">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_ckCksj(props.row.mfunckDoc.ckCksj ) }}
+                                            {{ auto_time_new(props.row.mfunckDoc.ckCksj,6 ) }}
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="上架结束">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_ckEndtime(props.row.mfunckDoc.ckEndtime) }}
+                                            {{ auto_time_new(props.row.mfunckDoc.ckEndtime,6) }}
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="出库单号">
