@@ -236,7 +236,7 @@
                                 <el-form-item label="创建时间">
                                     <span>
                                         <el-icon name="time"></el-icon>
-                                        {{ auto_rrCjsj(props.row.rrCjsj) }}
+                                        {{ auto_time_new(props.row.rrCjsj,6) }}
                                     </span>
                                 </el-form-item>
                                 <el-form-item label="角色备注">
@@ -297,7 +297,7 @@
                     label="创建时间"
                     align="center">
                 <template scope="scope">
-                    <span>{{ auto_rrCjsj(scope.row.rrCjsj)}}</span>
+                    <span>{{ auto_time_new(scope.row.rrCjsj)}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -850,10 +850,6 @@
                 }, 1500);
                 /*</debug>*/
             },                                                //新建 表单提交
-            auto_rrCjsj: function (value, bool) {
-        if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-        else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-    },                                //创建时间
         },
         watch: {
             rrName: function () {
