@@ -62,7 +62,7 @@
                                     <el-form-item label="创建时间">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_time_new(props.row.pdCreateTime,5) }}</span>
+                                            {{ auto_time_new(props.row.pdCreateTime,6) }}</span>
                                     </el-form-item>
                                     <el-form-item label="盘点类型">
                                         <span>{{ auto_pdType(props.row.pdType) }}</span>
@@ -70,14 +70,14 @@
                                     <el-form-item label="异动开始">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                             {{auto_time_new(props.row.pdYdBeginTime,5)}}
+                                             {{auto_time_new(props.row.pdYdBeginTime,6)}}
                                         </span>
 
                                     </el-form-item>
                                     <el-form-item label="异动结束">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                             {{auto_time_new(props.row.pdYdEndTime,5)}}
+                                             {{auto_time_new(props.row.pdYdEndTime,6)}}
                                         </span>
                                     </el-form-item>
                                 </el-col>
@@ -124,7 +124,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_pdCreateTime(scope.row.pdCreateTime,true)}}
+                        {{auto_time_new(scope.row.pdCreateTime)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -143,7 +143,7 @@
                         align="center"
                         prop="mdtCount">
                     <template scope="scope">
-                        {{auto_time_new(scope.row.pdYdBeginTime,0)}}
+                        {{auto_time_new(scope.row.pdYdBeginTime)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -151,7 +151,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_time_new(scope.row.pdYdEndTime,0)}}
+                        {{auto_time_new(scope.row.pdYdEndTime)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -635,18 +635,6 @@
             },                                          //详细查询 提交
             inventorySubmit: function () {
             },
-            auto_pdCreateTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                          //创建时间
-            auto_pdYdBeginTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                         //异动开始时间
-            auto_pdYdEndTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                           //异动结束时间
             auto_pdType: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {
