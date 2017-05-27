@@ -57,7 +57,7 @@
                                     <el-form-item label="作业时间">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_time(props.row.msxQrsj) }}
+                                            {{ auto_time_new(props.row.msxQrsj) }}
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="作业体积">
@@ -66,7 +66,7 @@
                                     <el-form-item label="下单时间">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_ckXdsj(props.row.mfunckDoc.ckXdsj) }}
+                                            {{ auto_time_new(props.row.mfunckDoc.ckXdsj) }}
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="下架开始">
@@ -162,6 +162,10 @@
                         show-overflow-tooltip
                         prop="msxQrsj"
                         align="center">
+                    <template scope="scope">
+                        {{auto_time_new(scope.row.msxQrsj)}}
+                    </template>
+
                 </el-table-column>
                 <el-table-column
                         label="作业体积"
@@ -174,6 +178,9 @@
                         show-overflow-tooltip
                         prop="mfunckDoc.ckXdsj"
                         align="center">
+                    <template scope="scope">
+                        {{auto_time_new(scope.row.mfunckDoc.ckXdsj)}}
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="出库单号"
