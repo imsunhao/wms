@@ -698,18 +698,6 @@
                 p[0].post({});
             },                                          //详细查询 提交
 
-            auto_pdCreateTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                           //创建时间
-            auto_pdYdBeginTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                          //异动开始时间
-            auto_pdYdEndTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                            //异动结束时间
             auto_pdType: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {
