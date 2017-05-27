@@ -61,13 +61,13 @@
                                     <el-row>
                                         <el-col :span="10">
                                             <el-form-item label="创建时间">
-                                                <span>{{ auto_djCreateTime(props.row.djCreateTime) }}</span>
+                                                <span>{{ auto_time_new(props.row.djCreateTime,6) }}</span>
                                             </el-form-item>
                                             <el-form-item label="解冻日期">
-                                                <span>{{ auto_time_new(props.row.djJdTime) }}</span>
+                                                <span>{{ auto_time_new(props.row.djJdTime,6) }}</span>
                                             </el-form-item>
                                             <el-form-item label="冻结日期">
-                                                <span>{{auto_time_new(props.row.djDjTime)}}</span>
+                                                <span>{{auto_time_new(props.row.djDjTime,6)}}</span>
                                             </el-form-item>
 
                                         </el-col>
