@@ -19,7 +19,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '用户管理-新增-配置角色-启用';
-                        req = autoUrl(req, '/user', "POST", function (json) {
+                        req = autoUrl(req, '/user/userSet', "POST", function (json) {
                             res.send(json);
                         });
                         break;

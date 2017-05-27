@@ -184,8 +184,6 @@
                     v-model="ruLoginName"
                     icon="search"
                     placeholder="账户"></el-input>
-
-
             <button @click="newInput" class="btn btn-add"><i
                     class="icon add"></i><span>新增</span>
             </button>
@@ -323,7 +321,7 @@
                     show-overflow-tooltip
                     align="center">
                 <template scope="scope">
-                    <img :src="scope.row.ruPortrait"
+                    <img :src="auto_portrait(scope.row.ruPortrait)"
                          style="width: 24px;height: 24px;border-radius: 50%;float:left;"><span>{{ scope.row.ruUserName}}</span>
                 </template>
             </el-table-column>
@@ -353,7 +351,7 @@
                     label="登陆pda"
                     align="center">
                 <template scope="scope">
-                    <span>{{ scope.row.ruIspda?'否':'是'}}</span>
+                    <span>{{ scope.row.ruIspda?'是':'否'}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -825,8 +823,10 @@
 
 
                 /*<prod>*/
+                this.form.ruBirthday = (new Date(this.form.ruBirthday)).toJSON();
                 if (this.form.title === '新建用户') {
-                    postSubmit(this, this.form);
+                    this.form.roleIds.push(this.form.roleId);
+                    p[1].post(this.form);
                 } else {
                     p[4].post(this.form);
                 }
@@ -903,6 +903,11 @@
             ruIspda: false,
             ruRemarks: '',
 
+            ruLastModifiedTime: (new Date()).toJSON(),
+            "ruPortrait": "03.jpg",
+            "roleIds": [],
+
+
             roleId: 1,
 
             ruStatus: 1,
@@ -919,7 +924,21 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-    // 0 用户 启用
+    // 1 用户 新增-启用-配置角色
+    p[1] = autoPost({
+        urlHock: "/hock/form/inputOptoionDelete.json",
+        urlProd: "/route/userManagement/1",
+        success: function (json) {
+            this.callbackAfter({status: json.status, model: '用户新增'}, function () {
+                obj.submitLoading = false;
+                obj.dialogFormVisible = false;
+                obj.dialogFormActive = 0;
+                obj.$refs.carousel.setActiveItem(0);
+                p[0].post(obj.option);
+            })
+        }
+    });
+    // 2 用户 启用
     p[2] = autoPost({
         urlHock: "/hock/form/inputOptoionDelete.json",
         urlProd: "/route/userManagement/2",
@@ -950,8 +969,13 @@
         urlHock: "../../hock/roleControl/page.json",
         urlProd: "/route/userManagement/4",
         success: function (json) {
-            obj.$data.userManagement = json.data;
-            obj.$data.currentTotal = json.recordsFiltered;
+            this.callbackAfter({status: json.status, model: '用户修改'}, function () {
+                obj.submitLoading = false;
+                obj.dialogFormVisible = false;
+                obj.dialogFormActive = 0;
+                obj.$refs.carousel.setActiveItem(0);
+                p[0].post(obj.option);
+            })
         }
     });
     // 5 用户 密码
@@ -1059,15 +1083,16 @@
             userManagement.$data.role = json.data;
         }
     });
+
     // 高级 监视器的 使用方法
-//    userManagement.$watch('form.ruUserName', function () {
-//        if (this.form.title !== '新建用户') return;
-//        p[7].post({userName: this.form.ruUserName.trim()});
-//    }, {deep: true});
-//    userManagement.$watch('form.ruLoginName', function () {
-//        if (this.form.title !== '新建用户') return;
-//        p[8].post({loginName: this.form.ruLoginName.trim()});
-//    }, {deep: true});
+    //    userManagement.$watch('form.ruUserName', function () {
+    //        if (this.form.title !== '新建用户') return;
+    //        p[7].post({userName: this.form.ruUserName.trim()});
+    //    }, {deep: true});
+    //    userManagement.$watch('form.ruLoginName', function () {
+    //        if (this.form.title !== '新建用户') return;
+    //        p[8].post({loginName: this.form.ruLoginName.trim()});
+    //    }, {deep: true});
 
     p[0].post(userManagement.option);
     p[12].post({

@@ -93,7 +93,7 @@
             </el-menu>
             <el-menu class="user" mode="horizontal" style="float: right">
                 <el-submenu index="1">
-                    <template slot="title"><img :src="rmsUser.ruPortrait" alt="">{{rmsUser.ruUserName}}</template>
+                    <template slot="title"><img :src="auto_portrait(rmsUser.ruPortrait)" alt="">{{rmsUser.ruUserName}}</template>
                     <el-menu-item index="2-1" @click="dialogUserVisible=!dialogUserVisible">修改信息</el-menu-item>
                     <el-menu-item index="2-2" @click="signOut">注销登录</el-menu-item>
                 </el-submenu>
@@ -134,7 +134,7 @@
                             :show-file-list="false"
                             :on-success="handleAvatarScucess"
                             :before-upload="beforeAvatarUpload">
-                        <img v-if="rmsUser.ruPortrait" :src="rmsUser.ruPortrait" class="avatar">
+                        <img v-if="rmsUser.ruPortrait" :src="auto_portrait(rmsUser.ruPortrait)" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
                 </el-col>
