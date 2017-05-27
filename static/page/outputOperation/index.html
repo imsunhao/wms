@@ -229,10 +229,14 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        label="客户编号"
+                        label="状态"
                         align="center"
-                        show-overflow-tooltip
-                        prop="ckCkdjClientno">
+                        width="100">
+                    <template scope="scope">
+                        <el-tag
+                                close-transition>{{auto_ckStatus(scope.row.ckStatus)}}
+                        </el-tag>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         v-if="multiSelect"
