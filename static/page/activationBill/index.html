@@ -43,90 +43,190 @@
                     :max-height="570"
                     ref="table"
                     class="activationBillTable"
+                    @expand="expandChange"
                     @selection-change="multiSelectionChange"
                     style="width: 100%">
                 <el-table-column
                         type="expand">
                     <template scope="props">
-                        <el-row>
-                            <h3 style="margin-top: 0; margin-left: -15px;">激活单据详细</h3>
-                        </el-row>
-                        <el-form label-position="left" inline class="demo-table-expand">
-                            <el-row>
-                                <el-col :span="10">
-                                    <el-form-item label="物流商">
-                                        <span>{{ props.row.ckrwWls }}</span>
-                                    </el-form-item>
+                        <el-carousel
+                                arrow="hover"
+                                height="280px"
+                                indicator-position="none"
+                                :autoplay="false">
+                            <el-carousel-item>
+                                <el-row>
+                                    <h3 style="margin-top: 0; margin-left: -15px;">激活单据详细</h3>
+                                </el-row>
+                                <el-form label-position="left" inline class="demo-table-expand">
+                                    <el-row>
+                                        <el-col :span="10">
+                                            <el-form-item label="物流商">
+                                                <span>{{ props.row.ckrwWls }}</span>
+                                            </el-form-item>
 
-                                    <el-form-item label="任务号">
-                                        <span>{{ props.row.ckrwNo }}</span>
-                                    </el-form-item>
+                                            <el-form-item label="任务号">
+                                                <span>{{ props.row.ckrwNo }}</span>
+                                            </el-form-item>
 
-                                    <el-form-item label="车牌号">
-                                        <span>{{ props.row.ckrwCph }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="订单数">
-                                        <span>{{props.row.orderNum}}</span>
-                                    </el-form-item>
-                                    <el-form-item label="品项数">
-                                        <span>{{props.row.goodsTypeNum}}</span>
-                                    </el-form-item>
-                                    <el-form-item label="任务状态">
-                                        <span>{{ auto_ckrwStatus(props.row.ckrwStatus) }}</span>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :span="10" :offset="2">
-                                    <el-form-item label="预计到车">
+                                            <el-form-item label="车牌号">
+                                                <span>{{ props.row.ckrwCph }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="订单数">
+                                                <span>{{props.row.orderNum}}</span>
+                                            </el-form-item>
+                                            <el-form-item label="品项数">
+                                                <span>{{props.row.goodsTypeNum}}</span>
+                                            </el-form-item>
+                                            <el-form-item label="任务状态">
+                                                <span>{{ auto_ckrwStatus(props.row.ckrwStatus) }}</span>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :span="10" :offset="2">
+                                            <el-form-item label="预计到车">
                                         <span>
                                              <el-icon name="time"></el-icon>
                                             {{ auto_ckrwYjdcsj(props.row.ckrwYjdcsj) }}
                                         </span>
-                                    </el-form-item>
-                                    <el-form-item label="实际到车">
+                                            </el-form-item>
+                                            <el-form-item
+                                                    v-show="props.row.ckrwSjdcsj!=null"
+                                                    label="实际到车">
                                         <span>
                                              <el-icon name="time"></el-icon>
                                             {{ auto_ckrwSjdcsj(props.row.ckrwSjdcsj) }}
                                         </span>
-                                    </el-form-item>
+                                            </el-form-item>
 
-                                    <el-form-item label="欠货状态">
-                                        <span>{{ auto_ckrwQhStatus(props.row.ckrwQhStatus) }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="滞留状态">
-                                        <span>{{ auto_ckrwZlStatus(props.row.ckrwZlStatus) }}</span>
-                                    </el-form-item>
-                                    <el-form-item
-                                            label="可用操作">
-                                        <el-button
-                                                size="small"
-                                                type="success"
-                                                v-show="props.row.ckrwStatus==21"
-                                                @click="inlineActivateTask(props.$index, props.row)">激活任务
-                                        </el-button>
-                                        <!--<el-button-->
-                                        <!--size="small"-->
-                                        <!--type="success"-->
-                                        <!--@click="inlineSupplementaryDistribution(props.$index, props.row)">追加分拣-->
-                                        <!--</el-button>-->
-                                        <!--<el-button-->
-                                        <!--size="small"-->
-                                        <!--@click="inlineModifySorting(props.$index, props.row)">修改分拣方式-->
-                                        <!--</el-button>-->
-                                        <!--<el-button-->
-                                        <!--size="small"-->
-                                        <!--type="success"-->
-                                        <!--@click="inlinePendingConfirmation(props.$index, props.row)">挂起确认-->
-                                        <!--</el-button>-->
-                                        <!--<el-button-->
-                                        <!--size="small"-->
-                                        <!--type="success"-->
-                                        <!--@click="inlineActivateDocument(props.$index, props.row)">激活单据-->
+                                            <el-form-item label="欠货状态">
+                                                <span>{{ auto_ckrwQhStatus(props.row.ckrwQhStatus) }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="滞留状态">
+                                                <span>{{ auto_ckrwZlStatus(props.row.ckrwZlStatus) }}</span>
+                                            </el-form-item>
+                                            <el-form-item
+                                                    label="可用操作">
+                                                <el-button
+                                                        size="small"
+                                                        type="success"
+                                                        v-show="props.row.ckrwStatus==21"
+                                                        @click="inlineActivateTask(props.$index, props.row)">激活任务
+                                                </el-button>
+                                                <!--<el-button-->
+                                                <!--size="small"-->
+                                                <!--type="success"-->
+                                                <!--@click="inlineSupplementaryDistribution(props.$index, props.row)">追加分拣-->
+                                                <!--</el-button>-->
+                                                <!--<el-button-->
+                                                <!--size="small"-->
+                                                <!--@click="inlineModifySorting(props.$index, props.row)">修改分拣方式-->
+                                                <!--</el-button>-->
+                                                <!--<el-button-->
+                                                <!--size="small"-->
+                                                <!--type="success"-->
+                                                <!--@click="inlinePendingConfirmation(props.$index, props.row)">挂起确认-->
+                                                <!--</el-button>-->
+                                                <!--<el-button-->
+                                                <!--size="small"-->
+                                                <!--type="success"-->
+                                                <!--@click="inlineActivateDocument(props.$index, props.row)">激活单据-->
 
-                                        <!--</el-button>-->
-                                    </el-form-item>
-                                </el-col>
-                            </el-row>
-                        </el-form>
+                                                <!--</el-button>-->
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                </el-form>
+                            </el-carousel-item>
+                            <el-carousel-item>
+                                <el-row>
+                                    <h3>出库任务单据<span
+                                            style="font-size: 14px;
+                                            font-weight: normal;
+                                            margin-left: 5px;">（双击查看单据明细）</span>
+                                    </h3>
+                                </el-row>
+                                <el-table
+                                        :data="props.row.mfunckDoc"
+                                        @row-dblclick="dblClick"
+                                        :max-height="240">
+                                    <el-table-column
+                                            type="index"
+                                            width="55">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="出库单号"
+                                            width="170"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="ckCkdjNo">
+                                    </el-table-column>
+                                    <el-table-column
+                                            width="100"
+                                            align="center"
+                                            label="下单时间">
+                                        <template scope="scope">
+                                            <span>{{ auto_time(scope.row.ckXdsj,true) }}</span>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="客户名"
+                                            align="center"
+                                            show-overflow-tooltip>
+                                        <template scope="scope">
+                                            {{scope.row.ckCkdjClientname}}
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="联系人"
+                                            align="center"
+                                            show-overflow-tooltip
+                                            prop="ckContacts">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="电话"
+                                            align="center"
+                                            show-overflow-tooltip
+                                            prop="ckTel">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="地址"
+                                            align="center"
+                                            show-overflow-tooltip
+                                            prop="ckAdress">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="预发时间"
+                                            align="center"
+                                            width="100"
+                                            show-overflow-tooltip>
+                                        <template scope="scope">
+                                            {{auto_time(scope.row.ckYfhsj,true)}}
+                                        </template>
+                                    </el-table-column>
+                                    <!--<el-table-column-->
+                                    <!--width="80"-->
+                                    <!--v-if="props.row.ckrwStatus>10&&props.row.ckrwStatus<42"-->
+                                    <!--label="挂起">-->
+                                    <!--<template scope="scope">-->
+                                    <!--<el-button-->
+                                    <!--size="small"-->
+                                    <!--type="success"-->
+                                    <!--icon="circle-check"-->
+                                    <!--v-if="scope.row.ckGqStatus==1"-->
+                                    <!--@click="inlineHangBill(scope.$index, scope.row)">-->
+                                    <!--</el-button>-->
+                                    <!--<el-button-->
+                                    <!--size="small"-->
+                                    <!--type="danger"-->
+                                    <!--icon="circle-close"-->
+                                    <!--v-if="scope.row.ckGqStatus==2"-->
+                                    <!--@click="inlineCancelHang(scope.$index, scope.row)">-->
+                                    <!--</el-button>-->
+                                    <!--</template>-->
+                                    <!--</el-table-column>-->
+                                </el-table>
+                            </el-carousel-item>
+                        </el-carousel>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -366,47 +466,54 @@
     </el-dialog>
     <el-dialog
             size="large"
-            title="修改分拣方式"
-            v-model="dialogSortingMethodVisible">
+            custom-class="mxClass"
+            v-model="dialogListsVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">出库明细 单号：{{lists.ckCkdjNo}}</span>
+        </div>
         <el-table
-                :data="sortingMethod"
+                :data="lists.data"
                 highlight-current-row
                 style="width: 100%">
+            <el-table-column
+                    type="index"
+                    width="55">
+            </el-table-column>
             <el-table-column
                     label="货品编号"
                     show-overflow-tooltip
                     align="center"
-                    prop="ckhpbh">
+                    prop="baseGoods.bgGoodsNo">
             </el-table-column>
             <el-table-column
                     label="货品名称"
                     show-overflow-tooltip
                     align="center"
-                    prop="ckhpmc">
-            </el-table-column>
-            <el-table-column
-                    label="货品单位"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="ckhpszdw">
+                    prop="baseGoods.bgGoodsName">
             </el-table-column>
             <el-table-column
                     label="货品数量"
                     show-overflow-tooltip
                     align="center"
-                    prop="ckTel">
+                    prop="cksGoodsCount">
+            </el-table-column>
+            <el-table-column
+                    label="分拣方式"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="cksCkfs">
             </el-table-column>
             <el-table-column
                     label="批次"
                     show-overflow-tooltip
                     align="center"
-                    prop="ckhppc">
+                    prop="cksZdpc">
             </el-table-column>
             <el-table-column
                     label="库位"
                     show-overflow-tooltip
                     align="center"
-                    prop="ckXdsj">
+                    prop="baseLocation.blLname">
             </el-table-column>
             <el-table-column
                     label="操作"
@@ -415,13 +522,52 @@
                 <template scope="scope">
                     <el-button
                             size="small"
-                            type="danger"
-                            icon="assignment"
-                            @click="deleteInlineOperation(scope.$index, scope.row)">更换
+                            type="info"
+                            icon="edit"
+                            @click="inlineModifySorting(scope.$index, scope.row)">
                     </el-button>
                 </template>
             </el-table-column>
         </el-table>
+
+
+        <el-dialog
+                :modal="false"
+                size="small"
+                v-model="lists.dialogLocationVisible">
+            <div class="dialog-title clearfix" slot="title">
+                <span class="el-dialog__title">修改分拣方式</span>
+            </div>
+            <el-form>
+                <el-form-item label="分拣方式" :label-width="formLabelWidth">
+                    <el-select v-model="lists.sort.cksCkfs" placeholder="请选择">
+                        <el-option value="X" label="先进先出"></el-option>
+                        <el-option value="K" label="指定储位"></el-option>
+                        <el-option value="P" label="指定批次"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="库位" :label-width="formLabelWidth" v-show="lists.sort.cksCkfs=='K'">
+                    <el-autocomplete
+                            :fetch-suggestions="queryLocationAsync"
+                            v-model="lists.sort.baseLocation.blLname"
+                            @select="locationSelect"
+                            auto-complete="off"></el-autocomplete>
+                </el-form-item>
+                <el-form-item label="批次" :label-width="formLabelWidth" v-show="lists.sort.cksCkfs=='P'">
+                    <el-input
+                            v-model="lists.sort.cksZdpc"
+                            auto-complete="off"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="locationSubmit" :loading="lists.locationLoading">修改</el-button>
+            </div>
+        </el-dialog>
+
+
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="dialogListsVisible=false">关闭</el-button>
+        </div>
     </el-dialog>
 </div>
 <style>
@@ -631,8 +777,14 @@
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
+
                 sortingMethod: [],                  //修改分拣方式信息  弹出层 信息集合
                 dialogSortingMethodVisible: false,  //修改分拣方式信息  弹出层 是否可见
+
+
+                dialogListsVisible: false,          //单据详细 查询
+                lists: formList(),                  //出库详细 弹出层 信息集合
+
                 select: form(),                     //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 selectLoading: false
@@ -700,7 +852,7 @@
                     });
                 });
             },                         //行内按钮-激活任务
-            inlineSupplementaryDistribution: function () {                           //TODO 行内按钮 追加分拣
+            inlineSupplementaryDistribution: function (index, row) {                           //TODO 行内按钮 追加分拣
                 var _this = this;
                 _this.$confirm('此操作将追加分拣出库单, 是否继续?', '提示', {
                     confirmButtonText: '确定',
@@ -717,10 +869,17 @@
                         message: '已取消下发'
                     });
                 });
-            },                      //TODO 行内按钮-追加分拣
-            inlineModifySorting: function () {
-                this.dialogSortingMethodVisible = true;
-            },                                  //TODO 行内按钮-修改分拣方式
+            },            //TODO 行内按钮-追加分拣
+            inlineModifySorting: function (index, row) {
+                var step = formListSort();
+                allPrposCb(step, function (obj2, index) {
+                    if (typeof row[index] !== 'undefined') step[index] = row[index];
+                });
+                step.index = index;
+
+                this.lists.sort = step;
+                this.lists.dialogLocationVisible = true;
+            },                        //行内按钮-修改分拣方式
             inlinePendingConfirmation: function (index, row) {
                 var _this = this;
                 _this.$confirm('此操作将出库单挂起确认, 是否继续?', '提示', {
@@ -808,6 +967,94 @@
                 this.currentPage = val;
                 p[0].post(this.option);
             },                               //分页 当前页
+
+
+            queryLocationAsync: function (queryString, cb) {
+                p[103].post({
+                    "pageNum": 1,
+                    "pageSize": 10,
+                    "draw": 0,
+                    blLName: queryString
+                }, function (json) {
+                    json = json.data;
+                    var step = [];
+                    var length = json.length > 20 ? 20 : json.length;
+                    for (var i = 0; i < length; i++) {
+                        step.push({data: json[i], value: json[i].blLname})
+                    }
+                    cb(step);
+                });
+            },
+            locationSelect: function (item) {
+                this.lists.sort.cksLocationId = item.data.blLocationId;
+                this.lists.sort.baseLocation = item.data;
+            },
+            locationSubmit: function () {
+                obj.lists.locationLoading = true;
+                p[102].post({
+                    cksCkmxId: obj.lists.sort.cksCkmxId,
+                    cksCkfs: obj.lists.sort.cksCkfs,
+                    cksLocationId: obj.lists.sort.cksLocationId,
+                    cksZdpc: obj.lists.sort.cksZdpc
+                }, function (json) {
+                    obj.lists.locationLoading = false;
+                    this.callbackAfter({status: json.status, model: '修改分拣方式'}, function () {
+                        switch (obj.lists.sort.cksCkfs) {
+                            case 'X':
+                                obj.lists.data[obj.lists.sort.index].cksCkfs = '先进先出';
+                                obj.lists.data[obj.lists.sort.index].baseLocation = {
+                                    blLocationId: 1,
+                                    blLname: ''
+                                };
+                                obj.lists.data[obj.lists.sort.index].cksZdpc = '';
+                                break;
+                            case 'K':
+                                obj.lists.data[obj.lists.sort.index].cksCkfs = '指定储位';
+                                obj.lists.data[obj.lists.sort.index].baseLocation = obj.lists.sort.baseLocation;
+                                obj.lists.data[obj.lists.sort.index].cksZdpc = '';
+                                break;
+                            case 'P':
+                                obj.lists.data[obj.lists.sort.index].cksCkfs = '指定批次';
+                                obj.lists.data[obj.lists.sort.index].baseLocation = {
+                                    blLocationId: 1,
+                                    blLname: ''
+                                };
+                                obj.lists.data[obj.lists.sort.index].cksZdpc = obj.lists.sort.cksZdpc;
+                                break;
+                        }
+                        obj.lists.dialogLocationVisible = false;
+                    })
+                })
+            },
+            expandChange: function (row, expanded) {
+                if (expanded && (typeof (row.mfunckDoc) === 'undefined' || row.mfunckDoc === null || row.mfunckDoc.length === 0)) {
+                    p[104].post({id: row.ckrwId}, function (json) {
+                        /*<debug>*/
+                        console.log(json);
+                        /*</debug>*/
+                        row.mfunckDoc = json.model.mfunckDoc;
+                    });
+                }
+                /*<debug>*/
+                console.log(row);
+                console.log(expanded);
+                /*</debug>*/
+            },                             //下拉 选择
+            dblClick: function (row, event) {
+                if (row.mfunckDocs === null || typeof row.mfunckDocs === 'undefined' || row.mfunckDocs.length < 1) {
+                    p[101].post({id: row.ckCkdjId}, function (json) {
+                        row.mfunckDocs = json.model;
+                        obj.lists.data = row.mfunckDocs;
+                        obj.lists.ckCkdjNo = row.ckCkdjNo;
+                        obj.dialogListsVisible = true;
+                    })
+                } else {
+                    obj.lists.data = row.mfunckDocs;
+                    obj.lists.ckCkdjNo = row.ckCkdjNo;
+                    obj.dialogListsVisible = true;
+                }
+            },
+
             newInput: function () {
                 this.dialogFormVisible = true;
 
@@ -955,6 +1202,36 @@
         /*</debug>*/
         p[0].post(this.option);
     }, {deep: true});
+
+    function formList() {
+        return {
+            data: [],
+
+            ckCkdjNo: '',
+            dialogLocationVisible: false,
+            locationLoading: false,
+
+            sort: formListSort()
+        }
+    }
+    function formListSort() {
+        return {
+            "cksCkmxId": 1,
+            "cksCkfs": "X",  // X K P
+
+            cksLocationId: 1,
+
+            baseLocation: {
+                blLocationId: 1,
+                blLname: ''
+            },
+
+            cksZdpc: auto_time_new(new Date(), 3),
+
+            index: 0
+        }
+    }
+
     function form() {
         return {
             ckrwId: '',
@@ -982,6 +1259,9 @@
         urlHock: "../../hock/activationBill/page.json",
         urlProd: "/route/activationBill/0",
         success: function (json) {
+            for (var i = 0; i < json.data.length; i++) {
+                json.data[i].mfunckDoc = [];
+            }
             obj.$data.activationBill = json.data;
             obj.$data.currentTotal = json.recordsFiltered;
         }
@@ -991,19 +1271,26 @@
         urlHock: "../../hock/activationBill/page.json",
         urlProd: "/route/activationBill/1"
     });
-
-    function formSortingMethod() {
-        return {
-            ckrwId: '',
-            ckhpbh: '',            //货品编号
-            ckhpjc: '',            //货品简称
-            ckhpszdw: '',         //货品单位(最小单位--散支单位)
-            //:'',                //货品数量
-            ckhppc: '',              //批次
-            //:'',                //库位
-        }
-    }
-    //TODO 修改分拣方式
+    // 101 查询-出库单号-出库明细
+    p[101] = autoPost({
+        urlHock: "/hock/warehousingTask/mfunckDoc.json",
+        urlProd: "/route/outboundTask/2"
+    });
+    // 102 出库任务-修改分拣方式
+    p[102] = autoPost({
+        urlHock: "/hock/warehousingTask/mfunckDoc.json",
+        urlProd: "/route/outboundTask/9"
+    });
+    // 103 查询-储位
+    p[103] = autoPost({
+        urlHock: "/hock/inputOption/location.json",
+        urlProd: "/route/inputOperation/5"
+    });
+    // 104 查询-入库任务详情
+    p[104] = autoPost({
+        urlHock: "/hock/warehousingTask/rwmfunckDoc.json",
+        urlProd: "/route/outboundTask/1"
+    });
 
     p[0].post(activationBill.option);
 </script>
