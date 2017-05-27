@@ -21,8 +21,8 @@
                     <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="21" label="部分分拣"></el-option>
                     <el-option :value="31" label="全部分拣"></el-option>
-                    <el-option :value="23" label="部分出库"></el-option>
-                    <el-option :value="32" label="全部出库"></el-option>
+                    <el-option :value="22" label="部分下架"></el-option>
+                    <el-option :value="32" label="全部下架"></el-option>
                 </el-select>
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
@@ -52,102 +52,90 @@
                             <el-row>
                                 <el-col :span="10">
                                     <el-form-item label="作业人员">
-                                        <span>{{ props.row.mfunckDocs[0].mfunckSortingMx[0].rmsUser.ruUserName }}</span>
+                                        <span>{{ props.row.userName }}</span>
                                     </el-form-item>
                                     <el-form-item label="作业时间">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_time(props.row.mfunckDocs[0].mfunckSortingMx[0].msxQrsj) }}
+                                            {{ auto_time_new(props.row.msxQrsj) }}
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="作业体积">
-                                        <span>{{ props.row.mfunckDocs[0].mfunckSortingMx[0].goodsTj }}</span>
+                                        <span>{{ props.row.goodsTj    }}</span>
                                     </el-form-item>
                                     <el-form-item label="下单时间">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_ckXdsj(props.row.ckXdsj) }}
+                                            {{ auto_time_new(props.row.mfunckDoc.ckXdsj) }}
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="下架开始">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_ckCksj(props.row.ckCksj) }}
+                                            {{ auto_time_new(props.row.mfunckDoc.ckCksj,6 ) }}
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="上架结束">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_ckEndtime(props.row.ckEndtime) }}
+                                            {{ auto_time_new(props.row.mfunckDoc.ckEndtime,6) }}
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="出库单号">
-                                        <span>{{ props.row.ckCkdjNo}}</span>
+                                        <span>{{ props.row.mfunckDoc.ckCkdjNo}}</span>
                                     </el-form-item>
                                     <el-form-item label="出库状态">
-                                        <span>{{ auto_ckStatus(props.row.ckStatus)}}</span>
+                                        <span>{{ auto_ckStatus(props.row.mfunckDoc.ckStatus)}}</span>
                                     </el-form-item>
                                     <el-form-item label="欠货状态">
-                                        <span>{{ auto_cksQhStatus(props.row.mfunckDocs[0].cksQhStatus) }}</span>
+                                        <span>{{ auto_cksQhStatus(props.row.mfunckDoc.ckQhStatus ) }}</span>
                                     </el-form-item>
                                     <el-form-item label="滞留状态">
-                                        <span>{{ auto_cksZlStatus(props.row.mfunckDocs[0].cksQhStatus) }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="下架开始">
-                                        <span>
-                                            <el-icon name="time"></el-icon>
-                                            {{ auto_ckCksj(props.row.ckCksj) }}
-                                        </span>
-                                    </el-form-item>
-                                    <el-form-item label="下架结束">
-                                        <span>
-                                            <el-icon name="time"></el-icon>
-                                            {{ auto_ckEndtime(props.row.ckEndtime) }}
-                                        </span>
+                                        <span>{{ auto_cksZlStatus(props.row.mfunckDoc.ckZjStatus ) }}</span>
                                     </el-form-item>
                                     <el-form-item label="货品编号">
-                                        <span>{{ props.row.mfunckDocs[0].baseGoods.bgGoodsNo}}</span>
+                                        <span>{{ props.row.mfunRepertory.baseGoods.bgGoodsNo}}</span>
                                     </el-form-item>
                                     <el-form-item label="货品名称">
-                                        <span>{{ props.row.mfunckDocs[0].baseGoods.bgGoodsName }}</span>
+                                        <span>{{ props.row.mfunRepertory.baseGoods.bgGoodsName }}</span>
                                     </el-form-item>
 
                                 </el-col>
                                 <el-col :span="10" :offset="2">
 
                                     <el-form-item label="货品批次">
-                                        <span>{{ props.row.mfunckDocs[0].mfunRepertory.mrGoodsBatch }}</span>
+                                        <span>{{ props.row.mfunRepertory.mrGoodsBatch }}</span>
                                     </el-form-item>
 
                                     <el-form-item label="下架库位">
-                                        <span>{{ props.row.mfunckDocs[0].baseLocation.blLname }}</span>
+                                        <span>{{ props.row.mfunRepertory.baseLocation.blLname }}</span>
                                     </el-form-item>
                                     <el-form-item label="应下数量">
-                                        <span>{{ props.row.mfunckDocs[0].cksGoodsCount }}</span>
+                                        <span>{{ props.row.mfunckDocs.cksGoodsCount }}</span>
                                     </el-form-item>
                                     <el-eform-item label="下架数量">
-                                        <span>{{ props.row.mfunckDocs[0].mfunckSortingMx[0].msxMxCount }}</span>
+                                        <span>{{ props.row.msxMxCount   }}</span>
                                     </el-eform-item>
                                     <el-form-item label="制作方式">
-                                        <span>{{ auto_ckIsauto(props.row.ckIsauto) }}</span>
+                                        <span>{{ auto_ckIsauto(props.row.mfunckDoc.ckIsauto) }}</span>
                                     </el-form-item>
                                     <el-form-item label="操作方式">
-                                        <span>{{ auto_ckStartwith(props.row.ckStartwith) }}</span>
+                                        <span>{{ auto_ckStartwith(props.row.mfunckDoc.ckStartwith) }}</span>
                                     </el-form-item>
                                     <el-form-item label="客户编号">
-                                        <span>{{ props.row.ckCkdjClientno }}</span>
+                                        <span>{{ props.row.mfunckDoc.ckCkdjClientno }}</span>
                                     </el-form-item>
                                     <el-form-item label="客户名称">
-                                        <span>{{ props.row.ckCkdjClientname }}</span>
+                                        <span>{{ props.row.mfunckDoc.ckCkdjClientname  }}</span>
                                     </el-form-item>
                                     <el-form-item label="客户地址">
-                                        <span>{{ props.row.ckAdress }}</span>
+                                        <span>{{ props.row.mfunckDoc.ckAdress }}</span>
                                     </el-form-item>
                                     <el-form-item label="联系人">
-                                        <span>{{ props.row.ckContacts }}</span>
+                                        <span>{{ props.row.mfunckDoc.ckContacts }}</span>
                                     </el-form-item>
                                     <el-form-item label="联系电话">
-                                        <span>{{ props.row.ckTel }}</span>
+                                        <span>{{ props.row.mfunckDoc.ckTel  }}</span>
                                     </el-form-item>
 
                                     <el-form-item
@@ -166,48 +154,46 @@
                 <el-table-column
                         label="作业人员"
                         show-overflow-tooltip
+                        prop="userName"
                         align="center">
-                    <template scope="scope">
-                        {{scope.row.mfunckDocs[0].mfunckSortingMx[0].rmsUser.ruUserName}}
-                    </template>
                 </el-table-column>
                 <el-table-column
                         label="作业时间"
                         show-overflow-tooltip
+                        prop="msxQrsj"
                         align="center">
                     <template scope="scope">
-                        {{auto_time(scope.row.mfunckDocs[0].mfunckSortingMx[0].msxQrsj,true)}}
+                        {{auto_time_new(scope.row.msxQrsj)}}
                     </template>
+
                 </el-table-column>
                 <el-table-column
                         label="作业体积"
                         show-overflow-tooltip
-                        prop="mfunckSortingMx.getGoodsTj"
+                        prop="goodsTj"
                         align="center">
-                    <template scope="scope">
-                        {{scope.row.mfunckDocs[0].mfunckSortingMx[0].goodsTj }}
-                    </template>
                 </el-table-column>
                 <el-table-column
                         label="下单时间"
                         show-overflow-tooltip
+                        prop="mfunckDoc.ckXdsj"
                         align="center">
                     <template scope="scope">
-                        {{auto_ckXdsj(scope.row.ckXdsj,true)}}
+                        {{auto_time_new(scope.row.mfunckDoc.ckXdsj)}}
                     </template>
                 </el-table-column>
                 <el-table-column
                         label="出库单号"
                         show-overflow-tooltip
                         align="center"
-                        prop="ckCkdjNo">
+                        prop="mfunckDoc.ckCkdjNo">
                 </el-table-column>
                 <el-table-column
                         label="出库状态"
                         align="center">
                     <template scope="scope">
                         <el-tag
-                                close-transition>{{ auto_ckStatus(scope.row.ckStatus)}}
+                                close-transition>{{ auto_ckStatus(scope.row.mfunckDoc.ckStatus)}}
                         </el-tag>
                     </template>
                 </el-table-column>
@@ -216,7 +202,7 @@
                         align="center">
                     <template scope="scope">
                         <el-tag
-                                close-transition>{{auto_cksQhStatus(scope.row.mfunckDocs[0].cksQhStatus)}}
+                                close-transition>{{auto_cksQhStatus(scope.row.mfunckDoc.ckQhStatus)}}
                         </el-tag>
                     </template>
                 </el-table-column>
@@ -225,7 +211,7 @@
                         align="center">
                     <template scope="scope">
                         <el-tag
-                                close-transition>{{auto_cksZlStatus(scope.row.mfunckDocs[0].cksZlStatus )}}
+                                close-transition>{{auto_cksZlStatus(scope.row.mfunckDoc.ckZjStatus )}}
                         </el-tag>
                     </template>
                 </el-table-column>

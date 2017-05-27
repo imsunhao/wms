@@ -22,7 +22,12 @@
                         v-model="pdOperator"
                         icon="search"
                         placeholder="经办人"></el-input>
-
+                <el-select v-model="pdType" placeholder="请选择">
+                    <el-option :value="-1" label="全部"></el-option>
+                    <el-option :value="0" label="异动盘点"></el-option>
+                    <el-option :value="1" label="货品盘点"></el-option>
+                    <el-option :value="2" label="全仓盘点"></el-option>
+                </el-select>
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
@@ -46,7 +51,7 @@
                         type="expand">
                     <template scope="props">
                         <el-row>
-                            <h3 style="margin-top: 0; margin-left: -15px;">盘点查询</h3>
+                            <h3 style="margin-top: 0; margin-left: -15px;">盘点查询详细</h3>
                         </el-row>
                         <el-form label-position="left" inline class="demo-table-expand">
                             <el-row>
@@ -57,7 +62,7 @@
                                     <el-form-item label="创建时间">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_pdCreateTime(props.row.pdCreateTime) }}</span>
+                                            {{ auto_time_new(props.row.pdCreateTime,6) }}</span>
                                     </el-form-item>
                                     <el-form-item label="盘点类型">
                                         <span>{{ auto_pdType(props.row.pdType) }}</span>
@@ -65,16 +70,14 @@
                                     <el-form-item label="异动开始">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            <!--{{ auto_pdYdBeginTime(props.row.pdYdBeginTime) }}-->
-                                             {{auto_time_new(props.row.pdYdBeginTime)}}
+                                             {{auto_time_new(props.row.pdYdBeginTime,6)}}
                                         </span>
 
                                     </el-form-item>
                                     <el-form-item label="异动结束">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            <!--{{ auto_pdYdEndTime(props.row.pdYdEndTime) }}-->
-                                             {{auto_time_new(props.row.pdYdEndTime)}}
+                                             {{auto_time_new(props.row.pdYdEndTime,6)}}
                                         </span>
                                     </el-form-item>
                                 </el-col>
@@ -121,7 +124,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_pdCreateTime(scope.row.pdCreateTime,true)}}
+                        {{auto_time_new(scope.row.pdCreateTime)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -140,7 +143,7 @@
                         align="center"
                         prop="mdtCount">
                     <template scope="scope">
-                        {{auto_time_new(scope.row.pdYdBeginTime,0)}}
+                        {{auto_time_new(scope.row.pdYdBeginTime)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -148,7 +151,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_time_new(scope.row.pdYdEndTime,0)}}
+                        {{auto_time_new(scope.row.pdYdEndTime)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -391,7 +394,6 @@
         cursor: pointer;
         padding: 0;
         margin: 0;
-        float: left;
         font-size: 14px;
         color: #1f2d3d;
         margin-top: 29px;
@@ -498,8 +500,9 @@
                 date: [null, null],                   //主页面 创建时间 搜索
                 rmsUser: {
                     ruUserName: ''
-                },                       //主页面 创建人 搜索
+                },      //主页面 创建人 搜索
                 pdOperator: '',                        //主页面 经办人 搜索
+                pdType:'',                              //主页面 盘点状态
                 formLabelWidth: '120px',            //表单 配置
                 form: _form(),                          //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
@@ -524,9 +527,9 @@
                     "pageSize": this.pageSize,
                     "pdOperator": this.pdOperator.trim(),
                     "ruUserName": this.rmsUser.ruUserName.trim(),
+                    "pdType":this.pdType,
                     "pdStartCreateTime": tsf_date(this.date[0]),
                     "pdEndCreateTime": tsf_date(this.date[1]),
-
                 }
             },
             form_pop:function(){
@@ -632,18 +635,6 @@
             },                                          //详细查询 提交
             inventorySubmit: function () {
             },
-            auto_pdCreateTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                          //创建时间
-            auto_pdYdBeginTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                         //异动开始时间
-            auto_pdYdEndTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                           //异动结束时间
             auto_pdType: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {
@@ -700,7 +691,14 @@
                 console.log(this.option);
                 /*</debug>*/
                 p[0].post(this.option);
-            }
+            },
+            pdType: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+
         },
     });
     // 高级 监视器的 使用方法
