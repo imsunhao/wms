@@ -81,14 +81,14 @@
                                             <el-form-item label="预计到车">
                                         <span>
                                              <el-icon name="time"></el-icon>
-                                            {{ auto_ckrwYjdcsj(props.row.ckrwYjdcsj) }}
+                                            {{ auto_time_new(props.row.ckrwYjdcsj,5) }}
                                         </span>
                                             </el-form-item>
                                             <el-form-item label="实际到车"
                                                           v-show="props.row.ckrwSjdcsj!=null">
                                         <span>
                                              <el-icon name="time"></el-icon>
-                                            {{ auto_ckrwSjdcsj(props.row.ckrwSjdcsj) }}
+                                            {{ auto_time_new(props.row.ckrwSjdcsj,5) }}
                                         </span>
                                             </el-form-item>
 
@@ -247,7 +247,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_time_new(scope.row.ckrwYjdcsj)}}
+                        {{auto_time_new(scope.row.ckrwYjdcsj,4)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -255,7 +255,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_time_new(scope.row.ckrwSjdcsj)}}
+                        {{auto_time_new(scope.row.ckrwSjdcsj,4)}}
                     </template>
                 </el-table-column>
                 <el-table-column
