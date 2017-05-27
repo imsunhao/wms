@@ -56,7 +56,7 @@
                                 :autoplay="false">
                             <el-carousel-item>
                                 <el-row>
-                                    <h3 style="margin-top: 0; margin-left: -15px;">激活单据详细</h3>
+                                    <h3>激活单据详细</h3>
                                 </el-row>
                                 <el-form label-position="left" inline class="demo-table-expand">
                                     <el-row>
@@ -206,20 +206,6 @@
                                                     v-if="scope.row.ckGqStatus==2"
                                                     @click="inlinePendingConfirmation(scope.$index, scope.row)">挂起确认
                                             </el-button>
-                                            <!--<el-button-->
-                                            <!--size="small"-->
-                                            <!--type="success"-->
-                                            <!--icon="circle-check"-->
-                                            <!--v-if="scope.row.ckGqStatus==1"-->
-                                            <!--@click="inlineHangBill(scope.$index, scope.row)">-->
-                                            <!--</el-button>-->
-                                            <!--<el-button-->
-                                            <!--size="small"-->
-                                            <!--type="danger"-->
-                                            <!--icon="circle-close"-->
-                                            <!--v-if="scope.row.ckGqStatus==2"-->
-                                            <!--@click="inlineCancelHang(scope.$index, scope.row)">-->
-                                            <!--</el-button>-->
                                         </template>
                                     </el-table-column>
                                 </el-table>
