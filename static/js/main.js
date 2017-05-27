@@ -10,7 +10,8 @@ var hock = "../../hock";
 function _printDatas() {
     return {
         p0: [],
-        p1: _printDatas_p1()
+        p1: _printDatas_p1(),
+        p2: _printDatas_p2(),
     }
 }
 
@@ -50,6 +51,12 @@ function _printDatas_p1_info() {
     }
 }
 
+function _printDatas_p2() {
+    return {
+        data: [],
+        ckCkdjNo: []
+    }
+}
 $(function () {
     Vue.component('sh-print', {
         render: function (h) {
@@ -323,7 +330,7 @@ $(function () {
                 if (typeof (obj.printDatas) === 'undefined') return;
                 this.printDatas = _printDatas();
                 this.printDatas.p2 = obj.printDatas;
-                this.dialogTableVisible1 = true;
+                this.dialogTableVisible2 = true;
                 var _this = this;
                 setTimeout(function () {
                     window.print();

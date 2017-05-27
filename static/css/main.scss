@@ -73,7 +73,7 @@ html, body {
       background-color: #424F63;
       font-size: 14px;
       color: #FAFAFA;
-      &:hover{
+      &:hover {
         background: #354051 !important;
       }
     }
@@ -375,7 +375,7 @@ html, body {
     position: static;
   }
 
-  .p0{
+  .p0 {
     .divImsunhao {
       width: 88.2mm;
       height: 57.6mm;
@@ -394,20 +394,29 @@ html, body {
       }
     }
   }
-  .p1{
-    .el-dialog__body{
+  .p1 {
+    .el-dialog__body {
       width: 1640px;
     }
-    .p1_inner{
+    .p1_inner {
       margin: 0 20px;
     }
-    .p1_2{
+    .p1_2 {
       float: left;
       width: 400px;
     }
   }
-  .p2{
-
+  .p2 {
+    .el-dialog__body {
+      width: 1040px;
+    }
+    .p2_inner {
+      margin: 0 20px;
+    }
+    .p2_2 {
+      float: left;
+      width: 500px;
+    }
   }
 }
 
@@ -429,9 +438,9 @@ html, body {
 /*** bigger ******************************************/
 
 /* 用户头像 */
-.avatar-uploader{
-  .el-upload{
+.avatar-uploader {
+  .el-upload {
     border-radius: 50% !important;
-    border:none !important;
+    border: none !important;
   }
 }
