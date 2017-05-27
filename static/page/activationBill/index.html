@@ -117,21 +117,6 @@
                                                 <!--type="success"-->
                                                 <!--@click="inlineSupplementaryDistribution(props.$index, props.row)">追加分拣-->
                                                 <!--</el-button>-->
-                                                <!--<el-button-->
-                                                <!--size="small"-->
-                                                <!--@click="inlineModifySorting(props.$index, props.row)">修改分拣方式-->
-                                                <!--</el-button>-->
-                                                <!--<el-button-->
-                                                <!--size="small"-->
-                                                <!--type="success"-->
-                                                <!--@click="inlinePendingConfirmation(props.$index, props.row)">挂起确认-->
-                                                <!--</el-button>-->
-                                                <!--<el-button-->
-                                                <!--size="small"-->
-                                                <!--type="success"-->
-                                                <!--@click="inlineActivateDocument(props.$index, props.row)">激活单据-->
-
-                                                <!--</el-button>-->
                                             </el-form-item>
                                         </el-col>
                                     </el-row>
@@ -203,27 +188,40 @@
                                             {{auto_time(scope.row.ckYfhsj,true)}}
                                         </template>
                                     </el-table-column>
-                                    <!--<el-table-column-->
-                                    <!--width="80"-->
-                                    <!--v-if="props.row.ckrwStatus>10&&props.row.ckrwStatus<42"-->
-                                    <!--label="挂起">-->
-                                    <!--<template scope="scope">-->
-                                    <!--<el-button-->
-                                    <!--size="small"-->
-                                    <!--type="success"-->
-                                    <!--icon="circle-check"-->
-                                    <!--v-if="scope.row.ckGqStatus==1"-->
-                                    <!--@click="inlineHangBill(scope.$index, scope.row)">-->
-                                    <!--</el-button>-->
-                                    <!--<el-button-->
-                                    <!--size="small"-->
-                                    <!--type="danger"-->
-                                    <!--icon="circle-close"-->
-                                    <!--v-if="scope.row.ckGqStatus==2"-->
-                                    <!--@click="inlineCancelHang(scope.$index, scope.row)">-->
-                                    <!--</el-button>-->
-                                    <!--</template>-->
-                                    <!--</el-table-column>-->
+                                    <el-table-column
+                                            width="150"
+                                            label="可用操作">
+                                        <template scope="scope">
+                                            <!--v-if="props.row.ckrwStatus>10&&props.row.ckrwStatus<42"-->
+                                            <el-button
+                                                    size="mini"
+                                                    type="success"
+                                                    v-if="scope.row.ckGqStatus==1"
+                                                    v-show="scope.row.ckCkdjType==0&&scope.row.ckStatus==1"
+                                                    @click="inlineActivateDocument(scope.$index, scope.row)">激活
+                                            </el-button>
+                                            <el-button
+                                                    size="mini"
+                                                    type="warning"
+                                                    v-if="scope.row.ckGqStatus==2"
+                                                    @click="inlinePendingConfirmation(scope.$index, scope.row)">挂起确认
+                                            </el-button>
+                                            <!--<el-button-->
+                                            <!--size="small"-->
+                                            <!--type="success"-->
+                                            <!--icon="circle-check"-->
+                                            <!--v-if="scope.row.ckGqStatus==1"-->
+                                            <!--@click="inlineHangBill(scope.$index, scope.row)">-->
+                                            <!--</el-button>-->
+                                            <!--<el-button-->
+                                            <!--size="small"-->
+                                            <!--type="danger"-->
+                                            <!--icon="circle-close"-->
+                                            <!--v-if="scope.row.ckGqStatus==2"-->
+                                            <!--@click="inlineCancelHang(scope.$index, scope.row)">-->
+                                            <!--</el-button>-->
+                                        </template>
+                                    </el-table-column>
                                 </el-table>
                             </el-carousel-item>
                         </el-carousel>
@@ -887,32 +885,44 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.activationBill);
-                    postDelete(_this, {
-                        id: [row.rkdjNo]
+
+                    p[4].post({
+                        "id": row.ckCkdjId,
+                        "useId": app.rmsUser.ruUserId,
+                        "userName": app.rmsUser.ruUserName
+                    }, function (json) {
+                        this.callbackAfter({status: json.status, model: '单挂起确认'}, function () {
+                            p[0].post(obj.option);
+                        })
                     });
                 }).catch(function () {
                     _this.$message({
                         type: 'info',
-                        message: '已取消下发'
+                        message: '已取消'
                     });
                 });
             },                  //TODO 行内按钮-挂起确认
             inlineActivateDocument: function (index, row) {
                 var _this = this;
-                _this.$confirm('此操作将激活出库单, 是否继续?', '提示', {
+                _this.$confirm('此操作将激活出库单据, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.activationBill);
-                    postDelete(_this, {
-                        id: [row.rkdjNo]
+
+                    p[5].post({
+                        "id": row.ckCkdjId,
+                        "useId": app.rmsUser.ruUserId,
+                        "userName": app.rmsUser.ruUserName
+                    }, function (json) {
+                        this.callbackAfter({status: json.status, model: '激活出库单据'}, function () {
+                            p[0].post(obj.option);
+                        })
                     });
                 }).catch(function () {
                     _this.$message({
                         type: 'info',
-                        message: '已取消下发'
+                        message: '已取消'
                     });
                 });
             },                     //TODO 行内按钮-激活单据
@@ -1266,11 +1276,32 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-    // 1 激活单据-激活任务
-    p[1] = autoPost({
+    // 2 激活单据-修改-分拣方式
+    p[2] = autoPost({
         urlHock: "../../hock/activationBill/page.json",
-        urlProd: "/route/activationBill/1"
+        urlProd: "/route/activationBill/2"
     });
+    // 3 激活单据-追加分拣
+    p[3] = autoPost({
+        urlHock: "../../hock/activationBill/page.json",
+        urlProd: "/route/activationBill/3"
+    });
+    // 4 激活单据-挂起确认
+    p[4] = autoPost({
+        urlHock: "../../hock/activationBill/page.json",
+        urlProd: "/route/activationBill/4"
+    });
+    // 5 激活单据-激活单据
+    p[5] = autoPost({
+        urlHock: "../../hock/activationBill/page.json",
+        urlProd: "/route/activationBill/5"
+    });
+    // 6 激活单据-修改-分拣明细数量
+    p[6] = autoPost({
+        urlHock: "../../hock/activationBill/page.json",
+        urlProd: "/route/activationBill/6"
+    });
+
     // 101 查询-出库单号-出库明细
     p[101] = autoPost({
         urlHock: "/hock/warehousingTask/mfunckDoc.json",
