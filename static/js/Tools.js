@@ -191,6 +191,10 @@ function auto_time_new(value, number) {
             return dateFormat(new Date(value), 'MM-dd');
         case 3:
             return dateFormat(new Date(value), 'yyyyMMdd');
+        case 4:
+            return dateFormat(new Date(value), 'yyyy/MM/dd hh:mm');
+        case 5:
+            return dateFormat(new Date(value), 'yyyy年 MM月 dd日 hh:mm');
         default:
             return dateFormat(new Date(value), 'yyyy-MM-dd');
     }
@@ -259,3 +263,6 @@ function auto_time_new(value, number) {
     //--| Export
     exports.code128 = code128;
 })();                    //一维码 打印核心
+function auto_portrait(portrait) {
+    return 'static/images/users/' + portrait;
+}
