@@ -901,13 +901,15 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-
                     p[5].post({
                         "id": row.ckCkdjId,
                         "useId": app.rmsUser.ruUserId,
                         "userName": app.rmsUser.ruUserName
                     }, function (json) {
-                        this.callbackAfter({status: json.status, model: '激活出库单据'}, function () {
+                        if (json.status !== 50016) {
+                            json.model = '激活出库单据';
+                        }
+                        this.callbackAfter(json, function () {
                             p[0].post(obj.option);
                         })
                     });
