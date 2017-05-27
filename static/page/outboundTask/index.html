@@ -81,14 +81,14 @@
                                             <el-form-item label="预计到车">
                                         <span>
                                              <el-icon name="time"></el-icon>
-                                            {{ auto_ckrwYjdcsj(props.row.ckrwYjdcsj) }}
+                                            {{ auto_time_new(props.row.ckrwYjdcsj,5) }}
                                         </span>
                                             </el-form-item>
                                             <el-form-item label="实际到车"
                                                           v-show="props.row.ckrwSjdcsj!=null">
                                         <span>
                                              <el-icon name="time"></el-icon>
-                                            {{ auto_ckrwSjdcsj(props.row.ckrwSjdcsj) }}
+                                            {{ auto_time_new(props.row.ckrwSjdcsj,5) }}
                                         </span>
                                             </el-form-item>
 
@@ -247,7 +247,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_time_new(scope.row.ckrwYjdcsj)}}
+                        {{auto_time_new(scope.row.ckrwYjdcsj,4)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -255,7 +255,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_time_new(scope.row.ckrwSjdcsj)}}
+                        {{auto_time_new(scope.row.ckrwSjdcsj,4)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -280,7 +280,6 @@
                         </el-tag>
                     </template>
                 </el-table-column>
-
                 <el-table-column
                         v-if="multiSelect"
                         type="selection"
@@ -971,7 +970,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-                currentTotal:0,
+                currentTotal: 0,
                 date: [null, null],                   //主页面 选择日期 搜索
                 ckrwNo: '',                           //主页面 入库单号 搜索
                 ckrwCph: '',                          //主页面 车牌号
@@ -1012,8 +1011,8 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "ckrwNo":this.ckrwNo.trim(),
-                    "ckrwCph":this.ckrwCph.trim(),
+                    "ckrwNo": this.ckrwNo.trim(),
+                    "ckrwCph": this.ckrwCph.trim(),
                     "ckrwStartGreatTime": tsf_date(this.date[0]),
                     "ckrwEndGreatTime": tsf_date(this.date[1]),
                 }
@@ -1032,8 +1031,8 @@
                     "rkrwStatus": this.form.rkrwStatus
                 }
             },
-            form_pop:function(){
-                return{
+            form_pop: function () {
+                return {
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
@@ -1413,7 +1412,6 @@
                 this.$refs.carousel.next();
             },                                                  //新建 弹出层banner控制 后一个
 
-
             submit: function () {
                 var _this = this;
                 this.dialogFormActive++;
@@ -1581,20 +1579,20 @@
         }
     });
     // 高级 监视器的 使用方法
-        outboundTask.$watch('date', function () {
-            /*<debug>*/
-            console.log(this.option);
-            /*</debug>*/
-            p[0].post( this.option);
-        }, {deep: true});
+    outboundTask.$watch('date', function () {
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        p[0].post(this.option);
+    }, {deep: true});
     function _form() {
         return {
             ckrwCph: '',        //车牌号
             ckrwNo: '',         //任务号
             ckrwGreatTime: '', //制作时间
-            ckrwStatus:'',     //任务状态
-            ckrwQhStatus:'',    //欠货状态
-            ckrwZlStatus:'',    //滞留状态
+            ckrwStatus: '',     //任务状态
+            ckrwQhStatus: '',    //欠货状态
+            ckrwZlStatus: '',    //滞留状态
         }
     }
     var obj = outboundTask;
@@ -1678,7 +1676,6 @@
         urlHock: "/hock/inputOption/location.json",
         urlProd: "/route/inputOperation/5"
     });
-
 
     // 101 查询-出库单据
     p[101] = autoPost({
