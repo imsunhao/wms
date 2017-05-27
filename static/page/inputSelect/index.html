@@ -85,19 +85,19 @@
                                     <el-form-item label="下单时间">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{auto_xdsj(props.row.xdsj)}}</span>
+                                            {{auto_time_new(props.row.xdsj,6)}}</span>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="上架开始">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_sjsj(props.row.sjsj) }}</span>
+                                            {{ auto_time_new(props.row.sjsj,6) }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架结束">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_jssj(props.row.jssj) }}</span>
+                                            {{ auto_time_new(props.row.jssj,6) }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架人员">
                                         <span>{{ props.row. sjryName }}</span>
@@ -180,7 +180,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_xdsj(scope.row.xdsj,true)}}
+                        {{auto_time_new(scope.row.xdsj)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -848,22 +848,6 @@
                         return resolve([]);
                 }
             },
-            auto_mdtSjsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                               //作业时间
-            auto_sjsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                              //上架开始时间
-            auto_jssj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                             //上架结束时间
-            auto_xdsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                          //下单时间
             auto_shzt:function(value){
                 var temp={}
                 if(!isNaN(value)){
