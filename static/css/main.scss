@@ -395,15 +395,16 @@ html, body {
     }
   }
   .p1{
+    .el-dialog__body{
+      width: 1640px;
+    }
     .p1_inner{
-      width: 800px;
-      margin: auto;
+      margin: 0 20px;
     }
     .p1_2{
       float: left;
       width: 400px;
     }
-
   }
   .p2{
 

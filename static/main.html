@@ -174,12 +174,24 @@
         <div class="p1_inner">
 
             <h2 style="text-align: center">整车货物运输承运协议</h2>
-            <p>托运方（以下简称甲方）： {{printDatas.p1.info['托运方']||'____________'}} 联系人：
-                {{printDatas.p1.info['托运方联系人']||'____________'}}；承运方（以下简称乙方）：{{printDatas.p1.info['承运方']||'____________'}}
-                联系人： {{printDatas.p1.info['承运方联系人']||'____________'}}；</p>
-            <p>承运人姓名：{{printDatas.p1.info['承运人']['姓名']||'____________'}} 车牌号码：{{printDatas.p1.info['车牌号码']||'____________'}}
-                证件号：{{printDatas.p1.info['承运人']['证件号']||'____________'}}
-                联系方式：{{printDatas.p1.info['承运人']['联系方式']||'____________'}}；</p>
+            <div class="clearfix">
+                <div class="p1_2">
+                    <p>托运方（以下简称甲方）： {{printDatas.p1.info['托运方']||'_______________________________'}}</p>
+                    <p>承运人姓名：{{printDatas.p1.info['承运人']['姓名']||'_______________________________'}}</p>
+                </div>
+                <div class="p1_2">
+                    <p>联系人：{{printDatas.p1.info['托运方联系人']||'_______________________________'}}；</p>
+                    <p>车牌号码：{{printDatas.p1.info['车牌号']||'_______________________________'}}</p>
+                </div>
+                <div class="p1_2">
+                    <p>承运方（以下简称乙方）：{{printDatas.p1.info['承运方']||'_______________________________'}}</p>
+                    <p>证件号：{{printDatas.p1.info['承运人']['证件号']||'_______________________________'}}</p>
+                </div>
+                <div class="p1_2">
+                    <p>联系人： {{printDatas.p1.info['承运方联系人']||'_______________________________'}}；</p>
+                    <p>联系方式：{{printDatas.p1.info['承运人']['联系方式']||'_______________________________'}}；</p>
+                </div>
+            </div>
             <p>根据《中华人民共和国合同法》及相关法律法规，甲乙双方经友好协商，就甲方委托乙方提供货物运输服务事宜达成本协议，以便双方共同遵守。</p>
             <p>一、货物信息</p>
             <el-table
@@ -188,6 +200,7 @@
                     show-summary>
                 <el-table-column
                         prop="任务单号"
+                        width="200"
                         align="center"
                         label="任务号">
                 </el-table-column>
@@ -198,27 +211,31 @@
                 </el-table-column>
                 <el-table-column
                         prop="货品名称"
-                        width="220"
+                        width="350"
                         align="center"
                         label="货品名称">
                 </el-table-column>
                 <el-table-column
                         prop="发运数量"
+                        width="80"
                         align="center"
                         label="数量">
                 </el-table-column>
                 <el-table-column
                         align="center"
                         prop="体积"
+                        width="120"
                         label="体积">
                 </el-table-column>
                 <el-table-column
                         prop="收货人"
+                        width="80"
                         align="center"
                         label="收货人">
                 </el-table-column>
                 <el-table-column
                         align="center"
+                        width="200"
                         label="联系">
                     <template scope="scope">
                         {{scope.row['联系方式']}}
@@ -226,6 +243,7 @@
                 </el-table-column>
                 <el-table-column
                         prop="地址"
+                        width="400"
                         align="center"
                         label="地址">
                 </el-table-column>
@@ -247,8 +265,10 @@
                     <p>乙方：</p>
                     <p>日期： {{auto_time_new(new Date(),1)}}</p>
                 </div>
+                <div class="p1_2">
+                    <p>经办人：</p>
+                </div>
             </div>
-            <p>经办人：</p>
         </div>
     </el-dialog>
     <el-dialog custom-class="p2" v-model="dialogTableVisible2" size="full" :show-close="false">

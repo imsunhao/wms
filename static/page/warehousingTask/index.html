@@ -22,7 +22,6 @@
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                         class="icon sel"></i><span>多选</span>
                 </button>
-
                 <button @click="multiOperationIssued" class="btn btn-Issued" v-show="multiSelect"><i
                         class="icon issued"></i><span>下发</span>
                 </button>
@@ -1043,7 +1042,7 @@
                     });
                 });
 
-            },                                  //TODO 多选 下发
+            },                                  //多选 下发
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
