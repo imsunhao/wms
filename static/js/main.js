@@ -54,7 +54,7 @@ function _printDatas_p1_info() {
 function _printDatas_p2() {
     return {
         data: [],
-        ckCkdjNo: []
+        ckCkdjNo: [{ckCkdjNo:''}]
     }
 }
 $(function () {
