@@ -941,6 +941,7 @@
     }
     var obj = startReceiving;
     var p = [];
+
     // 0 开始收货 分页查询
     p[0] = autoPost({
         urlHock: "../../hock/startReceiving/page.json",
@@ -953,19 +954,20 @@
     //3 开始打印 状态变化
     p[3] = autoPost({
         urlHock: "../../hock/form/inputOption.json",
-        urlProd: "/route/startReceiving/3"
+        urlProd: "/route/startReceiving/3",
+        method: 'GET'
     });
-
     // 101 查询-入库单号-入库明细
     p[101] = autoPost({
         urlHock: "/hock/warehousingTask/docList.json",
-        urlProd: "/route/warehousingTask/7"
+        urlProd: "/route/warehousingTask/7",
+        method: 'GET'
     });
-
     // 102 查询-入库任务详情
     p[102] = autoPost({
         urlHock: "/hock/warehousingTask/rwDocList.json",
-        urlProd: "/route/warehousingTask/6"
+        urlProd: "/route/warehousingTask/6",
+        method: 'GET'
     });
 
     // 高级 监视器的 使用方法
@@ -993,7 +995,7 @@
         /*</prod>*/
 
         $.ajax(url, {
-            type: "GET",
+            type: "POST",
             data: option || {
                 "draw": 1,                      //* 没有意义
                 "pageNum": 1,                   //* 当前页

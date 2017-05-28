@@ -1340,13 +1340,15 @@
     // 6 查询-入库任务详情
     p[6] = autoPost({
         urlHock: "/hock/warehousingTask/rwDocList.json",
-        urlProd: "/route/warehousingTask/6"
+        urlProd: "/route/warehousingTask/6",
+        method: 'GET'
     });
 
     // 7 查询-入库单号-入库明细
     p[7] = autoPost({
         urlHock: "/hock/warehousingTask/docList.json",
-        urlProd: "/route/warehousingTask/7"
+        urlProd: "/route/warehousingTask/7",
+        method: 'GET'
     });
 
     // 8 查询-入库单据

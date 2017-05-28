@@ -1455,15 +1455,14 @@
     //3 查询-入库单号-入库明细
     p[3] = autoPost({
         urlHock: "/hock/warehousingTask/docList.json",
-        urlProd: "/route/inputOperation/3"
+        urlProd: "/route/inputOperation/3",
+        method: 'GET'
     });
-
     //5 查询-储位
     p[5] = autoPost({
         urlHock: "/hock/inputOption/location.json",
         urlProd: "/route/inputOperation/5"
     });
-
     //7 上架
     p[7] = autoPost({
         urlHock: "/hock/inputOption/location.json",
