@@ -1,6 +1,25 @@
 /**
  * Created by imsunhao on 2017/5/2.
  */
+var body = {};
+(function () {
+    body.kjW = document.body.clientWidth;    //网页可见区域宽
+    body.kjH = document.body.clientHeight; //网页可见区域高
+    body.kjQyW = document.body.offsetWidth; //网页可见区域宽 (包括边线和滚动条的宽)
+    body.kjQyH = document.body.offsetHeight; //网页可见区域高 (包括边线的宽)
+    // body.kjW = document.body.scrollWidth; //网页正文全文宽
+    // body.kjW = document.body.scrollHeight; //网页正文全文高
+    // body.kjW = document.body.scrollTop; //网页被卷去的上
+    // body.kjW = document.body.scrollLeft; //网页被卷去的左
+    // body.kjW = window.screenTop; //网页正文部分上
+    // body.kjW = window.screenLeft; //网页正文部分左
+    // body.kjW = window.screen.width; //屏幕分辨率的宽
+    // body.kjW = window.screen.height; //屏幕分辨率的高
+    // body.kjW = window.screen.availWidth; //屏幕可用工作区宽度
+    // body.kjW = window.screen.availHeight; //屏幕可用工作区高度
+    // body.kjW = window.screen.colorDepth; //你的屏幕设置是    位彩色
+    // body.kjW = window.screen.deviceXDPI;  //你的屏幕设置  像素/英寸
+})()
 
 function generateNode(tree) {
     var formatTree = formatTreeData(tree);
@@ -197,7 +216,9 @@ function auto_time_new(value, number) {
         case 5:
             return dateFormat(new Date(value), 'yyyy年 MM月 dd日 hh:mm');
         case 6:
-            return dateFormat(new Date(value), 'yyyy年 MM月 dd日 hh:mm:ss');
+            if (body.kjW < 1367)
+                return dateFormat(new Date(value), 'yyyy年 MM月 dd日 hh:mm:ss');
+            else return dateFormat(new Date(value), 'yyyy年 MM月 dd日 hh:mm');
         default:
             return dateFormat(new Date(value), 'yyyy-MM-dd');
     }
