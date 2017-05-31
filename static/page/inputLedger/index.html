@@ -57,7 +57,7 @@
                                 <el-col :span="11">
                                     <el-form-item label="始发日期">
                                         <el-icon name="time"></el-icon>
-                                        <span style="margin-left: 10px">{{ auto_sfrq(props.row.sfrq) }}</span>
+                                        <span style="margin-left: 10px">{{ auto_time_new(props.row.sfrq,6) }}</span>
                                     </el-form-item>
                                     <el-form-item label="调拨地点">
                                         <span>{{ props.row.dbdd }}</span>
@@ -110,11 +110,11 @@
                                 <el-col :span="11" :offset="2">
                                     <el-form-item label="到货日期">
                                         <el-icon name="time"></el-icon>
-                                        <span style="margin-left: 10px">{{auto_dhsj(props.row.dhsj)  }}</span>
+                                        <span style="margin-left: 10px">{{auto_time_new(props.row.dhsj,6)  }}</span>
                                     </el-form-item>
                                     <el-form-item label="收货日期">
                                         <el-icon name="time"></el-icon>
-                                        <span style="margin-left: 10px">{{ auto_dhsj(props.row.dhsj) }}</span>
+                                        <span style="margin-left: 10px">{{ auto_time_new(props.row.dhsj,6) }}</span>
                                     </el-form-item>
                                     <el-form-item label="破损/台数">
                                         <span>{{ props.row.psts }}</span>
@@ -145,7 +145,7 @@
                                     </el-form-item>
                                     <el-form-item label="结算时间">
                                         <el-icon name="time"></el-icon>
-                                        <span style="margin-left: 10px">{{ auto_time_new(props.row.jssj,2) }}</span>
+                                        <span style="margin-left: 10px">{{ auto_time_new(props.row.jssj,6) }}</span>
                                     </el-form-item>
                                     <el-form-item label="可用操作">
                                         <el-button
@@ -184,7 +184,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_sfrq(scope.row.sfrq,true)}}
+                        {{auto_time_new(scope.row.sfrq,6)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -193,7 +193,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_dhsj(scope.row.dhsj,true)}}
+                        {{auto_time_new(scope.row.dhsj,6)}}
                     </template>
                 </el-table-column>
 
@@ -204,7 +204,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_dhsj(scope.row.dhsj,true)}}
+                        {{auto_time_new(scope.row.dhsj,6)}}
                     </template>
                 </el-table-column>
                 <el-table-column

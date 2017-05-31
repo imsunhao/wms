@@ -86,18 +86,15 @@
                                             <el-form-item label="预计到车">
                                         <span>
                                              <el-icon name="time"></el-icon>
-                                            {{ auto_ckrwYjdcsj(props.row.ckrwYjdcsj) }}
+                                            {{ auto_time_new(props.row.ckrwYjdcsj,6) }}
                                         </span>
                                             </el-form-item>
-                                            <el-form-item
-                                                    v-show="props.row.ckrwSjdcsj!=null"
-                                                    label="实际到车">
+                                             <el-form-item label="实际到车">
                                         <span>
                                              <el-icon name="time"></el-icon>
-                                            {{ auto_ckrwSjdcsj(props.row.ckrwSjdcsj) }}
+                                            {{ auto_time_new(props.row.ckrwSjdcsj,6) }}
                                         </span>
                                             </el-form-item>
-
                                             <el-form-item label="欠货状态">
                                                 <span>{{ auto_ckrwQhStatus(props.row.ckrwQhStatus) }}</span>
                                             </el-form-item>
@@ -237,7 +234,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_ckrwYjdcsj(scope.row.ckrwYjdcsj,true)}}
+                        {{auto_time_new(scope.row.ckrwYjdcsj,4)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -245,7 +242,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_time_new(scope.row.ckrwSjdcsj)}}
+                        {{auto_time_new(scope.row.ckrwSjdcsj,4)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -1109,14 +1106,6 @@
                 p[0].post({});
             },                                         //详细查询 提交
 
-            auto_ckrwYjdcsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                           //预计到车时间
-            auto_ckrwSjdcsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                           //实际到车时间
             auto_ckrwStatus: function (value) {
                 var temp = {};
                 if (!isNaN(value)) {

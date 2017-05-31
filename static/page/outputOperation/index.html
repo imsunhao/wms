@@ -93,7 +93,7 @@
                                             <el-form-item label="下单时间">
                                                 <span>
                                                      <el-icon name="time"></el-icon>
-                                                    {{ auto_ckXdsj(props.row.ckXdsj) }}
+                                                    {{ auto_time_new(props.row.ckXdsj,6) }}
                                                 </span>
                                             </el-form-item>
                                             <!--<el-form-item label="客户编号">-->
@@ -112,7 +112,7 @@
                                                 <span>{{ props.row.ckAdress }}</span>
                                             </el-form-item>
                                             <el-form-item label="预发货时间">
-                                                <span>{{ auto_ckYfhsj(props.row.ckYfhsj) }}</span>
+                                                <span>{{ auto_time_new(props.row.ckYfhsj,6) }}</span>
                                             </el-form-item>
                                             <el-form-item label="制作方式">
                                                 <span>{{ auto_ckIsauto(props.row.ckIsauto) }}</span>
@@ -225,14 +225,18 @@
                         prop="rkSjsj"
                         label="下单时间">
                     <template scope="scope">
-                        <span style="margin-left: 10px">{{ auto_ckXdsj(scope.row.ckXdsj,true) }}</span>
+                        <span style="margin-left: 10px">{{ auto_time_new(scope.row.ckXdsj) }}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
-                        label="客户编号"
+                        label="状态"
                         align="center"
-                        show-overflow-tooltip
-                        prop="ckCkdjClientno">
+                        width="100">
+                    <template scope="scope">
+                        <el-tag
+                                close-transition>{{auto_ckStatus(scope.row.ckStatus)}}
+                        </el-tag>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         v-if="multiSelect"
@@ -1251,14 +1255,6 @@
                     return '未知的仓库'
                 }
             },                            //TODO 入库仓库id 自动匹配
-            auto_ckXdsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                                //TODO 下单时间
-            auto_ckYfhsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                               //TODO 预发货时间
             auto_ckStatus: function (value) {
                 var temp = {};
                 if (!isNaN(value)) {

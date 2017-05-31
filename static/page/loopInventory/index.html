@@ -186,7 +186,7 @@
                                     <el-form-item label="创建时间">
                                         <span>
                                               <el-icon name="time"></el-icon>
-                                            {{ auto_pdCreateTime(props.row.pdCreateTime) }}
+                                            {{ auto_time_new(props.row.pdCreateTime,6) }}
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="盘点类型">
@@ -231,16 +231,12 @@
                         </el-form>
                     </template>
                 </el-table-column>
-                <!--<el-table-column-->
-                <!--type="index"-->
-                <!--width="55">-->
-                <!--</el-table-column>-->
                 <el-table-column
                         label="创建时间"
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        <span>{{ auto_pdCreateTime(scope.row.pdCreateTime,true) }}</span>
+                        <span>{{ auto_time_new(scope.row.pdCreateTime) }}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -702,18 +698,6 @@
                 p[0].post({});
             },                                          //详细查询 提交
 
-            auto_pdCreateTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                           //创建时间
-            auto_pdYdBeginTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                          //异动开始时间
-            auto_pdYdEndTime: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                            //异动结束时间
             auto_pdType: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {

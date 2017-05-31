@@ -241,7 +241,7 @@
                             <el-form label-position="left" inline class="demo-table-expand">
                                 </el-form-item>
                                 <el-form-item label="创建时间">
-                                    <span>{{ auto_bcCjsj(props.row.bcCjsj)    }}</span>
+                                    <span>{{ auto_time_new(props.row.bcCjsj,6)    }}</span>
                                 </el-form-item>
                                 <el-form-item label="状态">
                                     <span>
@@ -660,10 +660,7 @@
                 }, 1500);
                 /*</debug>*/
             },                                            //新建 表单提交
-            auto_bcCjsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-            },                                //创建时间
+
             auto_bcStatus:function(value){
                 var temp={}
                 if(!isNaN(value)){

@@ -68,7 +68,7 @@
                                         <span>{{props.row.ckCkdjNo}}</span>
                                     </el-form-item>
                                     <el-form-item label="下单时间">
-                                        <span>{{auto_ckXdsj(props.row.ckXdsj)}}</span>
+                                        <span>{{auto_time_new(props.row.ckXdsj,6)}}</span>
                                     </el-form-item>
                                     <el-form-item label="客户编号">
                                         <span>{{props.row.ckCkdjClientno}}</span>
@@ -88,7 +88,7 @@
                                         <span>{{ props.row.ckAdress }}</span>
                                     </el-form-item>
                                     <el-form-item label="预发货时间">
-                                        <span>{{ auto_ckYfhsj(props.row.ckYfhsj) }}</span>
+                                        <span>{{ auto_time_new(props.row.ckYfhsj,6) }}</span>
                                     </el-form-item>
                                     <el-form-item label="制作方式">
                                         <span>{{ auto_ckIsauto(props.row.ckIsauto) }}</span>
@@ -151,7 +151,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_ckXdsj(scope.row.ckXdsj,true)}}
+                        {{auto_time_new(scope.row.ckXdsj)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -730,14 +730,7 @@
                 }
                 return temp[value];
             },                                    //制单方式
-            auto_ckXdsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },
-            auto_ckYfhsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },
+
 
 
 

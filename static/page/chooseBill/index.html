@@ -78,13 +78,13 @@
                                                 <el-col :span="10" :offset="2">
                                                     <el-form-item label="预计到车"><span>
                                              <el-icon name="time"></el-icon>
-                                            {{auto_ckrwYjdcsj(props.row.ckrwYjdcsj) }}
+                                            {{auto_time_new(props.row.ckrwYjdcsj,6) }}
                                         </span>
                                                     </el-form-item>
                                                     <el-form-item label="实际到车"
                                                                   v-show="props.row.ckrwSjdcsj!=null"><span>
                                              <el-icon name="time"></el-icon>
-                                            {{ auto_ckrwSjdcsj(props.row.ckrwSjdcsj) }}
+                                            {{ auto_time_new(props.row.ckrwSjdcsj,6) }}
                                         </span>
                                                     </el-form-item>
                                                     <el-form-item label="欠货状态">
@@ -133,7 +133,7 @@
                                                     align="center"
                                                     label="下单时间">
                                                 <template scope="scope">
-                                                    <span>{{ auto_time(scope.row.ckXdsj,true) }}</span>
+                                                    <span>{{ auto_time_new(scope.row.ckXdsj) }}</span>
                                                 </template>
                                             </el-table-column>
                                             <el-table-column
@@ -168,7 +168,7 @@
                                                     width="100"
                                                     show-overflow-tooltip>
                                                 <template scope="scope">
-                                                    {{auto_time(scope.row.ckYfhsj,true)}}
+                                                    {{auto_time_new(scope.row.ckYfhsj)}}
                                                 </template>
                                             </el-table-column>
                                             <!--<el-table-column-->
@@ -222,7 +222,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_ckrwYjdcsj(scope.row.ckrwYjdcsj,true)}}
+                        {{auto_time_new(scope.row.ckrwYjdcsj,4)}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -230,7 +230,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_time_new(scope.row.ckrwSjdcsj)}}
+                        {{auto_time_new(scope.row.ckrwSjdcsj,4)}}
                     </template>
                 </el-table-column>
 

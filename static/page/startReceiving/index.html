@@ -72,7 +72,7 @@
                                         </el-col>
                                         <el-col :span="10" :offset="2">
                                             <el-form-item label="预计到货">
-                                                <span>{{auto_rkrwDhrq(props.row.rkrwDhrq) }}</span>
+                                                <span>{{auto_time_new(props.row.rkrwDhrq,6) }}</span>
                                             </el-form-item>
                                             <el-form-item label="承运商">
                                                 <span>{{ props.row.rkrwCys }}</span>
@@ -208,7 +208,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_rkrwDhrq(scope.row.rkrwDhrq,true)}}
+                        {{auto_time_new(scope.row.rkrwDhrq,4)}}
                     </template>
                 </el-table-column>
                 <el-table-column
