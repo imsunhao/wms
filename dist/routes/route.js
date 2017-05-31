@@ -1103,7 +1103,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 2:
                         urlName = '入库单据查询 查看入库储位信息';
-                        req = autoUrl(req, ' /mdt/selectMdtInfoByRkmxId', "POST", function (json) {
+                        req = autoUrl(req, '/mdt/selectMdtInfoByRkmxId', "POST", function (json) {
                             res.send(json);
                         });
                         break;

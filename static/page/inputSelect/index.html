@@ -711,8 +711,13 @@
                     obj.dialogDetailedVisible = true;
                 })
             },                                //TODO 行内按钮-查看入库明细信息
-            inlineSelectInputStorage:function(){
-                this.dialogStorageVisible = true
+            inlineSelectInputStorage:function(index,row){
+                p[2].post({id: row.rkdjId}, function (json) {
+                    obj.storage = json.model;
+                    obj.dialogStorageVisible = true;
+                })
+
+
             },                                 //TODO 行内按钮-查看入库储位信息
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
@@ -984,6 +989,8 @@
         urlHock: "",
         urlProd: "/route/inputSelect/2",
         success: function (json) {
+            obj.storage = json.model;
+            obj.dialogStorageVisible = true;
         }
     });
      // 3 入库单据查询
