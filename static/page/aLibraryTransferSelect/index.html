@@ -90,7 +90,7 @@
                                                 <el-button
                                                         size="small"
                                                         type="success"
-                                                        @click="inlineIssued(props.$index, props.row)">导出
+                                                        @click="inlineExport(props.$index, props.row)">导出
                                                 </el-button>
                                             </el-form-item>
 
@@ -125,20 +125,20 @@
                                     </el-table-column>
                                     <el-table-column
                                             label="转移前库位"
-                                            prop="mfunRepertory.baseLocation.blLname"
+                                            prop="zyDocsList[0].beforeLocationName"
                                             align="center">
                                     </el-table-column>
                                     <el-table-column
                                             label="转移后的库位"
                                             align="center"
                                             show-overflow-tooltip
-                                            prop="zysZyAfterLocationId">
+                                            prop="zyDocsList[0].afterLocationName">
                                     </el-table-column>
                                     <el-table-column
                                             label="转移数量"
                                             align="center"
                                             show-overflow-tooltip
-                                            prop="zysZyBeforeKyCount">
+                                            prop="zysZyCount">
                                     </el-table-column>
                                 </el-table>
                             </el-carousel-item>
@@ -662,17 +662,18 @@
                     aLibraryTransferSelect.$refs.carousel.setActiveItem(0);
                 });
             },                                  //TODO 行内按钮-编辑
-            inlineIssued: function (index, row) {
-                obj.$confirm('导出库位转移', '提示', {
+            inlineExport: function (index, row) {
+                obj.$confirm('导出库存转移', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    p[2].post({
-                        ids: [row.zyId]
+                    p[1].post({
+                        ids: [row.zyDocsList[0].mrRepertoryId]
                     }, function (json) {
                         this.callbackAfter({status: json.status, model: "导出库位转移"}, function () {
-
+                            var url = "/static/Excel/" + json.model;
+                            window.open(url);
                         })
                     });
                 }).catch(function () {
@@ -681,6 +682,24 @@
                         message: '已取消导出'
                     });
                 });
+//                obj.$confirm('导出库位转移', '提示', {
+//                    confirmButtonText: '确定',
+//                    cancelButtonText: '取消',
+//                    type: 'warning'
+//                }).then(function () {
+//                    p[2].post({
+//                        ids: [row.zyId]
+//                    }, function (json) {
+//                        this.callbackAfter({status: json.status, model: "导出库位转移"}, function () {
+//
+//                        })
+//                    });
+//                }).catch(function () {
+//                    obj.$message({
+//                        type: 'info',
+//                        message: '已取消导出'
+//                    });
+//                });
             },                                //行内按钮 导出
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
@@ -854,6 +873,7 @@
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryTransferSelect/1",
+        method: 'GET',
         success: function (json) {
         }
     });

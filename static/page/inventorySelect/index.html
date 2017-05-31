@@ -627,6 +627,25 @@
                 p[1].post({pdId: row.pdId});
             },                                 //TODO 行内按钮-盘点详情
             inlineExport: function () {
+                obj.$confirm('导出盘点：', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    p[2].post({
+                        ids: [row.pdId]
+                    }, function (json) {
+                        this.callbackAfter({status: json.status, model: "导出出库单"}, function () {
+                            var url = "/static/Excel/" + json.model;
+                            window.open(url);
+                        })
+                    });
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消导出'
+                    });
+                });
             },                                                  //TODO 行内按钮--导出
             selectSubmit: function () {
                 p[0].post(obj.form_pop);
@@ -754,6 +773,7 @@
     p[2] = autoPost({
         urlHock: "",
         urlProd: "/route/inventorySelect/2",
+        method: 'GET',
         success: function (json) {
 
         }
