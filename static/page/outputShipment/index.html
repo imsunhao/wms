@@ -73,13 +73,13 @@
                                     <el-form-item label="预计到车">
                                         <span>
                                              <el-icon name="time"></el-icon>
-                                            {{ auto_ckrwYjdcsj(props.row.ckrwYjdcsj) }}
+                                            {{ auto_time_new(props.row.ckrwYjdcsj,6) }}
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="实际到车">
                                         <span>
                                              <el-icon name="time"></el-icon>
-                                            {{ auto_ckrwSjdcsj(props.row.ckrwSjdcsj) }}
+                                            {{ auto_time_new(props.row.ckrwSjdcsj,6) }}
                                         </span>
                                     </el-form-item>
 
@@ -134,7 +134,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_ckrwYjdcsj(scope.row.ckrwYjdcsj,true)}}
+                        {{auto_time_new(scope.row.ckrwYjdcsj)}}
                     </template>
                 </el-table-column>
                   <el-table-column
@@ -989,14 +989,6 @@
             cellDblClick: function (row, column, cell, event) {
                 console.log(row, column, cell, event);
             },
-            auto_ckrwYjdcsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                            //预计到车时间
-            auto_ckrwSjdcsj: function (value, bool) {
-                if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-                else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
-            },                            //实际到车时间
             auto_ckrwStatus: function (value) {
                 var temp = {};
                 if (!isNaN(value)) {
