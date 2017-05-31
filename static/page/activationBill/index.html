@@ -195,7 +195,7 @@
                                                     size="mini"
                                                     type="info"
                                                     v-if="scope.row.ckStatus==21"
-                                                    @click="inlineSupplementaryDistribution(props.$index, props.row)">
+                                                    @click="inlineSupplementaryDistribution(scope.$index, scope.row)">
                                                 追加分拣
                                             </el-button>
                                             <el-button
@@ -1246,6 +1246,7 @@
     }
     var obj = activationBill;
     var p = [];
+
     // 0 激活单据 分页查询
     p[0] = autoPost({
         urlHock: "../../hock/activationBill/page.json",
