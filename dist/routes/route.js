@@ -1564,7 +1564,7 @@ function java(req, res, next) {
     var url = req.info.url;
     var method = req.info.method;
 
-    if (method !== 'GET') {
+    if (req.method !== 'GET') {
         console.log(JSON.stringify(req.body));
         query = req.body;
     } else {
