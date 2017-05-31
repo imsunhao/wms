@@ -143,7 +143,7 @@
                                         <el-button
                                                 size="small"
                                                 type="info"
-                                                @click="inlineModify(props.$index, props.row)">导出
+                                                @click="inlineExport(props.$index, props.row)">导出
                                         </el-button>
                                     </el-form-item>
                                 </el-col>
@@ -725,11 +725,27 @@
                 },                                      //分配 表单
             },
             methods: {
-                inlineModify: function (index, row) {
-                    this.multipleSelection = [row];
-                    printfCompile(this);
-                    this.dialogPrintfVisible = !this.dialogPrintfVisible;
-                },                                //行内按钮 打印标签页
+                inlineExport: function (index, row) {
+                    obj.$confirm('导出出库单 单据单号：' + row.mfunckDoc.ckCkdjNo, '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(function () {
+                        p[1].post({
+                            ids: [row.mfunckDoc.ckCkdjId]
+                        }, function (json) {
+                            this.callbackAfter({status: json.status, model: "导出出库单"}, function () {
+                                var url = "/static/Excel/" + json.model;
+                                window.open(url);
+                            })
+                        });
+                    }).catch(function () {
+                        obj.$message({
+                            type: 'info',
+                            message: '已取消导出'
+                        });
+                    });
+                },                                //行内按钮 导出
                 multiSelectClick: function () {
                     this.multiSelect = !this.multiSelect;
                 },                                      //多选 状态维护
@@ -994,6 +1010,7 @@
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/outputDaily/1",
+        method: 'GET',
         success: function (json) {
         }
     });
