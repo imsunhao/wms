@@ -757,7 +757,7 @@
         methods: {
             View: function (index, row) {
                 var step = _form();
-                allPrposCb(step, function (obj, index) {
+                allPrposCb(step, function (obj2, index) {
                     if (typeof row[index] !== 'undefined') step[index] = row[index];
                 });
                 /*<debug>*/
@@ -1217,6 +1217,7 @@
     p[0] = autoPost({
         urlHock: "../../hock/form/inputOption.json",
         urlProd: "/route/warehousingReservation/0",
+        method: 'GET',
         success: function (json) {
             obj = warehousingReservation;
             obj.dialogFormVisible = false;
@@ -1266,6 +1267,7 @@
     p[2] = autoPost({
         urlHock: "../../hock/form/inputOption.json",
         urlProd: "/route/warehousingReservation/2",
+        method: 'GET',
         success: function (json) {
             obj.dialogFormVisible = false;
             obj.submitLoading = false;

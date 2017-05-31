@@ -1209,6 +1209,7 @@
     p[0] = autoPost({
         urlHock: "/hock/outputAppointment/page.json",
         urlProd: "/route/outputAppointment/0",
+        method: 'GET',
         success: function (json) {
             obj.dialogFormVisible = false;
             obj.submitLoading = false;
@@ -1224,6 +1225,7 @@
     p[1] = autoPost({
         urlHock: "../../hock/form/inputOption.json",
         urlProd: "/route/outputAppointment/1",
+        method: 'GET',
         success: function (json) {
             obj.dialogFormVisible = false;
             obj.submitLoading = false;

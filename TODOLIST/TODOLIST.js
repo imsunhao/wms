@@ -2758,9 +2758,19 @@
  */
         /**
  * TODO 出库任务管理 修改出库发运数量 POST /mfunck/editGoodsCountByMfunckDocs
- * 参数类 mfunckDocs（出库明细集合）
- * 实例：
- *
+ * {
+ *     cksCkmxId                        出库明细ID
+ *     cksGoodsId                        货品ID
+ *     cksGoodsCount                     货品数量
+ *     cksDwid                           单位ID
+ *     cksCkfs                           出库方式（分拣方式）
+ *     cksLocationId                      货品库存ID
+ *     cksStatus                         出库单明细 发货状
+ *     cksCkdjId                         出库单据ID
+ *     cksFyCount                         修改后的发运数量
+ * }
+
+         *
  *
  */
         /**  TODO 欠货补发信息

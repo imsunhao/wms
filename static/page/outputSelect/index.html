@@ -1059,7 +1059,6 @@
                     p[3].post({
                         ids: [row.ckCkdjId]
                     }, function (json) {
-                        json.status = 20000; //TODO
                         this.callbackAfter({status: json.status, model: "导出出库单"}, function () {
                             var url = "/static/Excel/" + json.model;
                             window.open(url);
@@ -1081,7 +1080,6 @@
                     p[4].post({
                         ids: [row.ckCkdjId]
                     }, function (json) {
-                        json.status = 20000; //TODO
                         this.callbackAfter({status: json.status, model: "导出出库明细"}, function () {
                             var url = "/static/Excel/" + json.model;
                             window.open(url);
@@ -1103,7 +1101,6 @@
                     p[5].post({
                         ids: [row.ckCkdjId]
                     }, function (json) {
-                        json.status = 20000; //TODO
                         this.callbackAfter({status: json.status, model: "导出分拣明细"}, function () {
                             var url = "/static/Excel/" + json.model;
                             window.open(url);
@@ -1212,7 +1209,6 @@
                     p[5].post({
                         ids: ids
                     }, function (json) {
-                        json.status = 20000; //TODO
                         this.callbackAfter({status: json.status, model: "导出分拣明细"}, function () {
                             var url = "/static/Excel/" + json.model;
                             window.open(url);
@@ -1525,6 +1521,7 @@
     p[2] = autoPost({
         urlHock: "",
         urlProd: "/route/outputSelect/2",
+        method: 'GET',
         success: function (json) {
 
         }
@@ -1533,6 +1530,7 @@
     p[3] = autoPost({
         urlHock: "",
         urlProd: "/route/outputSelect/3",
+        method: 'GET',
         success: function (json) {
 
         }
@@ -1541,6 +1539,7 @@
     p[4] = autoPost({
         urlHock: "",
         urlProd: "/route/outputSelect/4",
+        method: 'GET',
         success: function (json) {
 
         }
@@ -1549,6 +1548,7 @@
     p[5] = autoPost({
         urlHock: "",
         urlProd: "/route/outputSelect/5",
+        method: 'GET',
         success: function (json) {
 
         }

@@ -37,78 +37,150 @@
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
                     :max-height="570"
                     ref="table"
+                    @expand="expandChange"
                     class="outputShipmentTable"
                     style="width: 100%">
                 <el-table-column
                         type="expand">
                     <template scope="props">
-                        <el-row>
-                            <h3 style="margin-top: 0; margin-left: -15px;">出库发运详细</h3>
-                        </el-row>
-                        <el-form label-position="left" inline class="demo-table-expand">
-                            <el-row>
-                                <el-col :span="10">
-                                    <el-form-item label="物流商">
-                                        <span>{{ props.row.ckrwWls }}</span>
-                                    </el-form-item>
+                        <el-carousel
+                                arrow="hover"
+                                height="280px"
+                                indicator-position="none"
+                                :autoplay="false">
+                            <el-carousel-item>
+                                <el-row>
+                                    <h3>出库发运详细</h3>
+                                </el-row>
+                                <el-form label-position="left" inline class="demo-table-expand">
+                                    <el-row>
+                                        <el-col :span="10">
+                                            <el-form-item label="物流商">
+                                                <span>{{ props.row.ckrwWls }}</span>
+                                            </el-form-item>
 
-                                    <el-form-item label="任务号">
-                                        <span>{{ props.row.ckrwNo }}</span>
-                                    </el-form-item>
+                                            <el-form-item label="任务号">
+                                                <span>{{ props.row.ckrwNo }}</span>
+                                            </el-form-item>
 
-                                    <el-form-item label="车牌号">
-                                        <span>{{ props.row.ckrwCph }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="订单数">
-                                        <span>{{props.row.orderNum}}</span>
-                                    </el-form-item>
-                                    <el-form-item label="品项数">
-                                        <span>{{props.row.goodsTypeNum}}</span>
-                                    </el-form-item>
-                                    <el-form-item label="任务状态">
-                                        <span>{{ auto_ckrwStatus(props.row.ckrwStatus) }}</span>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :span="10" :offset="2">
-                                    <el-form-item label="预计到车">
+                                            <el-form-item label="车牌号">
+                                                <span>{{ props.row.ckrwCph }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="订单数">
+                                                <span>{{props.row.orderNum}}</span>
+                                            </el-form-item>
+                                            <el-form-item label="品项数">
+                                                <span>{{props.row.goodsTypeNum}}</span>
+                                            </el-form-item>
+                                            <el-form-item label="任务状态">
+                                                <span>{{ auto_ckrwStatus(props.row.ckrwStatus) }}</span>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :span="10" :offset="2">
+                                            <el-form-item label="预计到车">
                                         <span>
                                              <el-icon name="time"></el-icon>
                                             {{ auto_time_new(props.row.ckrwYjdcsj,6) }}
                                         </span>
-                                    </el-form-item>
-                                    <el-form-item label="实际到车">
+                                            </el-form-item>
+                                            <el-form-item label="实际到车">
                                         <span>
                                              <el-icon name="time"></el-icon>
                                             {{ auto_time_new(props.row.ckrwSjdcsj,6) }}
                                         </span>
-                                    </el-form-item>
+                                            </el-form-item>
 
-                                    <el-form-item label="欠货状态">
-                                        <span>{{ auto_ckrwQhStatus(props.row.ckrwQhStatus) }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="滞留状态">
-                                        <span>{{ auto_ckrwZlStatus(props.row.ckrwZlStatus) }}</span>
-                                    </el-form-item>
-                                    <el-form-item
-                                            label="可用操作">
-                                        <el-button
-                                                size="small"
-                                                type="success"
-                                                @click="inlineShipment(props.$index, props.row)">发运
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                @click="inlineModifyShipmentNumber(props.$index, props.row)">修改发运数量
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                @click="inlinePrintCarrierAgreement(props.$index, props.row)">打印承运协议
-                                        </el-button>
-                                    </el-form-item>
+                                            <el-form-item label="欠货状态">
+                                                <span>{{ auto_ckrwQhStatus(props.row.ckrwQhStatus) }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="滞留状态">
+                                                <span>{{ auto_ckrwZlStatus(props.row.ckrwZlStatus) }}</span>
+                                            </el-form-item>
+                                            <el-form-item
+                                                    label="可用操作">
+                                                <el-button
+                                                        size="small"
+                                                        type="success"
+                                                        @click="inlineShipment(props.$index, props.row)">发运
+                                                </el-button>
+                                                <el-button
+                                                        size="small"
+                                                        @click="inlinePrintCarrierAgreement(props.$index, props.row)">
+                                                    打印承运协议
+                                                </el-button>
+                                            </el-form-item>
 
-                                </el-col>
-                            </el-row>
-                        </el-form>
+                                        </el-col>
+                                    </el-row>
+                                </el-form>
+                            </el-carousel-item>
+                            <el-carousel-item>
+                                <el-row>
+                                    <h3>出库任务单据<span style="font-size: 14px;
+                                            font-weight: normal;
+                                            margin-left: 5px;">（双击查看单据明细）</span></h3>
+                                </el-row>
+                                <el-table
+                                        :data="props.row.mfunckDoc"
+                                        @row-dblclick="dblClick"
+                                        :max-height="240">
+                                    <el-table-column
+                                            type="index"
+                                            width="55">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="出库单号"
+                                            width="170"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="ckCkdjNo">
+                                    </el-table-column>
+                                    <el-table-column
+                                            width="100"
+                                            align="center"
+                                            label="下单时间">
+                                        <template scope="scope">
+                                            <span>{{ auto_time(scope.row.ckXdsj,true) }}</span>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="客户名"
+                                            align="center"
+                                            show-overflow-tooltip>
+                                        <template scope="scope">
+                                            {{scope.row.ckCkdjClientname}}
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="联系人"
+                                            align="center"
+                                            show-overflow-tooltip
+                                            prop="ckContacts">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="电话"
+                                            align="center"
+                                            show-overflow-tooltip
+                                            prop="ckTel">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="地址"
+                                            align="center"
+                                            show-overflow-tooltip
+                                            prop="ckAdress">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="预发时间"
+                                            align="center"
+                                            width="100"
+                                            show-overflow-tooltip>
+                                        <template scope="scope">
+                                            {{auto_time(scope.row.ckYfhsj,true)}}
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                            </el-carousel-item>
+                        </el-carousel>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -137,7 +209,7 @@
                         {{auto_time_new(scope.row.ckrwYjdcsj)}}
                     </template>
                 </el-table-column>
-                  <el-table-column
+                <el-table-column
                         label="实际到车"
                         show-overflow-tooltip
                         align="center">
@@ -169,26 +241,26 @@
                     </template>
                 </el-table-column>
                 <!--<el-table-column-->
-                        <!--label="欠货状态"-->
-                        <!--prop="status"-->
-                        <!--align="center"-->
-                        <!--width="100">-->
-                    <!--<template scope="scope">-->
-                        <!--<el-tag-->
-                                <!--close-transition>{{auto_ckrwQhStatus(scope.row.ckrwQhStatus)}}-->
-                        <!--</el-tag>-->
-                    <!--</template>-->
+                <!--label="欠货状态"-->
+                <!--prop="status"-->
+                <!--align="center"-->
+                <!--width="100">-->
+                <!--<template scope="scope">-->
+                <!--<el-tag-->
+                <!--close-transition>{{auto_ckrwQhStatus(scope.row.ckrwQhStatus)}}-->
+                <!--</el-tag>-->
+                <!--</template>-->
                 <!--</el-table-column>-->
                 <!--<el-table-column-->
-                        <!--label="滞留状态"-->
-                        <!--prop="status"-->
-                        <!--align="center"-->
-                        <!--width="100">-->
-                    <!--<template scope="scope">-->
-                        <!--<el-tag-->
-                                <!--close-transition>{{auto_ckrwZlStatus(scope.row.ckrwZlStatus)}}-->
-                        <!--</el-tag>-->
-                    <!--</template>-->
+                <!--label="滞留状态"-->
+                <!--prop="status"-->
+                <!--align="center"-->
+                <!--width="100">-->
+                <!--<template scope="scope">-->
+                <!--<el-tag-->
+                <!--close-transition>{{auto_ckrwZlStatus(scope.row.ckrwZlStatus)}}-->
+                <!--</el-tag>-->
+                <!--</template>-->
                 <!--</el-table-column>-->
                 <el-table-column
                         v-if="multiSelect"
@@ -388,164 +460,78 @@
         </div>
     </el-dialog>
     <el-dialog
-            title="修改发运数量"
-            v-model="dialogChangeVisible">
-        <el-form :model="change">
-            <el-carousel
-                    ref="carouselChange"
-                    :autoplay="false"
-                    arrow="never"
-                    indicator-position="none"
-                    height="55vh">
-                <el-carousel-item>
-                    <el-row>
-                        <el-table
-                                :data="outputShipment"
-                                :max-height="570"
-                                @cell-dblclick="cellDblClick"
-                                style="width: 100%">
-                            <el-table-column
-                                    type="index"
-                                    width="55">
-                            </el-table-column>
-                            <el-table-column
-                                    label="货品编号"
-                                    show-overflow-tooltip
-                                    align="center"
-                                    prop="ckCkdjNo">
-                            </el-table-column>
-                            <el-table-column
-                                    align="center"
-                                    prop="rkSjsj"
-                                    label="货品名称">
-                                <template scope="scope">
-                                    <el-icon name="time"></el-icon>
-                                    <span style="margin-left: 10px"></span>
-                                </template>
-                            </el-table-column>
-                            <el-table-column
-                                    label="货品单位"
-                                    align="center"
-                                    show-overflow-tooltip
-                                    prop="ckCkdjClientname">
-                            </el-table-column>
-                            <el-table-column
-                                    label="下架数量"
-                                    align="center"
-                                    show-overflow-tooltip
-                                    prop="ckContacts">
-                            </el-table-column>
-                            <el-table-column
-                                    label="批次"
-                                    align="center"
-                                    show-overflow-tooltip
-                                    prop="ckAdress">
-                            </el-table-column>
-                            <el-table-column
-                                    label="库位"
-                                    prop="rkType"
-                                    align="center">
-                                <template scope="scope">
-                                    <el-tag
-                                            :type="typeWatch(scope.row.type)"
-                                            close-transition>{{auto_ckStatus(scope.row.ckStatus)}}
-                                    </el-tag>
-                                </template>
-                            </el-table-column>
-                            <el-table-column
-                                    label="备注"
-                                    show-overflow-tooltip
-                                    prop="ckRemarks">
-                            </el-table-column>
-                        </el-table>
-                    </el-row>
-                </el-carousel-item>
-                <el-carousel-item>
-                    <el-row>
-                        <el-col :span="24"><h3>出库明细</h3></el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="8">
-                            <el-form-item label="货品编号" :label-width="formLabelWidth">
-                                <strong>{{change.selectGood.baseGoods.bgGoodsNo}}</strong>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="8">
-                            <el-form-item label="货品名称" :label-width="formLabelWidth">
-                                <el-tooltip class="item" effect="dark"
-                                            :content="change.selectGood.baseGoods.bgGoodsName"
-                                            placement="top">
-                                    <strong class="bgGoodsName">{{change.selectGood.baseGoods.bgGoodsName}}</strong>
-                                </el-tooltip>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="8">
-                            <el-form-item label="货品数量" :label-width="formLabelWidth">
-                                <el-input v-model.number="change.selectGood.rksCount"></el-input>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="24" style="margin-top: 5px">
-                            <el-table
-                                    @row-click="GoodClick"
-                                    height="400"
-                                    :data="change.rkDocsList">
-                                <el-table-column
-                                        type="index"
-                                        width="55">
-                                </el-table-column>
-                                <el-table-column
-                                        label="货品编号"
-                                        width="140"
-                                        show-overflow-tooltip
-                                        align="center"
-                                        prop="baseGoods.bgGoodsNo">
-                                </el-table-column>
-                                <el-table-column
-                                        align="center"
-                                        prop="baseGoods.bgGoodsName"
-                                        show-overflow-tooltip
-                                        label="货品名称">
-                                </el-table-column>
-                                <el-table-column
-                                        label="单位"
-                                        width="80"
-                                        prop="baseDw.bdName"
-                                        align="center">
-                                </el-table-column>
-                                <el-table-column
-                                        label="数量"
-                                        width="100"
-                                        show-overflow-tooltip
-                                        prop="rksCount"
-                                        align="center">
-                                </el-table-column>
-                                <el-table-column
-                                        label="到货日期"
-                                        width="100"
-                                        show-overflow-tooltip
-                                        prop=""
-                                        align="center">
-                                </el-table-column>
-                                <el-table-column
-                                        label="库位"
-                                        width="100"
-                                        show-overflow-tooltip
-                                        prop=""
-                                        align="center">
-                                </el-table-column>
-                            </el-table>
-                        </el-col>
-                    </el-row>
-                </el-carousel-item>
-            </el-carousel>
-        </el-form>
-
+            size="large"
+            custom-class="mxClass"
+            v-model="dialogListsVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">出库明细 单号：{{lists.ckCkdjNo}}</span><span
+                style="margin-left:10px;font-size: 14px; ">(双击修改 发运数量)</span>
+        </div>
+        <el-table
+                :data="lists.data"
+                @row-dblclick="dblClick2"
+                highlight-current-row
+                style="width: 100%">
+            <el-table-column
+                    type="index"
+                    width="55">
+            </el-table-column>
+            <el-table-column
+                    label="货品编号"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="baseGoods.bgGoodsNo">
+            </el-table-column>
+            <el-table-column
+                    label="货品名称"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="baseGoods.bgGoodsName">
+            </el-table-column>
+            <el-table-column
+                    label="货品数量"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="cksGoodsCount">
+            </el-table-column>
+            <el-table-column
+                    label="发运数量"
+                    show-overflow-tooltip
+                    prop="cksFyCount"
+                    align="center">
+            </el-table-column>
+            <el-table-column
+                    label="批次"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="cksZdpc">
+            </el-table-column>
+            <el-table-column
+                    label="库位"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="baseLocation.blLname">
+            </el-table-column>
+        </el-table>
         <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="prev" v-show="dialogFormActive">返回</el-button>
-            <el-button type="primary" @click="submit" :loading="submitLoading" v-show="dialogFormActive >= 1">保存
-            </el-button>
+            <el-button type="primary" @click="dialogListsVisible=false">关闭</el-button>
+        </div>
+    </el-dialog>
+    <el-dialog
+            size="mini"
+            v-model="dialogLists2Visible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">修改发运数量</span><span
+                style="margin-left:10px;font-size: 14px; ">货品编号: {{lists2.row.baseGoods.bgGoodsNo}}</span>
+        </div>
+        <el-form label-position="left" inline>
+            <el-form-item label="发运数量">
+                <el-input v-model="lists2.row.cksFyCount"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="submitLists">保存</el-button>
+            <el-button type="primary" @click="submitListsCancel">取消</el-button>
         </div>
     </el-dialog>
 </div>
@@ -746,7 +732,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-                currentTotal:0,
+                currentTotal: 0,
 
                 date: [null, null],                     //主页面 选择日期 搜索
                 ckrwNo: '',                             //主页面 任务号 搜索
@@ -761,9 +747,11 @@
 
                 select: _form(),                         //搜索 弹出层 信息集合
 
-                dialogChangeVisible: false,             //新建 弹出层 是否可见
-                change: changeForm(),                   //搜索 弹出层 信息集合
 
+                dialogListsVisible: false,              //单据详细 查询
+                dialogLists2Visible: false,              //单据详细 查询
+                lists: formList(),                      //出库详细 弹出层 信息集合
+                lists2: lists2Form(),
 
                 printDatas: _printDatas_p1(),              //打印 承运协议 信息集合
 
@@ -787,21 +775,21 @@
                     "ckrwEndGreatTime": tsf_date(this.date[1]),
                 }
             },
-            form_pop:function(){
-              return{
-                  "draw": 1,
-                  "pageNum": this.currentPage,
-                  "pageSize": this.pageSize,
-                  "ckrwStartGreatTime": tsf_date(this.form.ckrwGreatTime[0]),
-                  "ckrwEndGreatTime": tsf_date(this.form.ckrwGreatTime[1]),
-                  "ckrwStartYjdcsj": tsf_date(this.form.ckrwYjdcsj[0]),
-                  "ckrwEndYjdcsj": tsf_date(this.form.ckrwYjdcsj[1]),
-                  "ckrwStartSjdcsj": tsf_date(this.form.ckrwSjdcsj[0]),
-                  "ckrwEndSjdcsj": tsf_date(this.form.ckrwSjdcsj[1]),
-                  "ckrwNo": this.form.ckrwNo,
-                  "ckrwWls": this.form.ckrwWls,
-                  "ckrwCph": this.form.ckrwCph,
-              }
+            form_pop: function () {
+                return {
+                    "draw": 1,
+                    "pageNum": this.currentPage,
+                    "pageSize": this.pageSize,
+                    "ckrwStartGreatTime": tsf_date(this.form.ckrwGreatTime[0]),
+                    "ckrwEndGreatTime": tsf_date(this.form.ckrwGreatTime[1]),
+                    "ckrwStartYjdcsj": tsf_date(this.form.ckrwYjdcsj[0]),
+                    "ckrwEndYjdcsj": tsf_date(this.form.ckrwYjdcsj[1]),
+                    "ckrwStartSjdcsj": tsf_date(this.form.ckrwSjdcsj[0]),
+                    "ckrwEndSjdcsj": tsf_date(this.form.ckrwSjdcsj[1]),
+                    "ckrwNo": this.form.ckrwNo,
+                    "ckrwWls": this.form.ckrwWls,
+                    "ckrwCph": this.form.ckrwCph,
+                }
             },
             search: function () {
                 return {
@@ -879,9 +867,6 @@
                 });
             },                              //TODO 行内按钮--发运
 
-            inlineModifyShipmentNumber: function (index, row) {
-                this.dialogChangeVisible = true;
-            },                  //TODO 行内按钮-修改发运数量
 
             inlinePrintCarrierAgreement: function (index, row) {
                 obj.$confirm('打印承运协议 任务号：' + row.ckrwNo, '提示', {
@@ -916,6 +901,59 @@
             moreOperationModify: function () {
 
             },                                   //TODO 多选 修改
+
+
+            expandChange: function (row, expanded) {
+                if (expanded && (typeof (row.mfunckDoc) === 'undefined' || row.mfunckDoc === null || row.mfunckDoc.length === 0)) {
+                    p[102].post({id: row.ckrwId}, function (json) {
+                        /*<debug>*/
+                        console.log(json);
+                        /*</debug>*/
+                        row.mfunckDoc = json.model.mfunckDoc;
+                    });
+                }
+                /*<debug>*/
+                console.log(row);
+                console.log(expanded);
+                /*</debug>*/
+            },
+            dblClick: function (row, event) {
+                if (row.mfunckDocs === null || typeof row.mfunckDocs === 'undefined' || row.mfunckDocs.length < 1) {
+                    p[101].post({id: row.ckCkdjId}, function (json) {
+                        row.mfunckDocs = json.model;
+                        obj.lists.data = row.mfunckDocs;
+                        obj.lists.ckCkdjNo = row.ckCkdjNo;
+                        obj.dialogListsVisible = true;
+                    })
+                } else {
+                    obj.lists.data = row.mfunckDocs;
+                    obj.lists.ckCkdjNo = row.ckCkdjNo;
+                    obj.dialogListsVisible = true;
+                }
+            },
+            dblClick2: function (row, event) {
+                this.lists2.row = row;
+                this.dialogLists2Visible = true;
+            },
+
+            submitLists: function () {
+                var step = postLists2();
+
+                allPrposCb(step, function (obj2, index) {
+                    if (typeof obj.lists2.row[index] !== 'undefined') step[index] = obj.lists2.row[index];
+                });
+
+                p[2].post(step, function (json) {
+                    this.callbackAfter({status: json.status, model: '修改发运数量'}, function () {
+                        obj.dialogLists2Visible = false;
+                    });
+                })
+            },
+            submitListsCancel: function () {
+                dialogListsVisible = false
+            },
+
+
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -1091,6 +1129,9 @@
         urlHock: "../../hock/outputShipment/page.json",
         urlProd: "/route/outputShipment/0",
         success: function (json) {
+            for (var i = 0; i < json.data.length; i++) {
+                json.data[i].mfunckDoc = [];
+            }
             obj.$data.outputShipment = json.data;
             obj.$data.currentTotal = json.recordsFiltered;
         }
@@ -1111,6 +1152,18 @@
         urlProd: "/route/outputShipment/3"
     });
 
+    // 101 查询-出库单号-出库明细
+    p[101] = autoPost({
+        urlHock: "/hock/warehousingTask/mfunckDoc.json",
+        urlProd: "/route/outboundTask/2"
+    });
+
+    // 102 查询-入库任务详情
+    p[102] = autoPost({
+        urlHock: "/hock/warehousingTask/rwmfunckDoc.json",
+        urlProd: "/route/outboundTask/1"
+    });
+
     function selectGood() {
         return {
             baseGoods: {
@@ -1124,23 +1177,68 @@
             bgGoodsId: ''
         }
     }
-    function changeForm() {
+    function formList() {
         return {
+            data: [],
+
             ckCkdjNo: '',
-            rkType: '',
-            rkRemarks: '',
+            dialogLocationVisible: false,
+            locationLoading: false,
 
-            rkDocsList: [],
-            bgGoodsNo: '',
-            rkArehouseId: '',
+            sort: formListSort()
+        }
+    }
+    function formListSort() {
+        return {
+            "cksCkmxId": 1,
+            "cksCkfs": "X",  // X K P
 
+            cksLocationId: 1,
 
-            selectGood: selectGood(),
-            saveARkDocsList: true,
-            deleteARkDocsList: true
-        };
+            baseLocation: {
+                blLocationId: 1,
+                blLname: ''
+            },
+            cksZdpc: auto_time_new(new Date(), 3),
+            index: 0
+        }
+    }
+    function formListChange() {
+        return {
+            cksCkmxId: '',
+            cksGoodsId: '',
+            cksGoodsCount: '',
+            cksDwid: '',
+            cksCkfs: '',
+            cksLocationId: '',
+            cksStatus: '',
+            cksCkdjId: '',
+            cksFyCount: ''
+        }
+    }
+    function lists2Form() {
+        return {
+            title: '',
+            row: {
+                cksFyCount: 0,
+                baseGoods: {bgGoodsNo: ''}
+            },
+        }
     }
 
+    function postLists2() {
+        return {
+            "cksCkmxId": '出库明细ID',
+            "cksGoodsId": '货品ID',
+            "cksGoodsCount": '货品数量',
+            "cksDwid": '单位ID',
+            "cksCkfs": '出库方式（分拣方式）',
+            "cksLocationId": '货品库存ID',
+            "cksStatus": '出库单明细 发货状态',
+            "cksCkdjId": '出库单据ID',
+            "cksFyCount": '修改后的发运数量'
+        }
+    }
     p[0].post(outputShipment.option);
 
 </script>
