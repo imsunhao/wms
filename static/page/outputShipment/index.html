@@ -83,8 +83,8 @@
                                             {{ auto_time_new(props.row.ckrwYjdcsj,6) }}
                                         </span>
                                             </el-form-item>
-                                            <el-form-item label="实际到车">
-                                        <span>
+                                            <el-form-item label="实际到车"
+                                                          v-show="props.row.ckrwSjdcsj!=null"><span>
                                              <el-icon name="time"></el-icon>
                                             {{ auto_time_new(props.row.ckrwSjdcsj,6) }}
                                         </span>
@@ -763,7 +763,6 @@
             }
         },
         computed: {
-            // TODO 表格提交
             option: function () {
                 return {
                     "draw": 1,
@@ -841,7 +840,7 @@
                         message: '已取消发运'
                     });
                 });
-            },                                //TODO 多选-发运
+            },                                //多选-发运
 
             inlineShipment: function (index, row) {
                 var _this = this;
@@ -865,7 +864,7 @@
                         message: '已取消发运'
                     });
                 });
-            },                              //TODO 行内按钮--发运
+            },                              //行内按钮--发运
 
 
             inlinePrintCarrierAgreement: function (index, row) {
@@ -897,10 +896,6 @@
                     });
                 });
             },                 //行内按钮-打印承运协议
-
-            moreOperationModify: function () {
-
-            },                                   //TODO 多选 修改
 
 
             expandChange: function (row, expanded) {
@@ -984,7 +979,6 @@
                 var _this = this;
                 this.dialogFormActive++;
                 this.submitLoading = true;
-                //TODO 此处应是ajax请求
                 setTimeout(function () {
                     _this.submitLoading = false;
                     _this.$notify({
