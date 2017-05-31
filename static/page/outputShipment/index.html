@@ -1133,7 +1133,8 @@
     // 1 出库发运 发运
     p[1] = autoPost({
         urlHock: "../../hock/outputShipment/page.json",
-        urlProd: "/route/outputShipment/1"
+        urlProd: "/route/outputShipment/1",
+        method: 'GET'
     });
     // 2 出库发运-修改发运数量
     p[2] = autoPost({
