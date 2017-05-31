@@ -76,6 +76,16 @@
                                     <el-form-item label="客户名称">
                                         <span>{{props.row.ckCkdjClientname}}</span>
                                     </el-form-item>
+                                    <el-form-item label="客户名称">
+                                        <span>{{props.row.ckCkdjClientname}}</span>
+                                    </el-form-item>
+                                    <el-form-item label="欠货状态">
+                                        <span>{{ auto_ckQhStatus(props.row.ckQhStatus) }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="滞留状态">
+                                        <span>{{ auto_ckZlStatus(props.row.ckZlStatus) }}</span>
+                                    </el-form-item>
+
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="联系人">
@@ -730,10 +740,40 @@
                 }
                 return temp[value];
             },                                    //制单方式
-
-
-
-
+            auto_ckQhStatus: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '整单欠货',
+                        2: '部分欠货',
+                        3:'未欠货',
+                    }
+                } else {
+                    temp = {
+                        '整单欠货': 1,
+                        '部分欠货': 2,
+                        '未欠货': 3,
+                    }
+                }
+                return temp[value];
+            },                               //欠货状态
+            auto_ckZlStatus: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '未到车滞留',
+                        2: '到车滞留',
+                        3:'未滞留',
+                    }
+                } else {
+                    temp = {
+                        '未到车滞留': 1,
+                        '到车滞留': 2,
+                        '未滞留':3,
+                    }
+                }
+                return temp[value];
+            },                               //滞留状态
         },
         watch: {
             ckCkdjNo: function () {
