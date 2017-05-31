@@ -168,7 +168,7 @@ function tsf_date(date, number) {
     } else {
         return null;
     }
-}             //安全转换日期 为 java 可识别
+}     //安全转换日期 为 java 可识别
 function auto_number(data, size) {
     if (data < Math.pow(10, size)) {
         for (var i = 0; i < size; i++) {
