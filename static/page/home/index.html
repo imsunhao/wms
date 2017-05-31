@@ -1,4 +1,3 @@
-
 <style>
     #home {
         width: 100%;
@@ -172,10 +171,12 @@
 </style>
 
 <div id="home">
+    <!--页面调整-->
     <el-row
             v-loading="showLoading"
             element-loading-text="拼命加载中">
         <div class="inner btn-nav">
+
             <el-input
                     v-model="lostCkdjNo"
                     icon="search"
@@ -192,23 +193,26 @@
                     width="55">
             </el-table-column>
             <el-table-column
-                    label="货品编号"
-                    show-overflow-tooltip
-                    prop="lostNo"
-                    align="center">
-            </el-table-column>
-            <el-table-column
                     label="出库单号"
                     show-overflow-tooltip
                     prop="lostCkdjNo"
                     align="center">
             </el-table-column>
             <el-table-column
+                    label="货品编号"
+                    show-overflow-tooltip
+                    prop="lostNo"
+                    align="center">
+
+            </el-table-column>
+            <el-table-column
                     label="抓取时间"
                     show-overflow-tooltip
                     prop="lostTime"
                     align="center">
+
             </el-table-column>
+
         </el-table>
         <div class="block">
             <el-pagination
@@ -223,15 +227,16 @@
         </div>
     </el-row>
 </div>
+
 <script>
     var home = new Vue({
         el: '#home',
         prop: {},
         data: function () {
             return {
-                home: [],                           //主页面 信息集合
+                home: [],                 //主页面 信息集合
+                lostCkdjNo: '',                   //主页面 出库编号  搜索
                 showLoading: false,              //主页面 加载 维护
-                lostCkdjNo:'',                    //主页面 出库单号
                 currentPage: 1,                  //分页 当前页
                 currentTotal: 1,                 //分页 总页数
                 pageSize: 10,                    //分页 分页大小
@@ -245,7 +250,8 @@
                     "pageSize": this.pageSize,
                     "lostCkdjNo":this.lostCkdjNo.trim(),
                 }
-            }
+            },           //主页面 post 0
+
         },
         methods: {
             handleSizeChange: function (val) {
@@ -262,6 +268,7 @@
                 this.currentPage = val;
                 p[0].post(this.option);
             },                                //分页 当前页
+
         },
         watch: {
             lostCkdjNo: function () {
@@ -269,18 +276,22 @@
                 console.log(this.option);
                 /*</debug>*/
                 p[0].post(this.option);
-            }
+            },
+
         }
     });
+
     var obj = home;
     var p = [];
-    // 0
+    // 0  分页查询
     p[0] = autoPost({
+        urlHock: "",
         urlProd: "/route/home/0",
         success: function (json) {
             obj.$data.home = json.data;
             obj.$data.currentTotal = json.recordsFiltered;
         }
-    })
+    });
+
     p[0].post(obj.option);
 </script>
