@@ -22,7 +22,6 @@
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                         class="icon sel"></i><span>多选</span>
                 </button>
-
                 <button @click="multiOperationIssued" class="btn btn-Issued" v-show="multiSelect"><i
                         class="icon issued"></i><span>下发</span>
                 </button>
@@ -45,7 +44,7 @@
                                 :autoplay="false">
                             <el-carousel-item>
                                 <el-row>
-                                    <h3 style="margin-top: 0; margin-left: -15px;">入库任务详细</h3>
+                                    <h3>入库任务详细</h3>
                                 </el-row>
                                 <el-form label-position="left" inline class="demo-table-expand">
                                     <el-row>
@@ -103,7 +102,7 @@
                             </el-carousel-item>
                             <el-carousel-item>
                                 <el-row>
-                                    <h3 style="margin-top: 0; margin-left: -15px;">入库任务单据<span
+                                    <h3>入库任务单据<span
                                             style="font-size: 14px;
                                             font-weight: normal;
                                             margin-left: 5px;">（双击查看单据明细）</span>
@@ -816,6 +815,9 @@
             rkrwCys: '',//模糊查询--承运商
             rkrwStatus: 0,
 
+            goodsType: 0,
+            orders: 0,
+
             list2: _form_list2()
         }
     }
@@ -850,6 +852,7 @@
             return {
                 lists: _lists(),
                 dialogListsVisible: false,           //明细 弹出层 是否可见
+
                 warehousingTask: [],
                 multipleSelection: [],
                 multiSelect: false,
@@ -980,7 +983,7 @@
                 obj.form = step;
                 obj.dialogFormActive = 0;
                 obj.dialogFormVisible = true;
-            },                                  //TODO 行内按钮 编辑
+            },                                  //行内按钮 编辑
             inlineIssued: function (index, row) {
                 obj.$confirm('此操作将这单任务单据下发, 是否继续?', '提示', {
                     confirmButtonText: '确定',
@@ -996,9 +999,8 @@
                         message: '已取消下发'
                     });
                 });
-            },                                //TODO 行内按钮 下发
+            },                                //行内按钮 下发
             dblClick: function (row, event) {
-                console.log(row);
                 if (row.rkDocsList === null || typeof row.rkDocsList === 'undefined' || row.rkDocsList.length < 1) {
                     p[7].post({rkRkdjId: row.rkRkdjId}, function (json) {
                         row.rkDocsList = json.rkDocsList;
@@ -1011,7 +1013,7 @@
                     obj.lists.rkRkdjNo = row.rkRkdjNo;
                     obj.dialogListsVisible = true;
                 }
-            },                                    //TODO 行内按钮 双击查看明细
+            },                                    //行内按钮 双击查看明细
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -1040,7 +1042,7 @@
                     });
                 });
 
-            },                                  //TODO 多选 下发
+            },                                  //多选 下发
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -1338,13 +1340,15 @@
     // 6 查询-入库任务详情
     p[6] = autoPost({
         urlHock: "/hock/warehousingTask/rwDocList.json",
-        urlProd: "/route/warehousingTask/6"
+        urlProd: "/route/warehousingTask/6",
+        method: 'GET'
     });
 
     // 7 查询-入库单号-入库明细
     p[7] = autoPost({
         urlHock: "/hock/warehousingTask/docList.json",
-        urlProd: "/route/warehousingTask/7"
+        urlProd: "/route/warehousingTask/7",
+        method: 'GET'
     });
 
     // 8 查询-入库单据

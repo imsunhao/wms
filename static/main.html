@@ -93,7 +93,7 @@
             </el-menu>
             <el-menu class="user" mode="horizontal" style="float: right">
                 <el-submenu index="1">
-                    <template slot="title"><img :src="rmsUser.ruPortrait" alt="">{{rmsUser.ruUserName}}</template>
+                    <template slot="title"><img :src="auto_portrait(rmsUser.ruPortrait)" alt="">{{rmsUser.ruUserName}}</template>
                     <el-menu-item index="2-1" @click="dialogUserVisible=!dialogUserVisible">修改信息</el-menu-item>
                     <el-menu-item index="2-2" @click="signOut">注销登录</el-menu-item>
                 </el-submenu>
@@ -134,7 +134,7 @@
                             :show-file-list="false"
                             :on-success="handleAvatarScucess"
                             :before-upload="beforeAvatarUpload">
-                        <img v-if="rmsUser.ruPortrait" :src="rmsUser.ruPortrait" class="avatar">
+                        <img v-if="rmsUser.ruPortrait" :src="auto_portrait(rmsUser.ruPortrait)" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
                 </el-col>
@@ -172,14 +172,25 @@
     </el-dialog>
     <el-dialog custom-class="p1" v-model="dialogTableVisible1" size="full" :show-close="false">
         <div class="p1_inner">
-
             <h2 style="text-align: center">整车货物运输承运协议</h2>
-            <p>托运方（以下简称甲方）： {{printDatas.p1.info['托运方']||'____________'}} 联系人：
-                {{printDatas.p1.info['托运方联系人']||'____________'}}；承运方（以下简称乙方）：{{printDatas.p1.info['承运方']||'____________'}}
-                联系人： {{printDatas.p1.info['承运方联系人']||'____________'}}；</p>
-            <p>承运人姓名：{{printDatas.p1.info['承运人']['姓名']||'____________'}} 车牌号码：{{printDatas.p1.info['车牌号码']||'____________'}}
-                证件号：{{printDatas.p1.info['承运人']['证件号']||'____________'}}
-                联系方式：{{printDatas.p1.info['承运人']['联系方式']||'____________'}}；</p>
+            <div class="clearfix">
+                <div class="p1_2">
+                    <p>托运方（以下简称甲方）： {{printDatas.p1.info['托运方']||'_______________________________'}}</p>
+                    <p>承运人姓名：{{printDatas.p1.info['承运人']['姓名']||'_______________________________'}}</p>
+                </div>
+                <div class="p1_2">
+                    <p>联系人：{{printDatas.p1.info['托运方联系人']||'_______________________________'}}；</p>
+                    <p>车牌号码：{{printDatas.p1.info['车牌号']||'_______________________________'}}</p>
+                </div>
+                <div class="p1_2">
+                    <p>承运方（以下简称乙方）：{{printDatas.p1.info['承运方']||'_______________________________'}}</p>
+                    <p>证件号：{{printDatas.p1.info['承运人']['证件号']||'_______________________________'}}</p>
+                </div>
+                <div class="p1_2">
+                    <p>联系人： {{printDatas.p1.info['承运方联系人']||'_______________________________'}}；</p>
+                    <p>联系方式：{{printDatas.p1.info['承运人']['联系方式']||'_______________________________'}}；</p>
+                </div>
+            </div>
             <p>根据《中华人民共和国合同法》及相关法律法规，甲乙双方经友好协商，就甲方委托乙方提供货物运输服务事宜达成本协议，以便双方共同遵守。</p>
             <p>一、货物信息</p>
             <el-table
@@ -188,6 +199,7 @@
                     show-summary>
                 <el-table-column
                         prop="任务单号"
+                        width="200"
                         align="center"
                         label="任务号">
                 </el-table-column>
@@ -198,27 +210,31 @@
                 </el-table-column>
                 <el-table-column
                         prop="货品名称"
-                        width="220"
+                        width="350"
                         align="center"
                         label="货品名称">
                 </el-table-column>
                 <el-table-column
                         prop="发运数量"
+                        width="80"
                         align="center"
                         label="数量">
                 </el-table-column>
                 <el-table-column
                         align="center"
                         prop="体积"
+                        width="120"
                         label="体积">
                 </el-table-column>
                 <el-table-column
                         prop="收货人"
+                        width="80"
                         align="center"
                         label="收货人">
                 </el-table-column>
                 <el-table-column
                         align="center"
+                        width="200"
                         label="联系">
                     <template scope="scope">
                         {{scope.row['联系方式']}}
@@ -226,6 +242,7 @@
                 </el-table-column>
                 <el-table-column
                         prop="地址"
+                        width="400"
                         align="center"
                         label="地址">
                 </el-table-column>
@@ -247,12 +264,76 @@
                     <p>乙方：</p>
                     <p>日期： {{auto_time_new(new Date(),1)}}</p>
                 </div>
+                <div class="p1_2">
+                    <p>经办人：</p>
+                </div>
             </div>
-            <p>经办人：</p>
         </div>
     </el-dialog>
     <el-dialog custom-class="p2" v-model="dialogTableVisible2" size="full" :show-close="false">
-
+        <div class="p2_inner">
+            <h2 style="text-align: center">拣货单</h2>
+            <p style="margin-bottom: 5px;margin-top: -25px;">出库单号：{{printDatas.p2.ckCkdjNo[0].ckCkdjNo}}</p>
+            <el-table
+                    :data="printDatas.p2.data"
+                    :border="true">
+                <el-table-column
+                        type="index"
+                        width="55">
+                </el-table-column>
+                <el-table-column
+                        prop="mfunRepertory.baseLocation.blLname"
+                        width="120"
+                        align="center"
+                        label="库位名称">
+                </el-table-column>
+                <el-table-column
+                        prop="mfunRepertory.baseGoods.bgGoodsNo"
+                        width="140"
+                        align="center"
+                        label="物料编码">
+                </el-table-column>
+                <el-table-column
+                        prop="mfunRepertory.baseGoods.bgGoodsName"
+                        width="350"
+                        align="center"
+                        label="物料名称">
+                </el-table-column>
+                <el-table-column
+                        prop="msxMxCount"
+                        width="65"
+                        align="center"
+                        label="台数">
+                </el-table-column>
+                <el-table-column
+                        prop="jianshu"
+                        align="center"
+                        width="95"
+                        label="件数">
+                </el-table-column>
+                <el-table-column
+                        prop="mfunRepertory.baseGoods.bgHsl"
+                        width="80"
+                        align="center"
+                        label="换算量">
+                </el-table-column>
+                <el-table-column
+                        align="center"
+                        label="备注">
+                </el-table-column>
+            </el-table>
+            <div class="clearfix">
+                <div class="p2_2">
+                    <p>客户地址：</p>
+                    <p></p>
+                </div>
+                <div class="p2_2">
+                    <p>捡货仓管：</p>
+                    <p>客户名称：</p>
+                </div>
+            </div>
+            <h4>合计：</h4>
+        </div>
     </el-dialog>
 </div>
 </body>
