@@ -93,7 +93,8 @@
             </el-menu>
             <el-menu class="user" mode="horizontal" style="float: right">
                 <el-submenu index="1">
-                    <template slot="title"><img :src="auto_portrait(rmsUser.ruPortrait)" alt="">{{rmsUser.ruUserName}}</template>
+                    <template slot="title"><img :src="auto_portrait(rmsUser.ruPortrait)" alt="">{{rmsUser.ruUserName}}
+                    </template>
                     <el-menu-item index="2-1" @click="dialogUserVisible=!dialogUserVisible">修改信息</el-menu-item>
                     <el-menu-item index="2-2" @click="signOut">注销登录</el-menu-item>
                 </el-submenu>
@@ -273,7 +274,7 @@
     <el-dialog custom-class="p2" v-model="dialogTableVisible2" size="full" :show-close="false">
         <div class="p2_inner">
             <h2 style="text-align: center">拣货单</h2>
-            <p style="margin-bottom: 5px;margin-top: -25px;">出库单号：{{printDatas.p2.ckCkdjNo[0].ckCkdjNo}}</p>
+            <p style="margin-bottom: 5px;margin-top: -25px;">出库单号：{{printDatas.p2.row.ckCkdjNo}}</p>
             <el-table
                     :data="printDatas.p2.data"
                     :border="true">
@@ -324,15 +325,19 @@
             </el-table>
             <div class="clearfix">
                 <div class="p2_2">
-                    <p>客户地址：</p>
-                    <p></p>
+                    <p>客户地址：{{printDatas.p2.row.ckCkdjClientname}}</p>
                 </div>
                 <div class="p2_2">
                     <p>捡货仓管：</p>
-                    <p>客户名称：</p>
+                    <p>客户名称：{{printDatas.p2.row.ckAdress}}</p>
                 </div>
             </div>
-            <h4>合计：</h4>
+            <div class="clearfix" style="height: 70px;">
+                <div class="p2_2"><h2 style="margin-left: 20px;">合计：{{printDatas.p2.info.amount}} 台</h2></div>
+                <div class="p2_2 p2_3">
+                    <div class="barcode2" v-html="code128(printDatas.p2.row.ckCkdjNo, 'B')"></div>
+                </div>
+            </div>
         </div>
     </el-dialog>
 </div>

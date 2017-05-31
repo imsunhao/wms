@@ -54,7 +54,17 @@ function _printDatas_p1_info() {
 function _printDatas_p2() {
     return {
         data: [],
-        ckCkdjNo: [{ckCkdjNo:''}]
+        info: _printDatas_p2_info(),
+        row: {
+            ckCkdjNo: '',
+            ckCkdjClientname:'',
+            ckAdress          :''
+        }
+    }
+}
+function _printDatas_p2_info() {
+    return {
+        amount: 0
     }
 }
 $(function () {
