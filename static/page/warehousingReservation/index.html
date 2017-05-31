@@ -1046,6 +1046,8 @@
 //                    })
 //                },0);
             },                             //表单 string验证
+
+
             querySearchAsync: function (queryString, cb) {
                 postGoods(this, {
                     bgGoodsNo: queryString,
@@ -1474,9 +1476,7 @@
         }
     }
 
-    var validateRule = {
-        a: new RegExp("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", "g")
-    };
+
 
     // 高级 监视器的 使用方法
     warehousingReservation.$watch('date', function () {
@@ -1493,7 +1493,6 @@
 
     p[7].post(warehousingReservation.option);
     function postGoods(obj, option, cb) {
-        //TODO 此处应为AJAX请求,待完善 querySearchAsync
 
         /*<debug>*/
         url = "/hock/form/rkGoods.json";

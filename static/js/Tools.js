@@ -3,6 +3,8 @@
  */
 
 
+
+
 function generateNode(tree) {
     var formatTree = formatTreeData(tree);
     return combinationNode(formatTree);
@@ -157,6 +159,34 @@ function autoPost(option) {
     };          //post父类
     return Object.create(_post, autoValue(option));
 }           //post核心
+function autoValidate(option, cbs) {
+    var validateRule = {
+        a: autoValidateRule("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", '不允许存在特殊字符!'),
+    };
+
+    function autoValidateRule(string, model) {
+        return function (rule, value, callback) {
+            if ((new RegExp(string, "g")).exec(value)) {
+                return callback(new Error(model));
+            }
+            else {
+                return callback();
+            }
+        };
+    }
+
+    var temp = Object.create(null);
+    var i = 0;
+    for (index in option) {
+        if (option[index]) temp[index] = [{validator: validateRule[option[index]], trigger: 'blur'}];
+        else temp[index] = [{validator: cbs[i++], trigger: 'blur'}];
+    }
+    return temp;
+}  //validate核心
+
+
+
+
 function tsf_date(date, number) {
     if (typeof date !== 'undefined' && date !== null && date !== '') {
         switch (number) {
@@ -272,3 +302,4 @@ function auto_time_new(value, number) {
 function auto_portrait(portrait) {
     return 'static/images/users/' + portrait;
 }
+
