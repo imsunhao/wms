@@ -91,7 +91,7 @@
                                                 <el-button
                                                         size="small"
                                                         type="success"
-                                                        @click="inlineIssued(props.$index, props.row)">导出
+                                                        @click="inlineExport(props.$index, props.row)">导出
                                                 </el-button>
                                             </el-form-item>
 
@@ -599,27 +599,28 @@
             },                                      //分配 表单
         },
         methods: {
-            inlineEdit: function (index, row) {
-                this.form.title = '编辑';
-                this.form.rkrwNo = row.rkrwNo;
-                this.form.rkrwCph = row.rkrwCph;
-                this.form.dds = row.dds;
-                this.form.pxs = row.pxs;
-                this.form.rkrwSjxm = row.rkrwSjxm;
-                this.form.rkrwDhrq = row.rkrwDhrq;
-                this.form.rkrwDbd = row.rkrwDbd;
-                this.form.rkrwCys = row.rkrwCys;
-                this.form.rkrwDh = row.rkrwDh;
-                this.form.rkrwStatus = parseInt(row.rkrwStatus);
-                this.dialogFormVisible = true;
-                this.dialogFormActive = 0;
-                Vue.nextTick(function () {
-                    aLibraryFrozenSelect.$refs.carousel.setActiveItem(0);
+            inlineExport: function (index, row) {
+                obj.$confirm('导出库位冻结' , '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    p[2].post({
+                        ids: [row.djId]
+                    }, function (json) {
+                        this.callbackAfter({status: json.status, model: "导出库位冻结"}, function () {
+                            var url = "/static/Excel/" + json.model;
+                            window.open(url);
+                        })
+                    });
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消导出'
+                    });
                 });
-            },                                  //TODO 行内按钮-编辑
-            inlineIssued: function (index, row) {
 
-            },                                //TODO 行内按钮  下发
+            },                                // 行内按钮 导出
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -782,6 +783,8 @@
     p[2] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryFrozenSelect/2",
+        method: 'GET',
+
         success: function (json) {
         }
     });
