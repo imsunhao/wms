@@ -1372,7 +1372,8 @@
     // 1 出库操作-查询-历史记录
     p[1] = autoPost({
         urlHock: "../../hock/outputOperation/page.json",
-        urlProd: "/route/outputOperation/1"
+        urlProd: "/route/outputOperation/1",
+        method: 'GET'
     });
     // 2 出库操作-下架
     p[2] = autoPost({
