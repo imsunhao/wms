@@ -953,6 +953,18 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 4:
+                        urlName = '出库操作-打印组合分拣单';
+                        req = autoUrl(req, '/mfunck/dayinzuhedan', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 5:
+                        urlName = '出库操作-打印追加分拣单';
+                        req = autoUrl(req, '/mfunck/dayinzuijiadan', "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
                 }
                 break;
             case 'outputShipment':

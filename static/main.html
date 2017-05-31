@@ -66,7 +66,6 @@
             <div class="logo clearfix" @click="clickGoHome">
                 <i></i>
                 <span>乐速仓库管理系统</span>
-                <!--<span>直销仓储管理系统</span>-->
             </div>
         </div>
         <el-input
@@ -148,7 +147,6 @@
                 </el-input>
             </el-row>
         </el-form>
-
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="userSubmit" :loading="userLoading">保存</el-button>
         </div>
@@ -338,6 +336,59 @@
                     <div class="barcode2" v-html="code128(printDatas.p2.row.ckCkdjNo, 'B')"></div>
                 </div>
             </div>
+        </div>
+    </el-dialog>
+    <el-dialog custom-class="p3" v-model="dialogTableVisible3" size="full" :show-close="false">
+        <div class="p3_inner">
+            <h2 style="text-align: center">组合分拣单</h2>
+            <el-table
+                    :data="printDatas.p3"
+                    :border="true">
+                <el-table-column
+                        type="index"
+                        width="55">
+                </el-table-column>
+                <el-table-column
+                        prop="mfunRepertory.baseGoods.bgGoodsNo"
+                        width="140"
+                        align="center"
+                        label="物料编码">
+                </el-table-column>
+                <el-table-column
+                        prop="mfunRepertory.baseGoods.bgGoodsName"
+                        width="350"
+                        align="center"
+                        label="物料名称">
+                </el-table-column>
+                <el-table-column
+                        prop="mfunRepertory.baseLocation.blLname"
+                        width="120"
+                        align="center"
+                        label="储位代码">
+                </el-table-column>
+                <el-table-column
+                        prop="msxMxCount"
+                        width="65"
+                        align="center"
+                        label="台数">
+                </el-table-column>
+                <el-table-column
+                        prop="jianshu"
+                        align="center"
+                        width="95"
+                        label="件数">
+                </el-table-column>
+                <el-table-column
+                        prop="mfunRepertory.baseGoods.bgHsl"
+                        width="80"
+                        align="center"
+                        label="换算量">
+                </el-table-column>
+                <el-table-column
+                        align="center"
+                        label="备注">
+                </el-table-column>
+            </el-table>
         </div>
     </el-dialog>
 </div>

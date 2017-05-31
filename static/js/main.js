@@ -12,6 +12,7 @@ function _printDatas() {
         p0: [],
         p1: _printDatas_p1(),
         p2: _printDatas_p2(),
+        p3: [],
     }
 }
 
@@ -30,7 +31,6 @@ function _printDatas_p1() {
         info: _printDatas_p1_info()
     }
 }
-
 function _printDatas_p1_info() {
     return {
         "起运地": "九阳齐河仓",
@@ -57,8 +57,8 @@ function _printDatas_p2() {
         info: _printDatas_p2_info(),
         row: {
             ckCkdjNo: '',
-            ckCkdjClientname:'',
-            ckAdress          :''
+            ckCkdjClientname: '',
+            ckAdress: ''
         }
     }
 }
@@ -67,6 +67,8 @@ function _printDatas_p2_info() {
         amount: 0
     }
 }
+
+
 $(function () {
     Vue.component('sh-print', {
         render: function (h) {
@@ -308,7 +310,8 @@ $(function () {
                 printDatas: _printDatas(),
                 dialogTableVisible: false,
                 dialogTableVisible1: false,
-                dialogTableVisible2: false
+                dialogTableVisible2: false,
+                dialogTableVisible3: false,
             }
         },
         methods: {
@@ -323,7 +326,7 @@ $(function () {
                     obj.printModel = true;
                     _this.dialogTableVisible = false;
                 }, 500);
-            },
+            },                                        // 开始收货 打印标签页
             print1: function (obj) {
                 if (typeof (obj.printDatas) === 'undefined') return;
                 this.printDatas = _printDatas();
@@ -335,7 +338,7 @@ $(function () {
                     obj.printModel = true;
                     _this.dialogTableVisible1 = false;
                 }, 500);
-            },
+            },                                       // 出库发运 打印承运协议
             print2: function (obj) {
                 if (typeof (obj.printDatas) === 'undefined') return;
                 this.printDatas = _printDatas();
@@ -347,7 +350,19 @@ $(function () {
                     obj.printModel = true;
                     _this.dialogTableVisible2 = false;
                 }, 500);
-            }
+            },                                       // 出库操作 打印分拣单 打印追加分拣单
+            print3: function (obj) {
+                if (typeof (obj.printDatas) === 'undefined') return;
+                this.printDatas = _printDatas();
+                this.printDatas.p2 = obj.printDatas;
+                this.dialogTableVisible2 = true;
+                var _this = this;
+                setTimeout(function () {
+                    window.print();
+                    obj.printModel = true;
+                    _this.dialogTableVisible2 = false;
+                }, 500);
+            },                                       // 出库操作 打印组合分拣单
         }
     });
     app.$watch('rmsUser', function () {
