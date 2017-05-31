@@ -1547,8 +1547,20 @@ router.param('_url', function (req, res, next, url) {
                         break;
 
 
+
                 }
                 break;
+            case 'home':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '主页面 分页获取单据';
+                        req = autoUrl(req, 'lost/selectLostGoodsNoByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+
 
 
         }
