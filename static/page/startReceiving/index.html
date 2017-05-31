@@ -33,67 +33,144 @@
                     :max-height="570"
                     ref="table"
                     class="startReceivingTable"
+                    @expand="expandChange"
                     @selection-change='multiSelectionChange'
                     style="width: 100%">
                 <el-table-column
                         type="expand">
                     <template scope="props">
-                        <el-row>
-                            <h3 style="margin-top: 0; margin-left: -15px;">入库任务详细</h3>
-                        </el-row>
-                        <el-form label-position="left" inline class="demo-table-expand">
-                            <el-row>
-                                <el-col :span="10">
-                                    <el-form-item label="任务号">
-                                        <span>{{ props.row.rkrwNo }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="车牌号">
-                                        <span>{{ props.row.rkrwCph }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="订单数">
-                                        <span>{{props.row.orders}}</span>
-                                    </el-form-item>
-                                    <el-form-item label="品项数">
-                                        <span>{{props.row.goodsType}}</span>
-                                    </el-form-item>
-                                    <el-form-item label="司机姓名">
-                                        <span>{{ props.row.rkrwSjxm }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="调拨地">
-                                        <span>{{ props.row.rkrwDbd }}</span>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :span="10" :offset="2">
-                                    <el-form-item label="预计到货">
-                                        <span>{{auto_rkrwDhrq(props.row.rkrwDhrq) }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="承运商">
-                                        <span>{{ props.row.rkrwCys }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="司机电话">
-                                        <span>{{ props.row.rkrwDh }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="任务状态">
-                                        <span>{{ auto_rkrwStatus(props.row.rkrwStatus) }}</span>
-                                    </el-form-item>
-                                    <el-form-item
-                                            v-if="props.row.rkrwStatus<52"
-                                            label="可用操作">
-                                        <el-button
-                                                size="small"
-                                                type="info"
-                                                @click="inlineModify(props.$index, props.row)">打印标签页
-                                        </el-button>
-                                    </el-form-item>
-                                    <el-form-item label="入库备注">
-                                        <el-tooltip class="item" effect="dark" :content="props.row.remarks"
-                                                    placement="top">
-                                            <span class="remark">{{ props.row.remarks }}</span>
-                                        </el-tooltip>
-                                    </el-form-item>
-                                </el-col>
-                            </el-row>
-                        </el-form>
+                        <el-carousel
+                                arrow="hover"
+                                height="280px"
+                                indicator-position="none"
+                                :autoplay="false">
+                            <el-carousel-item>
+                                <el-row>
+                                    <h3>入库任务详细</h3>
+                                </el-row>
+                                <el-form label-position="left" inline class="demo-table-expand">
+                                    <el-row>
+                                        <el-col :span="10">
+                                            <el-form-item label="任务号">
+                                                <span>{{ props.row.rkrwNo }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="车牌号">
+                                                <span>{{ props.row.rkrwCph }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="订单数">
+                                                <span>{{props.row.orders}}</span>
+                                            </el-form-item>
+                                            <el-form-item label="品项数">
+                                                <span>{{props.row.goodsType}}</span>
+                                            </el-form-item>
+                                            <el-form-item label="司机姓名">
+                                                <span>{{ props.row.rkrwSjxm }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="调拨地">
+                                                <span>{{ props.row.rkrwDbd }}</span>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :span="10" :offset="2">
+                                            <el-form-item label="预计到货">
+                                                <span>{{auto_rkrwDhrq(props.row.rkrwDhrq) }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="承运商">
+                                                <span>{{ props.row.rkrwCys }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="司机电话">
+                                                <span>{{ props.row.rkrwDh }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="任务状态">
+                                                <span>{{ auto_rkrwStatus(props.row.rkrwStatus) }}</span>
+                                            </el-form-item>
+                                            <el-form-item
+                                                    v-if="props.row.rkrwStatus<52"
+                                                    label="可用操作">
+                                                <el-button
+                                                        size="small"
+                                                        type="info"
+                                                        @click="inlineModify(props.$index, props.row)">打印标签页
+                                                </el-button>
+                                            </el-form-item>
+                                            <el-form-item label="入库备注">
+                                                <el-tooltip class="item" effect="dark" :content="props.row.remarks"
+                                                            placement="top">
+                                                    <span class="remark">{{ props.row.remarks }}</span>
+                                                </el-tooltip>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                </el-form>
+                            </el-carousel-item>
+                            <el-carousel-item>
+                                <el-row>
+                                    <h3>入库任务单据<span
+                                            style="font-size: 14px;
+                                            font-weight: normal;
+                                            margin-left: 5px;">（双击查看单据明细）</span>
+                                    </h3>
+                                </el-row>
+                                <el-table
+                                        :data="props.row.docList"
+                                        @row-dblclick="dblClick"
+                                        :max-height="240">
+                                    <el-table-column
+                                            type="index"
+                                            width="55">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="入库单号"
+                                            width="170"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="rkRkdjNo">
+                                    </el-table-column>
+                                    <el-table-column
+                                            width="150"
+                                            align="center"
+                                            prop="rkCreatetime"
+                                            label="下单时间">
+                                        <template scope="scope">
+                                            <el-icon name="time"></el-icon>
+                                            <span style="margin-left: 10px">{{ auto_rkCreatetime(scope.row.rkCreatetime) }}</span>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="类型"
+                                            align="center"
+                                            width="100">
+                                        <template scope="scope">
+                                            {{auto_rkType(scope.row.rkType)}}
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="状态"
+                                            align="center"
+                                            width="100">
+                                        <template scope="scope">
+                                            {{auto_rkStatus(scope.row.rkStatus)}}
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="总数量"
+                                            align="center"
+                                            show-overflow-tooltip
+                                            prop="allCount">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="总体积"
+                                            align="center"
+                                            show-overflow-tooltip
+                                            prop="allTj">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="备注"
+                                            show-overflow-tooltip
+                                            prop="rkRemarks">
+                                    </el-table-column>
+                                </el-table>
+                            </el-carousel-item>
+                        </el-carousel>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -257,6 +334,50 @@
         </el-tree>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="printfSubmit" :loading="printfLoading">打印</el-button>
+        </div>
+    </el-dialog>
+    <el-dialog
+            v-model="dialogListsVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">入库明细 单号：{{lists.rkRkdjNo}}</span>
+        </div>
+        <el-table
+                :data="lists.data"
+                highlight-current-row
+                style="width: 100%">
+            <el-table-column
+                    type="index"
+                    width="55">
+            </el-table-column>
+            <el-table-column
+                    label="货品编号"
+                    width="140"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="baseGoods.bgGoodsNo">
+            </el-table-column>
+            <el-table-column
+                    align="center"
+                    prop="baseGoods.bgGoodsName"
+                    show-overflow-tooltip
+                    label="货品名称">
+            </el-table-column>
+            <el-table-column
+                    label="单位"
+                    width="80"
+                    prop="baseDw.bdName"
+                    align="center">
+            </el-table-column>
+            <el-table-column
+                    label="数量"
+                    width="100"
+                    show-overflow-tooltip
+                    prop="rksCount"
+                    align="center">
+            </el-table-column>
+        </el-table>
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="dialogListsVisible=false">关闭</el-button>
         </div>
     </el-dialog>
 </div>
@@ -461,21 +582,23 @@
                 pageSize: 10,
                 currentTotal: 0,
 
-                rkrwNo: '',                          //主页面 任务单号 搜索
+                rkrwNo: '',                           //主页面 任务单号 搜索
                 rkrwCph: '',                          //主页面 车牌号 搜索
                 rkrwSjxm: '',                         //主页面 司机姓名 搜索
-                formLabelWidth: '120px',             //表单配置
-                form: _form(),                       //表单 弹出层 信息集合
-                dialogFormActive: 0,                 //新建 弹出层 steps 当前进度
-                dialogFormVisible: false,            //新建 弹出层 是否可见
-                submitLoading: false,                //新建 弹出层 提交等待
-                select: _form(),                     //搜索 弹出层 信息集合,
+                formLabelWidth: '120px',              //表单配置
+                form: _form(),                        //表单 弹出层 信息集合
+                dialogFormActive: 0,                  //新建 弹出层 steps 当前进度
+                dialogFormVisible: false,             //新建 弹出层 是否可见
+                submitLoading: false,                 //新建 弹出层 提交等待
+                select: _form(),                      //搜索 弹出层 信息集合,
 
-                printf: [],                          //打印 弹出层 信息集合,
+                printf: [],                           //打印 弹出层 信息集合,
                 printfLoading: false,
-                printDatas: [],                      // 打印数据
+                printDatas: [],                       // 打印数据
                 dialogPrintfVisible: false,
 
+                lists: _lists(),
+                dialogListsVisible:false,
 
                 dialogSelectVisible: false,
                 selectLoading: false,
@@ -535,6 +658,20 @@
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
             },                                //行内按钮 打印标签页
+            dblClick: function (row, event) {
+                if (row.rkDocsList === null || typeof row.rkDocsList === 'undefined' || row.rkDocsList.length < 1) {
+                    p[101].post({rkRkdjId: row.rkRkdjId}, function (json) {
+                        row.rkDocsList = json.rkDocsList;
+                        obj.lists.data = row.rkDocsList;
+                        obj.lists.rkRkdjNo = row.rkRkdjNo;
+                        obj.dialogListsVisible = true;
+                    })
+                } else {
+                    obj.lists.data = row.rkDocsList;
+                    obj.lists.rkRkdjNo = row.rkRkdjNo;
+                    obj.dialogListsVisible = true;
+                }
+            },                                    //行内按钮 双击查看明细
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -548,6 +685,20 @@
                 printfCompile(this);
                 this.dialogPrintfVisible = !this.dialogPrintfVisible;
             },                                   //多选 打印标签页
+            expandChange: function (row, expanded) {
+                if (expanded && (typeof (row.docList) === 'undefined' || row.docList.length === 0)) {
+                    p[102].post({rkrwId: row.rkrwId}, function (json) {
+                        /*<debug>*/
+                        console.log(json);
+                        /*</debug>*/
+                        row.docList = json.docList;
+                    });
+                }
+                /*<debug>*/
+                console.log(row);
+                console.log(expanded);
+                /*</debug>*/
+            },                             //下拉 选择
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -632,13 +783,15 @@
                             "pageSize": 999,
                             "draw": 0,
                             rkrwId: node.data.rkrwId,
-                            rkrwDhrq: node.data.rkrwDhrq
+                            rkrwDhrq: node.data.rkrwDhrq,
+                            rkrwNo: node.data.rkrwNo
                         }, resolve);
                         break;
                     case 2:
                         postRkdjId(this, {
                             "rksRkdjId": node.data.rksRkdjId,
-                            rkrwDhrq: node.data.rkrwDhrq
+                            rkrwDhrq: node.data.rkrwDhrq,
+                            rkrwNo: node.data.rkrwNo
                         }, resolve);
                         break;
                     case 3:
@@ -675,6 +828,85 @@
                 }
                 return temp[value];
             },                                  //任务状态
+            auto_rkCreatetime: function (value, bool) {
+                if (!bool) return dateFormat(new Date(value), 'yyyy-MM-dd');
+                else return dateFormat(new Date(value), 'MM-dd');
+            },                          //入库任务中详细信息 - 入库时间
+            auto_rkType: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        0: '采购订单',
+                        1: '仓间调拨',
+                        2: '退货入库'
+                    }
+                } else {
+                    temp = {
+                        '采购订单': 0,
+                        '仓间调拨': 1,
+                        '退货入库': 2
+                    }
+                }
+                return temp[value];
+            },                                      //订单类型
+            auto_rkStatus: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '原始状态',
+                        21: '部分分配',
+                        22: '全部分配',
+                        31: '部分收货',
+                        32: '完全收货',
+                    }
+                } else {
+                    temp = {
+                        '采购订单': 0,
+                        '仓间调拨': 1,
+                        '退货入库': 2
+                    }
+                }
+                return temp[value];
+            },                                    //入库状态
+            auto_rkArehouseId: function (data, set) {
+                /*<debug>*/
+                //console.log(rkArehouseId);
+                /*</debug>*/
+                var baArehouse = window.dbmessage.baseArehouses;
+                var i;
+                if (typeof set !== 'undefined') {
+                    for (i = 0; i < baArehouse.length; i++) {
+                        if (baArehouse[i].baName === data) {
+                            return baArehouse[i].baArehouseId
+                        }
+                    }
+                    return errorTip(this, '不应出现未知的情况仓库');
+                } else {
+                    for (i = 0; i < baArehouse.length; i++) {
+                        if (baArehouse[i].baArehouseId == data) {
+                            return baArehouse[i].baName
+                        }
+                    }
+                    return '未知的仓库'
+                }
+            },                            //入库仓库id 自动匹配
+            auto_rkZdfs: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '手动',
+                        2: '导入',
+                        3: '接口'
+                    }
+                } else {
+                    temp = {
+                        '手动': 1,
+                        '导入': 2,
+                        '接口': 3
+                    }
+                }
+                return temp[value];
+            },                                      //制单方式
         },
         watch: {
             rkrwCph: function () {
@@ -709,6 +941,7 @@
     }
     var obj = startReceiving;
     var p = [];
+
     // 0 开始收货 分页查询
     p[0] = autoPost({
         urlHock: "../../hock/startReceiving/page.json",
@@ -721,9 +954,21 @@
     //3 开始打印 状态变化
     p[3] = autoPost({
         urlHock: "../../hock/form/inputOption.json",
-        urlProd: "/route/startReceiving/3"
+        urlProd: "/route/startReceiving/3",
+        method: 'GET'
     });
-
+    // 101 查询-入库单号-入库明细
+    p[101] = autoPost({
+        urlHock: "/hock/warehousingTask/docList.json",
+        urlProd: "/route/warehousingTask/7",
+        method: 'GET'
+    });
+    // 102 查询-入库任务详情
+    p[102] = autoPost({
+        urlHock: "/hock/warehousingTask/rwDocList.json",
+        urlProd: "/route/warehousingTask/6",
+        method: 'GET'
+    });
 
     // 高级 监视器的 使用方法
     //    startReceiving.$watch('date', function () {
@@ -734,6 +979,12 @@
     //        p[0].post(this.option);
     //    }, {deep: true});
     p[0].post(startReceiving.option);
+    function _lists() {
+        return {
+            rkrwNo: '',
+            data: []
+        }
+    }
     function postRkrwNo(obj, option, resolve) {
         /*<debug>*/
         url = "/hock/startReceiving/rkrwNo.json";
@@ -744,7 +995,7 @@
         /*</prod>*/
 
         $.ajax(url, {
-            type: "GET",
+            type: "POST",
             data: option || {
                 "draw": 1,                      //* 没有意义
                 "pageNum": 1,                   //* 当前页
@@ -759,7 +1010,8 @@
                     resoleveStep.push({
                         name: json.data[i].rkRkdjNo,
                         rksRkdjId: json.data[i].rkRkdjId,
-                        rkrwDhrq: option.rkrwDhrq
+                        rkrwDhrq: option.rkrwDhrq,
+                        rkrwNo: option.rkrwNo
                     });
                 }
                 return resolve(resoleveStep);
@@ -795,7 +1047,7 @@
                         name: json[i].baseGoods.bgGoodsNo + '\t' + json[i].baseGoods.bgGoodsName,
                         val2: json[i].baseGoods.bgGoodsNo,
                         val: dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
-                        rwdh: option.rkrwDhrq,
+                        rwdh: option.rkrwNo,
                         dhrq: dateFormat(new Date(option.rkrwDhrq), 'yyyyMMdd'),
                         dysj: changeDate(new Date())
                     });

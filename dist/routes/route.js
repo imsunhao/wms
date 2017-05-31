@@ -19,7 +19,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '用户管理-新增-配置角色-启用';
-                        req = autoUrl(req, '/user', "POST", function (json) {
+                        req = autoUrl(req, '/user/userSet', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -1540,7 +1540,7 @@ router.param('_url', function (req, res, next, url) {
 
 
         }
-        console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + req.body.url);
+        console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + req.info.url);
         next();
     }
     else {
@@ -1551,26 +1551,37 @@ router.param('_url', function (req, res, next, url) {
 });
 
 function autoUrl(req, url, method, cal) {
-    req.body.url = url;
-    req.body.method = method;
-    req.body.cal = cal;
+    req.info={};
+    req.info.url = url;
+    req.info.method = method;
+    req.info.cal = cal;
     return req;
 }
 
 //请求java服务器
 function java(req, res, next) {
-    console.log(JSON.stringify(req.query));
+    var query = {};
+    var url = req.info.url;
+    var method = req.info.method;
+
+    if (method !== 'GET') {
+        console.log(JSON.stringify(req.body));
+        query = req.body;
+    } else {
+        console.log(JSON.stringify(req.query));
+        query = req.query;
+    }
     request({
-        url: 'http://' + server.host + ':' + server.port + server.path + req.body.url,
-        method: req.body.method,
+        url: 'http://' + server.host + ':' + server.port + server.path + url,
+        method: method,
         json: true,
         headers: {
             "content-type": "application/json"
         },
-        body: req.query
+        body: query
     }, function (error, response, json) {
         if (!error && response.statusCode === 200) {
-            req.body.cal(json);
+            req.info.cal(json);
             /*<debug>*/
             console.log('------------------');
             /*</debug>*/

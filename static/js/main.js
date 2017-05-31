@@ -10,7 +10,8 @@ var hock = "../../hock";
 function _printDatas() {
     return {
         p0: [],
-        p1: _printDatas_p1()
+        p1: _printDatas_p1(),
+        p2: _printDatas_p2(),
     }
 }
 
@@ -37,8 +38,8 @@ function _printDatas_p1_info() {
         "托运日期": "2017-05-23 15:37:09",
         "回单份数": 1,
         "承运方": "佳怡物流",
+        "车牌号": '',
 
-        "车牌号码": '',
         "托运方": '',
         "托运方联系人": '',
         "承运人": {
@@ -50,6 +51,12 @@ function _printDatas_p1_info() {
     }
 }
 
+function _printDatas_p2() {
+    return {
+        data: [],
+        ckCkdjNo: [{ckCkdjNo:''}]
+    }
+}
 $(function () {
     Vue.component('sh-print', {
         render: function (h) {
@@ -321,7 +328,8 @@ $(function () {
             },
             print2: function (obj) {
                 if (typeof (obj.printDatas) === 'undefined') return;
-                this.printDatas = obj.printDatas;
+                this.printDatas = _printDatas();
+                this.printDatas.p2 = obj.printDatas;
                 this.dialogTableVisible2 = true;
                 var _this = this;
                 setTimeout(function () {
