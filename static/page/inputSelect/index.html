@@ -326,13 +326,13 @@
                     label="货品编号"
                     show-overflow-tooltip
                     align="center"
-                    prop="rksGoodsId">
+                    prop="baseGoods.bgGoodsNo">
             </el-table-column>
             <el-table-column
                     label="货品名称"
                     show-overflow-tooltip
                     align="center"
-                    prop="rksGoodsId">
+                    prop="baseGoods.bgGoodsName">
             </el-table-column>
             <el-table-column
                     label="货品数量"
@@ -341,17 +341,11 @@
                     prop="rksCount">
             </el-table-column>
             <el-table-column
-                    label="货品体积"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="bgGoodsTj">
-            </el-table-column>
-            <el-table-column
                     label="实收体积"
                     width="140"
                     show-overflow-tooltip
                     align="center"
-                    prop="shtj">
+                    prop="mdtCount">
             </el-table-column>
             <el-table-column
                     label="入库明细状态"
@@ -359,13 +353,16 @@
                     show-overflow-tooltip
                     align="center"
                     prop="rksStatus">
+                <template scope="scope">
+                    {{auto_rksStatus(scope.row.rksStatus)}}
+                </template>
             </el-table-column>
             <el-table-column
                     label="上架人员"
                     width="140"
                     show-overflow-tooltip
                     align="center"
-                    prop=" sjryName">
+                    prop="mdtuser">
             </el-table-column>
         </el-table>
     </el-dialog>
@@ -708,8 +705,11 @@
             inlineExportInputDetailed:function(){},                                    //TODO 行内按钮-导出入库明细
             inlineExportInputStorage:function(){},                                     //TODO 行内按钮-导出入库储位
             inlineExportInput:function(){},                                            //TODO 行内按钮-导出入库
-            inlineSelectInputDetailed:function(){
-                this.dialogDetailedVisible = true
+            inlineSelectInputDetailed:function(index,row){
+                p[1].post({id: row.rkdjId}, function (json) {
+                    obj.detailed = json.model;
+                    obj.dialogDetailedVisible = true;
+                })
             },                                //TODO 行内按钮-查看入库明细信息
             inlineSelectInputStorage:function(){
                 this.dialogStorageVisible = true
@@ -885,7 +885,7 @@
                     }
                 }
                 return temp[value];
-            },                                         //操作方式
+            },                                         //制单方式
             auto_czfs:function(value){
                 var temp={}
                 if(!isNaN(value)){
@@ -900,10 +900,29 @@
                     }
                 }
                 return temp[value];
-            },                                    //入库状态
+            },                                    //操作方式
+            auto_rksStatus:function(value){
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        1:'初始状态',
+                        21:'部分分配',
+                        22:'全部分配',
+                        31:'部分收货',
+                        32:'完全收货',
+                    }
+                }else{
+                    temp={
+                        '初始状态':1,
+                        '部分分配':21,
+                        '全部分配':22,
+                        '部分收货':31,
+                        '完全收货':32
+                    }
 
-
-
+                }
+                return temp[value];
+            },                                 //入库明细状态
 
         },
         watch:{
@@ -950,14 +969,17 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-     // 1 入库单据查询
+     // 1 入库单据查询 查看入库明细信息
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/inputSelect/1",
+        method:'GET',
         success: function (json) {
+            obj.detailed = json.model;
+            obj.dialogDetailedVisible = true;
         }
     });
-     // 2 入库单据查询
+     // 2 入库单据查询 查看入库储位信息
     p[2] = autoPost({
         urlHock: "",
         urlProd: "/route/inputSelect/2",
