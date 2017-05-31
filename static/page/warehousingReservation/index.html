@@ -1236,6 +1236,7 @@
     p[0] = autoPost({
         urlHock: "../../hock/form/inputOption.json",
         urlProd: "/route/warehousingReservation/0",
+        method: 'GET',
         success: function (json) {
             obj = warehousingReservation;
             obj.dialogFormVisible = false;
