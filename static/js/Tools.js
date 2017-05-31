@@ -161,6 +161,14 @@ function autoPost(option) {
 }           //post核心
 function autoValidate(option, cbs) {
     var validateRule = {
+        vNull: function (rule, value, callback) {
+            console.log(rule);
+            if (value === '') {
+                callback(new Error('必填'));
+            } else {
+                callback();
+            }
+        },
         a: autoValidateRule("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", '不允许存在特殊字符!'),
     };
 
@@ -178,13 +186,25 @@ function autoValidate(option, cbs) {
     var temp = Object.create(null);
     var i = 0;
     for (index in option) {
-        if (option[index]) temp[index] = [{validator: validateRule[option[index]], trigger: 'blur'}];
-        else temp[index] = [{validator: cbs[i++], trigger: 'blur'}];
+        var type = typeof option[index];
+        switch (type) {
+            case 'object':
+                temp[index] = [];
+                for (var b in option[index]) {
+                    temp[index].push({validator: validateRule[option[index][b]], trigger: 'blur'});
+                }
+                break;
+            case 'string':
+                if (!option[index]) {
+                    temp[index] = [{validator: cbs[i++], trigger: 'blur'}]
+                } else {
+                    temp[index] = [{validator: validateRule[option[index]], trigger: 'blur'}];
+                }
+                break;
+        }
     }
     return temp;
 }  //validate核心
-
-
 
 
 function tsf_date(date, number) {
