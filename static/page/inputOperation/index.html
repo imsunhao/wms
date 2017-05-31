@@ -1439,7 +1439,6 @@
         urlHock: "../../hock/userControl/page.json",
         urlProd: "/route/inputOperation/0",
         success: function (json) {
-
             var temp = [];
             for (var i = 0; i < json.data.length; i++) {
                 temp[i] = json.data[i];
@@ -1451,7 +1450,6 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-
     //3 查询-入库单号-入库明细
     p[3] = autoPost({
         urlHock: "/hock/warehousingTask/docList.json",
@@ -1466,17 +1464,20 @@
     //7 上架
     p[7] = autoPost({
         urlHock: "/hock/inputOption/location.json",
-        urlProd: "/route/inputOperation/7"
+        urlProd: "/route/inputOperation/7",
+        method: 'GET'
     });
     //8 分配
     p[8] = autoPost({
         urlHock: "/hock/inputOption/location.json",
-        urlProd: "/route/inputOperation/8"
+        urlProd: "/route/inputOperation/8",
+        method: 'GET'
     });
     //9 取消分配
     p[9] = autoPost({
         urlHock: "/hock/inputOption/location.json",
-        urlProd: "/route/inputOperation/9"
+        urlProd: "/route/inputOperation/9",
+        method: 'GET'
     });
 
     function locationFather() {
@@ -1539,6 +1540,7 @@
             mdtBatch: dateFormat(new Date(), 'yyyyMMdd')
         }
     }
+
     p[0].post(obj.option);
 
     function postHistory(option, row) {

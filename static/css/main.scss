@@ -417,6 +417,14 @@ html, body {
       float: left;
       width: 500px;
     }
+    .p2_3 {
+      .p2_2 .barcode2 div {
+        height: 50px;
+      }
+      .p2_2 .barcode2 label {
+        font: 14px helvetica;
+      }
+    }
   }
 }
 

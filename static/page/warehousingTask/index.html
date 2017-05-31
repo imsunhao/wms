@@ -807,6 +807,8 @@
     }
     function _form() {
         return {
+            rkrwId: '',
+
             rkrwDhrq: '',//模糊查询--预计到货日期
             rkrwNo: '',//模糊查询--任务号
             rkrwCph: '',//模糊查询--车牌号
@@ -814,6 +816,11 @@
             rkrwDbd: '',//模糊查询--调拨地
             rkrwCys: '',//模糊查询--承运商
             rkrwStatus: 0,
+
+
+            "rkrwArehouseId": "",
+            "rkrwClientId": "",
+            "rkrwCreateUserid": "",
 
             goodsType: 0,
             orders: 0,
@@ -823,19 +830,19 @@
     }
     function _form_post() {
         return {
-            rkrwId: '',
-            rkrwN: '',
-            dds: '',
-            pxs: '',
-            rkrwDh: '',
-            rkrwStatus: '',
-            rkrwDhrq: null,//模糊查询--到货日期
-            rkrwNo: '',//模糊查询--任务号
-            rkrwCph: '',//模糊查询--车牌号
-            rkrwSjxm: '',//模糊查询--司机姓名
-            rkrwDbd: '',//模糊查询--调拨地
-            rkrwCys: '',//模糊查询--承运商
-            docList: []
+            "rkrwId": 25,
+            "rkrwNo": "",
+            "rkrwDhrq": "",
+            "rkrwDbd": "",
+            "rkrwCys": "",
+            "rkrwCph": "",
+            "rkrwSjxm": "",
+            "rkrwDh": "",
+            "rkrwStatus": "",
+            "rkrwArehouseId": "",
+            "rkrwClientId": "",
+            "rkrwCreateUserid": "",
+            "docList": []
         }
     }
 
@@ -1093,6 +1100,12 @@
                 allPrposCb(step, function (obj2, index) {
                     if (typeof obj.form[index] !== 'undefined') step[index] = obj.form[index];
                 });
+                var step2 = [];
+                for (var i = 0; i < step.docList.length; i++) {
+                    step2.push({rkRkdjId: step.docList[i].rkRkdjId});
+                }
+                step.docList = step2;
+
                 p[1].post(step, function (json) {
                     obj.submitLoading = false;
                     this.callbackAfter({status: json.status, model: '任务修改'}, function () {
@@ -1320,7 +1333,8 @@
     // 1 修改-入库任务
     p[1] = autoPost({
         urlHock: "/hock/warehousingTask/page.json",
-        urlProd: "/route/warehousingTask/1"
+        urlProd: "/route/warehousingTask/1",
+        method: 'GET',
     });
 
     // 5 下发-入库任务

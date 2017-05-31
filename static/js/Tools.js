@@ -184,6 +184,7 @@ function auto_time(value, bool) {
 function auto_time_new(value, number) {
     if (value === '')return '';
     if (value === null)return '';
+    if (typeof value === 'undefined')return '';
     switch (number) {
         case 1:
             return dateFormat(new Date(value), 'yyyy年 MM月 dd日');
@@ -197,7 +198,6 @@ function auto_time_new(value, number) {
             return dateFormat(new Date(value), 'yyyy年 MM月 dd日 hh:mm');
         case 6:
             return dateFormat(new Date(value), 'yyyy年 MM月 dd日 hh:mm:ss');
-
         default:
             return dateFormat(new Date(value), 'yyyy-MM-dd');
     }
