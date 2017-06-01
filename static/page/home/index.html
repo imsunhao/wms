@@ -294,7 +294,8 @@
     });
 
     p[0].post(obj.option);
-    setInterval(function () {
-        p[0].post(obj.option);
-    },30000)
+    homeTimer = homeTimer || setInterval(function () {
+            p[0].post(obj.option);
+        }, 1000)
+    //    },30000)
 </script>

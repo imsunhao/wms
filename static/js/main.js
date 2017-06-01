@@ -217,6 +217,10 @@ $(function () {
                 console.log(this.breadcrumb);
                 console.log(data);
                 /*</debug>*/
+                if (homeTimer) {
+                    clearInterval(homeTimer);
+                    homeTimer = 0;
+                }
                 if (this.breadcrumb.length > 2) this.breadcrumb.pop();
                 this.breadcrumb.push(data.label);
                 // ------------ 切换 content ---------------
