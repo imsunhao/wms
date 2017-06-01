@@ -394,18 +394,22 @@
                     </el-row>
                     <el-row class="outputAppointmentCombinationDetails">
                         <el-form
-                                ref="outputAppointmentCombinationDetails"
+                                :modle="outputAppointmentCombinationDetails"
+                                ref="ref_outputAppointmentCombinationDetails"
+                                :rules="rule_outputAppointmentCombinationDetails"
                                 :data="outputAppointmentCombinationDetails">
                             <el-col :span="10">
                                 <el-form-item
                                         label="出库任务单号"
+                                        prop="ckrwNo"
                                         :label-width="formLabelWidth">
                                     <el-input
                                             v-model="outputAppointmentCombinationDetails.ckrwNo"
                                             :disabled="true"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
-                                <el-form-item label="预计到车时间" :label-width="formLabelWidth">
+                                <el-form-item
+                                        label="预计到车时间"  prop="ckrwYjdcsj":label-width="formLabelWidth">
                                     <el-date-picker
                                             v-model="outputAppointmentCombinationDetails.ckrwYjdcsj"
                                             type="datetime"
@@ -414,13 +418,12 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :span="10" :offset="2">
-                                <el-form-item label="车牌号" :label-width="formLabelWidth">
+                                <el-form-item label="车牌号" prop="ckrwCph" :label-width="formLabelWidth">
                                     <el-input
-                                            v-model="outputAppointmentCombinationDetails.ckrwCph"
                                             v-model="outputAppointmentCombinationDetails.ckrwCph"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
-                                <el-form-item label="物流商" :label-width="formLabelWidth">
+                                <el-form-item label="物流商" prop="ckrwWls" :label-width="formLabelWidth">
                                     <el-input
                                             v-model="outputAppointmentCombinationDetails.ckrwWls"
                                             auto-complete="off"></el-input>
@@ -724,6 +727,7 @@
                 form: _form(),                 //表单 弹出层 信息集合
                 rule_form: autoValidate(validate_form()), //出库基础信息验证规则
                 rule_form2: autoValidate(validate_form2()),//出库明细验证规则
+                rule_outputAppointmentCombinationDetails:autoValidate(validate_details),
                 dialogFormActive: 0,           //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,      //新建 弹出层 是否可见
                 submitLoading: false,          //新建 弹出层 提交等待
@@ -928,8 +932,15 @@
 
             },                                              //form 后一个
             submitForm: function () {
-                this.formActive++;
-                this.submitLoading = true;
+                this.$refs['ref_outputAppointmentCombinationDetails'].validate(function (valid) {
+                    if (valid) {
+                        obj.formActive++;
+                        obj.submitLoading = true;
+                    } else {
+                        return false;
+                    }
+                });
+
 
 
                 /*<prod>*/
@@ -1415,6 +1426,14 @@
     function validate_form2(){
         return{
             "cksGoodsCount":'vNull',
+        }
+    }
+    function validate_details(){
+        return{
+                "ckrwNo":"vNull",
+                "ckrwCph":"vNull",
+                "ckrwYjdcsj":"vNull",
+                "ckrwWls":"vNull"
         }
     }
 
