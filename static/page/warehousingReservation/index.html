@@ -401,44 +401,65 @@
                     </el-row>
                     <el-row class="warehousingReservationCombinationDetails">
                         <el-form
-                                ref="warehousingReservationCombinationDetails"
+                                :model="warehousingReservationCombinationDetails"
+                                ref="ref_warehousingReservationCombinationDetails"
+                                :rules="rule_warehousingReservationCombinationDetails"
                                 :data="warehousingReservationCombinationDetails">
                             <el-col :span="10">
                                 <el-form-item
                                         label="入库任务单号"
+                                        prop="rkrwNo"
                                         :label-width="formLabelWidth">
                                     <el-tag type="success">{{warehousingReservationCombinationDetails.rkrwNo}}</el-tag>
                                 </el-form-item>
-                                <el-form-item label="调拨地" :label-width="formLabelWidth">
+                                <el-form-item
+                                        label="调拨地"
+                                        prop="rkrwDbd"
+                                        :label-width="formLabelWidth">
                                     <el-input
                                             v-model="warehousingReservationCombinationDetails.rkrwDbd"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
-                                <el-form-item label="车牌号" :label-width="formLabelWidth">
+                                <el-form-item
+                                        label="车牌号"
+                                        prop="rkrwCph"
+                                        :label-width="formLabelWidth">
                                     <el-input
                                             v-model="warehousingReservationCombinationDetails.rkrwCph"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
-                                <el-form-item label="司机电话" :label-width="formLabelWidth">
+                                <el-form-item
+                                        label="司机电话"
+                                        prop="rkrwDh"
+                                        :label-width="formLabelWidth">
                                     <el-input
                                             v-model="warehousingReservationCombinationDetails.rkrwDh"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="10" :offset="2">
-                                <el-form-item label="预计到货日期" :label-width="formLabelWidth">
+                                <el-form-item
+                                        label="预计到货日期"
+                                        prop="rkrwDhrq"
+                                        :label-width="formLabelWidth">
                                     <el-date-picker
                                             v-model="warehousingReservationCombinationDetails.rkrwDhrq"
                                             type="datetime"
                                             placeholder="选择到货日期">
                                     </el-date-picker>
                                 </el-form-item>
-                                <el-form-item label="承运商" :label-width="formLabelWidth">
+                                <el-form-item
+                                        label="承运商"
+                                        prop="rkrwCys"
+                                        :label-width="formLabelWidth">
                                     <el-input
                                             v-model="warehousingReservationCombinationDetails.rkrwCys"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
-                                <el-form-item label="司机姓名" :label-width="formLabelWidth">
+                                <el-form-item
+                                        label="司机姓名"
+                                        prop="rkrwSjxm"
+                                        :label-width="formLabelWidth">
                                     <el-input
                                             v-model="warehousingReservationCombinationDetails.rkrwSjxm"
                                             auto-complete="off"></el-input>
@@ -731,6 +752,8 @@
                 formLabelWidth: '120px',       //表单 配置
                 form: _form(),                  //表单 弹出层 信息集合
                 form_rule1: autoValidate(validate_form1()), //表单验证规则
+                rule_warehousingReservationCombinationDetails: autoValidate(validate_warehousingReservationCombinationDetails()), //预约详细验证规则
+
 
                 dialogFormActive: 0,           //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,      //新建 弹出层 是否可见
@@ -922,53 +945,57 @@
                 this.$refs.carouselWaiting.next();
             },                                              //form 后一个
             submitForm: function () {
-                var _this = this;
-                this.formActive++;
-                this.submitLoading = true;
+                this.$refs['ref_warehousingReservationCombinationDetails'].validate(function (valid) {
+                    if (valid) {
+                        var _this = this;
+                        this.formActive++;
+                        this.submitLoading = true;
 
 
-                /*<prod>*/
-                var Combination = post_Combination();
+                        /*<prod>*/
+                        var Combination = post_Combination();
 
-                allPrposCb(Combination, function (obj, index) {
-                    if (typeof _this.warehousingReservationCombinationDetails[index] !== 'undefined') Combination[index] = _this.warehousingReservationCombinationDetails[index];
-                });
-                Combination.docList = [];
-                for (var i = 0; i < warehousingReservation.warehousingReservationCombination.length; i++) {
-                    Combination.docList.push({rkRkdjId: warehousingReservation.warehousingReservationCombination[i].rkRkdjId});
-                }
+                        allPrposCb(Combination, function (obj, index) {
+                            if (typeof _this.warehousingReservationCombinationDetails[index] !== 'undefined') Combination[index] = _this.warehousingReservationCombinationDetails[index];
+                        });
+                        Combination.docList = [];
+                        for (var i = 0; i < warehousingReservation.warehousingReservationCombination.length; i++) {
+                            Combination.docList.push({rkRkdjId: warehousingReservation.warehousingReservationCombination[i].rkRkdjId});
+                        }
 
-                Combination.rkrwDhrq = new Date(Combination.rkrwDhrq).toJSON();
+                        Combination.rkrwDhrq = new Date(Combination.rkrwDhrq).toJSON();
 
-                console.log(Combination);
-
-
-                p[0].post(Combination);
-
-                /*</prod>*/
+                        console.log(Combination);
 
 
-                /*<debug>*/
-                setTimeout(function () {
-                    _this.submitLoading = false;
-                    _this.$notify({
-                        title: '成功',
-                        message: '保存成功！',
-                        type: 'success'
-                    });
+                        p[0].post(Combination);
+
+                        /*</prod>*/
+
+
+                        /*<debug>*/
+                        setTimeout(function () {
+                            _this.submitLoading = false;
+                            _this.$notify({
+                                title: '成功',
+                                message: '保存成功！',
+                                type: 'success'
+                            });
 //                    _this.$refs['warehousingReservationCombinationDetails'].resetFields();
-                    _this.warehousingReservationCombinationDetails = CombinationDetails();
-                    _this.warehousingReservationCombination = [];
-                    _this.multipleSelection = [];
-                    _this.multipleSelectionCombination = [];
+                            _this.warehousingReservationCombinationDetails = CombinationDetails();
+                            _this.warehousingReservationCombination = [];
+                            _this.multipleSelection = [];
+                            _this.multipleSelectionCombination = [];
 
-                    _this.formActive = 0;
-                    _this.$refs.carouselWaiting.setActiveItem(0);
-                    p[7].post();
-                }, 1500);
-                /*</debug>*/
-
-
+                            _this.formActive = 0;
+                            _this.$refs.carouselWaiting.setActiveItem(0);
+                            p[7].post();
+                        }, 1500);
+                        /*</debug>*/
+                    } else {
+                        return false;
+                    }
+                });
             },                                            //组合 表单提交
             submitUpload: function () {
                 console.log('提交')
@@ -979,7 +1006,6 @@
                 this.$refs.carousel.prev();
             },                                                  //新建 弹出层banner控制 前一个
             next: function (ref) {
-                console.log(ref);
                 this.$refs[ref].validate(function (valid) {
                     if (valid) {
                         obj.dialogFormActive++;
@@ -1452,7 +1478,17 @@
             rkType: 'vNull'
         }
     }
-
+    function validate_warehousingReservationCombinationDetails() {
+        return {
+            rkrwNo: 'vNull',
+            rkrwDbd: 'vNull',
+            rkrwCph: 'vNull',
+            rkrwDh: 'vNull',
+            rkrwDhrq: 'vNull',
+            rkrwCys: 'vNull',
+            rkrwSjxm: 'vNull',
+        }
+    }
     function post_form() {
         return {
             "rkRkdjId": "",
