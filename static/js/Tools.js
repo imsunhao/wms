@@ -204,6 +204,17 @@ function autoValidate(option, cbs) {
         }
     }
     return temp;
+
+    /*autoValidate({
+        pass:'',
+        imsunhao:'vNull',
+        name:['vNull','a']
+    }, [
+        function(rule, value, callback){
+            console.log(123)
+        }
+    ]);*/
+
 }  //validate核心
 
 
