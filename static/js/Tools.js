@@ -169,6 +169,9 @@ function autoValidate(option, cbs) {
                 callback();
             }
         },
+        vNumber:function(rule, value, callback){
+            callback();
+        },
         a: autoValidateRule("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", '不允许存在特殊字符!'),
     };
 
