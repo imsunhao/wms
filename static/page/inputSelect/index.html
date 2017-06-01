@@ -705,12 +705,72 @@
             },                                      //分配 表单
         },
         methods: {
-            inlineExportInputList:function(){},                                        //TODO 行内按钮-导出入库单
-            inlineExportInputDetailed:function(){},                                    //TODO 行内按钮-导出入库明细
-            inlineExportInputStorage:function(){},                                     //TODO 行内按钮-导出入库储位
+            inlineExportInputList:function(index,row){
+                obj.$confirm('导出出库单 单据单号：' + row.rjdkNo, '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    p[3].post({
+                        ids: [row.rkdjId]
+                    }, function (json) {
+                        this.callbackAfter({status: json.status, model: "导出入库单"}, function () {
+                            var url = "/static/Excel/" + json.model;
+                            window.open(url);
+                        })
+                    });
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消导出'
+                    });
+                });
+            },                                        //TODO 行内按钮-导出入库单
+            inlineExportInputDetailed:function(index,row){
+                obj.$confirm('导出入库单 单据单号：' + row.rjdkNo, '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    p[4].post({
+                        ids: [row.rkdjId]
+                    }, function (json) {
+                        this.callbackAfter({status: json.status, model: "导出入库单"}, function () {
+                            var url = "/static/Excel/" + json.model;
+                            window.open(url);
+                        })
+                    });
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消导出'
+                    });
+                });
+            },                                    //TODO 行内按钮-导出入库明细
+            inlineExportInputStorage:function(index,row){
+                obj.$confirm('导出入库单 单据单号：' + row.rjdkNo, '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    p[5].post({
+                        ids: [row.rkdjId]
+                    }, function (json) {
+                        this.callbackAfter({status: json.status, model: "导出入库单"}, function () {
+                            var url = "/static/Excel/" + json.model;
+                            window.open(url);
+                        })
+                    });
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消导出'
+                    });
+                });
+            },                                     //TODO 行内按钮-导出入库储位
             inlineExportInput:function(){},                                            //TODO 行内按钮-导出入库
             inlineSelectInputDetailed:function(index,row){
-                p[1].post({id: row.rkdjId}, function (json) {
+                p[1].post({id: row.rjdkNo}, function (json) {
                     obj.detailed = json.model;
                     obj.dialogDetailedVisible = true;
                 })
@@ -998,28 +1058,31 @@
             obj.dialogStorageVisible = true;
         }
     });
-     // 3 入库单据查询
+     // 3 入库单据查询 根据入库单ID导出入库单据
     p[3] = autoPost({
         urlHock: "",
         urlProd: "/route/inputSelect/3",
+        method: 'GET',
         success: function (json) {
         }
     });
-     // 4 入库单据查询
+     // 4 入库单据查询 根据入库单ID导出入库明细
     p[4] = autoPost({
         urlHock: "",
         urlProd: "/route/inputSelect/4",
+        method: 'GET',
         success: function (json) {
         }
     });
-     // 5 入库单据查询
+     // 5 入库单据查询 根据入库单ID导出分配储位明细详情
     p[5] = autoPost({
         urlHock: "",
         urlProd: "/route/inputSelect/5",
+        method: 'GET',
         success: function (json) {
         }
     });
-     // 6 入库单据查询
+     // 6 入库单据查询 导出入库
     p[6] = autoPost({
         urlHock: "",
         urlProd: "/route/inputSelect/6",
