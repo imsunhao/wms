@@ -484,14 +484,14 @@
                 <el-step title="入库明细"></el-step>
             </el-steps>
         </div>
-        <el-form :model="form" ref="newForm">
-            <el-carousel
-                    ref="carousel"
-                    :autoplay="false"
-                    arrow="never"
-                    indicator-position="none"
-                    height="55vh">
-                <el-carousel-item>
+        <el-carousel
+                ref="carousel"
+                :autoplay="false"
+                arrow="never"
+                indicator-position="none"
+                height="55vh">
+            <el-carousel-item>
+                <el-form :model="form" ref="refForm1" :rules="form_rule1">
                     <el-row>
                         <el-col :span="24"><h3>入库基础信息</h3></el-col>
                     </el-row>
@@ -503,7 +503,10 @@
                                     :label-width="formLabelWidth">
                                 <el-tag type="success">{{form.rkRkdjNo}}</el-tag>
                             </el-form-item>
-                            <el-form-item label="所属仓库" :label-width="formLabelWidth">
+                            <el-form-item
+                                    prop="rkArehouseId"
+                                    label="所属仓库"
+                                    :label-width="formLabelWidth">
                                 <el-select
                                         :disabled="watchView"
                                         v-model="form.rkArehouseId"
@@ -512,7 +515,10 @@
                                                v-for="obj of baseArehouses"></el-option>
                                 </el-select>
                             </el-form-item>
-                            <el-form-item label="订单类型" :label-width="formLabelWidth">
+                            <el-form-item
+                                    prop="rkType"
+                                    label="订单类型"
+                                    :label-width="formLabelWidth">
                                 <el-select
                                         :disabled="watchView"
                                         v-model="form.rkType"
@@ -546,8 +552,10 @@
                             </el-form-item>
                         </el-col>
                     </el-row>
-                </el-carousel-item>
-                <el-carousel-item>
+                </el-form>
+            </el-carousel-item>
+            <el-carousel-item>
+                <el-form :model="form" ref="refForm2">
                     <el-row>
                         <el-col :span="24"><h3>入库明细</h3></el-col>
                     </el-row>
@@ -644,12 +652,12 @@
                             </el-table>
                         </el-col>
                     </el-row>
-                </el-carousel-item>
-            </el-carousel>
-        </el-form>
+                </el-form>
+            </el-carousel-item>
+        </el-carousel>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="prev" v-show="dialogFormActive">上一步</el-button>
-            <el-button type="primary" @click="next" v-show="dialogFormActive < 1">下一步</el-button>
+            <el-button type="primary" @click="next('refForm1')" v-show="dialogFormActive < 1">下一步</el-button>
             <el-button type="primary" @click="submit" :loading="submitLoading" v-show="dialogFormActive >= 1"
                        :disabled="form.rkDocsList.length==0" v-if="!watchView">保存
             </el-button>
@@ -722,6 +730,8 @@
 
                 formLabelWidth: '120px',       //表单 配置
                 form: _form(),                  //表单 弹出层 信息集合
+                form_rule1: autoValidate(validate_form1()), //表单验证规则
+
                 dialogFormActive: 0,           //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,      //新建 弹出层 是否可见
                 submitLoading: false,          //新建 弹出层 提交等待
@@ -968,10 +978,18 @@
                 this.dialogFormActive--;
                 this.$refs.carousel.prev();
             },                                                  //新建 弹出层banner控制 前一个
-            next: function () {
-                this.dialogFormActive++;
-                this.$refs.carousel.next();
-            },                                                  //新建 弹出层banner控制 后一个
+            next: function (ref) {
+                console.log(ref);
+                this.$refs[ref].validate(function (valid) {
+                    if (valid) {
+                        obj.dialogFormActive++;
+                        obj.$refs.carousel.next();
+                    } else {
+                        return false;
+                    }
+                });
+
+            },                                                  //新建入库单据 弹出层banner控制 后一个
             submit: function () {
                 var _this = this;
                 this.dialogFormActive++;
@@ -1046,6 +1064,8 @@
 //                    })
 //                },0);
             },                             //表单 string验证
+
+
             querySearchAsync: function (queryString, cb) {
                 postGoods(this, {
                     bgGoodsNo: queryString,
@@ -1425,6 +1445,14 @@
         };
     }
 
+    function validate_form1() {
+        return {
+            rkRkdjNo: 'vNull',
+            rkArehouseId: 'vNull',
+            rkType: 'vNull'
+        }
+    }
+
     function post_form() {
         return {
             "rkRkdjId": "",
@@ -1474,9 +1502,6 @@
         }
     }
 
-    var validateRule = {
-        a: new RegExp("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", "g")
-    };
 
     // 高级 监视器的 使用方法
     warehousingReservation.$watch('date', function () {
@@ -1493,7 +1518,6 @@
 
     p[7].post(warehousingReservation.option);
     function postGoods(obj, option, cb) {
-        //TODO 此处应为AJAX请求,待完善 querySearchAsync
 
         /*<debug>*/
         url = "/hock/form/rkGoods.json";

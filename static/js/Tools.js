@@ -2,6 +2,9 @@
  * Created by imsunhao on 2017/5/2.
  */
 
+
+
+
 function generateNode(tree) {
     var formatTree = formatTreeData(tree);
     return combinationNode(formatTree);
@@ -156,6 +159,65 @@ function autoPost(option) {
     };          //post父类
     return Object.create(_post, autoValue(option));
 }           //post核心
+function autoValidate(option, cbs) {
+    var validateRule = {
+        vNull: function (rule, value, callback) {
+            console.log(rule);
+            if (value === '') {
+                callback(new Error('必填'));
+            } else {
+                callback();
+            }
+        },
+        a: autoValidateRule("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", '不允许存在特殊字符!'),
+    };
+
+    function autoValidateRule(string, model) {
+        return function (rule, value, callback) {
+            if ((new RegExp(string, "g")).exec(value)) {
+                return callback(new Error(model));
+            }
+            else {
+                return callback();
+            }
+        };
+    }
+
+    var temp = Object.create(null);
+    var i = 0;
+    for (index in option) {
+        var type = typeof option[index];
+        switch (type) {
+            case 'object':
+                temp[index] = [];
+                for (var b in option[index]) {
+                    temp[index].push({validator: validateRule[option[index][b]], trigger: 'blur'});
+                }
+                break;
+            case 'string':
+                if (!option[index]) {
+                    temp[index] = [{validator: cbs[i++], trigger: 'blur'}]
+                } else {
+                    temp[index] = [{validator: validateRule[option[index]], trigger: 'blur'}];
+                }
+                break;
+        }
+    }
+    return temp;
+
+    /*autoValidate({
+        pass:'',
+        imsunhao:'vNull',
+        name:['vNull','a']
+    }, [
+        function(rule, value, callback){
+            console.log(123)
+        }
+    ]);*/
+
+}  //validate核心
+
+
 function tsf_date(date, number) {
     if (typeof date !== 'undefined' && date !== null && date !== '') {
         switch (number) {
@@ -197,7 +259,9 @@ function auto_time_new(value, number) {
         case 5:
             return dateFormat(new Date(value), 'yyyy年 MM月 dd日 hh:mm');
         case 6:
-            return dateFormat(new Date(value), 'yyyy年 MM月 dd日 hh:mm');
+            if (body.kjW < 1367)
+                return dateFormat(new Date(value), 'yyyy年 MM月 dd日 hh:mm:ss');
+            else return dateFormat(new Date(value), 'yyyy年 MM月 dd日 hh:mm');
         default:
             return dateFormat(new Date(value), 'yyyy-MM-dd');
     }
@@ -269,3 +333,4 @@ function auto_time_new(value, number) {
 function auto_portrait(portrait) {
     return 'static/images/users/' + portrait;
 }
+

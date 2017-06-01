@@ -1379,7 +1379,8 @@
     // 2 出库操作-下架
     p[2] = autoPost({
         urlHock: "../../hock/outputOperation/page.json",
-        urlProd: "/route/outputOperation/2"
+        urlProd: "/route/outputOperation/2",
+        method: 'GET'
     });
     // 3 出库操作-打印分拣单
     p[3] = autoPost({

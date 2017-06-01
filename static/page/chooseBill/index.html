@@ -896,6 +896,7 @@
     p[1] = autoPost({
         urlHock: "../../hock/chooseBill/page.json",
         urlProd: "/route/chooseBill/1",
+        method: 'GET',
         success: function (json) {
             this.callbackAfter({status: json.status, model: "挑选单据"}, function () {
                 p[0].post(obj.option);

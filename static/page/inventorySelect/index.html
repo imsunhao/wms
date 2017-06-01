@@ -626,7 +626,7 @@
             inlineInventoryDetails: function (index,row) {
                 p[1].post({pdId: row.pdId});
             },                                 //TODO 行内按钮-盘点详情
-            inlineExport: function () {
+            inlineExport: function (index,row) {
                 obj.$confirm('导出盘点：', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -769,7 +769,7 @@
             obj.dialogInventoryVisible = true;
         }
     });
-    // 1 盘点查询 根据盘点计划ID导出盘点计划及详情
+    // 2 盘点查询 根据盘点计划ID导出盘点计划及详情
     p[2] = autoPost({
         urlHock: "",
         urlProd: "/route/inventorySelect/2",

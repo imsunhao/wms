@@ -44,92 +44,160 @@
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
                     :max-height="570"
                     ref="table"
+                    @expand="expandChange"
                     class="recoveryArchiveTable"
                     style="width: 100%">
                 <el-table-column
                         type="expand">
                     <template scope="props">
-                        <el-row>
-                            <h3 style="margin-top: 0; margin-left: -15px;">回收存档详细</h3>
-                        </el-row>
-                        <el-form label-position="left" inline class="demo-table-expand">
-                            <el-row>
-                                <el-col :span="10">
-                                    <el-form-item label="物流商">
-                                        <span>{{ props.row.rwDoc.ckrwWls }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="任务号">
-                                        <span>{{ props.row.rwDoc.ckrwNo }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="车牌号">
-                                        <span>{{ props.row.rwDoc.ckrwCph }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="出库单号">
-                                        <span>{{props.row.ckCkdjNo}}</span>
-                                    </el-form-item>
-                                    <el-form-item label="下单时间">
-                                        <span>{{auto_time_new(props.row.ckXdsj,6)}}</span>
-                                    </el-form-item>
-                                    <el-form-item label="客户编号">
-                                        <span>{{props.row.ckCkdjClientno}}</span>
-                                    </el-form-item>
-                                    <el-form-item label="客户名称">
-                                        <span>{{props.row.ckCkdjClientname}}</span>
-                                    </el-form-item>
-                                    <el-form-item label="客户名称">
-                                        <span>{{props.row.ckCkdjClientname}}</span>
-                                    </el-form-item>
+                        <el-carousel
+                                arrow="hover"
+                                height="350px"
+                                indicator-position="none"
+                                :autoplay="false">
+                            <el-carousel-item>
+                                <el-row>
+                                    <h3>回收存档详细</h3>
+                                </el-row>
+                                <el-form label-position="left" inline class="demo-table-expand">
+                                    <el-row>
+                                        <el-col :span="10">
+                                            <el-form-item label="物流商">
+                                                <span>{{ props.row.rwDoc.ckrwWls }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="任务号">
+                                                <span>{{ props.row.rwDoc.ckrwNo }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="车牌号">
+                                                <span>{{ props.row.rwDoc.ckrwCph }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="出库单号">
+                                                <span>{{props.row.ckCkdjNo}}</span>
+                                            </el-form-item>
+                                            <el-form-item label="下单时间">
+                                                <span>{{auto_time_new(props.row.ckXdsj,6)}}</span>
+                                            </el-form-item>
+                                            <el-form-item label="客户编号">
+                                                <span>{{props.row.ckCkdjClientno}}</span>
+                                            </el-form-item>
+                                            <el-form-item label="客户名称">
+                                                <span>{{props.row.ckCkdjClientname}}</span>
+                                            </el-form-item>
+                                          
                                     <el-form-item label="欠货状态">
                                         <span>{{ auto_ckQhStatus(props.row.ckQhStatus) }}</span>
                                     </el-form-item>
                                     <el-form-item label="滞留状态">
                                         <span>{{ auto_ckZlStatus(props.row.ckZlStatus) }}</span>
                                     </el-form-item>
-
-                                </el-col>
-                                <el-col :span="10" :offset="2">
-                                    <el-form-item label="联系人">
-                                        <span>{{ props.row.ckContacts }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="电话">
-                                        <span>{{ props.row.ckTel }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="地址">
-                                        <span>{{ props.row.ckAdress }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="预发货时间">
-                                        <span>{{ auto_time_new(props.row.ckYfhsj,6) }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="制作方式">
-                                        <span>{{ auto_ckIsauto(props.row.ckIsauto) }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="备注">
-                                        <span>{{ props.row.ckRemarks }}</span>
-                                    </el-form-item>
-                                    <el-form-item
+                                        </el-col>
+                                        <el-col :span="10" :offset="2">
+                                            <el-form-item label="联系人">
+                                                <span>{{ props.row.ckContacts }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="电话">
+                                                <span>{{ props.row.ckTel }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="地址">
+                                                <span>{{ props.row.ckAdress }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="预发货时间">
+                                                <span>{{ auto_time_new(props.row.ckYfhsj,6) }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="制作方式">
+                                                <span>{{ auto_ckIsauto(props.row.ckIsauto) }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="备注">
+                                                <span>{{ props.row.ckRemarks }}</span>
+                                            </el-form-item>
+                                            <el-form-item
+                                                    label="可用操作">
+                                                <el-button
+                                                        size="small"
+                                                        v-if="props.row.ckQhStatus==2"
+                                                        @click="outstandingInformation(props.$index, props.row)">欠货补发信息
+                                                </el-button>
+                                                <el-button
+                                                        size="small"
+                                                        v-if="props.row.ckZlStatus==2"
+                                                        @click="retentionInformation(props.$index, props.row)">滞留补发信息
+                                                </el-button>
+                                                <el-button
+                                                        size="small"
+                                                        type="success"
+                                                        v-if="props.row.ckZlStatus==2"
+                                                        @click="inlineExportOutstanding(props.$index, props.row)">导出欠货
+                                                </el-button>
+                                                <el-button
+                                                        size="small"
+                                                        type="success"
+                                                        v-if="props.row.ckZlStatus==2"
+                                                        @click="inlineExportRetention(props.$index, props.row)">导出滞留
+                                                </el-button>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                </el-form>
+                            </el-carousel-item>
+                            <el-carousel-item>
+                                <h3>出库明细</h3>
+                                <el-table
+                                        :data="props.row.mfunckDocs"
+                                        highlight-current-row
+                                        style="width: 100%">
+                                    <el-table-column
+                                            type="index"
+                                            width="55">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="货品编号"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="baseGoods.bgGoodsNo">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="货品名称"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="baseGoods.bgGoodsName">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="货品数量"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="cksGoodsCount">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="分拣方式"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="cksCkfs">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="批次"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="cksZdpc">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="库位"
+                                            show-overflow-tooltip
+                                            align="baseLocation.blLname"
+                                            prop="ckXdsj">
+                                    </el-table-column>
+                                    <el-table-column
+                                            v-if="props.row.ckQhStatus==2"
                                             label="可用操作">
-                                        <el-button
-                                                size="small"
-                                                @click="outstandingInformation(props.$index, props.row)">欠货补发信息
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                @click="retentionInformation(props.$index, props.row)">滞留补发信息
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                type="success"
-                                                @click="inlineExportOutstanding(props.$index, props.row)">导出欠货
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                type="success"
-                                                @click="inlineExportRetention(props.$index, props.row)">导出滞留
-                                        </el-button>
-                                    </el-form-item>
-                                </el-col>
-                            </el-row>
-                        </el-form>
+                                        <template scope="scope">
+                                            <el-button
+                                                    size="small"
+                                                    @click="outstandingInformation(scope.$index, scope.row, 1)">欠货补发信息
+                                            </el-button>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                            </el-carousel-item>
+                        </el-carousel>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -190,17 +258,7 @@
             </div>
         </el-col>
     </el-row>
-    <el-dialog
-            size="tiny"
-            class="select"
-            v-model="dialogSelectVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">详细查询</span>
-        </div>
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
-        </div>
-    </el-dialog>
+
     <el-dialog
             size="large"
             v-model="dialogFormVisible">
@@ -318,30 +376,30 @@
                     label="补发单号"
                     :label-width="formLabelWidth">
                 <el-input
-                        v-model="reissue.a"
+                        v-model="reissue.cksBfNo     "
                         auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item
                     label="补发情况"
                     :label-width="formLabelWidth">
                 <el-input
-                        v-model="reissue.b"
+                        v-model="reissue.cksQhbfInfo "
                         auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item
                     label="欠货备注"
                     :label-width="formLabelWidth">
                 <el-input
-                        v-model="reissue.c"
+                        v-model="reissue.cksQhRemarks"
                         auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item
                     label="补发状态"
                     :label-width="formLabelWidth">
-                <el-select v-model.number="reissue.d" placeholder="请选择单据类型">
-                    <el-option label="已补发" :value="0"></el-option>
-                    <el-option label="已赔付" :value="1"></el-option>
-                    <el-option label="需跟进" :value="2"></el-option>
+                <el-select v-model.number="reissue.cksBfStatus " placeholder="请选择单据类型">
+                    <el-option label="已补发" :value="1"></el-option>
+                    <el-option label="已赔付" :value="2"></el-option>
+                    <el-option label="需跟进" :value="3"></el-option>
                 </el-select>
             </el-form-item>
         </el-form>
@@ -360,7 +418,7 @@
                     label="任务号"
                     :label-width="formLabelWidth">
                 <el-input
-                        v-model.number="retention.a"
+                        v-model.number="retention.ckrwNo"
                         auto-complete="off"></el-input>
             </el-form-item>
         </el-form>
@@ -567,13 +625,12 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-                currentTotal:0,
+                currentTotal: 0,
                 date: [null, null],                   //主页面 选择日期 搜索
                 date2: [null, null],                  //主页面 制作时间 搜索
 
                 ckCkdjNo: '',                         //主页面 出库单号 搜索
                 formLabelWidth: '120px',              //表单 配置
-                form: form(),                         //表单 弹出层 信息集合
                 dialogFormActive: 0,                  //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,             //新建 弹出层 是否可见
                 submitLoading: false,                 //新建 弹出层 提交等待
@@ -585,7 +642,6 @@
                 dialogRetentionVisible: false,        //滞留补发信息 弹出层 是否可见
 
 
-                select: form(),                       //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 selectLoading: false
             }
@@ -682,13 +738,11 @@
                 /*</debug>*/
                 this.multipleSelection = val;
             },                               //多选 选中控制
-            moreOperationModify: function () {
-
-            },                                   //TODO 多选 修改
             multiOperationExportOutstanding: function () {
 
             },                       //TODO 多选 导出欠货
             multiOperationExportRetention: function () {
+
             },                         //TODO 多选 导出滞留
             handleSizeChange: function (val) {
                 /*<debug>*/
@@ -704,10 +758,18 @@
                 this.currentPage = val;
                 p[0].post(this.option);
             },                                //分页 当前页
-            outstandingInformation: function () {
+            outstandingInformation: function (index, row, number) {
+                this.reissue = formReissue();
+                if (number) {
+                    this.reissue.cksCkmxId = row.cksCkmxId;
+                } else {
+                    this.reissue.ckdjId = row.ckCkdjId;
+                }
                 this.dialogReissueVisible = true;
             },                                //行内按钮-欠货补发信息
-            retentionInformation: function () {
+            retentionInformation: function (index, row) {
+                this.retention = formRetention();
+                this.retention.ckdjIds.push(row.ckCkdjId);
                 this.dialogRetentionVisible = true;
             },                                  //行内按钮-滞留补发信息
             prev: function () {
@@ -751,16 +813,42 @@
                     p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
-            selectSubmit: function () {
-                this.dialogSelectVisible = !this.dialogSelectVisible;
-                p[0].post({});
-            },                                          //详细查询 提交
+
+
+            expandChange: function (row, expanded) {
+                if (expanded && row.mfunckDocs.length === 0) {
+                    p[101].post({id: row.ckCkdjId}, function (json) {
+                        row.mfunckDocs = json.model;
+                    })
+
+                }
+            },                             //下拉 选择
+
             reissueSubmit: function () {
+                if (this.reissue.cksCkmxId) {
+                    p[2].post(this.reissue, function (json) {
+                        this.callbackAfter({status: json.status, model: '明细欠货补发'}, function () {
+                            p[0].post(obj.option);
+                        })
+                    })
+                } else {
+                    p[1].post(this.reissue, function (json) {
+                        this.callbackAfter({status: json.status, model: '整单欠货补发'}, function () {
+                            p[0].post(obj.option);
+                        })
+                    })
+                }
+
 
             },                                         //TODO 欠货补发信息-保存
             retentionSubmit: function () {
-
+                p[3].post(this.retention, function (json) {
+                    this.callbackAfter({status: json.status, model: '滞留补发信息'}, function () {
+                        p[0].post(obj.option);
+                    })
+                })
             },                                       //TODO 滞留补发信息-保存
+
             auto_ckIsauto: function (value) {
                 var temp = {};
                 if (!isNaN(value)) {
@@ -778,6 +866,7 @@
                 }
                 return temp[value];
             },                                    //制单方式
+
             auto_ckQhStatus: function (value) {
                 var temp = {};
                 if (!isNaN(value)) {
@@ -837,29 +926,9 @@
         p[0].post(this.option);
     }, {deep: true});
 
-    function form() {
-        return {
-            ckrwId: '',
-            title: "新建入库任务",
-            ckrwN: '',
-            ckrwCph: '',
-            dds: '',
-            pxs: '',
-            ckrwSjxm: '',
-            ckrwDhrq: '',
-            ckrwDbd: '',
-            ckrwCys: '',
-            ckrwDh: '',
-            ckrwStatus: '',
-            ckCkdjNo: '',                //模糊查询--出库单号
-            ckXdsj: [null, null],       //模糊查询--下单时间
-            mhCreatetime: [null, null],   //模糊查询--制作时间
-
-        }
-    }
     var obj = recoveryArchive;
     var p = [];
-    // 0 回收存- 分页查询
+    // 0 回收存档- 分页查询
     p[0] = autoPost({
         urlHock: "../../hock/recoveryArchive/page.json",
         urlProd: "/route/recoveryArchive/0",
@@ -884,7 +953,8 @@
     // 3 回收存档- 滞留补发信息
     p[3] = autoPost({
         urlHock: "../../hock/recoveryArchive/page.json",
-        urlProd: "/route/recoveryArchive/3"
+        urlProd: "/route/recoveryArchive/3",
+        method: 'GET'
     });
 
     // 4 回收存档- 欠货导出
@@ -902,36 +972,39 @@
     });
 
 
+    // 101 查询-出库单号-出库明细
+    p[101] = autoPost({
+        urlHock: "/hock/warehousingTask/mfunckDoc.json",
+        urlProd: "/route/outboundTask/2"
+    });
+
     function formReissue() {
         return {
 
 
             "ckdjId": 0,
 
-            "cksBfNo": "string",
-            "cksQhbfInfo": "string",
-            "cksQhRemarks": "string",
+            cksBfNo: "",             //补发单号
+            cksQhbfInfo: "",             //补发情况
+            cksQhRemarks: "",             //欠货备注
 
-            "cksBfStatus": 0,
+            cksBfStatus: 1,              //补发状态  1.已补发  2.已赔付 3.需跟进
 
-            "cksCkmxId": 0,
-            "ckrwNo": "string",
+            cksCkmxId: 0,
+            //ckrwNo: "string",
 
-            "ckdjIds": [0],
-            "userName": app.rmsUser.ruUserName,
+            //"ckdjIds": [0],
             "useId": app.rmsUser.ruUserId,
-
-
-
-            a: '',             //补发单号
-            b: "",             //补发情况
-            c: '',             //欠货备注
-            d: 0,              //补发状态  1.已补发  2.已赔付 3.需跟进
         }
     }
+
     function formRetention() {
         return {
-            a: '',             //任务号
+            ckrwNo: '',                         //补发单号
+
+            "ckdjIds": [],                      //出库单据ID （多个）
+
+            "useId": app.rmsUser.ruUserId       // 操作员ID
         }
     }
 

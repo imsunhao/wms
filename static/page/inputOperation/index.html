@@ -1537,8 +1537,8 @@
             "blStatus": 0,
             "blArehouseId": 0,
             selectGood: selectGood(),
-            mdtBatch: dateFormat(new Date(), 'yyyyMMdd')
-        }
+            mdtBatch: auto_time_new(new Date(), 3)
+    }
     }
 
     p[0].post(obj.option);

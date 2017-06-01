@@ -188,14 +188,14 @@
                                             <el-button
                                                     size="mini"
                                                     type="success"
-                                                    v-if="scope.row.ckGqStatus==1&&scope.row.ckCkdjType==0&&scope.row.ckStatus==1"
+                                                    v-if="props.row.ckrwStatus==31&&scope.row.ckQhStatus==1"
                                                     @click="inlineActivateDocument(scope.$index, scope.row)">激活
                                             </el-button>
                                             <el-button
                                                     size="mini"
                                                     type="info"
                                                     v-if="scope.row.ckStatus==21"
-                                                    @click="inlineSupplementaryDistribution(props.$index, props.row)">
+                                                    @click="inlineSupplementaryDistribution(scope.$index, scope.row)">
                                                 追加分拣
                                             </el-button>
                                             <el-button
@@ -267,7 +267,6 @@
                         </el-tag>
                     </template>
                 </el-table-column>
-
                 <el-table-column
                         v-if="multiSelect"
                         type="selection"
@@ -1247,6 +1246,7 @@
     }
     var obj = activationBill;
     var p = [];
+
     // 0 激活单据 分页查询
     p[0] = autoPost({
         urlHock: "../../hock/activationBill/page.json",
@@ -1262,7 +1262,8 @@
     // 1 激活单据-激活任务
     p[1] = autoPost({
         urlHock: "../../hock/activationBill/page.json",
-        urlProd: "/route/activationBill/1"
+        urlProd: "/route/activationBill/1",
+        method: 'GET'
     });
     // 2 激活单据-修改-分拣方式
     p[2] = autoPost({

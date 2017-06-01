@@ -1623,6 +1623,7 @@
     p[3] = autoPost({
         urlHock: "/hock/warehousingTask/mfunckDoc.json",
         urlProd: "/route/outboundTask/3",
+        method: 'GET',
         success: function (json) {
             this.callbackAfter({status: json.status, model: '出库任务下发'}, function () {
                 p[0].post(outboundTask.option);

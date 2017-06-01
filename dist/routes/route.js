@@ -961,7 +961,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 5:
                         urlName = '出库操作-打印追加分拣单';
-                        req = autoUrl(req, '/mfunck/dayinzuijiadan', "GET", function (json) {
+                        req = autoUrl(req, '/mfunck/dayinzuijiadan', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -1205,7 +1205,7 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
-                    case 1:
+                    case 2:
                         urlName = '库位转移查询 库存转移报表导出';
                         req = autoUrl(req, '/stockZyDoc/exportStockZyDocByExcel', "POST", function (json) {
                             res.send(json);
