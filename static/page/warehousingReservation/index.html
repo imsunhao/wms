@@ -945,9 +945,9 @@
                 this.$refs.carouselWaiting.next();
             },                                              //form 后一个
             submitForm: function () {
+                var _this = this;
                 this.$refs['ref_warehousingReservationCombinationDetails'].validate(function (valid) {
                     if (valid) {
-                        var _this = this;
                         this.formActive++;
                         this.submitLoading = true;
 
@@ -1340,6 +1340,7 @@
     p[3] = autoPost({
         urlHock: "../../hock/form/inputOption.json",
         urlProd: "/route/warehousingReservation/3",
+        method: 'GET',
         success: function (json) {
             obj.dialogFormVisible = false;
             obj.submitLoading = false;
@@ -1407,7 +1408,8 @@
     //101 查询-入库单号-入库明细
     p[101] = autoPost({
         urlHock: "/hock/warehousingTask/docList.json",
-        urlProd: "/route/inputOperation/3"
+        urlProd: "/route/inputOperation/3",
+        method: 'GET'
     });
 
     function CombinationDetails() {
