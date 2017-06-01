@@ -403,8 +403,7 @@
                         <el-form
                                 :model="warehousingReservationCombinationDetails"
                                 ref="ref_warehousingReservationCombinationDetails"
-                                :rules="rule_warehousingReservationCombinationDetails"
-                                :data="warehousingReservationCombinationDetails">
+                                :rules="rule_warehousingReservationCombinationDetails">
                             <el-col :span="10">
                                 <el-form-item
                                         label="入库任务单号"
@@ -576,7 +575,7 @@
                 </el-form>
             </el-carousel-item>
             <el-carousel-item>
-                <el-form :model="form" ref="refForm2">
+                <el-form :model="form.selectGood" ref="refForm2":rules="form_rule2">
                     <el-row>
                         <el-col :span="24"><h3>入库明细</h3></el-col>
                     </el-row>
@@ -587,7 +586,9 @@
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
-                            <el-form-item label="货品名称" :label-width="formLabelWidth">
+                            <el-form-item
+                                    label="货品名称"
+                                    :label-width="formLabelWidth">
                                 <el-tooltip class="item" effect="dark"
                                             :content="form.selectGood.baseGoods.bgGoodsName"
                                             placement="top">
@@ -596,7 +597,9 @@
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
-                            <el-form-item label="货品数量" :label-width="formLabelWidth">
+                            <el-form-item
+                                    label="货品数量"
+                                    :label-width="formLabelWidth">
                                 <strong>{{form.selectGood.rksCount}}</strong>
                             </el-form-item>
                         </el-col>
@@ -615,6 +618,7 @@
                         <el-col :span="12">
                             <el-form-item
                                     label="货品数量"
+                                    prop="rksCount"
                                     :label-width="formLabelWidth">
                                 <el-input
                                         :disabled="form.selectGood.value==''"
@@ -752,6 +756,8 @@
                 formLabelWidth: '120px',       //表单 配置
                 form: _form(),                  //表单 弹出层 信息集合
                 form_rule1: autoValidate(validate_form1()), //表单验证规则
+                form_rule2: autoValidate(validate_form2()), //表单验证规则
+
                 rule_warehousingReservationCombinationDetails: autoValidate(validate_warehousingReservationCombinationDetails()), //预约详细验证规则
 
 
@@ -1135,9 +1141,16 @@
                 }
             },
             saveDocsList: function () {
-                this.form.rkDocsList.push(this.form.selectGood);
-                this.form.selectGood = selectGood();
-                this.form.saveARkDocsList = true;
+                this.$refs['refForm2'].validate(function (valid) {
+                    if (valid) {
+                        obj.form.rkDocsList.push(this.form.selectGood);
+                        obj.form.selectGood = selectGood();
+                        obj.form.saveARkDocsList = true;
+                    } else {
+                        return false;
+                    }
+                });
+
             },                                          //货品明细控制 保存
             deleteARkDocsList: function () {
                 remove(this.form.selectGood, this.form.rkDocsList);
@@ -1480,6 +1493,12 @@
             rkType: 'vNull'
         }
     }
+       function validate_form2() {
+        return {
+            rksCount: 'vNull',
+       }
+    }
+
     function validate_warehousingReservationCombinationDetails() {
         return {
             rkrwNo: 'vNull',
@@ -1487,7 +1506,7 @@
             rkrwCph: 'vNull',
             rkrwDh: 'vNull',
             rkrwDhrq: 'vNull',
-            rkrwCys: 'vNull',
+            rkrwCys: ['vNull','a'],
             rkrwSjxm: 'vNull',
         }
     }
