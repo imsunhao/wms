@@ -323,7 +323,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 3:
                         urlName = '导出';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mfunrktzDoc/exportTzExcel', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -1107,27 +1107,28 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+
                     case 2:
-                        urlName = '入库单据查询 查看入库储位信息';
-                        req = autoUrl(req, '/mdt/selectMdtInfoByRkmxId', "POST", function (json) {
+                        urlName = '入库单据查询 根据入库单据id查询储位分配详情';
+                        req = autoUrl(req, '/mdt/selectMdtInfoByRkdjId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 3:
-                        urlName = '入库单据查询 导出入库单';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '入库单据查询 根据入库单ID导出入库单据';
+                        req = autoUrl(req, '/mfunrkDoc/exportMfunrkDocByRkdjIds', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 4:
-                        urlName = '入库单据查询 导出入库明细';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '入库单据查询 根据入库单ID导出入库明细';
+                        req = autoUrl(req, '/mfunrkDocs/exportMfunckDocsByRkdjIds ', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 5:
-                        urlName = '入库单据查询 导出入库储位';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        urlName = '入库单据查询 根据入库单ID导出分配储位明细详情';
+                        req = autoUrl(req, '/mdt/exportMdtByRkdjIds', "POST", function (json) {
                             res.send(json);
                         });
                         break;
