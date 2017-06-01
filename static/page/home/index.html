@@ -210,7 +210,7 @@
                     show-overflow-tooltip
                     prop="lostTime"
                     align="center">
-
+                <template scope="scope">{{auto_time_new(scope.row.lostTime,6)}}</template>
             </el-table-column>
 
         </el-table>
@@ -248,7 +248,7 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "lostCkdjNo":this.lostCkdjNo.trim(),
+                    "lostCkdjNo": this.lostCkdjNo.trim(),
                 }
             },           //主页面 post 0
 
@@ -294,4 +294,7 @@
     });
 
     p[0].post(obj.option);
+    setInterval(function () {
+        p[0].post(obj.option);
+    },30000)
 </script>
