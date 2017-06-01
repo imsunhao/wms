@@ -206,14 +206,14 @@ function autoValidate(option, cbs) {
     return temp;
 
     /*autoValidate({
-        pass:'',
-        imsunhao:'vNull',
-        name:['vNull','a']
-    }, [
-        function(rule, value, callback){
-            console.log(123)
-        }
-    ]);*/
+     pass:'',
+     imsunhao:'vNull',
+     name:['vNull','a']
+     }, [
+     function(rule, value, callback){
+     console.log(123)
+     }
+     ]);*/
 
 }  //validate核心
 
@@ -334,3 +334,4 @@ function auto_portrait(portrait) {
     return 'static/images/users/' + portrait;
 }
 
+var homeTimer = 0;                        //timer 核心

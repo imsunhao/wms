@@ -928,6 +928,7 @@
     p[1] = autoPost({
         urlHock: "/hock/form/inputOptoionDelete.json",
         urlProd: "/route/userManagement/1",
+        method: 'GET',
         success: function (json) {
             this.callbackAfter({status: json.status, model: '用户新增'}, function () {
                 obj.submitLoading = false;
@@ -1037,6 +1038,7 @@
     p[9] = autoPost({
         urlHock: "../../hock/roleControl/page.json",
         urlProd: "/route/userManagement/9",
+        method: 'GET',
         success: function (json) {
             if (json.status !== 50003) {
                 obj.loadingRole = false;
