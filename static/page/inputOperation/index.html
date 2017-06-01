@@ -884,7 +884,10 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    p[9].post({ids: [row.rkRkdjId]}, function (json) {
+                    p[9].post({
+                        "id": row.rkRkdjId,
+                        "useId": app.rmsUser.ruUserId
+                    }, function (json) {
                         this.callbackAfter({status: json.status, model: "取消分配"}, function () {
                             p[0].post(obj.option);
                         })
@@ -1103,7 +1106,10 @@
                     for (var i = 0; i < obj.multipleSelection.length; i++) {
                         step.push(obj.multipleSelection[i].rkRkdjId);
                     }
-                    p[9].post({ids: step}, function (json) {
+                    p[9].post({
+                        "id": 68,
+                        "useId": 2
+                    }, function (json) {
                         this.callbackAfter({status: json.status, model: "取消分配"}, function () {
                             p[0].post(obj.option);
                         })
@@ -1538,7 +1544,7 @@
             "blArehouseId": 0,
             selectGood: selectGood(),
             mdtBatch: auto_time_new(new Date(), 3)
-    }
+        }
     }
 
     p[0].post(obj.option);

@@ -733,13 +733,13 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 8:
                         urlName = '分配';
-                        req = autoUrl(req, '/mfunrkDistributionlist', "POST", function (json) {
+                        req = autoUrl(req, '/mdt/mfunrkDistributionlist', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 9:
                         urlName = '取消分配';//TODO
-                        req = autoUrl(req, '/mfunrkDistributionlist', "POST", function (json) {
+                        req = autoUrl(req, '/mfunrkDistributionlist/quXiaoFenPei', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -1356,6 +1356,12 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 7:
+                        urlName = '循环盘点 根据仓库id查找 所有人员';
+                        req = autoUrl(req, '/arehouse/belongToWhichUser/' + req.body.id, "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
                 }
                 break;
             case 'comprehensiveInventory':
@@ -1568,7 +1574,7 @@ router.param('_url', function (req, res, next, url) {
 
 
         }
-        console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + req.info.url + '\t' + req.info.method);
+        console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + req.info.url + '\t' + req.info.method+ '\t' + (new Date()).toJSON());
         next();
     }
     else {
