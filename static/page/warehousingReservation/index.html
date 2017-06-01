@@ -835,9 +835,12 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.warehousingReservation);
-                    postDelete(_this, {
-                        id: [row.rkdjNo]
+                    p[11].post({
+                        id: [row.rkRkdjId]
+                    }, function (json) {
+                        this.callbackAfter({status: json.status, model: '删除该入库单'}, function () {
+                            remove(row, _this.warehousingReservation);
+                        });
                     });
                 }).catch(function () {
                     _this.$message({
@@ -915,7 +918,6 @@
                 if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
                 obj.dialogFormActive = 0;
                 obj.dialogFormVisible = true;
-
             },                                              //按钮 新建入库单
             importExcel: function () {
                 this.dialogExcelVisible = true;
@@ -950,8 +952,6 @@
                     if (valid) {
                         this.formActive++;
                         this.submitLoading = true;
-
-
                         /*<prod>*/
                         var Combination = post_Combination();
 
@@ -1378,7 +1378,8 @@
     // 8 入库单 详细信息
     p[8] = autoPost({
         urlHock: "../../hock/form/inputOption.json",
-        urlProd: "/route/warehousingReservation/8"
+        urlProd: "/route/warehousingReservation/8",
+        method: 'GET'
     });
     // 9 入库任务 单号
     p[9] = autoPost({
@@ -1402,6 +1403,12 @@
                 obj.warehousingReservationCombinationDetails.rkrwNo = json.model;
             });
         }
+    });
+    // 11 入库单据 单号
+    p[11] = autoPost({
+        urlHock: "/hock/warehousingReservation/rkdjNo.json",
+        urlProd: "/route/warehousingReservation/11",
+        method: 'GET'
     });
 
 
@@ -1480,6 +1487,7 @@
             rkType: 'vNull'
         }
     }
+
     function validate_warehousingReservationCombinationDetails() {
         return {
             rkrwNo: 'vNull',
@@ -1491,6 +1499,7 @@
             rkrwSjxm: 'vNull',
         }
     }
+
     function post_form() {
         return {
             "rkRkdjId": "",

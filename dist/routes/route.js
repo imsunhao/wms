@@ -211,6 +211,12 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 11:
+                        urlName = '入库预约-删除 入库单';
+                        req = autoUrl(req, '/mfunrkDoc/' + req.query.id, "DELETE", function (json) {
+                            res.send(json);
+                        });
+                        break;
 
                 }
                 break;
@@ -1547,7 +1553,6 @@ router.param('_url', function (req, res, next, url) {
                         break;
 
 
-
                 }
                 break;
             case 'home':
@@ -1562,9 +1567,8 @@ router.param('_url', function (req, res, next, url) {
                 break;
 
 
-
         }
-        console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + req.info.url);
+        console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + req.info.url + '\t' + req.info.method);
         next();
     }
     else {
@@ -1575,7 +1579,7 @@ router.param('_url', function (req, res, next, url) {
 });
 
 function autoUrl(req, url, method, cal) {
-    req.info={};
+    req.info = {};
     req.info.url = url;
     req.info.method = method;
     req.info.cal = cal;
