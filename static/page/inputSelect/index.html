@@ -362,7 +362,7 @@
                     width="140"
                     show-overflow-tooltip
                     align="center"
-                    prop="mdtuser">
+                    prop="mdtUser">
             </el-table-column>
         </el-table>
     </el-dialog>
@@ -378,13 +378,13 @@
                     label="货品编号"
                     show-overflow-tooltip
                     align="center"
-                    prop="rksGoodsId">
+                    prop="goodsNo">
             </el-table-column>
             <el-table-column
                     label="货品名称"
                     show-overflow-tooltip
                     align="center"
-                    prop="rksGoodsId">
+                    prop="goodsName">
             </el-table-column>
             <el-table-column
                     label="货品批次"
@@ -408,19 +408,23 @@
                     label="实收体积"
                     show-overflow-tooltip
                     align="center"
-                    prop="shtj">
+                    prop="mdtTj">
             </el-table-column>
             <el-table-column
                     label="上架人员"
                     show-overflow-tooltip
                     align="center"
-                    prop=" sjryName">
+                    prop="rmsUser.ruUserName">
             </el-table-column>
             <el-table-column
                     label="上架时间"
                     show-overflow-tooltip
                     align="center"
                     prop="mdtSjsj">
+                <template scope="scope">
+                    {{auto_time_new(scope.row.mdtSjsj)}}
+                </template>
+
             </el-table-column>
         </el-table>
     </el-dialog>
@@ -710,7 +714,7 @@
                     obj.detailed = json.model;
                     obj.dialogDetailedVisible = true;
                 })
-            },                                //TODO 行内按钮-查看入库明细信息
+            },                        //TODO 行内按钮-查看入库明细信息
             inlineSelectInputStorage:function(index,row){
                 p[2].post({id: row.rkdjId}, function (json) {
                     obj.storage = json.model;
@@ -718,7 +722,7 @@
                 })
 
 
-            },                                 //TODO 行内按钮-查看入库储位信息
+            },                         //TODO 行内按钮-查看入库储位信息
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -988,6 +992,7 @@
     p[2] = autoPost({
         urlHock: "",
         urlProd: "/route/inputSelect/2",
+        method:'GET',
         success: function (json) {
             obj.storage = json.model;
             obj.dialogStorageVisible = true;
