@@ -867,6 +867,25 @@
         },
         methods: {
             inlineExport: function () {
+                obj.$confirm('导出入库台账', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    p[3].post({
+                        ids: [row.rkRkdjId]
+                    }, function (json) {
+                        this.callbackAfter({status: json.status, model: "导出入库台账"}, function () {
+                            var url = "/static/Excel/" + json.model;
+                            window.open(url);
+                        })
+                    });
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消导出'
+                    });
+                });
             },                                                 //TODO 行内按钮-导出
             inlineProductionLedger: function (index, row) {
                 this.dialogLedgerVisible = true;
@@ -1146,6 +1165,15 @@
         success: function (json) {
         }
     });
+    // 3 入库台账 导出
+    p[1] = autoPost({
+        urlHock: "",
+        urlProd: "/route/inputLedger/3",
+        method: 'GET',
+        success: function (json) {
+        }
+    });
+
 
     function _form() {
         return {

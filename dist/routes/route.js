@@ -317,7 +317,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 3:
                         urlName = '导出';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mfunrktzDoc/exportTzExcel', "POST", function (json) {
                             res.send(json);
                         });
                         break;
