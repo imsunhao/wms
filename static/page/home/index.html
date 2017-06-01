@@ -1,336 +1,297 @@
 <style>
-    #a1, #a2, #a3, #a4 {
-        padding: 20px 10px;
-        width: 440px;
-        height: 400px;
+    #home {
+        width: 100%;
+        min-width: 890px;
+        position: relative;
+    }
+
+    #home .demo-table-expand {
+        font-size: 0;
+    }
+
+    #home .demo-table-expand label {
+        width: 90px;
+        color: #99a9bf;
+    }
+
+    #home .demo-table-expand .el-form-item {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 80%;
+    }
+
+    #home .el-table__expand-column .el-table__expand-icon {
+        height: 39px;
+    }
+
+    #home .table {
+        transition: 1s all;
+    }
+
+    #home .el-carousel__container {
+        height: 440px;
+    }
+
+    .el-tooltip__popper {
+        max-width: 400px;
+    }
+
+    .el-step__main {
+        max-width: calc(100% - 60px);
+    }
+
+    #home .homeTable {
+        width: 95% !important;
+        margin: 10px 20px 0;
+    }
+
+    #home .datePicker {
+        width: 140px !important;
+        height: 24px !important;
+        margin-top: 29px;
+        margin-right: 18px;
         float: left;
-        transition: .4s all;
+    }
+
+    #home .datePicker .el-input__inner {
+        border-radius: 2px !important;
+        height: 24px !important;
+    }
+
+    #home .add {
+        background: url("/static/images/add.png") no-repeat center;
+    }
+
+    #home .del {
+        background: url("/static/images/del.png") no-repeat center;
+    }
+
+    #home .search {
+        background: url("/static/images/search.png") no-repeat center;
+    }
+
+    #home .sel {
+        background: url("/static/images/sel.png") no-repeat center;
+    }
+
+    #home .icon {
+        float: left;
+    }
+
+    #home .btn span {
+        float: left;
+        margin-top: 4px;
+        margin-left: 2px;
+    }
+
+    #home .btn {
+        height: 24px;
+        line-height: 1;
+        border: none;
+        background: #f8fafb;
+        outline: none;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        float: left;
+        font-size: 14px;
+        color: #1f2d3d;
+        margin-top: 29px;
+        margin-right: 16px;
+    }
+
+    #home .btn-print {
+        margin-right: 0;
+    }
+
+    #home .btn:hover {
+        color: #5468ee;
+    }
+
+    #home .inner {
+        margin: 0 20px;
+    }
+
+    #home .btn-nav {
+        height: 60px;
+        overflow: hidden;
+    }
+
+    #home .btn-nav .el-input .el-input__inner {
+        height: 24px;
+    }
+
+    #home .btn-nav .el-input {
+        float: left;
+        margin-top: 29px;
+        margin-right: 18px;
+        width: 140px;
+        height: 24px;
+    }
+
+    #home h4 {
+        padding-left: 20px;
+        margin-bottom: 0px;
+    }
+
+    #home .formBottom {
+        margin-top: 10px;
+    }
+
+    #home .homeCombinationDetails .el-date-editor.el-input {
+        width: 100%;
+    }
+
+    #home .homeCombinationDetails {
+        margin-top: 30px;
+    }
+</style>
+<style>
+    .steps {
+        position: absolute;
+        bottom: 10px;
+        left: 30px;
+        margin: auto;
+    }
+
+    .el-dialog__headerbtn {
+        position: absolute;
+        right: 25px;
+        top: 15px;
+    }
+
+    .el-step__main {
+        margin-left: -8px !important;
+    }
+</style>
+<style>
+    .el-date-editor.el-input {
+        width: 100%;
     }
 </style>
 
 <div id="home">
-    <div id="a1" v-echarts:a1="a1"></div>
-    <div id="a2" v-echarts:a3="a2"></div>
-    <div id="a3" v-echarts:a2="a3"></div>
-    <!--<div id="a4" v-echarts:a4="a4"></div>-->
-    <!--<button @click="changeA1">changeA1</button>-->
-    <!--<div id="main4" v-echarts="a5" style="width: 600px;height:400px;"></div>-->
-    <!--<div id="main5" v-echarts="a6" style="width: 600px;height:400px;"></div>-->
+    <!--页面调整-->
+    <el-row
+            v-loading="showLoading"
+            element-loading-text="拼命加载中">
+        <div class="inner btn-nav">
+
+            <el-input
+                    v-model="lostCkdjNo"
+                    icon="search"
+                    placeholder="出库单号"></el-input>
+        </div>
+        <el-table
+                :data="home"
+                :max-height="450"
+                ref="table"
+                class="homeTable"
+                style="width: 100%">
+            <el-table-column
+                    type="index"
+                    width="55">
+            </el-table-column>
+            <el-table-column
+                    label="出库单号"
+                    show-overflow-tooltip
+                    prop="lostCkdjNo"
+                    align="center">
+            </el-table-column>
+            <el-table-column
+                    label="货品编号"
+                    show-overflow-tooltip
+                    prop="lostNo"
+                    align="center">
+
+            </el-table-column>
+            <el-table-column
+                    label="抓取时间"
+                    show-overflow-tooltip
+                    prop="lostTime"
+                    align="center">
+
+            </el-table-column>
+
+        </el-table>
+        <div class="block">
+            <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="[5, 10, 15, 20]"
+                    :page-size="pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="currentTotal">
+            </el-pagination>
+        </div>
+    </el-row>
 </div>
+
 <script>
     var home = new Vue({
-        el: "#home",
+        el: '#home',
+        prop: {},
         data: function () {
             return {
-                a1: {
-                    title: {
-                        text: '周明细'
-                    },
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                        },
-                        width: '20%',
-                        height: '20%'
-                    },
-                    legend: {
-                        data: ['总计', '入库', '出库']
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
-                    xAxis: [
-                        {
-                            type: 'value'
-                        }
-                    ],
-                    yAxis: [
-                        {
-                            type: 'category',
-                            axisTick: {show: false},
-                            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-                        }
-                    ],
-                    series: [
-                        {
-                            name: '总计',
-                            type: 'bar',
-                            label: {
-                                normal: {
-                                    show: true,
-                                    position: 'inside'
-                                }
-                            },
-                            data: [200, 170, 240, 244, 200, 220, 210]
-                        },
-                        {
-                            name: '入库',
-                            type: 'bar',
-                            stack: '总量',
-                            label: {
-                                normal: {
-                                    show: true
-                                }
-                            },
-                            data: [320, 302, 341, 374, 390, 450, 420]
-                        },
-                        {
-                            name: '出库',
-                            type: 'bar',
-                            stack: '总量',
-                            label: {
-                                normal: {
-                                    show: true,
-                                    position: 'left'
-                                }
-                            },
-                            data: [-120, -132, -101, -134, -190, -230, -210]
-                        }
-                    ]
-                },
-                a2: {
-                    title: {
-                        text: '周明细'
-                    },
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    legend: {
-                        data: ['入库量', '出库量']
-                    },
-                    toolbox: {
-                        show: true,
-                        feature: {
-                            dataZoom: {
-                                yAxisIndex: 'none'
-                            },
-                            dataView: {readOnly: false},
-                            magicType: {type: ['line', 'bar']},
-                            restore: {},
-                            saveAsImage: {}
-                        }
-                    },
-                    xAxis: {
-                        type: 'category',
-                        boundaryGap: false,
-                        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-                    },
-                    yAxis: {
-                        type: 'value',
-                        axisLabel: {
-                            formatter: '{value} 件'
-                        }
-                    },
-                    series: [
-                        {
-                            name: '入库量',
-                            type: 'line',
-                            data: [110, 160, 105, 130, 412, 103, 129],
-                            markPoint: {
-                                data: [
-                                    {type: 'max', name: '周最高'},
-                                    {type: 'min', name: '周最低'}
-                                ]
-                            },
-                            markLine: {
-                                data: [
-                                    {type: 'average', name: '平均值'}
-                                ]
-                            }
-                        },
-                        {
-                            name: '出库量',
-                            type: 'line',
-                            data: [-100, -200, -200, -405, -300, -210, -120],
-                            markPoint: {
-                                data: [
-                                    {name: '周最低', value: -120, xAxis: 6, yAxis: -120}
-                                ]
-                            },
-                            markLine: {
-                                data: [
-                                    {type: 'average', name: '平均值'},
-                                    [{
-                                        symbol: 'none',
-                                        x: '90%',
-                                        yAxis: 'max'
-                                    }, {
-                                        symbol: 'circle',
-                                        label: {
-                                            normal: {
-                                                position: 'start',
-                                                formatter: '最大值'
-                                            }
-                                        },
-                                        type: 'max',
-                                        name: '最高点'
-                                    }]
-                                ]
-                            }
-                        }
-                    ]
-                },
-                a3: {
-                    title: {
-                        text: '货品在库存中所占比例',
-                        x: 'center'
-                    },
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
-                    legend: {
-                        orient: 'vertical',
-                        left: 'left',
-                        data: [
-                            '电磁炉',
-                            '电饭锅',
-                            '电水壶']
-                    },
-                    series: [
-                        {
-                            name: '货品信息',
-                            type: 'pie',
-                            radius: '55%',
-                            center: ['50%', '60%'],
-                            label : {
-                                normal : {
-                                    show : true,
-                                    position : 'outside'
-                                }
-                            },
-                            labelLine : {
-                                normal : {
-                                    show : true
-                                }
-                            },
-                            data: [
-                                {value: 1020, name: '电磁炉'},
-                                {value: 1420, name: '电饭锅'},
-                                {value: 1520, name: '电水壶'}
-                            ],
-                            itemStyle: {
-                                emphasis: {
-                                    shadowBlur: 10,
-                                    shadowOffsetX:0,
-                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                                }
-                            }
-                        }
-                    ]
-                },
-                a4: {
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                        }
-                    },
-                    legend: {
-                        data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎', '百度', '谷歌', '必应', '其他']
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
-                    xAxis: [
-                        {
-                            type: 'category',
-                            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-                        }
-                    ],
-                    yAxis: [
-                        {
-                            type: 'value'
-                        }
-                    ],
-                    series: [
-                        {
-                            name: '直接访问',
-                            type: 'bar',
-                            data: [320, 332, 301, 334, 390, 330, 320]
-                        },
-                        {
-                            name: '邮件营销',
-                            type: 'bar',
-                            stack: '广告',
-                            data: [120, 132, 101, 134, 90, 230, 210]
-                        },
-                        {
-                            name: '联盟广告',
-                            type: 'bar',
-                            stack: '广告',
-                            data: [220, 182, 191, 234, 290, 330, 310]
-                        },
-                        {
-                            name: '视频广告',
-                            type: 'bar',
-                            stack: '广告',
-                            data: [150, 232, 201, 154, 190, 330, 410]
-                        },
-                        {
-                            name: '搜索引擎',
-                            type: 'bar',
-                            data: [862, 1018, 964, 1026, 1679, 1600, 1570],
-                            markLine: {
-                                lineStyle: {
-                                    normal: {
-                                        type: 'dashed'
-                                    }
-                                },
-                                data: [
-                                    [{type: 'min'}, {type: 'max'}]
-                                ]
-                            }
-                        },
-                        {
-                            name: '百度',
-                            type: 'bar',
-                            barWidth: 5,
-                            stack: '搜索引擎',
-                            data: [620, 732, 701, 734, 1090, 1130, 1120]
-                        },
-                        {
-                            name: '谷歌',
-                            type: 'bar',
-                            stack: '搜索引擎',
-                            data: [120, 132, 101, 134, 290, 230, 220]
-                        },
-                        {
-                            name: '必应',
-                            type: 'bar',
-                            stack: '搜索引擎',
-                            data: [60, 72, 71, 74, 190, 130, 110]
-                        },
-                        {
-                            name: '其他',
-                            type: 'bar',
-                            stack: '搜索引擎',
-                            data: [62, 82, 91, 84, 109, 110, 120]
-                        }
-                    ]
-                }
+                home: [],                 //主页面 信息集合
+                lostCkdjNo: '',                   //主页面 出库编号  搜索
+                showLoading: false,              //主页面 加载 维护
+                currentPage: 1,                  //分页 当前页
+                currentTotal: 1,                 //分页 总页数
+                pageSize: 10,                    //分页 分页大小
             }
         },
+        computed: {
+            option: function () {
+                return {
+                    "draw": 1,
+                    "pageNum": this.currentPage,
+                    "pageSize": this.pageSize,
+                    "lostCkdjNo":this.lostCkdjNo.trim(),
+                }
+            },           //主页面 post 0
+
+        },
         methods: {
-            changeA1: function () {
-                var input = parseInt((Math.random() * 160 + 40).toFixed(2));
-                var output = parseInt((Math.random() * -160 - 40).toFixed(2));
-                this.a1.yAxis[0].data.push(this.a1.yAxis[0].data.shift());
-                this.a1.series[0].data.shift();
-                this.a1.series[1].data.shift();
-                this.a1.series[2].data.shift();
-                this.a1.series[1].data.push(input);
-                this.a1.series[2].data.push(output);
-                this.a1.series[0].data.push(parseInt((input + output).toFixed(2)));
-                document.getElementById('a1').instance.setOption(this.a1);
-            }
+            handleSizeChange: function (val) {
+                /*<debug>*/
+                console.log('每页' + val + '条');
+                /*</debug>*/
+                this.pageSize = val;
+                p[0].post(this.option);
+            },                                   //分页 Size
+            handleCurrentChange: function (val) {
+                /*<debug>*/
+                console.log('当前第' + val + '页');
+                /*</debug>*/
+                this.currentPage = val;
+                p[0].post(this.option);
+            },                                //分页 当前页
+
+        },
+        watch: {
+            lostCkdjNo: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+
         }
-    })
+    });
+
+    var obj = home;
+    var p = [];
+    // 0  分页查询
+    p[0] = autoPost({
+        urlHock: "",
+        urlProd: "/route/home/0",
+        success: function (json) {
+            obj.$data.home = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+
+    p[0].post(obj.option);
 </script>

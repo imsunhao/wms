@@ -1097,13 +1097,13 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '入库单据查询 查看入库明细信息';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mfunrkDocs/selectMfunrkDocsInfoByRkdjId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 2:
                         urlName = '入库单据查询 查看入库储位信息';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mdt/selectMdtInfoByRkmxId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -1547,8 +1547,20 @@ router.param('_url', function (req, res, next, url) {
                         break;
 
 
+
                 }
                 break;
+            case 'home':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '主页面 分页获取单据';
+                        req = autoUrl(req, 'lost/selectLostGoodsNoByPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+
 
 
         }

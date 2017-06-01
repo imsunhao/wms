@@ -83,6 +83,13 @@
                                             <el-form-item label="客户名称">
                                                 <span>{{props.row.ckCkdjClientname}}</span>
                                             </el-form-item>
+                                          
+                                    <el-form-item label="欠货状态">
+                                        <span>{{ auto_ckQhStatus(props.row.ckQhStatus) }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="滞留状态">
+                                        <span>{{ auto_ckZlStatus(props.row.ckZlStatus) }}</span>
+                                    </el-form-item>
                                         </el-col>
                                         <el-col :span="10" :offset="2">
                                             <el-form-item label="联系人">
@@ -678,9 +685,47 @@
         },
         methods: {
             inlineExportOutstanding: function (index, row) {
+                obj.$confirm('导出欠货 单据单号：' + row.ckCkdjNo, '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    p[4].post({
+                        ids: [row.ckCkdjId]
+                    }, function (json) {
+                        this.callbackAfter({status: json.status, model: "导出欠货单"}, function () {
+                            var url = "/static/Excel/" + json.model;
+                            window.open(url);
+                        })
+                    });
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消导出'
+                    });
+                });
 
             },                     //TODO 行内按钮-导出欠货
             inlineExportRetention: function (index, row) {
+                obj.$confirm('导出滞留 单据单号：' + row.ckCkdjNo, '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    p[5].post({
+                        ids: [row.ckCkdjId]
+                    }, function (json) {
+                        this.callbackAfter({status: json.status, model: "导出滞留单"}, function () {
+                            var url = "/static/Excel/" + json.model;
+                            window.open(url);
+                        })
+                    });
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消导出'
+                    });
+                });
 
             },                       //TODO 行内按钮-导出滞留
 
@@ -821,6 +866,41 @@
                 }
                 return temp[value];
             },                                    //制单方式
+
+            auto_ckQhStatus: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '整单欠货',
+                        2: '部分欠货',
+                        3:'未欠货',
+                    }
+                } else {
+                    temp = {
+                        '整单欠货': 1,
+                        '部分欠货': 2,
+                        '未欠货': 3,
+                    }
+                }
+                return temp[value];
+            },                               //欠货状态
+            auto_ckZlStatus: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '未到车滞留',
+                        2: '到车滞留',
+                        3:'未滞留',
+                    }
+                } else {
+                    temp = {
+                        '未到车滞留': 1,
+                        '到车滞留': 2,
+                        '未滞留':3,
+                    }
+                }
+                return temp[value];
+            },                               //滞留状态
         },
         watch: {
             ckCkdjNo: function () {
@@ -880,13 +960,15 @@
     // 4 回收存档- 欠货导出
     p[4] = autoPost({
         urlHock: "../../hock/recoveryArchive/page.json",
-        urlProd: "/route/recoveryArchive/4"
+        urlProd: "/route/recoveryArchive/4",
+        method: 'GET',
     });
 
     // 5 回收存档- 滞留导出
     p[5] = autoPost({
         urlHock: "../../hock/recoveryArchive/page.json",
-        urlProd: "/route/recoveryArchive/5"
+        urlProd: "/route/recoveryArchive/5",
+        method: 'GET',
     });
 
 
