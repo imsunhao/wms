@@ -32,68 +32,68 @@
                             <el-row>
                                 <el-col :span="10">
                                     <el-form-item label="作业人员">
-                                        <span>{{ props.row.mdtUserId }}</span>
+                                        <span>{{ props.row.ru_user_name }}</span>
                                     </el-form-item>
                                     <el-form-item label="作业时间">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_time_new(props.row.mdtSjsj,6) }}
+                                            {{ auto_time_new(props.row.mdt_sjsj,6) }}
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="体积">
-                                        <span>{{ props.row.bgGoodsTj }}</span>
+                                        <span>{{ props.row.tj }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架开始">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_time_new(props.row.rkrkSjsj,6) }}
+                                            {{ auto_time_new(props.row.rk_sjsj,6) }}
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="上架结束">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_time_new(props.row.rkEndTime,6) }}
+                                            {{ auto_time_new(props.row.rk_end_time,6) }}
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="下单时间">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{auto_time_new(props.row.rkCreatetime,6)}}
+                                            {{auto_time_new(props.row.rk_createtime,6)}}
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="入库单号">
-                                        <span>{{props.row.rkRkdjNo}}</span>
+                                        <span>{{props.row.rk_rkdj_no}}</span>
                                     </el-form-item>
 
                                     <el-form-item label="入库状态">
-                                        <span>{{ auto_rkStatus(props.row.rkStatus) }}</span>
+                                        <span>{{ auto_rk_status(props.row.rk_status) }}</span>
                                     </el-form-item>
                                     <el-form-item label="货品编号">
-                                        <span>{{ props.row.rksGoodsId }}</span>
+                                        <span>{{ props.row.bg_goods_no }}</span>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="货品名称">
-                                        <span>{{ props.row.rksGoodsId }}</span>
+                                        <span>{{ props.row.bg_goods_no }}</span>
                                     </el-form-item>
                                     <el-form-item label="货品批次">
-                                        <span>{{ props.row.mdtBatch }}</span>
+                                        <span>{{ props.row.mdt_batch }}</span>
                                     </el-form-item>
 
                                     <el-form-item label="应收数量">
-                                        <span>{{ props.row.rksCount }}</span>
+                                        <span>{{ props.row.rks_count }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架数量">
-                                        <span>{{ props.row.mdtCount }}</span>
+                                        <span>{{ props.row.rks_count }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架库位">
-                                        <span>{{ props.row.mdtLocationId }}</span>
+                                        <span>{{ props.row.bl_lname }}</span>
                                     </el-form-item>
                                     <el-form-item label="制作方式">
-                                        <span>{{ auto_rkZdfs(props.row.rkZdfs) }}</span>
+                                        <span>{{ auto_rk_zdfs(props.row.rk_zdfs) }}</span>
                                     </el-form-item>
                                     <el-form-item label="操作方式">
-                                        <span>{{ auto_rkStartwith(props.row.rkStartwith) }}</span>
+                                        <span>{{ auto_rk_startwith(props.row.rk_startwith) }}</span>
                                     </el-form-item>
                                     <el-form-item
                                             label="可用操作">
@@ -111,7 +111,7 @@
                 <el-table-column
                         label="作业人员"
                         show-overflow-tooltip
-                        prop="mdtUserId"
+                        prop="ru_user_name"
                         align="center">
                 </el-table-column>
                 <el-table-column
@@ -119,26 +119,28 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_time_new(scope.row.mdtSjsj)}}
+                        {{auto_time_new(scope.row.mdt_sjsj)}}
                     </template>
                 </el-table-column>
                 <el-table-column
                         label="体积"
                         show-overflow-tooltip
                         align="center"
-                        prop="bgGoodsTj">
+                        prop="tj">
                 </el-table-column>
                 <el-table-column
-                        label="上架数量"
+                        label="下单时间"
                         show-overflow-tooltip
-                        align="center"
-                        prop="mdtCount">
+                        align="center">
+                    <template scope="scope">
+                        {{auto_time_new(scope.row.rk_createtime)}}
+                    </template>
                 </el-table-column>
                 <el-table-column
-                        label="货品名称"
+                        label="入库单号"
                         show-overflow-tooltip
                         align="center"
-                        prop="rksGoodsId">
+                        prop="rk_rkdj_no">
                 </el-table-column>
                 <el-table-column
                         label="入库状态"
@@ -147,7 +149,7 @@
                         width="100">
                     <template scope="scope">
                         <el-tag
-                                close-transition>{{auto_rkStatus(scope.row.rkStatus)}}
+                                close-transition>{{auto_rk_status(scope.row.rk_status)}}
                         </el-tag>
                     </template>
                 </el-table-column>
@@ -189,16 +191,24 @@
                         :picker-options="pickerOptions">
                 </el-date-picker>
             </el-form-item>
-
-            <el-form-item label="上架时间"
+            <el-form-item label="上架开始"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="form.rkrkSjsj"
-                        type="daterange"
+                        v-model="form.rkrk_sjsj"
+                        type="date"
                         align="right"
-                        placeholder="上架时间"
-                        class="input"
-                        :picker-options="pickerOptions">
+                        placeholder="上架开始"
+                        class="input">
+                </el-date-picker>
+            </el-form-item>
+            <el-form-item label="上架结束"
+                          :label-width="formLabelWidth">
+                <el-date-picker
+                        v-model="form.rk_end_time"
+                        type="date"
+                        align="right"
+                        placeholder="上架结束"
+                        class="input">
                 </el-date-picker>
             </el-form-item>
             <el-form-item label="作业时间"
@@ -688,7 +698,7 @@
                 if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
                 else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
             },                              //下单时间
-            auto_rkStatus:function(value){
+            auto_rk_status:function(value){
                 var temp={}
                 if(!isNaN(value)){
                     temp={
@@ -709,7 +719,7 @@
                 }
                 return temp[value];
             },                                         //入库状态
-            auto_rkZdfs:function(value){
+            auto_rk_zdfs:function(value){
                 var temp={}
                 if(!isNaN(value)){
                     temp={
@@ -726,7 +736,7 @@
                 }
                 return temp[value];
             },                                         //操作方式
-            auto_rkStartwith:function(value){
+            auto_rk_startwith:function(value){
                 var temp={}
                 if(!isNaN(value)){
                     temp={
