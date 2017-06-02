@@ -148,12 +148,44 @@
     }
 </style>
 <style>
-    .select {
+    #loopInventory .el-transfer {
 
     }
 
-    .select .input {
-        width: 70%;
+    #loopInventory .el-transfer .el-transfer-panel {
+        width: 43.6%;
+    }
+
+    #loopInventory .box-card {
+        height: 421px;
+
+    }
+
+    #loopInventory .box {
+        position: relative;
+    }
+
+    #loopInventory .box-image {
+        position: absolute;
+        right: -10px;
+        bottom: -70px;
+        width: 60px;
+        height: 60px;
+        z-index: 1;
+        border: 1px solid #eee;
+        border-radius: 50%;
+    }
+
+    #loopInventory .el-tree {
+        margin-top: 10px;
+        height: 333px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    #loopInventory .el-tree-node__content {
+        line-height: 60px !important;
+        height: 60px !important;
     }
 </style>
 <div id="loopInventory">
@@ -376,50 +408,48 @@
             size="large"
             title="分配任务"
             v-model="dialogAssignmentVisible">
-        <el-table
-                :data="assignment"
-                highlight-current-row
-                style="width: 100%">
-            <el-table-column
-                    label="库位名称"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="baseLocation.blLname">
-            </el-table-column>
-            <el-table-column
-                    label="货品编号"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="baseGoods.bgGoodsNo">
-            </el-table-column>
-            <el-table-column
-                    label="货品名称"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="baseGoods.bgGoodsName">
-            </el-table-column>
-            <el-table-column
-                    label="库存数量"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="pdsRepertoryCount">
-            </el-table-column>
-            <el-table-column
-                    label="操作"
-                    prop="rksCount"
-                    align="center">
-                <template scope="scope">
-                    <el-button
-                            size="small"
-                            type="danger"
-                            icon="assignment"
-                            @click="assignmentInlineOperation(scope.$index, scope.row)">分配
-                    </el-button>
-                </template>
-            </el-table-column>
-
-
-        </el-table>
+        <el-row>
+            <el-col :span="6">
+                <el-card class="box-card">
+                    <el-input
+                            placeholder="用户(拼音)搜索"
+                            v-model="filterText">
+                    </el-input>
+                    <el-tree
+                            :data="people"
+                            @node-click="nodeClick"
+                            :props="defaultProps"
+                            highlight-current
+                            :render-content="treeRenderContent"
+                            ref="tree5"
+                            :filter-node-method="filterNode">
+                    </el-tree>
+                </el-card>
+            </el-col>
+            <el-col :span="18">
+                <el-card class="box-card">
+                    <div slot="header" class="clearfix box">
+                        <span style="line-height: 24px; font-size: 16px">{{assignmentForm.ruUserName||'请选择一名用户指派任务'}}</span>
+                        <img class="box-image" :src="'/static/images/users/'+assignmentForm.ruPortrait"
+                             v-if="assignmentForm.ruUserName"/>
+                    </div>
+                    <el-row v-loading="assignmentLoading"
+                            element-loading-text="等待选择人员">
+                        <el-transfer
+                                v-model="assignmentForm.val"
+                                filterable
+                                filter-placeholder="请输入库位名称"
+                                :left-default-checked="[]"
+                                :right-default-checked="assignmentForm.val"
+                                :titles="['所有任务','我的任务']"
+                                :button-texts="['取消任务','分配任务']"
+                                @change="handleChange"
+                                :data="c_assignment">
+                        </el-transfer>
+                    </el-row>
+                </el-card>
+            </el-col>
+        </el-row>
     </el-dialog>
     <el-dialog
             size="large"
@@ -479,45 +509,44 @@
     </el-dialog>
 </div>
 <script>
+    function _assignmentForm() {
+        return {
+            ruUserName: '',
+            ruPortrait: '',
+            ruUserId: '',
+
+            val: []
+        }
+    }
     var loopInventory = new Vue({
         el: '#loopInventory',
         prop: {},
         data: function () {
             return {
+                assignmentMy: [],
+                assignment: [],                      //分配任务 弹出层 信息集合(表单格式)
+                assignmentForm: _assignmentForm(),
+                dialogAssignmentVisible: false,      //分配任务 弹出层 是否可见
+                assignmentLoading: true,
+
+
+                filterText: '',
+                defaultProps: {
+                    children: 'children',
+                    label: 'ruUserName',
+                    key: 'ruUserId'
+                },
+
+
+                people: [],                          //所在仓库下所有人员
+
                 loopInventory: [],
                 multipleSelection: [],
                 multiSelect: false,
-                pickerOptions: {
-                    shortcuts: [{
-                        text: '最近一周',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近一个月',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近三个月',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }]
-                },
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-                currentTotal:0,
+                currentTotal: 0,
                 date: [null, null],                 //主页面 选择日期 搜索
                 rkRkdjNo: '',                       //主页面 入库单号 搜索
                 formLabelWidth: '120px',            //表单 配置
@@ -525,20 +554,24 @@
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
-                assignment: [],                       //查看 分配任务 弹出层 信息集合(表单格式)
-                dialogAssignmentVisible: false,    //查看 分配任务 弹出层 是否可见
+
+
                 details: [],                           //查看 盘点详情 弹出层 信息集合(表单格式)
-                dialogDetailsVisible: false,        //查看 盘点详情 弹出层 是否可见
-                select: _form(),                       //搜索 弹出层 信息集合,
-                printf: [],                           //搜索 弹出层 信息集合,
-                dialogSelectVisible: false,
-                dialogPrintfVisible: false,
-                selectLoading: false,
-                printfLoading: false,
-                printDatas: [],          // 打印数据
+                dialogDetailsVisible: false,          //查看 盘点详情 弹出层 是否可见
             }
         },
         computed: {
+            c_assignment: function () {
+                var obj = this;
+                var data = [];
+                for (var i = 0; i < obj.assignment.length; i++) {
+                    data.push({
+                        key: obj.assignment[i].pdsId,
+                        label: obj.assignment[i].baseGoods.bgGoodsNo
+                    });
+                }
+                return data;
+            },
             // TODO 表格提交
             option: function () {
                 return {
@@ -564,20 +597,68 @@
                     "rkrwStatus": this.form.rkrwStatus
                 }
             },
-            distributionForm: function () {
-                return {
-                    distribution: this.distribution
-                }
-            },                                      //分配 表单
         },
         methods: {
-            inlineAssignment: function (index,row) {
+            nodeClick: function (value, data, node) {
+
+                /*var step = _form();
+                 allPrposCb(step, function (obj, index) {
+                 if (typeof row[index] !== 'undefined') step[index] = row[index];
+                 });*/
+
+                this.assignmentForm = value;
+                this.assignmentLoading = false;
+
+            },
+            handleChange: function handleChange(value, direction, movedKeys) {
+                console.log(value, direction, movedKeys);
+            },
+            filterNode: function (value, data) {
+                if (!value) return true;
+                return data.ruLoginName.indexOf(value) !== -1;
+            },
+            treeRenderContent: function (h, node) {
+                return h(
+                    'div', {
+                        style: {
+                            width: '100%',
+                            lineHeight: '60px',
+                            position: 'relative',
+                            paddingLeft: '60px'
+                        }
+                    },
+                    [
+                        h('i', {
+                            style: {
+                                width: '36px',
+                                height: '36px',
+                                display: 'inline-block',
+                                position: 'absolute',
+                                left: '12px',
+                                top: '12px',
+                                backgroundImage: 'url("/static/images/users/' + node.data.ruPortrait + '")',
+                                'background-size': 'cover',
+                                'border-radius': '50%',
+                                border: '1px solid #eee'
+                            }
+                        }),
+                        h('span', {
+                            style: {
+                                fontSize: '14px'
+                            }
+                        }, node.data.ruUserName)
+                    ]
+                )
+            },
+
+
+            inlineAssignment: function (index, row) {
                 p[5].post({pdId: row.pdId});
 //                this.dialogAssignmentVisible = true;
-            },                                     //行内按钮-分配任务
+            },                           //行内按钮-分配任务
             inlineInventoryDetails: function (index, row) {
                 p[6].post({pdId: row.pdId});
-            },                                  //行内按钮-盘点详情
+            },                     //行内按钮-盘点详情
             inlineInventoryConfirm: function (index, row) {
                 var obj = this;
                 obj.$confirm('确认此盘点计划, 是否继续?', '提示', {
@@ -748,6 +829,11 @@
                 }
                 return temp[value];
             },                                   //差异状态
+        },
+        watch: {
+            filterText: function (val) {
+                this.$refs.tree5.filter(val);
+            }
         }
     });
     var obj = loopInventory;
@@ -765,6 +851,7 @@
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/loopInventory/1",
+        method: 'GET',
         success: function (json) {
 
         }
@@ -810,6 +897,17 @@
             obj.details = json.model;
             obj.dialogDetailsVisible = true;
 
+        }
+    });
+    // 7 循环盘点 根据仓库id查找 所有人员
+    p[7] = autoPost({
+        urlHock: "",
+        urlProd: "/route/loopInventory/7",
+        success: function (json) {
+            for (var i = 0; i < json.length; i++) {
+                json[i].val = [];
+            }
+            obj.people = json;
         }
     });
 
@@ -911,6 +1009,7 @@
     //        post(this, this.option);
     //    }, {deep: true});
     p[0].post(loopInventory.option);
+    p[7].post({id: window.dbmessage.baseArehouses[0].baArehouseId});
 
 
 </script>
