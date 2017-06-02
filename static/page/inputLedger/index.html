@@ -408,9 +408,12 @@
             title="欠货完结信息"
             v-model="dialogEndVisible">
         <el-form
+               ref="ref_end"
+               :rules="rule_end"
                 :model="end">
             <el-form-item
                     label="完结原因"
+                    prop="rksWjReason"
                     :label-width="formLabelWidth">
                 <el-input
                         v-model="end.rksWjReason"
@@ -418,6 +421,7 @@
             </el-form-item>
             <el-form-item
                     label="补发单号"
+                    prop="rksBfdh"
                     :label-width="formLabelWidth">
                 <el-input
                         v-model="end.rksBfdh"
@@ -801,6 +805,7 @@
                 currentPage: 1,
                 pageSize: 10,
                 currentTotal: 0,
+                rule_end: autoValidate(validate_end()), //欠货完结验证规则
                 dbdh: '',                              //主页面 调拨单号 搜索
                 date: [null, null],             //主页面 始发日期 搜索
                 date1: [null, null],                    //主页面 到货日期 搜索
@@ -1118,7 +1123,17 @@
                 };
             },
             endSubmit: function () {
-
+                this.$refs['ref_end'].validate(function (valid) {
+                    if (valid) {
+                        p[1].post(this.end, function (json) {
+                            this.callbackAfter({status: json.status, model: '欠货补发信息'}, function () {
+                                p[0].post(obj.option);
+                            })
+                        })
+                    } else {
+                        return false;
+                    }
+                });
             },
             ledgerSubmit: function () {
 
@@ -1226,6 +1241,12 @@
             cljg: '',    // ---处理结果
             psts: '',    // --破损台数
             jssj: '',    // --结算时间
+        }
+    }
+    function validate_end(){
+        return{
+            rksWjReason: 'vNull',
+            rksBfdh: 'vNull',
         }
     }
 
