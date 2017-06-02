@@ -971,7 +971,7 @@
             },                                      //多选 状态维护
             multiSelectPrintCombinedSortingList: function () {
                 printfCompile(this);
-            },                   //TODO 多选 打印组合分拣单
+            },                   //多选 打印组合分拣单
             multiSelectOffTheShelf: function () {
                 obj.$confirm('此操作将这些出库单据下架', '提示', {
                     confirmButtonText: '确定',
@@ -1162,16 +1162,6 @@
                     //post(outputOperation);
                 }, 1500);
             },                                                //新建 表单提交
-            formValidateField: function (formName) {
-//                console.log(outputOperation.$refs[formName]);
-//                console.log(outputOperation.$refs);
-//                setTimeout(function () {
-//                    return outputOperation.$refs[formName].validate(function (valid) {
-//                        console.log(valid);
-//                        return valid;
-//                    })
-//                },0);
-            },                             //表单 string验证
 
             querySearchAsync: function (queryString, cb) {
                 postGoods(this, {bgGoodsNo: queryString}, cb);
@@ -1390,7 +1380,8 @@
     // 4 出库操作-打印组合分拣单
     p[4] = autoPost({
         urlHock: "../../hock/outputOperation/page.json",
-        urlProd: "/route/outputOperation/4"
+        urlProd: "/route/outputOperation/4",
+        method: 'GET'
     });
     // 5 出库操作-打印追加分拣单
     p[5] = autoPost({
@@ -1597,7 +1588,15 @@
         else if (ids.length === 0) {
 
         } else {
-
+            p[4].post({
+                ids: ids,
+                "pageNum": 1,
+                "pageSize": 999,
+                "draw": 0
+            }, function (json) {
+                obj.printDatas = json.data;
+                wap.print3(obj);
+            });
         }
     }
 </script>

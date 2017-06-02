@@ -377,13 +377,23 @@ $(function () {
             print3: function (obj) {
                 if (typeof (obj.printDatas) === 'undefined') return;
                 this.printDatas = _printDatas();
-                this.printDatas.p2 = obj.printDatas;
-                this.dialogTableVisible2 = true;
+                var stepString = '';
+                var step = [];
+                for (var i = 0; i < obj.printDatas.length; i++) {
+                    step = obj.printDatas[i].mfunckDoc.ckRemarks.split(';');
+                    for (var b = 0; b < step.length; b++) {
+                        stepString += '<span>' + step[b] + '</span>';
+                    }
+                    obj.printDatas[i].mfunckDoc.ckRemarks = stepString;
+                }
+
+                this.printDatas.p3 = obj.printDatas;
+                this.dialogTableVisible3 = true;
                 var _this = this;
                 setTimeout(function () {
                     window.print();
                     obj.printModel = true;
-                    _this.dialogTableVisible2 = false;
+                    _this.dialogTableVisible3 = false;
                 }, 500);
             },                                       // 出库操作 打印组合分拣单
         }

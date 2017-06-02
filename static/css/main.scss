@@ -426,6 +426,19 @@ html, body {
       }
     }
   }
+  .p3 {
+    .el-dialog__body {
+      width: 1120px;
+    }
+    .p3_inner {
+      margin: 0 5px;
+    }
+    .cell {
+      span {
+        display: block;
+      }
+    }
+  }
 }
 
 @media print {
