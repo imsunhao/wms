@@ -739,7 +739,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 9:
                         urlName = '取消分配';//TODO
-                        req = autoUrl(req, '/mfunrkDistributionlist/quXiaoFenPei', "POST", function (json) {
+                        req = autoUrl(req, '/mdt/mfunrkDistributionlist/quXiaoFenPei', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -927,6 +927,12 @@ router.param('_url', function (req, res, next, url) {
                     case 6:
                         urlName = '激活单据-修改-分拣明细数量';
                         req = autoUrl(req, '/mfunck/xiugaifenjian', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 7:
+                        urlName = '激活单据-查询-分拣明细';
+                        req = autoUrl(req, '/mfunck/selectfenjiansl', "POST", function (json) {
                             res.send(json);
                         });
                         break;
