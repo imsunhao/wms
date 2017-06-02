@@ -305,9 +305,12 @@
             title="滞留补发信息"
             v-model="dialogRetentionVisible">
         <el-form
+                ref="ref_retention"
+                :rules="rule_retention"
                 :model="retention">
             <el-form-item
                     label="任务号"
+                    prop="ckrwNo"
                     :label-width="formLabelWidth">
                 <el-input
                         v-model.number="retention.ckrwNo"
@@ -514,6 +517,7 @@
                         }
                     }]
                 },
+                rule_retention: autoValidate(validate_form()), //滞留补发信息验证规则
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
@@ -734,11 +738,18 @@
 
             },                                         //TODO 欠货补发信息-保存
             retentionSubmit: function () {
-                p[3].post(this.retention, function (json) {
-                    this.callbackAfter({status: json.status, model: '滞留补发信息'}, function () {
-                        p[0].post(obj.option);
-                    })
-                })
+                this.$refs['ref_retention'].validate(function (valid) {
+                    if (valid) {
+                        p[3].post(this.retention, function (json) {
+                            this.callbackAfter({status: json.status, model: '滞留补发信息'}, function () {
+                                p[0].post(obj.option);
+                            })
+                        })
+                    } else {
+                        return false;
+                    }
+                });
+
             },                                       //TODO 滞留补发信息-保存
 
             auto_ckIsauto: function (value) {
@@ -897,6 +908,12 @@
             "ckdjIds": [],                      //出库单据ID （多个）
 
             "useId": app.rmsUser.ruUserId       // 操作员ID
+        }
+    }
+
+    function validate_form(){
+        return{
+            ckrwNo:'vNull',
         }
     }
 
