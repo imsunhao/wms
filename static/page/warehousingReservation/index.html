@@ -529,6 +529,7 @@
                                     :label-width="formLabelWidth">
                                 <el-select
                                         :disabled="watchView"
+                                        @visible-change="selectVC('refForm1','rkArehouseId')"
                                         v-model="form.rkArehouseId"
                                         placeholder="请选择所属仓库">
                                     <el-option :label="obj.baName" :value="obj.baArehouseId"
@@ -541,6 +542,7 @@
                                     :label-width="formLabelWidth">
                                 <el-select
                                         :disabled="watchView"
+                                        @visible-change="selectVC('refForm1','rkType')"
                                         v-model="form.rkType"
                                         placeholder="请选择单据类型">
                                     <el-option label="采购订单" :value.number="0"></el-option>
@@ -575,7 +577,7 @@
                 </el-form>
             </el-carousel-item>
             <el-carousel-item>
-                <el-form :model="form.selectGood" ref="refForm2":rules="form_rule2">
+                <el-form :model="form.selectGood" ref="refForm2" :rules="form_rule2">
                     <el-row>
                         <el-col :span="24"><h3>入库明细</h3></el-col>
                     </el-row>
@@ -1246,6 +1248,12 @@
                 return temp[value];
             },                                      //制单方式
 
+            selectVC: function (ref, prop) {
+                this.$refs[ref].validateField(prop, function (valid) {
+                    return valid;
+                });
+            }
+
         },
         watch: {
             warehousingReservation: function () {
@@ -1500,10 +1508,10 @@
             rkType: 'vNull'
         }
     }
-       function validate_form2() {
+    function validate_form2() {
         return {
             rksCount: 'vNull',
-       }
+        }
     }
     function validate_warehousingReservationCombinationDetails() {
         return {
