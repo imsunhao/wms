@@ -1660,7 +1660,8 @@
     // 7 出库任务-挂起单据
     p[7] = autoPost({
         urlHock: "/hock/warehousingTask/mfunckDoc.json",
-        urlProd: "/route/outboundTask/7"
+        urlProd: "/route/outboundTask/7",
+        method: 'GET'
     });
     // 8 出库任务-取消挂起
     p[8] = autoPost({

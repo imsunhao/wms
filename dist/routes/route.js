@@ -211,6 +211,12 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 11:
+                        urlName = '入库预约-删除 入库单';
+                        req = autoUrl(req, '/mfunrkDoc/' + req.query.id, "DELETE", function (json) {
+                            res.send(json);
+                        });
+                        break;
 
                 }
                 break;
@@ -727,13 +733,13 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 8:
                         urlName = '分配';
-                        req = autoUrl(req, '/mfunrkDistributionlist', "POST", function (json) {
+                        req = autoUrl(req, '/mdt/mfunrkDistributionlist', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 9:
                         urlName = '取消分配';//TODO
-                        req = autoUrl(req, '/mfunrkDistributionlist', "POST", function (json) {
+                        req = autoUrl(req, '/mdt/mfunrkDistributionlist/quXiaoFenPei', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -921,6 +927,12 @@ router.param('_url', function (req, res, next, url) {
                     case 6:
                         urlName = '激活单据-修改-分拣明细数量';
                         req = autoUrl(req, '/mfunck/xiugaifenjian', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 7:
+                        urlName = '激活单据-查询-分拣明细';
+                        req = autoUrl(req, '/mfunck/selectfenjiansl', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -1351,6 +1363,12 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 7:
+                        urlName = '循环盘点 根据仓库id查找 所有人员';
+                        req = autoUrl(req, '/arehouse/belongToWhichUser/' + req.body.id, "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
                 }
                 break;
             case 'comprehensiveInventory':
@@ -1548,7 +1566,6 @@ router.param('_url', function (req, res, next, url) {
                         break;
 
 
-
                 }
                 break;
             case 'home':
@@ -1563,9 +1580,8 @@ router.param('_url', function (req, res, next, url) {
                 break;
 
 
-
         }
-        console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + req.info.url);
+        console.log(req.session.user.rmsUser.ruUserName + '\t请求：\t' + urlName + '\t' + req.info.url + '\t' + req.info.method+ '\t' + (new Date()).toJSON());
         next();
     }
     else {
@@ -1576,7 +1592,7 @@ router.param('_url', function (req, res, next, url) {
 });
 
 function autoUrl(req, url, method, cal) {
-    req.info={};
+    req.info = {};
     req.info.url = url;
     req.info.method = method;
     req.info.cal = cal;

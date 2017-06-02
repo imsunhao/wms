@@ -1303,6 +1303,7 @@
     p[3] = autoPost({
         urlHock: "../../hock/form/inputOption.json",
         urlProd: "/route/outputAppointment/3",
+        method: 'GET',
         success: function (json) {
             obj.dialogFormVisible = false;
             obj.submitLoading = false;

@@ -529,6 +529,7 @@
                                     :label-width="formLabelWidth">
                                 <el-select
                                         :disabled="watchView"
+                                        @visible-change="selectVC('refForm1','rkArehouseId')"
                                         v-model="form.rkArehouseId"
                                         placeholder="请选择所属仓库">
                                     <el-option :label="obj.baName" :value="obj.baArehouseId"
@@ -541,6 +542,7 @@
                                     :label-width="formLabelWidth">
                                 <el-select
                                         :disabled="watchView"
+                                        @visible-change="selectVC('refForm1','rkType')"
                                         v-model="form.rkType"
                                         placeholder="请选择单据类型">
                                     <el-option label="采购订单" :value.number="0"></el-option>
@@ -575,7 +577,7 @@
                 </el-form>
             </el-carousel-item>
             <el-carousel-item>
-                <el-form :model="form.selectGood" ref="refForm2":rules="form_rule2">
+                <el-form :model="form.selectGood" ref="refForm2" :rules="form_rule2">
                     <el-row>
                         <el-col :span="24"><h3>入库明细</h3></el-col>
                     </el-row>
@@ -841,9 +843,12 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.warehousingReservation);
-                    postDelete(_this, {
-                        id: [row.rkdjNo]
+                    p[11].post({
+                        id: [row.rkRkdjId]
+                    }, function (json) {
+                        this.callbackAfter({status: json.status, model: '删除该入库单'}, function () {
+                            remove(row, _this.warehousingReservation);
+                        });
                     });
                 }).catch(function () {
                     _this.$message({
@@ -921,7 +926,6 @@
                 if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
                 obj.dialogFormActive = 0;
                 obj.dialogFormVisible = true;
-
             },                                              //按钮 新建入库单
             importExcel: function () {
                 this.dialogExcelVisible = true;
@@ -956,8 +960,6 @@
                     if (valid) {
                         this.formActive++;
                         this.submitLoading = true;
-
-
                         /*<prod>*/
                         var Combination = post_Combination();
 
@@ -1246,6 +1248,12 @@
                 return temp[value];
             },                                      //制单方式
 
+            selectVC: function (ref, prop) {
+                this.$refs[ref].validateField(prop, function (valid) {
+                    return valid;
+                });
+            }
+
         },
         watch: {
             warehousingReservation: function () {
@@ -1391,7 +1399,8 @@
     // 8 入库单 详细信息
     p[8] = autoPost({
         urlHock: "../../hock/form/inputOption.json",
-        urlProd: "/route/warehousingReservation/8"
+        urlProd: "/route/warehousingReservation/8",
+        method: 'GET'
     });
     // 9 入库任务 单号
     p[9] = autoPost({
@@ -1415,6 +1424,12 @@
                 obj.warehousingReservationCombinationDetails.rkrwNo = json.model;
             });
         }
+    });
+    // 11 入库单据 单号
+    p[11] = autoPost({
+        urlHock: "/hock/warehousingReservation/rkdjNo.json",
+        urlProd: "/route/warehousingReservation/11",
+        method: 'GET'
     });
 
 
@@ -1493,12 +1508,11 @@
             rkType: 'vNull'
         }
     }
-       function validate_form2() {
+    function validate_form2() {
         return {
             rksCount: 'vNull',
-       }
+        }
     }
-
     function validate_warehousingReservationCombinationDetails() {
         return {
             rkrwNo: 'vNull',
@@ -1506,10 +1520,11 @@
             rkrwCph: 'vNull',
             rkrwDh: 'vNull',
             rkrwDhrq: 'vNull',
-            rkrwCys: ['vNull','a'],
+            rkrwCys: 'vNull',
             rkrwSjxm: 'vNull',
         }
     }
+
     function post_form() {
         return {
             "rkRkdjId": "",
