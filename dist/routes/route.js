@@ -1054,7 +1054,7 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '入库日报 分页查询';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mdt/SelectRkRb', "POST", function (json) {
                             res.send(json);
                         });
                         break;

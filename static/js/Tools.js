@@ -163,6 +163,7 @@ function autoValidate(option, cbs) {
     var validateRule = {
         vNull: function (rule, value, callback) {
             console.log(rule);
+            console.log(value);
             if (value === '') {
                 callback(new Error('必填'));
             } else {

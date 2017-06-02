@@ -394,18 +394,23 @@
                     </el-row>
                     <el-row class="outputAppointmentCombinationDetails">
                         <el-form
-                                ref="outputAppointmentCombinationDetails"
-                                :data="outputAppointmentCombinationDetails">
+                                :modle="outputAppointmentCombinationDetails"
+                                ref="ref_outputAppointmentCombinationDetails"
+                                :rules="rule_outputAppointmentCombinationDetails">
                             <el-col :span="10">
                                 <el-form-item
                                         label="出库任务单号"
+                                        prop="ckrwNo"
                                         :label-width="formLabelWidth">
                                     <el-input
                                             v-model="outputAppointmentCombinationDetails.ckrwNo"
                                             :disabled="true"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
-                                <el-form-item label="预计到车时间" :label-width="formLabelWidth">
+                                <el-form-item
+                                        label="预计到车时间"
+                                        prop="ckrwYjdcsj"
+                                        :label-width="formLabelWidth">
                                     <el-date-picker
                                             v-model="outputAppointmentCombinationDetails.ckrwYjdcsj"
                                             type="datetime"
@@ -414,13 +419,18 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :span="10" :offset="2">
-                                <el-form-item label="车牌号" :label-width="formLabelWidth">
+                                <el-form-item
+                                        label="车牌号"
+                                        prop="ckrwCph"
+                                        :label-width="formLabelWidth">
                                     <el-input
-                                            v-model="outputAppointmentCombinationDetails.ckrwCph"
                                             v-model="outputAppointmentCombinationDetails.ckrwCph"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
-                                <el-form-item label="物流商" :label-width="formLabelWidth">
+                                <el-form-item
+                                        label="物流商"
+                                        prop="ckrwWls"
+                                        :label-width="formLabelWidth">
                                     <el-input
                                             v-model="outputAppointmentCombinationDetails.ckrwWls"
                                             auto-complete="off"></el-input>
@@ -474,157 +484,180 @@
                     indicator-position="none"
                     height="55vh">
                 <el-carousel-item>
-                    <el-row>
-                        <el-col :span="24"><h3>出库基础信息</h3></el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="10">
-                            <el-form-item label="所属仓库" :label-width="formLabelWidth">
-                                <el-select v-model.number="form.ckArehouseId" placeholder="请选择所属仓库">
-                                    <el-option :label="obj.baName" :value="obj.baArehouseId"
-                                               v-for="obj of baseArehouses"></el-option>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item label="客户名称" :label-width="formLabelWidth">
-                                <el-input
-                                        v-model="form.ckCkdjClientname"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item label="联系电话" :label-width="formLabelWidth">
-                                <el-input
-                                        v-model="form.ckTel"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item label="客户地址" :label-width="formLabelWidth">
-                                <el-input
-                                        v-model="form.ckAdress"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item label="联系人" :label-width="formLabelWidth">
-                                <el-input
-                                        v-model="form.ckContacts"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="12" :offset="2">
-                            <el-form-item label="出库单号">
-                                <el-tag type="success">{{form.ckCkdjNo}}</el-tag>
-                            </el-form-item>
-                            <el-form-item label="出库数量">
-                                {{form.cksGoodsCount}}
-                            </el-form-item>
-                            <el-form-item label="出库体积">
-                                {{form.allTj}}
-                            </el-form-item>
-                            <el-form-item label="出库重量">
-                                {{form.allTj}}
-                            </el-form-item>
-                            <el-form-item>
-                                <el-input
-                                        type="textarea"
-                                        :rows="2"
-                                        v-model="form.ckRemarks"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
+                    <el-form
+                            :model="form"
+                            ref="ref_form"
+                            :rules="rule_form"  >
+                        <el-row>
+                            <el-col :span="24"><h3>出库基础信息</h3></el-col>
+                        </el-row>
+                        <el-row>
+                            <el-col :span="10">
+                                <el-form-item label="所属仓库" :label-width="formLabelWidth">
+                                    <el-select v-model.number="form.ckArehouseId" placeholder="请选择所属仓库">
+                                        <el-option :label="obj.baName" :value="obj.baArehouseId"
+                                                   v-for="obj of baseArehouses"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                                <el-form-item
+                                        label="客户名称"
+                                        prop="ckCkdjClientname"
+                                        :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model="form.ckCkdjClientname"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item
+                                        label="联系电话"
+                                        prop="ckTel"
+                                        :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model="form.ckTel"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item
+                                        label="客户地址"
+                                        prop="ckAdress"
+                                        :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model="form.ckAdress"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item
+                                        label="联系人"
+                                        prop="ckContacts"
+                                        :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model="form.ckContacts"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="12" :offset="2">
+                                <el-form-item label="出库单号">
+                                    <el-tag type="success">{{form.ckCkdjNo}}</el-tag>
+                                </el-form-item>
+                                <el-form-item label="出库数量">
+                                    {{form.cksGoodsCount}}
+                                </el-form-item>
+                                <el-form-item label="出库体积">
+                                    {{form.allTj}}
+                                </el-form-item>
+                                <el-form-item label="出库重量">
+                                    {{form.allTj}}
+                                </el-form-item>
+                                <el-form-item>
+                                    <el-input
+                                            type="textarea"
+                                            :rows="2"
+                                            v-model="form.ckRemarks"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                    </el-form>
                 </el-carousel-item>
                 <el-carousel-item>
-                    <el-row>
-                        <el-col :span="24"><h3>出库明细</h3></el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="8">
-                            <el-form-item label="货品编号" :label-width="formLabelWidth">
-                                <strong>{{form.selectGood.baseGoods.bgGoodsNo}}</strong>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="8">
-                            <el-form-item label="货品名称" :label-width="formLabelWidth">
-                                <el-tooltip class="item" effect="dark"
-                                            :content="form.selectGood.baseGoods.bgGoodsName"
-                                            placement="top">
-                                    <strong class="bgGoodsName">{{form.selectGood.baseGoods.bgGoodsName}}</strong>
-                                </el-tooltip>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="8">
-                            <el-form-item label="货品数量" :label-width="formLabelWidth">
-                                <strong>{{form.selectGood.cksGoodsCount}}</strong>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                    <el-row v-show="!watchView">
-                        <el-col :span="12">
-                            <el-form-item label="货品编号" :label-width="formLabelWidth">
-                                <el-autocomplete
-                                        :fetch-suggestions="querySearchAsync"
-                                        v-model="form.selectGood.baseGoods.bgGoodsNo"
-                                        @select="GoodSelect"
-                                        :disabled="!form.deleteAmfunckDocs"
-                                        auto-complete="off"></el-autocomplete>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="12">
-                            <el-form-item
-                                    label="货品数量"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        :disabled="form.selectGood.value==''"
-                                        @keyup.enter.native="GoodEnter"
-                                        v-model="form.selectGood.cksGoodsCount"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="8" :offset="16" v-show="!watchView">
-                            <el-button size="small" @click="saveDocsList"
-                                       :disabled="form.saveAmfunckDocs">保存明细
-                            </el-button>
-                            <el-button size="small" @click="deleteAmfunckDocs" :disabled="form.deleteAmfunckDocs"
-                                       type="danger">删除明细
-                            </el-button>
-                        </el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="24" style="margin-top: 5px">
-                            <el-table
-                                    @row-click="GoodClick"
-                                    height="200"
-                                    :data="form.mfunckDocs">
-                                <el-table-column
-                                        type="index"
-                                        width="55">
-                                </el-table-column>
-                                <el-table-column
-                                        label="货品编号"
-                                        width="140"
-                                        show-overflow-tooltip
-                                        align="center"
-                                        prop="baseGoods.bgGoodsNo">
-                                </el-table-column>
-                                <el-table-column
-                                        align="center"
-                                        prop="baseGoods.bgGoodsName"
-                                        show-overflow-tooltip
-                                        label="货品名称">
-                                </el-table-column>
-                                <el-table-column
-                                        label="单位"
-                                        width="80"
-                                        prop="baseDw.bdName"
-                                        align="center">
-                                </el-table-column>
-                                <el-table-column
-                                        label="数量"
-                                        width="100"
+                    <el-form
+                            :model="form.selectGood"
+                            :rules="rule_form2"
+                            ref="ref_form2">
+                        <el-row>
+                            <el-col :span="24"><h3>出库明细</h3></el-col>
+                        </el-row>
+                        <el-row>
+                            <el-col :span="8">
+                                <el-form-item label="货品编号" :label-width="formLabelWidth">
+                                    <strong>{{form.selectGood.baseGoods.bgGoodsNo}}</strong>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item label="货品名称" :label-width="formLabelWidth">
+                                    <el-tooltip class="item" effect="dark"
+                                                :content="form.selectGood.baseGoods.bgGoodsName"
+                                                placement="top">
+                                        <strong class="bgGoodsName">{{form.selectGood.baseGoods.bgGoodsName}}</strong>
+                                    </el-tooltip>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item label="货品数量" :label-width="formLabelWidth">
+                                    <strong>{{form.selectGood.cksGoodsCount}}</strong>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row v-show="!watchView">
+                            <el-col :span="12">
+                                <el-form-item label="货品编号" :label-width="formLabelWidth">
+                                    <el-autocomplete
+                                            :fetch-suggestions="querySearchAsync"
+                                            v-model="form.selectGood.baseGoods.bgGoodsNo"
+                                            @select="GoodSelect"
+                                            :disabled="!form.deleteAmfunckDocs"
+                                            auto-complete="off"></el-autocomplete>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="12">
+                                <el-form-item
+                                        label="货品数量"
                                         prop="cksGoodsCount"
-                                        align="center">
-                                </el-table-column>
-                            </el-table>
-                        </el-col>
-                    </el-row>
+                                        :label-width="formLabelWidth">
+                                    <el-input
+                                            :disabled="form.selectGood.value==''"
+                                            @keyup.enter.native="GoodEnter"
+                                            v-model="form.selectGood.cksGoodsCount"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <el-col :span="8" :offset="16" v-show="!watchView">
+                                <el-button size="small" @click="saveDocsList"
+                                           :disabled="form.saveAmfunckDocs">保存明细
+                                </el-button>
+                                <el-button size="small" @click="deleteAmfunckDocs" :disabled="form.deleteAmfunckDocs"
+                                           type="danger">删除明细
+                                </el-button>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <el-col :span="24" style="margin-top: 5px">
+                                <el-table
+                                        @row-click="GoodClick"
+                                        height="200"
+                                        :data="form.mfunckDocs">
+                                    <el-table-column
+                                            type="index"
+                                            width="55">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="货品编号"
+                                            width="140"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="baseGoods.bgGoodsNo">
+                                    </el-table-column>
+                                    <el-table-column
+                                            align="center"
+                                            prop="baseGoods.bgGoodsName"
+                                            show-overflow-tooltip
+                                            label="货品名称">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="单位"
+                                            width="80"
+                                            prop="baseDw.bdName"
+                                            align="center">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="数量"
+                                            width="100"
+                                            prop="cksGoodsCount"
+                                            align="center">
+                                    </el-table-column>
+                                </el-table>
+                            </el-col>
+                        </el-row>
+                    </el-form>
                 </el-carousel-item>
             </el-carousel>
         </el-form>
@@ -699,6 +732,9 @@
 
                 formLabelWidth: '120px',       //表单 配置
                 form: _form(),                 //表单 弹出层 信息集合
+                rule_form: autoValidate(validate_form()), //出库基础信息验证规则
+                rule_form2: autoValidate(validate_form2()),//出库明细验证规则
+                rule_outputAppointmentCombinationDetails:autoValidate(validate_details()),
                 dialogFormActive: 0,           //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,      //新建 弹出层 是否可见
                 submitLoading: false,          //新建 弹出层 提交等待
@@ -894,16 +930,24 @@
                 this.$refs.carouselWaiting.prev();
             },                                              //form 前一个
             nextForm: function () {
-                if (this.outputAppointmentCombinationDetails.ckrwNo === "") {
-                    obj.showLoading = true;
-                    p[10].post();
-                }
-                this.formActive++;
-                this.$refs.carouselWaiting.next();
+                        if (this.outputAppointmentCombinationDetails.ckrwNo === "") {
+                            obj.showLoading = true;
+                            p[10].post();
+                        }
+                        this.formActive++;
+                        this.$refs.carouselWaiting.next();
+
             },                                              //form 后一个
             submitForm: function () {
-                this.formActive++;
-                this.submitLoading = true;
+                this.$refs['ref_outputAppointmentCombinationDetails'].validate(function (valid) {
+                    if (valid) {
+                        obj.formActive++;
+                        obj.submitLoading = true;
+                    } else {
+                        return false;
+                    }
+                });
+
 
 
                 /*<prod>*/
@@ -954,8 +998,15 @@
                 this.$refs.carousel.prev();
             },                                                  //新建 弹出层banner控制 前一个
             next: function () {
-                this.dialogFormActive++;
-                this.$refs.carousel.next();
+                this.$refs['ref_form'].validate(function (valid) {
+                    if (valid) {
+                        obj.dialogFormActive++;
+                        obj.$refs.carousel.next();
+                    } else {
+                        return false;
+                    }
+                });
+
             },                                                  //新建 弹出层banner控制 后一个
             submit: function () {
                 this.dialogFormActive++;
@@ -1064,9 +1115,16 @@
                 this.form.selectGood = item;
             },                                         //货品明细控制 选中form中的货品
             saveDocsList: function () {
-                this.form.mfunckDocs.push(this.form.selectGood);
-                this.form.selectGood = selectGood();
-                this.form.saveAmfunckDocs = true;
+                this.$refs['ref_form2'].validate(function (valid) {
+                    if (valid) {
+                        obj.form.mfunckDocs.push(obj.form.selectGood);
+                        obj.form.selectGood = selectGood();
+                        obj.form.saveAmfunckDocs = true;
+                    } else {
+                        return false;
+                    }
+                });
+
             },                                          //货品明细控制 保存
             GoodEnter: function () {
                 if (this.form.deleteAmfunckDocs === false) {
@@ -1365,7 +1423,27 @@
             deleteAmfunckDocs: true
         }
     }
-
+    function validate_form(){
+        return{
+            "ckCkdjClientname":'vNull',
+            "ckTel":'vNull',
+            "ckAdress":'vNull',
+            "ckContacts":'vNull',
+        }
+    }
+    function validate_form2(){
+        return{
+            "cksGoodsCount":'vNull',
+        }
+    }
+    function validate_details(){
+        return{
+                "ckrwNo":"vNull",
+                "ckrwCph":"vNull",
+                "ckrwYjdcsj":"vNull",
+                "ckrwWls":"vNull"
+        }
+    }
     function post_form() {
         return {
             "ckCkdjId": "",
