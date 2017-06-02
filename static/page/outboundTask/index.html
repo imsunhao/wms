@@ -1121,7 +1121,10 @@
                 /*</debug>*/
                 p[101].post(obj.modifyTask_prop);
 
-                if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
+                if (typeof obj.$refs.carouselWaiting !== 'undefined') {
+                    obj.$refs.carouselWaiting.setActiveItem(0);
+                    obj.formActive = 0;
+                }
                 obj.modifyTask.outputAppointmentCombinationDetails = step;
                 obj.modifyTask.outputAppointmentCombination = row.mfunckDoc;
                 obj.dialogFormActive = 0;
@@ -1645,7 +1648,8 @@
     // 5 出库任务-修改-任务单
     p[5] = autoPost({
         urlHock: "/hock/warehousingTask/mfunckDoc.json",
-        urlProd: "/route/outboundTask/5"
+        urlProd: "/route/outboundTask/5",
+        method: 'GET'
     });
     // 6 出库任务-取消任务
     p[6] = autoPost({
