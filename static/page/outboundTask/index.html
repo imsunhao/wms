@@ -1347,7 +1347,8 @@
                     cksCkmxId: obj.lists.sort.cksCkmxId,
                     cksCkfs: obj.lists.sort.cksCkfs,
                     cksLocationId: obj.lists.sort.cksLocationId,
-                    cksZdpc: obj.lists.sort.cksZdpc
+                    cksZdpc: obj.lists.sort.cksZdpc,
+                    userId: app.rmsUser.ruUserId
                 }, function (json) {
                     obj.lists.locationLoading = false;
                     this.callbackAfter({status: json.status, model: '修改分拣方式'}, function () {
