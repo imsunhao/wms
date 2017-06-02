@@ -339,7 +339,7 @@
                 <el-select v-model="form.ckrwStatus" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="10" label="初始"></el-option>
-                    <el-option :value="11" label="下发"></el-option>
+                    <el-option :value="11" label="已下发"></el-option>
                     <el-option :value="21" label="已挑选"></el-option>
                     <el-option :value="31" label="已激活"></el-option>
                     <el-option :value="41" label="部分出库"></el-option>
@@ -556,7 +556,6 @@
                                     align="center"
                                     prop="ckCkdjNo">
                             </el-table-column>
-
                             <el-table-column
                                     width="80"
                                     align="center"
@@ -573,8 +572,6 @@
                     </el-col>
                     <el-col :span="12">
                         <h3>等待组合</h3>
-
-
                         <el-table
                                 :data="modifyTask.outputAppointmentCombination"
                                 :max-height="350"
@@ -617,7 +614,6 @@
                 </el-row>
             </el-carousel-item>
         </el-carousel>
-
         <el-row class="formBottom">
             <el-col :span="18" :offset="1">
                 <el-steps
@@ -691,8 +687,10 @@
                     align="center"
                     prop="baseLocation.blLname">
             </el-table-column>
+
             <el-table-column
                     label="操作"
+                    v-if="lists.ckCkdjType==0&&lists.ckRwStatus<=21&&lists.ckStatus==1"
                     prop="rksCount"
                     align="center">
                 <template scope="scope">
@@ -1121,7 +1119,10 @@
                 /*</debug>*/
                 p[101].post(obj.modifyTask_prop);
 
-                if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
+                if (typeof obj.$refs.carouselWaiting !== 'undefined') {
+                    obj.$refs.carouselWaiting.setActiveItem(0);
+                    obj.formActive = 0;
+                }
                 obj.modifyTask.outputAppointmentCombinationDetails = step;
                 obj.modifyTask.outputAppointmentCombination = row.mfunckDoc;
                 obj.dialogFormActive = 0;
@@ -1344,7 +1345,8 @@
                     cksCkmxId: obj.lists.sort.cksCkmxId,
                     cksCkfs: obj.lists.sort.cksCkfs,
                     cksLocationId: obj.lists.sort.cksLocationId,
-                    cksZdpc: obj.lists.sort.cksZdpc
+                    cksZdpc: obj.lists.sort.cksZdpc,
+                    userId: app.rmsUser.ruUserId
                 }, function (json) {
                     obj.lists.locationLoading = false;
                     this.callbackAfter({status: json.status, model: '修改分拣方式'}, function () {
@@ -1390,6 +1392,11 @@
                 /*</debug>*/
             },                             //下拉 选择
             dblClick: function (row, event) {
+
+                obj.lists.ckRwStatus = row.ckRwStatus;
+                obj.lists.ckCkdjType = row.ckCkdjType;
+                obj.lists.ckStatus = row.ckStatus;
+
                 if (row.mfunckDocs === null || typeof row.mfunckDocs === 'undefined' || row.mfunckDocs.length < 1) {
                     p[2].post({id: row.ckCkdjId}, function (json) {
                         row.mfunckDocs = json.model;
@@ -1645,7 +1652,8 @@
     // 5 出库任务-修改-任务单
     p[5] = autoPost({
         urlHock: "/hock/warehousingTask/mfunckDoc.json",
-        urlProd: "/route/outboundTask/5"
+        urlProd: "/route/outboundTask/5",
+        method: 'GET'
     });
     // 6 出库任务-取消任务
     p[6] = autoPost({
@@ -1710,6 +1718,10 @@
     function formList() {
         return {
             data: [],
+
+            ckRwStatus: 0,
+            ckCkdjType: 0,
+            ckStatus:0,
 
             ckCkdjNo: '',
             dialogLocationVisible: false,
