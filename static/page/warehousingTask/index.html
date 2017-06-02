@@ -373,7 +373,7 @@
                 indicator-position="none"
                 height="55vh">
             <el-carousel-item>
-                <el-form :model="form" ref="ref_form" :rules="rule_form" >
+                <el-form :model="form" ref="ref_form" :rules="rule_form">
                     <el-row>
                         <el-col :span="10">
                             <el-form-item
@@ -451,7 +451,6 @@
                     </el-row>
                 </el-form>
             </el-carousel-item>
-
 
 
             <el-carousel-item>
@@ -620,7 +619,8 @@
                 下一步
             </el-button>
             <el-button class='formBottom' type="primary" @click="submit" :loading="submitLoading"
-                       v-show="dialogFormActive>=1||form.rkrwStatus>2">保存
+                       :disabled="form.list2.warehousingReservationCombination.length==0&&form.rkrwStatus==1"
+                       v-show="dialogFormActive>=1||form.rkrwStatus>=2">保存
             </el-button>
         </div>
     </el-dialog>
@@ -822,7 +822,7 @@
             rkrwNo: '',//模糊查询--任务号
             rkrwCph: '',//模糊查询--车牌号
             rkrwSjxm: '',//模糊查询--司机姓名
-            rkrwDh:'',//司机电话
+            rkrwDh: '',//司机电话
             rkrwDbd: '',//模糊查询--调拨地
             rkrwCys: '',//模糊查询--承运商
             rkrwStatus: 0,
@@ -855,8 +855,8 @@
             "docList": []
         }
     }
-    function validate_form(){
-        return{
+    function validate_form() {
+        return {
             rkrwDbd: 'vNull',
             rkrwCph: 'vNull',
             rkrwDh: 'vNull',
