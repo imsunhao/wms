@@ -373,7 +373,7 @@
                 indicator-position="none"
                 height="55vh">
             <el-carousel-item>
-                <el-form :model="form" ref="newForm">
+                <el-form :model="form" ref="ref_form" :rules="rule_form" >
                     <el-row>
                         <el-col :span="10">
                             <el-form-item
@@ -383,6 +383,7 @@
                             </el-form-item>
                             <el-form-item
                                     label="车牌号"
+                                    prop="rkrwCph"
                                     :label-width="formLabelWidth">
                                 <el-input
                                         v-model.number="form.rkrwCph"
@@ -401,6 +402,7 @@
 
                             <el-form-item
                                     label="调拨地"
+                                    prop="rkrwDbd"
                                     :label-width="formLabelWidth">
                                 <el-input
                                         v-model.number="form.rkrwDbd"
@@ -410,6 +412,7 @@
                         <el-col :span="10" :offset="2">
                             <el-form-item
                                     label="到货日期"
+                                    prop="rkrwDhrq"
                                     :label-width="formLabelWidth">
                                 <el-date-picker
                                         v-model="form.rkrwDhrq"
@@ -417,6 +420,7 @@
                             </el-form-item>
                             <el-form-item
                                     label="承运商"
+                                    prop="rkrwCys"
                                     :label-width="formLabelWidth">
                                 <el-input
                                         v-model.number="form.rkrwCys"
@@ -424,6 +428,7 @@
                             </el-form-item>
                             <el-form-item
                                     label="司机姓名"
+                                    prop="rkrwSjxm"
                                     :label-width="formLabelWidth">
                                 <el-input
                                         v-model.number="form.rkrwSjxm"
@@ -431,6 +436,7 @@
                             </el-form-item>
                             <el-form-item
                                     label="司机电话"
+                                    prop="rkrwDh"
                                     :label-width="formLabelWidth">
                                 <el-input
                                         v-model.number="form.rkrwDh"
@@ -445,6 +451,9 @@
                     </el-row>
                 </el-form>
             </el-carousel-item>
+
+
+
             <el-carousel-item>
                 <el-row>
                     <el-col :span="24">
@@ -846,6 +855,16 @@
             "docList": []
         }
     }
+    function validate_form(){
+        return{
+            rkrwDbd: 'vNull',
+            rkrwCph: 'vNull',
+            rkrwDh: 'vNull',
+            rkrwDhrq: 'vNull',
+            rkrwCys: 'vNull',
+            rkrwSjxm: 'vNull',
+        }
+    }
 
     function _lists() {
         return {
@@ -895,7 +914,7 @@
                 currentPage: 1,
                 pageSize: 10,
                 currentTotal: 0,
-
+                rule_form: autoValidate(validate_form()), //编辑验证规则
                 rkrwSjxm: '',                       //主页面 司机姓名 搜索
                 rkrwNo: '',                         //主页面 入库单号 搜索
                 rkrwCph: '',                        //主页面 车牌号
@@ -1088,8 +1107,15 @@
                 this.$refs.carousel.prev();
             },                                                  //新建 弹出层banner控制 前一个
             next: function () {
-                this.dialogFormActive++;
-                this.$refs.carousel.next();
+                this.$refs['ref_form'].validate(function (valid) {
+                    if (valid) {
+                        obj.dialogFormActive++;
+                        obj.$refs.carousel.next();
+                    } else {
+                        return false;
+                    }
+                });
+
             },                                                  //新建 弹出层banner控制 后一个
             submit: function () {
                 this.dialogFormActive = 2;
