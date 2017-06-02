@@ -394,13 +394,14 @@
                     </el-row>
                     <el-row class="outputAppointmentCombinationDetails">
                         <el-form
-                                :modle="outputAppointmentCombinationDetails"
+                                :model="outputAppointmentCombinationDetails"
                                 ref="ref_outputAppointmentCombinationDetails"
+                                :label-width="formLabelWidth"
                                 :rules="rule_outputAppointmentCombinationDetails">
                             <el-col :span="10">
                                 <el-form-item
-                                        label="出库任务单号"
                                         prop="ckrwNo"
+                                        label="出库任务单号"
                                         :label-width="formLabelWidth">
                                     <el-input
                                             v-model="outputAppointmentCombinationDetails.ckrwNo"
@@ -408,9 +409,8 @@
                                             auto-complete="off"></el-input>
                                 </el-form-item>
                                 <el-form-item
-                                        label="预计到车时间"
                                         prop="ckrwYjdcsj"
-                                        :label-width="formLabelWidth">
+                                        label="预计到车时间">
                                     <el-date-picker
                                             v-model="outputAppointmentCombinationDetails.ckrwYjdcsj"
                                             type="datetime"
@@ -420,8 +420,8 @@
                             </el-col>
                             <el-col :span="10" :offset="2">
                                 <el-form-item
-                                        label="车牌号"
                                         prop="ckrwCph"
+                                        label="车牌号"
                                         :label-width="formLabelWidth">
                                     <el-input
                                             v-model="outputAppointmentCombinationDetails.ckrwCph"
@@ -487,7 +487,7 @@
                     <el-form
                             :model="form"
                             ref="ref_form"
-                            :rules="rule_form"  >
+                            :rules="rule_form">
                         <el-row>
                             <el-col :span="24"><h3>出库基础信息</h3></el-col>
                         </el-row>
@@ -734,7 +734,7 @@
                 form: _form(),                 //表单 弹出层 信息集合
                 rule_form: autoValidate(validate_form()), //出库基础信息验证规则
                 rule_form2: autoValidate(validate_form2()),//出库明细验证规则
-                rule_outputAppointmentCombinationDetails:autoValidate(validate_details()),
+                rule_outputAppointmentCombinationDetails: autoValidate(validate_details()),
                 dialogFormActive: 0,           //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,      //新建 弹出层 是否可见
                 submitLoading: false,          //新建 弹出层 提交等待
@@ -930,64 +930,31 @@
                 this.$refs.carouselWaiting.prev();
             },                                              //form 前一个
             nextForm: function () {
-                        if (this.outputAppointmentCombinationDetails.ckrwNo === "") {
-                            obj.showLoading = true;
-                            p[10].post();
-                        }
-                        this.formActive++;
-                        this.$refs.carouselWaiting.next();
+                if (this.outputAppointmentCombinationDetails.ckrwNo === "") {
+                    obj.showLoading = true;
+                    p[10].post();
+                }
+                this.formActive++;
+                this.$refs.carouselWaiting.next();
 
             },                                              //form 后一个
             submitForm: function () {
                 this.$refs['ref_outputAppointmentCombinationDetails'].validate(function (valid) {
                     if (valid) {
-                        obj.formActive++;
-                        obj.submitLoading = true;
+                        var Combination = post_Combination();
+                        allPrposCb(Combination, function (obj2, index) {
+                            if (typeof obj.outputAppointmentCombinationDetails[index] !== 'undefined') Combination[index] = obj.outputAppointmentCombinationDetails[index];
+                        });
+                        Combination.ckCkdjIds = [];
+                        for (var i = 0; i < outputAppointment.outputAppointmentCombination.length; i++) {
+                            Combination.ckCkdjIds.push(outputAppointment.outputAppointmentCombination[i].ckCkdjId);
+                        }
+                        Combination.ckrwYjdcsj = Combination.ckrwYjdcsj.toJSON();
+                        p[1].post(Combination);
                     } else {
                         return false;
                     }
                 });
-
-
-
-                /*<prod>*/
-                var Combination = post_Combination();
-
-                allPrposCb(Combination, function (obj2, index) {
-                    if (typeof obj.outputAppointmentCombinationDetails[index] !== 'undefined') Combination[index] = obj.outputAppointmentCombinationDetails[index];
-                });
-                Combination.ckCkdjIds = [];
-                for (var i = 0; i < outputAppointment.outputAppointmentCombination.length; i++) {
-                    Combination.ckCkdjIds.push(outputAppointment.outputAppointmentCombination[i].ckCkdjId);
-                }
-
-                Combination.ckrwYjdcsj = Combination.ckrwYjdcsj.toJSON();
-
-                p[1].post(Combination);
-                /*</prod>*/
-
-
-                /*<debug>*/
-                setTimeout(function () {
-                    obj.submitLoading = false;
-                    obj.$notify({
-                        title: '成功',
-                        message: '保存成功！',
-                        type: 'success'
-                    });
-//                    obj.$refs['outputAppointmentCombinationDetails'].resetFields();
-                    obj.outputAppointmentCombinationDetails = CombinationDetails();
-                    obj.outputAppointmentCombination = [];
-                    obj.multipleSelection = [];
-                    obj.multipleSelectionCombination = [];
-
-                    obj.formActive = 0;
-                    obj.$refs.carouselWaiting.setActiveItem(0);
-                    p[7].post();
-                }, 1500);
-                /*</debug>*/
-
-
             },                                            //组合 表单提交
             submitUpload: function () {
                 console.log('提交')
@@ -1288,6 +1255,7 @@
             obj.dialogFormVisible = false;
             obj.submitLoading = false;
             this.callbackAfter({status: json.status, model: '组合出库单'}, function () {
+                obj.$refs['ref_outputAppointmentCombinationDetails'].resetFields();
                 obj.outputAppointmentCombinationDetails = CombinationDetails();
                 obj.outputAppointmentCombination = [];
                 obj.multipleSelection = [];
@@ -1423,25 +1391,25 @@
             deleteAmfunckDocs: true
         }
     }
-    function validate_form(){
-        return{
-            "ckCkdjClientname":'vNull',
-            "ckTel":'vNull',
-            "ckAdress":'vNull',
-            "ckContacts":'vNull',
+    function validate_form() {
+        return {
+            "ckCkdjClientname": 'vNull',
+            "ckTel": 'vNull',
+            "ckAdress": 'vNull',
+            "ckContacts": 'vNull',
         }
     }
-    function validate_form2(){
-        return{
-            "cksGoodsCount":'vNull',
+    function validate_form2() {
+        return {
+            "cksGoodsCount": 'vNull',
         }
     }
-    function validate_details(){
-        return{
-                "ckrwNo":"vNull",
-                "ckrwCph":"vNull",
-                "ckrwYjdcsj":"vNull",
-                "ckrwWls":"vNull"
+    function validate_details() {
+        return {
+            "ckrwNo": "vNull",
+            "ckrwCph": "vNull",
+            "ckrwYjdcsj": "vNull",
+            "ckrwWls": "vNull"
         }
     }
     function post_form() {
