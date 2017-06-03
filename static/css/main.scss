@@ -239,6 +239,23 @@ html, body {
   }
 }
 
+/*********** 全局调整 elementUI *********************************/
+
+.el-table__expanded-cell .el-form--label-left .el-form-item {
+  .el-form-item__label {
+    float: left;
+  }
+  .el-form-item__content {
+    float: left;
+    width: calc(100% - 90px) !important;
+
+  }
+}
+
+.el-dialog__body .el-form-item__content .el-date-editor{
+  width: 100%;
+}
+
 /*********** 打印功能 *********************************/
 
 .barcode {
@@ -465,3 +482,4 @@ html, body {
     border: none !important;
   }
 }
+
