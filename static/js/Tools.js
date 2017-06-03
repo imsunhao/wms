@@ -263,7 +263,7 @@ function auto_time_new(value, number) {
         case 5:
             return dateFormat(new Date(value), 'yyyy年 MM月 dd日 hh:mm');
         case 6:
-            if (body.kjW < 1367)
+            if (body.kjW > 1367)
                 return dateFormat(new Date(value), 'yyyy年 MM月 dd日 hh:mm:ss');
             else return dateFormat(new Date(value), 'yyyy年 MM月 dd日 hh:mm');
         default:

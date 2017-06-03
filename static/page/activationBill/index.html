@@ -188,7 +188,7 @@
                                             <el-button
                                                     size="mini"
                                                     type="success"
-                                                    v-if="props.row.ckrwStatus==31&&scope.row.ckQhStatus==1"
+                                                    v-if="scope.row.ckQhStatus==1&&scope.row.ckCkdjType==0"
                                                     @click="inlineActivateDocument(scope.$index, scope.row)">激活
                                             </el-button>
                                             <el-button
@@ -499,6 +499,7 @@
             <el-table-column
                     label="操作"
                     prop="rksCount"
+                    v-if="lists.ckCkdjType==0&&lists.ckRwStatus<=21&&lists.ckStatus==1"
                     align="center">
                 <template scope="scope">
                     <el-button

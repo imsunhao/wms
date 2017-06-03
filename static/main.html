@@ -375,18 +375,21 @@
                 <el-table-column
                         prop="jianshu"
                         align="center"
-                        width="95"
+                        width="65"
                         label="件数">
                 </el-table-column>
                 <el-table-column
                         prop="mfunRepertory.baseGoods.bgHsl"
-                        width="80"
+                        width="65"
                         align="center"
-                        label="换算量">
+                        label="换算">
                 </el-table-column>
                 <el-table-column
                         align="center"
                         label="备注">
+                    <template scope="scope">
+                        <div v-html="scope.row.mfunckDoc.ckRemarks"></div>
+                    </template>
                 </el-table-column>
             </el-table>
         </div>
