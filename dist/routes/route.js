@@ -1060,7 +1060,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '入库日报 导出';
-                        req = autoUrl(req, '', "POST", function (json) {
+                        req = autoUrl(req, '/mdt/exportRkRbByExcel', "POST", function (json) {
                             res.send(json);
                         });
                         break;
