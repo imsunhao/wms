@@ -248,54 +248,6 @@
         </el-col>
     </el-row>
     <el-dialog
-            size="small"
-            title="导出"
-            v-model="dialogDistributionVisible">
-        <el-form :model="distributionForm" ref="newForm">
-            <el-table
-                    :data="distribution"
-                    highlight-current-row
-                    style="width: 100%">
-                <el-table-column
-                        type="index"
-                        width="55">
-                </el-table-column>
-                <el-table-column
-                        label="货品编号"
-                        align="center"
-                        prop="goodsId">
-                </el-table-column>
-                <el-table-column
-                        align="center"
-                        prop="rkdjId"
-                        label="货品名称">
-                </el-table-column>
-                <el-table-column
-                        label="单位"
-                        prop="dwid"
-                        align="center">
-                </el-table-column>
-                <el-table-column
-                        label="数量"
-                        prop="count"
-                        align="center">
-                </el-table-column>
-            </el-table>
-        </el-form>
-
-        <div slot="footer" class="dialog-footer">
-            <el-button
-                    type="danger"
-                    @click="submit">取消
-            </el-button>
-            <el-button
-                    type="primary"
-                    @click="submit"
-                    :loading="submitLoading">提交
-            </el-button>
-        </div>
-    </el-dialog>
-    <el-dialog
             size="large"
             v-model="dialogSelectVisible">
         <div class="dialog-title clearfix" slot="title">
@@ -407,6 +359,7 @@
     <el-dialog
             size="tiny"
             title="欠货完结信息"
+            custom-class="end"
             v-model="dialogEndVisible">
         <el-form
                 ref="ref_end"
@@ -437,6 +390,8 @@
     <el-dialog
             size="full"
             title="制作台账信息"
+            custom-class="ledger"
+            :label-width="formLabelWidth"
             v-model="dialogLedgerVisible">
         <el-form
                 :model="ledger">
@@ -446,7 +401,6 @@
                             label="始发日期"
                             :label-width="formLabelWidth">
                         {{auto_time_new(ledger.sfrq)}}
-
                     </el-form-item>
                     <el-form-item
                             label="到货日期"
@@ -488,9 +442,14 @@
                             :label-width="formLabelWidth">
                         {{ledger.dh}}
                     </el-form-item>
+                    <el-form-item
+                            label="调拨单号"
+                            :label-width="formLabelWidth">
+                        {{ledger.dbdh}}
+                    </el-form-item>
                 </el-col>
-                <el-col :span="5" :offset="2">
-                     <el-form-item
+                <el-col :span="8" :offset="2">
+                    <el-form-item
                             label="承运件数(台)"
                             :label-width="formLabelWidth">
                         {{ledger.cyts}}
@@ -531,7 +490,7 @@
                         {{ledger.tj}}
                     </el-form-item>
                 </el-col>
-                <el-col :span="8" :offset="2">
+                <el-col :span="6" :offset="1">
                     <el-form-item
                             label="泡沫"
                             :label-width="formLabelWidth">
@@ -761,6 +720,15 @@
         margin-left: -8px !important;
     }
 </style>
+<style>
+    #inputLedger .ledger .el-date-editor .el-input {
+        width: 100%;
+    }
+
+    #inputLedger .ledger .el-dialog__body {
+        padding: 1px 20px 0;
+    }
+</style>
 <script>
     var inputLedger = new Vue({
         el: '#inputLedger',
@@ -889,29 +857,15 @@
                 });
             },                                                 //TODO 行内按钮-导出
             inlineProductionLedger: function (index, row) {
+
+                var step = formLedger();
+                allPrposCb(step, function (obj2, index) {
+                    if (typeof row[index] !== 'undefined') step[index] = row[index];
+                });
+
+                this.ledger = step;
                 this.dialogLedgerVisible = true;
-                this.ledger.pm = row.pm;        //  --泡沫
-                this.ledger.dbpswb = row.dbpswb;  //--调拨破损外包
-                this.ledger.ytpswb = row.ytpswb;  //--源头破损外包
-                this.ledger.dbpsnb = row.dbpsnb;  //--调拨破损内保
-                this.ledger.ytpsnb = row.ytpsnb;  //--源头破损内保
-                this.ledger.qhsl = row.qhsl;   //--缺机/台
-                this.ledger.ycyy = row.ycyy;   //--异常原因
-                this.ledger.cljg = row.cljg;   //---处理结果
-                this.ledger.psts = row.psts;   //--破损台数
-                this.ledger.jssj = row.jssj;   //--结算时间
-                this.ledger.sfrq = row.sfrq;//--始发日期
-                this.ledger.dhsj = row.dhsj;      //--到货日期
-                this.ledger.dhsj = row.dhsj;      //--收货日期
-                this.ledger.dbdd = row.dbdd;     //--调拨地点
-                this.ledger.cys = row.cys;     //--承运商
-                this.ledger.cph = row.cph;     //--车牌号
-                this.ledger.shr = row.shr; //--收货人
-                this.ledger.shck = row.shck; //--收货仓库
-                this.ledger.dh = row.dh; //--单号
-                this.ledger.dbdh = row.dbdh; //-调拨单号
-                this.ledger.wlbm = row.wlbm; //--物料编号
-                this.ledger.wlms = row.wlms; //--物料描述
+
             },                                       //TODO 行内按钮-制作台账
             inlineOweEnd: function () {
                 this.dialogEndVisible = true;
@@ -1198,7 +1152,7 @@
             shck: '',//模糊查询--收货仓库
             wlbm: '',//模糊查询--物料编号
             wlms: '',//模糊查询--物料描述
-            jssj: [null,null],//模糊查询--结算时间
+            jssj: [null, null],//模糊查询--结算时间
 //            shrq:[null,null],
         }
     }
@@ -1211,8 +1165,7 @@
     function formLedger() {
         return {
             sfrq: '',      //始发日期
-            dhsj: '',           //到货日期
-            dhsj: '',           //收货日期
+            dhsj: '',           //到货日期，收货日期
             dbdd: '',         //--调拨地点
             cys: '',         //--承运商
             cph: '',          // --车牌号
@@ -1220,15 +1173,15 @@
             shck: '',          //--收货仓库
             dh: '',        //--单号
             dbdh: '',         //-调拨单号
-            cyts:'',     //承运件数(台)
-            cyxs:'',    //承运件数(箱)
-            cytj:'',    //方数
+            cyts: '',     //承运件数(台)
+            cyxs: '',    //承运件数(箱)
+            cytj: '',    //方数
             wlbm: '',      //--物料编号
             wlms: '',    //--物料描述
             pm: '',          //--泡沫
-            ts:'',          //台数
-            js:'',          //件数
-            tj:'',          //方数
+            ts: '',          //台数
+            js: '',          //件数
+            tj: '',          //方数
             dbpswb: '',   //--调拨破损外包
             ytpswb: '',   //--源头破损外包
             dbpsnb: '',   //--调拨破损内保
@@ -1237,6 +1190,7 @@
             cljg: '',    // ---处理结果
             psts: '',    // --破损台数
             jssj: '',    // --结算时间
+            qhsl: ''
         }
     }
     function validate_end() {
