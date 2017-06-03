@@ -65,7 +65,10 @@
                                                 <span>{{ props.row.rkrwSjxm }}</span>
                                             </el-form-item>
                                             <el-form-item label="调拨地">
-                                                <span>{{ props.row.rkrwDbd }}</span>
+                                                <el-tooltip class="item" effect="dark" :content="props.row.rkrwDbd"
+                                                            placement="top">
+                                                    <span>{{ props.row.rkrwDbd }}</span>
+                                                </el-tooltip>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :span="10" :offset="2">
