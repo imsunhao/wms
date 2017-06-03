@@ -169,10 +169,13 @@ function autoValidate(option, cbs) {
             } else {
                 callback();
             }
-        },
+        },                     //不允许为空
         vNumber:function(rule, value, callback){
             callback();
-        },
+        },                      //只能为数字
+        vZZNumber:function(rule, value, callback){
+            callback();
+        },                    //只能为正整数
         a: autoValidateRule("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", '不允许存在特殊字符!'),
     };
 
