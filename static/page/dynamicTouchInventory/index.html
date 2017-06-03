@@ -340,31 +340,40 @@
                     indicator-position="none"
                     height="55vh">
                 <el-carousel-item>
-                    <el-row>
-                        <el-col >
-                            <el-form-item
-                                    label="负责人"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.pdChargePerson"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item label="异动开始时间" :label-width="formLabelWidth">
-                                <el-date-picker
-                                        v-model="form.pdYdBeginTime"
-                                        type="datetime"
-                                        placeholder="选择日期">
-                                </el-date-picker>
-                            </el-form-item>
-                               <el-form-item label="异动结束时间" :label-width="formLabelWidth">
-                                <el-date-picker
-                                        v-model="form.pdYdEndTime"
-                                        type="datetime"
-                                        placeholder="选择日期">
-                                </el-date-picker>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
+                    <el-form :model="form" ref="ref_form" :rules="rule_form">
+                        <el-row>
+                            <el-col >
+                                <el-form-item
+                                        label="负责人"
+                                        prop="pdChargePerson"
+                                        :label-width="formLabelWidth">
+                                    <el-input
+                                            v-model.number="form.pdChargePerson"
+                                            auto-complete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item
+                                        label="异动开始时间"
+                                        prop="pdYdBeginTime"
+                                        :label-width="formLabelWidth">
+                                    <el-date-picker
+                                            v-model="form.pdYdBeginTime"
+                                            type="datetime"
+                                            placeholder="选择日期">
+                                    </el-date-picker>
+                                </el-form-item>
+                                <el-form-item
+                                        label="异动结束时间"
+                                        prop="pdYdEndTime"
+                                        :label-width="formLabelWidth">
+                                    <el-date-picker
+                                            v-model="form.pdYdEndTime"
+                                            type="datetime"
+                                            placeholder="选择日期">
+                                    </el-date-picker>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                    </el-form>
                 </el-carousel-item>
             </el-carousel>
         </el-form>
@@ -519,6 +528,7 @@
                 pageSize: 10,
                 currentTotal:0,
                 formLabelWidth: '120px',            //表单 配置
+                rule_form:autoValidate(validate_form()),//新增 验证规则
                 form: _form(),                        //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
@@ -647,8 +657,15 @@
                 this.$refs.carousel.next();
             },                                                  //新建 弹出层banner控制 后一个
             submit: function () {
-                this.dialogFormActive++;
-                this.submitLoading = true;
+                this.$refs['ref_form'].validate(function (valid) {
+                    if (valid) {
+                        obj.dialogFormActive++;
+                        obj.submitLoading = true;
+                    } else {
+                        return false;
+                    }
+                });
+
                 p[1].post(obj.dpPd_pop,function (json) {
                     obj.submitLoading = false;
                     obj.dialogFormVisible = false;
@@ -758,6 +775,13 @@
             pdYdBeginTime:'',
             pdYdEndTime:'',
             pdChargePerson:''
+        }
+    }
+    function validate_form(){
+        return{
+            pdChargePerson:'vNull',
+            pdYdBeginTime:'vNull',
+            pdYdEndTime:'vNull',
         }
     }
     var obj=dynamicTouchInventory;
