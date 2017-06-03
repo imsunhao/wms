@@ -616,9 +616,25 @@
         },
         methods: {
             inlineModify: function (index, row) {
-                this.multipleSelection = [row];
-                printfCompile(this);
-                this.dialogPrintfVisible = !this.dialogPrintfVisible;
+                obj.$confirm('导出入库单 单据单号：' + row.rk_rkdj_no, '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    p[1].post({
+                        ids: [row.rk_rkdj_id]
+                    }, function (json) {
+                        this.callbackAfter({status: json.status, model: "导出入库单"}, function () {
+                            var url = "/static/Excel/" + json.model;
+                            window.open(url);
+                        })
+                    });
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消导出'
+                    });
+                });
             },                                //行内按钮 打印标签页
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
@@ -863,6 +879,7 @@
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/inputDaily/1",
+        method: 'GET',
         success: function (json) {
         }
     });

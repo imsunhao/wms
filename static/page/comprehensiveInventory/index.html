@@ -309,7 +309,7 @@
                     finish-status="success">
             </el-steps>
         </div>
-        <el-form :model="form" ref="newForm">
+        <el-form :model="form" ref="ref_form" :rules="rule_form">
             <el-carousel
                     ref="carousel"
                     :autoplay="false"
@@ -321,6 +321,7 @@
                         <el-col >
                             <el-form-item
                                     label="负责人"
+                                    prop="pdChargePerson"
                                     :label-width="formLabelWidth">
                                 <el-input
                                         v-model.number="form.pdChargePerson"
@@ -483,12 +484,12 @@
                 currentPage: 1,
                 pageSize: 10,
                 currentTotal:0,
-
+                rule_form: autoValidate(validate_form()), //新增验证规则
                 date: [null, null],                 //主页面 选择日期 搜索
                 rkRkdjNo: '',                       //主页面 入库单号 搜索
 
                 formLabelWidth: '120px',            //表单 配置
-                form: form(),                           //表单 弹出层 信息集合
+                form: _form(),                           //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
@@ -496,7 +497,7 @@
                 dialogAssignmentVisible: false,    //查看 分配任务 弹出层 是否可见
                 details:[],                           //查看 盘点详情 弹出层 信息集合(表单格式)
                 dialogDetailsVisible: false,        //查看 盘点详情 弹出层 是否可见
-                select: form(),                         //搜索 弹出层 信息集合,
+                select: _form(),                         //搜索 弹出层 信息集合,
                 printf: [],                         //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 dialogPrintfVisible: false,
@@ -583,7 +584,7 @@
                 }
             },                                   //多选 删除
             newInput: function () {
-                this.form = form();
+                this.form = _form();
                 this.dialogFormVisible = true;
                 this.dialogFormActive = 0;
                 Vue.nextTick(function () {
@@ -613,37 +614,43 @@
                 this.$refs.carousel.next();
             },                                                  //新建 弹出层banner控制 后一个
             submit: function () {
-                var _this = this;
-                this.dialogFormActive++;
-                this.submitLoading = true;
-                //TODO 此处应是ajax请求
-                setTimeout(function () {
-                    _this.submitLoading = false;
-                    _this.$notify({
-                        title: '成功',
-                        message: '保存成功！',
-                        type: 'success'
-                    });
-                    _this.dialogFormVisible = false;
-                    _this.form = {
-                        rkRkdjNo: '',
-                        rkType: '',
-                        rkRemarks: '',
-                        rkDocsList: [],
-                        bgGoodsNo: '',
-                        selectGood: {
-                            value: '',
-                            bgGoodsName: '',
-                            count: 0,
-                            bgGoodsId: ''
-                        },
-                        saveARkDocsList: true,
-                        deleteARkDocsList: true
-                    };
-                    _this.dialogFormActive = 0;
-                    _this.$refs.carousel.setActiveItem(0);
-                    p[0].post();
-                }, 1500);
+                this.$refs['ref_form'].validate(function (valid) {
+                    if (valid) {
+                        var _this = this;
+                        obj.dialogFormActive++;
+                        obj.submitLoading = true;
+                        //TODO 此处应是ajax请求
+                        setTimeout(function () {
+                            _this.submitLoading = false;
+                            _this.$notify({
+                                title: '成功',
+                                message: '保存成功！',
+                                type: 'success'
+                            });
+                            _this.dialogFormVisible = false;
+                            _this.form = {
+                                rkRkdjNo: '',
+                                rkType: '',
+                                rkRemarks: '',
+                                rkDocsList: [],
+                                bgGoodsNo: '',
+                                selectGood: {
+                                    value: '',
+                                    bgGoodsName: '',
+                                    count: 0,
+                                    bgGoodsId: ''
+                                },
+                                saveARkDocsList: true,
+                                deleteARkDocsList: true
+                            };
+                            _this.dialogFormActive = 0;
+                            _this.$refs.carousel.setActiveItem(0);
+                            p[0].post();
+                        }, 1500);
+                    } else {
+                        return false;
+                    }
+                });
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
@@ -738,15 +745,14 @@
             },                                   //差异状态
         }
     });
-    function form() {
+    function _form() {
         return {
-            zyCreateTime:'',
-            zyMentionUserName:'',
-            zyCreateUserName:'',
-            zyConfirmUserName:'',
-            zyReason:'',
-            zyConfirmTime:'',
-            zyStatus:''
+            pdChargePerson:''
+        }
+    }
+    function validate_form(){
+        return{
+            pdChargePerson:'vNull'
         }
     }
     var obj=comprehensiveInventory;
@@ -830,26 +836,7 @@
             pdsPdCount:'',              // 盘点数量
         }
     }//盘点详情
-    // 高级 监视器的 使用方法
-    //    comprehensiveInventory.$watch('date', function () {
-    //        if (!this.option.dateStart)return;
-    //        /*<debug>*/
-    //        console.log(this.option);
-    //        /*</debug>*/
-    //        post(this, this.option);
-    //    }, {deep: true});
     p[0].post(comprehensiveInventory.option);
-    function printfCompile(obj) {
-        var resoleveStep = [];
-        for (var i = 0; i < obj.multipleSelection.length; i++) {
-            resoleveStep.push({
-                name: obj.multipleSelection[i].rkrwNo,
-                rkrwNo:obj.multipleSelection[i].rkrwNo,
-                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
-            });
-        }
-        obj.printf = resoleveStep;
-    }                       //打印
 
 </script>
 
