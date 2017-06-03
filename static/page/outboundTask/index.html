@@ -410,38 +410,48 @@
                 </el-row>
                 <el-row class="outputAppointmentCombinationDetails">
                     <el-form
-                            ref="outputAppointmentCombinationDetails"
-                            :model="modifyTask.outputAppointmentCombinationDetails">
+                            :model="modifyTask.outputAppointmentCombinationDetails"
+                            ref="ref_outputAppointmentCombinationDetails"
+                            :rules="rule_outputAppointmentCombinationDetails">
                         <el-col :span="10">
                             <el-form-item
                                     label="出库任务单号"
+                                    prop="ckrwNo"
                                     :label-width="formLabelWidth">
                                 <el-input
-                                        v-model="modifyTask.outputAppointmentCombinationDetails.ckrwNo        "
+                                        v-model="modifyTask.outputAppointmentCombinationDetails.ckrwNo"
                                         :disabled="true"
                                         auto-complete="off"></el-input>
                             </el-form-item>
-                            <el-form-item label="预计到车时间" :label-width="formLabelWidth">
+                            <el-form-item label="预计到车时间"
+                                          prop="ckrwYjdcsj"
+                                          :label-width="formLabelWidth">
                                 <el-date-picker
-                                        v-model="modifyTask.outputAppointmentCombinationDetails.ckrwYjdcsj   "
+                                        v-model="modifyTask.outputAppointmentCombinationDetails.ckrwYjdcsj"
                                         type="datetime"
                                         placeholder="选择到车时间">
                                 </el-date-picker>
                             </el-form-item>
                         </el-col>
                         <el-col :span="10" :offset="2">
-                            <el-form-item label="车牌号" :label-width="formLabelWidth">
+                            <el-form-item label="车牌号"
+                                          prop="ckrwCph"
+                                          :label-width="formLabelWidth">
                                 <el-input
-                                        v-model="modifyTask.outputAppointmentCombinationDetails.ckrwCph    "
+                                        v-model="modifyTask.outputAppointmentCombinationDetails.ckrwCph"
                                         auto-complete="off"></el-input>
                             </el-form-item>
-                            <el-form-item label="物流商" :label-width="formLabelWidth">
+                            <el-form-item label="物流商"
+                                          prop="ckrwWls"
+                                          :label-width="formLabelWidth">
                                 <el-input
-                                        v-model="modifyTask.outputAppointmentCombinationDetails.ckrwWls         "
+                                        v-model="modifyTask.outputAppointmentCombinationDetails.ckrwWls"
                                         auto-complete="off"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-form>
+
+                    `
                 </el-row>
             </el-carousel-item>
             <el-carousel-item>
@@ -974,7 +984,7 @@
                 ckrwCph: '',                          //主页面 车牌号
                 formLabelWidth: '120px',              //表单   配置
                 form: _form(),                         //表单   弹出层 信息集合
-
+                rule_outputAppointmentCombinationDetails: autoValidate(validate_outputAppointmentCombinationDetails()), //编辑验证规则
 
                 formActive: 0,                        //新建   弹出层 steps 当前进度
 
@@ -1195,8 +1205,15 @@
 //                    obj.showLoading = true;
 //                    p[10].post();
 //                }
-                this.formActive++;
-                this.$refs.carouselWaiting.next();
+                this.$refs['ref_outputAppointmentCombinationDetails'].validate(function (valid) {
+                    if (valid) {
+                        obj.formActive++;
+                        obj.$refs.carouselWaiting.next();
+                    } else {
+                        return false;
+                    }
+                });
+
             },                                              //修改任务 后一个
 
 
@@ -1600,6 +1617,14 @@
             ckrwStatus: '',     //任务状态
             ckrwQhStatus: '',    //欠货状态
             ckrwZlStatus: '',    //滞留状态
+        }
+    }
+    function validate_outputAppointmentCombinationDetails(){
+        return{
+            ckrwNo: 'vNull',
+            ckrwYjdcsj: 'vNull',
+            ckrwCph: 'vNull',
+            ckrwWls: 'vNull',
         }
     }
     var obj = outboundTask;

@@ -57,7 +57,7 @@
                                 <el-col :span="11">
                                     <el-form-item label="始发日期">
                                         <el-icon name="time"></el-icon>
-                                        <span style="margin-left: 10px">{{ auto_time_new(props.row.sfrq,1) }}</span>
+                                        <span style="margin-left: 10px">{{ auto_time_new(props.row.sfrq,6) }}</span>
                                     </el-form-item>
                                     <el-form-item label="调拨地点">
                                         <span>{{ props.row.dbdd }}</span>
@@ -100,21 +100,22 @@
                                     <el-form-item label="台数">
                                         <span>{{ props.row.ts }}</span>
                                     </el-form-item>
+
+                                </el-col>
+                                <el-col :span="11" :offset="2">
                                     <el-form-item label="件数">
                                         <span>{{ props.row.js }}</span>
                                     </el-form-item>
                                     <el-form-item label="实发方数">
                                         <span>{{ props.row.tj }}</span>
                                     </el-form-item>
-                                </el-col>
-                                <el-col :span="11" :offset="2">
                                     <el-form-item label="到货日期">
                                         <el-icon name="time"></el-icon>
-                                        <span style="margin-left: 10px">{{auto_time_new(props.row.dhsj,1)  }}</span>
+                                        <span style="margin-left: 10px">{{auto_time_new(props.row.dhsj,6)  }}</span>
                                     </el-form-item>
                                     <el-form-item label="收货日期">
                                         <el-icon name="time"></el-icon>
-                                        <span style="margin-left: 10px">{{ auto_time_new(props.row.dhsj,1) }}</span>
+                                        <span style="margin-left: 10px">{{ auto_time_new(props.row.dhsj,6) }}</span>
                                     </el-form-item>
                                     <el-form-item label="破损/台数">
                                         <span>{{ props.row.psts }}</span>
@@ -408,8 +409,8 @@
             title="欠货完结信息"
             v-model="dialogEndVisible">
         <el-form
-               ref="ref_end"
-               :rules="rule_end"
+                ref="ref_end"
+                :rules="rule_end"
                 :model="end">
             <el-form-item
                     label="完结原因"
@@ -439,175 +440,170 @@
             v-model="dialogLedgerVisible">
         <el-form
                 :model="ledger">
-            <el-carousel
-                    ref="carousel"
-                    :autoplay="false"
-                    arrow="never"
-                    indicator-position="none"
-                    height="55vh">
-                <el-carousel-item>
-                    <el-row>
-                        <el-row>
-                            <el-col :span="8" :offset="1">
-                                <el-form-item
-                                        label="始发日期"
-                                        :label-width="formLabelWidth">
-                                    {{ledger.sfrq}}
-                                </el-form-item>
-                                <el-form-item
-                                        label="到货日期"
-                                        :label-width="formLabelWidth">
-                                    {{ledger.dhsj}}
-                                </el-form-item>
-                                <el-form-item
-                                        label="收货日期"
-                                        :label-width="formLabelWidth">
-                                    {{ledger.dhsj}}
-                                </el-form-item>
-                                <el-form-item
-                                        label="调拨地点"
-                                        :label-width="formLabelWidth">
-                                    {{ledger.dbdd}}
-                                </el-form-item>
-                                <el-form-item
-                                        label="承运商"
-                                        :label-width="formLabelWidth">
-                                    {{ledger.cys}}
-                                </el-form-item>
-                                <el-form-item
-                                        label="车牌号"
-                                        :label-width="formLabelWidth">
-                                    {{ledger.cph}}
-                                </el-form-item>
-                                <el-form-item
-                                        label="收货人"
-                                        :label-width="formLabelWidth">
-                                    {{ledger.shr}}
-                                </el-form-item>
-                                <el-form-item
-                                        label="收货仓库"
-                                        :label-width="formLabelWidth">
-                                    {{ledger.shck}}
-                                </el-form-item>
-                                <el-form-item
-                                        label="单号"
-                                        :label-width="formLabelWidth">
-                                    {{ledger.dh}}
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="8" :offset="1">
-                                <el-form-item
-                                        label="承运件数(箱)"
-                                        :label-width="formLabelWidth">
-                                    <!--{{ledger.}}-->
-                                </el-form-item>
-                                <el-form-item
-                                        label="方数"
-                                        :label-width="formLabelWidth">
-                                    <!--{{ledger.}}-->
-                                </el-form-item>
-                                <el-form-item
-                                        label="物料编号"
-                                        :label-width="formLabelWidth">
-                                    {{ledger.wlbm}}
-                                </el-form-item>
-                                <el-form-item
-                                        label="物料描述"
-                                        :label-width="formLabelWidth">
-                                    {{ledger.wlms}}
-                                </el-form-item>
-                                <el-form-item
-                                        label="台数"
-                                        :label-width="formLabelWidth">
-                                    <!--{{ledger}}-->
-                                </el-form-item>
-                                <el-form-item
-                                        label="件数"
-                                        :label-width="formLabelWidth">
-                                    <!--{{ledger}}-->
-                                </el-form-item>
-                                <el-form-item
-                                        label="方数"
-                                        :label-width="formLabelWidth">
-                                    <!--{{ledger}}-->
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="8">
-                                <el-form-item
-                                        label="泡沫"
-                                        :label-width="formLabelWidth">
-                                    <el-input
-                                            v-model.number="ledger.pm"
-                                            auto-complete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item
-                                        label="调拨破损外包"
-                                        :label-width="formLabelWidth">
-                                    <el-input
-                                            v-model.number="ledger.dbpswb"
-                                            auto-complete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item
-                                        label="源头破损外包"
-                                        :label-width="formLabelWidth">
-                                    <el-input
-                                            v-model.number="ledger.ytpswb"
-                                            auto-complete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item
-                                        label="调拨破损内保"
-                                        :label-width="formLabelWidth">
-                                    <el-input
-                                            v-model.number="ledger.dbpsnb"
-                                            auto-complete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item
-                                        label="源头破损内保"
-                                        :label-width="formLabelWidth">
-                                    <el-input
-                                            v-model.number="ledger. ytpsnb"
-                                            auto-complete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item
-                                        label="缺机/台"
-                                        :label-width="formLabelWidth">
-                                    <el-input
-                                            v-model.number="ledger.qhsl"
-                                            auto-complete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item
-                                        label="异常原因"
-                                        :label-width="formLabelWidth">
-                                    <el-input
-                                            v-model.number="ledger.ycyy"
-                                            auto-complete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item
-                                        label="处理结果"
-                                        :label-width="formLabelWidth">
-                                    <el-input
-                                            v-model.number="ledger.cljg"
-                                            auto-complete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item
-                                        label="破损台数"
-                                        :label-width="formLabelWidth">
-                                    <el-input
-                                            v-model.number="ledger.psts"
-                                            auto-complete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="结算时间" :label-width="formLabelWidth">
-                                    <el-date-picker
-                                            v-model="ledger.jssj"
-                                            type="datetime"
-                                            placeholder="选择结算时间">
-                                    </el-date-picker>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                    </el-row>
-                </el-carousel-item>
-            </el-carousel>
+            <el-row>
+                <el-col :span="5">
+                    <el-form-item
+                            label="始发日期"
+                            :label-width="formLabelWidth">
+                        {{auto_time_new(ledger.sfrq)}}
+
+                    </el-form-item>
+                    <el-form-item
+                            label="到货日期"
+                            :label-width="formLabelWidth">
+                        {{auto_time_new(ledger.dhsj)}}
+                    </el-form-item>
+                    <el-form-item
+                            label="收货日期"
+                            :label-width="formLabelWidth">
+                        {{auto_time_new(ledger.dhsj)}}
+                    </el-form-item>
+                    <el-form-item
+                            label="调拨地点"
+                            :label-width="formLabelWidth">
+                        {{ledger.dbdd}}
+                    </el-form-item>
+                    <el-form-item
+                            label="承运商"
+                            :label-width="formLabelWidth">
+                        {{ledger.cys}}
+                    </el-form-item>
+                    <el-form-item
+                            label="车牌号"
+                            :label-width="formLabelWidth">
+                        {{ledger.cph}}
+                    </el-form-item>
+                    <el-form-item
+                            label="收货人"
+                            :label-width="formLabelWidth">
+                        {{ledger.shr}}
+                    </el-form-item>
+                    <el-form-item
+                            label="收货仓库"
+                            :label-width="formLabelWidth">
+                        {{ledger.shck}}
+                    </el-form-item>
+                    <el-form-item
+                            label="单号"
+                            :label-width="formLabelWidth">
+                        {{ledger.dh}}
+                    </el-form-item>
+                </el-col>
+                <el-col :span="5" :offset="2">
+                     <el-form-item
+                            label="承运件数(台)"
+                            :label-width="formLabelWidth">
+                        {{ledger.cyts}}
+                    </el-form-item>
+                    <el-form-item
+                            label="承运件数(箱)"
+                            :label-width="formLabelWidth">
+                        {{ledger.cyxs}}
+                    </el-form-item>
+                    <el-form-item
+                            label="方数"
+                            :label-width="formLabelWidth">
+                        {{ledger.cytj}}
+                    </el-form-item>
+                    <el-form-item
+                            label="物料编号"
+                            :label-width="formLabelWidth">
+                        {{ledger.wlbm}}
+                    </el-form-item>
+                    <el-form-item
+                            label="物料描述"
+                            :label-width="formLabelWidth">
+                        {{ledger.wlms}}
+                    </el-form-item>
+                    <el-form-item
+                            label="台数"
+                            :label-width="formLabelWidth">
+                        {{ledger.ts}}
+                    </el-form-item>
+                    <el-form-item
+                            label="件数"
+                            :label-width="formLabelWidth">
+                        {{ledger.js}}
+                    </el-form-item>
+                    <el-form-item
+                            label="方数"
+                            :label-width="formLabelWidth">
+                        {{ledger.tj}}
+                    </el-form-item>
+                </el-col>
+                <el-col :span="8" :offset="2">
+                    <el-form-item
+                            label="泡沫"
+                            :label-width="formLabelWidth">
+                        <el-input
+                                v-model.number="ledger.pm"
+                                auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item
+                            label="调拨破损外包"
+                            :label-width="formLabelWidth">
+                        <el-input
+                                v-model.number="ledger.dbpswb"
+                                auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item
+                            label="源头破损外包"
+                            :label-width="formLabelWidth">
+                        <el-input
+                                v-model.number="ledger.ytpswb"
+                                auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item
+                            label="调拨破损内保"
+                            :label-width="formLabelWidth">
+                        <el-input
+                                v-model.number="ledger.dbpsnb"
+                                auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item
+                            label="源头破损内保"
+                            :label-width="formLabelWidth">
+                        <el-input
+                                v-model.number="ledger. ytpsnb"
+                                auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item
+                            label="缺机/台"
+                            :label-width="formLabelWidth">
+                        <el-input
+                                v-model.number="ledger.qhsl"
+                                auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item
+                            label="异常原因"
+                            :label-width="formLabelWidth">
+                        <el-input
+                                v-model.number="ledger.ycyy"
+                                auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item
+                            label="处理结果"
+                            :label-width="formLabelWidth">
+                        <el-input
+                                v-model.number="ledger.cljg"
+                                auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item
+                            label="破损台数"
+                            :label-width="formLabelWidth">
+                        <el-input
+                                v-model.number="ledger.psts"
+                                auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="结算时间" :label-width="formLabelWidth">
+                        <el-date-picker
+                                v-model="ledger.jssj"
+                                type="datetime"
+                                placeholder="选择结算时间">
+                        </el-date-picker>
+                    </el-form-item>
+                </el-col>
+            </el-row>
 
         </el-form>
         <div slot="footer">
@@ -1202,7 +1198,7 @@
             shck: '',//模糊查询--收货仓库
             wlbm: '',//模糊查询--物料编号
             wlms: '',//模糊查询--物料描述
-//            jssj: [null,null],//模糊查询--结算时间
+            jssj: [null,null],//模糊查询--结算时间
 //            shrq:[null,null],
         }
     }
@@ -1224,15 +1220,15 @@
             shck: '',          //--收货仓库
             dh: '',        //--单号
             dbdh: '',         //-调拨单号
-            //承运件数(台)
-            //承运件数(箱子)
-            //方数
+            cyts:'',     //承运件数(台)
+            cyxs:'',    //承运件数(箱)
+            cytj:'',    //方数
             wlbm: '',      //--物料编号
             wlms: '',    //--物料描述
             pm: '',          //--泡沫
-            //台数
-            //件数
-            //方数
+            ts:'',          //台数
+            js:'',          //件数
+            tj:'',          //方数
             dbpswb: '',   //--调拨破损外包
             ytpswb: '',   //--源头破损外包
             dbpsnb: '',   //--调拨破损内保
@@ -1243,8 +1239,8 @@
             jssj: '',    // --结算时间
         }
     }
-    function validate_end(){
-        return{
+    function validate_end() {
+        return {
             rksWjReason: 'vNull',
             rksBfdh: 'vNull',
         }
