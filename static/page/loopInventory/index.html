@@ -349,9 +349,9 @@
         </div>
         <el-form
                 :model="form"
-                 ref="ref_form"
-                 :label-width="formLabelWidth"
-                 :rules="rule_form">
+                ref="ref_form"
+                :label-width="formLabelWidth"
+                :rules="rule_form">
             <el-form-item
                     label="负责人"
                     prop="pdChargePerson">
@@ -371,41 +371,42 @@
                 <el-button @click="formAddGoods" size="small" type="info">添加</el-button>
             </el-form-item>
             <el-table
-                :data="form.pdsGoods"
-                highlight-current-row
-                style="width: 100%">
-            <el-table-column
-                    type="index"
-                    width="55">
-            </el-table-column>
-            <el-table-column
-                    label="货品编号"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="baseGoods.bgGoodsNo">
-            </el-table-column>
-            <el-table-column
-                    label="货品名称"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="baseGoods.bgGoodsName">
-            </el-table-column>
-            <el-table-column
-                    label="可用操作"
-                    width="120"
-                    align="center">
-                <template scope="scope">
-                    <el-button @click="deleteGoods(scope.$index,scope.row)" size="small" type="danger"
-                               icon="delete"></el-button>
-                </template>
-            </el-table-column>
-        </el-table>
+                    :data="form.pdsGoods"
+                    highlight-current-row
+                    style="width: 100%">
+                <el-table-column
+                        type="index"
+                        width="55">
+                </el-table-column>
+                <el-table-column
+                        label="货品编号"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="baseGoods.bgGoodsNo">
+                </el-table-column>
+                <el-table-column
+                        label="货品名称"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="baseGoods.bgGoodsName">
+                </el-table-column>
+                <el-table-column
+                        label="可用操作"
+                        width="120"
+                        align="center">
+                    <template scope="scope">
+                        <el-button @click="deleteGoods(scope.$index,scope.row)" size="small" type="danger"
+                                   icon="delete"></el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary"
                        :disabled="form.pdsGoods.length==0"
                        @click="submit"
-                       :loading="submitLoading">保存</el-button>
+                       :loading="submitLoading">保存
+            </el-button>
         </div>
     </el-dialog>
     <el-dialog
@@ -526,10 +527,10 @@
             val: []
         }
     }
-    function validate_form(){
-        return{
-            pdChargePerson:'vNull',
-            bgGoodsNo:'vNull',
+    function validate_form() {
+        return {
+            pdChargePerson: 'vNull',
+            bgGoodsNo: 'vNull',
         }
     }
     var loopInventory = new Vue({
@@ -562,7 +563,7 @@
                 currentPage: 1,
                 pageSize: 10,
                 currentTotal: 0,
-                rule_form:autoValidate(validate_form()),//新增 验证规则
+                rule_form: autoValidate(validate_form()),//新增 验证规则
                 date: [null, null],                 //主页面 选择日期 搜索
                 rkRkdjNo: '',                       //主页面 入库单号 搜索
                 formLabelWidth: '120px',            //表单 配置
@@ -828,7 +829,7 @@
                         }
                         p[1].post({
                             "pdCreateUserId": app.rmsUser.ruUserId,
-                            "pdChargePerson": this.form.pdChargePerson,
+                            "pdChargePerson": obj.form.pdChargePerson,
                             "pdArehouseId": window.dbmessage.baseArehouses[0].baArehouseId,
                             "mrGoodsIds": ids
                         }, function (json) {
