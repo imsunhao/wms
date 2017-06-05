@@ -673,12 +673,13 @@
                     "pageSize": this.pageSize,
                     "xdsjStart": tsf_date(this.form.xdsj[0]),
                     "xdsjEnd": tsf_date(this.form.xdsj[1]),
-                    "sjsj": tsf_date(this.form.sjsj),
-                    "jssj": tsf_date(this.form.jssj),
-                    "rjdkNo": tsf_date(this.form.rjdkNo),
-                    "shzt": tsf_date(this.form.shzt),
-                    "zdfs": this.form.zdfs,
+                    "sjsjStart": tsf_date(this.form.sjsj[0]),
+                    "sjsjEnd": tsf_date(this.form.sjsj[1]),
+                    "rkdh": tsf_date(this.form.rjdkNo),
+                    "djzt": tsf_date(this.form.shzt),
+                    "zzfs": this.form.zdfs,
                     "czfs": this.form.czfs,
+                    "jssj": tsf_date(this.form.jssj),
                 }
             },
             search: function () {
@@ -865,8 +866,7 @@
             },                                                //新建 表单提交
             selectSubmit: function () {
                 p[0].post(obj.form_pop);
-                this.dialogSelectVisible = !this.dialogSelectVisible;
-
+                this.dialogSelectVisible = false;
             },                                          //详细查询 提交
             printfSubmit: function () {
                 var datas=[];
