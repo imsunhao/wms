@@ -845,7 +845,7 @@
                 }).then(function () {
                     p[11].post({
                         ids: [row.rkRkdjId],
-                        useId: app.rmsUser.ruUserId
+                        userId: app.rmsUser.ruUserId
                     }, function (json) {
                         this.callbackAfter({status: json.status, model: '删除该入库单'}, function () {
                             remove(row, _this.warehousingReservation);

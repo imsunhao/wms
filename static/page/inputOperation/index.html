@@ -917,7 +917,8 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    p[7].post({ids: [row.rkRkdjId]}, function (json) {
+                    p[7].post({ids: [row.rkRkdjId],
+                        userId: app.rmsUser.ruUserId}, function (json) {
                         this.callbackAfter({status: json.status, model: "上架"}, function () {
                             p[0].post(obj.option);
                         })
