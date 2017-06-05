@@ -611,6 +611,7 @@
                             <el-form-item label="货品编号" :label-width="formLabelWidth">
                                 <el-autocomplete
                                         :fetch-suggestions="querySearchAsync"
+                                        ref="ref_bgGoodsNo"
                                         v-model="form.selectGood.baseGoods.bgGoodsNo"
                                         :disabled="!form.deleteARkDocsList"
                                         @select="GoodSelect"
@@ -633,7 +634,7 @@
                     <el-row>
                         <el-col :span="8" :offset="16" v-show="!watchView">
                             <el-button size="small" @click="saveDocsList"
-                                       :disabled="form.saveARkDocsList">保存明细
+                                       :disabled="form.saveARkDocsList||form.selectGood.rksCount==0">保存明细
                             </el-button>
                             <el-button size="small" @click="deleteARkDocsList" :disabled="form.deleteARkDocsList"
                                        type="danger">删除明细
@@ -1024,7 +1025,7 @@
                     }
                 });
 
-            },                                                  //新建入库单据 弹出层banner控制 后一个
+            },                                               //新建入库单据 弹出层banner控制 后一个
             submit: function () {
                 var _this = this;
                 this.dialogFormActive++;
@@ -1142,6 +1143,7 @@
                 } else if (this.form.saveARkDocsList === false) {
                     this.saveDocsList();
                 }
+                obj.$refs.ref_bgGoodsNo.$el.querySelector('input').focus();
             },
             saveDocsList: function () {
                 this.$refs['refForm2'].validate(function (valid) {
@@ -1511,7 +1513,7 @@
     }
     function validate_form2() {
         return {
-            rksCount: ['vNull', 'vNumber', 'vZZNumber'],
+            rksCount: ['vNull', 'vNumber', 'vNumberZZ'],
         }
     }
     function validate_warehousingReservationCombinationDetails() {
