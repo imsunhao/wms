@@ -855,6 +855,7 @@
             "rkrwArehouseId": "",
             "rkrwClientId": "",
             "rkrwCreateUserid": "",
+            editorId: app.rmsUser.ruUserId,
             "docList": []
         }
     }
@@ -1021,7 +1022,8 @@
                     type: 'warning'
                 }).then(function () {
                     p[5].post({
-                        rwIds: [row.rkrwId]
+                        rwIds: [row.rkrwId],
+                        userId: app.rmsUser.ruUserId
                     });
                 }).catch(function () {
                     obj.$message({
