@@ -542,6 +542,8 @@
                 assignment: [],                          //分配任务 弹出层 信息集合(表单格式)
                 assignmentVal: [],
                 assignmentForm: _assignmentForm(),
+
+                pdId: '',
                 dialogAssignmentVisible: false,           //分配任务 弹出层 是否可见
                 assignmentLoading: true,
 
@@ -617,10 +619,10 @@
         methods: {
             nodeClick: function (value, data, node) {
 
-                /*var step = _form();
-                 allPrposCb(step, function (obj, index) {
-                 if (typeof row[index] !== 'undefined') step[index] = row[index];
-                 });*/
+//                var step2 = _assignmentForm();
+//                 allPrposCb(step2, function (obj, index) {
+//                 if (typeof value[index] !== 'undefined') step2[index] = value[index];
+//                 });
                 var i = 0;
                 var step = [];
 
@@ -705,6 +707,7 @@
                 )
             },
             assignment_submit: function () {
+
                 if (obj.assignment.length - obj.assignmentForm.val.length !== 0) {
                     obj.$alert('还有任务没有被分配！');
                 } else {
@@ -712,7 +715,9 @@
                     for (var i = 0; i < obj.people.length; i++) {
                         if (obj.people[i].val.length !== 0) {
                             step.push({
+                                pdId: obj.pdId,
                                 userId: obj.people[i].ruUserId,
+                                userName: obj.people[i].userName,
                                 ids: obj.people[i].val
                             });
                         }
@@ -727,12 +732,18 @@
 
 
             inlineAssignment: function (index, row) {
-                p[5].post({pdId: row.pdId});
+
+
+                p[5].post({pdId: row.pdId}, function (json) {
+                    obj._assignment = json.model;
+                    obj.pdId = row.pdId;
+                    obj.dialogAssignmentVisible = true;
+                });
 //                this.dialogAssignmentVisible = true;
-            },                           //行内按钮-分配任务
+            },                            //行内按钮-分配任务
             inlineInventoryDetails: function (index, row) {
                 p[6].post({pdId: row.pdId});
-            },                     //行内按钮-盘点详情
+            },                      //行内按钮-盘点详情
             inlineInventoryConfirm: function (index, row) {
                 var obj = this;
                 obj.$confirm('确认此盘点计划, 是否继续?', '提示', {
@@ -747,7 +758,7 @@
                         message: '已取消'
                     });
                 });
-            },                     //行内按钮-盘点确认
+            },                      //行内按钮-盘点确认
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -968,16 +979,7 @@
     // 5 循环盘点 分配任务页面根据盘点计划ID查询详情
     p[5] = autoPost({
         urlHock: "",
-        urlProd: "/route/loopInventory/5",
-        success: function (json) {
-            obj._assignment = json.model;
-
-//            for (var i = 0; i < obj.people.length; i++) {
-//                obj.people[i].val = [];
-//            }
-//            obj.assignmentForm = _assignmentForm();
-            obj.dialogAssignmentVisible = true;
-        }
+        urlProd: "/route/loopInventory/5"
     });
 
     // 6 循环盘点 盘点详情页面根据盘点计划ID查询详情
