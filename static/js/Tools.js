@@ -161,34 +161,56 @@ function autoPost(option) {
 }           //post核心
 function autoValidate(option, cbs) {
     var validateRule = {
-        vNull: function (rule, value, callback) {
-            console.log(rule);
-            console.log(value);
-            if (value === '') {
-                callback(new Error('必填'));
+        vNumber: function (rule, value, callback) {
+            if (isNaN(value)) {
+                callback(new Error('必须为数字!'));
             } else {
                 callback();
             }
-        },                     //不允许为空
-        vNumber:function(rule, value, callback){
-            callback();
-        },                      //只能为数字
-        vZZNumber:function(rule, value, callback){
-            callback();
-        },                    //只能为正整数
-        a: autoValidateRule("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", '不允许存在特殊字符!'),
-    };
+        },                   //是   数字
+        vNumberZZ: function (rule, value, callback) {
+            if (value < 0 || ((value + '').indexOf('.') !== -1)) {
+                callback(new Error('必须为正整数!'));
+            } else {
+                callback();
+            }
+        },                 //是   正整数
 
-    function autoValidateRule(string, model) {
-        return function (rule, value, callback) {
-            if ((new RegExp(string, "g")).exec(value)) {
-                return callback(new Error(model));
+        vNull: function (rule, value, callback) {
+            if (value === '') {
+                callback(new Error('必填!'));
+            } else {
+                callback();
+            }
+        },                     //不是 空
+        vNHZ: function (rule, value, callback) {
+            var reg = new RegExp("[\\u4E00-\\u9FFF]+", "g");
+            if (reg.test(value)) {
+                callback(new Error('不能含有汉字!'));
+            } else {
+                callback();
+            }
+        },                      //不含有 汉字
+        vNTS: function (rule, value, callback) {
+            if ((new RegExp('((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])', "g")).exec(value)) {
+                return callback(new Error('不能含有特殊符号!'));
             }
             else {
                 return callback();
             }
-        };
-    }
+        },                      //不含有 特殊符号utoValidateRule("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", '不允许存在特殊字符!'),
+    };
+
+    // function autoValidateRule(string, model) {
+    //     return function (rule, value, callback) {
+    //         if ((new RegExp(string, "g")).exec(value)) {
+    //             return callback(new Error(model));
+    //         }
+    //         else {
+    //             return callback();
+    //         }
+    //     };
+    // }
 
     var temp = Object.create(null);
     var i = 0;
