@@ -625,6 +625,7 @@
                                     :label-width="formLabelWidth">
                                 <el-input
                                         :disabled="form.selectGood.value==''"
+                                        ref="ref_rksCount"
                                         @keyup.enter.native="GoodEnter"
                                         v-model.number="form.selectGood.rksCount"
                                         auto-complete="off"></el-input>
@@ -1128,6 +1129,7 @@
                     rksGoodsId: item.data.bgGoodsId,
                     data: item.data
                 };
+                obj.$refs.ref_rksCount.$el.querySelector('input').focus();
             },                                        //货品明细控制 选中下拉菜单中的货品
             GoodClick: function (item) {
                 this.form.saveARkDocsList = true;
@@ -1140,7 +1142,7 @@
                     this.form.selectGood = selectGood();
                     this.form.saveARkDocsList = true;
                     this.form.deleteARkDocsList = true;
-                } else if (this.form.saveARkDocsList === false) {
+                } else if (this.form.saveARkDocsList === false && this.form.selectGood.rksCount !== 0) {
                     this.saveDocsList();
                 }
                 obj.$refs.ref_bgGoodsNo.$el.querySelector('input').focus();
