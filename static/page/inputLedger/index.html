@@ -842,7 +842,7 @@
                     type: 'warning'
                 }).then(function () {
                     p[3].post({
-                        ids: [row.rkRkdjId]
+                        ids: [row.rks_rkmx_id]
                     }, function (json) {
                         this.callbackAfter({status: json.status, model: "导出入库台账"}, function () {
                             var url = "/static/Excel/" + json.model;
@@ -1131,15 +1131,13 @@
         }
     });
     // 3 入库台账 导出
-    p[1] = autoPost({
+    p[3] = autoPost({
         urlHock: "",
         urlProd: "/route/inputLedger/3",
         method: 'GET',
         success: function (json) {
         }
     });
-
-
     function _form() {
         return {
             sfrq: [null, null],//模糊查询--始发时间
