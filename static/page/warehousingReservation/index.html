@@ -205,13 +205,13 @@
                                         class="datePicker"
                                         :picker-options="pickerOptions">
                                 </el-date-picker>
-                                <el-select
-                                        v-model="rkRwStatus"
-                                        placeholder="请选择单据类型">
-                                    <el-option label="全部" :value.number="-1"></el-option>
-                                    <el-option label="未被分配" :value.number="0"></el-option>
-                                    <el-option label="已分配" :value.number="1"></el-option>
-                                </el-select>
+                                <!--<el-select-->
+                                <!--v-model="rkRwStatus"-->
+                                <!--placeholder="请选择单据类型">-->
+                                <!--<el-option label="全部" :value.number="-1"></el-option>-->
+                                <!--<el-option label="未被分配" :value.number="0"></el-option>-->
+                                <!--<el-option label="已分配" :value.number="1"></el-option>-->
+                                <!--</el-select>-->
                                 <button @click="newInput" class="btn btn-add"><i class="icon add"></i><span>添加</span>
                                 </button>
                                 <button @click="importExcel" class="btn btn-import"><i class="icon add"></i><span>导入Excel</span>
@@ -844,7 +844,8 @@
                     type: 'warning'
                 }).then(function () {
                     p[11].post({
-                        id: [row.rkRkdjId]
+                        ids: [row.rkRkdjId],
+                        useId: app.rmsUser.ruUserId
                     }, function (json) {
                         this.callbackAfter({status: json.status, model: '删除该入库单'}, function () {
                             remove(row, _this.warehousingReservation);
@@ -1510,7 +1511,7 @@
     }
     function validate_form2() {
         return {
-            rksCount: ['vNull','vNumber','vZZNumber'],
+            rksCount: ['vNull', 'vNumber', 'vZZNumber'],
         }
     }
     function validate_warehousingReservationCombinationDetails() {
