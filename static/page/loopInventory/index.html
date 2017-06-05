@@ -510,7 +510,7 @@
                     <el-button
                             size="small"
                             type="danger"
-                            @click="heavyPlateInlineOperation(scope.$index, scope.row)">重盘
+                            @click="inlineHeavyPlateInlineOperation(scope.$index, scope.row)">重盘
                     </el-button>
                 </template>
             </el-table-column>
@@ -645,7 +645,7 @@
                 obj.assignmentForm = value;
                 obj.assignmentLoading = false;
 
-            },
+            },                           //分配任务 点击用户头像
             handleChange: function handleChange(value, direction, movedKeys) {
                 console.log(value, direction, movedKeys);
                 var i = 0;
@@ -668,11 +668,11 @@
                         break;
 
                 }
-            },
+            },  //分配任务 分配任务与取消任务
             filterNode: function (value, data) {
                 if (!value) return true;
                 return data.ruLoginName.indexOf(value) !== -1;
-            },
+            },                                //分配任务 模糊查询用户
             treeRenderContent: function (h, node) {
                 return h(
                     'div', {
@@ -705,7 +705,7 @@
                         }, node.data.ruUserName)
                     ]
                 )
-            },
+            },                             //分配任务 界面控制
             assignment_submit: function () {
 
                 if (obj.assignment.length - obj.assignmentForm.val.length !== 0) {
@@ -728,7 +728,7 @@
                         })
                     })
                 }
-            },
+            },                                    //分配任务 保存按钮
 
 
             inlineAssignment: function (index, row) {
@@ -759,6 +759,24 @@
                     });
                 });
             },                      //行内按钮-盘点确认
+
+            inlineHeavyPlateInlineOperation: function (index, row) {
+                obj.$confirm('确认重盘此货品:' + row.baseGoods.bgGoodsNo + '\r\n所在库位为' + row.baseLocation.blLname, '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    p[2].post({
+                        "pdsId": row.pdsId
+                    })
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },             //行内按钮-重盘
+
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -776,6 +794,7 @@
                     remove(this.multipleSelectionCombination[i], this.warehousingReservationCombination);
                 }
             },                                   //多选 删除
+
             newInput: function () {
                 this.form = _form();
                 this.dialogFormVisible = true;
@@ -887,7 +906,7 @@
                     }
                 }
                 return temp[value];
-            },                                         //盘点类型
+            },                                      //盘点类型
             auto_pdStatus: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {
@@ -904,7 +923,7 @@
                     }
                 }
                 return temp[value];
-            },                                       //盘点状态
+            },                                    //盘点状态
             auto_pdDiffStatus: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {
@@ -920,7 +939,7 @@
                     }
                 }
                 return temp[value];
-            },                                   //差异状态
+            },                                //差异状态
         },
         watch: {
             filterText: function (val) {
