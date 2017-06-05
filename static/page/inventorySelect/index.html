@@ -31,13 +31,13 @@
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
-                <button @click="multiSelectClick" class="btn btn-multiSelect"><i
-                        class="icon sel"></i><span>多选</span>
-                </button>
+                <!--<button @click="multiSelectClick" class="btn btn-multiSelect"><i-->
+                        <!--class="icon sel"></i><span>多选</span>-->
+                <!--</button>-->
 
-                <button @click="multiExport" class="btn btn-del" v-show="multiSelect"><i
-                        class=""></i><span>导出</span>
-                </button>
+                <!--<button @click="multiExport" class="btn btn-del" v-show="multiSelect"><i-->
+                        <!--class=""></i><span>导出</span>-->
+                <!--</button>-->
             </div>
             <el-table
                     :data="inventorySelect"
@@ -633,7 +633,7 @@
                     type: 'warning'
                 }).then(function () {
                     p[2].post({
-                        ids: [row.pdId]
+                        pdId: row.pdId
                     }, function (json) {
                         this.callbackAfter({status: json.status, model: "导出出库单"}, function () {
                             var url = "/static/Excel/" + json.model;
