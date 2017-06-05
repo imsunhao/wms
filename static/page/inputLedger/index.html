@@ -782,14 +782,7 @@
                 dialogEndVisible: false,            //TODO 欠货完结信息 弹出层 是否可见
                 ledger: formLedger(),                 //TODO 制作台账结信息 弹出层 信息集合
                 dialogLedgerVisible: false,         //TODO 制作台账信息 弹出层 是否可见
-                select: _form(),                        //搜索      弹出层 信息集合,
-                distribution: {
-                    value: '',
-                    wlms: '',
-                    count: 0,
-                    bgGoodsId: ''
-                },     //导出 弹出层 信息集合
-                dialogDistributionVisible: false,   //导出 弹出层 是否可见
+                select: _form(),                        //搜索      弹出层 信息集合
                 dialogSelectVisible: false,
                 selectLoading: false
             }
@@ -827,15 +820,10 @@
                     "wlbm": this.form.wlbm,
                     "wlms": this.form.wlms,
                 }
-            },
-            distributionForm: function () {
-                return {
-                    distribution: this.distribution
-                }
-            },                                      //导出 表单
+            }
         },
         methods: {
-            inlineExport: function () {
+            inlineExport: function (index, row) {
                 obj.$confirm('导出入库台账', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
