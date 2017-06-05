@@ -216,7 +216,7 @@
                     <el-form-item label="上架开始"
                                   :label-width="formLabelWidth">
                         <el-date-picker
-                                v-model="form.rk_sjsj"
+                                v-model="form.rk_sjsj" 
                                 type="date"
                                 align="right"
                                 placeholder="上架开始"
@@ -577,9 +577,10 @@
                     "pageSize": this.pageSize,
                     "startCreateTimeParam": tsf_date( this.form.rk_createtime[0]),
                     "endCreateTimeParam": tsf_date( this.form.rk_createtime[1]),
-                    "startMdtSjsj": tsf_date(this.form.rkrk_sjsj),
-                    "entMdtSjsj": tsf_date(this.form.rk_end_time),
-
+                    "rkrkSjsj": tsf_date(this.form.rk_sjsj),
+                    "rkEndTime": tsf_date(this.form.rk_end_time),
+                    "startMdtSjsj":tsf_date(this.form.mdt_sjsj[0]),
+                    "entMdtSjsj":tsf_date(this.form.mdt_sjsj[1]),
                     "operatorUserName": this.form.ru_user_name,
                     "bgGoodsNo": this.form.bg_goods_no,
                     "bgGoodsName": this.form.bg_goods_name,
@@ -874,6 +875,8 @@
             rkrwDh: '',
             rkrwStatus: '',
             rk_createtime:[null,null],//模糊查询--创建时间
+            rk_sjsj:[null,null],    //模糊查询 上架时间
+            rk_end_time:[null,null],  //模糊查询 下架时间
             rkrkSjsj:[null,null],    //模糊查询--上架时间
             mdt_sjsj:[null,null],     //模糊查询--作业时间
             ru_user_name:'',            //模糊查询--作业人员
