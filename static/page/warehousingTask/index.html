@@ -1007,8 +1007,8 @@
                 step.title = '编辑';
                 if (row.rkrwStatus == 1) {
                     p[8].post(obj.list2_option);
-                    step.list2.warehousingReservationCombination = row.docList;
                 }
+                step.list2.warehousingReservationCombination = row.docList;
 
                 if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
                 obj.form = step;
@@ -1125,9 +1125,7 @@
             submit: function () {
                 this.dialogFormActive = 2;
                 this.submitLoading = true;
-                if (obj.form.rkrwStatus === 1) {
                     obj.form.docList = obj.form.list2.warehousingReservationCombination;
-                }
                 var step = _form_post();
                 allPrposCb(step, function (obj2, index) {
                     if (typeof obj.form[index] !== 'undefined') step[index] = obj.form[index];
