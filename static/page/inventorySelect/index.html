@@ -635,7 +635,7 @@
                     p[2].post({
                         pdId: row.pdId
                     }, function (json) {
-                        this.callbackAfter({status: json.status, model: "导出出库单"}, function () {
+                        this.callbackAfter({status: json.status, model: "导出盘点"}, function () {
                             var url = "/static/Excel/" + json.model;
                             window.open(url);
                         })
