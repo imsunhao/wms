@@ -36,6 +36,7 @@
                     :data="aLibraryFrozenSelect"
                     :max-height="570"
                     ref="table"
+                    @selection-change="multiSelectionChange"
                     @expand="expandChange"
                     class="aLibraryFrozenSelectTable"
                     style="width: 100%">
@@ -667,7 +668,7 @@
             },                                   //分页 Size
             expandChange: function (row, expanded) {
                 if (typeof (row.inputOperation) === 'undefined' && expanded) {
-                    postInputOperation(this, row);
+//                    postInputOperation(this, row);
                 }
                 /*<debug>*/
                 console.log(row);
