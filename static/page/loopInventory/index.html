@@ -152,6 +152,10 @@
 
     }
 
+    #loopInventory .__inner {
+        padding: 0 30px;
+    }
+
     #loopInventory .el-transfer .el-transfer-panel {
         width: 43.6%;
     }
@@ -347,29 +351,37 @@
                     finish-status="success">
             </el-steps>
         </div>
-        <el-form
-                :model="form"
-                ref="ref_form"
-                :label-width="formLabelWidth"
-                :rules="rule_form">
-            <el-form-item
-                    label="负责人"
-                    prop="pdChargePerson">
-                <el-input
-                        v-model="form.pdChargePerson"
-                        auto-complete="off"></el-input>
-            </el-form-item>
-            <el-form-item
-                    label="货品编号"
-                    prop="bgGoodsNo"
-                    :label-width="formLabelWidth">
-                <el-autocomplete
-                        :fetch-suggestions="querySearchAsync"
-                        v-model="form.bgGoodsNo"
-                        @select="GoodSelect"
-                        auto-complete="off"></el-autocomplete>
-                <el-button @click="formAddGoods" size="small" type="info">添加</el-button>
-            </el-form-item>
+        <div class="__inner">
+            <el-form
+                    :model="form"
+                    :inline="true"
+                    ref="ref_form"
+                    :label-width="formLabelWidth"
+                    :rules="rule_form">
+                <el-form-item
+                        label="负责人"
+                        prop="pdChargePerson">
+                    <el-input
+                            v-model="form.pdChargePerson"
+                            auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item
+                        label="货品编号"
+                        prop="bgGoodsNo"
+                        :label-width="formLabelWidth">
+                    <el-autocomplete
+                            :fetch-suggestions="querySearchAsync"
+                            v-model="form.bgGoodsNo"
+                            @select="GoodSelect"
+                            auto-complete="off"></el-autocomplete>
+                    <el-button
+                            :disabled="form.selectGood.baseGoods.bgGoodsId==0"
+                            @click="formAddGoods"
+                            size="small"
+                            type="info">添加
+                    </el-button>
+                </el-form-item>
+            </el-form>
             <el-table
                     :data="form.pdsGoods"
                     highlight-current-row
@@ -400,7 +412,7 @@
                     </template>
                 </el-table-column>
             </el-table>
-        </el-form>
+        </div>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary"
                        :disabled="form.pdsGoods.length==0"
@@ -842,6 +854,7 @@
                     },
                     Count: 0
                 };
+                selectVC('ref_form', 'bgGoodsNo');
             },                                        //货品明细控制 选中下拉菜单中的货品
             querySearchAsync: function (queryString, cb) {
                 postGoods(this, {
@@ -883,6 +896,7 @@
             },                                                //新建 表单提交
             formAddGoods: function () {
                 obj.form.pdsGoods.push(obj.form.selectGood);
+                obj.form.selectGood = selectGood();
                 obj.form.bgGoodsNo = '';
             },
             deleteGoods: function (index, row) {
@@ -1072,7 +1086,8 @@
             pdChargePerson: '',
             mrGoodsIds: [],
             pdsGoods: [],
-            bgGoodsNo: ''
+            bgGoodsNo: '',
+            selectGood: selectGood()
         }
     }
 
@@ -1112,13 +1127,8 @@
             baseGoods: {
                 bgGoodsNo: '',
                 bgGoodsName: '',
-                bgGoodsId: 1
-            },
-            baseDw: {
-                bdDwid: '',
-                bdName: ''
-            },
-            Count: 0
+                bgGoodsId: 0
+            }
         }
     }
 
