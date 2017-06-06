@@ -32,6 +32,7 @@ function generateNode(tree) {
         var data = [];
         for (var i = 0; i < tree[0].children.length; i++) {
             tree[tree[0].children[i].bmOrderNumber].head = tree[0].children[i].bmMenuName;
+            tree[tree[0].children[i].bmOrderNumber].bmMenuId = tree[0].children[i].bmMenuId;
             data.push(tree[tree[0].children[i].bmOrderNumber]);
         }
         return data;
