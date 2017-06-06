@@ -274,6 +274,41 @@ var _option = false;
 function selectReturn() {
     _option = false;
 }
+function _pickerOptions() {
+    return {
+        shortcuts: [{
+            text: '最近一周',
+            onClick: function (picker) {
+                var end = new Date();
+                var start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                selectReturn();
+                picker.$emit('pick', [start, end]);
+            }
+        }, {
+            text: '最近一个月',
+            onClick: function (picker) {
+                var end = new Date();
+                var start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                selectReturn();
+                picker.$emit('pick', [start, end]);
+            }
+        }, {
+            text: '最近三个月',
+            onClick: function (picker) {
+                var end = new Date();
+                var start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                selectReturn();
+                picker.$emit('pick', [start, end]);
+            }
+        }],
+        onPick: function (maxDate, minDate) {
+            selectReturn();
+        }
+    }
+}
 
 function tsf_date(date, number) {
     if (typeof date !== 'undefined' && date !== null && date !== '') {
