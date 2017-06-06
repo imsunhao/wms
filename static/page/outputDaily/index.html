@@ -305,16 +305,16 @@
                                 icon="search"
                                 placeholder="客户地址"></el-input>
                     </el-form-item>
-                    <el-form-item label="出库状态"
-                                  :label-width="formLabelWidth">
-                        <el-select v-model="form.ckStatus" placeholder="请选择">
-                            <el-option :value="-1" label="全部"></el-option>
-                            <el-option :value="21" label="部分分拣"></el-option>
-                            <el-option :value="31" label="全部分拣"></el-option>
-                            <el-option :value="23" label="部分出库"></el-option>
-                            <el-option :value="32" label="全部出库"></el-option>
-                        </el-select>
-                    </el-form-item>
+                <el-form-item label="出库状态"
+                              :label-width="formLabelWidth">
+                    <el-select v-model="form.ckStatus" placeholder="请选择">
+                        <el-option :value="-1" label="全部"></el-option>
+                        <el-option :value="21" label="部分分拣"></el-option>
+                        <el-option :value="31" label="全部分拣"></el-option>
+                        <el-option :value="22" label="部分下架"></el-option>
+                        <el-option :value="32" label="全部下架"></el-option>
+                    </el-select>
+                </el-form-item>
                     <el-form-item label="是否滞留"
                                   :label-width="formLabelWidth">
                         <el-select v-model="form.cksZlStatus" placeholder="请选择">
@@ -371,6 +371,7 @@
                                   :label-width="formLabelWidth">
                         <el-select v-model="form.cksQhStatus" placeholder="请选择">
                             <el-option :value="-1" label="全部"></el-option>
+                            <el-option :value="1" label="全部欠货"></el-option>
                             <el-option :value="2" label="部分欠货"></el-option>
                             <el-option :value="3" label="未欠货"></el-option>
                         </el-select>
@@ -391,7 +392,7 @@
                                 class="input"
                                 v-model="form.bgGoodsNo"
                                 icon="search"
-                                placeholder="货品单号"></el-input>
+                                placeholder="货品编号"></el-input>
                     </el-form-item>
                     <el-form-item label="客户编号"
                                   :label-width="formLabelWidth">
@@ -413,7 +414,7 @@
                                   :label-width="formLabelWidth">
                         <el-input
                                 class="input"
-                                v-model="form.msxXjry"
+                                v-model="form.userName"
                                 icon="search"
                                 placeholder="作业人员"></el-input>
                     </el-form-item>
@@ -710,7 +711,7 @@
                         "ckClientId": this.form.ckClientId,
                         "cksGoodsId": this.form.cksGoodsId,
                         "bgGoodsName": this.form.bgGoodsName,
-                        "msxXjry": this.form.msxXjry,
+                        "msxXjry": this.form.userName,
                         "blLname": this.form.blLname,
                         "ckAdress": this.form.ckAdress,
                         "ckCkdjNo":this.form.ckCkdjNo,
@@ -1013,7 +1014,7 @@
             bgGoodsNo: '',              //模糊查询--货品编号
             ckCkdjClientno: '',          //模糊查询--客户编号
             ckCkdjClientname: '',        //模糊查询--客户名称
-            msxXjry: '',                  //模糊查询--作业人员
+            userName: '',                  //模糊查询--作业人员
             blLname: '',                //模糊查询--下架库位
             ckAdress: ''                  //模糊查询--客户地址
         }
