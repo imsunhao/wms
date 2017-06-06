@@ -509,6 +509,7 @@
                 <template scope="scope">
                     <el-button
                             size="small"
+                            v-show="scope.row.pdsStatus==1&&(scope.row.pdsRepertoryCount-scope.row.pdsPdCount)==0"
                             type="danger"
                             @click="inlineHeavyPlateInlineOperation(scope.$index, scope.row)">重盘
                     </el-button>
@@ -742,7 +743,11 @@
 //                this.dialogAssignmentVisible = true;
             },                            //行内按钮-分配任务
             inlineInventoryDetails: function (index, row) {
-                p[6].post({pdId: row.pdId});
+                p[6].post({pdId: row.pdId}, function (json) {
+                    obj.details = json.model;
+                    homeTimer = _timer({pdId: row.pdId});
+                    obj.dialogDetailsVisible = true;
+                });
             },                      //行内按钮-盘点详情
             inlineInventoryConfirm: function (index, row) {
                 var obj = this;
@@ -1004,12 +1009,7 @@
     // 6 循环盘点 盘点详情页面根据盘点计划ID查询详情
     p[6] = autoPost({
         urlHock: "",
-        urlProd: "/route/loopInventory/6",
-        success: function (json) {
-            obj.details = json.model;
-            obj.dialogDetailsVisible = true;
-
-        }
+        urlProd: "/route/loopInventory/6"
     });
 
     // 7 循环盘点 根据仓库id查找 所有人员
@@ -1108,6 +1108,7 @@
             }
         });
     }          // 4 获取货品编号
+
     function selectGood() {
         return {
             baseGoods: {
@@ -1123,6 +1124,18 @@
         }
     }
 
+    function _timer(option) {
+        return setInterval(function () {
+            if (obj.dialogDetailsVisible) {
+                p[6].post(option, function (json) {
+                    obj.details = json.model;
+                })
+            } else {
+                clearInterval(homeTimer);
+                homeTimer = 0;
+            }
+        }, 1000)
+    }
 
     // 高级 监视器的 使用方法
     //    loopInventory.$watch('date', function () {
