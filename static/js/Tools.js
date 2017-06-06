@@ -264,6 +264,11 @@ function autoValidate(option, cbs) {
      ]);*/
 
 }  //validate核心
+function selectVC(ref, prop) {
+    obj.$refs[ref].validateField(prop, function (valid) {
+        return valid;
+    });
+}        //validate select 验证补丁
 
 
 function tsf_date(date, number) {
@@ -387,4 +392,4 @@ var homeTimer = 0;                        //timer 核心
 var timer_span = {
     home: 30000,
     loopInventory: 10000
-};
+};                   //timer 配置文件
