@@ -152,6 +152,10 @@
 
     }
 
+    #loopInventory .__inner {
+        padding: 0 30px;
+    }
+
     #loopInventory .el-transfer .el-transfer-panel {
         width: 43.6%;
     }
@@ -347,29 +351,37 @@
                     finish-status="success">
             </el-steps>
         </div>
-        <el-form
-                :model="form"
-                ref="ref_form"
-                :label-width="formLabelWidth"
-                :rules="rule_form">
-            <el-form-item
-                    label="负责人"
-                    prop="pdChargePerson">
-                <el-input
-                        v-model="form.pdChargePerson"
-                        auto-complete="off"></el-input>
-            </el-form-item>
-            <el-form-item
-                    label="货品编号"
-                    prop="bgGoodsNo"
-                    :label-width="formLabelWidth">
-                <el-autocomplete
-                        :fetch-suggestions="querySearchAsync"
-                        v-model="form.bgGoodsNo"
-                        @select="GoodSelect"
-                        auto-complete="off"></el-autocomplete>
-                <el-button @click="formAddGoods" size="small" type="info">添加</el-button>
-            </el-form-item>
+        <div class="__inner">
+            <el-form
+                    :model="form"
+                    :inline="true"
+                    ref="ref_form"
+                    :label-width="formLabelWidth"
+                    :rules="rule_form">
+                <el-form-item
+                        label="负责人"
+                        prop="pdChargePerson">
+                    <el-input
+                            v-model="form.pdChargePerson"
+                            auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item
+                        label="货品编号"
+                        prop="bgGoodsNo"
+                        :label-width="formLabelWidth">
+                    <el-autocomplete
+                            :fetch-suggestions="querySearchAsync"
+                            v-model="form.bgGoodsNo"
+                            @select="GoodSelect"
+                            auto-complete="off"></el-autocomplete>
+                    <el-button
+                            :disabled="form.selectGood.baseGoods.bgGoodsId==0"
+                            @click="formAddGoods"
+                            size="small"
+                            type="info">添加
+                    </el-button>
+                </el-form-item>
+            </el-form>
             <el-table
                     :data="form.pdsGoods"
                     highlight-current-row
@@ -400,7 +412,7 @@
                     </template>
                 </el-table-column>
             </el-table>
-        </el-form>
+        </div>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary"
                        :disabled="form.pdsGoods.length==0"
@@ -509,6 +521,7 @@
                 <template scope="scope">
                     <el-button
                             size="small"
+                            v-show="scope.row.pdsStatus==1&&(scope.row.pdsRepertoryCount - scope.row.pdsPdCount)==0"
                             type="danger"
                             @click="inlineHeavyPlateInlineOperation(scope.$index, scope.row)">重盘
                     </el-button>
@@ -538,13 +551,13 @@
         prop: {},
         data: function () {
             return {
-                _assignment: [],                          //分配任务 弹出层 信息集合(表单格式)
+                _assignment: [],                         //分配任务 弹出层 信息集合(表单格式)
                 assignment: [],                          //分配任务 弹出层 信息集合(表单格式)
                 assignmentVal: [],
                 assignmentForm: _assignmentForm(),
 
                 pdId: '',
-                dialogAssignmentVisible: false,           //分配任务 弹出层 是否可见
+                dialogAssignmentVisible: false,          //分配任务 弹出层 是否可见
                 assignmentLoading: true,
 
 
@@ -717,7 +730,7 @@
                             step.push({
                                 pdId: obj.pdId,
                                 userId: obj.people[i].ruUserId,
-                                userName: obj.people[i].userName,
+                                userName: obj.people[i].ruUserName,
                                 ids: obj.people[i].val
                             });
                         }
@@ -742,7 +755,11 @@
 //                this.dialogAssignmentVisible = true;
             },                            //行内按钮-分配任务
             inlineInventoryDetails: function (index, row) {
-                p[6].post({pdId: row.pdId});
+                p[6].post({pdId: row.pdId}, function (json) {
+                    obj.details = json.model;
+                    homeTimer = _timer({pdId: row.pdId});
+                    obj.dialogDetailsVisible = true;
+                });
             },                      //行内按钮-盘点详情
             inlineInventoryConfirm: function (index, row) {
                 var obj = this;
@@ -824,7 +841,6 @@
             },                                                  //新建 弹出层banner控制 后一个
 
             GoodSelect: function (item) {
-                console.log(item);
                 this.form.selectGood = selectGood();
                 this.form.selectGood = {
                     baseGoods: {
@@ -838,6 +854,7 @@
                     },
                     Count: 0
                 };
+                selectVC('ref_form', 'bgGoodsNo');
             },                                        //货品明细控制 选中下拉菜单中的货品
             querySearchAsync: function (queryString, cb) {
                 postGoods(this, {
@@ -879,6 +896,7 @@
             },                                                //新建 表单提交
             formAddGoods: function () {
                 obj.form.pdsGoods.push(obj.form.selectGood);
+                obj.form.selectGood = selectGood();
                 obj.form.bgGoodsNo = '';
             },
             deleteGoods: function (index, row) {
@@ -960,7 +978,6 @@
     });
 
     // 1 循环盘点 新增循环盘点计划及明细
-
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/loopInventory/1",
@@ -1004,12 +1021,7 @@
     // 6 循环盘点 盘点详情页面根据盘点计划ID查询详情
     p[6] = autoPost({
         urlHock: "",
-        urlProd: "/route/loopInventory/6",
-        success: function (json) {
-            obj.details = json.model;
-            obj.dialogDetailsVisible = true;
-
-        }
+        urlProd: "/route/loopInventory/6"
     });
 
     // 7 循环盘点 根据仓库id查找 所有人员
@@ -1074,7 +1086,8 @@
             pdChargePerson: '',
             mrGoodsIds: [],
             pdsGoods: [],
-            bgGoodsNo: ''
+            bgGoodsNo: '',
+            selectGood: selectGood()
         }
     }
 
@@ -1108,21 +1121,29 @@
             }
         });
     }          // 4 获取货品编号
+
     function selectGood() {
         return {
             baseGoods: {
                 bgGoodsNo: '',
                 bgGoodsName: '',
-                bgGoodsId: 1
-            },
-            baseDw: {
-                bdDwid: '',
-                bdName: ''
-            },
-            Count: 0
+                bgGoodsId: 0
+            }
         }
     }
 
+    function _timer(option) {
+        return setInterval(function () {
+            if (obj.dialogDetailsVisible) {
+                p[6].post(option, function (json) {
+                    obj.details = json.model;
+                })
+            } else {
+                clearInterval(homeTimer);
+                homeTimer = 0;
+            }
+        }, timer_span.loopInventory)
+    }
 
     // 高级 监视器的 使用方法
     //    loopInventory.$watch('date', function () {

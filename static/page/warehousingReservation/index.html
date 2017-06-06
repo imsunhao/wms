@@ -611,6 +611,7 @@
                             <el-form-item label="货品编号" :label-width="formLabelWidth">
                                 <el-autocomplete
                                         :fetch-suggestions="querySearchAsync"
+                                        ref="ref_bgGoodsNo"
                                         v-model="form.selectGood.baseGoods.bgGoodsNo"
                                         :disabled="!form.deleteARkDocsList"
                                         @select="GoodSelect"
@@ -624,6 +625,7 @@
                                     :label-width="formLabelWidth">
                                 <el-input
                                         :disabled="form.selectGood.value==''"
+                                        ref="ref_rksCount"
                                         @keyup.enter.native="GoodEnter"
                                         v-model.number="form.selectGood.rksCount"
                                         auto-complete="off"></el-input>
@@ -633,7 +635,7 @@
                     <el-row>
                         <el-col :span="8" :offset="16" v-show="!watchView">
                             <el-button size="small" @click="saveDocsList"
-                                       :disabled="form.saveARkDocsList">保存明细
+                                       :disabled="form.saveARkDocsList||form.selectGood.rksCount==0">保存明细
                             </el-button>
                             <el-button size="small" @click="deleteARkDocsList" :disabled="form.deleteARkDocsList"
                                        type="danger">删除明细
@@ -1024,7 +1026,7 @@
                     }
                 });
 
-            },                                                  //新建入库单据 弹出层banner控制 后一个
+            },                                               //新建入库单据 弹出层banner控制 后一个
             submit: function () {
                 var _this = this;
                 this.dialogFormActive++;
@@ -1081,26 +1083,6 @@
                 this.$refs.carousel.setActiveItem(0);
             },                                       //观察提交
 
-            validateRkRkdjNo: function (rule, value, callback) {
-                if (validateRule.a.exec(value)) {
-                    callback(new Error('不允许存在特殊字符!'));
-                }
-                else {
-                    callback();
-                }
-            },                 //validate 入库单号
-            formValidateField: function (formName) {
-//                console.log(warehousingReservation.$refs[formName]);
-//                console.log(warehousingReservation.$refs);
-//                setTimeout(function () {
-//                    return warehousingReservation.$refs[formName].validate(function (valid) {
-//                        console.log(valid);
-//                        return valid;
-//                    })
-//                },0);
-            },                             //表单 string验证
-
-
             querySearchAsync: function (queryString, cb) {
                 postGoods(this, {
                     bgGoodsNo: queryString,
@@ -1127,19 +1109,21 @@
                     rksGoodsId: item.data.bgGoodsId,
                     data: item.data
                 };
+                obj.$refs.ref_rksCount.$el.querySelector('input').focus();
             },                                        //货品明细控制 选中下拉菜单中的货品
             GoodClick: function (item) {
                 this.form.saveARkDocsList = true;
                 this.form.deleteARkDocsList = false;
                 this.form.selectGood = item;
-                console.log(item);
+                obj.$refs.ref_rksCount.$el.querySelector('input').focus();
             },                                         //货品明细控制 选中form中的货品
             GoodEnter: function () {
                 if (this.form.deleteARkDocsList === false) {
                     this.form.selectGood = selectGood();
                     this.form.saveARkDocsList = true;
                     this.form.deleteARkDocsList = true;
-                } else if (this.form.saveARkDocsList === false) {
+                    obj.$refs.ref_bgGoodsNo.$el.querySelector('input').focus();
+                } else if (this.form.saveARkDocsList === false && this.form.selectGood.rksCount !== 0) {
                     this.saveDocsList();
                 }
             },
@@ -1149,6 +1133,7 @@
                         obj.form.rkDocsList.push(obj.form.selectGood);
                         obj.form.selectGood = selectGood();
                         obj.form.saveARkDocsList = true;
+                        obj.$refs.ref_bgGoodsNo.$el.querySelector('input').focus();
                     } else {
                         return false;
                     }
@@ -1249,11 +1234,7 @@
                 return temp[value];
             },                                      //制单方式
 
-            selectVC: function (ref, prop) {
-                this.$refs[ref].validateField(prop, function (valid) {
-                    return valid;
-                });
-            }
+
 
         },
         watch: {
@@ -1511,7 +1492,7 @@
     }
     function validate_form2() {
         return {
-            rksCount: ['vNull', 'vNumber', 'vZZNumber'],
+            rksCount: ['vNull', 'vNumber', 'vNumberZZ', 'vWS4'],
         }
     }
     function validate_warehousingReservationCombinationDetails() {

@@ -36,6 +36,7 @@
                     :data="aLibraryFrozenSelect"
                     :max-height="570"
                     ref="table"
+                    @selection-change="multiSelectionChange"
                     @expand="expandChange"
                     class="aLibraryFrozenSelectTable"
                     style="width: 100%">
@@ -584,7 +585,7 @@
                     "pageSize": this.pageSize,
                     "startCreateTimeParam": tsf_date( this.form.djCreateTime[0]),
                     "endCreateTimeParam": tsf_date( this.form.djCreateTime[1]),
-                     "startJdTimeParam": tsf_date( this.form.djJdTime[0]),
+                    "startJdTimeParam": tsf_date( this.form.djJdTime[0]),
                     "endJdTimeParam": tsf_date( this.form.djJdTime[1]),
                     "djCreateUserName":this.form.djCreateUserName,
                     "djJdUserName":this.form.djJdUserName,
@@ -667,7 +668,7 @@
             },                                   //分页 Size
             expandChange: function (row, expanded) {
                 if (typeof (row.inputOperation) === 'undefined' && expanded) {
-                    postInputOperation(this, row);
+//                    postInputOperation(this, row);
                 }
                 /*<debug>*/
                 console.log(row);
