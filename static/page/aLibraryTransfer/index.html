@@ -187,13 +187,13 @@
                 <button @click="newInput" class="btn btn-add"><i
                         class="icon add"></i><span>新增</span>
                 </button>
-                    <button @click="multiSelectClick" class="btn btn-multiSelect"><i
-                            class="icon sel"></i><span>多选</span>
-                    </button>
+                <button @click="multiSelectClick" class="btn btn-multiSelect"><i
+                        class="icon sel"></i><span>多选</span>
+                </button>
 
-                    <button @click="multiMoreOperationDelete" class="btn btn-del" v-show="multiSelect"><i
-                            class="icon del"></i><span>批量删除</span>
-                    </button>
+                <button @click="multiMoreOperationDelete" class="btn btn-del" v-show="multiSelect"><i
+                        class="icon del"></i><span>批量删除</span>
+                </button>
             </div>
             <el-table
                     :data="aLibraryTransfer"
@@ -336,85 +336,53 @@
             size="large"
             v-model="dialogFormVisible">
         <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">{{form.title}}</span>
+            <span class="el-dialog__title">新建库存转移</span>
             <el-steps
                     class="steps"
                     :space="120"
                     :active="dialogFormActive"
                     finish-status="success">
+                <el-step title="基础信息"></el-step>
+                <el-step title="选择库存"></el-step>
             </el-steps>
         </div>
-        <el-form :model="form" ref="newForm">
-            <el-carousel
-                    ref="carousel"
-                    :autoplay="false"
-                    arrow="never"
-                    indicator-position="none"
-                    height="55vh">
-                <el-carousel-item>
-                    <el-row>
-                        <el-col :span="10">
-                            <el-form-item
-                                    label="创建时间"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.zyCreateTime"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="提起人"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.zyMentionUserName"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
+        <el-carousel
+                ref="carousel"
+                :autoplay="false"
+                arrow="never"
+                indicator-position="none"
+                height="55vh">
+            <el-carousel-item>
+                <el-form
+                        v-model="form"
+                        ref="ref_form"
+                        :label-width="formLabelWidth">
+                    <el-form-item
+                            label="提起人"
+                            :label-width="formLabelWidth">
+                        <el-input
+                                v-model="form.zyMentionUserName"
+                                auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item
+                            label="转移原因"
+                            :label-width="formLabelWidth">
+                        <el-input
+                                v-model="form.zyReason"
+                                auto-complete="off"></el-input>
+                    </el-form-item>
+                </el-form>
+                <el-table
+                        :data="form.data">
 
-                            <el-form-item
-                                    label="创建人"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.zyCreateUserName"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="确认人"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.zyConfirmUserName"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-
-                        </el-col>
-                        <el-col :span="10" :offset="2">
-                            <el-form-item
-                                    label="转移原因"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.zyReason"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="确认时间"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.zyConfirmTime"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="转移状态"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.zyStatus"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                </el-carousel-item>
-            </el-carousel>
-        </el-form>
+                </el-table>
+            </el-carousel-item>
+        </el-carousel>
 
         <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="submit" :loading="submitLoading">保存
+            <el-button @click="submit" :loading="submitLoading">保存
+            </el-button>
+            <el-button type="primary" @click="submit">选择一条库存
             </el-button>
         </div>
     </el-dialog>
@@ -507,17 +475,21 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-                currentTotal:0,
+                currentTotal: 0,
+
+
                 date: [null, null],                 //主页面 选择日期 搜索
-                zyMentionUserName: '',             //主页面 提起人 搜索
-                zyCreateUserName:'',               //主页面 创建人 搜索
-                zyStatus:'',                        //主页面 转移状态
+                zyMentionUserName: '',              //主页面 提起人 搜索
+                zyCreateUserName: '',                //主页面 创建人 搜索
+                zyStatus: '',                        //主页面 转移状态
+
+
                 formLabelWidth: '120px',            //表单 配置
-                form: form(),                           //表单 弹出层 信息集合
+                form: _form(),                      //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
-                select: form(),                         //搜索 弹出层 信息集合,
+                select: _form_stock(),                    //搜索 弹出层 信息集合,
                 printf: [],                         //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
                 dialogPrintfVisible: false,
@@ -534,9 +506,9 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "zyMentionUserName":this.zyMentionUserName.trim(),
-                    "zyCreateUserName":this.zyCreateUserName.trim(),
-                    "zyStatus":this.zyStatus,
+                    "zyMentionUserName": this.zyMentionUserName.trim(),
+                    "zyCreateUserName": this.zyCreateUserName.trim(),
+                    "zyStatus": this.zyStatus,
                     "startCreateTimeParam": tsf_date(this.date[0]),
                     "endCreateTimeParam": tsf_date(this.date[1]),
                 }
@@ -558,14 +530,9 @@
                     "rkrwStatus": this.form.rkrwStatus
                 }
             },
-            distributionForm: function () {
-                return {
-                    distribution: this.distribution
-                }
-            },                                      //分配 表单
         },
         methods: {
-            inlineDelete:function(){
+            inlineDelete: function () {
                 var _this = this;
                 _this.$confirm('此操作将删除库存转移单据, 是否继续?', '提示', {
                     confirmButtonText: '确定',
@@ -589,9 +556,9 @@
                 this.form.zyMentionUserName = row.zyMentionUserName;
                 this.form.zyCreateUserName = row.zyCreateUserName;
                 this.form.zyConfirmUserName = row.zyConfirmUserName;
-                this.form.zyReason=row.zyReason;
-                this.form.zyConfirmTime=row.zyConfirmTime;
-                this.form.zyStatus=row.zyStatus;
+                this.form.zyReason = row.zyReason;
+                this.form.zyConfirmTime = row.zyConfirmTime;
+                this.form.zyStatus = row.zyStatus;
                 this.dialogFormVisible = true;
                 this.dialogFormActive = 0;
                 Vue.nextTick(function () {
@@ -637,7 +604,7 @@
 //                }
             },                              //TODO 多选 删除
             newInput: function () {
-                this.form = form();
+                this.form = _form();
                 this.dialogFormVisible = true;
                 this.dialogFormActive = 0;
                 Vue.nextTick(function () {
@@ -656,7 +623,7 @@
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                p[0].post( this.option);
+                p[0].post(this.option);
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
@@ -701,17 +668,17 @@
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                p[0].post( {});
+                p[0].post({});
             },                                          //详细查询 提交
             printfSubmit: function () {
-                var datas=[];
-                var checkData=aLibraryTransfer.$refs.printf.getCheckedNodes();
-                for(var i in checkData){
-                    if(typeof checkData[i].val2!=='undefined'){
+                var datas = [];
+                var checkData = aLibraryTransfer.$refs.printf.getCheckedNodes();
+                for (var i in checkData) {
+                    if (typeof checkData[i].val2 !== 'undefined') {
                         datas.push(checkData[i]);
                     }
                 }
-                this.printDatas=datas;
+                this.printDatas = datas;
                 this.dialogPelectVisible = !this.dialogPrintfVisible;
                 wap.print(this);
             },                                          //打印 提交
@@ -725,40 +692,38 @@
                         return resolve(this.printf);
                     case 1:
                         postRkrwNo(this, {
-                            rkrwNo:node.data.rkrwNo,
-                            rkrwDhrq:node.data.rkrwDhrq
+                            rkrwNo: node.data.rkrwNo,
+                            rkrwDhrq: node.data.rkrwDhrq
                         }, resolve);
                         break;
                     case 2:
                         console.log(node.data.name);
                         postRkdjId(this, {
-                            rkrwNo:node.data.rkrwNo,
-                            rkrwDhrq:node.data.rkrwDhrq
+                            rkrwNo: node.data.rkrwNo,
+                            rkrwDhrq: node.data.rkrwDhrq
                         }, resolve);
                         break;
                     case 3:
                         return resolve([]);
                 }
             },
-            auto_zyStatus:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        0:'未确认',
-                        1:'确认',
-                        2:'作废',
+            auto_zyStatus: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        0: '未确认',
+                        1: '确认',
+                        2: '作废',
                     }
-                }else{
-                    temp={
-                        '未确认':0,
-                        '确认':1,
-                        '作废':2
+                } else {
+                    temp = {
+                        '未确认': 0,
+                        '确认': 1,
+                        '作废': 2
                     }
                 }
                 return temp[value];
-            },                                        //转移状态
-
-
+            },                                       //转移状态
         },
         watch: {
             zyMentionUserName: function () {
@@ -782,29 +747,43 @@
         }
     });
     // 高级 监视器的 使用方法
-        aLibraryTransfer.$watch('date', function () {
-            /*<debug>*/
-            console.log(this.option);
-            /*</debug>*/
-            p[0].post( this.option);
-        }, {deep: true});
-    function form() {
+    aLibraryTransfer.$watch('date', function () {
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        p[0].post(this.option);
+    }, {deep: true});
+
+
+    function _form() {
         return {
-            zyCreateTime:'',
-            zyMentionUserName:'',
-            zyCreateUserName:'',
-            zyConfirmUserName:'',
-            zyReason:'',
-            zyConfirmTime:'',
-            zyStatus:'',
-            zyCreateTime:[null,null],//模糊查询--创建日期
-            zyStatus:'',//模糊查询--转移状态
-            zyMentionUserName:'',//模糊查询--提起人
-            zyConfirmUserName:''//模糊查询--确认人
+            data: [],
+
+
+            blLname: '',
+            bgGoodsNo: '',
+            bgGoodsName: ''
+
+
         }
     }
-    var obj=aLibraryTransfer;
-    var p=[];
+
+    function _form_stock() {
+        return {
+            zyCreateUserName: '',
+            zyReason: '',
+            zyConfirmTime: '',
+
+            zyCreateTime: [null, null],//模糊查询--创建日期
+            zyStatus: '',//模糊查询--转移状态
+            zyMentionUserName: '',//模糊查询--提起人
+            zyConfirmUserName: ''//模糊查询--确认人
+        }
+    }
+
+    var obj = aLibraryTransfer;
+    var p = [];
+
     // 0 库存转移 分页查询
     p[0] = autoPost({
         urlHock: "../../hock/aLibraryTransfer/page.json",
@@ -814,49 +793,49 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-     // 1 库存转移 新增
+    // 1 库存转移 新增
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryTransfer/1",
         success: function (json) {
         }
     });
-     // 2 库存转移 编辑
+    // 2 库存转移 编辑
     p[2] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryTransfer/2",
         success: function (json) {
         }
     });
-      // 3 库存转移 分页 根据货品id 库位id 仓库id 合并获取库存单据
+    // 3 库存转移 分页 根据货品id 库位id 仓库id 合并获取库存单据
     p[3] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryTransfer/3",
         success: function (json) {
         }
     });
-       // 4 库存转移 软删除多个或单个库存转移数据
+    // 4 库存转移 软删除多个或单个库存转移数据
     p[4] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryTransfer/4",
         success: function (json) {
         }
     });
-       // 5 库存转移 分页获取库存转移单据(包含详细信息)
+    // 5 库存转移 分页获取库存转移单据(包含详细信息)
     p[5] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryTransfer/5",
         success: function (json) {
         }
     });
-       // 6 库存转移 通过库存转移单据id删除库存转移单据
+    // 6 库存转移 通过库存转移单据id删除库存转移单据
     p[6] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryTransfer/6",
         success: function (json) {
         }
     });
-       // 7 库存转移 通过库存转移单据id获取一条库存转移单据
+    // 7 库存转移 通过库存转移单据id获取一条库存转移单据
     p[7] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryTransfer/7",
@@ -865,18 +844,25 @@
     });
 
     p[0].post(aLibraryTransfer.option);
-    function printfCompile(obj) {
-        var resoleveStep = [];
-        for (var i = 0; i < obj.multipleSelection.length; i++) {
-            resoleveStep.push({
-                name: obj.multipleSelection[i].rkrwNo,
-                rkrwNo:obj.multipleSelection[i].rkrwNo,
-                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
-            });
-        }
-        obj.printf = resoleveStep;
-    }           //打印
 
+
+    // 101 库存查询 分页查询
+    p[101] = autoPost({
+        urlHock: "/hock/stockSelect/page.json",
+        urlProd: "/route/stockSelect/0",
+        success: function (json) {
+            obj.$data.stockSelect = json.data;
+            obj.$data.currentTotal = json.recordsFiltered;
+        }
+    });
+    // 102 库存查询 导出
+    p[102] = autoPost({
+        urlHock: "",
+        urlProd: "/route/stockSelect/1",
+        method: "GET",
+        success: function (json) {
+        }
+    });
 </script>
 
 

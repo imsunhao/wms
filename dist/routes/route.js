@@ -213,7 +213,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 11:
                         urlName = '入库预约-删除 入库单';
-                        req = autoUrl(req, '/mfunrkDoc/' + req.query.id, "DELETE", function (json) {
+                        req = autoUrl(req, '/mfunrkDoc/deleteOfSoft', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -264,37 +264,37 @@ router.param('_url', function (req, res, next, url) {
             case 'warehousingTask':
                 switch (parseInt(req.params._status)) {
                     case 0:
-                        urlName = '查询-入库任务';
+                        urlName = '入库任务 查询-入库任务';
                         req = autoUrl(req, '/mfunrkRwDoc', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 1:
-                        urlName = '修改';
+                        urlName = '入库任务 修改';
                         req = autoUrl(req, '/mfunrkRwDoc', "PUT", function (json) {
                             res.send(json);
                         });
                         break;
                     case 5:
-                        urlName = '下发-入库任务';
+                        urlName = '入库任务 下发-入库任务';
                         req = autoUrl(req, '/mfunrkRwDoc/issued', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 6:
-                        urlName = '查询-入库任务详情';
+                        urlName = '入库任务 查询-入库任务详情';
                         req = autoUrl(req, '/mfunrkRwDoc/' + req.query.rkrwId, "GET", function (json) {
                             res.send(json);
                         });
                         break;
                     case 7:
-                        urlName = '查询-入库单号-入库明细';
+                        urlName = '入库任务 查询-入库单号-入库明细';
                         req = autoUrl(req, '/mfunrkDoc/' + req.query.rkRkdjId, "GET", function (json) {
                             res.send(json);
                         });
                         break;
                     case 8:
-                        urlName = '查询-入库单据';
+                        urlName = '入库任务 查询-入库单据';
                         req = autoUrl(req, '/mfunrkDoc', "POST", function (json) {
                             res.send(json);
                         });
@@ -1076,7 +1076,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '出库日报 导出';
-                        req = autoUrl(req, 'mfunck/exportCkRbByExcel', "POST", function (json) {
+                        req = autoUrl(req, '/mfunck/exportCkRbByExcel', "POST", function (json) {
                             res.send(json);
                         });
                         break;

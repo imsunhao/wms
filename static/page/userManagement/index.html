@@ -824,6 +824,13 @@
 
                 /*<prod>*/
                 this.form.ruBirthday = (new Date(this.form.ruBirthday)).toJSON();
+                if (this.form.ruPortrait === '') {
+                    if (this.form.ruSex) {
+                        this.form.ruPortrait = 'base1.png'
+                    } else {
+                        this.form.ruPortrait = 'base2.png'
+                    }
+                }
                 if (this.form.title === '新建用户') {
                     this.form.roleIds.push(this.form.roleId);
                     p[1].post(this.form);
@@ -904,7 +911,7 @@
             ruRemarks: '',
 
             ruLastModifiedTime: (new Date()).toJSON(),
-            "ruPortrait": "03.jpg",
+            "ruPortrait": "",
             "roleIds": [],
 
 

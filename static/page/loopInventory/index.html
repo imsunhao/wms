@@ -349,9 +349,9 @@
         </div>
         <el-form
                 :model="form"
-                 ref="ref_form"
-                 :label-width="formLabelWidth"
-                 :rules="rule_form">
+                ref="ref_form"
+                :label-width="formLabelWidth"
+                :rules="rule_form">
             <el-form-item
                     label="负责人"
                     prop="pdChargePerson">
@@ -371,41 +371,42 @@
                 <el-button @click="formAddGoods" size="small" type="info">添加</el-button>
             </el-form-item>
             <el-table
-                :data="form.pdsGoods"
-                highlight-current-row
-                style="width: 100%">
-            <el-table-column
-                    type="index"
-                    width="55">
-            </el-table-column>
-            <el-table-column
-                    label="货品编号"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="baseGoods.bgGoodsNo">
-            </el-table-column>
-            <el-table-column
-                    label="货品名称"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="baseGoods.bgGoodsName">
-            </el-table-column>
-            <el-table-column
-                    label="可用操作"
-                    width="120"
-                    align="center">
-                <template scope="scope">
-                    <el-button @click="deleteGoods(scope.$index,scope.row)" size="small" type="danger"
-                               icon="delete"></el-button>
-                </template>
-            </el-table-column>
-        </el-table>
+                    :data="form.pdsGoods"
+                    highlight-current-row
+                    style="width: 100%">
+                <el-table-column
+                        type="index"
+                        width="55">
+                </el-table-column>
+                <el-table-column
+                        label="货品编号"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="baseGoods.bgGoodsNo">
+                </el-table-column>
+                <el-table-column
+                        label="货品名称"
+                        show-overflow-tooltip
+                        align="center"
+                        prop="baseGoods.bgGoodsName">
+                </el-table-column>
+                <el-table-column
+                        label="可用操作"
+                        width="120"
+                        align="center">
+                    <template scope="scope">
+                        <el-button @click="deleteGoods(scope.$index,scope.row)" size="small" type="danger"
+                                   icon="delete"></el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary"
                        :disabled="form.pdsGoods.length==0"
                        @click="submit"
-                       :loading="submitLoading">保存</el-button>
+                       :loading="submitLoading">保存
+            </el-button>
         </div>
     </el-dialog>
     <el-dialog
@@ -509,7 +510,7 @@
                     <el-button
                             size="small"
                             type="danger"
-                            @click="heavyPlateInlineOperation(scope.$index, scope.row)">重盘
+                            @click="inlineHeavyPlateInlineOperation(scope.$index, scope.row)">重盘
                     </el-button>
                 </template>
             </el-table-column>
@@ -526,10 +527,10 @@
             val: []
         }
     }
-    function validate_form(){
-        return{
-            pdChargePerson:'vNull',
-            bgGoodsNo:'vNull',
+    function validate_form() {
+        return {
+            pdChargePerson: 'vNull',
+            bgGoodsNo: 'vNull',
         }
     }
     var loopInventory = new Vue({
@@ -541,6 +542,8 @@
                 assignment: [],                          //分配任务 弹出层 信息集合(表单格式)
                 assignmentVal: [],
                 assignmentForm: _assignmentForm(),
+
+                pdId: '',
                 dialogAssignmentVisible: false,           //分配任务 弹出层 是否可见
                 assignmentLoading: true,
 
@@ -562,7 +565,7 @@
                 currentPage: 1,
                 pageSize: 10,
                 currentTotal: 0,
-                rule_form:autoValidate(validate_form()),//新增 验证规则
+                rule_form: autoValidate(validate_form()),//新增 验证规则
                 date: [null, null],                 //主页面 选择日期 搜索
                 rkRkdjNo: '',                       //主页面 入库单号 搜索
                 formLabelWidth: '120px',            //表单 配置
@@ -616,10 +619,10 @@
         methods: {
             nodeClick: function (value, data, node) {
 
-                /*var step = _form();
-                 allPrposCb(step, function (obj, index) {
-                 if (typeof row[index] !== 'undefined') step[index] = row[index];
-                 });*/
+//                var step2 = _assignmentForm();
+//                 allPrposCb(step2, function (obj, index) {
+//                 if (typeof value[index] !== 'undefined') step2[index] = value[index];
+//                 });
                 var i = 0;
                 var step = [];
 
@@ -642,7 +645,7 @@
                 obj.assignmentForm = value;
                 obj.assignmentLoading = false;
 
-            },
+            },                           //分配任务 点击用户头像
             handleChange: function handleChange(value, direction, movedKeys) {
                 console.log(value, direction, movedKeys);
                 var i = 0;
@@ -665,11 +668,11 @@
                         break;
 
                 }
-            },
+            },  //分配任务 分配任务与取消任务
             filterNode: function (value, data) {
                 if (!value) return true;
                 return data.ruLoginName.indexOf(value) !== -1;
-            },
+            },                                //分配任务 模糊查询用户
             treeRenderContent: function (h, node) {
                 return h(
                     'div', {
@@ -702,8 +705,9 @@
                         }, node.data.ruUserName)
                     ]
                 )
-            },
+            },                             //分配任务 界面控制
             assignment_submit: function () {
+
                 if (obj.assignment.length - obj.assignmentForm.val.length !== 0) {
                     obj.$alert('还有任务没有被分配！');
                 } else {
@@ -711,7 +715,9 @@
                     for (var i = 0; i < obj.people.length; i++) {
                         if (obj.people[i].val.length !== 0) {
                             step.push({
+                                pdId: obj.pdId,
                                 userId: obj.people[i].ruUserId,
+                                userName: obj.people[i].userName,
                                 ids: obj.people[i].val
                             });
                         }
@@ -722,16 +728,22 @@
                         })
                     })
                 }
-            },
+            },                                    //分配任务 保存按钮
 
 
             inlineAssignment: function (index, row) {
-                p[5].post({pdId: row.pdId});
+
+
+                p[5].post({pdId: row.pdId}, function (json) {
+                    obj._assignment = json.model;
+                    obj.pdId = row.pdId;
+                    obj.dialogAssignmentVisible = true;
+                });
 //                this.dialogAssignmentVisible = true;
-            },                           //行内按钮-分配任务
+            },                            //行内按钮-分配任务
             inlineInventoryDetails: function (index, row) {
                 p[6].post({pdId: row.pdId});
-            },                     //行内按钮-盘点详情
+            },                      //行内按钮-盘点详情
             inlineInventoryConfirm: function (index, row) {
                 var obj = this;
                 obj.$confirm('确认此盘点计划, 是否继续?', '提示', {
@@ -746,7 +758,25 @@
                         message: '已取消'
                     });
                 });
-            },                     //行内按钮-盘点确认
+            },                      //行内按钮-盘点确认
+
+            inlineHeavyPlateInlineOperation: function (index, row) {
+                obj.$confirm('确认重盘此货品:' + row.baseGoods.bgGoodsNo + '\r\n所在库位为' + row.baseLocation.blLname, '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    p[2].post({
+                        "pdsId": row.pdsId
+                    })
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },             //行内按钮-重盘
+
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -764,6 +794,7 @@
                     remove(this.multipleSelectionCombination[i], this.warehousingReservationCombination);
                 }
             },                                   //多选 删除
+
             newInput: function () {
                 this.form = _form();
                 this.dialogFormVisible = true;
@@ -828,7 +859,7 @@
                         }
                         p[1].post({
                             "pdCreateUserId": app.rmsUser.ruUserId,
-                            "pdChargePerson": this.form.pdChargePerson,
+                            "pdChargePerson": obj.form.pdChargePerson,
                             "pdArehouseId": window.dbmessage.baseArehouses[0].baArehouseId,
                             "mrGoodsIds": ids
                         }, function (json) {
@@ -875,7 +906,7 @@
                     }
                 }
                 return temp[value];
-            },                                         //盘点类型
+            },                                      //盘点类型
             auto_pdStatus: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {
@@ -892,7 +923,7 @@
                     }
                 }
                 return temp[value];
-            },                                       //盘点状态
+            },                                    //盘点状态
             auto_pdDiffStatus: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {
@@ -908,7 +939,7 @@
                     }
                 }
                 return temp[value];
-            },                                   //差异状态
+            },                                //差异状态
         },
         watch: {
             filterText: function (val) {
@@ -967,16 +998,7 @@
     // 5 循环盘点 分配任务页面根据盘点计划ID查询详情
     p[5] = autoPost({
         urlHock: "",
-        urlProd: "/route/loopInventory/5",
-        success: function (json) {
-            obj._assignment = json.model;
-
-//            for (var i = 0; i < obj.people.length; i++) {
-//                obj.people[i].val = [];
-//            }
-//            obj.assignmentForm = _assignmentForm();
-            obj.dialogAssignmentVisible = true;
-        }
+        urlProd: "/route/loopInventory/5"
     });
 
     // 6 循环盘点 盘点详情页面根据盘点计划ID查询详情

@@ -18,9 +18,9 @@ router.post('/', function (req, res, next) {
             return;
         }
 
-        var step={};
-        extendDeepCopy(req.session.user.rmsUser,step);
-        step.ruPortrait='/static/images/users/' + path;
+        var step = {};
+        extendDeepCopy(req.session.user.rmsUser, step);
+        step.ruPortrait = path;
 
         request({
             url: 'http://' + server.host + ':' + server.port + server.path + '/user',
@@ -32,7 +32,8 @@ router.post('/', function (req, res, next) {
             body: step
         }, function (error, response, json) {
             if (!error && response.statusCode === 200) {
-                if(req.session.user.rmsUser.ruPortrait!=='') fs.unlink('../public' + req.session.user.rmsUser.ruPortrait);
+                var oldPortrait = req.session.user.rmsUser.ruPortrait;
+                if (oldPortrait !== '' && oldPortrait !== 'base1.png' && oldPortrait !== 'base2.png') fs.unlink('../public/static/images/users/' + req.session.user.rmsUser.ruPortrait);
                 req.session.user.rmsUser.ruPortrait = step.ruPortrait;
                 res.end(JSON.stringify({status: 200, ruPortrait: req.session.user.rmsUser.ruPortrait}));
             } else {
@@ -47,15 +48,16 @@ router.post('/', function (req, res, next) {
 });
 
 
-function extendDeepCopy(obj,newObj) {
-    var newObj=newObj||{};
-    for(var i in obj){
-        if(typeof obj[i]==='object'){
-            newObj[i]=(obj[i].constructor===Array)?[]:{};
-            extendDeepCopy(obj[i],newObj[i]);
-        }else{
-            newObj[i]=obj[i];
-        }
+function extendDeepCopy(obj, newObj) {
+    var newObj = newObj || {};
+    for (var i in obj) {
+        newObj[i] = obj[i];
+        // if (typeof obj[i] === 'object') {
+        //     newObj[i] = (obj[i].constructor === Array) ? [] : {};
+        //     extendDeepCopy(obj[i], newObj[i]);
+        // } else {
+        //
+        // }
     }
     return newObj;
 }     //深克隆
