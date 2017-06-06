@@ -830,7 +830,7 @@
                     type: 'warning'
                 }).then(function () {
                     p[3].post({
-                        ids: [row.rks_rkmx_id]
+                        ids: [row.rk_rkdj_id]
                     }, function (json) {
                         this.callbackAfter({status: json.status, model: "导出入库台账"}, function () {
                             var url = "/static/Excel/" + json.model;
