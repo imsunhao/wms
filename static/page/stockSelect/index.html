@@ -214,8 +214,7 @@
                 </el-form-item>
                 <el-form-item label="所属仓库" :label-width="formLabelWidth">
                     <el-select
-                            :disabled="watchView"
-                            v-model="form.baArehouseId"
+                            v-model="form.mrArehouseId"
                             placeholder="请选择所属仓库">
                         <el-option :value="-1" label="全部"></el-option>
                         <el-option :label="obj.baName" :value="obj.baArehouseId"
@@ -636,7 +635,6 @@
             selectSubmit: function () {
                 p[0].post(obj.form_pop);
                 this.dialogSelectVisible = false;
-
             },                                          //详细查询 提交
             printfSubmit: function () {
                 var datas = [];
@@ -704,7 +702,7 @@
             bgGoodsName: '',    //模糊查询--货品名称
             blLname: '',//模糊查询--库位名称
             mrGoodsBatch: '',//模糊查询--货品批次
-            baArehouseId: '' //模糊查询--仓库
+            mrArehouseId: ''//模糊查询--仓库
         }
     }
     var obj = stockSelect;
