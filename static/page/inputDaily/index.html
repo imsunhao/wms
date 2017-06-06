@@ -262,13 +262,13 @@
                     </el-form-item>
                 </el-col>
                 <el-col :span="8" :offset="2">
-                    <el-form-item label="货品姓名"
+                    <el-form-item label="货品名称"
                                   :label-width="formLabelWidth">
                         <el-input
                                 class="input"
                                 v-model="form.bg_goods_name"
                                 icon="search"
-                                placeholder="货品姓名"></el-input>
+                                placeholder="货品名称"></el-input>
                     </el-form-item>
                     <el-form-item label="入库单号"
                                   :label-width="formLabelWidth">
@@ -292,8 +292,8 @@
                             <el-option :value="-1" label="全部"></el-option>
                             <el-option :value="21" label="部分分配"></el-option>
                             <el-option :value="22" label="全部分配"></el-option>
-                            <el-option :value="31" label="部分上架"></el-option>
-                            <el-option :value="32" label="全部上架"></el-option>
+                            <el-option :value="31" label="部分收货"></el-option>
+                            <el-option :value="32" label="完全收货"></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item label="制单方式"
