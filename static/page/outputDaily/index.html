@@ -88,10 +88,10 @@
                                         <span>{{ auto_ckStatus(props.row.mfunckDoc.ckStatus)}}</span>
                                     </el-form-item>
                                     <el-form-item label="欠货状态">
-                                        <span>{{ auto_cksQhStatus(props.row.mfunckDoc.cksQhStatus ) }}</span>
+                                        <span>{{ auto_cksQhStatus(props.row.mfunckDocs.cksQhStatus ) }}</span>
                                     </el-form-item>
                                     <el-form-item label="滞留状态">
-                                        <span>{{ auto_cksZlStatus(props.row.mfunckDoc.cksZlStatus ) }}</span>
+                                        <span>{{ auto_cksZlStatus(props.row.mfunckDocs.cksZlStatus ) }}</span>
                                     </el-form-item>
                                     <el-form-item label="货品编号">
                                         <span>{{ props.row.mfunRepertory.baseGoods.bgGoodsNo}}</span>
@@ -202,7 +202,7 @@
                         align="center">
                     <template scope="scope">
                         <el-tag
-                                close-transition>{{auto_cksQhStatus(scope.row.mfunckDoc.ckQhStatus)}}
+                                close-transition>{{auto_cksQhStatus(scope.row.mfunckDocs.cksQhStatus)}}
                         </el-tag>
                     </template>
                 </el-table-column>
@@ -211,7 +211,7 @@
                         align="center">
                     <template scope="scope">
                         <el-tag
-                                close-transition>{{auto_cksZlStatus(scope.row.mfunckDoc.ckZjStatus )}}
+                                close-transition>{{auto_cksZlStatus(scope.row.mfunckDocs.cksZlStatus )}}
                         </el-tag>
                     </template>
                 </el-table-column>
