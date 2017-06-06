@@ -538,13 +538,13 @@
         prop: {},
         data: function () {
             return {
-                _assignment: [],                          //分配任务 弹出层 信息集合(表单格式)
+                _assignment: [],                         //分配任务 弹出层 信息集合(表单格式)
                 assignment: [],                          //分配任务 弹出层 信息集合(表单格式)
                 assignmentVal: [],
                 assignmentForm: _assignmentForm(),
 
                 pdId: '',
-                dialogAssignmentVisible: false,           //分配任务 弹出层 是否可见
+                dialogAssignmentVisible: false,          //分配任务 弹出层 是否可见
                 assignmentLoading: true,
 
 
@@ -717,7 +717,7 @@
                             step.push({
                                 pdId: obj.pdId,
                                 userId: obj.people[i].ruUserId,
-                                userName: obj.people[i].userName,
+                                userName: obj.people[i].ruUserName,
                                 ids: obj.people[i].val
                             });
                         }
