@@ -42,7 +42,7 @@
     </el-row>
     <el-row>
         <el-button type="success">导入菜单</el-button>
-        <el-button type="warning">导出菜单</el-button>
+        <el-button type="warning" @click="output">导出菜单</el-button>
         <el-button type="danger">删除现有菜单</el-button>
         <el-button type="info" @click="submit">保存更改</el-button>
     </el-row>
@@ -175,6 +175,18 @@
 //                }
 
                 /*</prod>*/
+            },
+            output:function () {
+                var menuData = menu.$refs.dataBaseMenu.getCheckedNodes();
+                var menuStep = {};
+                var step = [];
+                for (var i = 0; i < menuData.length; i++) {
+                    menuStep = menuForm();
+                    menuStep.bmMenuName = this.dataBaseMenu[i].head||this.dataBaseMenu[i].bmMenuName;
+                    menuStep.bmMenuId = this.dataBaseMenu[i].bmMenuId;
+                    step.push(menuStep);
+                }
+                console.log(JSON.stringify(step));
             }
         }
     });
