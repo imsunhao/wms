@@ -509,7 +509,7 @@
                 <template scope="scope">
                     <el-button
                             size="small"
-                            v-show="scope.row.pdsStatus==1&&(scope.row.pdsRepertoryCount-scope.row.pdsPdCount)==0"
+                            v-show="scope.row.pdsStatus==1&&(scope.row.pdsRepertoryCount - scope.row.pdsPdCount)==0"
                             type="danger"
                             @click="inlineHeavyPlateInlineOperation(scope.$index, scope.row)">重盘
                     </el-button>
@@ -829,7 +829,6 @@
             },                                                  //新建 弹出层banner控制 后一个
 
             GoodSelect: function (item) {
-                console.log(item);
                 this.form.selectGood = selectGood();
                 this.form.selectGood = {
                     baseGoods: {
@@ -965,7 +964,6 @@
     });
 
     // 1 循环盘点 新增循环盘点计划及明细
-
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/loopInventory/1",
@@ -1134,7 +1132,7 @@
                 clearInterval(homeTimer);
                 homeTimer = 0;
             }
-        }, 1000)
+        }, timer_span.loopInventory)
     }
 
     // 高级 监视器的 使用方法

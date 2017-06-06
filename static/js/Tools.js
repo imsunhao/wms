@@ -201,7 +201,7 @@ function autoValidate(option, cbs) {
         },                      //不含有 特殊符号
 
         vWS4: function (rule, value, callback) {
-            if ((value+'').length > 4) {
+            if ((value + '').length > 4) {
                 return callback(new Error('必须小于4位!'));
             }
             else {
@@ -210,7 +210,7 @@ function autoValidate(option, cbs) {
 
         },                      //必须小于4位
         vWS16: function (rule, value, callback) {
-            if ((value+'').length > 16) {
+            if ((value + '').length > 16) {
                 return callback(new Error('必须小于16位!'));
             }
             else {
@@ -383,3 +383,8 @@ function auto_portrait(portrait) {
 }
 
 var homeTimer = 0;                        //timer 核心
+
+var timer_span = {
+    home: 30000,
+    loopInventory: 10000
+};

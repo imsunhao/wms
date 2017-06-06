@@ -1083,26 +1083,6 @@
                 this.$refs.carousel.setActiveItem(0);
             },                                       //观察提交
 
-            validateRkRkdjNo: function (rule, value, callback) {
-                if (validateRule.a.exec(value)) {
-                    callback(new Error('不允许存在特殊字符!'));
-                }
-                else {
-                    callback();
-                }
-            },                 //validate 入库单号
-            formValidateField: function (formName) {
-//                console.log(warehousingReservation.$refs[formName]);
-//                console.log(warehousingReservation.$refs);
-//                setTimeout(function () {
-//                    return warehousingReservation.$refs[formName].validate(function (valid) {
-//                        console.log(valid);
-//                        return valid;
-//                    })
-//                },0);
-            },                             //表单 string验证
-
-
             querySearchAsync: function (queryString, cb) {
                 postGoods(this, {
                     bgGoodsNo: queryString,
@@ -1255,7 +1235,7 @@
             },                                      //制单方式
 
             selectVC: function (ref, prop) {
-                this.$refs[ref].validateField(prop, function (valid) {
+                obj.$refs[ref].validateField(prop, function (valid) {
                     return valid;
                 });
             }
