@@ -198,7 +198,26 @@ function autoValidate(option, cbs) {
             else {
                 return callback();
             }
-        },                      //不含有 特殊符号utoValidateRule("((?=[\x21-\x7e\u4e00-\u9fa5\（\）\《\》\——\；\，\。\“\”\<\>\！、]+)[^A-Za-z0-9])", '不允许存在特殊字符!'),
+        },                      //不含有 特殊符号
+
+        vWS4: function (rule, value, callback) {
+            if ((value+'').length > 4) {
+                return callback(new Error('必须小于4位!'));
+            }
+            else {
+                return callback();
+            }
+
+        },                      //必须小于4位
+        vWS16: function (rule, value, callback) {
+            if ((value+'').length > 16) {
+                return callback(new Error('必须小于16位!'));
+            }
+            else {
+                return callback();
+            }
+
+        },                     //必须小于16位
     };
 
     // function autoValidateRule(string, model) {

@@ -1135,17 +1135,17 @@
                 this.form.saveARkDocsList = true;
                 this.form.deleteARkDocsList = false;
                 this.form.selectGood = item;
-                console.log(item);
+                obj.$refs.ref_rksCount.$el.querySelector('input').focus();
             },                                         //货品明细控制 选中form中的货品
             GoodEnter: function () {
                 if (this.form.deleteARkDocsList === false) {
                     this.form.selectGood = selectGood();
                     this.form.saveARkDocsList = true;
                     this.form.deleteARkDocsList = true;
+                    obj.$refs.ref_bgGoodsNo.$el.querySelector('input').focus();
                 } else if (this.form.saveARkDocsList === false && this.form.selectGood.rksCount !== 0) {
                     this.saveDocsList();
                 }
-                obj.$refs.ref_bgGoodsNo.$el.querySelector('input').focus();
             },
             saveDocsList: function () {
                 this.$refs['refForm2'].validate(function (valid) {
@@ -1153,6 +1153,7 @@
                         obj.form.rkDocsList.push(obj.form.selectGood);
                         obj.form.selectGood = selectGood();
                         obj.form.saveARkDocsList = true;
+                        obj.$refs.ref_bgGoodsNo.$el.querySelector('input').focus();
                     } else {
                         return false;
                     }
@@ -1515,7 +1516,7 @@
     }
     function validate_form2() {
         return {
-            rksCount: ['vNull', 'vNumber', 'vNumberZZ'],
+            rksCount: ['vNull', 'vNumber', 'vNumberZZ', 'vWS4'],
         }
     }
     function validate_warehousingReservationCombinationDetails() {
