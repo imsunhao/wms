@@ -270,6 +270,10 @@ function selectVC(ref, prop) {
     });
 }        //validate select 验证补丁
 
+var _option = false;
+function selectReturn() {
+    _option = false;
+}
 
 function tsf_date(date, number) {
     if (typeof date !== 'undefined' && date !== null && date !== '') {

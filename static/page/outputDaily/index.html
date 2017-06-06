@@ -17,7 +17,10 @@
                         class="input"
                         :picker-options="pickerOptions">
                 </el-date-picker>
-                <el-select v-model="ckStatus" placeholder="请选择">
+                <el-select
+                        @visible-change="selectReturn"
+                        v-model="ckStatus"
+                        placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="21" label="部分分拣"></el-option>
                     <el-option :value="31" label="全部分拣"></el-option>
@@ -242,8 +245,8 @@
             <span class="el-dialog__title">详细查询</span>
         </div>
         <el-form :model="form">
-        <el-row>
-            <el-col :span="7">
+            <el-row>
+                <el-col :span="7">
                     <el-form-item label="下单时间"
                                   :label-width="formLabelWidth">
                         <el-date-picker
@@ -267,25 +270,25 @@
                         </el-date-picker>
                     </el-form-item>
                     <el-form-item label="下架开始"
-                              :label-width="formLabelWidth">
-                    <el-date-picker
-                            v-model="form.ckCksj"
-                            type="date"
-                            align="right"
-                            placeholder="下架开始"
-                            class="input">
-                    </el-date-picker>
-                </el-form-item>
+                                  :label-width="formLabelWidth">
+                        <el-date-picker
+                                v-model="form.ckCksj"
+                                type="date"
+                                align="right"
+                                placeholder="下架开始"
+                                class="input">
+                        </el-date-picker>
+                    </el-form-item>
                     <el-form-item label="下架结束"
-                              :label-width="formLabelWidth">
-                    <el-date-picker
-                            v-model="form.ckEndtime"
-                            type="date"
-                            align="right"
-                            placeholder="下架结束"
-                            class="input">
-                    </el-date-picker>
-                </el-form-item>
+                                  :label-width="formLabelWidth">
+                        <el-date-picker
+                                v-model="form.ckEndtime"
+                                type="date"
+                                align="right"
+                                placeholder="下架结束"
+                                class="input">
+                        </el-date-picker>
+                    </el-form-item>
                     <el-form-item label="操作时间"
                                   :label-width="formLabelWidth">
                         <el-date-picker
@@ -305,16 +308,16 @@
                                 icon="search"
                                 placeholder="客户地址"></el-input>
                     </el-form-item>
-                <el-form-item label="出库状态"
-                              :label-width="formLabelWidth">
-                    <el-select v-model="form.ckStatus" placeholder="请选择">
-                        <el-option :value="-1" label="全部"></el-option>
-                        <el-option :value="21" label="部分分拣"></el-option>
-                        <el-option :value="31" label="全部分拣"></el-option>
-                        <el-option :value="22" label="部分下架"></el-option>
-                        <el-option :value="32" label="全部下架"></el-option>
-                    </el-select>
-                </el-form-item>
+                    <el-form-item label="出库状态"
+                                  :label-width="formLabelWidth">
+                        <el-select v-model="form.ckStatus" placeholder="请选择">
+                            <el-option :value="-1" label="全部"></el-option>
+                            <el-option :value="21" label="部分分拣"></el-option>
+                            <el-option :value="31" label="全部分拣"></el-option>
+                            <el-option :value="22" label="部分下架"></el-option>
+                            <el-option :value="32" label="全部下架"></el-option>
+                        </el-select>
+                    </el-form-item>
                     <el-form-item label="是否滞留"
                                   :label-width="formLabelWidth">
                         <el-select v-model="form.cksZlStatus" placeholder="请选择">
@@ -324,8 +327,8 @@
                             <el-option :value="3" label="未滞留"></el-option>
                         </el-select>
                     </el-form-item>
-            </el-col>
-            <el-col :span="6" :offset="2">
+                </el-col>
+                <el-col :span="6" :offset="2">
                     <el-form-item label="联系电话"
                                   :label-width="formLabelWidth">
                         <el-input
@@ -376,8 +379,8 @@
                             <el-option :value="3" label="未欠货"></el-option>
                         </el-select>
                     </el-form-item>
-            </el-col>
-            <el-col :span="6" :offset="2">
+                </el-col>
+                <el-col :span="6" :offset="2">
                     <el-form-item label="货品名称"
                                   :label-width="formLabelWidth">
                         <el-input
@@ -426,32 +429,11 @@
                                 icon="search"
                                 placeholder="下架库位"></el-input>
                     </el-form-item>
-            </el-col>
-        </el-row>
+                </el-col>
+            </el-row>
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
-        </div>
-    </el-dialog>
-    <el-dialog
-            size="large"
-            class="printf"
-            class="printf"
-            v-model="dialogPrintfVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">打印标签页</span>
-        </div>
-        <el-tree
-                :data="printf"
-                :props="{label: 'name',children: 'children'}"
-                :load="printfLoadNode"
-                lazy
-                show-checkbox
-                ref="printf"
-                @check-change="printfCheckChange">
-        </el-tree>
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="printfSubmit" :loading="printfLoading">打印</el-button>
         </div>
     </el-dialog>
 </div>
@@ -651,7 +633,7 @@
                     showLoading: false,
                     currentPage: 1,
                     pageSize: 10,
-                    currentTotal:0,
+                    currentTotal: 0,
                     date: [null, null],                 //主页面 选择日期 搜索
                     ckCkdjNo: '',                       //主页面 出库单号 搜索
                     ckStatus: '',                         //主页面 出库状态 搜索
@@ -687,11 +669,11 @@
                         "draw": 1,
                         "pageNum": this.currentPage,
                         "pageSize": this.pageSize,
-                        "ckStartXdsj": tsf_date( this.form.ckXdsj[0]),
-                        "ckEndXdsj": tsf_date( this.form.ckXdsj[1]),
+                        "ckStartXdsj": tsf_date(this.form.ckXdsj[0]),
+                        "ckEndXdsj": tsf_date(this.form.ckXdsj[1]),
                         "mhStartCreateTime": tsf_date(this.form.mhCreatetime[0]),
                         "mhEndCreateTime": tsf_date(this.form.mhCreatetime[1]),
-                        "ckCksj":tsf_date(this.form.ckCksj),
+                        "ckCksj": tsf_date(this.form.ckCksj),
                         "ckEndtime": tsf_date(this.form.ckEndtime),
                         "msxStartQrsj": tsf_date(this.form.msxQrsj[0]),
                         "msxEndQrsj": tsf_date(this.form.msxQrsj[0]),
@@ -714,7 +696,7 @@
                         "msxXjry": this.form.userName,
                         "blLname": this.form.blLname,
                         "ckAdress": this.form.ckAdress,
-                        "ckCkdjNo":this.form.ckCkdjNo,
+                        "ckCkdjNo": this.form.ckCkdjNo,
                         "ckQhStatus": this.form.ckQhStatus,
                         "bgGoodsNo": this.form.bgGoodsNo
                     }
@@ -784,18 +766,15 @@
 
                 },                                   //多选 打印标签页
                 handleSizeChange: function (val) {
-                    /*<debug>*/
-                    console.log('每页' + val + '条');
-                    /*</debug>*/
                     this.pageSize = val;
-                    p[0].post(this.option);
-                },                                   //分页 Size
+                    p[0].post((_option ? this.form_pop : this.option));
+                },
                 handleCurrentChange: function (val) {
                     /*<debug>*/
                     console.log('当前第' + val + '页');
                     /*</debug>*/
                     this.currentPage = val;
-                    p[0].post(this.option);
+                    p[0].post((_option ? this.form_pop : this.option));
                 },                                //分页 当前页
                 prev: function () {
                     this.dialogFormActive--;
@@ -840,45 +819,9 @@
                 },                                                //新建 表单提交
                 selectSubmit: function () {
                     p[0].post(obj.form_pop);
+                    _option = true;
                     this.dialogSelectVisible = false;
                 },                                          //详细查询 提交
-                printfSubmit: function () {
-                    var datas = [];
-                    var checkData = outputDaily.$refs.printf.getCheckedNodes();
-                    for (var i in checkData) {
-                        if (typeof checkData[i].val2 !== 'undefined') {
-                            datas.push(checkData[i]);
-                        }
-                    }
-                    this.printDatas = datas;
-                    this.dialogPelectVisible = !this.dialogPrintfVisible;
-                    wap.print(this);
-                },                                          //打印 提交
-                printfCheckChange: function () {
-
-                },                                     //打印 选中维护
-                printfLoadNode: function (node, resolve) {
-                    console.log(node.data);
-                    switch (node.level) {
-                        case 0:
-                            return resolve(this.printf);
-                        case 1:
-                            postRkrwNo(this, {
-                                rkrwNo: node.data.rkrwNo,
-                                rkrwDhrq: node.data.rkrwDhrq
-                            }, resolve);
-                            break;
-                        case 2:
-                            console.log(node.data.name);
-                            postRkdjId(this, {
-                                rkrwNo: node.data.rkrwNo,
-                                rkrwDhrq: node.data.rkrwDhrq
-                            }, resolve);
-                            break;
-                        case 3:
-                            return resolve([]);
-                    }
-                },
                 auto_ckStatus: function (value) {
                     var temp = {};
                     if (!isNaN(value)) {
@@ -975,15 +918,15 @@
             watch: {
                 ckStatus: function () {
                     /*<debug>*/
-                    console.log(this.option);
+                    console.log((_option ? this.form_pop : this.option));
                     /*</debug>*/
-                    p[0].post(this.option);
+                    p[0].post((_option ? this.form_pop : this.option));
                 },
                 ckCkdjNo: function () {
                     /*<debug>*/
-                    console.log(this.option);
+                    console.log((_option ? this.form_pop : this.option));
                     /*</debug>*/
-                    p[0].post(this.option);
+                    p[0].post((_option ? this.form_pop : this.option));
                 },
             },
         }
@@ -991,9 +934,9 @@
     // 高级 监视器的 使用方法
     outputDaily.$watch('date', function () {
         /*<debug>*/
-        console.log(this.option);
+        console.log((_option ? this.form_pop : this.option));
         /*</debug>*/
-        p[0].post(this.option);
+        p[0].post((_option ? this.form_pop : this.option));
     }, {deep: true});
     function _form() {
         return {
