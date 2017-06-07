@@ -22,7 +22,9 @@
                         v-model="pdOperator"
                         icon="search"
                         placeholder="经办人"></el-input>
-                <el-select v-model="pdType" placeholder="请选择">
+                <el-select
+                        @visible-change="selectReturn"
+                        v-model="pdType" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="0" label="异动盘点"></el-option>
                     <el-option :value="1" label="货品盘点"></el-option>
@@ -573,14 +575,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
@@ -648,6 +650,7 @@
                 });
             },                                                  //TODO 行内按钮--导出
             selectSubmit: function () {
+                _option = true;
                 p[0].post(obj.form_pop);
                 this.dialogSelectVisible = false;
 
@@ -707,15 +710,15 @@
         watch: {
             pdOperator: function () {
                 /*<debug>*/
-                console.log(this.option);
+                console.log((_option ? this.form_pop : this.option));
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },
             pdType: function () {
                 /*<debug>*/
-                console.log(this.option);
+                console.log((_option ? this.form_pop : this.option));
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },
 
         },
@@ -723,9 +726,9 @@
     // 高级 监视器的 使用方法
     inventorySelect.$watch('date', function () {
         /*<debug>*/
-        console.log(this.option);
+        console.log((_option ? this.form_pop : this.option));
         /*</debug>*/
-        p[0].post(this.option);
+        p[0].post((_option ? this.form_pop : this.option));
     }, {deep: true});
     inventorySelect.$watch('rmsUser.ruUserName', function () {
             /*<debug>*/
