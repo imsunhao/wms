@@ -142,6 +142,7 @@
                 for (var i = 0; i < this.dataBaseMenu.length; i++) {
                     menuStep = menuForm();
                     menuStep.bmMenuName = this.dataBaseMenu[i].head;
+                    menuStep.bmMenuId = this.dataBaseMenu[i].bmMenuId;
                     menuStep.bmMenuLevel = 1;
                     menuStep.bmOrderNumber = i + 1;
                     step.push(menuStep);
@@ -150,29 +151,28 @@
                         menuStep.bmMenuName = this.dataBaseMenu[i].children[b].label;
                         menuStep.bmMenuUrl = this.dataBaseMenu[i].children[b].url;
                         menuStep.bmMenuIcon = this.dataBaseMenu[i].children[b].bmMenuIcon;
+                        menuStep.bmMenuId = this.dataBaseMenu[i].children[b].bmMenuId;
                         menuStep.bmParentMenuId = i + 1;
                         menuStep.bmOrderNumber = b + 1;
                         step.push(menuStep);
                     }
                 }
 
-                /*<debug>*/
                 console.log(JSON.stringify(step));
-                /*</debug>*/
 
                 /*<prod>*/
 
-                for (i = 0; i < step.length; i++) {
-                    (function (i) {
-                        $.ajax('/moduleManagement/0', {
-                            type: "GET",
-                            data: step[i],
-                            success: function () {
-                                console.log(step[i].bmMenuName + '已经成功添加！');
-                            }
-                        })
-                    })(i);   //模块管理-新增菜单
-                }
+//                for (i = 0; i < step.length; i++) {
+//                    (function (i) {
+//                        $.ajax('/moduleManagement/0', {
+//                            type: "GET",
+//                            data: step[i],
+//                            success: function () {
+//                                console.log(step[i].bmMenuName + '已经成功添加！');
+//                            }
+//                        })
+//                    })(i);   //模块管理-新增菜单
+//                }
 
                 /*</prod>*/
             }

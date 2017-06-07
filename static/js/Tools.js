@@ -32,6 +32,7 @@ function generateNode(tree) {
         var data = [];
         for (var i = 0; i < tree[0].children.length; i++) {
             tree[tree[0].children[i].bmOrderNumber].head = tree[0].children[i].bmMenuName;
+            tree[tree[0].children[i].bmOrderNumber].bmMenuId = tree[0].children[i].bmMenuId;
             data.push(tree[tree[0].children[i].bmOrderNumber]);
         }
         return data;
@@ -273,6 +274,41 @@ function selectVC(ref, prop) {
 var _option = false;
 function selectReturn() {
     _option = false;
+}
+function _pickerOptions() {
+    return {
+        shortcuts: [{
+            text: '最近一周',
+            onClick: function (picker) {
+                var end = new Date();
+                var start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                selectReturn();
+                picker.$emit('pick', [start, end]);
+            }
+        }, {
+            text: '最近一个月',
+            onClick: function (picker) {
+                var end = new Date();
+                var start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                selectReturn();
+                picker.$emit('pick', [start, end]);
+            }
+        }, {
+            text: '最近三个月',
+            onClick: function (picker) {
+                var end = new Date();
+                var start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                selectReturn();
+                picker.$emit('pick', [start, end]);
+            }
+        }],
+        onPick: function (maxDate, minDate) {
+            selectReturn();
+        }
+    }
 }
 
 function tsf_date(date, number) {
