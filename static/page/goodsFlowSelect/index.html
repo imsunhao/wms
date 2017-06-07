@@ -599,14 +599,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
@@ -650,6 +650,7 @@
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
+                _option = true;
                 this.dialogSelectVisible = false;
                 p[0].post(obj.form_pop);
             },                                          //详细查询 提交
@@ -765,21 +766,21 @@
         watch: {
             bgGoodsName: function () {
                 /*<debug>*/
-                console.log(this.option);
+                console.log((_option ? this.form_pop : this.option));
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },
             bgGoodsNo: function () {
                 /*<debug>*/
-                console.log(this.option);
+                console.log((_option ? this.form_pop : this.option));
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },
             ckCkdjClientname: function () {
                 /*<debug>*/
-                console.log(this.option);
+                console.log((_option ? this.form_pop : this.option));
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },
         }
     });
@@ -819,11 +820,11 @@
 
     // 高级 监视器的 使用方法
     //    goodsFlowSelect.$watch('date', function () {
-    //        if (!this.option.dateStart)return;
+    //        if (!(_option ? this.form_pop : this.option).dateStart)return;
     //        /*<debug>*/
-    //        console.log(this.option);
+    //        console.log((_option ? this.form_pop : this.option));
     //        /*</debug>*/
-    //        post(this, this.option);
+    //        post(this, (_option ? this.form_pop : this.option));
     //    }, {deep: true});
 
     p[0].post(goodsFlowSelect.option);
