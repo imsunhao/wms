@@ -11,18 +11,20 @@ function generateNode(tree) {
     function formatTreeData(tree) {
         if (!tree)return;
         var formatTree = {};
+        var parentId = 0;
         for (var i = 0; i < tree.length; i++) {
-            if (formatTree[tree[i].bmParentMenuId]) {
+            parentId = tree[i].bmParentMenuId || 0;
+            if (formatTree[parentId]) {
                 tree[i].label = tree[i].bmMenuName;
                 tree[i].id = tree[i].bmMenuId;
-                formatTree[tree[i].bmParentMenuId].children.push(tree[i]);
+                formatTree[parentId].children.push(tree[i]);
             }
             else {
-                formatTree[tree[i].bmParentMenuId] = {};
-                formatTree[tree[i].bmParentMenuId].children = [];
+                formatTree[parentId] = {};
+                formatTree[parentId].children = [];
                 tree[i].id = tree[i].bmMenuId;
                 tree[i].label = tree[i].bmMenuName;
-                formatTree[tree[i].bmParentMenuId].children.push(tree[i]);
+                formatTree[parentId].children.push(tree[i]);
             }
         }
         return formatTree;
@@ -432,4 +434,4 @@ var homeTimer = 0;                        //timer 核心
 var timer_span = {
     home: 30000,
     loopInventory: 10000
-};                   //timer 配置文件
+};                   //timer   配置文件

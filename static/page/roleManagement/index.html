@@ -386,9 +386,8 @@
                                     ref="dataBaseMenu"
                                     :data="dataBaseMenu"
                                     node-key="id"
-                                    show-checkbox
+                                    :show-checkbox="true"
                                     accordion
-                                    :expand-on-click-node="true"
                                     :render-content="renderContent">
                             </el-tree>
                         </el-col>
@@ -726,7 +725,7 @@
                     for (var i = 0; i < obj.multipleSelection.length; i++) {
                         step.push(obj.multipleSelection[i].rrRoleId);
                     }
-                    p[6].post( {"ids": step});
+                    p[6].post({"ids": step});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -755,7 +754,7 @@
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                p[0].post( this.option);
+                p[0].post(this.option);
             },                                //分页 当前页
             newInput: function () {
                 var obj = this;
@@ -827,12 +826,30 @@
                 this.submitLoading = true;
                 //TODO 此处应是ajax请求
 
+                var menuData = obj.$refs.dataBaseMenu.getCheckedNodes();
+                var ids = [];
+                var parIds = [];
+                for (var i = 0; i < menuData.length; i++) {
+                    ids.push(menuData[i].bmMenuId);
+                    if (!addOrDelete(menuData[i].bmParentMenuId || 0, parIds)) parIds.push(menuData[i].bmParentMenuId || 0);
+                }
 
+                for (var b = 0; b < parIds.length; b++) {
+                    if (parIds[b] === 0)continue;
+                    if (!addOrDelete(app.nav[parIds[b] - 1].bmMenuId, ids)) {
+                        ids.push(app.nav[parIds[b] - 1].bmMenuId);
+                    }
+                }
                 /*<prod>*/
                 if (this.form.title === '新建角色') {
                     postSubmit(this, this.form);
                 } else {
-                    postModify(this, this.form);
+                    p[5].post({id: obj.form.rrRoleId, ids: ids}, function (json) {
+                        obj.submitLoading = false;
+                        obj.dialogFormVisible = false;
+                        this.callbackAfter(json);
+                    })
+//                    postModify(this, this.form);
                 }
                 /*</prod>*/
                 /*<debug>*/
@@ -856,7 +873,7 @@
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
-                p[0].post( this.option);
+                p[0].post(this.option);
             }
         }
     });
@@ -874,8 +891,8 @@
             menuIds: []
         }
     }                //弹出层 form 模板
-    var obj=roleManagement;
-    var p=[];
+    var obj = roleManagement;
+    var p = [];
     // 0 角色 分页查询
     p[0] = autoPost({
         urlHock: "../../hock/roleControl/page.json",
@@ -934,7 +951,8 @@
     // 5 角色 配置菜单
     p[5] = autoPost({
         urlHock: "../../hock/roleControl/.json",
-        urlProd: "/role/roleAddMenus/5",
+        urlProd: "/route/roleManagement/5",
+        method: 'GET',
         success: function (json) {
             roleManagement.$data.roleManagement = json.data;
             roleManagement.$data.currentTotal = json.recordsFiltered;
@@ -967,7 +985,7 @@
             }
         }
     });
-     // 7 角色 角色编辑
+    // 7 角色 角色编辑
     p[7] = autoPost({
         urlHock: "../../hock/roleControl/edit.json",
         urlProd: "/route/roleManagement/7",
@@ -976,7 +994,7 @@
             roleManagement.$data.currentTotal = json.recordsFiltered;
         }
     });
-     // 8 角色 角色名称不允许重复的接口
+    // 8 角色 角色名称不允许重复的接口
     p[8] = autoPost({
         urlHock: "../../hock/roleControl/edit.json",
         urlProd: "/route/roleManagement/8",
@@ -985,7 +1003,7 @@
             roleManagement.$data.currentTotal = json.recordsFiltered;
         }
     });
-     // 9 角色 查询所有仓库
+    // 9 角色 查询所有仓库
     p[9] = autoPost({
         urlHock: "../../hock/roleControl/edit.json",
         urlProd: "/route/roleManagement/9",
@@ -994,7 +1012,7 @@
             roleManagement.$data.currentTotal = json.recordsFiltered;
         }
     });
-      // 10 角色 查询所有客户
+    // 10 角色 查询所有客户
     p[10] = autoPost({
         urlHock: "../../hock/roleControl/edit.json",
         urlProd: "/route/roleManagement/10",
@@ -1003,7 +1021,7 @@
             roleManagement.$data.currentTotal = json.recordsFiltered;
         }
     });
-       // 11 角色 查询指定角色 菜单
+    // 11 角色 查询指定角色 菜单
     p[11] = autoPost({
         urlHock: "../../hock/roleControl/edit.json",
         urlProd: "/route/roleManagement/11",
@@ -1012,7 +1030,7 @@
             roleManagement.$data.currentTotal = json.recordsFiltered;
         }
     });
-       // 12 角色 查询指定角色 仓库
+    // 12 角色 查询指定角色 仓库
     p[12] = autoPost({
         urlHock: "../../hock/roleControl/edit.json",
         urlProd: "/route/roleManagement/12",
@@ -1021,7 +1039,7 @@
             roleManagement.$data.currentTotal = json.recordsFiltered;
         }
     });
-    p[0].post( roleManagement.option);
+    p[0].post(roleManagement.option);
     p[9].post();
     p[10].post();
     function postAdd(obj, option) {
@@ -1061,15 +1079,73 @@
             }
         });
     }             // 1  TODO　新增-启用-配置仓库-配置客户-配置菜单
-    function printfCompile(obj) {
-        var resoleveStep = [];
-        for (var i = 0; i < obj.multipleSelection.length; i++) {
-            resoleveStep.push({
-                name: obj.multipleSelection[i].rkrwNo,
-                rkrwNo:obj.multipleSelection[i].rkrwNo,
-                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
+
+    function getUserMenu(obj, option) {
+        var step = [];
+        var nav = [];
+        if (!option) {
+            nav = app.$data.nav;
+            getUserMenuInner();
+        } else {
+            $.ajax('/route/roleManagement/11', {
+                type: "GET",
+                data: option,
+                success: function (json) {
+                    if (json.length !== 0) {
+                        nav = generateNode(json);
+                    }
+                    getUserMenuInner();
+                }//TODO 异常问题
+            })
+        }
+        function getUserMenuInner() {
+            for (var i = 0; i < nav.length; i++) {
+                for (var b = 0; b < nav[i].children.length; b++) {
+                    step.push(nav[i].children[b])
+                }
+            }
+            obj.$refs.dataBaseMenu.setCheckedKeys([]);
+            Vue.nextTick(function () {
+                obj.$refs.dataBaseMenu.setCheckedNodes(step);
             });
         }
-        obj.printf = resoleveStep;
-    }				 //打印
+    }
+    function appendMenu(store, data) {
+        store.append({id: id++, label: 'testtest'}, data);
+    }
+    function removeMenu(store, data) {
+        store.remove(data);
+    }
+    function postBaseMenu(obj, option) {
+
+        /*<debug>*/
+        obj.$data.showLoading = true;
+        url = "/hock/main/Nav-DB.json";
+        $.ajax('/route/roleManagement/11', {
+            type: "GET",
+            data: option | {
+                "draw": 1,                      //* 没有意义
+                "pageNum": 1,                   //* 当前页
+                "pageSize": 10                  //* 每页大小
+            },
+            error: function (error) {
+                errorTip(obj, error);
+            },
+            success: function (json) {
+                obj.$data.dataBaseMenu = json.data;
+                getUserMenu();
+            },
+            complete: function () {
+                obj.$data.showLoading = false;
+            }
+        });
+        /*</debug>*/
+
+        /*<prod>*/
+        obj.$data.dataBaseMenu = app.$data.nav;
+        getUserMenu(obj, option);
+        /*</prod>*/
+
+
+    }
 </script>
