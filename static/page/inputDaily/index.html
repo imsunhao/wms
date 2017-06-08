@@ -16,8 +16,11 @@
                         class="input"
                         v-model="rk_rkdj_no"
                         icon="search"
+                        @change="selectReturn"
                         placeholder="入库单号"></el-input>
-                <el-select v-model="rk_status" placeholder="请选择">
+                <el-select
+                        @visible-change="selectReturn"
+                        v-model="rk_status" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="21" label="部分分配"></el-option>
                     <el-option :value="31" label="部分收货"></el-option>
@@ -508,33 +511,7 @@
                 inputDaily: [],
                 multipleSelection: [],
                 multiSelect: false,
-                pickerOptions: {
-                    shortcuts: [{
-                        text: '最近一周',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近一个月',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近三个月',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }]
-                },
+                pickerOptions: _pickerOptions(),
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
@@ -677,14 +654,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
@@ -728,6 +705,7 @@
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
+                _option = true;
                 p[0].post(obj.form_pop);
                 this.dialogSelectVisible = false;
 
@@ -842,15 +820,15 @@
         watch: {
             rk_rkdj_no: function () {
                 /*<debug>*/
-                console.log(this.option);
+                console.log((_option ? this.form_pop : this.option));
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },
             rk_status: function () {
                 /*<debug>*/
-                console.log(this.option);
+                console.log((_option ? this.form_pop : this.option));
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },
 
         }
@@ -858,9 +836,9 @@
     // 高级 监视器的 使用方法
     inputDaily.$watch('date', function () {
         /*<debug>*/
-        console.log(this.option);
+        console.log((_option ? this.form_pop : this.option));
         /*</debug>*/
-        p[0].post(this.option);
+        p[0].post((_option ? this.form_pop : this.option));
     }, {deep: true});
 
 

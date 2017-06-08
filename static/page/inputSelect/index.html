@@ -5,6 +5,7 @@
         <el-col :span="24">
             <div class="inner btn-nav">
                 <el-input
+                        @change="selectReturn"
                         class="input"
                         v-model="rjdkNo"
                         icon="search"
@@ -17,7 +18,9 @@
                         class="input"
                         :picker-options="pickerOptions">
                 </el-date-picker>
-                <el-select v-model="shzt" placeholder="请选择">
+                <el-select
+                        @visible-change="selectReturn"
+                        v-model="shzt" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="1" label="原始状态"></el-option>
                     <el-option :value="21" label="部分分配"></el-option>
@@ -286,6 +289,15 @@
                     <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="1" label="电脑端"></el-option>
                     <el-option :value="2" label="PDA"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="所属仓库" :label-width="formLabelWidth">
+                <el-select
+                        :disabled="watchView"
+                        v-model="form.ckId"
+                        placeholder="请选择所属仓库">
+                    <el-option :label="obj.baName" :value="obj.baArehouseId"
+                               v-for="obj of baseArehouses"></el-option>
                 </el-select>
             </el-form-item>
         </el-form>
@@ -593,36 +605,12 @@
         prop: {},
         data: function () {
             return {
+                baseArehouses: window.dbmessage.baseArehouses,
+                watchView: false,                   //观察状态量-是否为查看
                 inputSelect: [],
                 multipleSelection: [],
                 multiSelect: false,
-                pickerOptions: {
-                    shortcuts: [{
-                        text: '最近一周',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近一个月',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近三个月',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }]
-                },
+                pickerOptions:_pickerOptions(),
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
@@ -673,13 +661,15 @@
                     "pageSize": this.pageSize,
                     "xdsjStart": tsf_date(this.form.xdsj[0]),
                     "xdsjEnd": tsf_date(this.form.xdsj[1]),
-                    "sjsjStart": tsf_date(this.form.sjsj[0]),
-                    "sjsjEnd": tsf_date(this.form.sjsj[1]),
+                    "sjsjStart": tsf_date(this.form.sjsj),
+                    "sjsjEnd": tsf_date(this.form. jssj),
                     "rkdh": tsf_date(this.form.rjdkNo),
                     "djzt": tsf_date(this.form.shzt),
                     "zzfs": this.form.zdfs,
                     "czfs": this.form.czfs,
                     "jssj": tsf_date(this.form.jssj),
+                    "ckId":this.form.ckId,
+//                    "ckmc":this.form,ckmc,
                 }
             },
             search: function () {
@@ -904,14 +894,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                p[0].post( this.option);
+                p[0].post( (_option ? this.form_pop : this.option));
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                p[0].post( this.option);
+                p[0].post( (_option ? this.form_pop : this.option));
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
@@ -955,6 +945,7 @@
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
+                _option = true;
                 p[0].post(obj.form_pop);
                 this.dialogSelectVisible = false;
             },                                          //详细查询 提交
@@ -1087,34 +1078,37 @@
         watch:{
             rjdkNo: function () {
                 /*<debug>*/
-                console.log(this.option);
+                console.log((_option ? this.form_pop : this.option));
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },
             shzt: function () {
                 /*<debug>*/
-                console.log(this.option);
+                console.log((_option ? this.form_pop : this.option));
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },
         }
     });
     // 高级 监视器的 使用方法
         inputSelect.$watch('date', function () {
             /*<debug>*/
-            console.log(this.option);
+            console.log((_option ? this.form_pop : this.option));
             /*</debug>*/
-            p[0].post( this.option);
+            p[0].post( (_option ? this.form_pop : this.option));
         }, {deep: true});
     function _form() {
         return {
             xdsj:[null,null],     //模糊查询--下单时间
-            sjsj:[null,null],     //模糊查询--上架开始时间
-            jssj:[null,null],       //模糊查询--上架结束时间
+            sjsj:'',     //模糊查询--上架开始时间
+            jssj:'',       //模糊查询--上架结束时间
             rjdkNo:'',             //模糊查询--入库单号
             shzt:'',                //模糊查询--入库状态
             zdfs:'',                //模糊查询--制单方式
             czfs:'',                 //模糊查询--操作方式
+//            ckmc:'',
+            ckId:'',
+
         }
     }
     var obj=inputSelect;

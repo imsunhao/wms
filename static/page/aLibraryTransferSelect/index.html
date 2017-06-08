@@ -13,11 +13,14 @@
                         :picker-options="pickerOptions">
                 </el-date-picker>
                 <el-input
+                        @change="selectReturn"
                         v-model="zyCreateUserName"
                         class="input"
                         icon="search"
                         placeholder="创建人"></el-input>
-                <el-select v-model="zyStatus" placeholder="请选择">
+                <el-select
+                        @visible-change="selectReturn"
+                        v-model="zyStatus" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="0" label="初始"></el-option>
                     <el-option :value="1" label="已确认"></el-option>
@@ -275,7 +278,6 @@
                         :disabled="watchView"
                         v-model="form.zyArehouseId"
                         placeholder="请选择所属仓库">
-                    <el-option :value="-1" label="全部"></el-option>
                     <el-option :label="obj.baName" :value="obj.baArehouseId"
                                v-for="obj of baseArehouses"></el-option>
                 </el-select>
@@ -560,33 +562,7 @@
                 aLibraryTransferSelect: [],
                 multipleSelection: [],
                 multiSelect: false,
-                pickerOptions: {
-                    shortcuts: [{
-                        text: '最近一周',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近一个月',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近三个月',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }]
-                },
+                pickerOptions: _pickerOptions(),
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
@@ -719,7 +695,7 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },                                   //分页 Size
             expandChange: function (row, expanded) {
 
@@ -733,7 +709,7 @@
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },                                //分页 当前页
             newInput: function () {
                 this.dialogFormVisible = true;
@@ -781,6 +757,7 @@
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
+                _option = true;
                 p[0].post(obj.form_pop);
                 this.dialogSelectVisible = false;
 
@@ -808,15 +785,15 @@
         watch: {
             zyCreateUserName: function () {
                 /*<debug>*/
-                console.log(this.option);
+                console.log((_option ? this.form_pop : this.option));
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },
             zyStatus: function () {
                 /*<debug>*/
-                console.log(this.option);
+                console.log((_option ? this.form_pop : this.option));
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },
         }
     });
@@ -834,9 +811,9 @@
     // 高级 监视器的 使用方法
     aLibraryTransferSelect.$watch('date', function () {
         /*<debug>*/
-        console.log(this.option);
+        console.log((_option ? this.form_pop : this.option));
         /*</debug>*/
-        p[0].post(this.option);
+        p[0].post((_option ? this.form_pop : this.option));
     }, {deep: true});
     var obj = aLibraryTransferSelect;
     var p = [];
