@@ -5,6 +5,7 @@
         <el-col :span="24">
             <div class="inner btn-nav">
                 <el-input
+                        @change="selectReturn"
                         v-model="rmsUser.ruUserName"
                         class="input"
                         icon="search"
@@ -17,12 +18,14 @@
                         class="input"
                         :picker-options="pickerOptions">
                 </el-date-picker>
-                <el-input
-                        class="input"
-                        v-model="pdOperator"
-                        icon="search"
-                        placeholder="经办人"></el-input>
-                <el-select v-model="pdType" placeholder="请选择">
+                <!--<el-input-->
+                        <!--class="input"-->
+                        <!--v-model="pdOperator"-->
+                        <!--icon="search"-->
+                        <!--placeholder="经办人"></el-input>-->
+                <el-select
+                        @visible-change="selectReturn"
+                        v-model="pdType" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="0" label="异动盘点"></el-option>
                     <el-option :value="1" label="货品盘点"></el-option>
@@ -247,7 +250,6 @@
                         :disabled="watchView"
                         v-model="form.pdArehouseId"
                         placeholder="请选择所属仓库">
-                    <el-option :value="-1" label="全部"></el-option>
                     <el-option :label="obj.baName" :value="obj.baArehouseId"
                                v-for="obj of baseArehouses"></el-option>
                 </el-select>
@@ -466,33 +468,7 @@
                 inventorySelect: [],
                 multipleSelection: [],
                 multiSelect: false,
-                pickerOptions: {
-                    shortcuts: [{
-                        text: '最近一周',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近一个月',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近三个月',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }]
-                },
+                pickerOptions: _pickerOptions(),
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
@@ -573,14 +549,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
@@ -648,6 +624,7 @@
                 });
             },                                                  //TODO 行内按钮--导出
             selectSubmit: function () {
+                _option = true;
                 p[0].post(obj.form_pop);
                 this.dialogSelectVisible = false;
 
@@ -707,15 +684,15 @@
         watch: {
             pdOperator: function () {
                 /*<debug>*/
-                console.log(this.option);
+                console.log((_option ? this.form_pop : this.option));
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },
             pdType: function () {
                 /*<debug>*/
-                console.log(this.option);
+                console.log((_option ? this.form_pop : this.option));
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },
 
         },
@@ -723,9 +700,9 @@
     // 高级 监视器的 使用方法
     inventorySelect.$watch('date', function () {
         /*<debug>*/
-        console.log(this.option);
+        console.log((_option ? this.form_pop : this.option));
         /*</debug>*/
-        p[0].post(this.option);
+        p[0].post((_option ? this.form_pop : this.option));
     }, {deep: true});
     inventorySelect.$watch('rmsUser.ruUserName', function () {
             /*<debug>*/
