@@ -344,11 +344,11 @@
                                   :label-width="formLabelWidth">
                         <el-select v-model="form.ckStatus" placeholder="请选择">
                             <el-option :value="-1" label="全部"></el-option>
-                            <el-option :value="1" label="初始"></el-option>
+                            <el-option :value="1" label="原始状态"></el-option>
                             <el-option :value="21" label="部分分拣"></el-option>
-                            <el-option :value="22" label="部分出库"></el-option>
+                            <el-option :value="22" label="部分下架"></el-option>
                             <el-option :value="31" label="全部分拣"></el-option>
-                            <el-option :value="32" label="全部出库"></el-option>
+                            <el-option :value="32" label="全部下架"></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item label="欠货状态"
@@ -1323,20 +1323,20 @@
                 var temp = {}
                 if (!isNaN(value)) {
                     temp = {
-                        1: '初始',
-                        21: '部分分拣',
-                        22: '部分出库',
-                        31: '全部分拣',
-                        32: '全部出库',
+                        1 :'原始状态',
+                        21:'部分分拣',
+                        22:'部分下架',
+                        31:'全部分拣',
+                        32:'全部下架',
                         50: '作废',
                     }
                 } else {
                     temp = {
-                        '初始': 1,
+                        '原始状态': 1,
                         '部分分拣': 21,
-                        '部分出库': 22,
+                        '部分下架': 22,
                         '全部分拣': 31,
-                        '全部出库': 32,
+                        '全部下架': 32,
                         '作废': 50,
                     }
                 }

@@ -88,7 +88,7 @@
                                     <el-form-item label="出库单号">
                                         <span>{{ props.row.mfunckDoc.ckCkdjNo}}</span>
                                     </el-form-item>
-                                    <el-form-item label="出库状态">
+                                    <el-form-item label="单据状态">
                                         <span>{{ auto_ckStatus(props.row.mfunckDoc.ckStatus)}}</span>
                                     </el-form-item>
                                     <el-form-item label="欠货状态">
@@ -193,7 +193,7 @@
                         prop="mfunckDoc.ckCkdjNo">
                 </el-table-column>
                 <el-table-column
-                        label="出库状态"
+                        label="单据状态"
                         align="center">
                     <template scope="scope">
                         <el-tag
@@ -309,7 +309,7 @@
                                 icon="search"
                                 placeholder="客户地址"></el-input>
                     </el-form-item>
-                    <el-form-item label="出库状态"
+                    <el-form-item label="单据状态"
                                   :label-width="formLabelWidth">
                         <el-select v-model="form.ckStatus" placeholder="请选择">
                             <el-option :value="-1" label="全部"></el-option>
@@ -611,7 +611,7 @@
                 currentTotal: 0,
                 date: [null, null],                 //主页面 选择日期 搜索
                 ckCkdjNo: '',                       //主页面 出库单号 搜索
-                ckStatus: '',                         //主页面 出库状态 搜索
+                ckStatus: '',                         //主页面 单据状态 搜索
                 formLabelWidth: '120px',            //表单 配置
                 form: _form(),                           //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
@@ -820,7 +820,7 @@
                     }
                 }
                 return temp[value];
-            },                                           //出库状态
+            },                                           //单据状态
             auto_cksZlStatus: function (value) {
                 var temp = {};
                 if (!isNaN(value)) {
@@ -919,7 +919,7 @@
             ckCksj: '',                   //模糊查询--下架开始时间
             ckEndtime: '',                //模糊查询--下架开始时间
             msxQrsj: [null, null],        //模糊查询--操作时间
-            ckStatus: '',                 //模糊查询--出库状态
+            ckStatus: '',                 //模糊查询--单据状态
             cksZlStatus: '',              //模糊查询--是否滞留
             ckIsauto: '',                //模糊查询--制作方式
             ckStartwith: '',             //模糊查询--操作方式

@@ -264,7 +264,7 @@
                                                     <el-form-item label="订单类型">
                                                         <span>{{ auto_rkType(props.row.rkType) }}</span>
                                                     </el-form-item>
-                                                    <el-form-item label="入库状态">
+                                                    <el-form-item label="单据状态">
                                                         <span>{{ auto_rkStatus(props.row.rkStatus) }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="总数量">
@@ -560,7 +560,7 @@
                             </el-form-item>
                         </el-col>
                         <el-col :span="12" :offset="2">
-                            <el-form-item label="入库状态">
+                            <el-form-item label="单据状态">
                                 {{auto_rkStatus(form.rkStatus)}}
                             </el-form-item>
                             <el-form-item label="入库数量">
@@ -1201,7 +1201,7 @@
                         21: '部分分配',
                         22: '全部分配',
                         31: '部分收货',
-                        32: '完全收货',
+                        32: '全部收货 ',
                     }
                 } else {
                     temp = {
@@ -1209,13 +1209,13 @@
                         '部分分配': 21,
                         '全部分配': 22,
                         '部分收货': 31,
-                        '完全收货': 32,
+                        '全部收货 ': 32,
 
 
                     }
                 }
                 return temp[value];
-            },                                    //入库状态
+            },                                    //单据状态
             auto_rkZdfs: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {
