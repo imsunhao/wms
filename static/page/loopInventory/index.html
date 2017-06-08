@@ -278,16 +278,6 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        label="盘点类型"
-                        show-overflow-tooltip
-                        align="center">
-                    <template scope="scope">
-                        <el-tag>
-                            {{auto_pdType(scope.row.pdType)}}
-                        </el-tag>
-                    </template>
-                </el-table-column>
-                <el-table-column
                         label="负责人"
                         show-overflow-tooltip
                         align="center"
@@ -523,9 +513,15 @@
                 <template scope="scope">
                     <el-button
                             size="small"
-                            v-show="scope.row.pdsStatus==1&&(scope.row.pdsRepertoryCount - scope.row.pdsPdCount)==0"
+                            v-show="scope.row.pdsStatus==1&&(scope.row.pdsRepertoryCount - scope.row.pdsPdCount)!=0"
                             type="danger"
                             @click="inlineHeavyPlateInlineOperation(scope.$index, scope.row)">重盘
+                    </el-button>
+                    <el-button
+                            size="small"
+                            icon="circle-check"
+                            v-show="scope.row.pdsStatus==1&&(scope.row.pdsRepertoryCount - scope.row.pdsPdCount)==0"
+                            type="success">
                     </el-button>
                 </template>
             </el-table-column>
@@ -770,7 +766,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    postPassword(userManagement, {ids: row.ruUserId});
+                    p[4].post({pdId: row.pdId});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -1003,7 +999,9 @@
         urlHock: "",
         urlProd: "/route/loopInventory/4",
         success: function (json) {
-
+            this.callbackAfter(json, function () {
+                p[0].post(obj.option);
+            })
         }
     });
 

@@ -112,7 +112,7 @@
                                                           v-if="props.row.rkStatus!=32">
                                                 <el-button
                                                         size="small"
-                                                        v-if="props.row.rkStatus==1"
+                                                        v-if="props.row.rkStatus==1||props.row.rkStatus==21"
                                                         @click="distributionBtn(props.$index, props.row)">分配
                                                 </el-button>
                                                 <el-button
@@ -917,8 +917,10 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    p[7].post({ids: [row.rkRkdjId],
-                        userId: app.rmsUser.ruUserId}, function (json) {
+                    p[7].post({
+                        ids: [row.rkRkdjId],
+                        userId: app.rmsUser.ruUserId
+                    }, function (json) {
                         this.callbackAfter({status: json.status, model: "上架"}, function () {
                             p[0].post(obj.option);
                         })
