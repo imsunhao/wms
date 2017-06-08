@@ -329,7 +329,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '入库台账－制作/欠货 修改入库台账信息';
-                        req = autoUrl(req, '/mfunrktzDoc/updateDocs/', function (json) {
+                        req = autoUrl(req, '/mfunrktzDoc/updateDocs/', 'POST', function (json) {
                             res.send(json);
                         });
                         break;
@@ -1599,7 +1599,7 @@ router.param('_url', function (req, res, next, url) {
 
 
         }
-        console.log(req.session.user.rmsUser.ruUserName + ' '+dateFormat(new Date(),'yyyy-MM-dd hh:mm:ss')+' 请求：\t' + urlName + '\t' + req.info.url + '\t' + req.info.method);
+        console.log(req.session.user.rmsUser.ruUserName + ' ' + dateFormat(new Date(), 'yyyy-MM-dd hh:mm:ss') + ' 请求：\t' + urlName + '\t' + req.info.url + '\t' + req.info.method);
         next();
     }
     else {
