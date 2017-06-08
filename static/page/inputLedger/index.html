@@ -1063,7 +1063,7 @@
             endSubmit: function () {
                 this.$refs['ref_end'].validate(function (valid) {
                     if (valid) {
-                        p[1].post(this.end, function (json) {
+                        p[1].post(obj.end, function (json) {
                             this.callbackAfter({status: json.status, model: '欠货补发信息'}, function () {
                                 p[0].post(obj.option);
                             })
@@ -1074,14 +1074,21 @@
                 });
             },
             ledgerSubmit: function () {
-
+                obj.ledger.dhsj = tsf_date(new Date(obj.ledger.dhsj));
+                obj.ledger.sfrq = tsf_date(new Date(obj.ledger.sfrq));
+                p[1].post(obj.ledger, function (json) {
+                    this.callbackAfter(json, function () {
+                        p[0].post(obj.option);
+                        obj.dialogLedgerVisible = false;
+                    })
+                });
             },
 
             distributionBtn: function () {
                 this.dialogDistributionVisible = !this.dialogDistributionVisible;
             },                                        //分配 控制按钮
             selectSubmit: function () {
-                _option=true;
+                _option = true;
                 p[0].post(obj.form_pop);
                 this.dialogSelectVisible = false;
             },                           //结算时间
@@ -1151,6 +1158,7 @@
     }
     function formLedger() {
         return {
+            rk_rkdj_id: '',   //明细id
             sfrq: '',      //始发日期
             dhsj: '',           //到货日期，收货日期
             dbdd: '',         //--调拨地点
