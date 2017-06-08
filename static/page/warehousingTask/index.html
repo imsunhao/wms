@@ -5,14 +5,17 @@
         <el-col :span="24">
             <div class="inner btn-nav">
                 <el-input
+                        @change="selectReturn"
                         v-model="rkrwNo"
                         icon="search"
                         placeholder="任务单号"></el-input>
                 <el-input
+                        @change="selectReturn"
                         v-model="rkrwSjxm"
                         icon="search"
                         placeholder="司机姓名"></el-input>
                 <el-input
+                        @change="selectReturn"
                         v-model="rkrwCph"
                         icon="search"
                         placeholder="车牌号"></el-input>
@@ -1080,7 +1083,7 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                p[0].post(warehousingTask.option)
+                p[0].post((_option ? this.form_pop : this.option))
             },                                   //分页 Size
             expandChange: function (row, expanded) {
                 if (expanded && (typeof (row.docList) === 'undefined' || row.docList.length === 0)) {
@@ -1101,7 +1104,7 @@
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                p[0].post(warehousingTask.option)
+                p[0].post((_option ? this.form_pop : this.option))
             },                                //分页 当前页
             newInput: function () {
                 this.dialogFormVisible = true;
@@ -1148,6 +1151,7 @@
                 });
             },                                                //新建 表单提交
             selectSubmit: function () {
+                _option=true;
 //                p[0].post(warehousingTask.search);
                 p[0].post(obj.form_pop);
                 this.dialogSelectVisible = !this.dialogSelectVisible;
@@ -1314,30 +1318,30 @@
         watch: {
             rkrwCph: function () {
                 /*<debug>*/
-                console.log(this.option);
+                console.log((_option ? this.form_pop : this.option));
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },
             rkrwNo: function () {
                 /*<debug>*/
-                console.log(this.option);
+                console.log((_option ? this.form_pop : this.option));
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },
             rkrwSjxm: function () {
                 /*<debug>*/
-                console.log(this.option);
+                console.log((_option ? this.form_pop : this.option));
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },
         }
     });
     // 高级 监视器的 使用方法
     warehousingTask.$watch('date', function () {
         /*<debug>*/
-        console.log(this.option);
+        console.log((_option ? this.form_pop : this.option));
         /*</debug>*/
-        p[0].post(this.option);
+        p[0].post((_option ? this.form_pop : this.option));
     }, {deep: true});
     var obj = warehousingTask;
     var p = [];
@@ -1408,5 +1412,5 @@
         }
     });
 
-    p[0].post(warehousingTask.option);
+    p[0].post((_option ? this.form_pop : this.option));
 </script>
