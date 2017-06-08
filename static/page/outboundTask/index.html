@@ -5,11 +5,13 @@
         <el-col :span="24">
             <div class="inner btn-nav">
                 <el-input
+                        @change="selectReturn"
                         v-model="ckrwNo"
                         class="input"
                         icon="search"
                         placeholder="任务号"></el-input>
                 <el-date-picker
+                        @change="selectReturn"
                         v-model="date"
                         type="daterange"
                         align="right"
@@ -1323,14 +1325,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },                                //分页 当前页
             newInput: function () {
                 this.dialogFormVisible = true;
@@ -1470,6 +1472,7 @@
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
+                _option=true;
                 p[0].post(obj.form_pop);
                 this.dialogSelectVisible = !this.dialogSelectVisible;
 
@@ -1590,24 +1593,24 @@
         watch: {
             ckrwNo: function () {
                 /*<debug>*/
-                console.log(this.option);
+                console.log((_option ? this.form_pop : this.option));
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },
             ckrwCph: function () {
                 /*<debug>*/
-                console.log(this.option);
+                console.log((_option ? this.form_pop : this.option));
                 /*</debug>*/
-                p[0].post(this.option);
+                p[0].post((_option ? this.form_pop : this.option));
             },
         }
     });
     // 高级 监视器的 使用方法
     outboundTask.$watch('date', function () {
         /*<debug>*/
-        console.log(this.option);
+        console.log((_option ? this.form_pop : this.option));
         /*</debug>*/
-        p[0].post(this.option);
+        p[0].post((_option ? this.form_pop : this.option));
     }, {deep: true});
     function _form() {
         return {
