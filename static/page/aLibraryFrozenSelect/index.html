@@ -234,7 +234,6 @@
                         :disabled="watchView"
                         v-model="form.djArehouseId"
                         placeholder="请选择所属仓库">
-                    <el-option :value="-1" label="全部"></el-option>
                     <el-option :label="obj.baName" :value="obj.baArehouseId"
                                v-for="obj of baseArehouses"></el-option>
                 </el-select>
@@ -521,7 +520,33 @@
                 aLibraryFrozenSelect: [],
                 multipleSelection: [],
                 multiSelect: false,
-                pickerOptions: _pickerOptions(),
+                pickerOptions: {
+                    shortcuts: [{
+                        text: '最近一周',
+                        onClick: function (picker) {
+                            var end = new Date();
+                            var start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                            picker.$emit('pick', [start, end]);
+                        }
+                    }, {
+                        text: '最近一个月',
+                        onClick: function (picker) {
+                            var end = new Date();
+                            var start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                            picker.$emit('pick', [start, end]);
+                        }
+                    }, {
+                        text: '最近三个月',
+                        onClick: function (picker) {
+                            var end = new Date();
+                            var start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                            picker.$emit('pick', [start, end]);
+                        }
+                    }]
+                },
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
