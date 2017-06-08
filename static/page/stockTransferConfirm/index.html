@@ -232,7 +232,9 @@
                                     <el-form-item label="转移状态">
                                         <span>{{ auto_zyStatus(props.row.zyStatus) }}</span>
                                     </el-form-item>
-                                    <el-form-item label="可用操作">
+                                    <el-form-item
+                                            v-if="props.row.zyStatus==0"
+                                            label="可用操作">
                                         <el-button
                                                 size="small"
                                                 type="warning"
@@ -324,137 +326,6 @@
             </div>
         </el-col>
     </el-row>
-    <el-dialog
-            size="large"
-            v-model="dialogFormVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">{{form.title}}</span>
-            <el-steps
-                    class="steps"
-                    :space="120"
-                    :active="dialogFormActive"
-                    finish-status="success">
-            </el-steps>
-        </div>
-        <el-form :model="form" ref="newForm">
-            <el-carousel
-                    ref="carousel"
-                    :autoplay="false"
-                    arrow="never"
-                    indicator-position="none"
-                    height="55vh">
-                <el-carousel-item>
-                    <el-row>
-                        <el-col :span="10">
-                            <el-form-item
-                                    label="创建时间"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.zyCreateTime"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="提起人"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.zyMentionUserName"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="创建人"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.zyCreateUserName"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="确认人"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.zyConfirmUserName"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-
-                        </el-col>
-                        <el-col :span="10" :offset="2">
-                            <el-form-item
-                                    label="转移原因"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.zyReason"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="确认时间"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.zyConfirmTime"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="转移状态"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.zyStatus"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                </el-carousel-item>
-            </el-carousel>
-        </el-form>
-
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="submit" :loading="submitLoading">保存
-            </el-button>
-        </div>
-    </el-dialog>
-    <el-dialog
-            size="tiny"
-            class="select"
-            v-model="dialogSelectVisible">
-        <el-form :model="select">
-            <el-form-item label="创建日期"
-                          :label-width="formLabelWidth">
-                <el-date-picker
-                        v-model="form.zyCreateTime"
-                        type="daterange"
-                        align="right"
-                        placeholder="创建日期"
-                        class="input"
-                        :picker-options="pickerOptions">
-                </el-date-picker>
-            </el-form-item>
-            <el-form-item label="转移状态"
-                          :label-width="formLabelWidth">
-                <el-select v-model="form.zyStatus" placeholder="请选择">
-                    <el-option :value="-1" label="全部"></el-option>
-                    <el-option :value="0" label="未确认"></el-option>
-                    <el-option :value="1" label="已确认"></el-option>
-                    <el-option :value="2" label="作废"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="提起人"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.zyMentionUserName"
-                        icon="search"
-                        placeholder="提起人"></el-input>
-            </el-form-item>
-            <el-form-item label="确认人"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.zyConfirmUserName"
-                        icon="search"
-                        placeholder="确认人"></el-input>
-            </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
-        </div>
-    </el-dialog>
 </div>
 <script>
     var stockTransferConfirm = new Vue({
@@ -495,11 +366,11 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-                currentTotal:0,
+                currentTotal: 0,
                 date: [null, null],                 //主页面 选择日期 搜索
                 zyMentionUserName: '',             //主页面 提起人 搜索
-                zyCreateUserName:'',                 //主页面 创建人 搜索
-                zyStatus:'',                        //主页面 转移状态
+                zyCreateUserName: '',                 //主页面 创建人 搜索
+                zyStatus: '',                        //主页面 转移状态
                 formLabelWidth: '120px',            //表单 配置
                 form: form(),                           //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
@@ -515,15 +386,14 @@
             }
         },
         computed: {
-            // TODO 表格提交
             option: function () {
                 return {
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "zyMentionUserName":this.zyMentionUserName.trim(),
-                    "zyCreateUserName":this.zyCreateUserName.trim(),
-                    "zyStatus":this.zyStatus,
+                    "zyMentionUserName": this.zyMentionUserName.trim(),
+                    "zyCreateUserName": this.zyCreateUserName.trim(),
+                    "zyStatus": this.zyStatus,
                     "startCreateTimeParam": tsf_date(this.date[0]),
                     "endCreateTimeParam": tsf_date(this.date[1]),
                 }
@@ -544,12 +414,7 @@
                     "rkrwDh": this.form.rkrwDh,
                     "rkrwStatus": this.form.rkrwStatus
                 }
-            },
-            distributionForm: function () {
-                return {
-                    distribution: this.distribution
-                }
-            },                                      //分配 表单
+            }
         },
         methods: {
             inlineConfirm: function (index, row) {
@@ -559,7 +424,15 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    postPassword(stockTransferConfirm, {ids: row.ruUserId});
+                    p[1].post({
+                        "id": row.zyId,
+                        "useId": app.rmsUser.ruUserId,
+                        "userName": app.rmsUser.ruUserName
+                    }, function (json) {
+                        this.callbackAfter(json, function () {
+                            p[0].post(obj.option);
+                        })
+                    })
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -574,10 +447,17 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.stockTransferConfirm);
-                    postDelete(_this, {
-                        id: [row.rkdjNo]
-                    });
+                    p[5].post({
+                        "ids": [
+                            row.zyId
+                        ],
+                        "useId": app.rmsUser.ruUserId,
+                        "userName": app.rmsUser.ruUserName
+                    }, function (json) {
+                        this.callbackAfter(json, function () {
+                            remove(row, _this.stockTransferConfirm);
+                        })
+                    })
                 }).catch(function () {
                     _this.$message({
                         type: 'info',
@@ -607,7 +487,7 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                p[0].post( this.option);
+                p[0].post(this.option);
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
@@ -659,58 +539,21 @@
             },                                                //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
-                p[0].pos( {});
+                p[0].pos({});
             },                                          //详细查询 提交
-            printfSubmit: function () {
-                var datas=[];
-                var checkData=stockTransferConfirm.$refs.printf.getCheckedNodes();
-                for(var i in checkData){
-                    if(typeof checkData[i].val2!=='undefined'){
-                        datas.push(checkData[i]);
+            auto_zyStatus: function (value) {
+                var temp = {}
+                if (!isNaN(value)) {
+                    temp = {
+                        0: '未确认',
+                        1: '确认',
+                        2: '作废',
                     }
-                }
-                this.printDatas=datas;
-                this.dialogPelectVisible = !this.dialogPrintfVisible;
-                wap.print(this);
-            },                                          //打印 提交
-            printfCheckChange: function () {
-
-            },                                     //打印 选中维护
-            printfLoadNode: function (node, resolve) {
-                console.log(node.data);
-                switch (node.level) {
-                    case 0:
-                        return resolve(this.printf);
-                    case 1:
-                        postRkrwNo(this, {
-                            rkrwNo:node.data.rkrwNo,
-                            rkrwDhrq:node.data.rkrwDhrq
-                        }, resolve);
-                        break;
-                    case 2:
-                        console.log(node.data.name);
-                        postRkdjId(this, {
-                            rkrwNo:node.data.rkrwNo,
-                            rkrwDhrq:node.data.rkrwDhrq
-                        }, resolve);
-                        break;
-                    case 3:
-                        return resolve([]);
-                }
-            },
-            auto_zyStatus:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        0:'未确认',
-                        1:'确认',
-                        2:'作废',
-                    }
-                }else{
-                    temp={
-                        '未确认':0,
-                        '确认':1,
-                        '作废':2
+                } else {
+                    temp = {
+                        '未确认': 0,
+                        '确认': 1,
+                        '作废': 2
                     }
                 }
                 return temp[value];
@@ -740,29 +583,29 @@
         }
     });
     // 高级 监视器的 使用方法
-        stockTransferConfirm.$watch('date', function () {
-            /*<debug>*/
-            console.log(this.option);
-            /*</debug>*/
-            p[0].post( this.option);
-        }, {deep: true});
+    stockTransferConfirm.$watch('date', function () {
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        p[0].post(this.option);
+    }, {deep: true});
     function form() {
         return {
-            zyCreateTime:'',
-            zyMentionUserName:'',
-            zyCreateUserName:'',
-            zyConfirmUserName:'',
-            zyReason:'',
-            zyConfirmTime:'',
-            zyStatus:'',
-            zyCreateTime:[null,null],//模糊查询--创建日期
-            zyStatus:'',//模糊查询--转移状态
-            zyMentionUserName:'',//模糊查询--提起人
-            zyConfirmUserName:''//模糊查询--确认人
+            zyCreateTime: '',
+            zyMentionUserName: '',
+            zyCreateUserName: '',
+            zyConfirmUserName: '',
+            zyReason: '',
+            zyConfirmTime: '',
+            zyStatus: '',
+            zyCreateTime: [null, null],//模糊查询--创建日期
+            zyStatus: '',//模糊查询--转移状态
+            zyMentionUserName: '',//模糊查询--提起人
+            zyConfirmUserName: ''//模糊查询--确认人
         }
     }
-    var obj=stockTransferConfirm;
-    var p=[];
+    var obj = stockTransferConfirm;
+    var p = [];
     // 0 库存转移确认 分页查询
     p[0] = autoPost({
         urlHock: "../../hock/stockTransferConfirm/page.json",
@@ -788,7 +631,7 @@
 
         }
     });
-     // 3 库存转移确认 分页获取库存转移单据
+    // 3 库存转移确认 分页获取库存转移单据
     p[3] = autoPost({
         urlHock: "",
         urlProd: "/route/stockTransferConfirm/3",
@@ -796,21 +639,20 @@
 
         }
     });
-     // 4 库存转移确认  分页获取库存转移单据(包含详细信息)
+    // 4 库存转移确认  分页获取库存转移单据(包含详细信息)
     p[4] = autoPost({
         urlHock: "",
         urlProd: "/route/stockTransferConfirm/4",
         success: function (json) {
         }
     });
-     // 5 库存转移确认 通过库存转移单据id删除库存转移单据
+    // 5 库存转移确认 通过库存转移单据id删除库存转移单据
     p[5] = autoPost({
         urlHock: "",
         urlProd: "/route/stockTransferConfirm/5",
-        success: function (json) {
-        }
+        method: 'GET'
     });
-     // 6 库存转移确认 通过库存转移单据id获取一条库存转移单据
+    // 6 库存转移确认 通过库存转移单据id获取一条库存转移单据
     p[6] = autoPost({
         urlHock: "",
         urlProd: "/route/stockTransferConfirm/6",
@@ -819,22 +661,6 @@
     });
 
 
-
-
-
-
-
     p[0].post(stockTransferConfirm.option);
-    function printfCompile(obj) {
-        var resoleveStep = [];
-        for (var i = 0; i < obj.multipleSelection.length; i++) {
-            resoleveStep.push({
-                name: obj.multipleSelection[i].rkrwNo,
-                rkrwNo:obj.multipleSelection[i].rkrwNo,
-                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
-            });
-        }
-        obj.printf = resoleveStep;
-    }               //打印
 
 </script>
