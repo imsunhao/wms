@@ -18,7 +18,7 @@
                 </el-date-picker>
                 <el-select v-model="rkStatus" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
-                    <el-option :value="1" label="初始"></el-option>
+                    <el-option :value="1" label="原始状态"></el-option>
                     <el-option :value="21" label="部分分配"></el-option>
                     <el-option :value="22" label="全部分配"></el-option>
                     <el-option :value="31" label="部分收货"></el-option>
@@ -91,7 +91,7 @@
                                             <el-form-item label="订单类型">
                                                 <span>{{ auto_rkType(props.row.rkType) }}</span>
                                             </el-form-item>
-                                            <el-form-item label="入库状态">
+                                            <el-form-item label="单据状态">
                                                 <span>{{ auto_rkStatus(props.row.rkStatus) }}</span>
                                             </el-form-item>
                                             <el-form-item label="总数量">
@@ -340,7 +340,7 @@
                             </el-form-item>
                         </el-col>
                         <el-col :span="12" :offset="2">
-                            <el-form-item label="入库状态">
+                            <el-form-item label="单据状态">
                                 {{form.rkrkStatus}}
                             </el-form-item>
                             <el-form-item label="入库数量">
@@ -1375,21 +1375,23 @@
                 var temp = {}
                 if (!isNaN(value)) {
                     temp = {
-                        1: '原始状态',
+                        1:  '原始状态',
                         21: '部分分配',
                         22: '全部分配',
                         31: '部分收货',
-                        32: '完全收货',
+                        32: '全部收货',
                     }
                 } else {
                     temp = {
-                        '采购订单': 0,
-                        '仓间调拨': 1,
-                        '退货入库': 2
+                        '原始状态':1,
+                        '部分分配':21,
+                        '全部分配':22,
+                        '部分收货':31,
+                        '全部收货':32,
                     }
                 }
                 return temp[value];
-            },                                    //入库状态
+            },                                    //单据状态
             auto_rkZdfs: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {
