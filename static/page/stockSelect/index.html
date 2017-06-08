@@ -5,16 +5,19 @@
         <el-col :span="24">
             <div class="inner btn-nav">
                 <el-input
+                        @change="selectReturn"
                         class="input"
                         v-model="blLname"
                         icon="search"
                         placeholder="库位名称"></el-input>
                 <el-input
+                        @change="selectReturn"
                         class="input"
                         v-model="bgGoodsNo"
                         icon="search"
                         placeholder="货品编号"></el-input>
                 <el-input
+                        @change="selectReturn"
                         class="input"
                         v-model="bgGoodsName"
                         icon="search"
@@ -582,14 +585,14 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                p[0].post((_option ? this.form_pop : this.option));
+                p[0].post((_option ? this.form_pop : (_option ? this.form_pop : this.option)));
             },                                   //分页 Size
             handleCurrentChange: function (val) {
                 /*<debug>*/
                 console.log('当前第' + val + '页');
                 /*</debug>*/
                 this.currentPage = val;
-                p[0].post((_option ? this.form_pop : this.option));
+                p[0].post((_option ? this.form_pop : (_option ? this.form_pop : this.option)));
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
@@ -678,21 +681,21 @@
         watch: {
             blLname: function () {
                 /*<debug>*/
-                console.log((_option ? this.form_pop : this.option));
+                console.log((_option ? this.form_pop : (_option ? this.form_pop : this.option)));
                 /*</debug>*/
-                p[0].post((_option ? this.form_pop : this.option));
+                p[0].post((_option ? this.form_pop : (_option ? this.form_pop : this.option)));
             },
             bgGoodsNo: function () {
                 /*<debug>*/
-                console.log((_option ? this.form_pop : this.option));
+                console.log((_option ? this.form_pop : (_option ? this.form_pop : this.option)));
                 /*</debug>*/
-                p[0].post((_option ? this.form_pop : this.option));
+                p[0].post((_option ? this.form_pop : (_option ? this.form_pop : this.option)));
             },
             bgGoodsName: function () {
                 /*<debug>*/
-                console.log((_option ? this.form_pop : this.option));
+                console.log((_option ? this.form_pop : (_option ? this.form_pop : this.option)));
                 /*</debug>*/
-                p[0].post((_option ? this.form_pop : this.option));
+                p[0].post((_option ? this.form_pop : (_option ? this.form_pop : this.option)));
             },
         }
     });
@@ -727,11 +730,11 @@
     });
     // 高级 监视器的 使用方法
     //    stockSelect.$watch('date', function () {
-    //        if (!(_option ? this.form_pop : this.option).dateStart)return;
+    //        if (!(_option ? this.form_pop : (_option ? this.form_pop : this.option)).dateStart)return;
     //        /*<debug>*/
-    //        console.log((_option ? this.form_pop : this.option));
+    //        console.log((_option ? this.form_pop : (_option ? this.form_pop : this.option)));
     //        /*</debug>*/
-    //        post(this, (_option ? this.form_pop : this.option));
+    //        post(this, (_option ? this.form_pop : (_option ? this.form_pop : this.option)));
     //    }, {deep: true});
     p[0].post(stockSelect.option);
 </script>
