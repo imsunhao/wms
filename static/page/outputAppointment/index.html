@@ -277,7 +277,7 @@
                                                         <span>{{auto_ckIsauto(props.row.ckIsauto)   }}</span>
                                                     </el-form-item>
 
-                                                    <el-form-item label="发货状态">
+                                                    <el-form-item label="单据状态">
                                                         <span>{{auto_ckStatus(props.row.ckStatus)    }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="备注">
@@ -1176,7 +1176,7 @@
                 var temp = {};
                 if (!isNaN(value)) {
                     temp = {
-                        1: '初始',
+                        1: '原始状态',
                         21: '部分分拣',
                         22: '部分下架',
                         31: '全部分拣',
@@ -1185,7 +1185,7 @@
                     }
                 } else {
                     temp = {
-                        '初始': 1,
+                        '原始状态': 1,
                         '部分分拣': 21,
                         '部分下架': 22,
                         '全部分拣': 31,
