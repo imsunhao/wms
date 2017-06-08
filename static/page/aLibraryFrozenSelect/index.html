@@ -5,11 +5,13 @@
         <el-col :span="24">
             <div class="inner btn-nav">
                 <el-input
+                        @change="selectReturn"
                         v-model="djCreateUserName"
                         class="input"
                         icon="search"
                         placeholder="创建人"></el-input>
                 <el-input
+                        @change="selectReturn"
                         v-model="djJdUserName"
                         class="input"
                         icon="search"
@@ -519,33 +521,7 @@
                 aLibraryFrozenSelect: [],
                 multipleSelection: [],
                 multiSelect: false,
-                pickerOptions: {
-                    shortcuts: [{
-                        text: '最近一周',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近一个月',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近三个月',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }]
-                },
+                pickerOptions: _pickerOptions(),
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
