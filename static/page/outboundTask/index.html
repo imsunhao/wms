@@ -1250,6 +1250,12 @@
                     if (typeof row[index] !== 'undefined') step[index] = row[index];
                 });
                 step.index = index;
+                if (step.baseLocation === null) {
+                    step.baseLocation = {
+                        blLocationId: 0,
+                        blLname: ''
+                    }
+                }
 
                 if (step.cksZdpc == null || step.cksZdpc === '' || step.cksZdpc === '无') {
                     step.cksZdpc = auto_time_new(new Date(), 3);
@@ -1503,7 +1509,7 @@
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
-                _option=true;
+                _option = true;
                 p[0].post(obj.form_pop);
                 this.dialogSelectVisible = !this.dialogSelectVisible;
 

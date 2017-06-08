@@ -2,9 +2,6 @@
  * Created by imsunhao on 2017/5/2.
  */
 
-
-
-
 function generateNode(tree) {
     var formatTree = formatTreeData(tree);
     return combinationNode(formatTree);

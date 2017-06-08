@@ -232,7 +232,9 @@
                                     <el-form-item label="转移原因">
                                         <span>{{ props.row.zyReason	 }}</span>
                                     </el-form-item>
-                                    <el-form-item label="确认时间">
+                                    <el-form-item
+                                            v-if="props.row.zyStatus==0"
+                                            label="确认时间">
                                         <span>
                                             <el-icon name="time"></el-icon>
                                             {{ auto_time_new(props.row.zyConfirmTime,6) }}
@@ -249,7 +251,7 @@
                                         </el-button>
                                         <el-button
                                                 size="small"
-                                                type="success"
+                                                type="danger"
                                                 @click="inlineDelete(props.$index, props.row)">删除
                                         </el-button>
                                     </el-form-item>
@@ -532,17 +534,24 @@
             },
         },
         methods: {
-            inlineDelete: function () {
+            inlineDelete: function (index, row) {
                 var _this = this;
                 _this.$confirm('此操作将删除库存转移单据, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    remove(row, _this.recoveryArchive);
-                    postDelete(_this, {
-                        id: [row.rkdjNo]
-                    });
+                    p[103].post({
+                        "ids": [
+                            row.zyId
+                        ],
+                        "useId": app.rmsUser.ruUserId,
+                        "userName": app.rmsUser.ruUserName
+                    }, function (json) {
+                        this.callbackAfter(json, function () {
+                            remove(row, _this.aLibraryTransfer);
+                        })
+                    })
                 }).catch(function () {
                     _this.$message({
                         type: 'info',
@@ -670,43 +679,6 @@
                 this.dialogSelectVisible = !this.dialogSelectVisible;
                 p[0].post({});
             },                                          //详细查询 提交
-            printfSubmit: function () {
-                var datas = [];
-                var checkData = aLibraryTransfer.$refs.printf.getCheckedNodes();
-                for (var i in checkData) {
-                    if (typeof checkData[i].val2 !== 'undefined') {
-                        datas.push(checkData[i]);
-                    }
-                }
-                this.printDatas = datas;
-                this.dialogPelectVisible = !this.dialogPrintfVisible;
-                wap.print(this);
-            },                                          //打印 提交
-            printfCheckChange: function () {
-
-            },                                     //打印 选中维护
-            printfLoadNode: function (node, resolve) {
-                console.log(node.data);
-                switch (node.level) {
-                    case 0:
-                        return resolve(this.printf);
-                    case 1:
-                        postRkrwNo(this, {
-                            rkrwNo: node.data.rkrwNo,
-                            rkrwDhrq: node.data.rkrwDhrq
-                        }, resolve);
-                        break;
-                    case 2:
-                        console.log(node.data.name);
-                        postRkdjId(this, {
-                            rkrwNo: node.data.rkrwNo,
-                            rkrwDhrq: node.data.rkrwDhrq
-                        }, resolve);
-                        break;
-                    case 3:
-                        return resolve([]);
-                }
-            },
             auto_zyStatus: function (value) {
                 var temp = {}
                 if (!isNaN(value)) {
@@ -758,13 +730,9 @@
     function _form() {
         return {
             data: [],
-
-
             blLname: '',
             bgGoodsNo: '',
             bgGoodsName: ''
-
-
         }
     }
 
@@ -814,13 +782,6 @@
         success: function (json) {
         }
     });
-    // 4 库存转移 软删除多个或单个库存转移数据
-    p[4] = autoPost({
-        urlHock: "",
-        urlProd: "/route/aLibraryTransfer/4",
-        success: function (json) {
-        }
-    });
     // 5 库存转移 分页获取库存转移单据(包含详细信息)
     p[5] = autoPost({
         urlHock: "",
@@ -862,6 +823,13 @@
         method: "GET",
         success: function (json) {
         }
+    });
+
+    // 103 库存转移确认 通过库存转移单据id删除库存转移单据
+    p[103] = autoPost({
+        urlHock: "",
+        urlProd: "/route/stockTransferConfirm/5",
+        method: 'GET'
     });
 </script>
 
