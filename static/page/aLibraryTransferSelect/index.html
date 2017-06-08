@@ -13,6 +13,7 @@
                         :picker-options="pickerOptions">
                 </el-date-picker>
                 <el-input
+                        @change="selectReturn"
                         v-model="zyCreateUserName"
                         class="input"
                         icon="search"
@@ -562,33 +563,7 @@
                 aLibraryTransferSelect: [],
                 multipleSelection: [],
                 multiSelect: false,
-                pickerOptions: {
-                    shortcuts: [{
-                        text: '最近一周',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近一个月',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近三个月',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }]
-                },
+                pickerOptions: _pickerOptions(),
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
