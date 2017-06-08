@@ -249,15 +249,17 @@
                                     <el-form-item label="可用操作">
                                         <el-button
                                                 size="small"
-                                                @click="inlineAssignment(props.$index, props.row)">分配任务
+                                                type="info"
+                                                @click="inlineAssignment(props.$index, props.row)">分配
                                         </el-button>
                                         <el-button
                                                 size="small"
-                                                @click="inlineInventoryDetails(props.$index, props.row)">盘点详情
+                                                @click="inlineInventoryDetails(props.$index, props.row)">详情
                                         </el-button>
                                         <el-button
                                                 size="small"
-                                                @click="inlineInventoryConfirm(props.$index, props.row)">盘点确认
+                                                type="success"
+                                                @click="inlineInventoryConfirm(props.$index, props.row)">确认
                                         </el-button>
 
 
