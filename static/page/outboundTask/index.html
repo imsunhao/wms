@@ -683,9 +683,10 @@
             </el-table-column>
             <el-table-column
                     label="分拣方式"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="cksCkfs">
+                    align="center">
+                <template scope="scope">
+                    {{auto_fjfs(scope.row.cksCkfs)}}
+                </template>
             </el-table-column>
             <el-table-column
                     label="批次"
@@ -719,32 +720,34 @@
 
         <el-dialog
                 :modal="false"
-                size="small"
+                size="mini"
                 v-model="lists.dialogLocationVisible">
             <div class="dialog-title clearfix" slot="title">
                 <span class="el-dialog__title">修改分拣方式</span>
             </div>
-            <el-form>
-                <el-form-item label="分拣方式" :label-width="formLabelWidth">
-                    <el-select v-model="lists.sort.cksCkfs" placeholder="请选择">
-                        <el-option value="X" label="先进先出"></el-option>
-                        <el-option value="K" label="指定储位"></el-option>
-                        <el-option value="P" label="指定批次"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="库位" :label-width="formLabelWidth" v-show="lists.sort.cksCkfs=='K'">
-                    <el-autocomplete
-                            :fetch-suggestions="queryLocationAsync"
-                            v-model="lists.sort.baseLocation.blLname"
-                            @select="locationSelect"
-                            auto-complete="off"></el-autocomplete>
-                </el-form-item>
-                <el-form-item label="批次" :label-width="formLabelWidth" v-show="lists.sort.cksCkfs=='P'">
-                    <el-input
-                            v-model="lists.sort.cksZdpc"
-                            auto-complete="off"></el-input>
-                </el-form-item>
-            </el-form>
+            <div class="_inner">
+                <el-form>
+                    <el-form-item label="分拣方式" :label-width="formLabelWidth">
+                        <el-select v-model="lists.sort.cksCkfs" placeholder="请选择">
+                            <el-option value="X" label="先进先出"></el-option>
+                            <el-option value="K" label="指定储位"></el-option>
+                            <el-option value="P" label="指定批次"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="库位" :label-width="formLabelWidth" v-show="lists.sort.cksCkfs=='K'">
+                        <el-autocomplete
+                                :fetch-suggestions="queryLocationAsync"
+                                v-model="lists.sort.baseLocation.blLname"
+                                @select="locationSelect"
+                                auto-complete="off"></el-autocomplete>
+                    </el-form-item>
+                    <el-form-item label="批次" :label-width="formLabelWidth" v-show="lists.sort.cksCkfs=='P'">
+                        <el-input
+                                v-model="lists.sort.cksZdpc"
+                                auto-complete="off"></el-input>
+                    </el-form-item>
+                </el-form>
+            </div>
             <div slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="locationSubmit" :loading="lists.locationLoading">修改</el-button>
             </div>
@@ -884,6 +887,10 @@
         margin-right: 18px;
         width: 140px;
         height: 24px;
+    }
+
+    #outboundTask ._inner {
+        padding: 0 30px;
     }
 </style>
 <style>
@@ -1244,6 +1251,10 @@
                 });
                 step.index = index;
 
+                if (step.cksZdpc == null || step.cksZdpc === '' || step.cksZdpc === '无') {
+                    step.cksZdpc = auto_time_new(new Date(), 3);
+                }
+
                 this.lists.sort = step;
                 this.lists.dialogLocationVisible = true;
             },                         //行内按钮-修改分拣方式
@@ -1360,18 +1371,38 @@
             },
             locationSubmit: function () {
                 obj.lists.locationLoading = true;
-                p[9].post({
-                    cksCkmxId: obj.lists.sort.cksCkmxId,
-                    cksCkfs: obj.lists.sort.cksCkfs,
-                    cksLocationId: obj.lists.sort.cksLocationId,
-                    cksZdpc: obj.lists.sort.cksZdpc,
-                    userId: app.rmsUser.ruUserId
-                }, function (json) {
+                var option = {};
+                switch (obj.lists.sort.cksCkfs) {
+                    case 'X':
+                        option = {
+                            cksCkmxId: obj.lists.sort.cksCkmxId,
+                            cksCkfs: obj.lists.sort.cksCkfs,
+                            userId: app.rmsUser.ruUserId
+                        }
+                        break;
+                    case 'K':
+                        option = {
+                            cksCkmxId: obj.lists.sort.cksCkmxId,
+                            cksCkfs: obj.lists.sort.cksCkfs,
+                            cksLocationId: obj.lists.sort.baseLocation.blLocationId,
+                            userId: app.rmsUser.ruUserId
+                        }
+                        break;
+                    case 'P':
+                        option = {
+                            cksCkmxId: obj.lists.sort.cksCkmxId,
+                            cksCkfs: obj.lists.sort.cksCkfs,
+                            cksZdpc: obj.lists.sort.cksZdpc,
+                            userId: app.rmsUser.ruUserId
+                        }
+                        break;
+                }
+                p[9].post(option, function (json) {
                     obj.lists.locationLoading = false;
                     this.callbackAfter({status: json.status, model: '修改分拣方式'}, function () {
                         switch (obj.lists.sort.cksCkfs) {
                             case 'X':
-                                obj.lists.data[obj.lists.sort.index].cksCkfs = '先进先出';
+                                obj.lists.data[obj.lists.sort.index].cksCkfs = 'X';
                                 obj.lists.data[obj.lists.sort.index].baseLocation = {
                                     blLocationId: 1,
                                     blLname: ''
@@ -1379,12 +1410,12 @@
                                 obj.lists.data[obj.lists.sort.index].cksZdpc = '';
                                 break;
                             case 'K':
-                                obj.lists.data[obj.lists.sort.index].cksCkfs = '指定储位';
+                                obj.lists.data[obj.lists.sort.index].cksCkfs = 'K';
                                 obj.lists.data[obj.lists.sort.index].baseLocation = obj.lists.sort.baseLocation;
                                 obj.lists.data[obj.lists.sort.index].cksZdpc = '';
                                 break;
                             case 'P':
-                                obj.lists.data[obj.lists.sort.index].cksCkfs = '指定批次';
+                                obj.lists.data[obj.lists.sort.index].cksCkfs = 'P';
                                 obj.lists.data[obj.lists.sort.index].baseLocation = {
                                     blLocationId: 1,
                                     blLname: ''
@@ -1589,6 +1620,20 @@
                     return '未知的仓库'
                 }
             },                            //出库仓库id 自动匹配
+
+            auto_fjfs: function (value) {
+                switch (value) {
+                    case 'k':
+                    case 'K':
+                        return '指定储位';
+                    case 'p':
+                    case 'P':
+                        return '指定批次';
+                    case 'x':
+                    case 'X':
+                        return '先进先出';
+                }
+            }
         },
         watch: {
             ckrwNo: function () {
@@ -1622,8 +1667,8 @@
             ckrwZlStatus: '',    //滞留状态
         }
     }
-    function validate_outputAppointmentCombinationDetails(){
-        return{
+    function validate_outputAppointmentCombinationDetails() {
+        return {
             ckrwNo: 'vNull',
             ckrwYjdcsj: 'vNull',
             ckrwCph: 'vNull',
@@ -1749,7 +1794,7 @@
 
             ckRwStatus: 0,
             ckCkdjType: 0,
-            ckStatus:0,
+            ckStatus: 0,
 
             ckCkdjNo: '',
             dialogLocationVisible: false,
