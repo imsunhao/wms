@@ -294,7 +294,7 @@
             <el-form-item label="所属仓库" :label-width="formLabelWidth">
                 <el-select
                         :disabled="watchView"
-                        v-model="form.ckArehouseId"
+                        v-model="form.ckId"
                         placeholder="请选择所属仓库">
                     <el-option :label="obj.baName" :value="obj.baArehouseId"
                                v-for="obj of baseArehouses"></el-option>
@@ -661,13 +661,15 @@
                     "pageSize": this.pageSize,
                     "xdsjStart": tsf_date(this.form.xdsj[0]),
                     "xdsjEnd": tsf_date(this.form.xdsj[1]),
-                    "sjsjStart": tsf_date(this.form.sjsj[0]),
-                    "sjsjEnd": tsf_date(this.form.sjsj[1]),
+                    "sjsjStart": tsf_date(this.form.sjsj),
+                    "sjsjEnd": tsf_date(this.form. jssj),
                     "rkdh": tsf_date(this.form.rjdkNo),
                     "djzt": tsf_date(this.form.shzt),
                     "zzfs": this.form.zdfs,
                     "czfs": this.form.czfs,
                     "jssj": tsf_date(this.form.jssj),
+                    "ckId":this.form.ckId,
+//                    "ckmc":this.form,ckmc,
                 }
             },
             search: function () {
@@ -1098,12 +1100,15 @@
     function _form() {
         return {
             xdsj:[null,null],     //模糊查询--下单时间
-            sjsj:[null,null],     //模糊查询--上架开始时间
-            jssj:[null,null],       //模糊查询--上架结束时间
+            sjsj:'',     //模糊查询--上架开始时间
+            jssj:'',       //模糊查询--上架结束时间
             rjdkNo:'',             //模糊查询--入库单号
             shzt:'',                //模糊查询--入库状态
             zdfs:'',                //模糊查询--制单方式
             czfs:'',                 //模糊查询--操作方式
+//            ckmc:'',
+            ckId:'',
+
         }
     }
     var obj=inputSelect;
