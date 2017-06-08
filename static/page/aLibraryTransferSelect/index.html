@@ -278,7 +278,6 @@
                         :disabled="watchView"
                         v-model="form.zyArehouseId"
                         placeholder="请选择所属仓库">
-                    <el-option :value="-1" label="全部"></el-option>
                     <el-option :label="obj.baName" :value="obj.baArehouseId"
                                v-for="obj of baseArehouses"></el-option>
                 </el-select>
