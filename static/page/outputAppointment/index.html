@@ -211,6 +211,13 @@
                                     <el-option :value.number="1" label="挂起单据"></el-option>
                                     <el-option :value.number="2" label="滞留单据"></el-option>
                                 </el-select>
+                                <el-select
+                                        @visible-change="selectReturn"
+                                        v-model="ckArehouseId"
+                                        placeholder="请选择所属仓库">
+                                    <el-option :label="obj.baName" :value="obj.baArehouseId"
+                                               v-for="obj of baseArehouses"></el-option>
+                                </el-select>
                                 <button @click="newInput" class="btn btn-add"><i class="icon add"></i><span>添加</span>
                                 </button>
                                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
@@ -698,6 +705,7 @@
                 ckCkdjNo: '',                 //主页面 出库单号 搜索
                 ckCkdjType: '',               //主页面 出库单 类型
                 ckRwStatus: 0,                //主页面 出库单任务状态 搜索
+                ckArehouseId:window.dbmessage.baseArehouses[0].baArehouseId,//主页面 仓库 搜索
                 pickerOptions: {
                     shortcuts: [{
                         text: '最近一周',
@@ -762,6 +770,7 @@
                     "ckCkdjNo": this.ckCkdjNo,
                     "startTimeParam": tsf_date(this.date[0]),
                     "endTimeParam": tsf_date(this.date[1]),
+                    "ckArehouseId":this.ckArehouseId,
 
 //                    ckCkdjNo: this.ckCkdjNo,
 
@@ -1218,7 +1227,14 @@
                 console.log(this.option);
                 /*</debug>*/
                 p[7].post(this.option);
-            }
+            },
+            ckArehouseId: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[7].post(this.option);
+            },
+
         }
     });
     // 高级 监视器的 使用方法
