@@ -27,9 +27,9 @@
                 <el-select v-model="ckStatus" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="21" label="部分分拣"></el-option>
-                    <el-option :value="22" label="全部分拣"></el-option>
-                    <el-option :value="31" label="部分出库"></el-option>
-                    <el-option :value="32" label="全部出库"></el-option>
+                    <el-option :value="22" label="部分下架"></el-option>
+                    <el-option :value="31" label="全部分拣"></el-option>
+                    <el-option :value="32" label="全部下架"></el-option>
                 </el-select>
                 </el-form-item>
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
