@@ -765,7 +765,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    postPassword(userManagement, {ids: row.ruUserId});
+                    p[4].post({pdId: row.pdId});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -1039,6 +1039,7 @@
     p[3] = autoPost({
         urlHock: "",
         urlProd: "/route/comprehensiveInventory/3",
+        method: 'GET',
         success: function (json) {
 
 
@@ -1049,7 +1050,9 @@
         urlHock: "",
         urlProd: "/route/comprehensiveInventory/4",
         success: function (json) {
-
+            this.callbackAfter(json, function () {
+                p[0].post(obj.option);
+            })
         }
     });
      // 5 全面盘点 分配任务页面根据盘点计划ID查询详情
