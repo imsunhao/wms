@@ -156,6 +156,52 @@
         width: 70%;
     }
 </style>
+
+<style>
+    #dynamicTouchInventory .el-transfer {
+
+    }
+
+    #dynamicTouchInventory .__inner {
+        padding: 0 30px;
+    }
+
+    #dynamicTouchInventory .el-transfer .el-transfer-panel {
+        width: 43.6%;
+    }
+
+    #dynamicTouchInventory .box-card {
+        height: 421px;
+
+    }
+
+    #dynamicTouchInventory .box {
+        position: relative;
+    }
+
+    #dynamicTouchInventory .box-image {
+        position: absolute;
+        right: -10px;
+        bottom: -70px;
+        width: 60px;
+        height: 60px;
+        z-index: 1;
+        border: 1px solid #eee;
+        border-radius: 50%;
+    }
+
+    #dynamicTouchInventory .el-tree {
+        margin-top: 10px;
+        height: 333px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    #dynamicTouchInventory .el-tree-node__content {
+        line-height: 60px !important;
+        height: 60px !important;
+    }
+</style>
 <div id="dynamicTouchInventory">
     <!--页面调整-->
     <el-row v-loading="showLoading"
@@ -220,17 +266,19 @@
                                         <span>{{ auto_pdDiffStatus(props.row.pdDiffStatus) }}</span>
                                     </el-form-item>
                                     <el-form-item label="可用操作">
-                                         <el-button
+                                        <el-button
                                                 size="small"
-                                                @click="inlineAssignment(props.$index, props.row)">分配任务
+                                                type="info"
+                                                @click="inlineAssignment(props.$index, props.row)">分配
                                         </el-button>
-                                         <el-button
+                                        <el-button
                                                 size="small"
-                                                @click="inlineInventoryDetails(props.$index, props.row)">盘点详情
+                                                @click="inlineInventoryDetails(props.$index, props.row)">详情
                                         </el-button>
-                                         <el-button
+                                        <el-button
                                                 size="small"
-                                                @click="inlineInventoryConfirm(props.$index, props.row)">盘点确认
+                                                type="success"
+                                                @click="inlineInventoryConfirm(props.$index, props.row)">确认
                                         </el-button>
                                     </el-form-item>
                                 </el-col>
@@ -386,50 +434,52 @@
             size="large"
             title="分配任务"
             v-model="dialogAssignmentVisible">
-        <el-table
-                :data="assignment"
-                highlight-current-row
-                style="width: 100%">
-            <el-table-column
-                    label="库位名称"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="baseLocation.blLname">
-            </el-table-column>
-            <el-table-column
-                    label="货品编号"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="baseGoods.bgGoodsNo">
-            </el-table-column>
-            <el-table-column
-                    label="货品名称"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="baseGoods.bgGoodsName">
-            </el-table-column>
-            <el-table-column
-                    label="库存数量"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="pdsRepertoryCount">
-            </el-table-column>
-            <el-table-column
-                    label="操作"
-                    prop="rksCount"
-                    align="center">
-                <template scope="scope">
-                    <el-button
-                            size="small"
-                            type="danger"
-                            icon="assignment"
-                            @click="assignmentInlineOperation(scope.$index, scope.row)">分配
-                    </el-button>
-                </template>
-            </el-table-column>
+        <el-row>
+            <el-col :span="6">
+                <el-card class="box-card">
+                    <el-input
+                            placeholder="用户(拼音)搜索"
+                            v-model="filterText">
+                    </el-input>
+                    <el-tree
+                            :data="people"
+                            @node-click="nodeClick"
+                            :props="defaultProps"
+                            highlight-current
+                            :render-content="treeRenderContent"
+                            ref="tree5"
+                            :filter-node-method="filterNode">
+                    </el-tree>
+                </el-card>
+            </el-col>
+            <el-col :span="18">
+                <el-card class="box-card">
+                    <div slot="header" class="clearfix box">
+                        <span style="line-height: 24px; font-size: 16px">{{assignmentForm.ruUserName||'请选择一名用户指派任务'}}</span>
+                        <img class="box-image" :src="'/static/images/users/'+assignmentForm.ruPortrait"
+                             v-if="assignmentForm.ruUserName"/>
+                    </div>
+                    <el-row v-loading="assignmentLoading"
+                            element-loading-text="等待选择人员">
+                        <el-transfer
+                                v-model="assignmentForm.val"
+                                filterable
+                                filter-placeholder="请输入库位名称"
+                                :left-default-checked="[]"
+                                :right-default-checked="assignmentForm.val"
+                                :titles="['所有任务','我的任务']"
+                                :button-texts="['取消任务','分配任务']"
+                                @change="handleChange"
+                                :data="assignment">
+                        </el-transfer>
+                    </el-row>
+                </el-card>
+            </el-col>
+        </el-row>
 
-
-        </el-table>
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="assignment_submit" :loading="submitLoading">保存</el-button>
+        </div>
     </el-dialog>
     <el-dialog
             size="large"
@@ -439,6 +489,10 @@
                 :data="details"
                 highlight-current-row
                 style="width: 100%">
+            <el-table-column
+                    width="55"
+                    type="index">
+            </el-table-column>
             <el-table-column
                     label="库位名称"
                     show-overflow-tooltip
@@ -476,23 +530,51 @@
                 <template scope="scope">
                     <el-button
                             size="small"
+                            v-show="scope.row.pdsStatus==1&&(scope.row.pdsRepertoryCount - scope.row.pdsPdCount)!=0"
                             type="danger"
-                            icon="assignment"
-                            @click="heavyPlateInlineOperation(scope.$index, scope.row)">重盘
+                            @click="inlineHeavyPlateInlineOperation(scope.$index, scope.row)">重盘
+                    </el-button>
+                    <el-button
+                            size="small"
+                            icon="circle-check"
+                            v-show="scope.row.pdsStatus==1&&(scope.row.pdsRepertoryCount - scope.row.pdsPdCount)==0"
+                            type="success">
                     </el-button>
                 </template>
             </el-table-column>
-
-
         </el-table>
     </el-dialog>
 </div>
 <script>
+    function _assignmentForm() {
+        return {
+            ruUserName: '',
+            ruPortrait: '',
+            ruUserId: '',
+
+            val: []
+        }
+    }
+    function validate_form(){
+        return{
+            pdChargePerson:'vNull',
+            pdYdBeginTime:'vNull',
+            pdYdEndTime:'vNull',
+        }
+    }
     var dynamicTouchInventory = new Vue({
         el: '#dynamicTouchInventory',
         prop: {},
         data: function () {
             return {
+                _assignment: [],                         //分配任务 弹出层 信息集合(表单格式)
+                assignment: [],                          //分配任务 弹出层 信息集合(表单格式)
+                assignmentVal: [],
+                assignmentForm: _assignmentForm(),
+                dialogAssignmentVisible: false,          //分配任务 弹出层 是否可见
+                assignmentLoading: true,
+
+                assignmentLoading: true,
                 dynamicTouchInventory: [],
                 multipleSelection: [],
                 multiSelect: false,
@@ -527,7 +609,14 @@
                 currentPage: 1,
                 pageSize: 10,
                 currentTotal:0,
+                filterText: '',
+                defaultProps: {
+                    children: 'children',
+                    label: 'ruUserName',
+                    key: 'ruUserId'
+                },
                 formLabelWidth: '120px',            //表单 配置
+                people: [],                          //所在仓库下所有人员
                 rule_form:autoValidate(validate_form()),//新增 验证规则
                 form: _form(),                        //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
@@ -546,7 +635,16 @@
             }
         },
         computed: {
-            // TODO 表格提交
+            assignmentData: function () {
+                var data = [];
+                for (var i = 0; i < obj._assignment.length; i++) {
+                    data.push({
+                        key: obj._assignment[i].pdsId,
+                        label: obj._assignment[i].baseLocation.blLname + ' ' + obj._assignment[i].baseGoods.bgGoodsName + ' ' + obj._assignment[i].baseGoods.bgGoodsNo
+                    });
+                }
+                return data;
+            },
             option: function () {
                 return {
                     "draw": 1,
@@ -587,13 +685,133 @@
             }
         },
         methods: {
+            nodeClick: function (value, data, node) {
+
+//                var step2 = _assignmentForm();
+//                 allPrposCb(step2, function (obj, index) {
+//                 if (typeof value[index] !== 'undefined') step2[index] = value[index];
+//                 });
+                var i = 0;
+                var step = [];
+
+                if (obj.assignmentVal.length !== 0) {
+                    for (i = 0; i < obj.assignmentData.length; i++) {
+                        if (autoIndexof(obj.assignmentData[i].key, obj.assignmentVal, value.val)) {
+                            step.push({
+                                key: obj.assignmentData[i].key,
+                                label: obj.assignmentData[i].label
+                            });
+                        }
+                    }
+                } else {
+                    step = obj.assignmentData;
+                }
+
+                obj.assignment = step;
+
+
+                obj.assignmentForm = value;
+                obj.assignmentLoading = false;
+
+            },                           //分配任务 点击用户头像
+            handleChange: function handleChange(value, direction, movedKeys) {
+                console.log(value, direction, movedKeys);
+                var i = 0;
+                var step = 0;
+                switch (direction) {
+                    case 'right':
+                        for (i = 0; i < movedKeys.length; i++) {
+                            if (this.assignmentVal.indexOf(movedKeys[i]) === -1) {
+                                this.assignmentVal.push(movedKeys[i]);
+                            }
+                        }
+                        break;
+                    case 'left':
+                        for (i = 0; i < movedKeys.length; i++) {
+                            step = this.assignmentVal.indexOf(movedKeys[i]);
+                            if (step !== -1) {
+                                remove(step, this.assignmentVal);
+                            }
+                        }
+                        break;
+
+                }
+            },  //分配任务 分配任务与取消任务
+            filterNode: function (value, data) {
+                if (!value) return true;
+                return data.ruLoginName.indexOf(value) !== -1;
+            },                                //分配任务 模糊查询用户
+            treeRenderContent: function (h, node) {
+                return h(
+                    'div', {
+                        style: {
+                            width: '100%',
+                            lineHeight: '60px',
+                            position: 'relative',
+                            paddingLeft: '60px'
+                        }
+                    },
+                    [
+                        h('i', {
+                            style: {
+                                width: '36px',
+                                height: '36px',
+                                display: 'inline-block',
+                                position: 'absolute',
+                                left: '12px',
+                                top: '12px',
+                                backgroundImage: 'url("/static/images/users/' + node.data.ruPortrait + '")',
+                                'background-size': 'cover',
+                                'border-radius': '50%',
+                                border: '1px solid #eee'
+                            }
+                        }),
+                        h('span', {
+                            style: {
+                                fontSize: '14px'
+                            }
+                        }, node.data.ruUserName)
+                    ]
+                )
+            },                             //分配任务 界面控制
+            assignment_submit: function () {
+
+                if (obj.assignment.length - obj.assignmentForm.val.length !== 0) {
+                    obj.$alert('还有任务没有被分配！');
+                } else {
+                    var step = [];
+                    for (var i = 0; i < obj.people.length; i++) {
+                        if (obj.people[i].val.length !== 0) {
+                            step.push({
+                                pdId: obj.pdId,
+                                userId: obj.people[i].ruUserId,
+                                userName: obj.people[i].ruUserName,
+                                ids: obj.people[i].val
+                            });
+                        }
+                    }
+                    p[3].post({data: step}, function (json) {
+                        this.callbackAfter({status: json.status, model: '分配任务'}, function () {
+                            obj.dialogAssignmentVisible = false;
+                        })
+                    })
+                }
+            },                                    //分配任务 保存按钮
             inlineAssignment: function (index, row) {
-                p[5].post({pdId: row.pdId});
-            },                                     //行内按钮-分配任务
+                p[5].post({pdId: row.pdId}, function (json) {
+                    obj._assignment = json.model;
+                    obj.pdId = row.pdId;
+                    obj.dialogAssignmentVisible = true;
+                });
+            },                           //行内按钮 分配任务
             inlineInventoryDetails:function(index,row){
-                p[6].post({pdId: row.pdId});
+                p[6].post({pdId: row.pdId}, function (json) {
+                    obj.details = json.model;
+                    homeTimer = _timer({pdId: row.pdId});
+                    obj.dialogDetailsVisible = true;
+                });
 //                this.dialogDetailsVisible = true;
-            },                                  //行内按钮-盘点详情
+            },                         //行内按钮 盘点详情
             inlineInventoryConfirm: function (index, row) {
                 var obj = this;
                 obj.$confirm('确认此盘点计划, 是否继续?', '提示', {
@@ -601,14 +819,30 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    postPassword(userManagement, {ids: row.ruUserId});
+                    p[4].post({pdId: row.pdId});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
                         message: '已取消'
                     });
                 });
-            },                     //行内按钮-盘点确认
+            },                     //行内按钮 盘点确认
+            inlineHeavyPlateInlineOperation: function (index, row) {
+                obj.$confirm('确认重盘此货品:' + row.baseGoods.bgGoodsNo + '\r\n所在库位为' + row.baseLocation.blLname, '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    p[2].post({
+                        "pdsId": row.pdsId
+                    })
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },            //行内按钮 重盘
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -768,6 +1002,11 @@
                 }
                 return temp[value];
             },                                   //差异状态
+        },
+        watch: {
+            filterText: function (val) {
+                this.$refs.tree5.filter(val);
+            },
         }
     });
     function _form() {
@@ -777,13 +1016,7 @@
             pdChargePerson:''
         }
     }
-    function validate_form(){
-        return{
-            pdChargePerson:'vNull',
-            pdYdBeginTime:'vNull',
-            pdYdEndTime:'vNull',
-        }
-    }
+
     var obj=dynamicTouchInventory;
     var p=[];
     // 0 动碰盘点 动碰盘点分页查询
@@ -824,7 +1057,9 @@
         urlHock: "",
         urlProd: "/route/dynamicTouchInventory/4",
         success: function (json) {
-
+            this.callbackAfter(json, function () {
+                p[0].post(obj.option);
+            })
         }
     });
     // 5 动碰盘点 分配任务页面根据盘点计划ID查询详情
@@ -847,7 +1082,17 @@
     });
 
 
-
+    // 101 循环盘点 根据仓库id查找 所有人员
+    p[101] = autoPost({
+        urlHock: "",
+        urlProd: "/route/loopInventory/7",
+        success: function (json) {
+            for (var i = 0; i < json.length; i++) {
+                json[i].val = [];
+            }
+            obj.people = json;
+        }
+    });
 
 
     function formAssignment() {
@@ -868,6 +1113,18 @@
             pdsPdCount:'',              // 盘点数量
         }
     }//盘点详情
+    function _timer(option) {
+        return setInterval(function () {
+            if (obj.dialogDetailsVisible) {
+                p[6].post(option, function (json) {
+                    obj.details = json.model;
+                })
+            } else {
+                clearInterval(homeTimer);
+                homeTimer = 0;
+            }
+        }, timer_span.dynamicTouchInventory)
+    }
 
     // 高级 监视器的 使用方法
     //    dynamicTouchInventory.$watch('date', function () {
@@ -878,18 +1135,7 @@
     //        post(this, this.option);
     //    }, {deep: true});
     p[0].post(dynamicTouchInventory.option);
-
-    function printfCompile(obj) {
-        var resoleveStep = [];
-        for (var i = 0; i < obj.multipleSelection.length; i++) {
-            resoleveStep.push({
-                name: obj.multipleSelection[i].rkrwNo,
-                rkrwNo:obj.multipleSelection[i].rkrwNo,
-                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
-            });
-        }
-        obj.printf = resoleveStep;
-    }                         //打印
+    p[101].post({id: window.dbmessage.baseArehouses[0].baArehouseId});
 
 </script>
 
