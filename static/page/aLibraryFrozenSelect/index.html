@@ -109,7 +109,58 @@
                                     </el-row>
                                 </el-form>
                             </el-carousel-item>
+
+
+                            <el-carousel-item>
+                                <el-table
+                                        :data="props.row.djDocsList"
+                                        :max-height="240">
+                                    <el-table-column
+                                            width="55"
+                                            type="index">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="库位名称"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="mfunRepertory.baseLocation.blLname">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="货品编号"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="mfunRepertory.baseGoods.bgGoodsNo">
+                                    </el-table-column>
+                                    <el-table-column
+                                            align="center"
+                                            prop="mfunRepertory.baseGoods.bgGoodsName"
+                                            label="货品名称">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="货品批次"
+                                            prop="mfunRepertory.mrGoodsBatch"
+                                            align="center">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="冻结数量"
+                                            prop="mfunRepertory.mrCount"
+                                            align="center">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="状态"
+                                            align="center"
+                                            show-overflow-tooltip
+                                            prop="mfunRepertory.mrDjStatus">
+                                        <template scope="scope">
+                                            {{ scope.row.mfunRepertory.mrDjStatus == true ? '未冻结' : '已冻结'   }}
+                                        </template>
+                                    </el-table-column>
+
+                                </el-table>
+                                </el-table>
+                            </el-carousel-item>
                         </el-carousel>
+
                     </template>
                 </el-table-column>
                 <el-table-column
