@@ -1,0 +1,151 @@
+#inventorySelect {
+  width: 100%;
+  min-width: 890px;
+  position: relative;
+}
+
+#inventorySelect .demo-table-expand {
+  font-size: 0;
+}
+
+#inventorySelect .demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+
+#inventorySelect .demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 80%;
+}
+
+#inventorySelect .el-table__expand-column .el-table__expand-icon {
+  height: 39px;
+}
+
+#inventorySelect .table {
+  transition: 1s all;
+}
+
+#inventorySelect .el-carousel__container {
+  height: 440px;
+}
+
+.el-tooltip__popper {
+  max-width: 400px;
+}
+
+.el-step__main {
+  max-width: calc(100% - 60px);
+}
+
+#inventorySelect .inventorySelectTable {
+  width: 95% !important;
+  margin: 20px auto;
+}
+
+#inventorySelect .datePicker {
+  width: 140px !important;
+  height: 24px !important;
+  margin-top: 29px;
+  margin-right: 18px;
+  float: left;
+}
+
+#inventorySelect .datePicker .el-input__inner {
+  border-radius: 2px !important;
+  height: 24px !important;
+}
+
+#inventorySelect .add {
+  background: url("/static/images/add.png") no-repeat center;
+}
+
+#inventorySelect .del {
+  background: url("/static/images/del.png") no-repeat center;
+}
+
+#inventorySelect .search {
+  background: url("/static/images/search.png") no-repeat center;
+}
+
+#inventorySelect .sel {
+  background: url("/static/images/sel.png") no-repeat center;
+}
+
+#inventorySelect .icon {
+  float: left;
+}
+
+#inventorySelect .btn span {
+  float: left;
+  margin-top: 4px;
+  margin-left: 2px;
+}
+
+#inventorySelect .btn {
+  height: 24px;
+  line-height: 1;
+  border: none;
+  background: #f8fafb;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  color: #1f2d3d;
+  margin-top: 29px;
+  margin-right: 16px;
+}
+
+#inventorySelect .btn-print {
+  margin-right: 0;
+}
+
+#inventorySelect .btn:hover {
+  color: #5468ee;
+}
+
+#inventorySelect .inner {
+  margin: 0 20px;
+}
+
+#inventorySelect .btn-nav {
+  height: 60px;
+  overflow: hidden;
+}
+
+#inventorySelect .btn-nav .el-input .el-input__inner {
+  height: 24px;
+}
+
+#inventorySelect .btn-nav .el-input {
+  float: left;
+  margin-top: 29px;
+  margin-right: 18px;
+  width: 140px;
+  height: 24px;
+}
+.steps {
+  position: absolute;
+  bottom: 10px;
+  left: 30px;
+  margin: auto;
+}
+
+.el-dialog__headerbtn {
+  position: absolute;
+  right: 25px;
+  top: 15px;
+}
+
+.el-step__main {
+  margin-left: -8px !important;
+}
+.select {
+
+}
+
+.select .input {
+  width: 70%;
+}
