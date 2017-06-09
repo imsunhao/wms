@@ -819,7 +819,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    p[4].post({pdId: row.pdId});
+                    p[3].post({pdId: row.pdId});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -1048,6 +1048,7 @@
     p[3] = autoPost({
         urlHock: "",
         urlProd: "/route/dynamicTouchInventory/3",
+        method: 'GET',
         success: function (json) {
 
         }
