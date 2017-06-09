@@ -592,7 +592,16 @@
             }
         },
         computed: {
-            // TODO 表格提交
+            assignmentData: function () {
+                var data = [];
+                for (var i = 0; i < obj._assignment.length; i++) {
+                    data.push({
+                        key: obj._assignment[i].pdsId,
+                        label: obj._assignment[i].baseLocation.blLname + ' ' + obj._assignment[i].baseGoods.bgGoodsName + ' ' + obj._assignment[i].baseGoods.bgGoodsNo
+                    });
+                }
+                return data;
+            },
             option: function () {
                 return {
                     "draw": 1,
