@@ -1488,6 +1488,12 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 8:
+                        urlName = '库存转移 查询 合并后的库存';
+                        req = autoUrl(req, '/repertory/groupByGoodsIdandLocationIdPage', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
 
                 }
                 break;
