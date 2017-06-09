@@ -1,0 +1,143 @@
+#outputAppointment {
+  width: 100%;
+  min-width: 890px;
+  position: relative;
+}
+#outputAppointment .demo-table-expand {
+  font-size: 0;
+}
+#outputAppointment .demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+#outputAppointment .demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 80%;
+}
+#outputAppointment .el-table__expand-column .el-table__expand-icon {
+  height: 39px;
+}
+#outputAppointment .table {
+  transition: 1s all;
+}
+#outputAppointment .el-carousel__container {
+  height: 440px;
+}
+.el-tooltip__popper {
+  max-width: 400px;
+}
+.el-step__main {
+  max-width: calc(100% - 60px);
+}
+#outputAppointment .outputAppointmentTable {
+  width: 95% !important;
+  margin: 10px 20px 0;
+}
+#outputAppointment .datePicker {
+  width: 140px !important;
+  height: 24px !important;
+  margin-top: 29px;
+  margin-right: 18px;
+  float: left;
+}
+#outputAppointment .datePicker .el-input__inner {
+  border-radius: 2px !important;
+  height: 24px !important;
+}
+#outputAppointment .add {
+  background: url("/static/images/add.png") no-repeat center;
+}
+#outputAppointment .del {
+  background: url("/static/images/del.png") no-repeat center;
+}
+#outputAppointment .search {
+  background: url("/static/images/search.png") no-repeat center;
+}
+#outputAppointment .sel {
+  background: url("/static/images/sel.png") no-repeat center;
+}
+#outputAppointment .icon {
+  float: left;
+}
+#outputAppointment .btn span {
+  float: left;
+  margin-top: 4px;
+  margin-left: 2px;
+}
+#outputAppointment .btn {
+  height: 24px;
+  line-height: 1;
+  border: none;
+  background: #f8fafb;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  color: #1f2d3d;
+  margin-top: 29px;
+  margin-right: 16px;
+}
+#outputAppointment .btn-print {
+  margin-right: 0;
+}
+#outputAppointment .btn:hover {
+  color: #5468ee;
+}
+#outputAppointment .inner {
+  margin: 0 20px;
+}
+#outputAppointment .btn-nav {
+  height: 60px;
+  overflow: hidden;
+}
+#outputAppointment .btn-nav .el-input .el-input__inner {
+  height: 24px;
+}
+#outputAppointment .btn-nav .el-input {
+  float: left;
+  margin-top: 29px;
+  margin-right: 18px;
+  width: 140px;
+  height: 24px;
+}
+#outputAppointment h4 {
+  padding-left: 20px;
+  margin-bottom: 0;
+}
+#outputAppointment .formBottom {
+  margin-top: 10px;
+}
+#outputAppointment .outputAppointmentCombinationDetails .el-date-editor.el-input {
+  width: 100%;
+}
+#outputAppointment .outputAppointmentCombinationDetails {
+  margin-top: 30px;
+}
+.steps {
+  position: absolute;
+  bottom: 10px;
+  left: 30px;
+  margin: auto;
+}
+.el-dialog__headerbtn {
+  position: absolute;
+  right: 25px;
+  top: 15px;
+}
+.el-step__main {
+  margin-left: -8px !important;
+}
+#outputAppointment .bgGoodsName {
+  max-height: 36px;
+  display: inline-block;
+  overflow: hidden;
+}
+#outputAppointment .bgGoodsNameLocation {
+  max-height: 14px;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 15px;
+  overflow: hidden;
+}
