@@ -546,6 +546,22 @@
     </el-dialog>
 </div>
 <script>
+    function _assignmentForm() {
+        return {
+            ruUserName: '',
+            ruPortrait: '',
+            ruUserId: '',
+
+            val: []
+        }
+    }
+    function validate_form(){
+        return{
+            pdChargePerson:'vNull',
+            pdYdBeginTime:'vNull',
+            pdYdEndTime:'vNull',
+        }
+    }
     var dynamicTouchInventory = new Vue({
         el: '#dynamicTouchInventory',
         prop: {},
@@ -619,7 +635,16 @@
             }
         },
         computed: {
-            // TODO 表格提交
+            assignmentData: function () {
+                var data = [];
+                for (var i = 0; i < obj._assignment.length; i++) {
+                    data.push({
+                        key: obj._assignment[i].pdsId,
+                        label: obj._assignment[i].baseLocation.blLname + ' ' + obj._assignment[i].baseGoods.bgGoodsName + ' ' + obj._assignment[i].baseGoods.bgGoodsNo
+                    });
+                }
+                return data;
+            },
             option: function () {
                 return {
                     "draw": 1,
@@ -773,7 +798,6 @@
                 }
             },                                    //分配任务 保存按钮
             inlineAssignment: function (index, row) {
-//                p[5].post({pdId: row.pdId});
                 p[5].post({pdId: row.pdId}, function (json) {
                     obj._assignment = json.model;
                     obj.pdId = row.pdId;
@@ -992,22 +1016,7 @@
             pdChargePerson:''
         }
     }
-    function _assignmentForm() {
-        return {
-            ruUserName: '',
-            ruPortrait: '',
-            ruUserId: '',
 
-            val: []
-        }
-    }
-    function validate_form(){
-        return{
-            pdChargePerson:'vNull',
-            pdYdBeginTime:'vNull',
-            pdYdEndTime:'vNull',
-        }
-    }
     var obj=dynamicTouchInventory;
     var p=[];
     // 0 动碰盘点 动碰盘点分页查询
