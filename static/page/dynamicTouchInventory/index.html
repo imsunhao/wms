@@ -779,7 +779,7 @@
                     obj.pdId = row.pdId;
                     obj.dialogAssignmentVisible = true;
                 });
-            },                                     //行内按钮-分配任务
+            },                           //行内按钮 分配任务
             inlineInventoryDetails:function(index,row){
                 p[6].post({pdId: row.pdId}, function (json) {
                     obj.details = json.model;
@@ -787,7 +787,7 @@
                     obj.dialogDetailsVisible = true;
                 });
 //                this.dialogDetailsVisible = true;
-            },                                  //行内按钮-盘点详情
+            },                         //行内按钮 盘点详情
             inlineInventoryConfirm: function (index, row) {
                 var obj = this;
                 obj.$confirm('确认此盘点计划, 是否继续?', '提示', {
@@ -802,7 +802,23 @@
                         message: '已取消'
                     });
                 });
-            },                     //行内按钮-盘点确认
+            },                     //行内按钮 盘点确认
+            inlineHeavyPlateInlineOperation: function (index, row) {
+                obj.$confirm('确认重盘此货品:' + row.baseGoods.bgGoodsNo + '\r\n所在库位为' + row.baseLocation.blLname, '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    p[2].post({
+                        "pdsId": row.pdsId
+                    })
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },            //行内按钮 重盘
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
