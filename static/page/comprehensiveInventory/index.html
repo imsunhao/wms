@@ -445,6 +445,10 @@
                 highlight-current-row
                 style="width: 100%">
             <el-table-column
+                    width="55"
+                    type="index">
+            </el-table-column>
+            <el-table-column
                     label="库位名称"
                     show-overflow-tooltip
                     align="center"
@@ -481,17 +485,20 @@
                 <template scope="scope">
                     <el-button
                             size="small"
+                            v-show="scope.row.pdsStatus==1&&(scope.row.pdsRepertoryCount - scope.row.pdsPdCount)!=0"
                             type="danger"
-                            icon="assignment"
-                            @click="heavyPlateInlineOperation(scope.$index, scope.row)">重盘
+                            @click="inlineHeavyPlateInlineOperation(scope.$index, scope.row)">重盘
+                    </el-button>
+                    <el-button
+                            size="small"
+                            icon="circle-check"
+                            v-show="scope.row.pdsStatus==1&&(scope.row.pdsRepertoryCount - scope.row.pdsPdCount)==0"
+                            type="success">
                     </el-button>
                 </template>
             </el-table-column>
-
-
         </el-table>
     </el-dialog>
-
 </div>
 <script>
     function _assignmentForm() {
@@ -736,7 +743,6 @@
                     })
                 }
             },                                    //分配任务 保存按钮
-
             inlineAssignment: function (index,row) {
 //                p[5].post({pdId: row.pdId});
                 p[5].post({pdId: row.pdId}, function (json) {
@@ -744,15 +750,14 @@
                     obj.pdId = row.pdId;
                     obj.dialogAssignmentVisible = true;
                 });
-            },                                     //行内按钮-分配任务
+            },                            //行内按钮 分配任务
             inlineInventoryDetails:function(index,row){
-//                p[6].post({pdId: row.pdId});
                 p[6].post({pdId: row.pdId}, function (json) {
                     obj.details = json.model;
                     homeTimer = _timer({pdId: row.pdId});
                     obj.dialogDetailsVisible = true;
                 });
-            },                                  //行内按钮-盘点详情
+            },                         //行内按钮 盘点详情
             inlineInventoryConfirm: function (index, row) {
                 var obj = this;
                 obj.$confirm('确认此盘点计划, 是否继续?', '提示', {
@@ -767,7 +772,7 @@
                         message: '已取消'
                     });
                 });
-            },                     //行内按钮-盘点确认
+            },                     //行内按钮 盘点确认
             inlineHeavyPlateInlineOperation: function (index, row) {
                 obj.$confirm('确认重盘此货品:' + row.baseGoods.bgGoodsNo + '\r\n所在库位为' + row.baseLocation.blLname, '提示', {
                     confirmButtonText: '确定',
@@ -783,7 +788,7 @@
                         message: '已取消'
                     });
                 });
-            },             //行内按钮-重盘
+            },            //行内按钮 重盘
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -990,6 +995,19 @@
             pdChargePerson:'vNull'
         }
     }
+    function _timer(option) {
+        return setInterval(function () {
+            if (obj.dialogDetailsVisible) {
+                p[6].post(option, function (json) {
+                    obj.details = json.model;
+                })
+            } else {
+                clearInterval(homeTimer);
+                homeTimer = 0;
+            }
+        }, timer_span.loopInventory)
+    }
+
     var obj=comprehensiveInventory;
     var p=[];
     // 0 全面盘点 全面盘点分页查询
