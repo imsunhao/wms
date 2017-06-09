@@ -1,0 +1,152 @@
+#chooseBill {
+  width: 100%;
+  min-width: 890px;
+  position: relative;
+}
+
+#chooseBill .demo-table-expand {
+  font-size: 0;
+}
+
+#chooseBill .demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+
+#chooseBill .demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 80%;
+}
+
+#chooseBill .el-table__expand-column .el-table__expand-icon {
+  height: 39px;
+}
+
+#chooseBill .table {
+  transition: 1s all;
+}
+
+#chooseBill .el-carousel__container {
+  height: 440px;
+}
+
+.el-tooltip__popper {
+  max-width: 400px;
+}
+
+.el-step__main {
+  max-width: calc(100% - 60px);
+}
+
+#chooseBill .chooseBillTable {
+  width: 95% !important;
+  margin: 20px auto;
+}
+
+#chooseBill .datePicker {
+  width: 140px !important;
+  height: 24px !important;
+  margin-top: 29px;
+  margin-right: 18px;
+  float: left;
+}
+
+#chooseBill .datePicker .el-input__inner {
+  border-radius: 2px !important;
+  height: 24px !important;
+}
+
+#chooseBill .add {
+  background: url("/static/images/add.png") no-repeat center;
+}
+
+#chooseBill .del {
+  background: url("/static/images/del.png") no-repeat center;
+}
+
+#chooseBill .search {
+  background: url("/static/images/search.png") no-repeat center;
+}
+
+#chooseBill .sel {
+  background: url("/static/images/sel.png") no-repeat center;
+}
+
+#chooseBill .icon {
+  float: left;
+}
+
+#chooseBill .btn span {
+  float: left;
+  margin-top: 4px;
+  margin-left: 2px;
+}
+
+#chooseBill .btn {
+  height: 24px;
+  line-height: 1;
+  border: none;
+  background: #f8fafb;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  float: left;
+  font-size: 14px;
+  color: #1f2d3d;
+  margin-top: 29px;
+  margin-right: 16px;
+}
+
+#chooseBill .btn-print {
+  margin-right: 0;
+}
+
+#chooseBill .btn:hover {
+  color: #5468ee;
+}
+
+#chooseBill .inner {
+  margin: 0 20px;
+}
+
+#chooseBill .btn-nav {
+  height: 60px;
+  overflow: hidden;
+}
+
+#chooseBill .btn-nav .el-input .el-input__inner {
+  height: 24px;
+}
+
+#chooseBill .btn-nav .el-input {
+  float: left;
+  margin-top: 29px;
+  margin-right: 18px;
+  width: 140px;
+  height: 24px;
+}
+.steps {
+  position: absolute;
+  bottom: 10px;
+  left: 30px;
+  margin: auto;
+}
+
+.el-dialog__headerbtn {
+  position: absolute;
+  right: 25px;
+  top: 15px;
+}
+
+.el-step__main {
+  margin-left: -8px !important;
+}
+.select {
+
+}
+
+.select .input {
+  width: 70%;
+}
