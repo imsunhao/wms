@@ -27,6 +27,13 @@
                     <el-option :value="22" label="全部分配"></el-option>
                     <el-option :value="32" label="全部收货"></el-option>
                 </el-select>
+                <el-select
+                        @visible-change="selectReturn"
+                        v-model="rk_arehouse_id"
+                        placeholder="请选择所属仓库">
+                    <el-option :label="obj.baName" :value="obj.baArehouseId"
+                               v-for="obj of baseArehouses"></el-option>
+                </el-select>
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
@@ -508,6 +515,7 @@
         prop: {},
         data: function () {
             return {
+                baseArehouses: window.dbmessage.baseArehouses,
                 inputDaily: [],
                 multipleSelection: [],
                 multiSelect: false,
@@ -516,6 +524,7 @@
                 currentPage: 1,
                 pageSize: 10,
                 currentTotal: 0,
+                rk_arehouse_id: window.dbmessage.baseArehouses[0].baArehouseId,             //主页面 仓库 搜索
                 date: [null, null],                 //主页面 选择日期 搜索
                 rk_rkdj_no: '',                       //主页面 入库单号 搜索
                 rk_status: '',                       //主页面 单据状态 搜索
@@ -532,6 +541,7 @@
                 printfLoading: false,
 
                 printDatas: [],          // 打印数据
+                watchView: false,
             }
         },
         computed: {
@@ -545,6 +555,7 @@
                     "rkStatus": this.rk_status,
                     "startCreateTimeParam": tsf_date(this.date[0]),
                     "endCreateTimeParam": tsf_date(this.date[1]),
+                    "rk_arehouse_id":this.rk_arehouse_id,
                 }
             },
             form_pop: function () {
@@ -830,6 +841,13 @@
                 /*</debug>*/
                 p[0].post((_option ? this.form_pop : this.option));
             },
+            rk_arehouse_id: function () {
+                /*<debug>*/
+                console.log((_option ? this.form_pop : this.option));
+                /*</debug>*/
+                p[0].post((_option ? this.form_pop : this.option));
+            },
+
 
         }
     });
