@@ -119,7 +119,7 @@
                                     <h3>出库任务单据<span
                                             style="font-size: 14px;
                                             font-weight: normal;
-                                            margin-left: 5px;">（双击查看单据明细）</span>
+                                            margin-left: 5px;">（双击查看明细）</span>
                                     </h3>
                                 </el-row>
                                 <el-table
@@ -433,8 +433,6 @@
                                         v-model.number="form.ckrwZlStatus"
                                         auto-complete="off"></el-input>
                             </el-form-item>
-
-
                         </el-col>
                     </el-row>
                 </el-carousel-item>
@@ -549,6 +547,78 @@
 
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="dialogListsVisible=false">关闭</el-button>
+        </div>
+    </el-dialog>
+    <el-dialog
+            size="large"
+            custom-class="mxClass"
+            v-model="dialogLists2Visible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">分拣明细 单号：{{lists2.ckCkdjNo}}</span>
+        </div>
+        <el-table
+                :data="lists2.data"
+                highlight-current-row
+                style="width: 100%">
+            <el-table-column
+                    type="index"
+                    width="75">
+            </el-table-column>
+            <el-table-column
+                    label="货品编号"
+                    width="130"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="mfunRepertory.baseGoods.bgGoodsNo">
+            </el-table-column>
+            <el-table-column
+                    label="货品名称"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="mfunRepertory.baseGoods.bgGoodsName">
+            </el-table-column>
+            <el-table-column
+                    label="库位"
+                    width="120"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="mfunRepertory.baseLocation.blLname">
+            </el-table-column>
+            <el-table-column
+                    label="换算量"
+                    width="100"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="mfunRepertory.baseGoods.bgHsl">
+            </el-table-column>
+            <el-table-column
+                    label="件数"
+                    width="100"
+                    show-overflow-tooltip
+                    align="center"
+                    prop="jianshu">
+            </el-table-column>
+            <el-table-column
+                    label="分配量"
+                    width="100"
+                    prop="max"
+                    align="center">
+            </el-table-column>
+            <el-table-column
+                    label="修改分配量"
+                    width="130"
+                    align="center">
+                <template scope="scope">
+                    <el-slider
+                            :max="scope.row.max"
+                            v-model="scope.row.msxMxCount">
+                    </el-slider>
+                </template>
+            </el-table-column>
+        </el-table>
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="list2Submit">保存</el-button>
+            <el-button @click="dialogLists2Visible=false">关闭</el-button>
         </div>
     </el-dialog>
 </div>
@@ -765,7 +835,9 @@
 
 
                 dialogListsVisible: false,          //单据详细 查询
+                dialogLists2Visible: false,          //单据详细 查询
                 lists: formList(),                  //出库详细 弹出层 信息集合
+                lists2: formList2(),                  //出库详细 弹出层 信息集合
 
                 select: form(),                     //搜索 弹出层 信息集合,
                 dialogSelectVisible: false,
@@ -773,7 +845,6 @@
             }
         },
         computed: {
-            // TODO 表格提交
             option: function () {
                 return {
                     "draw": 1,
@@ -804,16 +875,10 @@
                     "rkrwStatus": this.form.rkrwStatus
                 }
             },
-            distributionForm: function () {
-                return {
-                    distribution: this.distribution
-                }
-            },                                      //分配 表单
         },
         methods: {
-            inlineActivateTask: function (index, row) {                           //TODO 行内按钮 激活任务
-                var _this = this;
-                _this.$confirm('此操作将此出库单激活任务, 是否继续?', '提示', {
+            inlineActivateTask: function (index, row) {                           //行内按钮 激活任务
+                obj.$confirm('此操作将此出库单激活任务, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -975,7 +1040,8 @@
                     "pageNum": 1,
                     "pageSize": 10,
                     "draw": 0,
-                    blLName: queryString
+                    blLName: queryString,
+                    arehouseId: window.dbmessage.baseArehouses[0].baArehouseId
                 }, function (json) {
                     json = json.data;
                     var step = [];
@@ -1042,18 +1108,40 @@
                 /*</debug>*/
             },                             //下拉 选择
             dblClick: function (row, event) {
-                if (row.mfunckDocs === null || typeof row.mfunckDocs === 'undefined' || row.mfunckDocs.length < 1) {
-                    p[101].post({id: row.ckCkdjId}, function (json) {
-                        row.mfunckDocs = json.model;
+                obj.$confirm('请选择 您想查询的页面', '提示', {
+                    confirmButtonText: '单据明细',
+                    cancelButtonText: '分拣明细',
+                    type: 'warning'
+                }).then(function () {
+                    if (typeof row.mfunckDocs === 'undefined' || row.mfunckDocs === null || row.mfunckDocs.length < 1) {
+                        p[101].post({id: row.ckCkdjId}, function (json) {
+                            row.mfunckDocs = json.model;
+                            obj.lists.data = row.mfunckDocs;
+                            obj.lists.ckCkdjNo = row.ckCkdjNo;
+                            obj.dialogListsVisible = true;
+                        })
+                    } else {
                         obj.lists.data = row.mfunckDocs;
                         obj.lists.ckCkdjNo = row.ckCkdjNo;
                         obj.dialogListsVisible = true;
-                    })
-                } else {
-                    obj.lists.data = row.mfunckDocs;
-                    obj.lists.ckCkdjNo = row.ckCkdjNo;
-                    obj.dialogListsVisible = true;
-                }
+                    }
+                }).catch(function () {
+                    if (typeof row.fjsl === 'undefined' || row.fjsl === null || row.fjsl.length < 1) {
+                        p[7].post({id: row.ckCkdjId}, function (json) {
+                            for (var i = 0; i < json.model.length; i++) {
+                                json.model[i].max = json.model[i].msxMxCount;
+                            }
+                            row.fjsl = json.model;
+                            obj.lists2.data = row.fjsl;
+                            obj.lists2.ckCkdjNo = row.ckCkdjNo;
+                            obj.dialogLists2Visible = true;
+                        })
+                    } else {
+                        obj.lists2.data = row.fjsl;
+                        obj.lists2.ckCkdjNo = row.ckCkdjNo;
+                        obj.dialogLists2Visible = true;
+                    }
+                });
             },
 
             newInput: function () {
@@ -1100,6 +1188,15 @@
                     _this.$refs.carousel.setActiveItem(0);
                     p[0].post();
                 }, 1500);
+            },                                               //新建 表单提交
+            list2Submit: function () {
+                p[6].post({}, function (json) {
+                    this.callbackAfter(json, function () {
+                        obj.lists2 = lists2Form();
+                        obj.dialogLists2Visible = false;
+                    })
+                })
+
             },                                               //新建 表单提交
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
@@ -1207,6 +1304,12 @@
             sort: formListSort()
         }
     }
+    function formList2() {
+        return {
+            data: [],
+            ckCkdjNo: ''
+        }
+    }
     function formListSort() {
         return {
             "cksCkmxId": 1,
@@ -1290,6 +1393,11 @@
     p[6] = autoPost({
         urlHock: "../../hock/activationBill/page.json",
         urlProd: "/route/activationBill/6"
+    });
+    // 7 激活单据-查询-分拣明细
+    p[7] = autoPost({
+        urlHock: "../../hock/activationBill/page.json",
+        urlProd: "/route/activationBill/7"
     });
 
     // 101 查询-出库单号-出库明细
