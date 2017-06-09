@@ -1,0 +1,157 @@
+#outputOperation {
+  width: 100%;
+  min-width: 890px;
+  position: relative;
+}
+
+#outputOperation .demo-table-expand {
+  font-size: 0;
+}
+
+#outputOperation .demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+
+#outputOperation .demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 80%;
+}
+
+#outputOperation .el-table__expand-column .el-table__expand-icon {
+  height: 39px;
+}
+
+#outputOperation .table {
+  transition: 1s all;
+}
+
+#outputOperation .el-carousel__container {
+  height: 440px;
+}
+
+.el-tooltip__popper {
+  max-width: 400px;
+}
+
+.el-step__main {
+  max-width: calc(100% - 60px);
+}
+
+#outputOperation .outputOperationTable {
+  width: 95% !important;
+  margin: 20px auto;
+}
+
+#outputOperation .datePicker {
+  width: 140px !important;
+  height: 24px !important;
+  margin-top: 29px;
+  margin-right: 18px;
+  float: left;
+}
+
+#outputOperation .datePicker .el-input__inner {
+  border-radius: 2px !important;
+  height: 24px !important;
+}
+
+#outputOperation .add {
+  background: url("/static/images/add.png") no-repeat center;
+}
+
+#outputOperation .del {
+  background: url("/static/images/del.png") no-repeat center;
+}
+
+#outputOperation .search {
+  background: url("/static/images/search.png") no-repeat center;
+}
+
+#outputOperation .sel {
+  background: url("/static/images/sel.png") no-repeat center;
+}
+
+#outputOperation .icon {
+  float: left;
+}
+
+#outputOperation .btn span {
+  float: left;
+  margin-top: 4px;
+  margin-left: 2px;
+}
+
+#outputOperation .btn {
+  height: 24px;
+  line-height: 1;
+  border: none;
+  background: #f8fafb;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  color: #1f2d3d;
+  margin-top: 29px;
+  margin-right: 16px;
+}
+
+#outputOperation .btn-print {
+  margin-right: 0;
+}
+
+#outputOperation .btn:hover {
+  color: #5468ee;
+}
+
+#outputOperation .inner {
+  margin: 0 20px;
+}
+
+#outputOperation .btn-nav {
+  height: 60px;
+  overflow: hidden;
+}
+
+#outputOperation .btn-nav .el-input .el-input__inner {
+  height: 24px;
+}
+
+#outputOperation .btn-nav .el-input {
+  float: left;
+  margin-top: 29px;
+  margin-right: 18px;
+  width: 140px;
+  height: 24px;
+}
+.steps {
+  position: absolute;
+  bottom: 10px;
+  left: 30px;
+  margin: auto;
+}
+
+.el-dialog__headerbtn {
+  position: absolute;
+  right: 25px;
+  top: 15px;
+}
+
+.el-step__main {
+  margin-left: -8px !important;
+}
+#outputOperation .bgGoodsName {
+  max-height: 36px;
+  display: inline-block;
+  overflow: hidden;
+}
+
+#outputOperation .bgGoodsNameLocation {
+  max-height: 14px;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 15px;
+  overflow: hidden;
+}

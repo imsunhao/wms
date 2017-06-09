@@ -1,0 +1,139 @@
+#warehousingTask {
+  width: 100%;
+  min-width: 890px;
+  position: relative;
+}
+#warehousingTask .demo-table-expand {
+  font-size: 0;
+}
+#warehousingTask .demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+#warehousingTask .demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 80%;
+}
+#warehousingTask .el-table__expand-column .el-table__expand-icon {
+  height: 39px;
+}
+#warehousingTask .table {
+  transition: 1s all;
+}
+#warehousingTask .el-carousel__container {
+  height: 440px;
+}
+.el-tooltip__popper {
+  max-width: 400px;
+}
+.el-step__main {
+  max-width: calc(100% - 60px);
+}
+#warehousingTask .warehousingTaskTable {
+  width: 95% !important;
+  margin: 20px auto;
+}
+#warehousingTask .datePicker {
+  width: 140px !important;
+  height: 24px !important;
+  margin-top: 29px;
+  margin-right: 18px;
+  float: left;
+}
+#warehousingTask .datePicker .el-input__inner {
+  border-radius: 2px !important;
+  height: 24px !important;
+}
+#warehousingTask .add {
+  background: url("/static/images/add.png") no-repeat center;
+}
+#warehousingTask .del {
+  background: url("/static/images/del.png") no-repeat center;
+}
+#warehousingTask .search {
+  background: url("/static/images/search.png") no-repeat center;
+}
+#warehousingTask .sel {
+  background: url("/static/images/sel.png") no-repeat center;
+}
+#warehousingTask .icon {
+  float: left;
+}
+#warehousingTask .btn span {
+  float: left;
+  margin-top: 4px;
+  margin-left: 2px;
+}
+#warehousingTask .btn {
+  height: 24px;
+  line-height: 1;
+  border: none;
+  background: #f8fafb;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  float: left;
+  font-size: 14px;
+  color: #1f2d3d;
+  margin-top: 29px;
+  margin-right: 16px;
+}
+#warehousingTask .btn-print {
+  margin-right: 0;
+}
+#warehousingTask .btn:hover {
+  color: #5468ee;
+}
+#warehousingTask .inner {
+  margin: 0 20px;
+}
+#warehousingTask .btn-nav {
+  height: 60px;
+  overflow: hidden;
+}
+#warehousingTask .btn-nav .el-input .el-input__inner {
+  height: 24px;
+}
+#warehousingTask .btn-nav .el-input {
+  float: left;
+  margin-top: 29px;
+  margin-right: 18px;
+  width: 140px;
+  height: 24px;
+}
+.steps {
+  position: absolute;
+  bottom: 10px;
+  left: 30px;
+  margin: auto;
+}
+.el-dialog__headerbtn {
+  position: absolute;
+  right: 25px;
+  top: 15px;
+}
+.el-step__main {
+  margin-left: -8px !important;
+}
+.select {
+
+}
+.select .input {
+  width: 70%;
+}
+#warehousingTask .btn-nav2 {
+  height: 25px;
+}
+#warehousingTask .btn-nav2 .el-input {
+  margin-top: 0;
+}
+#warehousingTask .btn-nav2 .btn {
+  margin-top: 0;
+  background: #fff;
+}
+#warehousingTask .list2_table {
+  width: 98%;
+  margin: 1%;
+}

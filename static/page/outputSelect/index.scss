@@ -1,0 +1,151 @@
+#outputSelect {
+  width: 100%;
+  min-width: 890px;
+  position: relative;
+}
+
+#outputSelect .demo-table-expand {
+  font-size: 0;
+}
+
+#outputSelect .demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+
+#outputSelect .demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 80%;
+}
+
+#outputSelect .el-table__expand-column .el-table__expand-icon {
+  height: 39px;
+}
+
+#outputSelect .table {
+  transition: 1s all;
+}
+
+#outputSelect .el-carousel__container {
+  height: 440px;
+}
+
+.el-tooltip__popper {
+  max-width: 400px;
+}
+
+.el-step__main {
+  max-width: calc(100% - 60px);
+}
+
+#outputSelect .outputSelectTable {
+  width: 95% !important;
+  margin: 20px auto;
+}
+
+#outputSelect .datePicker {
+  width: 140px !important;
+  height: 24px !important;
+  margin-top: 29px;
+  margin-right: 18px;
+  float: left;
+}
+
+#outputSelect .datePicker .el-input__inner {
+  border-radius: 2px !important;
+  height: 24px !important;
+}
+
+#outputSelect .add {
+  background: url("/static/images/add.png") no-repeat center;
+}
+
+#outputSelect .del {
+  background: url("/static/images/del.png") no-repeat center;
+}
+
+#outputSelect .search {
+  background: url("/static/images/search.png") no-repeat center;
+}
+
+#outputSelect .sel {
+  background: url("/static/images/sel.png") no-repeat center;
+}
+
+#outputSelect .icon {
+  float: left;
+}
+
+#outputSelect .btn span {
+  float: left;
+  margin-top: 4px;
+  margin-left: 2px;
+}
+
+#outputSelect .btn {
+  height: 24px;
+  line-height: 1;
+  border: none;
+  background: #f8fafb;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  color: #1f2d3d;
+  margin-top: 29px;
+  margin-right: 16px;
+}
+
+#outputSelect .btn-print {
+  margin-right: 0;
+}
+
+#outputSelect .btn:hover {
+  color: #5468ee;
+}
+
+#outputSelect .inner {
+  margin: 0 20px;
+}
+
+#outputSelect .btn-nav {
+  height: 60px;
+  overflow: hidden;
+}
+
+#outputSelect .btn-nav .el-input .el-input__inner {
+  height: 24px;
+}
+
+#outputSelect .btn-nav .el-input {
+  float: left;
+  margin-top: 29px;
+  margin-right: 18px;
+  width: 140px;
+  height: 24px;
+}
+.steps {
+  position: absolute;
+  bottom: 10px;
+  left: 30px;
+  margin: auto;
+}
+
+.el-dialog__headerbtn {
+  position: absolute;
+  right: 25px;
+  top: 15px;
+}
+
+.el-step__main {
+  margin-left: -8px !important;
+}
+.select {
+
+}
+
+.select .input {
+  width: 70%;
+}
