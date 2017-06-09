@@ -329,7 +329,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 1:
                         urlName = '入库台账－制作/欠货 修改入库台账信息';
-                        req = autoUrl(req, '/mfunrktzDoc/updateDocs/', 'POST', function (json) {
+                        req = autoUrl(req, '/mfunrktzDoc/updateDocs', 'POST', function (json) {
                             res.send(json);
                         });
                         break;
