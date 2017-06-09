@@ -703,7 +703,7 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '入库操作-加载入库操作页面';
-                        req = autoUrl(req, '/mfunrkDoc', "POST", function (json) {
+                        req = autoUrl(req, '/mfunrkDoc/selectOperateMfunrkDocByPage', "POST", function (json) {
                             res.send(json);
                         });
                         break;

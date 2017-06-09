@@ -190,7 +190,6 @@
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                         class="icon sel"></i><span>多选</span>
                 </button>
-
                 <button @click="multiMoreOperationDelete" class="btn btn-del" v-show="multiSelect"><i
                         class="icon del"></i><span>批量删除</span>
                 </button>
@@ -343,7 +342,7 @@
                     class="steps"
                     :space="120"
                     :active="dialogFormActive"
-                    finish-status="success">
+                    finish-status="finish">
                 <el-step title="基础信息"></el-step>
                 <el-step title="选择库存"></el-step>
             </el-steps>
@@ -356,6 +355,7 @@
                 height="55vh">
             <el-carousel-item>
                 <el-form
+                        :inline="true"
                         v-model="form"
                         ref="ref_form"
                         :label-width="formLabelWidth">
@@ -379,12 +379,57 @@
 
                 </el-table>
             </el-carousel-item>
+            <el-carousel-item>
+                <div class="inner btn-nav">
+                    <el-input
+                            v-model="form.blLname"
+                            icon="search"
+                            placeholder="库位名称"></el-input>
+                    <el-input
+                            v-model="form.bgGoodsNo"
+                            icon="search"
+                            placeholder="货品编号"></el-input>
+                    <el-input
+                            v-model="form.bgGoodsName"
+                            icon="search"
+                            placeholder="货品名称"></el-input>
+                </div>
+                <el-table
+                        :data="form.data">
+
+                </el-table>
+                <el-form
+                        :inline="true"
+                        v-model="form"
+                        ref="ref_form2"
+                        :label-width="formLabelWidth">
+                    <el-form-item
+                            label="目标储位"
+                            :label-width="formLabelWidth">
+                        <el-autocomplete
+                                :fetch-suggestions="queryLocationAsync"
+                                v-model="lists2.select.baseLocation.blLname"
+                                @select="locationSelect"
+                                auto-complete="off"></el-autocomplete>
+                    </el-form-item>
+                    <el-form-item
+                            label="调整数量"
+                            :label-width="formLabelWidth">
+                        <el-input
+                                v-model="form.lists2.select.zysZyCount"
+                                auto-complete="off"></el-input>
+                    </el-form-item>
+                </el-form>
+            </el-carousel-item>
         </el-carousel>
 
         <div slot="footer" class="dialog-footer">
-            <el-button @click="submit" :loading="submitLoading">保存
+            <el-button @click="submit" :loading="submitLoading" v-show="dialogFormActive==1"
+                       :disabled="form.data.length==0">保存
             </el-button>
-            <el-button type="primary" @click="submit">选择一条库存
+            <el-button type="primary" @click="selectALibrary" v-show="dialogFormActive==1">选择一条库存
+            </el-button>
+            <el-button type="primary" @click="selectReturn" v-show="dialogFormActive==2">返回
             </el-button>
         </div>
     </el-dialog>
@@ -488,7 +533,7 @@
 
                 formLabelWidth: '120px',            //表单 配置
                 form: _form(),                      //表单 弹出层 信息集合
-                dialogFormActive: 0,                //新建 弹出层 steps 当前进度
+                dialogFormActive: 1,                //新建 弹出层 steps 当前进度
                 dialogFormVisible: false,           //新建 弹出层 是否可见
                 submitLoading: false,               //新建 弹出层 提交等待
                 select: _form_stock(),                    //搜索 弹出层 信息集合,
@@ -569,7 +614,7 @@
                 this.form.zyConfirmTime = row.zyConfirmTime;
                 this.form.zyStatus = row.zyStatus;
                 this.dialogFormVisible = true;
-                this.dialogFormActive = 0;
+                this.dialogFormActive = 1;
                 Vue.nextTick(function () {
                     aLibraryTransfer.$refs.carousel.setActiveItem(0);
                 });
@@ -615,7 +660,7 @@
             newInput: function () {
                 this.form = _form();
                 this.dialogFormVisible = true;
-                this.dialogFormActive = 0;
+                this.dialogFormActive = 1;
                 Vue.nextTick(function () {
                     aLibraryTransfer.$refs.carousel.setActiveItem(0);
                 });
@@ -675,6 +720,38 @@
                     p[0].post();
                 }, 1500);
             },                                                //新建 表单提交
+
+            selectALibrary: function () {
+                obj.$refs.carousel.next();
+                obj.dialogFormActive++;
+            },                                        //选择一条库存
+            selectReturn: function () {
+                obj.$refs.carousel.prev();
+                obj.dialogFormActive--;
+            },                                          //取消选择一条库存
+
+            queryLocationAsync: function (queryString, cb) {
+                p[104].post({
+                    "pageNum": 1,
+                    "pageSize": 10,
+                    "draw": 0,
+                    blLName: queryString,
+                    arehouseId: window.dbmessage.baseArehouses[0].baArehouseId
+                }, function (json) {
+                    json = json.data;
+                    var step = [];
+                    var length = json.length > 20 ? 20 : json.length;
+                    for (var i = 0; i < length; i++) {
+                        step.push({data: json[i], value: json[i].blLname})
+                    }
+                    cb(step);
+                });
+            },
+            locationSelect: function (item) {
+                this.lists2.select.baseLocation = item;
+            },
+
+
             selectSubmit: function () {
                 this.dialogSelectVisible = !this.dialogSelectVisible;
                 p[0].post({});
@@ -695,7 +772,7 @@
                     }
                 }
                 return temp[value];
-            },                                       //转移状态
+            },                                    //转移状态
         },
         watch: {
             zyMentionUserName: function () {
@@ -725,11 +802,23 @@
         /*</debug>*/
         p[0].post(this.option);
     }, {deep: true});
+    aLibraryTransfer.$watch('form.blLname', function () {
+        p[0].post(this.option_form);
+    }, {deep: true});
+    aLibraryTransfer.$watch('form.bgGoodsNo', function () {
+        p[0].post(this.option_form);
+    }, {deep: true});
+    aLibraryTransfer.$watch('form.bgGoodsName', function () {
+        p[0].post(this.option_form);
+    }, {deep: true});
 
 
     function _form() {
         return {
             data: [],
+
+            select: _form_select(),
+
             blLname: '',
             bgGoodsNo: '',
             bgGoodsName: ''
@@ -748,6 +837,25 @@
             zyConfirmUserName: ''//模糊查询--确认人
         }
     }
+    function _form_select() {
+        return {
+            data: [],
+            zysZyCount: 0,
+            baseLocation: {
+                blLocationId: 1,
+                blLname: ''
+            }
+        }
+    }
+    function _form_select_post() {
+        return {
+            "zysRepertoryId": 0,
+            "zysZyBeforeLocationId": 0,
+            "zysZyAfterLocationId": 0,
+            "zysZyBeforeKyCount": 0,
+            "zysZyCount": 0
+        }
+    }
 
     var obj = aLibraryTransfer;
     var p = [];
@@ -761,6 +869,7 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
+
     // 1 库存转移 新增
     p[1] = autoPost({
         urlHock: "",
@@ -768,6 +877,7 @@
         success: function (json) {
         }
     });
+
     // 2 库存转移 编辑
     p[2] = autoPost({
         urlHock: "",
@@ -775,6 +885,7 @@
         success: function (json) {
         }
     });
+
     // 3 库存转移 分页 根据货品id 库位id 仓库id 合并获取库存单据
     p[3] = autoPost({
         urlHock: "",
@@ -782,6 +893,7 @@
         success: function (json) {
         }
     });
+
     // 5 库存转移 分页获取库存转移单据(包含详细信息)
     p[5] = autoPost({
         urlHock: "",
@@ -789,6 +901,7 @@
         success: function (json) {
         }
     });
+
     // 6 库存转移 通过库存转移单据id删除库存转移单据
     p[6] = autoPost({
         urlHock: "",
@@ -796,11 +909,21 @@
         success: function (json) {
         }
     });
+
     // 7 库存转移 通过库存转移单据id获取一条库存转移单据
     p[7] = autoPost({
         urlHock: "",
         urlProd: "/route/aLibraryTransfer/7",
         success: function (json) {
+        }
+    });
+
+    // 8 库存转移 通过库存转移单据id获取一条库存转移单据
+    p[8] = autoPost({
+        urlHock: "",
+        urlProd: "/route/aLibraryTransfer/8",
+        success: function (json) {
+
         }
     });
 
@@ -824,12 +947,16 @@
         success: function (json) {
         }
     });
-
     // 103 库存转移确认 通过库存转移单据id删除库存转移单据
     p[103] = autoPost({
         urlHock: "",
         urlProd: "/route/stockTransferConfirm/5",
         method: 'GET'
+    });
+    // 104 查询-储位
+    p[104] = autoPost({
+        urlHock: "/hock/inputOption/location.json",
+        urlProd: "/route/inputOperation/5"
     });
 </script>
 
