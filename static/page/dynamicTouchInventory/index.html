@@ -1048,7 +1048,9 @@
         urlHock: "",
         urlProd: "/route/dynamicTouchInventory/4",
         success: function (json) {
-
+            this.callbackAfter(json, function () {
+                p[0].post(obj.option);
+            })
         }
     });
     // 5 动碰盘点 分配任务页面根据盘点计划ID查询详情
