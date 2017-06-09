@@ -1275,7 +1275,10 @@
             },
             handleSelect: function (item) {
                 console.log(item);
-                obj.form.location.mdtLocationId = item.data.blLocationId
+                obj.form.location.mdtLocationId = item.data.blLocationId;
+                obj.$refs.ref_form.validate(function (valid) {
+                    return valid;
+                });
             },
             GoodSelect: function (item) {
                 this.form.saveARkDocsList = false;
@@ -1377,7 +1380,7 @@
                 var temp = {}
                 if (!isNaN(value)) {
                     temp = {
-                        1:  '原始状态',
+                        1: '原始状态',
                         21: '部分分配',
                         22: '全部分配',
                         31: '部分收货',
@@ -1385,11 +1388,11 @@
                     }
                 } else {
                     temp = {
-                        '原始状态':1,
-                        '部分分配':21,
-                        '全部分配':22,
-                        '部分收货':31,
-                        '全部收货':32,
+                        '原始状态': 1,
+                        '部分分配': 21,
+                        '全部分配': 22,
+                        '部分收货': 31,
+                        '全部收货': 32,
                     }
                 }
                 return temp[value];

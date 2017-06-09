@@ -1085,9 +1085,16 @@
                 });
             },
             ledgerSubmit: function () {
-                obj.ledger.dhsj = tsf_date(new Date(obj.ledger.dhsj));
-                obj.ledger.sfrq = tsf_date(new Date(obj.ledger.sfrq));
-                p[1].post(obj.ledger, function (json) {
+
+                var step = _postLedger();
+
+                var row = obj.ledger;
+                allPrposCb(step, function (obj2, index) {
+                    if (typeof row[index] !== 'undefined') step[index] = row[index];
+                });
+
+                step.jssj = (new Date(obj.ledger.jssj)).toJSON();
+                p[1].post(step, function (json) {
                     this.callbackAfter(json, function () {
                         p[0].post(obj.option);
                         obj.dialogLedgerVisible = false;
@@ -1214,175 +1221,17 @@
 
     function _postLedger() {
         return {
-            "rksRkmxId": 0,
-            "rksGoodsId": 0,
-            "rksDwid": 0,
-            "rksCount": 0,
-            "rksKyCount": 0,
-            "rksStatus": 0,
-            "rksRkdjId": 0,
-            "rksPsts": 0,
-            "rksDbPswb": "string",//调拨破损外包
-            "rksYtPswb": "string",//源头破损外包
-            "rksDbPsnb": "string",//调拨破损内保
-            "rksYtPsnb": "string",//源头破损内保
-            "rksPm": "",//泡沫
-            "rksQhsl": "", //缺机数量
-            "rksYcyy": "string",//异常原因
-            "rksCljg": "string",//处理结果
-            "rksJssj": "2017-06-03T07:29:00.330Z",//结算时间
-            "rksTzStatus": 0,//
-            "rksWjReason": "",//完结原因
-            "rksBfdh": "",//调拨单号
-            "baseGoods": {
-                "bgGoodsId": 0,
-                "bgGoodsNo": "string",
-                "bgGoodsName": "string",
-                "bgNamejc": "string",
-                "bgT": 0,
-                "bgI": 0,
-                "bgHsl": 0,
-                "bgZxdw": 0,
-                "bgSzdw": 0,
-                "bgStatus": 0,
-                "bgArehouseId": 0,
-                "bgClientId": 0,
-                "bgGoodsType": "string",
-                "bgGoodsTj": 0,
-                "bgGoodsZl": 0,
-                "bgGoodsPrice": 0,
-                "bgCreatetime": "2017-06-03T07:29:00.330Z",
-                "bgRemarks": "string",
-                "bgGoodsGg": "string",
-                "baseDws": [
-                    {
-                        "bdDwId": 0,
-                        "bdName": "string",
-                        "bdStatus": 0,
-                        "bdIsdel": true,
-                        "bdCreatetime": "2017-06-03T07:29:00.330Z"
-                    }
-                ]
-            },
-            "baseDw": {
-                "bdDwId": 0,
-                "bdName": "string",
-                "bdStatus": 0,
-                "bdIsdel": true,
-                "bdCreatetime": "2017-06-03T07:29:00.330Z"
-            },
-            "mfunrkDoc": {
-                "rkRkdjId": 0,
-                "rkRkdjNo": "string",
-                "rkErpNo": "string",
-                "rkType": "string",
-                "rkGysmc": "string",
-                "rkRemarks": "string",
-                "rkUserId": 0,
-                "rkSjsj": "2017-06-03T07:29:00.330Z",
-                "rkBjsj": "2017-06-03T07:29:00.330Z",
-                "rkCreatetime": "2017-06-03T07:29:00.330Z",
-                "rkCreateUserId": 0,
-                "rkZdfs": 0,
-                "rkStartwith": 0,
-                "rkStatus": 0,
-                "rkArehouseId": 0,
-                "rkClientId": 0,
-                "rkEndTime": "2017-06-03T07:29:00.330Z",
-                "rkPrintcount": 0,
-                "rkRwId": 0,
-                "rkRwStatus": "string",
-                "rkQhWjyy": "string",
-                "rkQhBfdh": "string",
-                "rmsUser": {
-                    "ruUserId": 0,
-                    "ruUserName": "string",
-                    "ruLoginName": "string",
-                    "ruLoginPassword": "string",
-                    "ruPhone": "string",
-                    "ruTelephone": "string",
-                    "ruEmail": "string",
-                    "ruSex": true,
-                    "ruBirthday": "2017-06-03T07:29:00.330Z",
-                    "ruHomeaddress": "string",
-                    "ruQicq": "string",
-                    "ruCreateTime": "2017-06-03T07:29:00.330Z",
-                    "ruLastModifiedTime": "2017-06-03T07:29:00.330Z",
-                    "ruStatus": 0,
-                    "ruSalt": "string",
-                    "ruUserType": 0,
-                    "ruUserZyq": "string",
-                    "ruRemarks": "string",
-                    "ruIspda": true,
-                    "ruPortrait": "string",
-                    "roleIds": [
-                        0
-                    ]
-                },
-                "rkDocsList": [
-                    {}
-                ],
-                "allCount": 0,
-                "allTj": 0,
-                "mdtAllCount": 0,
-                "mdtAllTj": 0,
-                "baArehouse": {
-                    "baArehouseId": 0,
-                    "baName": "string",
-                    "baAddr": "string",
-                    "baScity": "string",
-                    "baScontacts": "string",
-                    "baPhone": "string",
-                    "baAcreage": "string",
-                    "baCtype": "string",
-                    "baHumidity": "string",
-                    "baFax": "string",
-                    "baPostoffice": "string",
-                    "baIsti": 0,
-                    "baStatus": 0,
-                    "baClientId": 0,
-                    "baRemarks": "string",
-                    "baCreatetime": "2017-06-03T07:29:00.331Z",
-                    "baPgroupinfo": "string",
-                    "arehouseKqs": [
-                        {
-                            "baqKqId": 0,
-                            "baqArehouseId": 0,
-                            "baqKqName": "string",
-                            "baqIsdel": 0,
-                            "baqStatus": 0,
-                            "baseRegions": [
-                                {
-                                    "brgRegionId": 0,
-                                    "brgArehouseId": 0,
-                                    "brgRegionNo": "string",
-                                    "brgKqId": 0,
-                                    "brgRegionStatus": 0,
-                                    "baseLocationList": [
-                                        {
-                                            "blLocationId": 0,
-                                            "blLname": "string",
-                                            "blRegionId": 0,
-                                            "blLtray": 0,
-                                            "blLorder": 0,
-                                            "blStatus": 0,
-                                            "blArehouseId": 0
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                "userId": 0,
-                "mdtUserName": "string"
-            },
-
-            "mdtUser": "string",
-            "mdtCount": 0,
-            "mdtTj": 0,
-            "goodsTj": 0,
-            "mdtBatch": "string"
+            "rks_rkmx_id": 133,
+            "pm": "string",
+            "dbpswb": "string",
+            "ytpswb": "string",
+            "dbpsnb": "string",
+            "ytpsnb": "string",
+            "ycyy": "string",
+            "qhsl": "string",
+            "cljg": "string",
+            "psts": 8,
+            "jssj": "2017-06-08T09:15:32.918Z"
         }
     }
 
