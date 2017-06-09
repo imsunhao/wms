@@ -90,26 +90,25 @@ var warehousingReservation = new Vue({
     },
     methods: {
         View: function (index, row) {
-            var step = _form();
-            allPrposCb(step, function (obj2, index) {
-                if (typeof row[index] !== 'undefined') step[index] = row[index];
-            });
-            /*<debug>*/
-            console.log(row);
-            console.log(step);
-            /*</debug>*/
-            step.title = '查看';
-            if (typeof this.$refs.carousel !== 'undefined') this.$refs.carousel.setActiveItem(0);
-            this.form = step;
-            this.dialogFormActive = 0;
-            if (typeof (this.form.rkDocsList) === 'undefined' || this.form.rkDocsList.length === 0) {
-                p[101].post({rkRkdjId: row.rkRkdjId}, function (json) {
-                    obj.form.rkDocsList = json.rkDocsList;
-                    obj.dialogFormVisible = true;
-                })
-            } else {
+            p[8].post({rkRkdjId: row.rkRkdjId}, function (json) {
+                var step = _form();
+                allPrposCb(step, function (obj, index) {
+                    if (typeof row[index] !== 'undefined') step[index] = row[index];
+                });
+                /*<debug>*/
+                console.log(row);
+                console.log(step);
+                /*</debug>*/
+                step.title = '查看';
+                obj.watchView = true;
+                step.rkDocsList = json;
+                if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
+                obj.form = step;
+                obj.dialogFormActive = 0;
                 obj.dialogFormVisible = true;
-            }
+            });
+
+
         },                                        //行内按钮-观察
         Edit: function (index, row) {
             p[8].post({rkRkdjId: row.rkRkdjId}, function (json) {
@@ -122,6 +121,7 @@ var warehousingReservation = new Vue({
                 console.log(step);
                 /*</debug>*/
                 step.title = '编辑';
+                obj.watchView = false;
                 step.rkDocsList = json;
                 if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
                 obj.form = step;

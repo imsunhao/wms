@@ -756,7 +756,7 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 9:
-                        urlName = '取消分配';//TODO
+                        urlName = '取消分配';
                         req = autoUrl(req, '/mdt/mfunrkDistributionlist/quXiaoFenPei', "POST", function (json) {
                             res.send(json);
                         });
