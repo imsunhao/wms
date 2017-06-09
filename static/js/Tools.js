@@ -430,5 +430,7 @@ var homeTimer = 0;                        //timer 核心
 
 var timer_span = {
     home: 30000,
-    loopInventory: 10000
+    loopInventory: 10000,
+    dynamicTouchInventory:10000,
+    comprehensiveInventory:10000,
 };                   //timer   配置文件

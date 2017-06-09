@@ -1,0 +1,180 @@
+
+#warehousingReservation {
+  width: 100%;
+  min-width: 890px;
+  position: relative;
+}
+
+#warehousingReservation .demo-table-expand {
+  font-size: 0;
+}
+
+#warehousingReservation .demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+
+#warehousingReservation .demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 80%;
+}
+
+#warehousingReservation .el-table__expand-column .el-table__expand-icon {
+  height: 39px;
+}
+
+#warehousingReservation .table {
+  transition: 1s all;
+}
+
+#warehousingReservation .el-carousel__container {
+  height: 440px;
+}
+
+.el-tooltip__popper {
+  max-width: 400px;
+}
+
+.el-step__main {
+  max-width: calc(100% - 60px);
+}
+
+#warehousingReservation .warehousingReservationTable {
+  width: 95% !important;
+  margin: 10px 20px 0;
+}
+
+#warehousingReservation .datePicker {
+  width: 140px !important;
+  height: 24px !important;
+  margin-top: 29px;
+  margin-right: 18px;
+  float: left;
+}
+
+#warehousingReservation .datePicker .el-input__inner {
+  border-radius: 2px !important;
+  height: 24px !important;
+}
+
+#warehousingReservation .add {
+  background: url("/static/images/add.png") no-repeat center;
+}
+
+#warehousingReservation .del {
+  background: url("/static/images/del.png") no-repeat center;
+}
+
+#warehousingReservation .search {
+  background: url("/static/images/search.png") no-repeat center;
+}
+
+#warehousingReservation .sel {
+  background: url("/static/images/sel.png") no-repeat center;
+}
+
+#warehousingReservation .icon {
+  float: left;
+}
+
+#warehousingReservation .btn span {
+  float: left;
+  margin-top: 4px;
+  margin-left: 2px;
+}
+
+#warehousingReservation .btn {
+  height: 24px;
+  line-height: 1;
+  border: none;
+  background: #f8fafb;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  color: #1f2d3d;
+  margin-top: 29px;
+  margin-right: 16px;
+}
+
+#warehousingReservation .btn-print {
+  margin-right: 0;
+}
+
+#warehousingReservation .btn:hover {
+  color: #5468ee;
+}
+
+#warehousingReservation .inner {
+  margin: 0 20px;
+}
+
+#warehousingReservation .btn-nav {
+  height: 60px;
+  overflow: hidden;
+}
+
+#warehousingReservation .btn-nav .el-input .el-input__inner {
+  height: 24px;
+}
+
+#warehousingReservation .btn-nav .el-input {
+  float: left;
+  margin-top: 29px;
+  margin-right: 18px;
+  width: 140px;
+  height: 24px;
+}
+
+#warehousingReservation h4 {
+  padding-left: 20px;
+  margin-bottom: 0;
+}
+
+#warehousingReservation .formBottom {
+  margin-top: 10px;
+}
+
+#warehousingReservation .warehousingReservationCombinationDetails .el-date-editor.el-input {
+  width: 100%;
+}
+
+#warehousingReservation .warehousingReservationCombinationDetails {
+  margin-top: 30px;
+}
+
+
+.steps {
+  position: absolute;
+  bottom: 10px;
+  left: 30px;
+  margin: auto;
+}
+
+.el-dialog__headerbtn {
+  position: absolute;
+  right: 25px;
+  top: 15px;
+}
+
+.el-step__main {
+  margin-left: -8px !important;
+}
+
+
+
+#warehousingReservation .bgGoodsName {
+  max-height: 36px;
+  display: inline-block;
+  overflow: hidden;
+}
+
+#warehousingReservation .bgGoodsNameLocation {
+  max-height: 14px;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 15px;
+  overflow: hidden;
+}
