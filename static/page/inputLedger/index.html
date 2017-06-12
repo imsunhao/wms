@@ -164,6 +164,7 @@
                                         </el-button>
                                         <el-button
                                                 size="small"
+                                                v-if="props.row.qhsl!=0"
                                                 @click="inlineOweEnd(props.$index, props.row)">欠货完结
                                         </el-button>
                                         <el-button
