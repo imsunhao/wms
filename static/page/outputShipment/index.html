@@ -466,6 +466,7 @@
             v-model="dialogListsVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">出库明细 单号：{{lists.ckCkdjNo}}</span><span
+                v-if="lists.ckRwStatus<51"
                 style="margin-left:10px;font-size: 14px; ">(双击修改 发运数量)</span>
         </div>
         <el-table
