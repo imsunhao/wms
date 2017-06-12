@@ -122,8 +122,9 @@
                                                         <el-button
                                                                 size="small"
                                                                 type="info"
+                                                                v-if="props.row.ckCkdjType!=2"
                                                                 @click="inlineRetentionInput(props.$index, props.row)">
-                                                            滞留出库
+                                                            滞留入库
                                                         </el-button>
                                                         <el-button
                                                                 size="small"
