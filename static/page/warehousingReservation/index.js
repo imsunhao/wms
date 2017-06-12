@@ -578,7 +578,7 @@ p[0] = autoPost({
             /*<prod>*/
             obj.$notify({
                 title: '成功',
-                message: '新建入库预约',
+                message: '保存成功',
                 type: 'success'
             });
             /*</prod>*/
