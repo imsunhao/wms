@@ -231,7 +231,26 @@ var inputOperation = new Vue({
             this.$refs['ref_form'].validate(function (valid) {
                 if (valid) {
                     this.locationLoading = true;
-                    setTimeout(function () {
+                    p[5].post({
+                        "pageNum": 1,
+                        "pageSize": 1,
+                        "draw": 0,
+                        blLName: obj.form.location.blLname,
+                        arehouseId: window.dbmessage.baseArehouses[0].baArehouseId
+                    }, function (json) {
+                        if (json.data.length === 1 && json.data[0].blLocationId === obj.form.location.blLocationId) {
+
+                        } else if (json.data.length === 1) {
+                            console.log(json.data);
+                            obj.form.location.mdtLocationId = json.data[0].blLocationId;
+                        } else {
+                            obj.$notify({
+                                title: '失败',
+                                message: '储位未能找到！',
+                                type: 'error'
+                            });
+                            return false;
+                        }
                         obj.locationLoading = false;
                         obj.$notify({
                             title: '成功',
@@ -242,16 +261,12 @@ var inputOperation = new Vue({
                         allPrposCb(step, function (obj2, index) {
                             if (typeof obj.form.location[index] !== 'undefined') step[index] = obj.form.location[index];
                         });
+                        console.log(step);
                         obj.location.push(step);
                         obj.form.rkDocsList[obj.form.location.index].rksKyCount -= step.selectGood.rksCount;
                         obj.form.location = newLocation();
-//                    for (var i = 0; i < obj.form.rkDocsList.length; i++) {
-//                        if (obj.form.rkDocsList[i].rksRkmxId === step.rksRkmxId) {
-//                            obj.form.rkDocsList[i].rksKyCount -= step.rksCount;
-//                        }
-//                    }
                         obj.dialogLocationVisible = false;
-                    }, 250);
+                    });
                 } else {
                     return false;
                 }
