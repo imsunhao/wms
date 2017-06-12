@@ -314,27 +314,6 @@
     </el-dialog>
     <el-dialog
             size="large"
-            class="printf"
-            class="printf"
-            v-model="dialogPrintfVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">打印标签页</span>
-        </div>
-        <el-tree
-                :data="printf"
-                :props="{label: 'name',children: 'children'}"
-                :load="printfLoadNode"
-                lazy
-                show-checkbox
-                ref="printf"
-                @check-change="printfCheckChange">
-        </el-tree>
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="printfSubmit" :loading="printfLoading">打印</el-button>
-        </div>
-    </el-dialog>
-    <el-dialog
-            size="large"
             title="入库明细信息"
             v-model="dialogDetailedVisible">
         <el-table
@@ -415,7 +394,7 @@
                     label="上架库位"
                     show-overflow-tooltip
                     align="center"
-                    prop="mdtLocationId">
+                    prop="baseLocation.blLname">
             </el-table-column>
             <el-table-column
                     label="上架数量"
