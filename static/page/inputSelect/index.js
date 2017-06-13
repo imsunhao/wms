@@ -14,9 +14,9 @@ var inputSelect = new Vue({
             pageSize: 10,
             currentTotal:0,
             date: [null, null],                 //主页面 选择日期 搜索
-            rjdkNo: '',                       //主页面 入库单号 搜索
-            shzt:'',                           //主页面 单据状态
-            ckId: window.dbmessage.baseArehouses[0].baArehouseId,             //主页面 仓库 搜索
+            rkRkdjNo: '',                       //主页面 入库单号 搜索
+            rkStatus:'',                           //主页面 单据状态
+            rkArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,             //主页面 仓库 搜索
             formLabelWidth: '120px',          //表单 配置
             form: _form(),                       //表单 弹出层 信息集合
             dialogFormActive: 0,              //新建 弹出层 steps 当前进度
@@ -48,10 +48,10 @@ var inputSelect = new Vue({
                 "pageNum": this.currentPage,
                 "pageSize": this.pageSize,
                 "djzt":this.rkStatus,
-                "rkdh":this.rjdkNo.trim(),
+                "rkdh":this.rkRkdjNo.trim(),
                 "xdsjStart":tsf_date(this.date[0]),
                 "xdsjEnd":tsf_date(this.date[1]),
-                "ckId":this.ckId,
+                "ckId":this.rkArehouseId,
             }
         },
         form_pop:function(){
@@ -476,19 +476,19 @@ var inputSelect = new Vue({
 
     },
     watch:{
-        rjdkNo: function () {
+        rkRkdjNo: function () {
             /*<debug>*/
             console.log((_option ? this.form_pop : this.option));
             /*</debug>*/
             p[0].post((_option ? this.form_pop : this.option));
         },
-        shzt: function () {
+        rkStatus: function () {
             /*<debug>*/
             console.log((_option ? this.form_pop : this.option));
             /*</debug>*/
             p[0].post((_option ? this.form_pop : this.option));
         },
-        ckId: function () {
+        rkArehouseId: function () {
             /*<debug>*/
             console.log((_option ? this.form_pop : this.option));
             /*</debug>*/
