@@ -424,13 +424,217 @@ function auto_time_new(value, number) {
 })();                    //一维码 打印核心
 function auto_portrait(portrait) {
     return 'static/images/users/' + portrait;
-}
+}    //生成 正确的头像路径
 
 var homeTimer = 0;                        //timer 核心
-
 var timer_span = {
     home: 30000,
     loopInventory: 10000,
     dynamicTouchInventory: 10000,
     comprehensiveInventory: 10000,
 };                   //timer   配置文件
+
+var ___datas = (function () {
+//     function auto_color(index, key, value) {
+//         return {
+//             value: key,
+//             name: value,
+//             type: auto_Type(index),
+// //            color: randomColor(key)
+//         };
+//     }
+//
+//     function randomColor(key) {
+//         if (key < 6) return '';
+//         else return '#' +
+//             (function (color) {
+//                 return (color += '0123456789abcdef'[Math.floor(Math.random() * 16)])
+//                 && (color.length === 6) ? color : arguments.callee(color);
+//             })('');
+//     }
+//
+//     function auto_Type(key) {
+//         switch (key % 6) {
+//             case 0:
+//                 return '';
+//             case 1:
+//                 return 'gray';
+//             case 2:
+//                 return 'primary';
+//             case 3:
+//                 return 'success';
+//             case 4:
+//                 return 'warning';
+//             case 5:
+//                 return 'danger';
+//         }
+//
+//     }
+    return [
+        // {
+        //     id: 'rkType',
+        //     name: '入库单据类型',
+        //     data: [
+        //         auto_color(2, 0, '杂入'),
+        //         auto_color(2, 1, '事业部入库'),
+        //         auto_color(2, 2, 'OEM收货单'),
+        //         auto_color(2, 3, '成品调拨入库'),
+        //         auto_color(2, 4, '成品调拨入库'),
+        //         auto_color(2, 5, '成品调拨入库'),
+        //         auto_color(2, 6, '成品调拨入库'),
+        //         auto_color(2, 7, '成品调拨入库'),
+        //         auto_color(2, 8, '成品调拨入库'),
+        //         auto_color(2, 9, '成品调拨入库'),
+        //     ]
+        // },
+        {
+            id: 'rkZdfs',
+            name: '制单方式',
+            data: [
+                {value: 1, name: '手动', type: 'success', color: ''},
+                {value: 2, name: 'excel', type: 'primary', color: ''},
+                {value: 3, name: '接口', type: 'warning', color: ''}
+            ]
+        },
+        {
+            id: 'ckIsauto',
+            name: '制单方式',
+            data: [
+                {value: 1, name: '手动', type: 'success', color: ''},
+                {value: 2, name: 'excel', type: 'primary', color: ''},
+                {value: 3, name: '接口', type: 'warning', color: ''}
+            ]
+        },
+        {
+            id: 'rkStartwith',
+            name: '操作方式',
+            data: [
+                {value: 1, name: '电脑端', type: 'success', color: ''},
+                {value: 2, name: 'pda', type: 'primary', color: ''}
+            ]
+        },
+        {
+            id: 'ckStartwith',
+            name: '操作方式',
+            data: [
+                {value: 1, name: '电脑端', type: 'success', color: ''},
+                {value: 2, name: 'pda', type: 'primary', color: ''}
+            ]
+        },
+        {
+            id: 'rkStatus',
+            name: '入库单据状态',
+            data: [
+                {value: 1, name: '原始状态', type: '', color: ''},
+                {value: 21, name: '部分分配', type: 'gray', color: ''},
+                {value: 22, name: '全部分配', type: 'primary', color: ''},
+                {value: 31, name: '部分收货', type: 'success', color: ''},
+                {value: 32, name: '全部收货', type: 'warning', color: ''},
+                {value: 50, name: '作废', type: 'danger', color: ''},
+            ]
+        },
+        {
+            id: 'rk_status',
+            name: '入库单据状态',
+            data: [
+                {value: 1, name: '原始状态', type: '', color: ''},
+                {value: 21, name: '部分分配', type: 'gray', color: ''},
+                {value: 22, name: '全部分配', type: 'primary', color: ''},
+                {value: 31, name: '部分收货', type: 'success', color: ''},
+                {value: 32, name: '全部收货', type: 'warning', color: ''},
+                {value: 50, name: '作废', type: 'danger', color: ''},
+            ]
+        },
+        {
+            id: 'rkRwStatus',
+            name: '入库任务状态',
+            data: [
+                {value: 1, name: '初始', type: '', color: ''},
+                {value: 2, name: '已下发任务', type: 'gray', color: ''},
+                {value: 3, name: '已开始收货', type: 'primary', color: ''},
+                {value: 4, name: '收货中', type: 'gray', color: ''},
+                {value: 51, name: '部分收货', type: 'warning', color: ''},
+                {value: 52, name: '全部收货', type: 'warning', color: ''},
+                {value: 61, name: '收货完成', type: 'success', color: ''},
+                {value: 62, name: '欠货', type: 'danger', color: ''}
+            ]
+        },
+        {
+            id: 'ckCkdjType',
+            name: '出库单据类型',
+            data: [
+                {value: 1, name: '挂起单据', type: 'danger', color: ''},
+                {value: 2, name: '滞留单据', type: 'warning', color: ''},
+                {value: 0, name: '正常单据', type: 'success', color: ''}
+            ]
+        },
+        {
+            id: 'ckStatus',
+            name: '出库单据状态',
+            data: [
+                {value: 1, name: '原始状态', type: '', color: ''},
+                {value: 21, name: '部分分拣', type: 'gray', color: ''},
+                {value: 22, name: '部分下架', type: 'primary', color: ''},
+                {value: 31, name: '全部分拣', type: 'success', color: ''},
+                {value: 32, name: '全部下架', type: 'warning', color: ''},
+                {value: 50, name: '作废', type: 'danger', color: ''},
+            ]
+        },
+        {
+            id: 'ckRwStatus',
+            name: '出库任务状态',
+            data: [
+                {value: 10, name: '初始', type: '', color: ''},
+                {value: 11, name: '已下发', type: 'gray', color: ''},
+                {value: 21, name: '已挑选', type: 'primary', color: ''},
+                {value: 31, name: '已激活', type: 'danger', color: ''},
+                {value: 41, name: '部分出库', type: 'warning', color: ''},
+                {value: 42, name: '全部出库', type: 'warning', color: ''},
+                {value: 51, name: '部分发运', type: 'success', color: ''},
+                {value: 52, name: '全部发运', type: 'success', color: ''}
+            ]
+        },
+        {
+            id: 'cksQhStatus',
+            name: '欠货状态(出库日报欠货状态)',
+            data: [
+                {value: 1, name: '全部欠货', type: 'danger', color: ''},
+                {value: 2, name: '部分欠货', type: 'warning', color: ''},
+                {value: 3, name: '未欠货', type: 'success', color: ''}
+            ]
+        },
+        {
+            id: 'cksZlStatus',
+            name: '滞留状态(出库日报滞留状态)',
+            data: [
+                {value: 1, name: '未到车滞留', type: 'warning', color: ''},
+                {value: 2, name: '到车滞留', type: 'danger', color: ''},
+                {value: 3, name: '未滞留', type: 'success', color: ''}
+            ]
+        },
+        // {
+        //     id: 'baArehouseId',
+        //     name: '仓库id',
+        //     data: (function () {
+        //         var step = [];
+        //         for (var i = 0; i < window.dbmessage.baseArehouses.length; i++) {
+        //             step.push(auto_color(3, window.dbmessage.baseArehouses[i].baArehouseId, window.dbmessage.baseArehouses[i].baName))
+        //         }
+        //         return step;
+        //     })()
+        // },
+    ]
+})();     //全局 el_tag 配置 参数
+
+
+function auto_el_tag(id, value) {
+    for (var i in ___datas) {
+        if (___datas[i].id === id) {
+            for (var b in ___datas[i].data) {
+                if (___datas[i].data[b].value === value) {
+                    return ___datas[i].data[b];
+                }
+            }
+        }
+    }
+}

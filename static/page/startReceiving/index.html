@@ -90,10 +90,10 @@
                                                 <span>{{ props.row.rkrwDh }}</span>
                                             </el-form-item>
                                             <el-form-item label="任务状态">
-                                                <span>{{ auto_rkrwStatus(props.row.rkrwStatus) }}</span>
+                                                <el-tag-s :val="auto_el_tag('rkRwStatus',props.row.rkrwStatus)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item
-                                                    v-if="props.row.rkrwStatus<52"
+                                                    v-if="props.row.rkrwStatus<52&&props.row.rkrwStatus>1"
                                                     label="可用操作">
                                                 <el-button
                                                         size="small"
@@ -238,9 +238,7 @@
                         width="150px"
                         align="center">
                     <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_rkrwStatus(scope.row.rkrwStatus)}}
-                        </el-tag>
+                        <el-tag-s :val="auto_el_tag('rkRwStatus',scope.row.rkrwStatus)"></el-tag-s>
                     </template>
                 </el-table-column>
                 <el-table-column

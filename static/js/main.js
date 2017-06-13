@@ -133,6 +133,20 @@ $(function () {
             dysj: ''
         }
     });
+    Vue.component('el-tag-s', {
+        render: function (h) {
+            var val = this.val;
+            return h('el-tag', {
+                props: {
+                    type: val.type,
+                    color: val.color
+                }
+            },val.name);
+        },
+        props: {
+            val: {}
+        }
+    });
     Vue.directive('echarts', {
         bind: function (el, binding, vnode) {
             Vue.nextTick(function () {
@@ -143,7 +157,6 @@ $(function () {
         },
         update: function (val, oldVal) {
             console.log('update');
-
         },
         unbind: function () {
             console.log('unbind');

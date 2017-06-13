@@ -78,7 +78,7 @@
                                                         <span>{{ props.row.ckCkdjNo }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="单据类型">
-                                                        <span>{{auto_ckCkdjType(props.row.ckCkdjType) }}</span>
+                                                        <el-tag-s :val="auto_el_tag('ckCkdjType',props.row.ckCkdjType)"></el-tag-s>
                                                     </el-form-item>
                                                     <el-form-item label="客户编号">
                                                         <span>{{ props.row.ckCkdjClientno }}</span>
@@ -102,7 +102,7 @@
                                                         <span>{{ props.row.allTj    }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="制单方式">
-                                                        <span>{{auto_ckIsauto(props.row.ckIsauto)   }}</span>
+                                                        <el-tag-s :val="auto_el_tag('rkZdfs',props.row.ckIsauto)"></el-tag-s>
                                                     </el-form-item>
 
                                                     <el-form-item label="单据状态">
@@ -204,7 +204,7 @@
                                         label="单据类型"
                                         align="center">
                                     <template scope="scope">
-                                        {{auto_ckCkdjType(scope.row.ckCkdjType)}}
+                                        <el-tag-s :val="auto_el_tag('ckCkdjType',scope.row.ckCkdjType)"></el-tag-s>
                                     </template>
                                 </el-table-column>
                                 <el-table-column
