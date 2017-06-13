@@ -147,15 +147,6 @@
     }
 </style>
 <style>
-    .select {
-
-    }
-
-    .select .input {
-        width: 70%;
-    }
-</style>
-<style>
     #aLibraryTransfer .el-dialog .btn-nav {
         height: 35px;
     }
@@ -542,6 +533,7 @@
                             <el-autocomplete
                                     :fetch-suggestions="queryLocationAsync"
                                     v-model="form.select.baseLocation.blLname"
+                                    :disabled="form.select.sort.mrDwid==0||obj.form.select.sort.kyCount==0"
                                     @select="locationSelect"
                                     auto-complete="off"></el-autocomplete>
                         </el-form-item>
@@ -550,7 +542,7 @@
                                 :label-width="formLabelWidth">
                             <div class="block">
                                 <el-slider
-                                        :disabled="form.select.sort.mrDwid==0"
+                                        :disabled="form.select.sort.mrDwid==0||obj.form.select.sort.kyCount==0"
                                         :max="form.select.sort.kyCount"
                                         v-model="form.select.zysZyCount"
                                         show-input>
@@ -562,7 +554,7 @@
                             <el-button
                                     size="small"
                                     @click="selectCof"
-                                    :disabled="form.select.sort.mrDwid==0||form.select.baseLocation.blLname==''"
+                                    :disabled="form.select.sort.mrDwid==0||form.select.baseLocation.blLname==''||obj.form.select.sort.kyCount==0||form.select.zysZyCount==0"
                                     type="info">确定
                             </el-button>
                         </el-form-item>
@@ -852,14 +844,37 @@
                 this.form.select.baseLocation = item.data;
             },
             selectCof: function () {
-                var step = obj.form.select.sort;
-                step.zysZyCount = obj.form.select.zysZyCount;
-                step.baseLocation2 = obj.form.select.baseLocation;
+                p[104].post({
+                    "pageNum": 1,
+                    "pageSize": 1,
+                    "draw": 0,
+                    blLName: obj.form.select.baseLocation.blLname,
+                    arehouseId: window.dbmessage.baseArehouses[0].baArehouseId
+                }, function (json) {
+                    if (json.data.length === 1 && json.data[0].blLocationId === obj.form.select.baseLocation.blLocationId) {
+                        _step();
+                    } else if (json.data.length === 1) {
+                        obj.form.select.baseLocation = json.data[0];
+                        _step();
+                    } else {
+                        obj.$notify({
+                            title: '失败',
+                            message: '储位未能找到！',
+                            type: 'error'
+                        });
+                        return false;
+                    }
+                    function _step() {
+                        var step = obj.form.select.sort;
+                        step.zysZyCount = obj.form.select.zysZyCount;
+                        step.baseLocation2 = obj.form.select.baseLocation;
 
-                obj.form.data.push(step);
+                        obj.form.data.push(step);
 
-                obj.form.select = _form_select();
-                this.selectReturn();
+                        obj.form.select = _form_select();
+                        obj.selectReturn();
+                    }
+                });
             },
 
 
@@ -1083,8 +1098,5 @@
         urlProd: "/route/inputOperation/5"
     });
 </script>
-
-
-
 
 
