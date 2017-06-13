@@ -492,7 +492,7 @@ var ___datas = (function () {
             name: '制单方式',
             data: [
                 {value: 1, name: '手动', type: 'success', color: ''},
-                {value: 2, name: 'excel', type: 'primary', color: ''},
+                {value: 2, name: '导入', type: 'primary', color: ''},
                 {value: 3, name: '接口', type: 'warning', color: ''}
             ]
         },
@@ -501,7 +501,7 @@ var ___datas = (function () {
             name: '制单方式',
             data: [
                 {value: 1, name: '手动', type: 'success', color: ''},
-                {value: 2, name: 'excel', type: 'primary', color: ''},
+                {value: 2, name: '导入', type: 'primary', color: ''},
                 {value: 3, name: '接口', type: 'warning', color: ''}
             ]
         },
