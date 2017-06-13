@@ -595,12 +595,28 @@ var ___datas = (function () {
             ]
         },
         {
+            id: 'ckQhStatus',
+            name: '欠货状态(出库日报欠货状态)',
+            data: [
+                {value: 1, name: '欠货', type: 'danger', color: ''},
+                {value: 2, name: '未欠货', type: 'success', color: ''}
+            ]
+        },
+        {
             id: 'cksQhStatus',
             name: '欠货状态(出库日报欠货状态)',
             data: [
                 {value: 1, name: '全部欠货', type: 'danger', color: ''},
                 {value: 2, name: '部分欠货', type: 'warning', color: ''},
                 {value: 3, name: '未欠货', type: 'success', color: ''}
+            ]
+        },
+        {
+            id: 'ckZlStatus',
+            name: '滞留状态(出库日报滞留状态)',
+            data: [
+                {value: 1, name: '滞留', type: 'danger', color: ''},
+                {value: 2, name: '未滞留', type: 'success', color: ''}
             ]
         },
         {
