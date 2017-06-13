@@ -174,12 +174,11 @@
                                             prop="ckAdress">
                                     </el-table-column>
                                     <el-table-column
-                                            label="预发时间"
+                                            label="状态"
                                             align="center"
-                                            width="100"
                                             show-overflow-tooltip>
                                         <template scope="scope">
-                                            {{auto_time(scope.row.ckYfhsj,true)}}
+                                            {{auto_ckStatus(scope.row.ckStatus)}}
                                         </template>
                                     </el-table-column>
                                 </el-table>
