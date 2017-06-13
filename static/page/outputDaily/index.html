@@ -166,8 +166,10 @@
                 <el-table-column
                         label="作业人员"
                         show-overflow-tooltip
-                        prop="userName"
                         align="center">
+                    <template scope="scope">
+                        {{scope.row.userName}}
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="作业时间"
@@ -440,6 +442,7 @@
             </el-row>
         </el-form>
         <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="form = _form()">重置</el-button>
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
         </div>
     </el-dialog>
