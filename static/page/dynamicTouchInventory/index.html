@@ -790,7 +790,7 @@
                             });
                         }
                     }
-                    p[3].post({data: step}, function (json) {
+                    p[2].post({data: step}, function (json) {
                         this.callbackAfter({status: json.status, model: '分配任务'}, function () {
                             obj.dialogAssignmentVisible = false;
                         })
@@ -1040,8 +1040,8 @@
     p[2] = autoPost({
         urlHock: "",
         urlProd: "/route/dynamicTouchInventory/2",
+        method: 'GET',
         success: function (json) {
-
         }
     });
       // 3 动碰盘点 根据盘点计划id确认盘点信息
