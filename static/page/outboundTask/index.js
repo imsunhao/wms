@@ -485,11 +485,11 @@ var outboundTask = new Vue({
         },
         expandChange: function (row, expanded) {
             if (expanded && (typeof (row.mfunckDoc) === 'undefined' || row.mfunckDoc === null || row.mfunckDoc.length === 0)) {
-                p[1].post({id: row.ckrwId}, function (json) {
+                p[1].post({id: row.ckrwId,arehouseId:window.dbmessage.baseArehouses[0].baArehouseId}, function (json) {
                     /*<debug>*/
                     console.log(json);
                     /*</debug>*/
-                    row.mfunckDoc = json.model.mfunckDoc;
+                    row.mfunckDoc = json.model;
                 });
             }
             /*<debug>*/
