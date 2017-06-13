@@ -56,7 +56,12 @@
                                 :autoplay="false">
                             <el-carousel-item>
                                 <el-row>
-                                    <h3>激活单据详细</h3>
+
+                                    <h3>激活单据详细<span
+                                            style="font-size: 14px;
+                                            font-weight: normal;
+                                            margin-left: 5px;">(翻页查看任务单据）</span>
+                                    </h3>
                                 </el-row>
                                 <el-form label-position="left" inline class="demo-table-expand">
                                     <el-row>
@@ -171,14 +176,13 @@
                                             show-overflow-tooltip
                                             prop="ckAdress">
                                     </el-table-column>
-                                    <el-table-column
-                                            label="预发时间"
+                                      <el-table-column
+                                            label="状态"
                                             align="center"
-                                            width="100"
                                             show-overflow-tooltip>
-                                        <template scope="scope">
-                                            {{auto_time(scope.row.ckYfhsj,true)}}
-                                        </template>
+                                          <template scope="scope">
+                                              {{auto_ckStatus(scope.row.ckStatus)}}
+                                          </template>
                                     </el-table-column>
                                     <el-table-column
                                             width="150"
@@ -1240,6 +1244,34 @@
                 }
                 return temp[value];
             },                               //滞留状态
+            auto_ckStatus: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '原始状态',
+                        21: '部分分拣',
+                        22: '部分下架',
+                        31: '全部分拣',
+                        32: '全部下架',
+                        50: '作废',
+
+
+                    }
+                } else {
+                    temp = {
+                        '原始状态': 1,
+                        '部分分拣': 21,
+                        '部分下架': 22,
+                        '全部分拣': 31,
+                        '全部下架': 32,
+                        '作废':50
+
+
+                    }
+                }
+                return temp[value];
+            },                                   //单据状态
+
         },
         watch: {
             ckrwNo: function () {

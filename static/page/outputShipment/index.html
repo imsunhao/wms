@@ -52,7 +52,11 @@
                                 :autoplay="false">
                             <el-carousel-item>
                                 <el-row>
-                                    <h3>出库发运详细</h3>
+                                    <h3>出库发运详细<span
+                                            style="font-size: 14px;
+                                            font-weight: normal;
+                                            margin-left: 5px;">(翻页查看任务单据）</span>
+                                    </h3>
                                 </el-row>
                                 <el-form label-position="left" inline class="demo-table-expand">
                                     <el-row>
@@ -174,12 +178,11 @@
                                             prop="ckAdress">
                                     </el-table-column>
                                     <el-table-column
-                                            label="预发时间"
+                                            label="状态"
                                             align="center"
-                                            width="100"
                                             show-overflow-tooltip>
                                         <template scope="scope">
-                                            {{auto_time(scope.row.ckYfhsj,true)}}
+                                            {{auto_ckStatus(scope.row.ckStatus)}}
                                         </template>
                                     </el-table-column>
                                 </el-table>

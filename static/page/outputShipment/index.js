@@ -362,6 +362,34 @@ var outputShipment = new Vue({
             }
             return temp[value];
         },                                //滞留状态
+        auto_ckStatus: function (value) {
+            var temp = {};
+            if (!isNaN(value)) {
+                temp = {
+                    1: '原始状态',
+                    21: '部分分拣',
+                    22: '部分下架',
+                    31: '全部分拣',
+                    32: '全部下架',
+                    50: '作废',
+
+
+                }
+            } else {
+                temp = {
+                    '原始状态': 1,
+                    '部分分拣': 21,
+                    '部分下架': 22,
+                    '全部分拣': 31,
+                    '全部下架': 32,
+                    '作废':50
+
+
+                }
+            }
+            return temp[value];
+        },                                   //单据状态
+
     },
     watch: {
         ckrwNo: function () {
