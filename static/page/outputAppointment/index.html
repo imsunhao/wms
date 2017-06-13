@@ -116,7 +116,13 @@
                                                     <el-form-item label="可用操作">
                                                         <el-button
                                                                 size="small"
+                                                                icon="view"
+                                                                @click="View(props.$index, props.row)">
+                                                        </el-button>
+                                                        <el-button
+                                                                size="small"
                                                                 icon="edit"
+                                                                v-if="props.row.ckIsauto==1"
                                                                 @click="inlineEdit(props.$index, props.row)">
                                                         </el-button>
                                                         <el-button
@@ -128,6 +134,7 @@
                                                         </el-button>
                                                         <el-button
                                                                 size="small"
+                                                                v-if="props.row.ckIsauto==1"
                                                                 icon="delete"
                                                                 type="danger"
                                                                 @click="inlineDeleteOlder(props.$index, props.row)">
@@ -323,7 +330,9 @@
                         <el-row>
                             <el-col :span="10">
                                 <el-form-item label="所属仓库" :label-width="formLabelWidth">
-                                    <el-select v-model.number="form.ckArehouseId" placeholder="请选择所属仓库">
+                                    <el-select v-model.number="form.ckArehouseId"
+                                               :disabled="watchView"
+                                               placeholder="请选择所属仓库">
                                         <el-option :label="obj.baName" :value="obj.baArehouseId"
                                                    v-for="obj of baseArehouses"></el-option>
                                     </el-select>
@@ -333,6 +342,7 @@
                                         prop="ckCkdjClientname"
                                         :label-width="formLabelWidth">
                                     <el-input
+                                            :disabled="watchView"
                                             v-model="form.ckCkdjClientname"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
@@ -342,6 +352,7 @@
                                         :label-width="formLabelWidth">
                                     <el-input
                                             v-model="form.ckTel"
+                                            :disabled="watchView"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
                                 <el-form-item
@@ -350,6 +361,7 @@
                                         :label-width="formLabelWidth">
                                     <el-input
                                             v-model="form.ckAdress"
+                                            :disabled="watchView"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
                                 <el-form-item
@@ -358,6 +370,7 @@
                                         :label-width="formLabelWidth">
                                     <el-input
                                             v-model="form.ckContacts"
+                                            :disabled="watchView"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
                             </el-col>
@@ -379,6 +392,7 @@
                                             type="textarea"
                                             :rows="2"
                                             v-model="form.ckRemarks"
+                                            :disabled="watchView"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
                             </el-col>
