@@ -85,7 +85,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 11:
                         urlName = '用户管理-根据id返回用户角色信息';
-                        req = autoUrl(req, '/role/findByUserId/' + req.query.user_id, "POST", function (json) {
+                        req = autoUrl(req, '/role/findByUserId/' + req.query.id, "POST", function (json) {
                             res.send(json);
                         });
                         break;
