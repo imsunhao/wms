@@ -3,37 +3,47 @@
   min-width: 890px;
   position: relative;
 }
+
 #inputLedger .demo-table-expand {
   font-size: 0;
 }
+
 #inputLedger .demo-table-expand label {
   width: 90px;
   color: #99a9bf;
 }
+
 #inputLedger .demo-table-expand .el-form-item {
   margin-right: 0;
   margin-bottom: 0;
   width: 80%;
 }
+
 #inputLedger .el-table__expand-column .el-table__expand-icon {
   height: 39px;
 }
+
 #inputLedger .table {
   transition: 1s all;
 }
+
 #inputLedger .el-carousel__container {
   height: 440px;
 }
+
 .el-tooltip__popper {
   max-width: 400px;
 }
+
 .el-step__main {
   max-width: calc(100% - 60px);
 }
+
 #inputLedger .inputLedgerTable {
   width: 95% !important;
   margin: 20px auto;
 }
+
 #inputLedger .datePicker {
   width: 140px !important;
   height: 24px !important;
@@ -41,30 +51,38 @@
   margin-right: 18px;
   float: left;
 }
+
 #inputLedger .datePicker .el-input__inner {
   border-radius: 2px !important;
   height: 24px !important;
 }
+
 #inputLedger .add {
   background: url("/static/images/add.png") no-repeat center;
 }
+
 #inputLedger .del {
   background: url("/static/images/del.png") no-repeat center;
 }
+
 #inputLedger .search {
   background: url("/static/images/search.png") no-repeat center;
 }
+
 #inputLedger .sel {
   background: url("/static/images/sel.png") no-repeat center;
 }
+
 #inputLedger .icon {
   float: left;
 }
+
 #inputLedger .btn span {
   float: left;
   margin-top: 4px;
   margin-left: 2px;
 }
+
 #inputLedger .btn {
   height: 24px;
   line-height: 1;
@@ -79,22 +97,28 @@
   margin-top: 29px;
   margin-right: 16px;
 }
+
 #inputLedger .btn-print {
   margin-right: 0;
 }
+
 #inputLedger .btn:hover {
   color: #5468ee;
 }
+
 #inputLedger .inner {
   margin: 0 20px;
 }
+
 #inputLedger .btn-nav {
   height: 60px;
   overflow: hidden;
 }
+
 #inputLedger .btn-nav .el-input .el-input__inner {
   height: 24px;
 }
+
 #inputLedger .btn-nav .el-input {
   float: left;
   margin-top: 29px;
@@ -102,31 +126,43 @@
   width: 140px;
   height: 24px;
 }
+
 .steps {
   position: absolute;
   bottom: 10px;
   left: 30px;
   margin: auto;
 }
+
 .el-dialog__headerbtn {
   position: absolute;
   right: 25px;
   top: 15px;
 }
+
 .el-step__main {
   margin-left: -8px !important;
 }
+
 .steps {
   position: absolute;
   bottom: 10px;
   left: 30px;
   margin: auto;
 }
+
 .el-dialog__headerbtn {
   position: absolute;
   right: 25px;
   top: 15px;
 }
+
 .el-step__main {
   margin-left: -8px !important;
+}
+
+#inputLedger {
+  .el-date-editor--daterange.el-input {
+    width: 100%;
+  }
 }

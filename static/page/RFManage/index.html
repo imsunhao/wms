@@ -215,10 +215,10 @@
                         <el-col :span="14">
                             <el-form label-position="left" inline class="demo-table-expand">
                                 <el-form-item label="主要作业区">
-                                    <span>{{ props.row.ruUserZyq   }}</span>
+                                    <span>{{ props.row.firstZyq   }}</span>
                                 </el-form-item>
                                 <el-form-item label="次要作业区">
-                                    <span>{{ props.row.ruUserZyq }}</span>
+                                    <span>{{ props.row.secondZyq }}</span>
                                 </el-form-item>
 
 
@@ -262,14 +262,14 @@
                     label="主要作业区"
                     align="center">
                 <template scope="scope">
-                    <span>{{ scope.row.ruUserZyq}}</span>
+                    <span>{{ scope.row.firstZyq }}</span>
                 </template>
             </el-table-column>
             <el-table-column
                     label="次要作业区"
                     align="center">
                 <template scope="scope">
-                    <span>{{ scope.row.ruUserZyq}}</span>
+                    <span>{{ scope.row.secondZyq}}</span>
                 </template>
             </el-table-column>
             <el-table-column

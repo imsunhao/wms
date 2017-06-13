@@ -178,11 +178,11 @@ var outputShipment = new Vue({
 
         expandChange: function (row, expanded) {
             if (expanded && (typeof (row.mfunckDoc) === 'undefined' || row.mfunckDoc === null || row.mfunckDoc.length === 0)) {
-                p[102].post({id: row.ckrwId}, function (json) {
+                p[102].post({id: row.ckrwId,arehouseId:window.dbmessage.baseArehouses[0].baArehouseId}, function (json) {
                     /*<debug>*/
                     console.log(json);
                     /*</debug>*/
-                    row.mfunckDoc = json.model.mfunckDoc;
+                    row.mfunckDoc = json.model;
                 });
             }
             /*<debug>*/
@@ -196,6 +196,7 @@ var outputShipment = new Vue({
                     row.mfunckDocs = json.model;
                     obj.lists.data = row.mfunckDocs;
                     obj.lists.ckCkdjNo = row.ckCkdjNo;
+                    obj.lists.ckRwStatus = row.ckRwStatus;
                     obj.dialogListsVisible = true;
                 })
             } else {
@@ -205,8 +206,10 @@ var outputShipment = new Vue({
             }
         },
         dblClick2: function (row, event) {
-            this.lists2.row = row;
-            this.dialogLists2Visible = true;
+            if(this.lists.ckRwStatus<51){
+                this.lists2.row = row;
+                this.dialogLists2Visible = true;
+            }
         },
 
         submitLists: function () {
@@ -482,6 +485,7 @@ function selectGood() {
 function formList() {
     return {
         data: [],
+        ckRwStatus:0,
 
         ckCkdjNo: '',
         dialogLocationVisible: false,

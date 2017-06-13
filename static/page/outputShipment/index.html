@@ -356,6 +356,7 @@
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="form = _form()">重置</el-button>
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
         </div>
     </el-dialog>
@@ -469,6 +470,7 @@
             v-model="dialogListsVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">出库明细 单号：{{lists.ckCkdjNo}}</span><span
+                v-if="lists.ckRwStatus<51"
                 style="margin-left:10px;font-size: 14px; ">(双击修改 发运数量)</span>
         </div>
         <el-table

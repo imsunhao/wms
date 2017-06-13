@@ -252,8 +252,14 @@ html, body {
   }
 }
 
-.el-dialog__body .el-form-item__content .el-date-editor{
+.el-dialog__body .el-form-item__content .el-date-editor {
   width: 100%;
+}
+
+.select {
+  .el-select, .input {
+    width: 100% !important;
+  }
 }
 
 /*********** 打印功能 *********************************/
@@ -482,4 +488,5 @@ html, body {
     border: none !important;
   }
 }
+
 

@@ -87,7 +87,7 @@
                                                         icon="edit"
                                                         @click="inlineEdit(props.$index, props.row)">
                                                 </el-button>
-                                                  <el-button
+                                                <el-button
                                                         size="success"
                                                         @click="inlineDelete(props.$index, props.row)">删除
                                                 </el-button>
@@ -317,6 +317,7 @@
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="form = _form()">重置</el-button>
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
         </div>
     </el-dialog>
@@ -470,15 +471,6 @@
         margin-left: -8px !important;
     }
 </style>
-<style>
-    .select {
-
-    }
-
-    .select .input {
-        width: 70%;
-    }
-</style>
 <script>
     var stockFrozenThaw = new Vue({
         el: '#stockFrozenThaw',
@@ -492,7 +484,7 @@
                 showLoading: false,
                 currentPage: 1,
                 pageSize: 10,
-                currentTotal:0,
+                currentTotal: 0,
                 date: [null, null],                //主页面 解冻时间 搜索
                 date1: [null, null],                 //主页面 冻结时间  搜索
                 djCreateUserName: '',                //主页面 操作员 搜索
@@ -513,7 +505,7 @@
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
-                    "djCreateUserName":this.djCreateUserName,
+                    "djCreateUserName": this.djCreateUserName,
                     "startJdTimeParam": tsf_date(this.date[0]),
                     "endJdTimeParam": tsf_date(this.date[1]),
                     "startDjTimeParam": tsf_date(this.date1[0]),
@@ -537,8 +529,8 @@
                     "rkrwStatus": this.form.rkrwStatus
                 }
             },
-            form_pop:function(){
-                return{
+            form_pop: function () {
+                return {
                     "draw": 1,
                     "pageNum": this.currentPage,
                     "pageSize": this.pageSize,
@@ -581,7 +573,7 @@
                     stockFrozenThaw.$refs.carousel.setActiveItem(0);
                 });
             },                                  //TODO 行内按钮-编辑
-            inlineDelete:function(){
+            inlineDelete: function () {
                 var _this = this;
                 _this.$confirm('此操作删除解冻冻结单, 是否继续?', '提示', {
                     confirmButtonText: '确定',
@@ -639,7 +631,7 @@
                 console.log('每页' + val + '条');
                 /*</debug>*/
                 this.pageSize = val;
-                p[0].post( (_option ? this.form_pop : this.option));
+                p[0].post((_option ? this.form_pop : this.option));
             },                                   //分页 Size
             expandChange: function (row, expanded) {
                 if (typeof (row.inputOperation) === 'undefined' && expanded) {
@@ -703,8 +695,8 @@
                 }, 1500);
             },                                                //新建 表单提交
             selectSubmit: function () {
-                _option=true;
-                p[0].post( obj.form_pop);
+                _option = true;
+                p[0].post(obj.form_pop);
                 this.dialogSelectVisible = false;
             },                                          //详细查询 提交
             auto_djCreateTime: function (value, bool) {
@@ -747,39 +739,39 @@
         }
     });
     // 高级 监视器的 使用方法
-            stockFrozenThaw.$watch('date', function () {
-                /*<debug>*/
-                console.log((_option ? this.form_pop : this.option));
-                /*</debug>*/
-                p[0].post( (_option ? this.form_pop : this.option));
-            }, {deep: true});
-            stockFrozenThaw.$watch('date1', function () {
-                /*<debug>*/
-                console.log((_option ? this.form_pop : this.option));
-                /*</debug>*/
-                p[0].post( (_option ? this.form_pop : this.option));
-            }, {deep: true});
+    stockFrozenThaw.$watch('date', function () {
+        /*<debug>*/
+        console.log((_option ? this.form_pop : this.option));
+        /*</debug>*/
+        p[0].post((_option ? this.form_pop : this.option));
+    }, {deep: true});
+    stockFrozenThaw.$watch('date1', function () {
+        /*<debug>*/
+        console.log((_option ? this.form_pop : this.option));
+        /*</debug>*/
+        p[0].post((_option ? this.form_pop : this.option));
+    }, {deep: true});
     function _form() {
         return {
             djId: '',
             title: "新建库存解冻",
             djCreateTime: '',//创建时间
-            djJdTime:'',       //解冻时间
+            djJdTime: '',       //解冻时间
             djDjTime: '',      //冻结时间
             djCreateUserName: '',//操作员
             djStatus: '',       //状态
             djReason: '',       //备注,
-            djCreateTime:[null,null],//模糊查询--创建时间
-            djJdTime:[null,null],//模糊查询--解冻时间
-            djDjTime:[null,null],//模糊查询--冻结时间
-            djCreateUserName:'',//模糊插叙--操作员
-            djStatus:'',//模糊查询--库存冻结状态
+            djCreateTime: [null, null],//模糊查询--创建时间
+            djJdTime: [null, null],//模糊查询--解冻时间
+            djDjTime: [null, null],//模糊查询--冻结时间
+            djCreateUserName: '',//模糊插叙--操作员
+            djStatus: '',//模糊查询--库存冻结状态
 
 
         }
     }
-    var obj=stockFrozenThaw;
-    var p=[];
+    var obj = stockFrozenThaw;
+    var p = [];
     // 0 库存冻结/解冻 分页获取库存冻结单据
     p[0] = autoPost({
         urlHock: "../../hock/stockFrozenThaw/page.json",
@@ -789,42 +781,42 @@
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-     // 1 库存冻结/解冻 分页获取库存冻结单据(包含明细)
+    // 1 库存冻结/解冻 分页获取库存冻结单据(包含明细)
     p[1] = autoPost({
         urlHock: "",
         urlProd: "/route/stockFrozenThaw/1",
         success: function (json) {
         }
     });
-     // 2 库存冻结/解冻 新增库存冻结单据/包含库存冻结单明细
+    // 2 库存冻结/解冻 新增库存冻结单据/包含库存冻结单明细
     p[2] = autoPost({
         urlHock: "",
         urlProd: "/route/stockFrozenThaw/2",
         success: function (json) {
         }
     });
-     // 3 库存冻结/解冻 更新库存冻结数据
+    // 3 库存冻结/解冻 更新库存冻结数据
     p[3] = autoPost({
         urlHock: "",
         urlProd: "/route/stockFrozenThaw/3",
         success: function (json) {
         }
     });
-     // 4 库存冻结/解冻 通过库存冻结/解冻单据 冻结/解冻一条或多条库存单
+    // 4 库存冻结/解冻 通过库存冻结/解冻单据 冻结/解冻一条或多条库存单
     p[4] = autoPost({
         urlHock: "",
         urlProd: "/route/stockFrozenThaw/4",
         success: function (json) {
         }
     });
-     // 5 库存冻结/解冻 通过库存冻结单据id删除库存冻结单据
+    // 5 库存冻结/解冻 通过库存冻结单据id删除库存冻结单据
     p[5] = autoPost({
         urlHock: "",
         urlProd: "/route/stockFrozenThaw/5",
         success: function (json) {
         }
     });
-     // 6 库存冻结/解冻 通通过库存冻结单据id获取一条库存冻结单据
+    // 6 库存冻结/解冻 通通过库存冻结单据id获取一条库存冻结单据
     p[6] = autoPost({
         urlHock: "",
         urlProd: "/route/stockFrozenThaw/6",
@@ -838,8 +830,8 @@
         for (var i = 0; i < obj.multipleSelection.length; i++) {
             resoleveStep.push({
                 name: obj.multipleSelection[i].rkrwNo,
-                rkrwNo:obj.multipleSelection[i].rkrwNo,
-                rkrwDhrq:obj.multipleSelection[i].rkrwDhrq
+                rkrwNo: obj.multipleSelection[i].rkrwNo,
+                rkrwDhrq: obj.multipleSelection[i].rkrwDhrq
             });
         }
         obj.printf = resoleveStep;

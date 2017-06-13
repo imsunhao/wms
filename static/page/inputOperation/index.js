@@ -54,9 +54,9 @@ var inputOperation = new Vue({
             pageSize: 10,
             currentTotal: 0,
 
-            date: [null, null],                 //TODO 主页面 选择日期 搜索
-            rkRkdjNo: '',                       //TODO 主页面 入库单号 搜索
-            rkStatus: '',                        //TODO 主页面 状态 搜索
+            date: [null, null],                 //主页面 选择日期 搜索
+            rkRkdjNo: '',                       //主页面 入库单号 搜索
+            rkStatus: '',                       //主页面 状态 搜索
             formLabelWidth: '120px',            //表单 配置
             form: form(),                       //表单 弹出层 信息集合
             rule_form: autoValidate(validate_form()), //关联验证规则
@@ -142,7 +142,7 @@ var inputOperation = new Vue({
                     message: '已取消'
                 });
             });
-        },                      //TODO 行内按钮 取消分配
+        },                      //行内按钮 取消分配
         inlineGrounding: function (index, row) {
             var obj = this;
             obj.$confirm('此操作将这单任务单据上架, 是否继续?', '提示', {
@@ -164,12 +164,11 @@ var inputOperation = new Vue({
                     message: '已取消'
                 });
             });
-        },                             //TODO 行内按钮 上架
+        },                             //行内按钮 上架
         distributionBtnSubmit: function () {
             var obj = this;
             this.dialogFormActive++;
             this.submitLoading = true;
-
             var distributionlists = [];
             for (var i = 0; i < obj.location.length; i++) {
                 var step = postDistributionLists();
@@ -231,7 +230,26 @@ var inputOperation = new Vue({
             this.$refs['ref_form'].validate(function (valid) {
                 if (valid) {
                     this.locationLoading = true;
-                    setTimeout(function () {
+                    p[5].post({
+                        "pageNum": 1,
+                        "pageSize": 1,
+                        "draw": 0,
+                        blLName: obj.form.location.blLname,
+                        arehouseId: window.dbmessage.baseArehouses[0].baArehouseId
+                    }, function (json) {
+                        if (json.data.length === 1 && json.data[0].blLocationId === obj.form.location.blLocationId) {
+
+                        } else if (json.data.length === 1) {
+                            console.log(json.data);
+                            obj.form.location.mdtLocationId = json.data[0].blLocationId;
+                        } else {
+                            obj.$notify({
+                                title: '失败',
+                                message: '储位未能找到！',
+                                type: 'error'
+                            });
+                            return false;
+                        }
                         obj.locationLoading = false;
                         obj.$notify({
                             title: '成功',
@@ -242,16 +260,12 @@ var inputOperation = new Vue({
                         allPrposCb(step, function (obj2, index) {
                             if (typeof obj.form.location[index] !== 'undefined') step[index] = obj.form.location[index];
                         });
+                        console.log(step);
                         obj.location.push(step);
                         obj.form.rkDocsList[obj.form.location.index].rksKyCount -= step.selectGood.rksCount;
                         obj.form.location = newLocation();
-//                    for (var i = 0; i < obj.form.rkDocsList.length; i++) {
-//                        if (obj.form.rkDocsList[i].rksRkmxId === step.rksRkmxId) {
-//                            obj.form.rkDocsList[i].rksKyCount -= step.rksCount;
-//                        }
-//                    }
                         obj.dialogLocationVisible = false;
-                    }, 250);
+                    });
                 } else {
                     return false;
                 }

@@ -115,7 +115,7 @@
                                                 <span>{{ auto_rkZdfs(props.row.rkZdfs) }}</span>
                                             </el-form-item>
                                             <el-form-item label="可用操作"
-                                                          v-if="props.row.rkStatus!=32">
+                                                          v-if="props.row.rkStatus!=32&&props.row.rkStartwith!=2">
                                                 <el-button
                                                         size="small"
                                                         v-if="props.row.rkStatus==1||props.row.rkStatus==21"

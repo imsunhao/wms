@@ -312,66 +312,70 @@
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
         </div>
-        <el-form :model="form">
-            <el-form-item label="车牌号"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.ckrwCph"
-                        icon="search"
-                        placeholder="车牌号"></el-input>
-            </el-form-item>
-            <el-form-item label="任务号"
-                          :label-width="formLabelWidth">
-                <el-input
-                        v-model="form.ckrwNo"
-                        class="input"
-                        icon="search"
-                        placeholder="任务号"></el-input>
-            </el-form-item>
-            <el-form-item label="制作时间"
-                          :label-width="formLabelWidth">
-                <el-date-picker
-                        v-model="form.ckrwGreatTime"
-                        type="daterange"
-                        align="right"
-                        placeholder="制作时间"
-                        class="input"
-                        :picker-options="pickerOptions">
-                </el-date-picker>
-            </el-form-item>
-            <el-form-item label="任务状态"
-                          :label-width="formLabelWidth">
-                <el-select v-model="form.ckrwStatus" placeholder="请选择">
-                    <el-option :value="-1" label="全部"></el-option>
-                    <el-option :value="10" label="初始"></el-option>
-                    <el-option :value="11" label="已下发"></el-option>
-                    <el-option :value="21" label="已挑选"></el-option>
-                    <el-option :value="31" label="已激活"></el-option>
-                    <el-option :value="41" label="部分出库"></el-option>
-                    <el-option :value="42" label="全部出库"></el-option>
-                    <el-option :value="51" label="部分发运"></el-option>
-                    <el-option :value="52" label="全部发运"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="欠货状态"
-                          :label-width="formLabelWidth">
-                <el-select v-model="form.ckrwQhStatus" placeholder="请选择">
-                    <el-option :value="-1" label="全部"></el-option>
-                    <el-option :value="1" label="欠货"></el-option>
-                    <el-option :value="2" label="未欠货"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="滞留状态"
-                          :label-width="formLabelWidth">
-                <el-select v-model="form.ckrwZlStatus" placeholder="请选择">
-                    <el-option :value="-1" label="全部"></el-option>
-                    <el-option :value="1" label="滞留"></el-option>
-                    <el-option :value="2" label="未滞留"></el-option>
-                </el-select>
-            </el-form-item>
-        </el-form>
+        <div class="inner">
+            <el-form
+                    :label-width="formLabelWidth"
+                    :model="form">
+                <el-form-item label="车牌号">
+                    <el-input
+                            class="input"
+                            v-model="form.ckrwCph"
+                            icon="search"
+                            placeholder="车牌号"></el-input>
+                </el-form-item>
+                <el-form-item label="任务号"
+                              :label-width="formLabelWidth">
+                    <el-input
+                            v-model="form.ckrwNo"
+                            class="input"
+                            icon="search"
+                            placeholder="任务号"></el-input>
+                </el-form-item>
+                <el-form-item label="制作时间"
+                              :label-width="formLabelWidth">
+                    <el-date-picker
+                            v-model="form.ckrwGreatTime"
+                            type="daterange"
+                            align="right"
+                            placeholder="制作时间"
+                            class="input"
+                            :picker-options="pickerOptions">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="任务状态"
+                              :label-width="formLabelWidth">
+                    <el-select v-model="form.ckrwStatus" placeholder="请选择">
+                        <el-option :value="-1" label="全部"></el-option>
+                        <el-option :value="10" label="初始"></el-option>
+                        <el-option :value="11" label="已下发"></el-option>
+                        <el-option :value="21" label="已挑选"></el-option>
+                        <el-option :value="31" label="已激活"></el-option>
+                        <el-option :value="41" label="部分出库"></el-option>
+                        <el-option :value="42" label="全部出库"></el-option>
+                        <el-option :value="51" label="部分发运"></el-option>
+                        <el-option :value="52" label="全部发运"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="欠货状态"
+                              :label-width="formLabelWidth">
+                    <el-select v-model="form.ckrwQhStatus" placeholder="请选择">
+                        <el-option :value="-1" label="全部"></el-option>
+                        <el-option :value="1" label="欠货"></el-option>
+                        <el-option :value="2" label="未欠货"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="滞留状态"
+                              :label-width="formLabelWidth">
+                    <el-select v-model="form.ckrwZlStatus" placeholder="请选择">
+                        <el-option :value="-1" label="全部"></el-option>
+                        <el-option :value="1" label="滞留"></el-option>
+                        <el-option :value="2" label="未滞留"></el-option>
+                    </el-select>
+                </el-form-item>
+            </el-form>
+        </div>
         <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="form = _form()">重置</el-button>
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
         </div>
     </el-dialog>
@@ -764,9 +768,7 @@
     </el-dialog>
 </div>
 <link rel="stylesheet" href="index.scss">
-<script src="index.js">
-
-</script>
+<script src="index.js"></script>
 
 
 

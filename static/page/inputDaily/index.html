@@ -48,6 +48,7 @@
                     :data="inputDaily"
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
                     :max-height="570"
+                    show-summary
                     ref="table"
                     class="inputDailyTable"
                     @selection-change='multiSelectionChange'
@@ -192,7 +193,6 @@
                 </el-table-column>
                 <el-table-column
                         label="单据状态"
-                        prop="rk_status"
                         align="center"
                         width="100">
                     <template scope="scope">
@@ -345,6 +345,7 @@
             </el-row>
         </el-form>
         <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="form = _form()">重置</el-button>
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
         </div>
     </el-dialog>

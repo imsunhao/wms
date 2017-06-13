@@ -21,7 +21,7 @@ var outputAppointment = new Vue({
             ckCkdjNo: '',                 //主页面 出库单号 搜索
             ckCkdjType: '',               //主页面 出库单 类型
             ckRwStatus: 0,                //主页面 出库单任务状态 搜索
-            ckArehouseId:window.dbmessage.baseArehouses[0].baArehouseId,//主页面 仓库 搜索
+            ckArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,//主页面 仓库 搜索
             pickerOptions: {
                 shortcuts: [{
                     text: '最近一周',
@@ -86,7 +86,7 @@ var outputAppointment = new Vue({
                 "ckCkdjNo": this.ckCkdjNo,
                 "startTimeParam": tsf_date(this.date[0]),
                 "endTimeParam": tsf_date(this.date[1]),
-                "ckArehouseId":this.ckArehouseId,
+                "ckArehouseId": this.ckArehouseId,
 
 //                    ckCkdjNo: this.ckCkdjNo,
 
@@ -99,26 +99,23 @@ var outputAppointment = new Vue({
     },
     methods: {
         View: function (index, row) {
-            var step = _form();
-            allPrposCb(step, function (obj, index) {
-                if (typeof row[index] !== 'undefined') step[index] = row[index];
-            });
-            /*<debug>*/
-            console.log(row);
-            console.log(step);
-            /*</debug>*/
-            step.title = '查看';
-            if (typeof this.$refs.carousel !== 'undefined') this.$refs.carousel.setActiveItem(0);
-            this.form = step;
-            this.dialogFormActive = 0;
-            if (typeof (this.form.mfunckDocs) === 'undefined') {
-                postGoods(obj, {ckCkdjNo: row.ckCkdjNo}, function (json) {
-                    obj.form.mfunckDocs = json;
-                    obj.dialogFormVisible = true;
+            p[8].post({id: row.ckCkdjId}, function (json) {
+                var step = _form();
+                allPrposCb(step, function (obj, index) {
+                    if (typeof row[index] !== 'undefined') step[index] = row[index];
                 });
-            } else {
+                /*<debug>*/
+                console.log(row);
+                console.log(step);
+                /*</debug>*/
+                step.title = '查看';
+                obj.watchView = true;
+                step.mfunckDocs = json.model;
+                if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
+                obj.form = step;
+                obj.dialogFormActive = 0;
                 obj.dialogFormVisible = true;
-            }
+            });
         },                                        //行内按钮-观察
         inlineEdit: function (index, row) {
             p[8].post({id: row.ckCkdjId}, function (json) {
@@ -131,6 +128,7 @@ var outputAppointment = new Vue({
                 console.log(step);
                 /*</debug>*/
                 step.title = '编辑';
+                obj.watchView = false;
                 step.mfunckDocs = json.model;
                 if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
                 obj.form = step;

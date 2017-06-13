@@ -85,7 +85,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 11:
                         urlName = '用户管理-根据id返回用户角色信息';
-                        req = autoUrl(req, '/role/findByUserId/' + req.query.user_id, "POST", function (json) {
+                        req = autoUrl(req, '/role/findByUserId/' + req.query.id, "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -703,7 +703,7 @@ router.param('_url', function (req, res, next, url) {
                 switch (parseInt(req.params._status)) {
                     case 0:
                         urlName = '入库操作-加载入库操作页面';
-                        req = autoUrl(req, '/mfunrkDoc', "POST", function (json) {
+                        req = autoUrl(req, '/mfunrkDoc/selectOperateMfunrkDocByPage', "POST", function (json) {
                             res.send(json);
                         });
                         break;
@@ -756,7 +756,7 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 9:
-                        urlName = '取消分配';//TODO
+                        urlName = '取消分配';
                         req = autoUrl(req, '/mdt/mfunrkDistributionlist/quXiaoFenPei', "POST", function (json) {
                             res.send(json);
                         });
@@ -1485,6 +1485,12 @@ router.param('_url', function (req, res, next, url) {
                     case 7:
                         urlName = '库存转移 库存转移过程 通过库存转移单据id获取一条库存转移单据';
                         req = autoUrl(req, '/stockZyDoc/' + req.query.zyId, "GET", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 8:
+                        urlName = '库存转移 查询 合并后的库存';
+                        req = autoUrl(req, '/repertory/groupByGoodsIdandLocationIdPage', "POST", function (json) {
                             res.send(json);
                         });
                         break;

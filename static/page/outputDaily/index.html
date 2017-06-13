@@ -47,6 +47,7 @@
             </div>
             <el-table
                     :data="outputDaily"
+                    show-summary
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
                     :max-height="570"
                     ref="table"
@@ -124,9 +125,9 @@
                                     <el-form-item label="应下数量">
                                         <span>{{ props.row.mfunckDocs.cksGoodsCount }}</span>
                                     </el-form-item>
-                                    <el-eform-item label="下架数量">
+                                    <el-form-item label="下架数量">
                                         <span>{{ props.row.msxMxCount   }}</span>
-                                    </el-eform-item>
+                                    </el-form-item>
                                     <el-form-item label="制作方式">
                                         <span>{{ auto_ckIsauto(props.row.mfunckDoc.ckIsauto) }}</span>
                                     </el-form-item>
@@ -165,13 +166,14 @@
                 <el-table-column
                         label="作业人员"
                         show-overflow-tooltip
-                        prop="userName"
                         align="center">
+                    <template scope="scope">
+                        {{scope.row.userName}}
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="作业时间"
                         show-overflow-tooltip
-                        prop="msxQrsj"
                         align="center">
                     <template scope="scope">
                         {{auto_time_new(scope.row.msxQrsj)}}
@@ -187,7 +189,6 @@
                 <el-table-column
                         label="下单时间"
                         show-overflow-tooltip
-                        prop="mfunckDoc.ckXdsj"
                         align="center">
                     <template scope="scope">
                         {{auto_time_new(scope.row.mfunckDoc.ckXdsj)}}
@@ -441,6 +442,7 @@
             </el-row>
         </el-form>
         <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="form = _form()">重置</el-button>
             <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
         </div>
     </el-dialog>
