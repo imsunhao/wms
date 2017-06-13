@@ -234,7 +234,7 @@
             <el-form-item label="下单时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="form.xdsj"
+                        v-model="form.rkCreatetime"
                         type="daterange"
                         align="right"
                         placeholder="下单时间"
@@ -245,7 +245,7 @@
             <el-form-item label="上架开始"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="form.sjsj"
+                        v-model="form.rkSjsj"
                         type="date"
                         align="right"
                         placeholder="上架开始"
@@ -255,7 +255,7 @@
             <el-form-item label="上架结束"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="form.jssj"
+                        v-model="form.rkEndTime"
                         type="date"
                         align="right"
                         placeholder="上架结束"
@@ -266,13 +266,13 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="form.rjdkNo"
+                        v-model="form.rkRkdjNo"
                         icon="search"
                         placeholder="入库单号"></el-input>
             </el-form-item>
             <el-form-item label="单据状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="form.shzt" placeholder="请选择">
+                <el-select v-model="form.rkStatus" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="1" label="原始状态"></el-option>
                     <el-option :value="21" label="部分分配"></el-option>
@@ -283,7 +283,7 @@
             </el-form-item>
             <el-form-item label="制单方式"
                           :label-width="formLabelWidth">
-                <el-select v-model="form.zdfs" placeholder="请选择">
+                <el-select v-model="form.rkZdfs" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="1" label="手动"></el-option>
                     <el-option :value="2" label="导入"></el-option>
@@ -292,7 +292,7 @@
             </el-form-item>
             <el-form-item label="操作方式"
                           :label-width="formLabelWidth">
-                <el-select v-model="form.czfs" placeholder="请选择">
+                <el-select v-model="form.rkStartwith" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="1" label="电脑端"></el-option>
                     <el-option :value="2" label="PDA"></el-option>
@@ -301,7 +301,7 @@
             <el-form-item label="所属仓库" :label-width="formLabelWidth">
                 <el-select
                         :disabled="watchView"
-                        v-model="form.ckId"
+                        v-model="form.rkArehouseId"
                         placeholder="请选择所属仓库">
                     <el-option :label="obj.baName" :value="obj.baArehouseId"
                                v-for="obj of baseArehouses"></el-option>

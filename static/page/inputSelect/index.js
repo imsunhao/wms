@@ -59,17 +59,15 @@ var inputSelect = new Vue({
                 "draw": 1,
                 "pageNum": this.currentPage,
                 "pageSize": this.pageSize,
-                "xdsjStart": tsf_date(this.form.xdsj[0]),
-                "xdsjEnd": tsf_date(this.form.xdsj[1]),
-                "sjsj": tsf_date(this.form.sjsj),
-                "jssj": tsf_date(this.form. jssj),
-                "rkdh": tsf_date(this.form.rjdkNo),
-                "djzt": tsf_date(this.form.shzt),
-                "zzfs": this.form.zdfs,
-                "czfs": this.form.czfs,
-                "jssj": tsf_date(this.form.jssj),
-                "ckId":this.form.ckId,
-//                    "ckmc":this.form,ckmc,
+                "xdsjStart": tsf_date(this.form.rkCreatetime[0]),
+                "xdsjEnd": tsf_date(this.form.rkCreatetime[1]),
+                "sjsjStart": tsf_date(this.form.rkSjsj),
+                "sjsjEnd": tsf_date(this.form. rkEndTime),
+                "rkdh": this.form.rkRkdjNo,
+                "djzt": this.form.rkStatus,
+                "zzfs": this.form.rkZdfs,
+                "czfs": this.form.rkStartwith,
+                "ckId":this.form.rkArehouseId,
             }
         },
         search: function () {
@@ -161,13 +159,13 @@ var inputSelect = new Vue({
         },                                     //TODO 行内按钮-导出入库储位
         inlineExportInput:function(){},                                            //TODO 行内按钮-导出入库
         inlineSelectInputDetailed:function(index,row){
-            p[1].post({id: row.rkdjId}, function (json) {
+            p[1].post({id: row.rkRkdjId}, function (json) {
                 obj.detailed = json.model;
                 obj.dialogDetailedVisible = true;
             })
         },                        //TODO 行内按钮-查看入库明细信息
         inlineSelectInputStorage:function(index,row){
-            p[2].post({id: row.rkdjId}, function (json) {
+            p[2].post({id: row.rkRkdjId}, function (json) {
                 obj.storage = json.model;
                 obj.dialogStorageVisible = true;
             })
@@ -507,16 +505,14 @@ inputSelect.$watch('date', function () {
 }, {deep: true});
 function _form() {
     return {
-        xdsj:[null,null],     //模糊查询--下单时间
-        sjsj:'',     //模糊查询--上架开始时间
-        jssj:'',       //模糊查询--上架结束时间
-        rjdkNo:'',             //模糊查询--入库单号
-        shzt:'',                //模糊查询--入库状态
-        zdfs:'',                //模糊查询--制单方式
-        czfs:'',                 //模糊查询--操作方式
-//            ckmc:'',
-        ckId:'',
-
+        rkCreatetime:[null,null],      //模糊查询--下单时间
+        rkSjsj:'',                      //模糊查询--上架开始时间
+        rkEndTime:'',                   //模糊查询--上架结束时间
+        rkRkdjNo:'',                    //模糊查询--入库单号
+        rkStatus:'',                    //模糊查询--入库状态
+        rkZdfs:'',                      //模糊查询--制单方式
+        rkStartwith:'',                 //模糊查询--操作方式
+        rkArehouseId:'',                //模糊查询 仓库ID
     }
 }
 var obj=inputSelect;
