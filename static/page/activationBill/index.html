@@ -171,6 +171,16 @@
                                             show-overflow-tooltip
                                             prop="ckAdress">
                                     </el-table-column>
+                                      <el-table-column
+                                            label="状态"
+                                            align="center"
+                                            show-overflow-tooltip>
+                                          <template scope="scope">
+                                              {{auto_ckStatus(scope.row.ckStatus)}}
+                                          </template>
+                                    </el-table-column>
+
+
                                     <el-table-column
                                             label="预发时间"
                                             align="center"
@@ -1165,6 +1175,34 @@
                 }
                 return temp[value];
             },                               //滞留状态
+            auto_ckStatus: function (value) {
+                var temp = {};
+                if (!isNaN(value)) {
+                    temp = {
+                        1: '原始状态',
+                        21: '部分分拣',
+                        22: '部分下架',
+                        31: '全部分拣',
+                        32: '全部下架',
+                        50: '作废',
+
+
+                    }
+                } else {
+                    temp = {
+                        '原始状态': 1,
+                        '部分分拣': 21,
+                        '部分下架': 22,
+                        '全部分拣': 31,
+                        '全部下架': 32,
+                        '作废':50
+
+
+                    }
+                }
+                return temp[value];
+            },                                   //单据状态
+
         },
         watch: {
             ckrwNo: function () {
