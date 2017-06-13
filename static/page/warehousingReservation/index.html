@@ -113,10 +113,12 @@
                                                         <el-button
                                                                 size="small"
                                                                 icon="edit"
+                                                                v-if="props.row.rkZdfs==1"
                                                                 @click="Edit(props.$index, props.row)">
                                                         </el-button>
                                                         <el-button
                                                                 size="small"
+                                                                v-if="props.row.rkZdfs==1"
                                                                 icon="delete"
                                                                 type="danger"
                                                                 @click="deleteOlder(props.$index, props.row)">
