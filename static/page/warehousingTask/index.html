@@ -52,13 +52,14 @@
                                             font-weight: normal;
                                             margin-left: 5px;">(翻页查看任务单据）</span>
                                     </h3>
-
                                 </el-row>
                                 <el-form label-position="left" inline class="demo-table-expand">
                                     <el-row>
                                         <el-col :span="10">
                                             <el-form-item label="任务号">
-                                                <span>{{ props.row.rkrwNo }}</span>
+                                                <el-tag type="success">
+                                                    {{ props.row.rkrwNo }}
+                                                </el-tag>
                                             </el-form-item>
                                             <el-form-item label="车牌号">
                                                 <span>{{ props.row.rkrwCph }}</span>
@@ -90,7 +91,7 @@
                                                 <span>{{ props.row.rkrwDh }}</span>
                                             </el-form-item>
                                             <el-form-item label="任务状态">
-                                                <span>{{ auto_rkrwStatus(props.row.rkrwStatus) }}</span>
+                                                <el-tag-s :val="auto_el_tag('rkRwStatus',props.row.rkrwStatus)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item
                                                     label="可用操作">
@@ -157,7 +158,7 @@
                                             align="center"
                                             width="100">
                                         <template scope="scope">
-                                            {{auto_rkStatus(scope.row.rkStatus)}}
+                                            <el-tag-s :val="auto_el_tag('rkRwStatus',scope.row.rkStatus)"></el-tag-s>
                                         </template>
                                     </el-table-column>
                                     <el-table-column
@@ -218,9 +219,7 @@
                         align="center"
                         width="130">
                     <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_rkrwStatus(scope.row.rkrwStatus)}}
-                        </el-tag>
+                        <el-tag-s :val="auto_el_tag('rkRwStatus',scope.row.rkrwStatus)"></el-tag-s>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -443,7 +442,7 @@
                             <el-form-item
                                     label="任务状态"
                                     :label-width="formLabelWidth">
-                                <span>{{auto_rkrwStatus(form.rkrwStatus)}}</span>
+                                <el-tag-s :val="auto_el_tag('rkRwStatus',form.rkrwStatus)"></el-tag-s>
                             </el-form-item>
                         </el-col>
                     </el-row>
