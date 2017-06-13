@@ -287,58 +287,6 @@
         </el-col>
     </el-row>
     <el-dialog
-            size="tiny"
-            class="select"
-            v-model="dialogSelectVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">详细查询</span>
-        </div>
-        <!--<el-form :model="select">-->
-        <!--<el-form-item label="车牌号"-->
-        <!--:label-width="formLabelWidth">-->
-        <!--<el-input-->
-        <!--class="input"-->
-        <!--v-model="form.ckrwCph"-->
-        <!--icon="search"-->
-        <!--placeholder="车牌号"></el-input>-->
-        <!--</el-form-item>-->
-        <!--<el-form-item label="任务号"-->
-        <!--:label-width="formLabelWidth">-->
-        <!--<el-input-->
-        <!--v-model="form.ckrwNo"-->
-        <!--class="input"-->
-        <!--icon="search"-->
-        <!--placeholder="任务号"></el-input>-->
-        <!--</el-form-item>-->
-        <!--<el-form-item label="制作时间"-->
-        <!--:label-width="formLabelWidth">-->
-        <!--<el-date-picker-->
-        <!--v-model="form.ckrwStartGreatTime"-->
-        <!--type="daterange"-->
-        <!--align="right"-->
-        <!--placeholder="制作时间"-->
-        <!--class="input"-->
-        <!--:picker-options="pickerOptions">-->
-        <!--</el-date-picker>-->
-        <!--</el-form-item>-->
-        <!--<el-form-item label="预计到车时间"-->
-        <!--:label-width="formLabelWidth">-->
-        <!--<el-date-picker-->
-        <!--v-model="form.ckrwYjdcsj"-->
-        <!--type="daterange"-->
-        <!--align="right"-->
-        <!--placeholder="预计到车时间"-->
-        <!--class="input"-->
-        <!--:picker-options="pickerOptions">-->
-        <!--</el-date-picker>-->
-        <!--</el-form-item>-->
-
-        <!--</el-form>-->
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
-        </div>
-    </el-dialog>
-    <el-dialog
             size="large"
             v-model="dialogFormVisible">
         <div class="dialog-title clearfix" slot="title">
@@ -1357,7 +1305,6 @@
             index: 0
         }
     }
-
     function _sortingMxList() {
         return {
             "msxMxId": 0,
@@ -1365,7 +1312,6 @@
             "msxWt": 3
         }
     }
-
     function form() {
         return {
             ckrwId: '',
