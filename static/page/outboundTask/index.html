@@ -99,10 +99,10 @@
                                             </el-form-item>
 
                                             <el-form-item label="欠货状态">
-                                                <el-tag-s :val="auto_el_tag('cksQhStatus',props.row.ckrwQhStatus)"></el-tag-s>
+                                                <el-tag-s :val="auto_el_tag('ckQhStatus',props.row.ckrwQhStatus)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item label="滞留状态">
-                                                <el-tag-s :val="auto_el_tag('cksZlStatus',props.row.ckrwZlStatus)"></el-tag-s>
+                                                <el-tag-s :val="auto_el_tag('ckZlStatus',props.row.ckrwZlStatus)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item
                                                     label="可用操作">
@@ -220,7 +220,7 @@
                                                     size="mini"
                                                     type="danger"
                                                     icon="circle-close"
-                                                    v-if="scope.row.ckGqStatus==2"
+                                                    v-if="scope.row.ckGqStatus==2&&false"
                                                     @click="inlineCancelHang(scope.$index, scope.row)">
                                             </el-button>
                                         </template>
