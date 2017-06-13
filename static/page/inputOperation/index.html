@@ -77,7 +77,12 @@
                                         </el-row>
                                     </el-col>
                                     <el-col :span="14">
-                                        <h3>入库详细</h3>
+                                        <h3>入库详细<span
+                                                style="font-size: 14px;
+                                            font-weight: normal;
+                                            margin-left: 5px;">(翻页查看入库明细）</span>
+                                        </h3>
+
                                         <el-form label-position="left" inline class="demo-table-expand">
                                             <el-form-item label="入库单号">
                                                 <span>{{ props.row.rkRkdjNo }}</span>
