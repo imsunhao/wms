@@ -47,7 +47,7 @@ var inputSelect = new Vue({
                 "draw": 1,
                 "pageNum": this.currentPage,
                 "pageSize": this.pageSize,
-                "djzt":this.shzt,
+                "djzt":this.rkStatus,
                 "rkdh":this.rjdkNo.trim(),
                 "xdsjStart":tsf_date(this.date[0]),
                 "xdsjEnd":tsf_date(this.date[1]),
@@ -398,7 +398,7 @@ var inputSelect = new Vue({
                     return resolve([]);
             }
         },
-        auto_shzt:function(value){
+        auto_rkStatus:function(value){
             var temp={}
             if(!isNaN(value)){
                 temp={
@@ -419,7 +419,7 @@ var inputSelect = new Vue({
             }
             return temp[value];
         },                                       //入库状态
-        auto_zdfs:function(value){
+        auto_rkZdfs:function(value){
             var temp={}
             if(!isNaN(value)){
                 temp={
@@ -436,7 +436,7 @@ var inputSelect = new Vue({
             }
             return temp[value];
         },                                         //制单方式
-        auto_czfs:function(value){
+        auto_rkStartwith:function(value){
             var temp={}
             if(!isNaN(value)){
                 temp={
