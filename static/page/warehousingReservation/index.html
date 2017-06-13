@@ -88,7 +88,7 @@
                                                         <span>{{ auto_rkType(props.row.rkType) }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="单据状态">
-                                                        <span>{{ auto_rkStatus(props.row.rkStatus) }}</span>
+                                                        <el-tag-s :val="auto_el_tag('rkStatus',props.row.rkStatus)"></el-tag-s>
                                                     </el-form-item>
                                                     <el-form-item label="总数量">
                                                         <span>{{ props.row.allCount }}</span>
@@ -97,7 +97,7 @@
                                                         <span>{{ props.row.allTj    }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="制作方式">
-                                                        <span>{{ auto_rkZdfs(props.row.rkZdfs) }}</span>
+                                                        <el-tag-s :val="auto_el_tag('rkZdfs',props.row.rkZdfs)"></el-tag-s>
                                                     </el-form-item>
                                                     <el-form-item label="备注">
                                                         <span>{{ props.row.rkRemarks    }}</span>
@@ -142,8 +142,7 @@
                                         prop="rkArehouseId">
                                     <template scope="scope">
                                         <el-tag
-                                                type="success"
-                                                close-transition>
+                                                type="success">
                                             {{auto_rkArehouseId(scope.row.rkArehouseId)}}
                                         </el-tag>
                                     </template>
@@ -386,7 +385,7 @@
                         </el-col>
                         <el-col :span="12" :offset="2">
                             <el-form-item label="单据状态">
-                                {{auto_rkStatus(form.rkStatus)}}
+                                <el-tag-s :val="auto_el_tag('rkStatus',form.rkStatus)"></el-tag-s>
                             </el-form-item>
                             <el-form-item label="入库数量">
                                 {{form.allCount}}
@@ -395,7 +394,7 @@
                                 {{form.allTj }}
                             </el-form-item>
                             <el-form-item label="制作方式">
-                                {{auto_rkZdfs(form.rkZdfs) }}
+                                <el-tag-s :val="auto_el_tag('rkZdfs',form.rkZdfs)"></el-tag-s>
                             </el-form-item>
                         </el-col>
                     </el-row>
