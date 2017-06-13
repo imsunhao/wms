@@ -14,9 +14,9 @@ var inputSelect = new Vue({
             pageSize: 10,
             currentTotal:0,
             date: [null, null],                 //主页面 选择日期 搜索
-            rjdkNo: '',                       //主页面 入库单号 搜索
-            shzt:'',                           //主页面 单据状态
-            ckId: window.dbmessage.baseArehouses[0].baArehouseId,             //主页面 仓库 搜索
+            rkRkdjNo: '',                       //主页面 入库单号 搜索
+            rkStatus:'',                           //主页面 单据状态
+            rkArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,             //主页面 仓库 搜索
             formLabelWidth: '120px',          //表单 配置
             form: _form(),                       //表单 弹出层 信息集合
             dialogFormActive: 0,              //新建 弹出层 steps 当前进度
@@ -47,11 +47,11 @@ var inputSelect = new Vue({
                 "draw": 1,
                 "pageNum": this.currentPage,
                 "pageSize": this.pageSize,
-                "djzt":this.shzt,
-                "rkdh":this.rjdkNo.trim(),
+                "djzt":this.rkStatus,
+                "rkdh":this.rkRkdjNo.trim(),
                 "xdsjStart":tsf_date(this.date[0]),
                 "xdsjEnd":tsf_date(this.date[1]),
-                "ckId":this.ckId,
+                "ckId":this.rkArehouseId,
             }
         },
         form_pop:function(){
@@ -59,17 +59,15 @@ var inputSelect = new Vue({
                 "draw": 1,
                 "pageNum": this.currentPage,
                 "pageSize": this.pageSize,
-                "xdsjStart": tsf_date(this.form.xdsj[0]),
-                "xdsjEnd": tsf_date(this.form.xdsj[1]),
-                "sjsj": tsf_date(this.form.sjsj),
-                "jssj": tsf_date(this.form. jssj),
-                "rkdh": tsf_date(this.form.rjdkNo),
-                "djzt": tsf_date(this.form.shzt),
-                "zzfs": this.form.zdfs,
-                "czfs": this.form.czfs,
-                "jssj": tsf_date(this.form.jssj),
-                "ckId":this.form.ckId,
-//                    "ckmc":this.form,ckmc,
+                "xdsjStart": tsf_date(this.form.rkCreatetime[0]),
+                "xdsjEnd": tsf_date(this.form.rkCreatetime[1]),
+                "sjsjStart": tsf_date(this.form.rkSjsj),
+                "sjsjEnd": tsf_date(this.form. rkEndTime),
+                "rkdh": this.form.rkRkdjNo,
+                "djzt": this.form.rkStatus,
+                "zzfs": this.form.rkZdfs,
+                "czfs": this.form.rkStartwith,
+                "ckId":this.form.rkArehouseId,
             }
         },
         search: function () {
@@ -161,13 +159,13 @@ var inputSelect = new Vue({
         },                                     //TODO 行内按钮-导出入库储位
         inlineExportInput:function(){},                                            //TODO 行内按钮-导出入库
         inlineSelectInputDetailed:function(index,row){
-            p[1].post({id: row.rkdjId}, function (json) {
+            p[1].post({id: row.rkRkdjId}, function (json) {
                 obj.detailed = json.model;
                 obj.dialogDetailedVisible = true;
             })
         },                        //TODO 行内按钮-查看入库明细信息
         inlineSelectInputStorage:function(index,row){
-            p[2].post({id: row.rkdjId}, function (json) {
+            p[2].post({id: row.rkRkdjId}, function (json) {
                 obj.storage = json.model;
                 obj.dialogStorageVisible = true;
             })
@@ -398,7 +396,7 @@ var inputSelect = new Vue({
                     return resolve([]);
             }
         },
-        auto_shzt:function(value){
+        auto_rkStatus:function(value){
             var temp={}
             if(!isNaN(value)){
                 temp={
@@ -419,7 +417,7 @@ var inputSelect = new Vue({
             }
             return temp[value];
         },                                       //入库状态
-        auto_zdfs:function(value){
+        auto_rkZdfs:function(value){
             var temp={}
             if(!isNaN(value)){
                 temp={
@@ -436,7 +434,7 @@ var inputSelect = new Vue({
             }
             return temp[value];
         },                                         //制单方式
-        auto_czfs:function(value){
+        auto_rkStartwith:function(value){
             var temp={}
             if(!isNaN(value)){
                 temp={
@@ -476,19 +474,19 @@ var inputSelect = new Vue({
 
     },
     watch:{
-        rjdkNo: function () {
+        rkRkdjNo: function () {
             /*<debug>*/
             console.log((_option ? this.form_pop : this.option));
             /*</debug>*/
             p[0].post((_option ? this.form_pop : this.option));
         },
-        shzt: function () {
+        rkStatus: function () {
             /*<debug>*/
             console.log((_option ? this.form_pop : this.option));
             /*</debug>*/
             p[0].post((_option ? this.form_pop : this.option));
         },
-        ckId: function () {
+        rkArehouseId: function () {
             /*<debug>*/
             console.log((_option ? this.form_pop : this.option));
             /*</debug>*/
@@ -507,16 +505,14 @@ inputSelect.$watch('date', function () {
 }, {deep: true});
 function _form() {
     return {
-        xdsj:[null,null],     //模糊查询--下单时间
-        sjsj:'',     //模糊查询--上架开始时间
-        jssj:'',       //模糊查询--上架结束时间
-        rjdkNo:'',             //模糊查询--入库单号
-        shzt:'',                //模糊查询--入库状态
-        zdfs:'',                //模糊查询--制单方式
-        czfs:'',                 //模糊查询--操作方式
-//            ckmc:'',
-        ckId:'',
-
+        rkCreatetime:[null,null],      //模糊查询--下单时间
+        rkSjsj:'',                      //模糊查询--上架开始时间
+        rkEndTime:'',                   //模糊查询--上架结束时间
+        rkRkdjNo:'',                    //模糊查询--入库单号
+        rkStatus:'',                    //模糊查询--入库状态
+        rkZdfs:'',                      //模糊查询--制单方式
+        rkStartwith:'',                 //模糊查询--操作方式
+        rkArehouseId:'',                //模糊查询 仓库ID
     }
 }
 var obj=inputSelect;

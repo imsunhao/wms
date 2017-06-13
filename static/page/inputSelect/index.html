@@ -7,7 +7,7 @@
                 <el-input
                         @change="selectReturn"
                         class="input"
-                        v-model="rjdkNo"
+                        v-model="rkRkdjNo"
                         icon="search"
                         placeholder="入库单号"></el-input>
                 <el-date-picker
@@ -20,7 +20,7 @@
                 </el-date-picker>
                 <el-select
                         @visible-change="selectReturn"
-                        v-model="shzt" placeholder="请选择">
+                        v-model="rkStatus" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="1" label="原始状态"></el-option>
                     <el-option :value="21" label="部分分配"></el-option>
@@ -30,7 +30,7 @@
                 </el-select>
                 <el-select
                         :disabled="watchView"
-                        v-model="ckId"
+                        v-model="rkArehouseId"
                         placeholder="请选择所属仓库">
                     <el-option :label="obj.baName" :value="obj.baArehouseId"
                                v-for="obj of baseArehouses"></el-option>
@@ -72,51 +72,51 @@
                             <el-row>
                                 <el-col :span="10">
                                     <el-form-item label="仓库">
-                                        <span>{{ props.row.ckmc }}</span>
+                                        <span>{{ props.row.baArehouse.baName }}</span>
                                     </el-form-item>
                                     <el-form-item label="入库单号">
-                                        <span>{{ props.row.rjdkNo }}</span>
+                                        <span>{{ props.row.rkRkdjNo }}</span>
                                     </el-form-item>
                                     <el-form-item label="单据状态">
-                                        <span>{{ auto_shzt(props.row.shzt) }}</span>
+                                        <span>{{ auto_rkStatus(props.row.rkStatus) }}</span>
                                     </el-form-item>
                                       <el-form-item label="总数量">
-                                        <span>{{props.row.zsl }}</span>
+                                        <span>{{props.row.allCount }}</span>
                                     </el-form-item>
                                       <el-form-item label="总体积">
-                                        <span>{{ props.row.ztj}}</span>
+                                        <span>{{ props.row.allTj}}</span>
                                     </el-form-item>
                                       <el-form-item label="实收数量">
-                                        <span>{{ props.row.sssl }}</span>
+                                        <span>{{ props.row.mdtAllCount }}</span>
                                     </el-form-item>
                                       <el-form-item label="实收体积">
-                                        <span>{{props.row.sstj }}</span>
+                                        <span>{{props.row.mdtAllTj }}</span>
                                     </el-form-item>
                                     <el-form-item label="下单时间">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{auto_time_new(props.row.xdsj,6)}}</span>
+                                            {{auto_time_new(props.row.rkCreatetime,6)}}</span>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="上架开始">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_time_new(props.row.sjsj,6) }}</span>
+                                            {{ auto_time_new(props.row.rkSjsj,6) }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架结束">
                                         <span>
                                             <el-icon name="time"></el-icon>
-                                            {{ auto_time_new(props.row.jssj,6) }}</span>
+                                            {{ auto_time_new(props.row.rkEndTime,6) }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架人员">
-                                        <span>{{ props.row. sjryName }}</span>
+                                        <span>{{ props.row.mdtUserName }}</span>
                                     </el-form-item>
                                     <el-form-item label="制作方式">
-                                        <span>{{ auto_zdfs(props.row.zdfs) }}</span>
+                                        <span>{{ auto_rkZdfs(props.row.rkZdfs) }}</span>
                                     </el-form-item>
                                     <el-form-item label="操作方式">
-                                        <span>{{ auto_czfs(props.row.czfs) }}</span>
+                                        <span>{{ auto_rkStartwith(props.row.rkStartwith) }}</span>
                                     </el-form-item>
                                     <el-form-item
                                             label="可用操作">
@@ -158,49 +158,49 @@
                 <el-table-column
                         label="仓库"
                         show-overflow-tooltip
-                        prop="ckmc"
+                        prop="baArehouse.baName"
                         align="center">
                 </el-table-column>
                 <el-table-column
                         label="入库单号"
                         show-overflow-tooltip
-                        prop="rjdkNo"
+                        prop="rkRkdjNo"
                         align="center">
                 </el-table-column>
                   <el-table-column
                         label="总数量"
                         show-overflow-tooltip
-                        prop="zsl"
+                        prop="allCount"
                         align="center">
                 </el-table-column>
                   <el-table-column
                         label="总体积"
                         show-overflow-tooltip
-                        prop="ztj"
+                        prop="allTj"
                         align="center">
                 </el-table-column>
                 <el-table-column
                         label="实收数量"
                         show-overflow-tooltip
                         align="center"
-                        prop="sssl">
+                        prop="mdtAllCount">
                 </el-table-column>
                 <el-table-column
                         label="下单时间"
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_time_new(scope.row.xdsj)}}
+                        {{auto_time_new(scope.row.rkCreatetime)}}
                     </template>
                 </el-table-column>
                 <el-table-column
                         label="单据状态"
-                        prop="shzt"
+                        prop="rkStatus"
                         align="center"
                         width="100">
                     <template scope="scope">
                         <el-tag
-                                close-transition> {{auto_shzt(scope.row.shzt)}}
+                                close-transition> {{auto_rkStatus(scope.row.rkStatus)}}
                         </el-tag>
                     </template>
                 </el-table-column>
@@ -234,7 +234,7 @@
             <el-form-item label="下单时间"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="form.xdsj"
+                        v-model="form.rkCreatetime"
                         type="daterange"
                         align="right"
                         placeholder="下单时间"
@@ -245,7 +245,7 @@
             <el-form-item label="上架开始"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="form.sjsj"
+                        v-model="form.rkSjsj"
                         type="date"
                         align="right"
                         placeholder="上架开始"
@@ -255,7 +255,7 @@
             <el-form-item label="上架结束"
                           :label-width="formLabelWidth">
                 <el-date-picker
-                        v-model="form.jssj"
+                        v-model="form.rkEndTime"
                         type="date"
                         align="right"
                         placeholder="上架结束"
@@ -266,13 +266,13 @@
                           :label-width="formLabelWidth">
                 <el-input
                         class="input"
-                        v-model="form.rjdkNo"
+                        v-model="form.rkRkdjNo"
                         icon="search"
                         placeholder="入库单号"></el-input>
             </el-form-item>
             <el-form-item label="单据状态"
                           :label-width="formLabelWidth">
-                <el-select v-model="form.shzt" placeholder="请选择">
+                <el-select v-model="form.rkStatus" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="1" label="原始状态"></el-option>
                     <el-option :value="21" label="部分分配"></el-option>
@@ -283,7 +283,7 @@
             </el-form-item>
             <el-form-item label="制单方式"
                           :label-width="formLabelWidth">
-                <el-select v-model="form.zdfs" placeholder="请选择">
+                <el-select v-model="form.rkZdfs" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="1" label="手动"></el-option>
                     <el-option :value="2" label="导入"></el-option>
@@ -292,7 +292,7 @@
             </el-form-item>
             <el-form-item label="操作方式"
                           :label-width="formLabelWidth">
-                <el-select v-model="form.czfs" placeholder="请选择">
+                <el-select v-model="form.rkStartwith" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="1" label="电脑端"></el-option>
                     <el-option :value="2" label="PDA"></el-option>
@@ -301,7 +301,7 @@
             <el-form-item label="所属仓库" :label-width="formLabelWidth">
                 <el-select
                         :disabled="watchView"
-                        v-model="form.ckId"
+                        v-model="form.rkArehouseId"
                         placeholder="请选择所属仓库">
                     <el-option :label="obj.baName" :value="obj.baArehouseId"
                                v-for="obj of baseArehouses"></el-option>
