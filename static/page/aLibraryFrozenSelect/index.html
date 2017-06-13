@@ -52,15 +52,19 @@
                 <el-table-column
                         type="expand">
                     <template scope="props">
-                        <el-row>
-                            <h3 style="margin-top: 0; margin-left: -15px;">库位冻结查询详细</h3>
-                        </el-row>
                         <el-carousel
                                 arrow="hover"
                                 height="240px"
                                 indicator-position="none"
                                 :autoplay="false">
                             <el-carousel-item>
+                                <el-row>
+                                    <h3>库位冻结查询详细<span
+                                            style="font-size: 14px;
+                                            font-weight: normal;
+                                            margin-left: 5px;">(翻页查看库位冻结明细）</span>
+                                    </h3>
+                                </el-row>
                                 <el-form label-position="left" inline class="demo-table-expand">
                                     <el-row>
                                         <el-col :span="10">
@@ -109,9 +113,10 @@
                                     </el-row>
                                 </el-form>
                             </el-carousel-item>
-
-
                             <el-carousel-item>
+                                <el-row>
+                                    <h3>库位冻结明细</h3>
+                                </el-row>
                                 <el-table
                                         :data="props.row.djDocsList"
                                         :max-height="240">
