@@ -79,7 +79,7 @@
                                                 <span>{{props.row.goodsTypeNum}}</span>
                                             </el-form-item>
                                             <el-form-item label="任务状态">
-                                                <span>{{ auto_ckrwStatus(props.row.ckrwStatus) }}</span>
+                                                <el-tag-s :val="auto_el_tag('ckRwStatus',props.row.ckrwStatus)"></el-tag-s>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :span="10" :offset="2">
@@ -97,10 +97,10 @@
                                             </el-form-item>
 
                                             <el-form-item label="欠货状态">
-                                                <span>{{ auto_ckrwQhStatus(props.row.ckrwQhStatus) }}</span>
+                                                <el-tag-s :val="auto_el_tag('ckQhStatus',props.row.ckrwQhStatus)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item label="滞留状态">
-                                                <span>{{ auto_ckrwZlStatus(props.row.ckrwZlStatus) }}</span>
+                                                <el-tag-s :val="auto_el_tag('ckZlStatus',props.row.ckrwZlStatus)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item
                                                     label="可用操作">
@@ -242,9 +242,7 @@
                         align="center"
                         width="100">
                     <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_ckrwStatus(scope.row.ckrwStatus)}}
-                        </el-tag>
+                        <el-tag-s :val="auto_el_tag('ckRwStatus',scope.row.ckrwStatus)"></el-tag-s>
                     </template>
                 </el-table-column>
                 <!--<el-table-column-->
