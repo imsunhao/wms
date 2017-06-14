@@ -262,6 +262,32 @@ html, body {
   }
 }
 
+.el-table {
+  .info-row {
+    background: #20A0FF;
+  }
+
+  .positive-row {
+    background: #e2f0e4;
+  }
+
+  .danger-row{
+    background: #FF4949;
+  }
+
+  .success-row{
+    background: #62ce86;
+  }
+
+  .warning-row{
+    background: #F7BA2A;
+  }
+
+  .gray-row{
+    background: #99A9BF;
+  }
+}
+
 /*********** 打印功能 *********************************/
 
 .barcode {
@@ -406,7 +432,7 @@ html, body {
       position: relative;
       margin-bottom: 0.5mm;
       overflow: hidden;
-      .barcode2{
+      .barcode2 {
         transform: scaleX(0.9);
         width: 120%;
         transform-origin: left;
@@ -495,5 +521,6 @@ html, body {
     border: none !important;
   }
 }
+
 
 
