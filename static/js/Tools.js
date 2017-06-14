@@ -683,6 +683,17 @@ var ___datas = (function () {
                 {value: 1, name: '有差异', type: 'success', color: ''}
             ]
         },
+        {
+            id: 'ruUserType',
+            name: '用户类型',
+            data: [
+                {value: 0, name: '普通', type: 'warning', color: ''},
+                {value: 1, name: '堆高车', type: 'danger', color: ''},
+                {value: 2, name: '高位叉车', type: 'success', color: ''}
+            ]
+        },
+
+
 
 
 
