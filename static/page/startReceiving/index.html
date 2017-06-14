@@ -61,7 +61,9 @@
                                     <el-row>
                                         <el-col :span="10">
                                             <el-form-item label="任务号">
-                                                <span>{{ props.row.rkrwNo }}</span>
+                                                <el-tag type="success">
+                                                    {{ props.row.rkrwNo }}
+                                                </el-tag>
                                             </el-form-item>
                                             <el-form-item label="车牌号">
                                                 <span>{{ props.row.rkrwCph }}</span>
