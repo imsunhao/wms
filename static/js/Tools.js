@@ -509,7 +509,7 @@ var ___datas = (function () {
             id: 'rkStartwith',
             name: '操作方式',
             data: [
-                {value: 0, name: '', type: 'success', color: ''},
+                {value: 0, name: '初始', type: 'success', color: ''},
                 {value: 1, name: '电脑端', type: 'success', color: ''},
                 {value: 2, name: 'pda', type: 'primary', color: ''}
             ]
@@ -518,6 +518,7 @@ var ___datas = (function () {
             id: 'ckStartwith',
             name: '操作方式',
             data: [
+                {value: 0, name: '初始', type: 'success', color: ''},
                 {value: 1, name: '电脑端', type: 'success', color: ''},
                 {value: 2, name: 'pda', type: 'primary', color: ''}
             ]
