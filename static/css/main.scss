@@ -271,19 +271,19 @@ html, body {
     background: #e2f0e4;
   }
 
-  .danger-row{
+  .danger-row {
     background: #FF4949;
   }
 
-  .success-row{
+  .success-row {
     background: #62ce86;
   }
 
-  .warning-row{
+  .warning-row {
     background: #F7BA2A;
   }
 
-  .gray-row{
+  .gray-row {
     background: #99A9BF;
   }
 }
@@ -451,6 +451,15 @@ html, body {
     }
   }
   .p1 {
+    .el-table {
+      .cell {
+        height: 24px;
+      }
+
+      td {
+        height: 24px;
+      }
+    }
     .el-dialog__body {
       width: 1640px;
     }
