@@ -700,6 +700,15 @@ var ___datas = (function () {
                 {value: 1, name: '可用', type: 'success', color: ''}
             ]
         },
+        {
+            id: 'rrStatus',
+            name: '角色管理-状态',
+            data: [
+                {value: 0, name: '', type: 'danger', color: ''},
+                {value: 1, name: '可用', type: 'success', color: ''}
+            ]
+        },
+
 
 
 
