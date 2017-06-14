@@ -75,16 +75,16 @@
                                         <span>{{ props.row.ckCkdjNo }}</span>
                                     </el-form-item>
                                     <el-form-item label="单据类型">
-                                        <span>{{ auto_ckCkdjType(props.row.ckCkdjType) }}</span>
+                                        <el-tag-s :val="auto_el_tag('ckCkdjType',props.row.ckCkdjType)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="单据状态">
-                                        <span>{{ auto_ckStatus(props.row.ckStatus) }}</span>
+                                        <el-tag-s :val="auto_el_tag('ckStatus',props.row.ckStatus)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="欠货状态">
-                                        <span>{{ auto_ckQhStatus(props.row.ckQhStatus) }}</span>
+                                        <el-tag-s :val="auto_el_tag('cksQhStatuss',props.row.ckQhStatus)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="滞留状态">
-                                        <span>{{ auto_ckZlStatus(props.row.ckZlStatus) }}</span>
+                                        <el-tag-s :val="auto_el_tag('cksZlStatus',props.row.ckZlStatus)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="总数量">
                                         <span>{{props.row.allCount }}</span>
@@ -125,10 +125,10 @@
                                         <span>{{props.row.ckTel}}</span>
                                     </el-form-item>
                                     <el-form-item label="制作方式">
-                                        <span>{{ auto_ckIsauto(props.row.ckIsauto) }}</span>
+                                        <el-tag-s :val="auto_el_tag('ckIsauto',props.row.ckIsauto)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="操作方式">
-                                        <span>{{ auto_ckStartwith(props.row.ckStartwith) }}</span>
+                                        <el-tag-s :val="auto_el_tag('ckStartwith',props.row.ckStartwith)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="激活人员">
                                         <span>{{ props.row.rwOperator }}</span>
