@@ -97,13 +97,16 @@
                                         <span>{{ props.row.mfunckDoc.ckCkdjNo}}</span>
                                     </el-form-item>
                                     <el-form-item label="单据状态">
-                                        <span>{{ auto_ckStatus(props.row.mfunckDoc.ckStatus)}}</span>
+                                        <el-tag-s
+                                                :val="auto_el_tag('ckStatus',props.row.mfunckDoc.ckStatus)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="欠货状态">
-                                        <span>{{ auto_cksQhStatus(props.row.mfunckDocs.cksQhStatus ) }}</span>
+                                        <el-tag-s
+                                                :val="auto_el_tag('cksQhStatus',props.row.mfunckDocs.cksQhStatus)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="滞留状态">
-                                        <span>{{ auto_cksZlStatus(props.row.mfunckDocs.cksZlStatus ) }}</span>
+                                        <el-tag-s
+                                                :val="auto_el_tag('cksZlStatus',props.row.mfunckDocs.cksZlStatus)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="货品编号">
                                         <span>{{ props.row.mfunRepertory.baseGoods.bgGoodsNo}}</span>
@@ -129,10 +132,12 @@
                                         <span>{{ props.row.msxMxCount   }}</span>
                                     </el-form-item>
                                     <el-form-item label="制作方式">
-                                        <span>{{ auto_ckIsauto(props.row.mfunckDoc.ckIsauto) }}</span>
+                                        <el-tag-s
+                                                :val="auto_el_tag('ckIsauto',props.row.mfunckDoc.ckIsauto)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="操作方式">
-                                        <span>{{ auto_ckStartwith(props.row.mfunckDoc.ckStartwith) }}</span>
+                                        <el-tag-s
+                                                :val="auto_el_tag('ckStartwith',props.row.mfunckDoc.ckStartwith)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="客户编号">
                                         <span>{{ props.row.mfunckDoc.ckCkdjClientno }}</span>
@@ -204,27 +209,21 @@
                         label="单据状态"
                         align="center">
                     <template scope="scope">
-                        <el-tag
-                                close-transition>{{ auto_ckStatus(scope.row.mfunckDoc.ckStatus)}}
-                        </el-tag>
+                        <el-tag-s :val="auto_el_tag('ckStatus',scope.row.mfunckDoc.ckStatus)"></el-tag-s>
                     </template>
                 </el-table-column>
                 <el-table-column
                         label="欠货状态"
                         align="center">
                     <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_cksQhStatus(scope.row.mfunckDocs.cksQhStatus)}}
-                        </el-tag>
+                        <el-tag-s :val="auto_el_tag('cksQhStatus',scope.row.mfunckDocs.cksQhStatus)"></el-tag-s>
                     </template>
                 </el-table-column>
                 <el-table-column
                         label="滞留状态"
                         align="center">
                     <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_cksZlStatus(scope.row.mfunckDocs.cksZlStatus )}}
-                        </el-tag>
+                        <el-tag-s :val="auto_el_tag('cksZlStatus',scope.row.mfunckDocs.cksZlStatus)"></el-tag-s>
                     </template>
                 </el-table-column>
                 <el-table-column
