@@ -128,6 +128,13 @@
                         show-overflow-tooltip
                         prop="baseArehouse.baName"
                         align="center">
+                    <template scope="scope">
+                        <el-tag
+                                type="success"
+                                close-transition>
+                            {{(scope.row.baseArehouse.baName)}}
+                        </el-tag>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="创建时间"
