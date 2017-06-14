@@ -95,7 +95,8 @@
                                                 </el-tag>
                                             </el-form-item>
                                             <el-form-item label="订单类型">
-                                                <span>{{ auto_rkType(props.row.rkType) }}</span>
+                                                <!--<span>{{ auto_rkType(props.row.rkType) }}</span>-->
+                                                <el-tag type="primary">{{ auto_rkType(props.row.rkType) }}</el-tag>
                                             </el-form-item>
                                             <el-form-item label="单据状态">
                                                 <span>{{ auto_rkStatus(props.row.rkStatus) }}</span>
