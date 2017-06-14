@@ -657,6 +657,26 @@ var ___datas = (function () {
                 {value: 2, name: '作废', type: 'success', color: ''}
             ]
         },
+        {
+            id: 'pdType',
+            name: '盘点类型',
+            data: [
+                {value: 0, name: '异动盘点', type: 'warning', color: ''},
+                {value: 1, name: '货品盘点', type: 'danger', color: ''},
+                {value: 2, name: '全仓盘点', type: 'success', color: ''}
+            ]
+        },
+        {
+            id: 'pdStatus',
+            name: '盘点状态',
+            data: [
+                {value: 0, name: '初始', type: 'warning', color: ''},
+                {value: 1, name: '盘点确认', type: 'danger', color: ''},
+                {value: 2, name: '作废', type: 'success', color: ''}
+            ]
+        },
+
+
 
 
         // {
