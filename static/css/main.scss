@@ -405,6 +405,13 @@ html, body {
       padding: 3.4mm 3.7mm;
       position: relative;
       margin-bottom: 0.5mm;
+      overflow: hidden;
+      .barcode2{
+        transform: scaleX(0.9);
+        width: 120%;
+        transform-origin: left;
+        margin-left: -7px;
+      }
     }
     p {
       font: 0.200in/100% '宋体';
