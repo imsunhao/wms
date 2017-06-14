@@ -543,6 +543,19 @@ var outputOperation = new Vue({
             }
             return temp[value];
         },                                    //TODO 制单方式
+        auto_cksCkfs: function (value) {
+            switch (value) {
+                case 'k':
+                case 'K':
+                    return '指定储位';
+                case 'p':
+                case 'P':
+                    return '指定批次';
+                case 'x':
+                case 'X':
+                    return '先进先出';
+            }
+        }   //修改分拣方式
 
     },
     watch: {

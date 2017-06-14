@@ -51,7 +51,7 @@ var inputSelect = new Vue({
                 "rkdh":this.rkRkdjNo.trim(),
                 "xdsjStart":tsf_date(this.date[0]),
                 "xdsjEnd":tsf_date(this.date[1]),
-                "ckId":this.rkArehouseId,
+                "arehouseId":this.rkArehouseId,
             }
         },
         form_pop:function(){
@@ -67,7 +67,7 @@ var inputSelect = new Vue({
                 "djzt": this.form.rkStatus,
                 "zzfs": this.form.rkZdfs,
                 "czfs": this.form.rkStartwith,
-                "ckId":this.form.rkArehouseId,
+                "arehouseId":this.form.rkArehouseId,
             }
         },
         search: function () {

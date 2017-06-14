@@ -10,6 +10,7 @@ var inputOperation = new Vue({
     data: function () {
         return {
             baseArehouses: window.dbmessage.baseArehouses,
+            baseRkType: window.rkType,
             validateRkRkdjNo: function (rule, value, callback) {
                 if (validateRule.a.exec(value)) {
                     callback(new Error('不允许存在特殊字符!'));
@@ -608,21 +609,14 @@ var inputOperation = new Vue({
             else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
         },                          //创建时间/下单时间
         auto_rkType: function (value) {
-            var temp = {}
             if (!isNaN(value)) {
-                temp = {
-                    0: '采购订单',
-                    1: '仓间调拨',
-                    2: '退货入库'
-                }
-            } else {
-                temp = {
-                    '采购订单': 0,
-                    '仓间调拨': 1,
-                    '退货入库': 2
+                for (var index in this.baseRkType) {
+                    if (this.baseRkType[index] == value) {
+                        return index;
+                    }
                 }
             }
-            return temp[value];
+            else return this.baseRkType[value];
         },                                      //订单类型
         auto_rkStatus: function (value) {
             var temp = {}
