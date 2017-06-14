@@ -675,6 +675,15 @@ var ___datas = (function () {
                 {value: 2, name: '作废', type: 'success', color: ''}
             ]
         },
+        {
+            id: 'pdDiffStatus',
+            name: '差异状态',
+            data: [
+                {value: 0, name: '无差异', type: 'danger', color: ''},
+                {value: 1, name: '有差异', type: 'success', color: ''}
+            ]
+        },
+
 
 
 
