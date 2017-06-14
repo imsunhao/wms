@@ -98,9 +98,7 @@
                                     <el-form-item label="欠货状态">
                                         <el-tag-s :val="auto_el_tag('cksQhStatuss',props.row.ckQhStatus)"></el-tag-s>
                                     </el-form-item>
-                                    <el-form-item label="滞留状态">
-                                        <span>{{ auto_ckZlStatus(props.row.ckZlStatus) }}</span>
-                                    </el-form-item>
+
                                         </el-col>
                                         <el-col :span="10" :offset="2">
                                             <el-form-item label="联系人">
@@ -120,6 +118,9 @@
                                             </el-form-item>
                                             <el-form-item label="备注">
                                                 <span>{{ props.row.ckRemarks }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="滞留状态">
+                                                <el-tag-s :val="auto_el_tag('cksZlStatus',props.row.ckZlStatus)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item
                                                     label="可用操作">
