@@ -183,6 +183,9 @@
                                             show-overflow-tooltip
                                             align="center"
                                             prop="cksCkfs">
+                                        <template scope="scope">
+                                            {{auto_cksCkfs(scope.row.cksCkfs)}}
+                                        </template>
                                     </el-table-column>
                                     <el-table-column
                                             label="批次"

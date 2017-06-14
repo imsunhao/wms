@@ -324,6 +324,19 @@ var recoveryArchive = new Vue({
             }
             return temp[value];
         },                               //滞留状态
+        auto_cksCkfs: function (value) {
+            switch (value) {
+                case 'k':
+                case 'K':
+                    return '指定储位';
+                case 'p':
+                case 'P':
+                    return '指定批次';
+                case 'x':
+                case 'X':
+                    return '先进先出';
+            }
+        }                                   //分拣方式
     },
     watch: {
         ckCkdjNo: function () {
