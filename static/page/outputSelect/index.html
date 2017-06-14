@@ -47,9 +47,6 @@
                 <button @click="multiExportSortingDetailed" class="btn btn-modify" v-show="multiSelect"><i
                         class="icon modify"></i><span>分拣明细</span>
                 </button>
-                <button @click="multiExportOutput" class="btn btn-modify" v-show="multiSelect"><i
-                        class="icon modify"></i><span>出库</span>
-                </button>
             </div>
             <el-table
                     :data="outputSelect"
@@ -155,11 +152,6 @@
                                                 size="small"
                                                 type="success"
                                                 @click="inlineExportSortingDetailed(props.$index, props.row)">导出分拣明细
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                type="success"
-                                                @click="inlineExportOutput(props.$index, props.row)">导出出库
                                         </el-button>
                                         <el-button
                                                 size="small"
