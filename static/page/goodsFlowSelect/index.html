@@ -110,6 +110,13 @@
                         show-overflow-tooltip
                         prop="mfunckDoc.baseArehouse.baName"
                         align="center">
+                    <template scope="scope">
+                        <el-tag
+                                type="success"
+                                close-transition>
+                            {{(scope.row.mfunckDoc.baseArehouse.baName)}}
+                        </el-tag>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="出库单号"
