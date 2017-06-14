@@ -639,7 +639,7 @@ var ___datas = (function () {
                 {value: 3, name: '未滞留', type: 'success', color: ''}
             ]
         },
-          {
+        {
             id: 'zyStatus',
             name: '转移状态',
             data: [
@@ -648,6 +648,16 @@ var ___datas = (function () {
                 {value: 2, name: '作废', type: 'success', color: ''}
             ]
         },
+        {
+            id: 'djStatus',
+            name: '冻结状态',
+            data: [
+                {value: 0, name: '冻结', type: 'warning', color: ''},
+                {value: 1, name: '解冻', type: 'danger', color: ''},
+                {value: 2, name: '作废', type: 'success', color: ''}
+            ]
+        },
+
 
         // {
         //     id: 'baArehouseId',
