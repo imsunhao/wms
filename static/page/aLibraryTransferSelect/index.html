@@ -97,7 +97,7 @@
                                                     {{ auto_time_new(props.row.zyConfirmTime,6) }}</span>
                                             </el-form-item>
                                             <el-form-item label="转移状态">
-                                                <span>{{ auto_zyStatus(props.row.zyStatus) }}</span>
+                                                <el-tag-s :val="auto_el_tag('zyStatus',props.row.zyStatus)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item
                                                     label="可用操作">
