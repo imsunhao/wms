@@ -187,9 +187,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_ckCkdjType(scope.row.ckCkdjType)}}
-                        </el-tag>
+                        <el-tag-s :val="auto_el_tag('ckCkdjType',scope.row.ckCkdjType)"></el-tag-s>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -197,9 +195,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_ckStatus(scope.row.ckStatus)}}
-                        </el-tag>
+                        <el-tag-s :val="auto_el_tag('ckStatus',scope.row.ckStatus)"></el-tag-s>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -207,9 +203,8 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_ckQhStatus(scope.row.ckQhStatus)}}
-                        </el-tag>
+                        <el-tag-s :val="auto_el_tag('cksQhStatuss',scope.row.ckQhStatus)"></el-tag-s>
+
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -217,9 +212,7 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_ckZlStatus(scope.row.ckZlStatus)}}
-                        </el-tag>
+                        <el-tag-s :val="auto_el_tag('cksZlStatus',scope.row.ckZlStatus)"></el-tag-s>
                     </template>
                 </el-table-column>
                 <el-table-column
