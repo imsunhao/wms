@@ -96,7 +96,7 @@
                                             </el-form-item>
                                           
                                     <el-form-item label="欠货状态">
-                                        <span>{{ auto_ckQhStatus(props.row.ckQhStatus) }}</span>
+                                        <el-tag-s :val="auto_el_tag('cksQhStatuss',props.row.ckQhStatus)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="滞留状态">
                                         <span>{{ auto_ckZlStatus(props.row.ckZlStatus) }}</span>
@@ -116,7 +116,7 @@
                                                 <span>{{ auto_time_new(props.row.ckYfhsj,6) }}</span>
                                             </el-form-item>
                                             <el-form-item label="制作方式">
-                                                <span>{{ auto_ckIsauto(props.row.ckIsauto) }}</span>
+                                                <el-tag-s :val="auto_el_tag('ckIsauto',props.row.ckIsauto)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item label="备注">
                                                 <span>{{ props.row.ckRemarks }}</span>
