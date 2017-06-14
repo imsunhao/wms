@@ -429,6 +429,7 @@
         <el-table
                 :data="details"
                 highlight-current-row
+                :row-class-name="tableRowClassName"
                 style="width: 100%">
             <el-table-column
                     width="55"
@@ -626,6 +627,14 @@
             },                                      //分配 表单
         },
         methods: {
+            tableRowClassName: function (row, index) {
+                if (row.pdsStatus === 1 && (row.pdsRepertoryCount - row.pdsPdCount) !== 0) {
+                    return 'warning-row';
+                } else if (row.pdsStatus === 1 && (row.pdsRepertoryCount - row.pdsPdCount) === 0) {
+                    return 'success-row';
+                }
+                return '';
+            },                          //盘点详情 行内颜色变化
             nodeClick: function (value, data, node) {
 
 //                var step2 = _assignmentForm();
