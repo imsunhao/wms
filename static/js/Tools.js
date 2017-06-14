@@ -509,6 +509,7 @@ var ___datas = (function () {
             id: 'rkStartwith',
             name: '操作方式',
             data: [
+                {value: 0, name: '', type: 'success', color: ''},
                 {value: 1, name: '电脑端', type: 'success', color: ''},
                 {value: 2, name: 'pda', type: 'primary', color: ''}
             ]
