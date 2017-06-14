@@ -45,7 +45,7 @@ var inputLedger = new Vue({
                 "sfrqEnd": tsf_date(this.date[1]),
                 "dhrqStart": tsf_date(this.date1[0]),
                 "dhrqEnd": tsf_date(this.date1[1]),
-                "rkrwArehouseId":this.rkrwArehouseId,
+                "rkrwArehouseId": this.rkrwArehouseId,
             }
         },
         form_pop: function () {
@@ -90,7 +90,7 @@ var inputLedger = new Vue({
                     message: '已取消导出'
                 });
             });
-        },                                                 //TODO 行内按钮-导出
+        },                                                 //行内按钮-导出
         inlineProductionLedger: function (index, row) {
 
             var step = formLedger();
@@ -101,10 +101,10 @@ var inputLedger = new Vue({
             this.ledger = step;
             this.dialogLedgerVisible = true;
 
-        },                                       //TODO 行内按钮-制作台账
+        },                                       //行内按钮-制作台账
         inlineOweEnd: function () {
             this.dialogEndVisible = true;
-        },                                          //TODO 行内按钮-欠货完结
+        },                                          //行内按钮-欠货完结
         filterStatus: function (value, row) {
             return row.status == value;
         },                                //状态 过滤函数
@@ -355,6 +355,7 @@ var inputLedger = new Vue({
             });
 
             step.jssj = (new Date(obj.ledger.jssj)).toJSON();
+            step.rks_rkmx_id = obj.ledger.rk_rkdj_id;
             p[1].post(step, function (json) {
                 this.callbackAfter(json, function () {
                     p[0].post(obj.option);
@@ -479,7 +480,7 @@ function validate_end() {
 }
 function _postLedger() {
     return {
-        "rks_rkmx_id": 133,
+        "rks_rkmx_id": 0,
         "pm": "string",
         "dbpswb": "string",
         "ytpswb": "string",
