@@ -90,7 +90,8 @@
                                                     {{auto_time_new(props.row.djJdTime,5) }}</span>
                                             </el-form-item>
                                             <el-form-item label="冻结状态">
-                                                <span>{{ auto_djStatus(props.row.djStatus) }}</span>
+                                                <el-tag-s :val="auto_el_tag('djStatus',props.row.djStatus)"></el-tag-s>
+                                                <!--<span>{{ auto_djStatus(props.row.djStatus) }}</span>-->
                                             </el-form-item>
                                             <el-form-item label="作废人">
                                                 <span>{{ (props.row.djZfUserName) }}</span>
@@ -173,6 +174,13 @@
                         show-overflow-tooltip
                         prop="baseArehouse.baName"
                         align="center">
+                    <template scope="scope">
+                        <el-tag
+                                type="success"
+                                close-transition>
+                            {{(scope.row.baseArehouse.baName)}}
+                        </el-tag>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="创建时间"
@@ -209,9 +217,10 @@
                         align="center"
                         width="100">
                     <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_djStatus(scope.row.djStatus)}}
-                        </el-tag>
+                        <el-tag-s :val="auto_el_tag('djStatus',scope.row.djStatus)"></el-tag-s>
+                        <!--<el-tag-->
+                                <!--close-transition>{{auto_djStatus(scope.row.djStatus)}}-->
+                        <!--</el-tag>-->
                     </template>
                 </el-table-column>
                 <el-table-column

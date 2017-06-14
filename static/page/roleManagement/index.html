@@ -252,7 +252,7 @@
                             <el-form label-position="left" inline class="demo-table-expand">
 
                                 <el-form-item label="状态">
-                                    <span>{{ props.row.rrStatus == 0 ? '禁用':'可用'        }}</span>
+                                    <el-tag-s :val="auto_el_tag('rrStatus',props.row.rrStatus)"></el-tag-s>
                                 </el-form-item>
                                 <el-form-item label="可用操作">
                                     <el-button
@@ -304,10 +304,11 @@
                     label="是否启用"
                     align="center">
                 <template scope="scope">
-                    <el-tag
-                            :type="scope.row.rrStatus == 0 ? 'danger':'success'"
-                            close-transition>{{scope.row.rrStatus == 0 ? '禁用':'启用'}}
-                    </el-tag>
+                    <!--<el-tag-->
+                            <!--:type="scope.row.rrStatus == 0 ? 'danger':'success'"-->
+                            <!--close-transition>{{scope.row.rrStatus == 0 ? '禁用':'启用'}}-->
+                    <!--</el-tag>-->
+                    <el-tag-s :val="auto_el_tag('rrStatus',scope.row.rrStatus)"></el-tag-s>
                 </template>
             </el-table-column>
             <el-table-column
@@ -867,6 +868,22 @@
                 }, 1500);
                 /*</debug>*/
             },                                                //新建 表单提交
+            auto_rrStatus:function(value){
+                var temp={}
+                if(!isNaN(value)){
+                    temp={
+                        0:'',
+                        1:'可用',
+                    }
+                }else{
+                    temp={
+                        '':0,
+                        '可用':1,
+                    }
+                }
+                return temp[value];
+            },                                       //角色状态
+
         },
         watch: {
             rrName: function () {

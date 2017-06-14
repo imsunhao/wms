@@ -246,7 +246,8 @@
                                 <el-form-item label="状态">
                                     <span>
                                         <!--{{ props.row.bcStatus == 0 ? '':'可用'      }}-->
-                                        {{ auto_bcStatus(props.row.bcStatus)     }}
+                                        <!--{{ auto_bcStatus(props.row.bcStatus)     }}-->
+                                         <el-tag-s :val="auto_el_tag('bcStatus',props.row.bcStatus)"></el-tag-s>
 
                                     </span>
                                 </el-form-item>

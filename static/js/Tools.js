@@ -611,6 +611,17 @@ var ___datas = (function () {
                 {value: 3, name: '未欠货', type: 'success', color: ''}
             ]
         },
+           {
+            id: 'cksQhStatuss',
+            name: '欠货状态(整单欠货)',
+            data: [
+                {value: 1, name: '整单欠货', type: 'danger', color: ''},
+                {value: 2, name: '部分欠货', type: 'warning', color: ''},
+                {value: 3, name: '未欠货', type: 'success', color: ''}
+            ]
+        },
+
+
         {
             id: 'ckZlStatus',
             name: '滞留状态(出库滞留状态)',
@@ -628,6 +639,83 @@ var ___datas = (function () {
                 {value: 3, name: '未滞留', type: 'success', color: ''}
             ]
         },
+        {
+            id: 'zyStatus',
+            name: '转移状态',
+            data: [
+                {value: 0, name: '初始', type: 'warning', color: ''},
+                {value: 1, name: '确认', type: 'danger', color: ''},
+                {value: 2, name: '作废', type: 'success', color: ''}
+            ]
+        },
+        {
+            id: 'djStatus',
+            name: '冻结状态',
+            data: [
+                {value: 0, name: '冻结', type: 'warning', color: ''},
+                {value: 1, name: '解冻', type: 'danger', color: ''},
+                {value: 2, name: '作废', type: 'success', color: ''}
+            ]
+        },
+        {
+            id: 'pdType',
+            name: '盘点类型',
+            data: [
+                {value: 0, name: '异动盘点', type: 'warning', color: ''},
+                {value: 1, name: '货品盘点', type: 'danger', color: ''},
+                {value: 2, name: '全仓盘点', type: 'success', color: ''}
+            ]
+        },
+        {
+            id: 'pdStatus',
+            name: '盘点状态',
+            data: [
+                {value: 0, name: '初始', type: 'warning', color: ''},
+                {value: 1, name: '盘点确认', type: 'danger', color: ''},
+                {value: 2, name: '作废', type: 'success', color: ''}
+            ]
+        },
+        {
+            id: 'pdDiffStatus',
+            name: '差异状态',
+            data: [
+                {value: 0, name: '无差异', type: 'danger', color: ''},
+                {value: 1, name: '有差异', type: 'success', color: ''}
+            ]
+        },
+        {
+            id: 'ruUserType',
+            name: '用户类型',
+            data: [
+                {value: 0, name: '普通', type: 'warning', color: ''},
+                {value: 1, name: '堆高车', type: 'danger', color: ''},
+                {value: 2, name: '高位叉车', type: 'success', color: ''}
+            ]
+        },
+        {
+            id: 'bcStatus',
+            name: '客户配置-状态',
+            data: [
+                {value: 0, name: '', type: 'danger', color: ''},
+                {value: 1, name: '可用', type: 'success', color: ''}
+            ]
+        },
+        {
+            id: 'rrStatus',
+            name: '角色管理-状态',
+            data: [
+                {value: 0, name: '', type: 'danger', color: ''},
+                {value: 1, name: '可用', type: 'success', color: ''}
+            ]
+        },
+
+
+
+
+
+
+
+
         // {
         //     id: 'baArehouseId',
         //     name: '仓库id',

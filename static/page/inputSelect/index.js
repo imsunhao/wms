@@ -101,7 +101,7 @@ var inputSelect = new Vue({
                 type: 'warning'
             }).then(function () {
                 p[3].post({
-                    ids: [row.rkdjId]
+                    ids: [row.rkRkdjId]
                 }, function (json) {
                     this.callbackAfter({status: json.status, model: "导出入库单"}, function () {
                         var url = "/static/Excel/" + json.model;
@@ -122,7 +122,7 @@ var inputSelect = new Vue({
                 type: 'warning'
             }).then(function () {
                 p[4].post({
-                    ids: [row.rkdjId]
+                    ids: [row.rkRkdjId]
                 }, function (json) {
                     this.callbackAfter({status: json.status, model: "导出入库单"}, function () {
                         var url = "/static/Excel/" + json.model;
@@ -143,7 +143,7 @@ var inputSelect = new Vue({
                 type: 'warning'
             }).then(function () {
                 p[5].post({
-                    ids: [row.rkdjId]
+                    ids: [row.rkRkdjId]
                 }, function (json) {
                     this.callbackAfter({status: json.status, model: "导出入库单"}, function () {
                         var url = "/static/Excel/" + json.model;
@@ -189,7 +189,7 @@ var inputSelect = new Vue({
             }).then(function () {
                 var ids = [];
                 for (var i = 0; i < obj.multipleSelection.length; i++) {
-                    ids.push(obj.multipleSelection[i].rkdjId);
+                    ids.push(obj.multipleSelection[i].rkRkdjId);
                 }
                 p[3].post({
                     ids: ids
@@ -216,7 +216,7 @@ var inputSelect = new Vue({
             }).then(function () {
                 var ids = [];
                 for (var i = 0; i < obj.multipleSelection.length; i++) {
-                    ids.push(obj.multipleSelection[i].rkdjId);
+                    ids.push(obj.multipleSelection[i].rkRkdjId);
                 }
                 p[4].post({
                     ids: ids
@@ -243,7 +243,7 @@ var inputSelect = new Vue({
             }).then(function () {
                 var ids = [];
                 for (var i = 0; i < obj.multipleSelection.length; i++) {
-                    ids.push(obj.multipleSelection[i].rkdjId);
+                    ids.push(obj.multipleSelection[i].rkRkdjId);
                 }
                 p[5].post({
                     ids: ids
@@ -269,7 +269,7 @@ var inputSelect = new Vue({
             }).then(function () {
                 var ids = [];
                 for (var i = 0; i < obj.multipleSelection.length; i++) {
-                    ids.push(obj.multipleSelection[i].rkdjId);
+                    ids.push(obj.multipleSelection[i].rkRkdjId);
                 }
                 p[5].post({
                     ids: ids
@@ -387,7 +387,7 @@ var inputSelect = new Vue({
                     break;
                 case 2:
                     console.log(node.data.name);
-                    postRkdjId(this, {
+                    postrkRkdjId(this, {
                         rkrwNo:node.data.rkrwNo,
                         rkrwDhrq:node.data.rkrwDhrq
                     }, resolve);
