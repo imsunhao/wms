@@ -1600,6 +1600,12 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 1:
+                        urlName = '获取 全局 入库订单类型';
+                        req = autoUrl(req, '/mfunrkDoc/getRkStatus', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
                 }
                 break;
 
@@ -1628,7 +1634,6 @@ function java(req, res, next) {
     var query = {};
     var url = req.info.url;
     var method = req.info.method;
-
     if (req.method !== 'GET') {
         console.log(JSON.stringify(req.body));
         query = req.body;

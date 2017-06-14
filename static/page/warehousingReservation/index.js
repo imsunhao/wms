@@ -4,6 +4,7 @@ var warehousingReservation = new Vue({
     data: function () {
         return {
             baseArehouses: window.dbmessage.baseArehouses,
+            baseRkType: window.rkType,
 
 
             warehousingReservation: [],
@@ -468,21 +469,14 @@ var warehousingReservation = new Vue({
             else return dateFormat(new Date(parseInt(value)), 'MM-dd');
         },                          //下单时间/创建方式
         auto_rkType: function (value) {
-            var temp = {}
             if (!isNaN(value)) {
-                temp = {
-                    0: '采购订单',
-                    1: '仓间调拨',
-                    2: '退货入库'
-                }
-            } else {
-                temp = {
-                    '采购订单': 0,
-                    '仓间调拨': 1,
-                    '退货入库': 2
+                for (var index in this.baseRkType) {
+                    if (this.baseRkType[index] == value) {
+                        return index;
+                    }
                 }
             }
-            return temp[value];
+            else return this.baseRkType[value];
         },                                      //
         auto_rkStatus: function (value) {
             var temp = {}

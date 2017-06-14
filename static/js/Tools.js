@@ -113,6 +113,11 @@ function autoPost(option) {
     }             //post核心 配置子类-自动转换参数
 
     function postCore() {
+        for (var i in this.data) {
+            if (this.data[i] === '' || this.data[i] === null) {
+                delete this.data[i];
+            }
+        }
         /*<debug>*/
         $.ajax(this.urlHock, this);
         /*</debug>*/
@@ -613,7 +618,7 @@ var ___datas = (function () {
                 {value: 3, name: '未欠货', type: 'success', color: ''}
             ]
         },
-           {
+        {
             id: 'cksQhStatuss',
             name: '欠货状态(整单欠货)',
             data: [
@@ -710,12 +715,6 @@ var ___datas = (function () {
                 {value: 1, name: '可用', type: 'success', color: ''}
             ]
         },
-
-
-
-
-
-
 
 
         // {
