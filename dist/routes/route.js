@@ -840,7 +840,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 2:
                         urlName = '出库任务-查询-任务单-详细-明细';
-                        req = autoUrl(req, '/mfunck/checkMfunckDocsByCkdjId', "POST", function (json) {
+                        req = autoUrl(req, '/mfunck/selectDocsByckdjId', "POST", function (json) {
                             res.send(json);
                         });
                         break;
