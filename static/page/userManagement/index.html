@@ -273,7 +273,7 @@
                                     <span>{{ props.row.ruQicq       }}</span>
                                 </el-form-item>
                                 <el-form-item label="用户类型">
-                                    <span>{{ auto_ruUserType(props.row.ruUserType)   }}</span>
+                                    <el-tag-s :val="auto_el_tag('ruUserType',props.row.ruUserType)"></el-tag-s>
                                 </el-form-item>
                                 <el-form-item label="作业区域">
                                     <span>{{ props.row.ruUserZyq    }}</span>
@@ -335,7 +335,7 @@
                     label="用户类型"
                     align="center">
                 <template scope="scope">
-                    <span>{{ auto_ruUserType(scope.row.ruUserType)}}</span>
+                    <el-tag-s :val="auto_el_tag('ruUserType',scope.row.ruUserType)"></el-tag-s>
                 </template>
             </el-table-column>
             <el-table-column
