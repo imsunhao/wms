@@ -182,7 +182,8 @@
                                             align="center"
                                             show-overflow-tooltip>
                                         <template scope="scope">
-                                            {{auto_ckStatus(scope.row.ckStatus)}}
+                                            <el-tag-s :val="auto_el_tag('ckStatus',scope.row.ckStatus)"></el-tag-s>
+                                            <!--{{auto_ckStatus(scope.row.ckStatus)}}-->
                                         </template>
                                     </el-table-column>
                                 </el-table>
