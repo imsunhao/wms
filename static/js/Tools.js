@@ -692,6 +692,14 @@ var ___datas = (function () {
                 {value: 2, name: '高位叉车', type: 'success', color: ''}
             ]
         },
+        {
+            id: 'bcStatus',
+            name: '客户配置-状态',
+            data: [
+                {value: 0, name: '', type: 'danger', color: ''},
+                {value: 1, name: '可用', type: 'success', color: ''}
+            ]
+        },
 
 
 
