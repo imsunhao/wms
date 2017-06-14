@@ -232,7 +232,7 @@
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="转移状态">
-                                        <span>{{ auto_zyStatus(props.row.zyStatus) }}</span>
+                                        <el-tag-s :val="auto_el_tag('zyStatus',props.row.zyStatus)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item
                                             v-if="props.row.zyStatus==0"
@@ -304,9 +304,7 @@
                         align="center"
                         width="100">
                     <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_zyStatus(scope.row.zyStatus)}}
-                        </el-tag>
+                        <el-tag-s :val="auto_el_tag('zyStatus',scope.row.zyStatus)"></el-tag-s>
                     </template>
                 </el-table-column>
                 <el-table-column
