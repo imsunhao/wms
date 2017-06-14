@@ -226,25 +226,21 @@
                                         </span>
                                     </el-form-item>
                                     <el-form-item label="盘点类型">
-                                        <span>
-                                            {{ auto_pdType(props.row.pdType) }}
-                                        </span>
+                                        <el-tag-s :val="auto_el_tag('pdType',props.row.pdType)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="盘点状态">
-                                        <span>{{ auto_pdStatus(props.row.pdStatus)	 }}</span>
+                                        <el-tag-s :val="auto_el_tag('pdStatus',props.row.pdStatus)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="负责人">
                                         <span>{{ props.row.pdChargePerson }}</span>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10" :offset="2">
-
-
                                     <el-form-item label="经办人">
                                         <span>{{ props.row.pdOperator }}</span>
                                     </el-form-item>
                                     <el-form-item label="差异状态">
-                                        <span>{{ auto_pdDiffStatus(props.row.pdDiffStatus) }}</span>
+                                        <el-tag-s :val="auto_el_tag('pdDiffStatus',props.row.pdDiffStatus)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="可用操作">
                                         <el-button
@@ -295,21 +291,16 @@
                         align="center"
                         width="100">
                     <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_pdStatus(scope.row.pdStatus)}}
-                        </el-tag>
+                        <el-tag-s :val="auto_el_tag('pdStatus',scope.row.pdStatus)"></el-tag-s>
                     </template>
                 </el-table-column>
-
                 <el-table-column
                         label="差异状态"
                         prop="pdStatus"
                         align="center"
                         width="100">
                     <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_pdDiffStatus(scope.row.pdDiffStatus)}}
-                        </el-tag>
+                        <el-tag-s :val="auto_el_tag('pdDiffStatus',scope.row.pdDiffStatus)"></el-tag-s>
                     </template>
                 </el-table-column>
 
