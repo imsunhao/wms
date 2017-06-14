@@ -352,8 +352,10 @@
             <el-table-column
                     label="分拣方式"
                     show-overflow-tooltip
-                    align="center"
-                    prop="cksCkfs">
+                    align="center">
+                <template scope="scope">
+                    {{auto_fjfs(scope.row.cksCkfs)}}
+                </template>
             </el-table-column>
             <el-table-column
                     label="批次"
