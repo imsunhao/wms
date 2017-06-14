@@ -106,7 +106,7 @@
                                                     </el-form-item>
 
                                                     <el-form-item label="单据状态">
-                                                        <span>{{auto_ckStatus(props.row.ckStatus)    }}</span>
+                                                        <el-tag-s :val="auto_el_tag('ckStatus',props.row.ckStatus)"></el-tag-s>
                                                     </el-form-item>
                                                     <el-form-item label="备注">
                                                         <span>{{ props.row.ckRemarks    }}</span>
