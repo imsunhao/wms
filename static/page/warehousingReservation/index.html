@@ -85,7 +85,7 @@
                                                         <span style="margin-left: 10px">{{ auto_time_new(props.row.rkCreatetime,6) }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="订单类型">
-                                                        <span>{{ auto_rkType(props.row.rkType) }}</span>
+                                                        <el-tag type="primary">{{ auto_rkType(props.row.rkType) }}</el-tag>
                                                     </el-form-item>
                                                     <el-form-item label="单据状态">
                                                         <el-tag-s :val="auto_el_tag('rkStatus',props.row.rkStatus)"></el-tag-s>
@@ -369,9 +369,8 @@
                                         @visible-change="selectVC('refForm1','rkType')"
                                         v-model="form.rkType"
                                         placeholder="请选择单据类型">
-                                    <el-option label="采购订单" :value.number="0"></el-option>
-                                    <el-option label="仓间调拨" :value.number="1"></el-option>
-                                    <el-option label="退货入库" :value.number="2"></el-option>
+                                    <el-option :label="key" :value="value"
+                                               v-for="(value, key) of baseRkType"></el-option>
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="入库备注" :label-width="formLabelWidth">
