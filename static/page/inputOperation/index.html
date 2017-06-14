@@ -95,10 +95,10 @@
                                                 </el-tag>
                                             </el-form-item>
                                             <el-form-item label="订单类型">
-                                                <span>{{ auto_rkType(props.row.rkType) }}</span>
+                                                <el-tag type="primary">{{ auto_rkType(props.row.rkType) }}</el-tag>
                                             </el-form-item>
                                             <el-form-item label="单据状态">
-                                                <span>{{ auto_rkStatus(props.row.rkStatus) }}</span>
+                                                <el-tag-s :val="auto_el_tag('rkStatus',props.row.rkStatus)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item label="总数量">
                                                 <span>{{ props.row.allCount }}</span>
@@ -112,7 +112,7 @@
                                                     {{ auto_time_new(props.row.rkCreatetime,6) }}</span>
                                             </el-form-item>
                                             <el-form-item label="制作方式">
-                                                <span>{{ auto_rkZdfs(props.row.rkZdfs) }}</span>
+                                                <el-tag-s :val="auto_el_tag('rkZdfs',props.row.rkZdfs)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item label="可用操作"
                                                           v-if="props.row.rkStatus!=32&&props.row.rkStartwith!=2">

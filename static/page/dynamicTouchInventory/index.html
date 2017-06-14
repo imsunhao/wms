@@ -297,14 +297,6 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        label="盘点类型"
-                        prop="pdType"
-                        align="center">
-                    <template scope="scope">
-                        <el-tag-s :val="auto_el_tag('pdType',scope.row.pdType)"></el-tag-s>
-                    </template>
-                </el-table-column>
-                <el-table-column
                         label="异动开始时间"
                         show-overflow-tooltip
                         align="center">
@@ -483,6 +475,7 @@
             v-model="dialogDetailsVisible">
         <el-table
                 :data="details"
+                :row-class-name="tableRowClassName"
                 highlight-current-row
                 style="width: 100%">
             <el-table-column
@@ -681,6 +674,14 @@
             }
         },
         methods: {
+            tableRowClassName: function (row, index) {
+                if (row.pdsStatus === 1 && (row.pdsRepertoryCount - row.pdsPdCount) !== 0) {
+                    return 'warning-row';
+                } else if (row.pdsStatus === 1 && (row.pdsRepertoryCount - row.pdsPdCount) === 0) {
+                    return 'success-row';
+                }
+                return '';
+            },                          //盘点详情 行内颜色变化
             nodeClick: function (value, data, node) {
 
 //                var step2 = _assignmentForm();

@@ -97,7 +97,7 @@
                                     </el-form-item>
 
                                     <el-form-item label="单据状态">
-                                        <span>{{ auto_rk_status(props.row.rk_status) }}</span>
+                                        <el-tag-s :val="auto_el_tag('rk_status',props.row.rk_status)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="货品编号">
                                         <span>{{ props.row.bg_goods_no }}</span>
@@ -121,10 +121,12 @@
                                         <span>{{ props.row.bl_lname }}</span>
                                     </el-form-item>
                                     <el-form-item label="制作方式">
-                                        <span>{{ auto_rk_zdfs(props.row.rk_zdfs) }}</span>
+                                        <el-tag-s :val="auto_el_tag('rkZdfs',props.row.rk_zdfs)"></el-tag-s>
+
                                     </el-form-item>
                                     <el-form-item label="操作方式">
-                                        <span>{{ auto_rk_startwith(props.row.rk_startwith) }}</span>
+                                        <el-tag-s :val="auto_el_tag('rkStartwith',props.row.rk_startwith)"></el-tag-s>
+
                                     </el-form-item>
                                     <el-form-item
                                             label="可用操作">
@@ -198,9 +200,7 @@
                         align="center"
                         width="100">
                     <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_rk_status(scope.row.rk_status)}}
-                        </el-tag>
+                        <el-tag-s :val="auto_el_tag('rk_status',scope.row.rk_status)"></el-tag-s>
                     </template>
                 </el-table-column>
                 <el-table-column
