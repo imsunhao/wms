@@ -73,6 +73,7 @@ var warehousingTask = new Vue({
     prop: {},
     data: function () {
         return {
+            baseRkType: window.rkType,
             lists: _lists(),
             dialogListsVisible: false,           //明细 弹出层 是否可见
 
@@ -429,21 +430,14 @@ var warehousingTask = new Vue({
             else return dateFormat(new Date(value), 'MM-dd');
         },                          //入库任务中详细信息 - 入库时间
         auto_rkType: function (value) {
-            var temp = {}
             if (!isNaN(value)) {
-                temp = {
-                    0: '采购订单',
-                    1: '仓间调拨',
-                    2: '退货入库'
-                }
-            } else {
-                temp = {
-                    '采购订单': 0,
-                    '仓间调拨': 1,
-                    '退货入库': 2
+                for (var index in this.baseRkType) {
+                    if (this.baseRkType[index] == value) {
+                        return index;
+                    }
                 }
             }
-            return temp[value];
+            else return this.baseRkType[value];
         },                                      //订单类型
         auto_rkStatus: function (value) {
             var temp = {}
