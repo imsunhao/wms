@@ -75,7 +75,8 @@
                                         <el-col :span="10" :offset="2">
 
                                             <el-form-item label="状态">
-                                                <span>{{ auto_djStatus(props.row.djStatus) }}</span>
+                                                <el-tag-s :val="auto_el_tag('djStatus',props.row.djStatus)"></el-tag-s>
+                                                <!--<span>{{ auto_djStatus(props.row.djStatus) }}</span>-->
                                             </el-form-item>
                                             <el-form-item label="备注">
                                                 <span>{{ props.row.djReason }}</span>
@@ -234,9 +235,10 @@
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_djStatus(scope.row.djStatus)}}
-                        </el-tag>
+                        <el-tag-s :val="auto_el_tag('djStatus',scope.row.djStatus)"></el-tag-s>
+                        <!--<el-tag-->
+                                <!--close-transition>{{auto_djStatus(scope.row.djStatus)}}-->
+                        <!--</el-tag>-->
                     </template>
                 </el-table-column>
                 <el-table-column
