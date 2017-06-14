@@ -176,13 +176,13 @@
                                             show-overflow-tooltip
                                             prop="ckAdress">
                                     </el-table-column>
-                                      <el-table-column
+                                    <el-table-column
                                             label="状态"
                                             align="center"
                                             show-overflow-tooltip>
-                                          <template scope="scope">
-                                              {{auto_ckStatus(scope.row.ckStatus)}}
-                                          </template>
+                                        <template scope="scope">
+                                            {{auto_ckStatus(scope.row.ckStatus)}}
+                                        </template>
                                     </el-table-column>
                                     <el-table-column
                                             width="150"
@@ -429,8 +429,10 @@
             <el-table-column
                     label="分拣方式"
                     show-overflow-tooltip
-                    align="center"
-                    prop="cksCkfs">
+                    align="center">
+                <template scope="scope">
+                    {{auto_fjfs(scope.row.cksCkfs)}}
+                </template>
             </el-table-column>
             <el-table-column
                     label="批次"
@@ -1045,7 +1047,10 @@
             },
             expandChange: function (row, expanded) {
                 if (expanded && (typeof (row.mfunckDoc) === 'undefined' || row.mfunckDoc === null || row.mfunckDoc.length === 0)) {
-                    p[104].post({id: row.ckrwId,arehouseId:window.dbmessage.baseArehouses[0].baArehouseId}, function (json) {
+                    p[104].post({
+                        id: row.ckrwId,
+                        arehouseId: window.dbmessage.baseArehouses[0].baArehouseId
+                    }, function (json) {
                         /*<debug>*/
                         console.log(json);
                         /*</debug>*/
@@ -1058,7 +1063,7 @@
                 /*</debug>*/
             },                             //下拉 选择
             dblClick: function (row, event) {
-                if (row.ckStatus === 21 || row.ckStatus === 22) {
+                if ((row.ckStatus === 21 || row.ckStatus === 31) && row.ckGqStatus !== 2) {
                     obj.$confirm('请选择 您想查询的页面', '提示', {
                         confirmButtonText: '单据明细',
                         cancelButtonText: '分拣明细',
@@ -1262,13 +1267,27 @@
                         '部分下架': 22,
                         '全部分拣': 31,
                         '全部下架': 32,
-                        '作废':50
+                        '作废': 50
 
 
                     }
                 }
                 return temp[value];
             },                                   //单据状态
+
+            auto_fjfs: function (value) {
+                switch (value) {
+                    case 'k':
+                    case 'K':
+                        return '指定储位';
+                    case 'p':
+                    case 'P':
+                        return '指定批次';
+                    case 'x':
+                    case 'X':
+                        return '先进先出';
+                }
+            }
 
         },
         watch: {

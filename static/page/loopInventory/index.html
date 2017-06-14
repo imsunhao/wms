@@ -303,7 +303,6 @@
                         <el-tag-s :val="auto_el_tag('pdDiffStatus',scope.row.pdDiffStatus)"></el-tag-s>
                     </template>
                 </el-table-column>
-
                 <el-table-column
                         v-if="multiSelect"
                         type="selection"
@@ -461,6 +460,7 @@
             v-model="dialogDetailsVisible">
         <el-table
                 :data="details"
+                :row-class-name="tableRowClassName"
                 highlight-current-row
                 style="width: 100%">
             <el-table-column
@@ -507,12 +507,6 @@
                             v-show="scope.row.pdsStatus==1&&(scope.row.pdsRepertoryCount - scope.row.pdsPdCount)!=0"
                             type="danger"
                             @click="inlineHeavyPlateInlineOperation(scope.$index, scope.row)">重盘
-                    </el-button>
-                    <el-button
-                            size="small"
-                            icon="circle-check"
-                            v-show="scope.row.pdsStatus==1&&(scope.row.pdsRepertoryCount - scope.row.pdsPdCount)==0"
-                            type="success">
                     </el-button>
                 </template>
             </el-table-column>
@@ -618,6 +612,15 @@
             },
         },
         methods: {
+            tableRowClassName: function (row, index) {
+                if (row.pdsStatus === 1 && (row.pdsRepertoryCount - row.pdsPdCount) !== 0) {
+                    return 'warning-row';
+                } else if (row.pdsStatus === 1 && (row.pdsRepertoryCount - row.pdsPdCount) === 0) {
+                    return 'success-row';
+                }
+                return '';
+            },                          //盘点详情 行内颜色变化
+
             nodeClick: function (value, data, node) {
 
 //                var step2 = _assignmentForm();

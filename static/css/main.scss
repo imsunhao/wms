@@ -262,6 +262,32 @@ html, body {
   }
 }
 
+.el-table {
+  .info-row {
+    background: #20A0FF;
+  }
+
+  .positive-row {
+    background: #e2f0e4;
+  }
+
+  .danger-row {
+    background: #FF4949;
+  }
+
+  .success-row {
+    background: #62ce86;
+  }
+
+  .warning-row {
+    background: #F7BA2A;
+  }
+
+  .gray-row {
+    background: #99A9BF;
+  }
+}
+
 /*********** 打印功能 *********************************/
 
 .barcode {
@@ -405,6 +431,13 @@ html, body {
       padding: 3.4mm 3.7mm;
       position: relative;
       margin-bottom: 0.5mm;
+      overflow: hidden;
+      .barcode2 {
+        transform: scaleX(0.9);
+        width: 120%;
+        transform-origin: left;
+        margin-left: -7px;
+      }
     }
     p {
       font: 0.200in/100% '宋体';
@@ -418,6 +451,15 @@ html, body {
     }
   }
   .p1 {
+    .el-table {
+      .cell {
+        height: 24px;
+      }
+
+      td {
+        height: 24px;
+      }
+    }
     .el-dialog__body {
       width: 1640px;
     }
@@ -488,5 +530,6 @@ html, body {
     border: none !important;
   }
 }
+
 
 
