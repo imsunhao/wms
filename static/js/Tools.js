@@ -492,7 +492,7 @@ var ___datas = (function () {
             name: '制单方式',
             data: [
                 {value: 1, name: '手动', type: 'success', color: ''},
-                {value: 2, name: 'excel', type: 'primary', color: ''},
+                {value: 2, name: '导入', type: 'primary', color: ''},
                 {value: 3, name: '接口', type: 'warning', color: ''}
             ]
         },
@@ -501,7 +501,7 @@ var ___datas = (function () {
             name: '制单方式',
             data: [
                 {value: 1, name: '手动', type: 'success', color: ''},
-                {value: 2, name: 'excel', type: 'primary', color: ''},
+                {value: 2, name: '导入', type: 'primary', color: ''},
                 {value: 3, name: '接口', type: 'warning', color: ''}
             ]
         },
@@ -596,7 +596,7 @@ var ___datas = (function () {
         },
         {
             id: 'ckQhStatus',
-            name: '欠货状态(出库日报欠货状态)',
+            name: '欠货状态(出库欠货状态)',
             data: [
                 {value: 1, name: '欠货', type: 'danger', color: ''},
                 {value: 2, name: '未欠货', type: 'success', color: ''}
@@ -613,7 +613,7 @@ var ___datas = (function () {
         },
         {
             id: 'ckZlStatus',
-            name: '滞留状态(出库日报滞留状态)',
+            name: '滞留状态(出库滞留状态)',
             data: [
                 {value: 1, name: '滞留', type: 'danger', color: ''},
                 {value: 2, name: '未滞留', type: 'success', color: ''}

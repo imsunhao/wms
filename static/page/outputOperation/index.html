@@ -119,7 +119,7 @@
                                                 <span>{{ auto_time_new(props.row.ckYfhsj,6) }}</span>
                                             </el-form-item>
                                             <el-form-item label="制作方式">
-                                                <span>{{ auto_ckIsauto(props.row.ckIsauto) }}</span>
+                                                <el-tag-s :val="auto_el_tag('ckIsauto',props.row.ckIsauto)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item label="可用操作">
                                                 <el-button
@@ -237,9 +237,7 @@
                         align="center"
                         width="100">
                     <template scope="scope">
-                        <el-tag
-                                close-transition>{{auto_ckStatus(scope.row.ckStatus)}}
-                        </el-tag>
+                        <el-tag-s :val="auto_el_tag('ckStatus',scope.row.ckStatus)"></el-tag-s>
                     </template>
                 </el-table-column>
                 <el-table-column
