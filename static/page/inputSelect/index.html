@@ -50,9 +50,6 @@
                 <button @click="multiExportInputStorage" class="btn btn-modify" v-show="multiSelect"><i
                         class="icon modify"></i><span>导出入库储位</span>
                 </button>
-                 <button @click="multiExportInput" class="btn btn-modify" v-show="multiSelect"><i
-                        class="icon modify"></i><span>导出入库</span>
-                </button>
             </div>
             <el-table
                     :data="inputSelect"
@@ -136,12 +133,6 @@
                                                 type="success"
                                                 @click="inlineExportInputStorage(props.$index, props.row)">导出入库储位
                                         </el-button>
-                                       <el-button
-                                                size="small"
-                                                type="success"
-                                                @click="inlineExportInput(props.$index, props.row)">导出入库
-                                        </el-button>
-
                                         <el-button
                                                 size="small"
                                                 @click="inlineSelectInputDetailed(props.$index, props.row)">查看入库明细信息
