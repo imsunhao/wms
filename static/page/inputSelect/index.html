@@ -78,7 +78,8 @@
                                         <span>{{ props.row.rkRkdjNo }}</span>
                                     </el-form-item>
                                     <el-form-item label="单据状态">
-                                        <span>{{ auto_rkStatus(props.row.rkStatus) }}</span>
+                                        <el-tag-s :val="auto_el_tag('rkStatus',props.row.rkStatus)"></el-tag-s>
+                                        <!--<span>{{ auto_rkStatus(props.row.rkStatus) }}</span>-->
                                     </el-form-item>
                                       <el-form-item label="总数量">
                                         <span>{{props.row.allCount }}</span>
@@ -113,10 +114,10 @@
                                         <span>{{ props.row.mdtUserName }}</span>
                                     </el-form-item>
                                     <el-form-item label="制作方式">
-                                        <span>{{ auto_rkZdfs(props.row.rkZdfs) }}</span>
+                                        <el-tag-s :val="auto_el_tag('rkZdfs',props.row.rkZdfs)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="操作方式">
-                                        <span>{{ auto_rkStartwith(props.row.rkStartwith) }}</span>
+                                        <el-tag-s :val="auto_el_tag('rkStartwith',props.row.rkStartwith)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item
                                             label="可用操作">
@@ -199,9 +200,7 @@
                         align="center"
                         width="100">
                     <template scope="scope">
-                        <el-tag
-                                close-transition> {{auto_rkStatus(scope.row.rkStatus)}}
-                        </el-tag>
+                        <el-tag-s :val="auto_el_tag('rkStatus',scope.row.rkStatus)"></el-tag-s>
                     </template>
                 </el-table-column>
                 <el-table-column
