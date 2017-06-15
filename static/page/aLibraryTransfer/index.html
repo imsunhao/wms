@@ -255,10 +255,13 @@
                                     <el-form-item label="转移状态">
                                         <el-tag-s :val="auto_el_tag('zyStatus',props.row.zyStatus)"></el-tag-s>
                                     </el-form-item>
-                                    <el-form-item label="可用操作">
+                                    <el-form-item
+                                            v-if="props.row.zyStatus==0"
+                                            label="可用操作">
                                         <el-button
                                                 size="small"
                                                 icon="edit"
+                                                v-if="false"
                                                 @click="inlineEdit(props.$index, props.row)">
                                         </el-button>
                                         <el-button
