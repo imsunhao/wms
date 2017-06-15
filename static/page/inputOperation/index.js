@@ -83,6 +83,7 @@ var inputOperation = new Vue({
                 "rkRkdjNo": this.rkRkdjNo.trim(),
                 "startTimeParam": tsf_date(this.date[0]),
                 "endTimeParam": tsf_date(this.date[1]),
+                arehouseId :window.dbmessage.baseArehouses[0].baArehouseId,
                 rkStatus: this.rkStatus
             }
         },

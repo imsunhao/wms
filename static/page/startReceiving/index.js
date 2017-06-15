@@ -71,6 +71,7 @@ var startReceiving = new Vue({
                 "rkrwCph": this.rkrwCph.trim(),
                 "rkrwNo": this.rkrwNo.trim(),
                 "rkrwSjxm": this.rkrwSjxm.trim(),
+                arehouseId :window.dbmessage.baseArehouses[0].baArehouseId,
             }
         },
         form_pop: function () {
@@ -84,6 +85,7 @@ var startReceiving = new Vue({
                 "rkrwDbd": this.form.rkrwDbd,
                 "rkrwCys": this.form.rkrwCys,
                 "rkrwNo": this.form.rkrwNo,
+                arehouseId :window.dbmessage.baseArehouses[0].baArehouseId,
             }
         },
         search: function () {
@@ -100,6 +102,7 @@ var startReceiving = new Vue({
                 "rkrwDbd": this.form.rkrwDbd,
                 "rkrwCys": this.form.rkrwCys,
                 "rkrwDh": this.form.rkrwDh,
+                arehouseId :window.dbmessage.baseArehouses[0].baArehouseId,
                 "rkrwStatus": this.form.rkrwStatus
             }
         },
