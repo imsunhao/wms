@@ -525,7 +525,7 @@ function printfCompile(obj) {
         });
     }
     p[3].post({rwIds: ids,
-        useId: app.rmsUser.ruUserId}, function (json) {
+        userId: app.rmsUser.ruUserId}, function (json) {
         for (var i = 0; i < obj.multipleSelection.length; i++) {
             obj.multipleSelection[i].rkrwStatus = 3;
         }
