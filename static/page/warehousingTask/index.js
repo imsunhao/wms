@@ -592,4 +592,4 @@ p[8] = autoPost({
         obj.$data.form.list2.warehousingReservation = json.data;
     }
 });
-p[0].post((_option ? this.form_pop : this.option));
+p[0].post((_option ? obj.form_pop : obj.option));
