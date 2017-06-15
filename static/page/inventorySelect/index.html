@@ -103,8 +103,7 @@
                                         <span>{{ props.row.pdOperator }}</span>
                                     </el-form-item>
                                     <el-form-item label="差异状态">
-                                        <span>{{ auto_pdDiffStatus(props.row.pdDiffStatus) }}</span>
-
+                                        <el-tag-s :val="auto_el_tag('pdDiffStatus',props.row.pdDiffStatus)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item
                                             label="可用操作">
