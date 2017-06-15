@@ -216,7 +216,8 @@
                                         </template>
                                     </el-table-column>
                                     <el-table-column
-                                            width="80"
+                                            width="100"
+                                            align="center"
                                             v-if="props.row.ckrwStatus>10&&props.row.ckrwStatus<42"
                                             label="挂起">
                                         <template scope="scope">
@@ -227,13 +228,12 @@
                                                     v-if="scope.row.ckGqStatus==1"
                                                     @click="inlineHangBill(scope.$index, scope.row)">
                                             </el-button>
-                                            <el-button
-                                                    size="mini"
+                                            <!--@click="inlineCancelHang(scope.$index, scope.row)"-->
+                                            <el-tag
                                                     type="danger"
-                                                    icon="circle-close"
-                                                    v-if="scope.row.ckGqStatus==2&&false"
-                                                    @click="inlineCancelHang(scope.$index, scope.row)">
-                                            </el-button>
+                                                    v-if="scope.row.ckGqStatus==2">
+                                                已挂起
+                                            </el-tag>
                                         </template>
                                     </el-table-column>
                                 </el-table>

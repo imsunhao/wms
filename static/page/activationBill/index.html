@@ -84,7 +84,8 @@
                                                 <span>{{props.row.goodsTypeNum}}</span>
                                             </el-form-item>
                                             <el-form-item label="任务状态">
-                                                <el-tag-s :val="auto_el_tag('ckRwStatus',props.row.ckrwStatus)"></el-tag-s>
+                                                <el-tag-s
+                                                        :val="auto_el_tag('ckRwStatus',props.row.ckrwStatus)"></el-tag-s>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :span="10" :offset="2">
@@ -101,10 +102,12 @@
                                         </span>
                                             </el-form-item>
                                             <el-form-item label="欠货状态">
-                                                <el-tag-s :val="auto_el_tag('ckQhStatus',props.row.ckrwQhStatus)"></el-tag-s>
+                                                <el-tag-s
+                                                        :val="auto_el_tag('ckQhStatus',props.row.ckrwQhStatus)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item label="滞留状态">
-                                                <el-tag-s :val="auto_el_tag('ckQhStatus',props.row.ckrwZlStatus)"></el-tag-s>
+                                                <el-tag-s
+                                                        :val="auto_el_tag('ckQhStatus',props.row.ckrwZlStatus)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item
                                                     label="可用操作">
@@ -137,7 +140,6 @@
                                     </el-table-column>
                                     <el-table-column
                                             label="出库单号"
-                                            width="170"
                                             show-overflow-tooltip
                                             align="center"
                                             prop="ckCkdjNo">
@@ -178,6 +180,7 @@
                                     </el-table-column>
                                     <el-table-column
                                             label="状态"
+                                            width="100"
                                             align="center"
                                             show-overflow-tooltip>
                                         <template scope="scope">
@@ -185,7 +188,7 @@
                                         </template>
                                     </el-table-column>
                                     <el-table-column
-                                            width="150"
+                                            width="120"
                                             label="可用操作">
                                         <template scope="scope">
                                             <!--v-if="props.row.ckrwStatus>10&&props.row.ckrwStatus<42"-->
@@ -208,6 +211,11 @@
                                                     v-if="scope.row.ckGqStatus==2"
                                                     @click="inlinePendingConfirmation(scope.$index, scope.row)">挂起确认
                                             </el-button>
+                                            <el-tag
+                                                    type="success"
+                                                    v-if="scope.row.ckGqStatus==3">
+                                                已确认
+                                            </el-tag>
                                         </template>
                                     </el-table-column>
                                 </el-table>
@@ -898,7 +906,7 @@
                         "userName": app.rmsUser.ruUserName
                     }, function (json) {
                         this.callbackAfter({status: json.status, model: '单挂起确认'}, function () {
-                            p[0].post(obj.option);
+                            row.ckGqStatus = 3;
                         })
                     });
                 }).catch(function () {

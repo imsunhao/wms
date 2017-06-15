@@ -83,7 +83,7 @@ var outboundTask = new Vue({
                 "ckrwCph": this.ckrwCph.trim(),
                 "ckrwStartGreatTime": tsf_date(this.date[0]),
                 "ckrwEndGreatTime": tsf_date(this.date[1]),
-                ckrwArehouseId:this.ckrwArehouseId
+                ckrwArehouseId: this.ckrwArehouseId
             }
         },
         form_pop: function () {
@@ -309,6 +309,7 @@ var outboundTask = new Vue({
                 }, function (json) {
                     this.callbackAfter({status: json.status, model: '单据挂起'}, function () {
                         row.ckGqStatus = 2;
+                        console.log(row);
                     })
                 });
             }).catch(function () {
@@ -469,7 +470,10 @@ var outboundTask = new Vue({
         },
         expandChange: function (row, expanded) {
             if (expanded && (typeof (row.mfunckDoc) === 'undefined' || row.mfunckDoc === null || row.mfunckDoc.length === 0)) {
-                p[1].post({id: row.ckrwId,arehouseId:window.dbmessage.baseArehouses[0].baArehouseId}, function (json) {
+                p[1].post({
+                    id: row.ckrwId,
+                    arehouseId: window.dbmessage.baseArehouses[0].baArehouseId
+                }, function (json) {
                     /*<debug>*/
                     console.log(json);
                     /*</debug>*/

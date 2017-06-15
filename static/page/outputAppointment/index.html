@@ -447,7 +447,7 @@
                                     <el-input
                                             :disabled="form.selectGood.value==''"
                                             @keyup.enter.native="GoodEnter"
-                                            v-model="form.selectGood.cksGoodsCount"
+                                            v-model.number="form.selectGood.cksGoodsCount"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
                             </el-col>
