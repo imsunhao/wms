@@ -72,11 +72,10 @@
                                         <span>{{ props.row.baArehouse.baName }}</span>
                                     </el-form-item>
                                     <el-form-item label="入库单号">
-                                        <span>{{ props.row.rkRkdjNo }}</span>
+                                        <el-tag type="success">{{props.row.rkRkdjNo }}</el-tag>
                                     </el-form-item>
                                     <el-form-item label="单据状态">
                                         <el-tag-s :val="auto_el_tag('rkStatus',props.row.rkStatus)"></el-tag-s>
-                                        <!--<span>{{ auto_rkStatus(props.row.rkStatus) }}</span>-->
                                     </el-form-item>
                                       <el-form-item label="总数量">
                                         <span>{{props.row.allCount }}</span>
