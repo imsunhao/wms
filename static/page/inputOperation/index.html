@@ -85,7 +85,7 @@
 
                                         <el-form label-position="left" inline class="demo-table-expand">
                                             <el-form-item label="入库单号">
-                                                <span>{{ props.row.rkRkdjNo }}</span>
+                                                <el-tag type="success">{{props.row.rkRkdjNo }}</el-tag>
                                             </el-form-item>
                                             <el-form-item label="所属仓库">
                                                 <el-tag
@@ -196,7 +196,10 @@
                         align="center"
                         prop="rkRkdjNo">
                     <template scope="scope">
-                        {{auto_rkArehouseId(scope.row.rkArehouseId)}}
+                        <el-tag
+                                type="success">
+                            {{auto_rkArehouseId(scope.row.rkArehouseId)}}
+                        </el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column
