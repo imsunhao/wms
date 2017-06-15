@@ -95,7 +95,7 @@ var inputSelect = new Vue({
     },
     methods: {
         inlineExportInputList:function(index,row){
-            obj.$confirm('导出出库单 单据单号：' + row.rjdkNo, '提示', {
+            obj.$confirm('导出出库单 单据单号：' + row.rkRkdjNo, '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
@@ -116,7 +116,7 @@ var inputSelect = new Vue({
             });
         },                                        //TODO 行内按钮-导出入库单
         inlineExportInputDetailed:function(index,row){
-            obj.$confirm('导出入库单 单据单号：' + row.rjdkNo, '提示', {
+            obj.$confirm('导出入库单 单据单号：' + row.rkRkdjNo, '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
@@ -137,7 +137,7 @@ var inputSelect = new Vue({
             });
         },                                    //TODO 行内按钮-导出入库明细
         inlineExportInputStorage:function(index,row){
-            obj.$confirm('导出入库单 单据单号：' + row.rjdkNo, '提示', {
+            obj.$confirm('导出入库单 单据单号：' + row.rkRkdjNo, '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
