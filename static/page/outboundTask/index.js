@@ -3,6 +3,7 @@ var outboundTask = new Vue({
     prop: {},
     data: function () {
         return {
+            baseArehouses: window.dbmessage.baseArehouses,
             outboundTask: [],
             multipleSelection: [],
             multiSelect: false,
@@ -40,6 +41,7 @@ var outboundTask = new Vue({
             date: [null, null],                   //主页面 选择日期 搜索
             ckrwNo: '',                           //主页面 入库单号 搜索
             ckrwCph: '',                          //主页面 车牌号
+            ckrwArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,                          //主页面 车牌号
             formLabelWidth: '120px',              //表单   配置
             form: _form(),                         //表单   弹出层 信息集合
             rule_outputAppointmentCombinationDetails: autoValidate(validate_outputAppointmentCombinationDetails()), //编辑验证规则
@@ -81,20 +83,7 @@ var outboundTask = new Vue({
                 "ckrwCph": this.ckrwCph.trim(),
                 "ckrwStartGreatTime": tsf_date(this.date[0]),
                 "ckrwEndGreatTime": tsf_date(this.date[1]),
-            }
-        },
-        search: function () {
-            return {
-                "draw": 1,
-                "pageNum": this.currentPage,
-                "pageSize": this.pageSize,
-                "pxs": this.form.pxs,
-                "rkrwSjxm": this.form.rkrwSjxm,
-                "rkrwDhrq": this.form.rkrwDhrq,
-                "rkrwDbd": this.form.rkrwDbd,
-                "rkrwCys": this.form.rkrwCys,
-                "rkrwDh": this.form.rkrwDh,
-                "rkrwStatus": this.form.rkrwStatus
+                ckrwArehouseId:this.ckrwArehouseId
             }
         },
         form_pop: function () {
@@ -121,12 +110,7 @@ var outboundTask = new Vue({
                 "startTimeParam": tsf_date(this.modifyTask.date[0]),
                 "endTimeParam": tsf_date(this.modifyTask.date[1]),
             }
-        },
-        distributionForm: function () {
-            return {
-                distribution: this.distribution
-            }
-        },                                      //分配 表单
+        }
     },
     methods: {
         inlineIssued: function (index, row) {
