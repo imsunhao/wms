@@ -74,7 +74,6 @@ var inputOperation = new Vue({
         }
     },
     computed: {
-        // TODO 表格提交
         option: function () {
             return {
                 "draw": 1,
