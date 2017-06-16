@@ -412,8 +412,8 @@ p[101] = autoPost({
 // 102 查询-入库任务详情
 p[102] = autoPost({
     urlHock: "/hock/warehousingTask/rwDocList.json",
-    urlProd: "/route/warehousingTask/6",
-    method: 'GET'
+    urlProd: "/route/warehousingTask/9"
+
 });
 // 高级 监视器的 使用方法
 //    startReceiving.$watch('date', function () {
