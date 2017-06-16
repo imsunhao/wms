@@ -317,6 +317,7 @@
         </div>
     </el-dialog>
     <el-dialog
+            size="large"
             v-model="dialogListsVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">入库明细 单号：{{lists.rkRkdjNo}}</span>
@@ -351,6 +352,19 @@
                      <el-tag-s :val="auto_el_tag('rksStatus',scope.row.rksStatus)"></el-tag-s>
                  </template>
             </el-table-column>
+            <el-table-column
+                    label="单位"
+                    width="80"
+                    prop="baseDw.bdName"
+                    align="center">
+            </el-table-column>
+            <el-table-column
+                    label="数量"
+                    width="100"
+                    show-overflow-tooltip
+                    prop="rksCount"
+                    align="center">
+            </el-table-column>
              <el-table-column
                     align="center"
                     prop="rksQhsl"
@@ -370,25 +384,6 @@
                     label="完结原因">
             </el-table-column>
 
-
-
-
-
-
-
-            <el-table-column
-                    label="单位"
-                    width="80"
-                    prop="baseDw.bdName"
-                    align="center">
-            </el-table-column>
-            <el-table-column
-                    label="数量"
-                    width="100"
-                    show-overflow-tooltip
-                    prop="rksCount"
-                    align="center">
-            </el-table-column>
         </el-table>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="dialogListsVisible=false">关闭</el-button>
