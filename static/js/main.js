@@ -558,7 +558,11 @@ $(function () {
         autoPost({
             urlProd: "/route/home/1",
             success: function (json) {
-                w.rkType = json;
+                var step = {};
+                for (index in json) {
+                    step[json[index]] = index;
+                }
+                w.rkType = step;
             }
         }).post();
     })(window);

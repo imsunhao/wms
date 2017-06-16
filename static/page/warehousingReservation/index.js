@@ -466,14 +466,7 @@ var warehousingReservation = new Vue({
             else return dateFormat(new Date(parseInt(value)), 'MM-dd');
         },                          //下单时间/创建方式
         auto_rkType: function (value) {
-            if (!isNaN(value)) {
-                for (var index in this.baseRkType) {
-                    if (this.baseRkType[index] == value) {
-                        return index;
-                    }
-                }
-            }
-            else return this.baseRkType[value];
+            return this.baseRkType[value];
         },                                      //
         auto_rkStatus: function (value) {
             var temp = {}
