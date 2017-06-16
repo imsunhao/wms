@@ -610,14 +610,7 @@ var inputOperation = new Vue({
             else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
         },                          //创建时间/下单时间
         auto_rkType: function (value) {
-            if (!isNaN(value)) {
-                for (var index in this.baseRkType) {
-                    if (this.baseRkType[index] == value) {
-                        return index;
-                    }
-                }
-            }
-            else return this.baseRkType[value];
+            return this.baseRkType[value];
         },                                      //订单类型
         auto_rkStatus: function (value) {
             var temp = {}
