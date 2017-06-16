@@ -319,7 +319,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 9:
                         urlName = '通过入库任务信息返回入库单据';
-                        req = autoUrl(req, '/mfunrkDoc/byRwid' + req.query.rkRkdjId, "POST", function (json) {
+                        req = autoUrl(req, '/mfunrkDoc/byRwid', "POST", function (json) {
                             res.send(json);
                         });
                         break;

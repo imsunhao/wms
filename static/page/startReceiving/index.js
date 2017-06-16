@@ -147,11 +147,11 @@ var startReceiving = new Vue({
         },                                   //多选 打印标签页
         expandChange: function (row, expanded) {
             if (expanded && (typeof (row.docList) === 'undefined' || row.docList.length === 0)) {
-                p[102].post({rkrwId: row.rkrwId}, function (json) {
+                p[102].post({rkrwId: row.rkrwId,arehouseId:window.dbmessage.baseArehouses[0].baArehouseId}, function (json) {
                     /*<debug>*/
                     console.log(json);
                     /*</debug>*/
-                    row.docList = json.docList;
+                    row.docList = json.data;
                 });
             }
             /*<debug>*/
