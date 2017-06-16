@@ -294,14 +294,7 @@ var startReceiving = new Vue({
             else return dateFormat(new Date(value), 'MM-dd');
         },                          //入库任务中详细信息 - 入库时间
         auto_rkType: function (value) {
-            if (!isNaN(value)) {
-                for (var index in this.baseRkType) {
-                    if (this.baseRkType[index] == value) {
-                        return index;
-                    }
-                }
-            }
-            else return this.baseRkType[value];
+            return this.baseRkType[value];
         },                                      //订单类型
         auto_rkStatus: function (value) {
             var temp = {}
