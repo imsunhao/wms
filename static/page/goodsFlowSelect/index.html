@@ -60,7 +60,7 @@
                                         <span>{{ props.row.mfunckDoc.baseArehouse.baName }}</span>
                                     </el-form-item>
                                     <el-form-item label="出库单号">
-                                        <span>{{props.row.mfunckDoc.ckCkdjNo }}</span>
+                                        <el-tag type="success">{{props.row.mfunckDoc.ckCkdjNo  }}</el-tag>
                                     </el-form-item>
                                     <el-form-item label="客户编号">
                                         <span>{{ props.row.mfunckDoc.ckCkdjClientno }}</span>
@@ -77,7 +77,7 @@
                                 </el-col>
                                 <el-col :span="10" :offset="2">
                                     <el-form-item label="货品编号">
-                                        <span>{{ props.row.mfunRepertory.baseGoods.bgGoodsNo }}</span>
+                                        <el-tag type="success">{{props.row.mfunRepertory.baseGoods.bgGoodsNo  }}</el-tag>
                                     </el-form-item>
                                     <el-form-item label="货品名称">
                                         <span>{{ props.row.mfunRepertory.baseGoods.bgGoodsName }}</span>
