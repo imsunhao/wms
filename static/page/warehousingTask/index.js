@@ -116,7 +116,8 @@ var warehousingTask = new Vue({
             rkrwSjxm: '',                       //主页面 司机姓名 搜索
             rkrwNo: '',                         //主页面 入库单号 搜索
             rkrwCph: '',                        //主页面 车牌号
-            rkrwArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,                   //主页面 入库仓库 id
+            // rkrwArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,                   //主页面 入库仓库 id
+            rkrwArehouseId: '',                   //主页面 入库仓库 id
             formLabelWidth: '120px',            //表单 配置
             form: _form(),                      //表单 弹出层 信息集合
             dialogFormActive: 0,                //新建 弹出层 steps 当前进度
