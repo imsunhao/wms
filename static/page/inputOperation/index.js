@@ -83,7 +83,7 @@ var inputOperation = new Vue({
                 "rkRkdjNo": this.rkRkdjNo.trim(),
                 "startTimeParam": tsf_date(this.date[0]),
                 "endTimeParam": tsf_date(this.date[1]),
-                arehouseId :window.dbmessage.baseArehouses[0].baArehouseId,
+                rkArehouseId :window.dbmessage.baseArehouses[0].baArehouseId,
                 rkStatus: this.rkStatus
             }
         },
@@ -112,7 +112,6 @@ var inputOperation = new Vue({
                 for (var i = 0; i < this.form.rkDocsList.length; i++) {
                     this.form.rkDocsList[i].rksKyCount = this.form.rkDocsList[i].rksCount
                 }
-
             }
             if (typeof (this.form.rkDocsList) === 'undefined') {
                 postGoods({rkRkdjNo: row.rkRkdjNo}, function (json) {

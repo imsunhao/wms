@@ -71,7 +71,6 @@ var startReceiving = new Vue({
                 "rkrwCph": this.rkrwCph.trim(),
                 "rkrwNo": this.rkrwNo.trim(),
                 "rkrwSjxm": this.rkrwSjxm.trim(),
-                arehouseId :window.dbmessage.baseArehouses[0].baArehouseId,
             }
         },
         form_pop: function () {
