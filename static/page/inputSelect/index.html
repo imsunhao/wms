@@ -117,7 +117,7 @@
                                     </el-form-item>
                                     <el-form-item
                                             label="可用操作">
-                                        <el-row>
+                                        <el-row v-if="window.body.kjQyW>1366">
                                             <el-button
                                                     size="small"
                                                     type="success"
@@ -134,7 +134,7 @@
                                                     @click="inlineExportInputStorage(props.$index, props.row)">导出储位
                                             </el-button>
                                         </el-row>
-                                        <el-row>
+                                        <el-row v-if="window.body.kjQyW>1366">
                                             <el-button
                                                     size="small"
                                                     @click="inlineSelectInputDetailed(props.$index, props.row)">查看入库明细信息
@@ -143,6 +143,47 @@
                                                     size="small"
                                                     @click="inlineSelectInputStorage(props.$index, props.row)">查看入库储位信息
                                             </el-button>
+                                        </el-row>
+                                        <el-row v-if="window.body.kjQyW<1366">
+                                            <el-row>
+                                                <el-button
+                                                        size="small"
+                                                        type="success"
+                                                        @click="inlineExportInputList(props.$index, props.row)">导出入库
+                                                </el-button>
+                                            </el-row>
+
+                                            <el-row>
+                                                <el-button
+                                                        size="small"
+                                                        type="success"
+                                                        @click="inlineExportInputDetailed(props.$index, props.row)">导出明细
+                                                </el-button>
+                                            </el-row>
+
+                                            <el-row>
+                                                <el-button
+                                                        size="small"
+                                                        type="success"
+                                                        @click="inlineExportInputStorage(props.$index, props.row)">导出储位
+                                                </el-button>
+                                            </el-row>
+
+                                            <el-row>
+                                                <el-button
+                                                        size="small"
+                                                        @click="inlineSelectInputDetailed(props.$index, props.row)">
+                                                    查看入库明细信息
+                                                </el-button>
+                                            </el-row>
+
+                                            <el-row>
+                                                <el-button
+                                                        size="small"
+                                                        @click="inlineSelectInputStorage(props.$index, props.row)">
+                                                    查看入库储位信息
+                                                </el-button>
+                                            </el-row>
                                         </el-row>
 
                                     </el-form-item>
