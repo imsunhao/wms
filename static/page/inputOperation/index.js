@@ -191,7 +191,6 @@ var inputOperation = new Vue({
                     obj.form = form();
                     obj.dialogFormActive = 0;
                     obj.dialogDistributionForm = false;
-                    obj.$refs.carousel.setActiveItem(0);
                     p[0].post(obj.option);
                 })
             });
@@ -298,16 +297,7 @@ var inputOperation = new Vue({
             console.log(item);
         },
         dialogFormActiveOpen: function () {
-            var obj = this;
-            if (this.dialogFormActive !== 0) {
-                setTimeout(function () {
-                    obj.$refs.carousel.setActiveItem(1);
-                }, 150);
-            } else {
-                setTimeout(function () {
-                    obj.$refs.carousel.setActiveItem(0);
-                }, 150);
-            }
+
         },
         handleDelete: function (index, row) {
             console.log(index, row);
@@ -489,7 +479,6 @@ var inputOperation = new Vue({
                 obj.form = form();
                 obj.dialogFormActive = 0;
                 this.dialogDistributionForm = false;
-                obj.$refs.carousel.setActiveItem(0);
                 //post(inputOperation);
             }, 1500);
         },                                                //新建 表单提交

@@ -226,8 +226,7 @@
                         width="100">
                     <template scope="scope">
                         <el-tag
-
-                                :type="typeWatch(scope.row.rkType)"
+                                type="primary"
                                 close-transition>{{auto_rkType(scope.row.rkType)}}
                         </el-tag>
                     </template>
@@ -296,255 +295,128 @@
             v-model="dialogFormVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">{{form.title}}</span>
-            <el-steps
-                    v-if="!dialogDistributionForm"
-                    class="steps"
-                    :space="120"
-                    :active="dialogFormActive"
-                    finish-status="success">
-                <el-step title="基础信息"></el-step>
-                <el-step title="入库明细"></el-step>
-            </el-steps>
         </div>
-
-        <el-carousel
-                ref="carousel"
-                :autoplay="false"
-                arrow="never"
-                indicator-position="none"
-                height="70vh">
-            <el-carousel-item>
-                <el-form :model="form" ref="newForm">
-                    <el-row>
-                        <el-col :span="24"><h3>入库基础信息</h3></el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="10">
-                            <el-form-item
-                                    label="入库单号"
-                                    prop="rkRkdjNo"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model="form.rkRkdjNo"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item label="所属仓库" :label-width="formLabelWidth">
-                                <el-select v-model="form.rkArehouseId" placeholder="请选择所属仓库">
-                                    <el-option :label="obj.baName" :value="obj.baArehouseId"
-                                               v-for="obj of baseArehouses"></el-option>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item label="订单类型" :label-width="formLabelWidth">
-                                <el-select v-model="form.rkType" placeholder="请选择单据类型">
-                                    <el-option label="采购订单" :value="0"></el-option>
-                                    <el-option label="仓间挑拨" :value="1"></el-option>
-                                    <el-option label="退货入库" :value="2"></el-option>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item label="入库备注" :label-width="formLabelWidth">
-                                <el-input
-                                        type="textarea"
-                                        :rows="2"
-                                        v-model="form.rkRemarks"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="12" :offset="2">
-                            <el-form-item label="单据状态">
-                                {{form.rkrkStatus}}
-                            </el-form-item>
-                            <el-form-item label="入库数量">
-                                {{form.rksCount}}
-                            </el-form-item>
-                            <el-form-item label="入库体积">
-                                {{form.allTj }}
-                            </el-form-item>
-                            <el-form-item label="制作方式">
-                                {{form.rkrkZdfs }}
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                </el-form>
-            </el-carousel-item>
-            <el-carousel-item>
-                <el-row v-if="!dialogDistributionForm">
-                    <el-col :span="24"><h3>入库明细</h3></el-col>
-                </el-row>
-                <el-row v-if="!dialogDistributionForm">
-                    <el-col :span="8">
-                        <el-form-item label="货品编号" :label-width="formLabelWidth">
-                            <strong>{{form.selectGood.baseGoods.bgGoodsNo}}</strong>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                        <el-form-item label="货品名称" :label-width="formLabelWidth">
-                            <el-tooltip class="item" effect="dark"
-                                        :content="form.selectGood.baseGoods.bgGoodsName"
-                                        placement="top">
-                                <strong class="bgGoodsName">{{form.selectGood.baseGoods.bgGoodsName}}</strong>
-                            </el-tooltip>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                        <el-form-item label="货品数量" :label-width="formLabelWidth">
-                            <strong>{{form.selectGood.rksCount}}</strong>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-row v-if="!dialogDistributionForm">
-                    <el-col :span="12">
-                        <el-form-item label="货品编号" :label-width="formLabelWidth">
-                            <el-autocomplete
-                                    :fetch-suggestions="querySearchAsync"
-                                    v-model="form.selectGood.baseGoods.bgGoodsNo"
-                                    @select="GoodSelect"
-                                    auto-complete="off"></el-autocomplete>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item
-                                label="货品数量"
-                                :label-width="formLabelWidth">
-                            <el-input
-                                    :disabled="form.selectGood.value==''"
-                                    v-model.number="form.selectGood.rksCount"
-                                    auto-complete="off"></el-input>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-row v-if="!dialogDistributionForm">
-                    <el-col :span="8" :offset="16">
-                        <el-button size="small" @click="saveARkDocsList"
-                                   :disabled="form.saveARkDocsList">保存明细
-                        </el-button>
-                        <el-button size="small" @click="deleteARkDocsList" :disabled="form.deleteARkDocsList"
-                                   type="danger">删除明细
-                        </el-button>
-                    </el-col>
-                </el-row>
-                <el-row v-if="dialogDistributionForm">
-                    <el-col :span="24"><h3 style="margin: 0;margin-top: 5px;margin-left: 30px;">入库单清单</h3></el-col>
-                </el-row>
-                <el-row>
-                    <el-col :span="24" style="margin-top: 5px">
-                        <el-table
-                                @row-click="GoodClick"
-                                height="200"
-                                :data="form.rkDocsList">
-                            <el-table-column
-                                    type="index"
-                                    width="55">
-                            </el-table-column>
-                            <el-table-column
-                                    label="货品编号"
-                                    width="140"
-                                    show-overflow-tooltip
-                                    align="center"
-                                    prop="baseGoods.bgGoodsNo">
-                            </el-table-column>
-                            <el-table-column
-                                    align="center"
-                                    prop="baseGoods.bgGoodsName"
-                                    show-overflow-tooltip
-                                    label="货品名称">
-                            </el-table-column>
-                            <el-table-column
-                                    label="数量"
-                                    width="100"
-                                    show-overflow-tooltip
-                                    prop="rksCount"
-                                    align="center">
-                            </el-table-column>
-                            <el-table-column
-                                    label="可用"
-                                    width="100"
-                                    show-overflow-tooltip
-                                    prop="rksKyCount"
-                                    align="center">
-                            </el-table-column>
-                            <el-table-column
-                                    v-if="dialogDistributionForm"
-                                    label="可用操作"
-                                    width="100"
-                                    prop="rksCount"
-                                    align="center">
-                                <template scope="scope">
-                                    <el-button
-                                            size="small"
-                                            type="info"
-                                            :disabled="!scope.row.rksKyCount"
-                                            :loading="locationLoading"
-                                            @click="distributionBtnLocation(scope.$index, scope.row)">关联
-                                    </el-button>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                    </el-col>
-                </el-row>
-                <el-row v-if="dialogDistributionForm">
-                    <el-col :span="24"><h3 style="margin: 0;margin-top: 5px;margin-left: 30px;">库存储位信息</h3></el-col>
-                </el-row>
-                <el-row v-if="dialogDistributionForm">
-                    <el-col :span="24" style="margin-top: 5px">
-                        <el-table
-                                height="200"
-                                :data="location">
-                            <el-table-column
-                                    type="index"
-                                    width="55">
-                            </el-table-column>
-                            <el-table-column
-                                    align="center"
-                                    width="140"
-                                    prop="selectGood.baseGoods.bgGoodsNo"
-                                    show-overflow-tooltip
-                                    label="货品编号">
-                            </el-table-column>
-                            <el-table-column
-                                    label="货品名称"
-                                    show-overflow-tooltip
-                                    align="center"
-                                    prop="selectGood.baseGoods.bgGoodsName">
-                            </el-table-column>
-                            <el-table-column
-                                    label="数量"
-                                    width="80"
-                                    prop="selectGood.rksCount"
-                                    align="center">
-                            </el-table-column>
-                            <el-table-column
-                                    label="库位名称"
-                                    width="100"
-                                    show-overflow-tooltip
-                                    prop="blLname"
-                                    align="center">
-                            </el-table-column>
-                            <el-table-column
-                                    label="货品批号"
-                                    width="100"
-                                    show-overflow-tooltip
-                                    prop="mdtBatch"
-                                    align="center">
-                            </el-table-column>
-                            <el-table-column
-                                    label="操作"
-                                    width="100"
-                                    prop="rksCount"
-                                    align="center">
-                                <template scope="scope">
-                                    <el-button
-                                            size="small"
-                                            type="danger"
-                                            icon="delete"
-                                            @click="distributionBtnLocationDelete(scope.$index, scope.row)">
-                                    </el-button>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                    </el-col>
-                </el-row>
-            </el-carousel-item>
-        </el-carousel>
+        <el-row v-if="dialogDistributionForm">
+            <el-col :span="24"><h3 style="margin: 0;margin-top: 5px;margin-left: 30px;">入库单清单</h3></el-col>
+        </el-row>
+        <el-row>
+            <el-col :span="24" style="margin-top: 5px">
+                <el-table
+                        @row-click="GoodClick"
+                        height="200"
+                        :data="form.rkDocsList">
+                    <el-table-column
+                            type="index"
+                            width="55">
+                    </el-table-column>
+                    <el-table-column
+                            label="货品编号"
+                            width="140"
+                            show-overflow-tooltip
+                            align="center"
+                            prop="baseGoods.bgGoodsNo">
+                    </el-table-column>
+                    <el-table-column
+                            align="center"
+                            prop="baseGoods.bgGoodsName"
+                            show-overflow-tooltip
+                            label="货品名称">
+                    </el-table-column>
+                    <el-table-column
+                            label="数量"
+                            width="100"
+                            show-overflow-tooltip
+                            prop="rksCount"
+                            align="center">
+                    </el-table-column>
+                    <el-table-column
+                            label="可用"
+                            width="100"
+                            show-overflow-tooltip
+                            prop="rksKyCount"
+                            align="center">
+                    </el-table-column>
+                    <el-table-column
+                            v-if="dialogDistributionForm"
+                            label="可用操作"
+                            width="100"
+                            prop="rksCount"
+                            align="center">
+                        <template scope="scope">
+                            <el-button
+                                    size="small"
+                                    type="info"
+                                    :disabled="!scope.row.rksKyCount"
+                                    :loading="locationLoading"
+                                    @click="distributionBtnLocation(scope.$index, scope.row)">关联
+                            </el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </el-col>
+        </el-row>
+        <el-row v-if="dialogDistributionForm">
+            <el-col :span="24"><h3 style="margin: 0;margin-top: 5px;margin-left: 30px;">库存储位信息</h3></el-col>
+        </el-row>
+        <el-row v-if="dialogDistributionForm">
+            <el-col :span="24" style="margin-top: 5px">
+                <el-table
+                        height="200"
+                        :data="location">
+                    <el-table-column
+                            type="index"
+                            width="55">
+                    </el-table-column>
+                    <el-table-column
+                            align="center"
+                            width="140"
+                            prop="selectGood.baseGoods.bgGoodsNo"
+                            show-overflow-tooltip
+                            label="货品编号">
+                    </el-table-column>
+                    <el-table-column
+                            label="货品名称"
+                            show-overflow-tooltip
+                            align="center"
+                            prop="selectGood.baseGoods.bgGoodsName">
+                    </el-table-column>
+                    <el-table-column
+                            label="数量"
+                            width="80"
+                            prop="selectGood.rksCount"
+                            align="center">
+                    </el-table-column>
+                    <el-table-column
+                            label="库位名称"
+                            width="100"
+                            show-overflow-tooltip
+                            prop="blLname"
+                            align="center">
+                    </el-table-column>
+                    <el-table-column
+                            label="货品批号"
+                            width="100"
+                            show-overflow-tooltip
+                            prop="mdtBatch"
+                            align="center">
+                    </el-table-column>
+                    <el-table-column
+                            label="操作"
+                            width="100"
+                            prop="rksCount"
+                            align="center">
+                        <template scope="scope">
+                            <el-button
+                                    size="small"
+                                    type="danger"
+                                    icon="delete"
+                                    @click="distributionBtnLocationDelete(scope.$index, scope.row)">
+                            </el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </el-col>
+        </el-row>
         <el-form :model="form.location" ref="ref_form"
                  :rules="rule_form">
             <el-dialog
@@ -595,8 +467,6 @@
                 </div>
             </el-dialog>
         </el-form>
-
-
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="prev" v-show="dialogFormActive && !dialogDistributionForm">上一步
             </el-button>
