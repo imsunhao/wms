@@ -636,6 +636,7 @@ p[3] = autoPost({
             obj.form = _form();
             obj.dialogFormActive = 0;
             obj.$refs.carousel.setActiveItem(0);
+            p[7].post(obj.option);
         } else {
             obj.$notify({
                 title: '失败',
