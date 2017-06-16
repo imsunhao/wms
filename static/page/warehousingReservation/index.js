@@ -443,9 +443,6 @@ var warehousingReservation = new Vue({
         },                                          //详细查询 查询提交
 
         auto_rkArehouseId: function (data, set) {
-            /*<debug>*/
-//console.log(rkArehouseId);
-            /*</debug>*/
             var baArehouse = window.dbmessage.baseArehouses;
             var i;
             if (typeof set !== 'undefined') {
@@ -813,7 +810,7 @@ function post_form() {
         "rkArehouseId": 1,
         "rkClientId": 1,
         "rkPrintcount": 0,
-        "rkRwId": 1,
+        "rkRwId": 0,
         "rkRwStatus": "51",
         rkDocsList: []
     }
