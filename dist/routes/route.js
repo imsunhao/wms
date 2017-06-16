@@ -317,6 +317,12 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                    case 9:
+                        urlName = '通过入库任务信息返回入库单据';
+                        req = autoUrl(req, '/mfunrkDoc/byRwid' + req.query.rkRkdjId, "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
                 }
                 break;
             case 'inputLedger':
