@@ -49,8 +49,8 @@
 
 
 <script>
-    var tool_print = new Vue({
-        el: '#tool_print',
+    var tool_print = {
+//        el: '#tool_print',
         data: function () {
             return {
                 current: _current(),
@@ -59,7 +59,6 @@
         },
         computed: {
             form_pop: function () {
-
                 return auto_send_pop(this.form, this.current);
             }
         },
@@ -68,7 +67,11 @@
                 p.post(this.form_pop);
             }
         }
-    });
+    };
+
+    var obj = Vue.extend(tool_print);
+
+
 
     function _current() {
         return {
@@ -78,7 +81,6 @@
         }
     }
 
-    var obj = tool_print;
     var p = autoPost({
         urlProd: "/route/home/1",
         success: function (json) {
