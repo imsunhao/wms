@@ -258,7 +258,7 @@ function _form() {
         zyCreateUserName: '',//模糊查询--创建人
         zyConfirmUserName: '',//模糊查询--确认人
         zyMentionUserName: '',//模糊查询--提起人
-        zyArehouseId: '',//模糊查询--仓库
+        zyArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,//模糊查询--仓库
         zyStatus: '',//模糊查询--转移状态
     }
 }

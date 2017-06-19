@@ -693,7 +693,7 @@ function _form() {
         ckIsauto: '',//模糊查询--制单方式
         ckStartwith: '',//模糊查询--操作方式
         baName: '',//模糊查询--仓库
-        ckArehouseId: '',//模糊查询 --仓库id
+        ckArehouseId:window.dbmessage.baseArehouses[0].baArehouseId,//模糊查询 --仓库id
     }
 }
 var obj = outputSelect;

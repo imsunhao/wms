@@ -277,7 +277,7 @@ function _form() {
         djJdTime:[null,null],//模糊查询--解冻时间
         djCreateUserName:'',//模糊查询--创建人
         djJdUserName:'',//模糊查询--解冻人
-        djArehouseId:'',//模糊查询--仓库
+        djArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,//模糊查询--仓库
         djStatus:'',//模糊查询--冻结状态
     }
 }

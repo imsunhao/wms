@@ -376,7 +376,7 @@ function _form() {
         ckTel: '',//模糊查询--联系电话
         ckCkdjClientno: '',//模糊查询--客户编号
         ckCkdjNo: '',//模糊查询--出库单号
-        ckArehouseId: '',//模糊查询--仓库
+        ckArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,//模糊查询--仓库
     }
 }
 var obj = goodsFlowSelect;
