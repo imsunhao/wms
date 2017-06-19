@@ -475,7 +475,7 @@ function formLedger() {
 function validate_end() {
     return {
         rksWjReason: 'vNull',
-        rksBfdh: 'vNull',
+        // rksBfdh: 'vNull',
     }
 }
 function _postLedger() {
