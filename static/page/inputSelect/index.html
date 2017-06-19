@@ -77,13 +77,19 @@
                                     <el-form-item label="单据状态">
                                         <el-tag-s :val="auto_el_tag('rkStatus',props.row.rkStatus)"></el-tag-s>
                                     </el-form-item>
-                                    <el-form-item label="总数量">
+                                    <el-form-item label="总台数">
                                         <span>{{props.row.allCount }}</span>
                                     </el-form-item>
                                     <el-form-item label="总体积">
                                         <span>{{ props.row.allTj}}</span>
                                     </el-form-item>
-                                    <el-form-item label="实收数量">
+                                      <el-form-item label="总件数">
+                                        <!--<span>{{ props.row.allTj}}</span>-->
+                                    </el-form-item>
+                                    <el-form-item label="实收件数">
+                                        <!--<span>{{ props.row.mdtAllCount }}</span>-->
+                                    </el-form-item>
+                                    <el-form-item label="实收台数">
                                         <span>{{ props.row.mdtAllCount }}</span>
                                     </el-form-item>
                                     <el-form-item label="实收体积">
