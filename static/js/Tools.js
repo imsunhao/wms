@@ -170,37 +170,28 @@ function auto_form(option) {
     var index;
     var _form = {
         data: {},       //数据集合
-        Default: {},    //默认值
-        DefaultFun: function (step) {
-            for (index in this.Default) {
-                if (this.Default.hasOwnProperty(index)) {
-                    if (step[index] === '') {
-                        step[index] = this.Default[index];
-                    }
-                }
-            }
-        },
         get: function (number, numberN) {
             if (typeof number === 'undefined')return;
             var step = {};
             if (typeof numberN === 'undefined') {
                 for (index in this.data) {
                     if (this.data.hasOwnProperty(index)) {
-                        if ($.inArray(number, this.data[index]) !== -1) {
-                            step[index] = '';
+                        if ($.inArray(number, this.data[index].data) !== -1) {
+                            if (typeof this.data[index].Default !== 'undefined') step[index] = this.data[index].Default;
+                            else step[index] = '';
                         }
                     }
                 }
             } else {
                 for (index in this.data) {
                     if (this.data.hasOwnProperty(index)) {
-                        if (($.inArray(number, this.data[index]) !== -1) && ($.inArray(numberN, this.data[index]) === -1)) {
-                            step[index] = '';
+                        if (($.inArray(number, this.data[index].data) !== -1) && ($.inArray(numberN, this.data[index].data) === -1)) {
+                            if (typeof this.data[index].Default !== 'undefined') step[index] = this.data[index].Default;
+                            else step[index] = '';
                         }
                     }
                 }
             }
-            this.DefaultFun(step);
             return step;
         },
         pop: function (O, number) {
@@ -225,20 +216,59 @@ function auto_form(option) {
                     }
                 }
             });
-            for (var o in cur) {
-                if (cur.hasOwnProperty(o)) step[o] = cur[o];
-            }
+
+            step.pageNum = cur.pageNum;
+            step.pageSize = cur.pageSize;
+            step.draw = 0;
+
             return step;
         }
     };
     return Object.create(_form, autoValue(option));
 }          //核心 - 表单字段
+function ldd(label, data, Default) {
+    var step = Object.create(null);
+    step.label = label;
+    step.data = data;
+    step.Default = Default;
+    return step;
+}  //核心 - 表单 自动配置
+function auto_dialog(option) {
+    var _dialog = {
+        data: {},                 // 自定义值
+        Default: {
+            dv: false,   //弹出层 控制
+        },           // 默认值
+        val: function () {
+            var step = Object.create(null);
+            var index = '';
+            for (index in this.Default) {
+                if (this.Default.hasOwnProperty(index)) {
+                    step[index] = this.Default[index];
+                }
+            }
+            for (index in this.data) {
+                if (this.data.hasOwnProperty(index)) {
+                    step[index] = this.data[index];
+                }
+            }
+            return step;
+        }, // 值
+        fun: function (str, obj) {
+        }
+    };
+    return Object.create(_dialog, autoValue(option));
+}        //核心 - 新建弹出层
 
 function _current() {
     return {
         draw: 1,
+
         pageNum: 1,
-        pageSize: 10
+        pageSize: 10,
+
+        pageSizes: [5, 10, 15, 20],
+        currentTotal: 0
     };
 }                 //基础类   -  分页查询
 function _baseArehouses() {
