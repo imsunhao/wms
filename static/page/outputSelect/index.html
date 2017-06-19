@@ -394,7 +394,8 @@
                                   :label-width="formLabelWidth">
                         <el-select v-model="form.ckStartwith" placeholder="请选择">
                             <el-option :value="-1" label="全部"></el-option>
-                            <el-option :value="1" label="电脑端"></el-option>
+                            <el-option :value="0" label="电脑端">初始</el-option>
+                            <el-option :value="1" label="电脑端">电脑端</el-option>
                             <el-option :value="2" label="PDA">PDA</el-option>
                         </el-select>
                     </el-form-item>
