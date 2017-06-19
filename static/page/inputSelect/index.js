@@ -512,7 +512,7 @@ function _form() {
         rkStatus:'',                    //模糊查询--入库状态
         rkZdfs:'',                      //模糊查询--制单方式
         rkStartwith:'',                 //模糊查询--操作方式
-        rkArehouseId:'',                //模糊查询 仓库ID
+        rkArehouseId:window.dbmessage.baseArehouses[0].baArehouseId,                //模糊查询 仓库ID
     }
 }
 var obj=inputSelect;
