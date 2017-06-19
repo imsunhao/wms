@@ -398,6 +398,25 @@ var warehousingTask = new Vue({
 
         },
 
+        auto_rkArehouseId: function (data, set) {
+            var baArehouse = window.dbmessage.baseArehouses;
+            var i;
+            if (typeof set !== 'undefined') {
+                for (i = 0; i < baArehouse.length; i++) {
+                    if (baArehouse[i].baName === data) {
+                        return baArehouse[i].baArehouseId
+                    }
+                }
+                return errorTip(this, '不应出现未知的情况仓库');
+            } else {
+                for (i = 0; i < baArehouse.length; i++) {
+                    if (baArehouse[i].baArehouseId == data) {
+                        return baArehouse[i].baName
+                    }
+                }
+                return '未知的仓库'
+            }
+        },                            //入库仓库id 自动匹配
         auto_rkrwDhrq: function (value, bool) {
             if (!bool)return dateFormat(new Date(value), 'yyyy年 MM月 dd日 hh时 mm分 ');
             else return dateFormat(new Data(value), 'MMdd');
