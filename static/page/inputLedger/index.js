@@ -17,7 +17,7 @@ var inputLedger = new Vue({
             dbdh: '',                              //主页面 调拨单号 搜索
             date: [null, null],                   //主页面 始发日期 搜索
             date1: [null, null],                  //主页面 到货日期 搜索
-            rkrwArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,//主页面 仓库搜索
+            rkArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,//主页面 仓库搜索
             formLabelWidth: '120px',            //表单 配置
             form: _form(),                         //表单   弹出层 信息集合
             dialogFormActive: 0,                //新建 弹出层 steps 当前进度
@@ -45,7 +45,7 @@ var inputLedger = new Vue({
                 "sfrqEnd": tsf_date(this.date[1]),
                 "dhrqStart": tsf_date(this.date1[0]),
                 "dhrqEnd": tsf_date(this.date1[1]),
-                "rkrwArehouseId": this.rkrwArehouseId,
+                "rkArehouseId": this.rkArehouseId,
             }
         },
         form_pop: function () {
@@ -379,7 +379,7 @@ var inputLedger = new Vue({
             console.log((_option ? this.form_pop : this.option));
             p[0].post((_option ? this.form_pop : this.option));
         },
-        rkrwArehouseId: function () {
+        rkArehouseId: function () {
             console.log((_option ? this.form_pop : this.option));
             p[0].post((_option ? this.form_pop : this.option));
         }
