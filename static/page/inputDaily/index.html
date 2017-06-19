@@ -71,7 +71,7 @@
                                             {{ auto_time_new(props.row.mdt_sjsj,6) }}
                                         </span>
                                     </el-form-item>
-                                    <el-form-item label="体积">
+                                    <el-form-item label="实收体积">
                                         <span>{{ props.row.tj }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架开始">
@@ -110,11 +110,16 @@
                                     <el-form-item label="货品批次">
                                         <span>{{ props.row.mdt_batch }}</span>
                                     </el-form-item>
-
-                                    <el-form-item label="应收数量">
+                                     <el-form-item label="应收件数">
+                                        <!--<span>{{ props.row }}</span>-->
+                                    </el-form-item>
+                                     <el-form-item label="实收件数">
+                                        <!--<span>{{ props.row }}</span>-->
+                                    </el-form-item>
+                                    <el-form-item label="应收台数">
                                         <span>{{ props.row.rks_count }}</span>
                                     </el-form-item>
-                                    <el-form-item label="实收数量">
+                                    <el-form-item label="实收台数">
                                         <span>{{ props.row.mdt_count }}</span>
                                     </el-form-item>
                                     <el-form-item label="上架库位">
