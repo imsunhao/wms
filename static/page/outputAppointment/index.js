@@ -398,11 +398,13 @@ var outputAppointment = new Vue({
                 cksGoodsId: item.data.bgGoodsId,
                 data: item.data
             };
+            obj.$refs.ref_rksCount.$el.querySelector('input').focus();
         },                                        //货品明细控制 选中下拉菜单中的货品
         GoodClick: function (item) {
             this.form.saveAmfunckDocs = true;
             this.form.deleteAmfunckDocs = false;
             this.form.selectGood = item;
+            obj.$refs.ref_rksCount.$el.querySelector('input').focus();
         },                                         //货品明细控制 选中form中的货品
         saveDocsList: function () {
             this.$refs['ref_form2'].validate(function (valid) {
@@ -410,6 +412,7 @@ var outputAppointment = new Vue({
                     obj.form.mfunckDocs.push(obj.form.selectGood);
                     obj.form.selectGood = selectGood();
                     obj.form.saveAmfunckDocs = true;
+                    obj.$refs.ref_bgGoodsNo.$el.querySelector('input').focus();
                 } else {
                     return false;
                 }
@@ -421,9 +424,11 @@ var outputAppointment = new Vue({
                 this.form.selectGood = selectGood();
                 this.form.saveAmfunckDocs = true;
                 this.form.deleteAmfunckDocs = true;
-            } else if (this.form.saveAmfunckDocs === false) {
+                obj.$refs.ref_bgGoodsNo.$el.querySelector('input').focus();
+            } else if (this.form.saveAmfunckDocs === false && this.form.selectGood.cksGoodsCount !== 0) {
                 this.saveDocsList();
             }
+
         },
         deleteAmfunckDocs: function () {
             remove(this.form.selectGood, this.form.mfunckDocs);
@@ -728,7 +733,7 @@ function validate_form() {
 }
 function validate_form2() {
     return {
-        "cksGoodsCount": 'vNull',
+        "cksGoodsCount": ['vNull', 'vNumber', 'vNumberZZ', 'vWS4'],
     }
 }
 function validate_details() {

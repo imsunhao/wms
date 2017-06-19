@@ -25,6 +25,13 @@
                         icon="search"
                         placeholder="车牌号"></el-input>
 
+                <el-select
+                        @visible-change="selectReturn"
+                        v-model="ckrwArehouseId"
+                        placeholder="请选择所属仓库">
+                    <el-option :label="obj.baName" :value="obj.baArehouseId"
+                               v-for="obj of baseArehouses"></el-option>
+                </el-select>
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
@@ -81,7 +88,8 @@
                                                 <span>{{props.row.goodsTypeNum}} 项</span>
                                             </el-form-item>
                                             <el-form-item label="任务状态">
-                                                <el-tag-s :val="auto_el_tag('ckRwStatus',props.row.ckrwStatus)"></el-tag-s>
+                                                <el-tag-s
+                                                        :val="auto_el_tag('ckRwStatus',props.row.ckrwStatus)"></el-tag-s>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :span="10" :offset="2">
@@ -100,10 +108,12 @@
                                             </el-form-item>
 
                                             <el-form-item label="欠货状态">
-                                                <el-tag-s :val="auto_el_tag('ckQhStatus',props.row.ckrwQhStatus)"></el-tag-s>
+                                                <el-tag-s
+                                                        :val="auto_el_tag('ckQhStatus',props.row.ckrwQhStatus)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item label="滞留状态">
-                                                <el-tag-s :val="auto_el_tag('ckZlStatus',props.row.ckrwZlStatus)"></el-tag-s>
+                                                <el-tag-s
+                                                        :val="auto_el_tag('ckZlStatus',props.row.ckrwZlStatus)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item
                                                     label="可用操作">
@@ -206,7 +216,8 @@
                                         </template>
                                     </el-table-column>
                                     <el-table-column
-                                            width="80"
+                                            width="100"
+                                            align="center"
                                             v-if="props.row.ckrwStatus>10&&props.row.ckrwStatus<42"
                                             label="挂起">
                                         <template scope="scope">
@@ -217,13 +228,12 @@
                                                     v-if="scope.row.ckGqStatus==1"
                                                     @click="inlineHangBill(scope.$index, scope.row)">
                                             </el-button>
-                                            <el-button
-                                                    size="mini"
+                                            <!--@click="inlineCancelHang(scope.$index, scope.row)"-->
+                                            <el-tag
                                                     type="danger"
-                                                    icon="circle-close"
-                                                    v-if="scope.row.ckGqStatus==2&&false"
-                                                    @click="inlineCancelHang(scope.$index, scope.row)">
-                                            </el-button>
+                                                    v-if="scope.row.ckGqStatus==2">
+                                                已挂起
+                                            </el-tag>
                                         </template>
                                     </el-table-column>
                                 </el-table>

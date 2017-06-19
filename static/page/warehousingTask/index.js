@@ -73,6 +73,7 @@ var warehousingTask = new Vue({
     prop: {},
     data: function () {
         return {
+            baseArehouses: window.dbmessage.baseArehouses,
             baseRkType: window.rkType,
             lists: _lists(),
             dialogListsVisible: false,           //明细 弹出层 是否可见
@@ -115,6 +116,8 @@ var warehousingTask = new Vue({
             rkrwSjxm: '',                       //主页面 司机姓名 搜索
             rkrwNo: '',                         //主页面 入库单号 搜索
             rkrwCph: '',                        //主页面 车牌号
+            // rkrwArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,                   //主页面 入库仓库 id
+            rkrwArehouseId: '',                   //主页面 入库仓库 id
             formLabelWidth: '120px',            //表单 配置
             form: _form(),                      //表单 弹出层 信息集合
             dialogFormActive: 0,                //新建 弹出层 steps 当前进度
@@ -135,6 +138,7 @@ var warehousingTask = new Vue({
                 "rkrwCph": this.rkrwCph.trim(),
                 "rkrwNo": this.rkrwNo.trim(),
                 "rkrwSjxm": this.rkrwSjxm.trim(),
+                rkrwArehouseId: this.rkrwArehouseId
 
             }
         },
@@ -341,7 +345,7 @@ var warehousingTask = new Vue({
             });
         },                                                //新建 表单提交
         selectSubmit: function () {
-            _option=true;
+            _option = true;
 //                p[0].post(warehousingTask.search);
             p[0].post(obj.form_pop);
             this.dialogSelectVisible = !this.dialogSelectVisible;
@@ -430,14 +434,15 @@ var warehousingTask = new Vue({
             else return dateFormat(new Date(value), 'MM-dd');
         },                          //入库任务中详细信息 - 入库时间
         auto_rkType: function (value) {
-            if (!isNaN(value)) {
-                for (var index in this.baseRkType) {
-                    if (this.baseRkType[index] == value) {
-                        return index;
-                    }
-                }
-            }
-            else return this.baseRkType[value];
+            // if (!isNaN(value)) {
+            //     for (var index in this.baseRkType) {
+            //         if (this.baseRkType[index] == value) {
+            //             return index;
+            //         }
+            //     }
+            // }
+            // else return this.baseRkType[value];
+            return this.baseRkType[value];
         },                                      //订单类型
         auto_rkStatus: function (value) {
             var temp = {}
@@ -589,4 +594,4 @@ p[8] = autoPost({
         obj.$data.form.list2.warehousingReservation = json.data;
     }
 });
-p[0].post((_option ? this.form_pop : this.option));
+p[0].post((_option ? obj.form_pop : obj.option));

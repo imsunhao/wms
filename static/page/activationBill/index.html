@@ -208,6 +208,11 @@
                                                     v-if="scope.row.ckGqStatus==2"
                                                     @click="inlinePendingConfirmation(scope.$index, scope.row)">挂起确认
                                             </el-button>
+                                            <el-tag
+                                                    type="success"
+                                                    v-if="scope.row.ckGqStatus==3">
+                                                已确认
+                                            </el-tag>
                                         </template>
                                     </el-table-column>
                                 </el-table>
@@ -898,7 +903,7 @@
                         "userName": app.rmsUser.ruUserName
                     }, function (json) {
                         this.callbackAfter({status: json.status, model: '单挂起确认'}, function () {
-                            p[0].post(obj.option);
+                            row.ckGqStatus = 3;
                         })
                     });
                 }).catch(function () {
@@ -1457,8 +1462,3 @@
 
     p[0].post(activationBill.option);
 </script>
-
-
-
-
-

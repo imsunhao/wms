@@ -84,6 +84,7 @@ var startReceiving = new Vue({
                 "rkrwDbd": this.form.rkrwDbd,
                 "rkrwCys": this.form.rkrwCys,
                 "rkrwNo": this.form.rkrwNo,
+                arehouseId :window.dbmessage.baseArehouses[0].baArehouseId,
             }
         },
         search: function () {
@@ -100,6 +101,7 @@ var startReceiving = new Vue({
                 "rkrwDbd": this.form.rkrwDbd,
                 "rkrwCys": this.form.rkrwCys,
                 "rkrwDh": this.form.rkrwDh,
+                arehouseId :window.dbmessage.baseArehouses[0].baArehouseId,
                 "rkrwStatus": this.form.rkrwStatus
             }
         },
@@ -144,11 +146,11 @@ var startReceiving = new Vue({
         },                                   //多选 打印标签页
         expandChange: function (row, expanded) {
             if (expanded && (typeof (row.docList) === 'undefined' || row.docList.length === 0)) {
-                p[102].post({rkrwId: row.rkrwId}, function (json) {
+                p[102].post({rkrwId: row.rkrwId,rkArehouseId:window.dbmessage.baseArehouses[0].baArehouseId}, function (json) {
                     /*<debug>*/
                     console.log(json);
                     /*</debug>*/
-                    row.docList = json.docList;
+                    row.docList = json.data;
                 });
             }
             /*<debug>*/
@@ -291,14 +293,7 @@ var startReceiving = new Vue({
             else return dateFormat(new Date(value), 'MM-dd');
         },                          //入库任务中详细信息 - 入库时间
         auto_rkType: function (value) {
-            if (!isNaN(value)) {
-                for (var index in this.baseRkType) {
-                    if (this.baseRkType[index] == value) {
-                        return index;
-                    }
-                }
-            }
-            else return this.baseRkType[value];
+            return this.baseRkType[value];
         },                                      //订单类型
         auto_rkStatus: function (value) {
             var temp = {}
@@ -416,8 +411,8 @@ p[101] = autoPost({
 // 102 查询-入库任务详情
 p[102] = autoPost({
     urlHock: "/hock/warehousingTask/rwDocList.json",
-    urlProd: "/route/warehousingTask/6",
-    method: 'GET'
+    urlProd: "/route/warehousingTask/9"
+
 });
 // 高级 监视器的 使用方法
 //    startReceiving.$watch('date', function () {
@@ -522,7 +517,7 @@ function printfCompile(obj) {
         });
     }
     p[3].post({rwIds: ids,
-        useId: app.rmsUser.ruUserId}, function (json) {
+        userId: app.rmsUser.ruUserId}, function (json) {
         for (var i = 0; i < obj.multipleSelection.length; i++) {
             obj.multipleSelection[i].rkrwStatus = 3;
         }

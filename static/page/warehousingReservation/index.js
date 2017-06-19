@@ -443,9 +443,6 @@ var warehousingReservation = new Vue({
         },                                          //详细查询 查询提交
 
         auto_rkArehouseId: function (data, set) {
-            /*<debug>*/
-//console.log(rkArehouseId);
-            /*</debug>*/
             var baArehouse = window.dbmessage.baseArehouses;
             var i;
             if (typeof set !== 'undefined') {
@@ -469,14 +466,7 @@ var warehousingReservation = new Vue({
             else return dateFormat(new Date(parseInt(value)), 'MM-dd');
         },                          //下单时间/创建方式
         auto_rkType: function (value) {
-            if (!isNaN(value)) {
-                for (var index in this.baseRkType) {
-                    if (this.baseRkType[index] == value) {
-                        return index;
-                    }
-                }
-            }
-            else return this.baseRkType[value];
+            return this.baseRkType[value];
         },                                      //
         auto_rkStatus: function (value) {
             var temp = {}
@@ -646,6 +636,7 @@ p[3] = autoPost({
             obj.form = _form();
             obj.dialogFormActive = 0;
             obj.$refs.carousel.setActiveItem(0);
+            p[7].post(obj.option);
         } else {
             obj.$notify({
                 title: '失败',
@@ -813,7 +804,7 @@ function post_form() {
         "rkArehouseId": 1,
         "rkClientId": 1,
         "rkPrintcount": 0,
-        "rkRwId": 1,
+        "rkRwId": 0,
         "rkRwStatus": "51",
         rkDocsList: []
     }

@@ -19,6 +19,15 @@
                         v-model="rkrwCph"
                         icon="search"
                         placeholder="车牌号"></el-input>
+
+                <el-select
+                        @visible-change="selectReturn"
+                        v-model="rkrwArehouseId"
+                        placeholder="请选择所属仓库">
+                    <el-option :label="obj.baName" :value="obj.baArehouseId"
+                               v-for="obj of baseArehouses"></el-option>
+                </el-select>
+
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
@@ -308,6 +317,7 @@
         </div>
     </el-dialog>
     <el-dialog
+            size="large"
             v-model="dialogListsVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">入库明细 单号：{{lists.rkRkdjNo}}</span>
@@ -321,8 +331,7 @@
                     width="55">
             </el-table-column>
             <el-table-column
-                    label="货品编号"
-                    width="140"
+                     width="140"
                     show-overflow-tooltip
                     align="center"
                     prop="baseGoods.bgGoodsNo">
@@ -333,7 +342,16 @@
                     show-overflow-tooltip
                     label="货品名称">
             </el-table-column>
-            <el-table-column
+             <el-table-column
+                    align="center"
+                    prop="rksStatus"
+                    show-overflow-tooltip
+                    label="单据状态">
+                 <template scope="scope">
+                     <el-tag-s :val="auto_el_tag('rksStatus',scope.row.rksStatus)"></el-tag-s>
+                 </template></el-table-column>
+            <
+            el-table-column
                     label="单位"
                     width="80"
                     prop="baseDw.bdName"
@@ -346,6 +364,25 @@
                     prop="rksCount"
                     align="center">
             </el-table-column>
+             <el-table-column
+                    align="center"
+                    prop="rksQhsl"
+                    show-overflow-tooltip
+                    label="欠货数量">
+            </el-table-column>
+             <el-table-column
+                    align="center"
+                    prop="rksBfdh"
+                    show-overflow-tooltip
+                    label="补发单号">
+            </el-table-column>
+            <el-table-column
+                    align="center"
+                    prop="rksWjReason"
+                    show-overflow-tooltip
+                    label="完结原因">
+            </el-table-column>
+
         </el-table>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="dialogListsVisible=false">关闭</el-button>

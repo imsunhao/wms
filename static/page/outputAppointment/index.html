@@ -433,6 +433,7 @@
                                 <el-form-item label="货品编号" :label-width="formLabelWidth">
                                     <el-autocomplete
                                             :fetch-suggestions="querySearchAsync"
+                                            ref="ref_bgGoodsNo"
                                             v-model="form.selectGood.baseGoods.bgGoodsNo"
                                             @select="GoodSelect"
                                             :disabled="!form.deleteAmfunckDocs"
@@ -446,8 +447,9 @@
                                         :label-width="formLabelWidth">
                                     <el-input
                                             :disabled="form.selectGood.value==''"
+                                            ref="ref_rksCount"
                                             @keyup.enter.native="GoodEnter"
-                                            v-model="form.selectGood.cksGoodsCount"
+                                            v-model.number="form.selectGood.cksGoodsCount"
                                             auto-complete="off"></el-input>
                                 </el-form-item>
                             </el-col>
@@ -455,7 +457,7 @@
                         <el-row>
                             <el-col :span="8" :offset="16" v-show="!watchView">
                                 <el-button size="small" @click="saveDocsList"
-                                           :disabled="form.saveAmfunckDocs">保存明细
+                                           :disabled="form.saveAmfunckDocs||form.selectGood.cksGoodsCount==0">保存明细
                                 </el-button>
                                 <el-button size="small" @click="deleteAmfunckDocs" :disabled="form.deleteAmfunckDocs"
                                            type="danger">删除明细

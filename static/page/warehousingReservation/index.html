@@ -79,17 +79,18 @@
                                                     </el-form-item>
                                                     <el-form-item label="入库单号">
                                                         <el-tag type="success">{{props.row.rkRkdjNo }}</el-tag>
-
                                                     </el-form-item>
                                                     <el-form-item label="下单时间">
                                                         <el-icon name="time"></el-icon>
                                                         <span style="margin-left: 10px">{{ auto_time_new(props.row.rkCreatetime,6) }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="订单类型">
-                                                        <el-tag type="primary">{{ auto_rkType(props.row.rkType) }}</el-tag>
+                                                        <el-tag type="primary">{{ auto_rkType(props.row.rkType) }}
+                                                        </el-tag>
                                                     </el-form-item>
                                                     <el-form-item label="单据状态">
-                                                        <el-tag-s :val="auto_el_tag('rkStatus',props.row.rkStatus)"></el-tag-s>
+                                                        <el-tag-s
+                                                                :val="auto_el_tag('rkStatus',props.row.rkStatus)"></el-tag-s>
                                                     </el-form-item>
                                                     <el-form-item label="总数量">
                                                         <span>{{ props.row.allCount }}</span>
@@ -98,13 +99,12 @@
                                                         <span>{{ props.row.allTj    }}</span>
                                                     </el-form-item>
                                                     <el-form-item label="制作方式">
-                                                        <el-tag-s :val="auto_el_tag('rkZdfs',props.row.rkZdfs)"></el-tag-s>
+                                                        <el-tag-s
+                                                                :val="auto_el_tag('rkZdfs',props.row.rkZdfs)"></el-tag-s>
                                                     </el-form-item>
                                                     <el-form-item label="备注">
                                                         <span>{{ props.row.rkRemarks    }}</span>
                                                     </el-form-item>
-
-
                                                     <el-form-item label="可用操作">
                                                         <el-button
                                                                 size="small"
@@ -370,7 +370,7 @@
                                         @visible-change="selectVC('refForm1','rkType')"
                                         v-model="form.rkType"
                                         placeholder="请选择单据类型">
-                                    <el-option :label="key" :value="value"
+                                    <el-option :label="value" :value="parseInt(key)"
                                                v-for="(value, key) of baseRkType"></el-option>
                                 </el-select>
                             </el-form-item>

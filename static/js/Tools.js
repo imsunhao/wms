@@ -114,7 +114,7 @@ function autoPost(option) {
 
     function postCore() {
         for (var i in this.data) {
-            if (this.data[i] === '' || this.data[i] === null) {
+            if (this.data[i] === '' || this.data[i] === null || this.data[i] === -1) {
                 delete this.data[i];
             }
         }
@@ -553,6 +553,20 @@ var ___datas = (function () {
             ]
         },
         {
+            id: 'rksStatus',
+            name: '入库明细据状态',
+            data: [
+                {value: 1, name: '初始状态', type: '', color: ''},
+                {value: 21, name: '部分分配', type: 'gray', color: ''},
+                {value: 22, name: '全部分配', type: 'primary', color: ''},
+                {value: 31, name: '部分收货', type: 'success', color: ''},
+                {value: 32, name: '全部收货', type: 'warning', color: ''},
+                {value: 50, name: '作废', type: 'danger', color: ''},
+            ]
+        },
+
+
+        {
             id: 'rkRwStatus',
             name: '入库任务状态',
             data: [
@@ -715,7 +729,7 @@ var ___datas = (function () {
                 {value: 1, name: '可用', type: 'success', color: ''}
             ]
         },
-          {
+        {
             id: 'ruUserType',
             name: 'RF管理-类型',
             data: [
@@ -724,7 +738,6 @@ var ___datas = (function () {
                 {value: 2, name: '高位叉车', type: 'success', color: ''}
             ]
         },
-
 
 
         // {

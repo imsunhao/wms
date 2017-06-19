@@ -74,7 +74,6 @@ var inputOperation = new Vue({
         }
     },
     computed: {
-        // TODO 表格提交
         option: function () {
             return {
                 "draw": 1,
@@ -83,6 +82,7 @@ var inputOperation = new Vue({
                 "rkRkdjNo": this.rkRkdjNo.trim(),
                 "startTimeParam": tsf_date(this.date[0]),
                 "endTimeParam": tsf_date(this.date[1]),
+                rkArehouseId :window.dbmessage.baseArehouses[0].baArehouseId,
                 rkStatus: this.rkStatus
             }
         },
@@ -111,7 +111,6 @@ var inputOperation = new Vue({
                 for (var i = 0; i < this.form.rkDocsList.length; i++) {
                     this.form.rkDocsList[i].rksKyCount = this.form.rkDocsList[i].rksCount
                 }
-
             }
             if (typeof (this.form.rkDocsList) === 'undefined') {
                 postGoods({rkRkdjNo: row.rkRkdjNo}, function (json) {
@@ -190,7 +189,6 @@ var inputOperation = new Vue({
                     obj.form = form();
                     obj.dialogFormActive = 0;
                     obj.dialogDistributionForm = false;
-                    obj.$refs.carousel.setActiveItem(0);
                     p[0].post(obj.option);
                 })
             });
@@ -297,16 +295,7 @@ var inputOperation = new Vue({
             console.log(item);
         },
         dialogFormActiveOpen: function () {
-            var obj = this;
-            if (this.dialogFormActive !== 0) {
-                setTimeout(function () {
-                    obj.$refs.carousel.setActiveItem(1);
-                }, 150);
-            } else {
-                setTimeout(function () {
-                    obj.$refs.carousel.setActiveItem(0);
-                }, 150);
-            }
+
         },
         handleDelete: function (index, row) {
             console.log(index, row);
@@ -488,7 +477,6 @@ var inputOperation = new Vue({
                 obj.form = form();
                 obj.dialogFormActive = 0;
                 this.dialogDistributionForm = false;
-                obj.$refs.carousel.setActiveItem(0);
                 //post(inputOperation);
             }, 1500);
         },                                                //新建 表单提交
@@ -609,14 +597,7 @@ var inputOperation = new Vue({
             else return dateFormat(new Date(parseInt(value)), 'yyyy-MM-dd');
         },                          //创建时间/下单时间
         auto_rkType: function (value) {
-            if (!isNaN(value)) {
-                for (var index in this.baseRkType) {
-                    if (this.baseRkType[index] == value) {
-                        return index;
-                    }
-                }
-            }
-            else return this.baseRkType[value];
+            return this.baseRkType[value];
         },                                      //订单类型
         auto_rkStatus: function (value) {
             var temp = {}
