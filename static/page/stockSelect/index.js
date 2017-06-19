@@ -301,7 +301,7 @@ function _form() {
         bgGoodsName: '',    //模糊查询--货品名称
         blLname: '',//模糊查询--库位名称
         mrGoodsBatch: '',//模糊查询--货品批次
-        mrArehouseId: ''//模糊查询--仓库
+        mrArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,//模糊查询--仓库
     }
 }
 var obj = stockSelect;

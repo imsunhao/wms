@@ -516,7 +516,7 @@ var ___datas = (function () {
             data: [
                 {value: 0, name: '初始', type: 'success', color: ''},
                 {value: 1, name: '电脑端', type: 'success', color: ''},
-                {value: 2, name: 'pda', type: 'primary', color: ''}
+                {value: 2, name: 'PDA', type: 'primary', color: ''}
             ]
         },
         {
@@ -525,7 +525,7 @@ var ___datas = (function () {
             data: [
                 {value: 0, name: '初始', type: 'success', color: ''},
                 {value: 1, name: '电脑端', type: 'success', color: ''},
-                {value: 2, name: 'pda', type: 'primary', color: ''}
+                {value: 2, name: 'PDA', type: 'primary', color: ''}
             ]
         },
         {
