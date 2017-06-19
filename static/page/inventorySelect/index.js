@@ -265,7 +265,7 @@ function _form() {
         pdOperator: '',//模糊查询--经办人
         pdStatus: '',//模糊查询--盘点状态
         pdDiffStatus: '',//模糊查询--差异状态
-        pdArehouseId: ''//模糊查询--仓库
+        pdArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,//模糊查询--仓库
 
     }
 }
