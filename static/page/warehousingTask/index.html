@@ -19,15 +19,6 @@
                         v-model="rkrwCph"
                         icon="search"
                         placeholder="车牌号"></el-input>
-
-                <el-select
-                        @visible-change="selectReturn"
-                        v-model="rkrwArehouseId"
-                        placeholder="请选择所属仓库">
-                    <el-option :label="obj.baName" :value="obj.baArehouseId"
-                               v-for="obj of baseArehouses"></el-option>
-                </el-select>
-
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
