@@ -263,6 +263,12 @@ button, input[type="checkbox"] {
   }
 }
 
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #e9eaea inset;
+  border: 1px solid #e9eaea!important;
+  border-radius: 0 4px 4px 0;
+}
+
 @keyframes box3d {
   form {
     transform: rotateX(0deg) rotateY(0deg);

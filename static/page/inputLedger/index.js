@@ -30,11 +30,10 @@ var inputLedger = new Vue({
             select: _form(),                        //搜索      弹出层 信息集合
             dialogSelectVisible: false,
             selectLoading: false,
-            watchView: false,               //观察状态量-是否为查看
+            watchView: false,                       //观察状态量-是否为查看
         }
     },
     computed: {
-        // TODO 表格提交
         option: function () {
             return {
                 "draw": 1,
@@ -102,7 +101,8 @@ var inputLedger = new Vue({
             this.dialogLedgerVisible = true;
 
         },                                       //行内按钮-制作台账
-        inlineOweEnd: function () {
+        inlineOweEnd: function (index, row) {
+            this.end.rks_rkmx_id = row.rk_rkdj_id;
             this.dialogEndVisible = true;
         },                                          //行内按钮-欠货完结
         filterStatus: function (value, row) {
@@ -196,7 +196,7 @@ var inputLedger = new Vue({
                 });
             });
 
-        },                                 //TODO 多选导出
+        },                                   //多选导出
         oweEnd: function () {
             /*<debug>*/
             console.log('选中的删除');
@@ -210,7 +210,7 @@ var inputLedger = new Vue({
                 id: listID
             })
 
-        },                                            //TODO 多选欠货完结
+        },                                                //多选欠货完结
         handleSizeChange: function (val) {
             console.log('每页' + val + '条');
             this.pageSize = val;
@@ -371,16 +371,14 @@ var inputLedger = new Vue({
             _option = true;
             p[0].post(obj.form_pop);
             this.dialogSelectVisible = false;
-        },                           //结算时间
+        },                                           //结算时间
 
     },
     watch: {
         dbdh: function () {
-            console.log((_option ? this.form_pop : this.option));
             p[0].post((_option ? this.form_pop : this.option));
         },
         rkArehouseId: function () {
-            console.log((_option ? this.form_pop : this.option));
             p[0].post((_option ? this.form_pop : this.option));
         }
     }
@@ -437,7 +435,8 @@ function _form() {
 function formEnd() {
     return {
         rksWjReason: '',             //完结原因
-        rksBfdh: '',             //补发单号
+        rksBfdh: '',                 //补发单号
+        rks_rkmx_id: 0
     }
 }
 function formLedger() {

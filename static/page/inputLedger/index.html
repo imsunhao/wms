@@ -65,7 +65,7 @@
                                 <el-col :span="11">
                                     <el-form-item label="始发日期">
                                         <el-icon name="time"></el-icon>
-                                        <span style="margin-left: 10px">{{ auto_time_new(props.row.sfrq,6) }}</span>
+                                        <span style="margin-left: 10px">{{ auto_time_new(props.row['sfrq'],6) }}</span>
                                     </el-form-item>
                                     <el-form-item label="调拨地点">
                                         <span>{{ props.row.dbdd }}</span>
@@ -544,6 +544,7 @@
                             label="缺机/台"
                             :label-width="formLabelWidth">
                         <el-input
+                                :disabled="true"
                                 v-model.number="ledger.qhsl"
                                 auto-complete="off"></el-input>
                     </el-form-item>
