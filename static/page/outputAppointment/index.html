@@ -114,30 +114,32 @@
 
 
                                                     <el-form-item label="可用操作">
-                                                        <el-button
-                                                                size="small"
-                                                                icon="view"
-                                                                @click="View(props.$index, props.row)">
-                                                        </el-button>
-                                                        <el-button
-                                                                size="small"
-                                                                icon="edit"
-                                                                v-if="props.row.ckIsauto==1"
-                                                                @click="inlineEdit(props.$index, props.row)">
-                                                        </el-button>
+                                                        <el-row>
+                                                            <el-button
+                                                                    size="small"
+                                                                    icon="view"
+                                                                    @click="View(props.$index, props.row)">
+                                                            </el-button>
+                                                            <el-button
+                                                                    size="small"
+                                                                    icon="edit"
+                                                                    v-if="props.row.ckIsauto==1"
+                                                                    @click="inlineEdit(props.$index, props.row)">
+                                                            </el-button>
+                                                            <el-button
+                                                                    size="small"
+                                                                    v-if="props.row.ckIsauto==1"
+                                                                    icon="delete"
+                                                                    type="danger"
+                                                                    @click="inlineDeleteOlder(props.$index, props.row)">
+                                                            </el-button>
+                                                        </el-row>
                                                         <el-button
                                                                 size="small"
                                                                 type="info"
                                                                 v-if="props.row.ckCkdjType==2"
                                                                 @click="inlineRetentionInput(props.$index, props.row)">
                                                             滞留入库
-                                                        </el-button>
-                                                        <el-button
-                                                                size="small"
-                                                                v-if="props.row.ckIsauto==1"
-                                                                icon="delete"
-                                                                type="danger"
-                                                                @click="inlineDeleteOlder(props.$index, props.row)">
                                                         </el-button>
                                                     </el-form-item>
                                                 </el-form>
