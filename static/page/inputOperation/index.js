@@ -82,7 +82,7 @@ var inputOperation = new Vue({
                 "rkRkdjNo": this.rkRkdjNo.trim(),
                 "startTimeParam": tsf_date(this.date[0]),
                 "endTimeParam": tsf_date(this.date[1]),
-                rkArehouseId :window.dbmessage.baseArehouses[0].baArehouseId,
+                rkArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,
                 rkStatus: this.rkStatus
             }
         },
@@ -841,7 +841,9 @@ function postHistory(option, row) {
                 21: '制作台帐(入库)',
                 22: '出库发运（出库）',
                 23: '激活（出库）',
-                24: '取消挂起'
+                24: '取消挂起',
+                25: '挂起确认（出库）',
+                26: '修改分拣明细数量（出库）'
             };
             json = json.reverse();
             for (var i = 0; i < json.length; i++) {
