@@ -170,6 +170,22 @@ function auto_form(option) {
     var index;
     var _form = {
         data: {},       //数据集合
+        label: {},      //字段集合
+        labelFun: function () {
+            if (!this.label.hasOwnProperty()) {
+                var step = {};
+                for (index in this.data) {
+                    if (this.data.hasOwnProperty(index)) {
+                        step[index] = this.data[index].label;
+                    }
+                }
+                this.label = step;
+            }
+        },
+        init: function () {
+            this.labelFun();
+            return this;
+        },
         get: function (number, numberN) {
             if (typeof number === 'undefined')return;
             var step = {};
@@ -224,8 +240,97 @@ function auto_form(option) {
             return step;
         }
     };
-    return Object.create(_form, autoValue(option));
+    return Object.create(_form, autoValue({data: option}));
 }          //核心 - 表单字段
+function autoVue(data, methods, other) {
+    function auto_data(option, prop) {
+        var _data = {
+            data: {},                 // 自定义值
+            Default: {
+                current: _current(),
+                multiSelect: false,
+                showLoading: false,
+                pickerOptions: _pickerOptions()
+            },           // 默认值
+            init: function () {
+                var step = Object.create(null);
+                var index = '';
+                for (index in this.Default) {
+                    if (this.Default.hasOwnProperty(index)) {
+                        step[index] = this.Default[index];
+                    }
+                }
+                if (typeof prop !== 'undefined') for (index = 0; index < prop.length; index++) {
+                    step[prop[index].name] = prop[index].data;
+                }
+                for (index in this.data) {
+                    if (this.data.hasOwnProperty(index)) {
+                        step[index] = this.data[index];
+                    }
+                }
+                return function () {
+                    return step
+                };
+            }   // 值
+        };
+        return Object.create(_data, autoValue({data: option}));
+    }
+
+    function auto_methods(option, prop) {
+        var _methods = {
+            data: {},                 // 自定义值
+            Default: {
+                handleSizeChange: function (val) {
+                    this.current.pageSize = val;
+                    p[0].post((_option ? this.pop : this.option));
+                },
+                handleCurrentChange: function (val) {
+                    this.current.currentPage = val;
+                    p[0].post((_option ? this.pop : this.option));
+                }
+            },           // 默认值
+            init: function () {
+                var step = Object.create(null);
+                var index = '';
+                for (index in this.Default) {
+                    if (this.Default.hasOwnProperty(index)) {
+                        step[index] = this.Default[index];
+                    }
+                }
+                if (typeof prop !== 'undefined') for (index = 0; index < prop.length; index++) {
+                    step[prop[index].name] = prop[index].fun;
+                }
+                for (index in this.data) {
+                    if (this.data.hasOwnProperty(index)) {
+                        step[index] = this.data[index];
+                    }
+                }
+                return step;
+            }   // 值
+        };
+        return Object.create(_methods, autoValue({data: option}));
+    }
+
+    var prop = [];
+    for (var i = 3; i < arguments.length; i++) {
+        prop.push(arguments[i])
+    }
+    _Vue = {
+        data: auto_data(data, prop).init(),
+        methods: auto_methods(methods, prop).init(),
+        template: "",
+        computed: {
+            option: function () {
+                return _form.pop(this, 2);
+            },
+            pop: function () {
+                return _form.pop(this, 3);
+            }
+        },
+        watch: {}
+    };
+    return Object.create(_Vue, autoValue(other));
+} //核心 - 自动配置Vue
 function ldd(label, data, Default) {
     var step = Object.create(null);
     step.label = label;
@@ -235,11 +340,13 @@ function ldd(label, data, Default) {
 }  //核心 - 表单 自动配置
 function auto_dialog(option) {
     var _dialog = {
+        name: '',
         data: {},                 // 自定义值
         Default: {
             dv: false,   //弹出层 控制
         },           // 默认值
         val: function () {
+            if (this.name === '') return;
             var step = Object.create(null);
             var index = '';
             for (index in this.Default) {

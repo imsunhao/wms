@@ -10,22 +10,22 @@
                     <el-input
                             @change="selectReturn"
                             class="input"
-                            v-model="form_1.cyts"
+                            v-model="form_2.dh"
                             icon="search"
-                            placeholder="调拨单号"></el-input>
+                            :placeholder="form.dh"></el-input>
                     <el-date-picker
-                            v-model="form_1.sfrq"
+                            v-model="form_2.dhsj"
                             type="daterange"
                             align="right"
-                            placeholder="始发日期"
+                            :placeholder="form.dhsj"
                             class="datePicker"
                             :picker-options="pickerOptions">
                     </el-date-picker>
                     <el-date-picker
-                            v-model="form_1.dhsj"
+                            v-model="form_2.sfrq"
                             type="daterange"
                             align="right"
-                            placeholder="到货日期"
+                            :placeholder="form.sfrq"
                             class="datePicker"
                             :picker-options="pickerOptions">
                     </el-date-picker>
@@ -63,43 +63,42 @@
      * 5.新增 主页面 数据
      */
     var _form = auto_form({
-        data: {
-            rk_rkdj_id: ldd('明细id', [1, 4, 5]),
-            sfrq: ldd('始发日期', [1, 2, 3]),
-            dhsj: ldd('到货日期', [1, 2, 3]),
-            dbdd: ldd('到货日期', [1, 3]),
-            cys: ldd('调拨地点', [1, 3]),
-            cph: ldd('承运商', [1, 3]),
-            shr: ldd('车牌号', [1, 3]),
-            shck: ldd('收货人', [1, 2, 3], window.dbmessage.baseArehouses[0].baArehouseId),
-            dh: ldd('收货仓库', [1, 2, 3]),
-            dbdh: ldd('单号', [1, 3]),
-            cyts: ldd('调拨单号', [1]),
-            cyxs: ldd('承运件数(台)', [1]),
-            cytj: ldd('承运件数(箱)', [1]),
-            wlbm: ldd('方数', [1]),
-            wlms: ldd('物料编号', [1, 3]),
-            ts: ldd('物料描述', [1, 3]),
-            js: ldd('台数', [1]),
-            tj: ldd('件数', [1]),
-            dbpswb: ldd('方数', [1]),
-            ytpswb: ldd('调拨破损外包', [1]),
-            dbpsnb: ldd('源头破损外包', [1]),
-            ytpsnb: ldd('调拨破损内保', [1]),
-            ycyy: ldd('源头破损内保', [1]),
-            cljg: ldd('异常原因', [1]),
-            psts: ldd('处理结果', [1]),
-            jssj: ldd('破损台数', [1]),
-            rksWjReason: ldd('结算时间', [4]),
-            rksBfdh: ldd('完结原因', [4])
-        }
-    });
+        rk_rkdj_id: ldd('明细id', [1, 4, 5]),
+        sfrq: ldd('始发日期', [1, 2, 3]),
+        dhsj: ldd('到货日期', [1, 2, 3]),
+        dbdd: ldd('到货日期', [1, 3]),
+        cys: ldd('调拨地点', [1, 3]),
+        cph: ldd('承运商', [1, 3]),
+        shr: ldd('车牌号', [1, 3]),
+        shck: ldd('收货人', [1, 2, 3], window.dbmessage.baseArehouses[0].baArehouseId),
+        dh: ldd('收货仓库', [1, 2, 3]),
+        dbdh: ldd('单号', [1, 3]),
+        cyts: ldd('调拨单号', [1]),
+        cyxs: ldd('承运件数(台)', [1]),
+        cytj: ldd('承运件数(箱)', [1]),
+        wlbm: ldd('方数', [1]),
+        wlms: ldd('物料编号', [1, 3]),
+        ts: ldd('物料描述', [1, 3]),
+        js: ldd('台数', [1]),
+        tj: ldd('件数', [1]),
+        dbpswb: ldd('方数', [1]),
+        ytpswb: ldd('调拨破损外包', [1]),
+        dbpsnb: ldd('源头破损外包', [1]),
+        ytpsnb: ldd('调拨破损内保', [1]),
+        ycyy: ldd('源头破损内保', [1]),
+        cljg: ldd('异常原因', [1]),
+        psts: ldd('处理结果', [1]),
+        jssj: ldd('破损台数', [1]),
+        rksWjReason: ldd('结算时间', [4]),
+        rksBfdh: ldd('完结原因', [4])
+    }).init();
 
     var _select = auto_dialog({
+        name: 'select',
         data: _form.get(3),
-        fun: function (str) {
-            switch (str) {
-                case 'submit':
+        fun: function (number) {
+            switch (number) {
+                case 1:  //submit
                     p[0].post(obj.form_pop);
                     break;
             }
@@ -111,59 +110,30 @@
      *
      * 0.主页面 主要数据 查询
      */
+
     var p = [];
     p[0] = autoPost({
         urlProd: "/route/home/1"
     });
-
-    var tool_print = {
+    var tool_print = autoVue({
+        form: _form.label,
+        form_1: _form.get(1),
+        form_6: _form.get(1),
+        form_2: _form.get(2),
+        form_4: _form.get(4),
+        form_5: _form.get(5)
+    }, {}, {
         template: "#tool-print-template",
-        data: function () {
-            return {
-                current: _current(),
-                form_1: _form.get(1),
-                form_6: _form.get(1),
-                form_2: _form.get(2),
-                form_3: _select.val(),
-                form_4: _form.get(4),
-                form_5: _form.get(5),
-
-                multiSelect: false,
-                showLoading: false,
-                pickerOptions: _pickerOptions()
-            };
-        },
-        computed: {
-            option: function () {
-                return _form.pop(this, 2);
-            },
-            pop: function () {
-                return _form.pop(this, 3);
-            }
-        },
-        methods: {
-            select: function (str) {
-                switch (str) {
-                    case 'submit':
-                        p[0].post(obj.form_pop);
-                        break;
-                }
-            },
-
-            handleSizeChange: function (val) {
-                this.current.pageSize = val;
-                p[0].post((_option ? this.pop : this.option));
-            },
-            handleCurrentChange: function (val) {
-                this.current.currentPage = val;
-                p[0].post((_option ? this.pop : this.option));
-            }
-        },
         watch: {}
-    };
+    }, _select);
+
+
     var objCreate = Vue.extend(tool_print);
     var obj = new objCreate().$mount('#tool_print');
+
     obj.$watch('form_2', function () {
-        p[0].post((_option ? this.form_pop : this.option));
+        p[0].post((_option ? this.pop : this.option));
     }, {deep: true});
+
+
 </script>
