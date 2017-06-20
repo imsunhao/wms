@@ -119,7 +119,7 @@ var goodsFlowSelect = new Vue({
                 type: 'warning'
             }).then(function () {
                 p[1].post({
-                    ids: [row.mfunckDoc.ckCkdjId]
+                    ids: [row.mfunckDocs.cksCkmxId]
                 }, function (json) {
                     this.callbackAfter({status: json.status, model: "导出出库单"}, function () {
                         var url = "/static/Excel/" + json.model;
@@ -150,7 +150,7 @@ var goodsFlowSelect = new Vue({
             }).then(function () {
                 var ids = [];
                 for (var i = 0; i < obj.multipleSelection.length; i++) {
-                    ids.push(obj.multipleSelection[i].mfunckDoc.ckCkdjId);
+                    ids.push(obj.multipleSelection[i].mfunckDocs.cksCkmxId);
                 }
                 p[1].post({
                     ids: ids
