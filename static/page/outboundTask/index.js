@@ -638,6 +638,24 @@ var outboundTask = new Vue({
             }
             return temp[value];
         },
+
+        auto_jc: function (value) {
+            var temp = {};
+            if (!isNaN(value)) {
+                temp = {
+                    1: '21',
+                    2: '22',
+                    3: ' 美里'
+                }
+            } else {
+                temp = {
+                    '21': 1,
+                    '22': 2,
+                    '美里': 3
+                }
+            }
+            return temp[value];
+        },
         auto_ckXdsj: function (value, bool) {
             if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
             else return dateFormat(new Date(parseInt(value)), 'MM-dd');
@@ -665,6 +683,8 @@ var outboundTask = new Vue({
                 return '未知的仓库'
             }
         },                            //出库仓库id 自动匹配
+
+
 
         auto_fjfs: function (value) {
             switch (value) {

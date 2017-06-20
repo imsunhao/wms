@@ -59,12 +59,12 @@
                     <template scope="props">
                         <el-carousel
                                 arrow="hover"
-                                height="350px"
+                                height="390px"
                                 indicator-position="none"
                                 :autoplay="false">
                             <el-carousel-item>
                                 <el-row>
-                                    <h3>挑选单据详细<span
+                                    <h3>单据详细<span
                                             style="font-size: 14px;
                                             font-weight: normal;
                                             margin-left: 5px;">(翻页查看出库明细）</span>
@@ -94,10 +94,11 @@
                                             <el-form-item label="客户名称">
                                                 <span>{{props.row.ckCkdjClientname}}</span>
                                             </el-form-item>
-                                          
-                                    <el-form-item label="欠货状态">
-                                        <el-tag-s :val="auto_el_tag('cksQhStatuss',props.row.ckQhStatus)"></el-tag-s>
-                                    </el-form-item>
+
+                                            <el-form-item label="欠货状态">
+                                                <el-tag-s
+                                                        :val="auto_el_tag('cksQhStatuss',props.row.ckQhStatus)"></el-tag-s>
+                                            </el-form-item>
 
                                         </el-col>
                                         <el-col :span="10" :offset="2">
@@ -120,26 +121,32 @@
                                                 <span>{{ props.row.ckRemarks }}</span>
                                             </el-form-item>
                                             <el-form-item label="滞留状态">
-                                                <el-tag-s :val="auto_el_tag('cksZlStatus',props.row.ckZlStatus)"></el-tag-s>
+                                                <el-tag-s
+                                                        :val="auto_el_tag('cksZlStatus',props.row.ckZlStatus)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item
                                                     label="可用操作">
-                                                <el-button
-                                                        size="small"
-                                                        v-if="props.row.ckQhStatus==2"
-                                                        @click="outstandingInformation(props.$index, props.row)">欠货补发信息
-                                                </el-button>
-                                                <el-button
-                                                        size="small"
-                                                        v-if="props.row.ckZlStatus==2"
-                                                        @click="retentionInformation(props.$index, props.row)">滞留补发信息
-                                                </el-button>
-                                                <el-button
-                                                        size="small"
-                                                        type="success"
-                                                        v-if="props.row.ckZlStatus==2"
-                                                        @click="inlineExportOutstanding(props.$index, props.row)">导出欠货
-                                                </el-button>
+                                                <el-row>
+                                                    <el-button
+                                                            size="small"
+                                                            v-if="props.row.ckQhStatus==2"
+                                                            @click="outstandingInformation(props.$index, props.row)">
+                                                        欠货补发信息
+                                                    </el-button>
+                                                    <el-button
+                                                            size="small"
+                                                            v-if="props.row.ckZlStatus==2"
+                                                            @click="retentionInformation(props.$index, props.row)">
+                                                        滞留补发信息
+                                                    </el-button>
+                                                    <el-button
+                                                            size="small"
+                                                            type="success"
+                                                            v-if="props.row.ckZlStatus==2"
+                                                            @click="inlineExportOutstanding(props.$index, props.row)">
+                                                        导出欠货
+                                                    </el-button>
+                                                </el-row>
                                                 <el-button
                                                         size="small"
                                                         type="success"
