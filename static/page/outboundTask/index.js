@@ -83,7 +83,7 @@ var outboundTask = new Vue({
                 "ckrwCph": this.ckrwCph.trim(),
                 "ckrwStartGreatTime": tsf_date(this.date[0]),
                 "ckrwEndGreatTime": tsf_date(this.date[1]),
-                ckrwArehouseId: this.ckrwArehouseId
+                ckrwArehouseId:-1
             }
         },
         form_pop: function () {
@@ -98,6 +98,7 @@ var outboundTask = new Vue({
                 "ckrwStatus": this.form.ckrwStatus,
                 "ckrwStartGreatTime": tsf_date(this.form.ckrwGreatTime[0]),
                 "ckrwEndGreatTime": tsf_date(this.form.ckrwGreatTime[1]),
+                ckrwArehouseId:-1
             }
         },
         modifyTask_prop: function () {
@@ -472,7 +473,7 @@ var outboundTask = new Vue({
             if (expanded && (typeof (row.mfunckDoc) === 'undefined' || row.mfunckDoc === null || row.mfunckDoc.length === 0)) {
                 p[1].post({
                     id: row.ckrwId,
-                    arehouseId: window.dbmessage.baseArehouses[0].baArehouseId
+                    arehouseId: -1
                 }, function (json) {
                     /*<debug>*/
                     console.log(json);
@@ -691,13 +692,7 @@ var outboundTask = new Vue({
             console.log((_option ? this.form_pop : this.option));
             /*</debug>*/
             p[0].post((_option ? this.form_pop : this.option));
-        },
-        ckrwArehouseId: function () {
-            /*<debug>*/
-            console.log((_option ? this.form_pop : this.option));
-            /*</debug>*/
-            p[0].post((_option ? this.form_pop : this.option));
-        },
+        }
     }
 });
 // 高级 监视器的 使用方法
