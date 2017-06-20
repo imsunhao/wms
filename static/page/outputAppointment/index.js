@@ -128,6 +128,7 @@ var outputAppointment = new Vue({
                 console.log(step);
                 /*</debug>*/
                 step.title = '编辑';
+                step.userId = app.rmsUser.ruUserId;
                 obj.watchView = false;
                 step.mfunckDocs = json.model;
                 if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
@@ -390,8 +391,7 @@ var outputAppointment = new Vue({
                     bgGoodsName: item.data.bgGoodsName
                 },
                 baseDw: {
-                    bdDwid: item.data.bgZxdw,
-                    bdName: item.data.bgZxdw
+                    bdDwid: 1
                 },
                 cksGoodsCount: 0,
                 cksDwid: item.data.bgZxdw,
