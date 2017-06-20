@@ -692,6 +692,12 @@ var outboundTask = new Vue({
             /*</debug>*/
             p[0].post((_option ? this.form_pop : this.option));
         },
+        ckrwArehouseId: function () {
+            /*<debug>*/
+            console.log((_option ? this.form_pop : this.option));
+            /*</debug>*/
+            p[0].post((_option ? this.form_pop : this.option));
+        },
     }
 });
 // 高级 监视器的 使用方法
