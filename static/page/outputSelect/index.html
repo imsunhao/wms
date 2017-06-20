@@ -138,25 +138,29 @@
                                     </el-form-item>
                                     <el-form-item
                                             label="可用操作">
-                                        <el-button
-                                                size="small"
-                                                type="success"
-                                                @click="inlineExportOutputList(props.$index, props.row)">导出出库单据
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                type="success"
-                                                @click="inlineExportOutputDetailed(props.$index, props.row)">导出出库单据明细
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                type="success"
-                                                @click="inlineExportSortingDetailed(props.$index, props.row)">导出分拣明细
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                @click="inlineSelectOutputDetailed(props.$index, props.row)">查看出库明细信息
-                                        </el-button>
+                                        <!--<el-row v-if="window.body.kjQyW>1366">-->
+                                            <el-button
+                                                    size="small"
+                                                    type="success"
+                                                    @click="inlineExportOutputList(props.$index, props.row)">导出出库
+                                            </el-button>
+                                            <el-button
+                                                    size="small"
+                                                    type="success"
+                                                    @click="inlineExportOutputDetailed(props.$index, props.row)">导出明细
+                                            </el-button>
+                                            <el-button
+                                                    size="small"
+                                                    type="success"
+                                                    @click="inlineExportSortingDetailed(props.$index, props.row)">导出分拣
+                                            </el-button>
+                                        </el-row>
+                                        <el-row v-if="window.body.kjQyW>1366">
+                                            <el-button
+                                                    size="small"
+                                                    @click="inlineSelectOutputDetailed(props.$index, props.row)">查看出库明细信息
+                                            </el-button>
+                                        </el-row>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
