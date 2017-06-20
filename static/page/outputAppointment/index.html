@@ -489,6 +489,7 @@
                                     </el-table-column>
                                     <el-table-column
                                             label="件数"
+                                            v-if="form.title!='新建出库单'"
                                             width="80"
                                             prop="docsHslCount"
                                             align="center">
