@@ -87,6 +87,7 @@ function addOrDelete(obj, data) {
     }
     return false;
 }     //判断是否重复
+
 function allPrposCb(obj, cb) {
     /*
      * 用来遍历指定对象所有的属性名称和值
@@ -98,24 +99,25 @@ function allPrposCb(obj, cb) {
             cb(obj, p)
         }
     }
-}        //继承核心
+}        //核心-继承
+function autoValue(obj) {
+    var temp = Object.create(null);
+    for (index in obj) {
+        temp[index] = Object.create(null);
+        temp[index].value = obj[index];
+        temp[index].configurable = true;
+        temp[index].enumerable = true;
+        temp[index].writable = true;
+    }
+    return temp;
+}             //核心-继承-配置子类-自动转换参数
 function autoPost(option) {
-    function autoValue(obj) {
-        var temp = Object.create(null);
-        for (index in obj) {
-            temp[index] = Object.create(null);
-            temp[index].value = obj[index];
-            temp[index].configurable = true;
-            temp[index].enumerable = true;
-            temp[index].writable = true;
-        }
-        return temp;
-    }             //post核心 配置子类-自动转换参数
-
     function postCore() {
         for (var i in this.data) {
-            if (this.data[i] === '' || this.data[i] === null || this.data[i] === -1) {
-                delete this.data[i];
+            if (this.data.hasOwnProperty(i)) {
+                if (this.data[i] === '' || this.data[i] === null || this.data[i] === -1) {
+                    delete this.data[i];
+                }
             }
         }
         /*<debug>*/
@@ -125,7 +127,6 @@ function autoPost(option) {
         $.ajax(this.urlProd, this);
         /*</prod>*/
     }                 //post核心
-
     var _post = {
         type: 'POST',
         urlHock: '',
@@ -163,7 +164,117 @@ function autoPost(option) {
         }
     };          //post父类
     return Object.create(_post, autoValue(option));
-}           //post核心
+}           //核心 - post
+function auto_form(option) {
+    var step = {};
+    var index;
+    var _form = {
+        data: {},       //数据集合
+        get: function (number, numberN) {
+            if (typeof number === 'undefined')return;
+            var step = {};
+            if (typeof numberN === 'undefined') {
+                for (index in this.data) {
+                    if (this.data.hasOwnProperty(index)) {
+                        if ($.inArray(number, this.data[index].data) !== -1) {
+                            if (typeof this.data[index].Default !== 'undefined') step[index] = this.data[index].Default;
+                            else step[index] = '';
+                        }
+                    }
+                }
+            } else {
+                for (index in this.data) {
+                    if (this.data.hasOwnProperty(index)) {
+                        if (($.inArray(number, this.data[index].data) !== -1) && ($.inArray(numberN, this.data[index].data) === -1)) {
+                            if (typeof this.data[index].Default !== 'undefined') step[index] = this.data[index].Default;
+                            else step[index] = '';
+                        }
+                    }
+                }
+            }
+            return step;
+        },
+        pop: function (O, number) {
+            if (typeof O === 'undefined')return;
+            var row = O['form_' + number];
+            var cur = O['current'];
+            var step = this.get(number);
+
+            allPrposCb(step, function (obj2, index) {
+                if (typeof row[index] !== 'undefined') {
+                    if (row[index] instanceof Date) {
+                        step[index] = tsf_date(row[index]);
+                    }
+                    else if (row[index] instanceof Array) {
+                        for (var i in row[index]) {
+                            if (row[index].hasOwnProperty(i)) step[index + i] = tsf_date(row[index][i]);
+                        }
+                        delete step[index];
+                    }
+                    else {
+                        step[index] = row[index];
+                    }
+                }
+            });
+
+            step.pageNum = cur.pageNum;
+            step.pageSize = cur.pageSize;
+            step.draw = 0;
+
+            return step;
+        }
+    };
+    return Object.create(_form, autoValue(option));
+}          //核心 - 表单字段
+function ldd(label, data, Default) {
+    var step = Object.create(null);
+    step.label = label;
+    step.data = data;
+    step.Default = Default;
+    return step;
+}  //核心 - 表单 自动配置
+function auto_dialog(option) {
+    var _dialog = {
+        data: {},                 // 自定义值
+        Default: {
+            dv: false,   //弹出层 控制
+        },           // 默认值
+        val: function () {
+            var step = Object.create(null);
+            var index = '';
+            for (index in this.Default) {
+                if (this.Default.hasOwnProperty(index)) {
+                    step[index] = this.Default[index];
+                }
+            }
+            for (index in this.data) {
+                if (this.data.hasOwnProperty(index)) {
+                    step[index] = this.data[index];
+                }
+            }
+            return step;
+        }, // 值
+        fun: function (str, obj) {
+        }
+    };
+    return Object.create(_dialog, autoValue(option));
+}        //核心 - 新建弹出层
+
+function _current() {
+    return {
+        draw: 1,
+
+        pageNum: 1,
+        pageSize: 10,
+
+        pageSizes: [5, 10, 15, 20],
+        currentTotal: 0
+    };
+}                 //基础类   -  分页查询
+function _baseArehouses() {
+    return window.dbmessage.baseArehouses;
+}           //基础类   -  权限仓库
+
 function autoValidate(option, cbs) {
     var validateRule = {
         vNumber: function (rule, value, callback) {
@@ -268,17 +379,18 @@ function autoValidate(option, cbs) {
      }
      ]);*/
 
-}  //validate核心
+}  //核心-validate
+
 function selectVC(ref, prop) {
     obj.$refs[ref].validateField(prop, function (valid) {
         return valid;
     });
 }        //validate select 验证补丁
 
-var _option = false;
+var _option = false;                      //查询切换 补丁
 function selectReturn() {
     _option = false;
-}
+}             //查询切换 select 补丁
 function _pickerOptions() {
     return {
         shortcuts: [{
@@ -313,7 +425,7 @@ function _pickerOptions() {
             selectReturn();
         }
     }
-}
+}           //查询切换 picker 补丁
 
 function tsf_date(date, number) {
     if (typeof date !== 'undefined' && date !== null && date !== '') {
@@ -754,7 +866,6 @@ var ___datas = (function () {
     ]
 })();     //全局 el_tag 配置 参数
 
-
 function auto_el_tag(id, value) {
     for (var i in ___datas) {
         if (___datas[i].id === id) {
@@ -765,4 +876,7 @@ function auto_el_tag(id, value) {
             }
         }
     }
-}
+}     //自动适配 el-tag 标签
+
+
+

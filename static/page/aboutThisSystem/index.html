@@ -1,124 +1,169 @@
+<link rel="stylesheet" href="index.scss">
 <div id="tool_print">
-    <el-form
-            :model="form">
-        <el-form-item label="车牌号">
-            <el-input
-                    v-model="form.ckrwCph"
-                    icon="search"
-                    placeholder="车牌号"></el-input>
-        </el-form-item>
-        <el-form-item label="任务号">
-            <el-input
-                    v-model="form.ckrwNo"
-                    icon="search"
-                    placeholder="任务号"></el-input>
-        </el-form-item>
-        <el-form-item label="制作时间">
-            <el-date-picker
-                    v-model="form.ckrwGreatTime"
-                    type="daterange"
-                    align="right"
-                    placeholder="制作时间">
-            </el-date-picker>
-        </el-form-item>
-        <el-form-item label="任务状态">
-            <el-date-picker
-                    v-model="form.ckrwStatus"
-                    type="date"
-                    align="right"
-                    placeholder="制作时间">
-            </el-date-picker>
-        </el-form-item>
-        <el-form-item label="欠货状态">
-            <el-select v-model="form.ckrwQhStatus" placeholder="请选择">
-                <el-option :value="-1" label="全部"></el-option>
-                <el-option :value="1" label="欠货"></el-option>
-                <el-option :value="2" label="未欠货"></el-option>
-            </el-select>
-        </el-form-item>
-        <el-form-item label="滞留状态">
-            <el-select v-model="form.ckrwZlStatus" placeholder="请选择">
-                <el-option :value="-1" label="全部"></el-option>
-                <el-option :value="1" label="滞留"></el-option>
-                <el-option :value="2" label="未滞留"></el-option>
-            </el-select>
-        </el-form-item>
-    </el-form>
-    <el-button @click="submit">aaaaa</el-button>
 </div>
+<script type="text/x-template" id="tool-print-template">
+    <div id="tool">
+        <el-row v-loading="showLoading"
+                element-loading-text="拼命加载中">
+            <el-col :span="24">
+                <div class="inner btn-nav">
+                    <el-input
+                            @change="selectReturn"
+                            class="input"
+                            v-model="form_1.cyts"
+                            icon="search"
+                            placeholder="调拨单号"></el-input>
+                    <el-date-picker
+                            v-model="form_1.sfrq"
+                            type="daterange"
+                            align="right"
+                            placeholder="始发日期"
+                            class="datePicker"
+                            :picker-options="pickerOptions">
+                    </el-date-picker>
+                    <el-date-picker
+                            v-model="form_1.dhsj"
+                            type="daterange"
+                            align="right"
+                            placeholder="到货日期"
+                            class="datePicker"
+                            :picker-options="pickerOptions">
+                    </el-date-picker>
+                    <button @click="form_3.dv=!form_3.dv" class="btn btn-search"><i
+                            class="icon search"></i><span>详细查询</span>
+                    </button>
+                    <button @click="multiSelect=!multiSelect" class="btn btn-multiSelect"><i class="icon sel"></i><span>多选</span>
+                    </button>
+                </div>
 
-
+                <div class="block">
+                    <el-pagination
+                            @size-change="handleSizeChange"
+                            @current-change="handleCurrentChange"
+                            :current-page="current.pageNum"
+                            :page-size="current.pageSize"
+                            :total="current.currentTotal"
+                            :page-sizes="current.pageSizes"
+                            layout="total, sizes, prev, pager, next, jumper">
+                    </el-pagination>
+                </div>
+            </el-col>
+        </el-row>
+    </div>
+</script>
 <script>
-    var tool_print = {
-//        el: '#tool_print',
-        data: function () {
-            return {
-                current: _current(),
-                form: _form()
-            }
-        },
-        computed: {
-            form_pop: function () {
-                return auto_send_pop(this.form, this.current);
-            }
-        },
-        methods: {
-            submit: function () {
-                p.post(this.form_pop);
-            }
-        }
-    };
 
-    var obj = Vue.extend(tool_print);
-
-
-
-    function _current() {
-        return {
-            draw: 1,
-            pageNum: 1,
-            pageSize: 10
-        }
-    }
-
-    var p = autoPost({
-        urlProd: "/route/home/1",
-        success: function (json) {
+    /** 数据解析
+     *              主页面 为 入库台账
+     *
+     * 1.主页面 显示数据,6.编辑 主页面 数据
+     * 2.主页面 模糊查询
+     * 3.主页面 详细查询
+     * 4.弹出层 欠货完结 显示数据，提交数据
+     * 5.新增 主页面 数据
+     */
+    var _form = auto_form({
+        data: {
+            rk_rkdj_id: ldd('明细id', [1, 4, 5]),
+            sfrq: ldd('始发日期', [1, 2, 3]),
+            dhsj: ldd('到货日期', [1, 2, 3]),
+            dbdd: ldd('到货日期', [1, 3]),
+            cys: ldd('调拨地点', [1, 3]),
+            cph: ldd('承运商', [1, 3]),
+            shr: ldd('车牌号', [1, 3]),
+            shck: ldd('收货人', [1, 2, 3], window.dbmessage.baseArehouses[0].baArehouseId),
+            dh: ldd('收货仓库', [1, 2, 3]),
+            dbdh: ldd('单号', [1, 3]),
+            cyts: ldd('调拨单号', [1]),
+            cyxs: ldd('承运件数(台)', [1]),
+            cytj: ldd('承运件数(箱)', [1]),
+            wlbm: ldd('方数', [1]),
+            wlms: ldd('物料编号', [1, 3]),
+            ts: ldd('物料描述', [1, 3]),
+            js: ldd('台数', [1]),
+            tj: ldd('件数', [1]),
+            dbpswb: ldd('方数', [1]),
+            ytpswb: ldd('调拨破损外包', [1]),
+            dbpsnb: ldd('源头破损外包', [1]),
+            ytpsnb: ldd('调拨破损内保', [1]),
+            ycyy: ldd('源头破损内保', [1]),
+            cljg: ldd('异常原因', [1]),
+            psts: ldd('处理结果', [1]),
+            jssj: ldd('破损台数', [1]),
+            rksWjReason: ldd('结算时间', [4]),
+            rksBfdh: ldd('完结原因', [4])
         }
     });
 
-    function _form() {
-        return {
-            ckrwCph: '',        //车牌号
-            ckrwNo: '',         //任务号
-            ckrwGreatTime: ['', ''], //制作时间
-            ckrwStatus: '',     //任务状态
-            ckrwQhStatus: '',    //欠货状态
-            ckrwZlStatus: '',    //滞留状态
-        }
-    }
-
-    function auto_send_pop(row, cur) {
-        if (typeof  row === 'undefined')return;
-        var step = _form();
-        allPrposCb(step, function (obj2, index) {
-            if (typeof row[index] !== 'undefined') {
-                if (row[index] instanceof Date) {
-                    step[index] = tsf_date(row[index]);
-                } else if (row[index] instanceof Array) {
-                    for (var i in row[index]) {
-                        step[index + i] = tsf_date(row[index][i]);
-                    }
-                    delete step[index]
-                } else {
-                    step[index] = row[index];
-                }
+    var _select = auto_dialog({
+        data: _form.get(3),
+        fun: function (str) {
+            switch (str) {
+                case 'submit':
+                    p[0].post(obj.form_pop);
+                    break;
             }
-        });
-        for (var o in cur) {
-            step[o] = cur[o]
         }
-        return step;
-    }
+    });
 
+    /** 请求解析
+     *              主页面 为 入库台账
+     *
+     * 0.主页面 主要数据 查询
+     */
+    var p = [];
+    p[0] = autoPost({
+        urlProd: "/route/home/1"
+    });
+
+    var tool_print = {
+        template: "#tool-print-template",
+        data: function () {
+            return {
+                current: _current(),
+                form_1: _form.get(1),
+                form_6: _form.get(1),
+                form_2: _form.get(2),
+                form_3: _select.val(),
+                form_4: _form.get(4),
+                form_5: _form.get(5),
+
+                multiSelect: false,
+                showLoading: false,
+                pickerOptions: _pickerOptions()
+            };
+        },
+        computed: {
+            option: function () {
+                return _form.pop(this, 2);
+            },
+            pop: function () {
+                return _form.pop(this, 3);
+            }
+        },
+        methods: {
+            select: function (str) {
+                switch (str) {
+                    case 'submit':
+                        p[0].post(obj.form_pop);
+                        break;
+                }
+            },
+
+            handleSizeChange: function (val) {
+                this.current.pageSize = val;
+                p[0].post((_option ? this.pop : this.option));
+            },
+            handleCurrentChange: function (val) {
+                this.current.currentPage = val;
+                p[0].post((_option ? this.pop : this.option));
+            }
+        },
+        watch: {}
+    };
+    var objCreate = Vue.extend(tool_print);
+    var obj = new objCreate().$mount('#tool_print');
+    obj.$watch('form_2', function () {
+        p[0].post((_option ? this.form_pop : this.option));
+    }, {deep: true});
 </script>
