@@ -720,7 +720,7 @@ function _form() {
         title: '新建出库单',
 
         "ckYfhsj": (new Date()).toJSON(),
-        "ckEndtime": (new Date()).toJSON(),
+        "ckEndtime": "",
         "ckCkdjType": 1,
 
         allCount: 0,
