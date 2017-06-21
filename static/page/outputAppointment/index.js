@@ -720,7 +720,7 @@ function _form() {
         title: '新建出库单',
 
         "ckYfhsj": (new Date()).toJSON(),
-        "ckEndtime": (new Date()).toJSON(),
+        "ckEndtime": "",
         "ckCkdjType": 1,
 
         allCount: 0,
@@ -803,7 +803,6 @@ outputAppointment.$watch('form.title', function () {
 }, {deep: true});
 p[7].post(outputAppointment.option);
 function postGoods(obj, option, cb) {
-    //TODO 此处应为AJAX请求,待完善 querySearchAsync
 
     /*<debug>*/
     url = "/hock/form/rkGoods.json";
@@ -816,11 +815,29 @@ function postGoods(obj, option, cb) {
     $.ajax(url, {
         type: "GET",
         data: option,
-        error: function (error) {
-
-        },
         success: function (json) {
             json = json.data;
+
+            if (json[0].bgGoodsNo === obj.form.selectGood.baseGoods.bgGoodsNo) {
+                obj.form.selectGood = {
+                    baseGoods: {
+                        bgGoodsNo: json[0].bgGoodsNo,
+                        bgGoodsName: json[0].bgGoodsName
+                    },
+                    baseDw: {
+                        bdDwid: 1
+                    },
+                    cksGoodsCount: 0,
+                    cksDwid: json[0].bgZxdw,
+                    cksGoodsId: json[0].bgGoodsId,
+                    data: json[0]
+                };
+                obj.form.saveAmfunckDocs = false;
+            } else {
+                obj.form.selectGood.cksGoodsId = 0;
+                obj.form.saveAmfunckDocs = true;
+            }
+
             var step = [];
             var length = json.length > 20 ? 20 : json.length;
             for (var i = 0; i < length; i++) {

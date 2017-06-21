@@ -178,7 +178,7 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));   //图标
 app.use(logger('combined', {stream: accessLogStream}));         //日志
 
 // app.use(bodyParser({uploadDir:'./public/static/images/users/'}));
-app.use(bodyParser.json({ type: 'application/*+json' }));                                                         //请求解析 为json格式
+app.use(bodyParser.json({type: 'application/*+json'}));                                                         //请求解析 为json格式
 // app.use(express.bodyParser('./public/static/images/users/'));                   //图片路径
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());                                                                //请求解析 cookie
@@ -227,12 +227,12 @@ app.use(session({
  */
 app.use(function (req, res, next) {
     //demo req.originalUrl.match(/\/article\/read\/.*/)
-    if (/^.+\./.test(req.originalUrl)||/^\/page\/.+/.test(req.originalUrl)) return next();
+    if (/^.+\./.test(req.originalUrl) || /^\/page\/.+/.test(req.originalUrl)) return next();
     /*<debug>*/
     console.log("---------启用验证！------------------");
-    if(typeof req.session.user!=='undefined')
+    if (typeof req.session.user !== 'undefined')
         console.log(req.session.user.rmsUser.ruUserName);
-    else{
+    else {
         console.log('未登录用户');
     }
     console.log(req.originalUrl);
@@ -297,12 +297,13 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
     // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
+    // res.locals.message = err.message;
+    // res.locals.error = req.app.get('env') === 'development' ? err : {};
     // render the error page
-    res.status(err.status || 500);
-    res.render('page/error/index');
+    // res.status(err.status || 500);
+    
+    res.send({status: err.status, model: err.message});
 });
 
 /*

@@ -31,7 +31,7 @@
             </div>
             <el-table
                     :data="warehousingTask"
-                    :max-height="570"
+                    :max-height="config_table_height()"
                     ref="table"
                     @expand="expandChange"
                     @selection-change="multiSelectionChange"
@@ -91,7 +91,8 @@
                                                 <span>{{ props.row.rkrwDh }}</span>
                                             </el-form-item>
                                             <el-form-item label="任务状态">
-                                                <el-tag-s :val="auto_el_tag('rkRwStatus',props.row.rkrwStatus)"></el-tag-s>
+                                                <el-tag-s
+                                                        :val="auto_el_tag('rkRwStatus',props.row.rkrwStatus)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item
                                                     label="可用操作">
@@ -327,7 +328,7 @@
             </el-table-column>
             <el-table-column
                     label="货品编号"
-                     width="140"
+                    width="140"
                     show-overflow-tooltip
                     align="center"
                     prop="baseGoods.bgGoodsNo">
@@ -338,20 +339,21 @@
                     show-overflow-tooltip
                     label="货品名称">
             </el-table-column>
-             <el-table-column
+            <el-table-column
                     align="center"
                     prop="rksStatus"
                     show-overflow-tooltip
                     label="单据状态">
-                 <template scope="scope">
-                     <el-tag-s :val="auto_el_tag('rksStatus',scope.row.rksStatus)"></el-tag-s>
-                 </template></el-table-column>
+                <template scope="scope">
+                    <el-tag-s :val="auto_el_tag('rksStatus',scope.row.rksStatus)"></el-tag-s>
+                </template>
+            </el-table-column>
             <
             el-table-column
-                    label="单位"
-                    width="80"
-                    prop="baseDw.bdName"
-                    align="center">
+            label="单位"
+            width="80"
+            prop="baseDw.bdName"
+            align="center">
             </el-table-column>
             <el-table-column
                     label="数量"
@@ -360,13 +362,13 @@
                     prop="rksCount"
                     align="center">
             </el-table-column>
-             <el-table-column
+            <el-table-column
                     align="center"
                     prop="rksQhsl"
                     show-overflow-tooltip
                     label="欠货数量">
             </el-table-column>
-             <el-table-column
+            <el-table-column
                     align="center"
                     prop="rksBfdh"
                     show-overflow-tooltip

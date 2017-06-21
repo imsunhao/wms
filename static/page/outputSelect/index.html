@@ -51,7 +51,7 @@
             <el-table
                     :data="outputSelect"
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
-                    :max-height="570"
+                    :max-height="config_table_height()"
                     ref="table"
                     class="outputSelectTable"
                     @selection-change='multiSelectionChange'
@@ -96,10 +96,10 @@
                                         <span>{{props.row.allSortingTj  }}</span>
                                     </el-form-item>
                                     <el-form-item label="欠货数量">
-                                        <span>{{props.row.allQhCount||'未全部下架，无法计算' }}</span>
+                                        <span>{{props.row.allQhCount!=null?props.row.allQhCount:'未全部下架，无法计算' }}</span>
                                     </el-form-item>
                                     <el-form-item label="欠货体积">
-                                        <span>{{props.row.allQhTj||'未全部下架，无法计算'  }}</span>
+                                        <span>{{props.row.allQhTj!=null?props.row.allQhTj:'未全部下架，无法计算'  }}</span>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10" :offset="2">
@@ -656,7 +656,6 @@
                     {{ auto_msxWt(scope.row.msxWt)}}
                 </template>
             </el-table-column>
-
         </el-table>
     </el-dialog>
 </div>

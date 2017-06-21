@@ -216,7 +216,7 @@
         </div>
         <el-table
                 :data="warehouseConfiguration"
-                :max-height="450"
+                :max-height="config_table_height()"
                 ref="table"
                 class="warehouseConfigurationTable"
                 @selection-change="multiSelectionChange"

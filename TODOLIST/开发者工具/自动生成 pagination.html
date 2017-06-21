@@ -1,0 +1,29 @@
+<div class="block">
+    <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="current.pageNum"
+            :page-size="current.pageSize"
+            :total="current.currentTotal"
+            :page-sizes="current.pageSizes"
+            layout="total, sizes, prev, pager, next, jumper">
+    </el-pagination>
+</div>
+
+
+<script>
+    var string = '<div class="block">\
+    <el-pagination\
+@size-change="handleSizeChange"\
+@current-change="handleCurrentChange"\
+:current-page="current.pageNum"\
+:page-size="current.pageSize"\
+:total="current.currentTotal"\
+:page-sizes="current.pageSizes"\
+layout="total, sizes, prev, pager, next, jumper">\
+    </el-pagination>\
+    </div>';
+
+    console.log(string);
+</script>
+

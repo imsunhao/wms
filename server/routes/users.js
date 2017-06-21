@@ -65,7 +65,7 @@ router.post('/login', function (req, res, next) {
                 case 2:
                 case 3:
                     return res.send({
-                        status: status,
+                        status: json.status,
                         message: message
                     });
                 default:

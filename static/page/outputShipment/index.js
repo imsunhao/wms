@@ -178,7 +178,10 @@ var outputShipment = new Vue({
 
         expandChange: function (row, expanded) {
             if (expanded && (typeof (row.mfunckDoc) === 'undefined' || row.mfunckDoc === null || row.mfunckDoc.length === 0)) {
-                p[102].post({id: row.ckrwId,arehouseId:window.dbmessage.baseArehouses[0].baArehouseId}, function (json) {
+                p[102].post({
+                    id: row.ckrwId,
+                    arehouseId: window.dbmessage.baseArehouses[0].baArehouseId
+                }, function (json) {
                     /*<debug>*/
                     console.log(json);
                     /*</debug>*/
@@ -206,8 +209,9 @@ var outputShipment = new Vue({
             }
         },
         dblClick2: function (row, event) {
-            if(this.lists.ckRwStatus<51){
+            if (this.lists.ckRwStatus < 51) {
                 this.lists2.row = row;
+                this.lists2.cksFyCount = row.cksFyCount;
                 this.dialogLists2Visible = true;
             }
         },
@@ -222,11 +226,12 @@ var outputShipment = new Vue({
             p[2].post(step, function (json) {
                 this.callbackAfter({status: json.status, model: '修改发运数量'}, function () {
                     obj.dialogLists2Visible = false;
+                    obj.lists2.row.cksFyCount = obj.lists2.cksFyCount;
                 });
             })
         },
         submitListsCancel: function () {
-            dialogListsVisible = false
+            this.dialogLists2Visible = false
         },
 
 
@@ -289,7 +294,7 @@ var outputShipment = new Vue({
             }, 1500);
         },                                                //新建 表单提交
         selectSubmit: function () {
-            _option=true;
+            _option = true;
             p[0].post(obj.form_pop);
             this.dialogSelectVisible = !this.dialogSelectVisible;
 
@@ -382,7 +387,7 @@ var outputShipment = new Vue({
                     '部分下架': 22,
                     '全部分拣': 31,
                     '全部下架': 32,
-                    '作废':50
+                    '作废': 50
 
 
                 }
@@ -485,7 +490,7 @@ function selectGood() {
 function formList() {
     return {
         data: [],
-        ckRwStatus:0,
+        ckRwStatus: 0,
 
         ckCkdjNo: '',
         dialogLocationVisible: false,

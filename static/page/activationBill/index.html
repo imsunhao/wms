@@ -40,7 +40,7 @@
             <el-table
                     :data="activationBill"
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
-                    :max-height="570"
+                    :max-height="config_table_height()"
                     ref="table"
                     class="activationBillTable"
                     @expand="expandChange"
@@ -84,7 +84,8 @@
                                                 <span>{{props.row.goodsTypeNum}}</span>
                                             </el-form-item>
                                             <el-form-item label="任务状态">
-                                                <el-tag-s :val="auto_el_tag('ckRwStatus',props.row.ckrwStatus)"></el-tag-s>
+                                                <el-tag-s
+                                                        :val="auto_el_tag('ckRwStatus',props.row.ckrwStatus)"></el-tag-s>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :span="10" :offset="2">
@@ -101,10 +102,12 @@
                                         </span>
                                             </el-form-item>
                                             <el-form-item label="欠货状态">
-                                                <el-tag-s :val="auto_el_tag('ckQhStatus',props.row.ckrwQhStatus)"></el-tag-s>
+                                                <el-tag-s
+                                                        :val="auto_el_tag('ckQhStatus',props.row.ckrwQhStatus)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item label="滞留状态">
-                                                <el-tag-s :val="auto_el_tag('ckZlStatus',props.row.ckrwZlStatus)"></el-tag-s>
+                                                <el-tag-s
+                                                        :val="auto_el_tag('ckZlStatus',props.row.ckrwZlStatus)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item
                                                     label="可用操作">
@@ -198,7 +201,8 @@
                                             <el-button
                                                     size="mini"
                                                     type="info"
-                                                    v-if="scope.row.ckStatus==21||(scope.row.ckStatus==22&&scope.row.ckStartwith==2)"                                                    @click="inlineSupplementaryDistribution(scope.$index, scope.row)">
+                                                    v-if="scope.row.ckStatus==21||(scope.row.ckStatus==22&&scope.row.ckStartwith==2)"
+                                                    @click="inlineSupplementaryDistribution(scope.$index, scope.row)">
                                                 追加分拣
                                             </el-button>
                                             <el-button
@@ -566,6 +570,7 @@
                     align="center">
                 <template scope="scope">
                     <el-slider
+                            :disabled="scope.row.max==0"
                             :max="scope.row.max"
                             v-model="scope.row.msxMxCount">
                     </el-slider>
@@ -573,7 +578,7 @@
             </el-table-column>
         </el-table>
         <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="list2Submit">保存</el-button>
+            <el-button :loading="submitLoading" type="primary" @click="list2Submit">保存</el-button>
             <el-button @click="dialogLists2Visible=false">关闭</el-button>
         </div>
     </el-dialog>
@@ -1086,21 +1091,15 @@
                             obj.dialogListsVisible = true;
                         }
                     }).catch(function () {
-                        if (typeof row.fjsl === 'undefined' || row.fjsl === null || row.fjsl.length < 1) {
-                            p[7].post({id: row.ckCkdjId}, function (json) {
-                                for (var i = 0; i < json.model.length; i++) {
-                                    json.model[i].max = json.model[i].msxMxCount;
-                                }
-                                row.fjsl = json.model;
-                                obj.lists2.data = row.fjsl;
-                                obj.lists2.ckCkdjNo = row.ckCkdjNo;
-                                obj.dialogLists2Visible = true;
-                            })
-                        } else {
+                        p[7].post({id: row.ckCkdjId}, function (json) {
+                            for (var i = 0; i < json.model.length; i++) {
+                                json.model[i].max = json.model[i].msxMxCount;
+                            }
+                            row.fjsl = json.model;
                             obj.lists2.data = row.fjsl;
                             obj.lists2.ckCkdjNo = row.ckCkdjNo;
                             obj.dialogLists2Visible = true;
-                        }
+                        })
                     });
                 } else {
                     if (typeof row.mfunckDocs === 'undefined' || row.mfunckDocs === null || row.mfunckDocs.length < 1) {
@@ -1165,9 +1164,11 @@
                 }, 1500);
             },                                               //新建 表单提交
             list2Submit: function () {
+                obj.submitLoading = true;
                 var list = [];
                 var step = {};
                 for (var i = 0; i < obj.lists2.data.length; i++) {
+                    if (obj.lists2.data[i].max === obj.lists2.data[i].msxMxCount)continue;
                     step = _sortingMxList();
                     allPrposCb(step, function (obj2, index) {
                         if (typeof obj.lists2.data[i][index] !== 'undefined') step[index] = obj.lists2.data[i][index];
@@ -1180,6 +1181,7 @@
                 };
 
                 p[6].post(option, function (json) {
+                    obj.submitLoading = false;
                     this.callbackAfter(json, function () {
                         obj.lists2 = lists2Form();
                         obj.dialogLists2Visible = false;

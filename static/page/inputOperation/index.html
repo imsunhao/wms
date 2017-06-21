@@ -30,7 +30,7 @@
             <el-table
                     :data="inputOperation"
                     :default-sort="{prop: 'rkSjsj', order: 'descending'}"
-                    :max-height="570"
+                    :max-height="config_table_height()"
                     @toggleRowSelection="rowSelection"
                     @expand="expandChange"
                     @selection-change="handleSelectionChange"
@@ -450,7 +450,7 @@
                         prop="mdtBatch"
                         :label-width="formLabelWidth">
                     <el-input
-                            v-model.number="form.location.mdtBatch"
+                            v-model="form.location.mdtBatch"
                             auto-complete="off"></el-input>
                 </el-form-item>
 
