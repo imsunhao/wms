@@ -809,13 +809,13 @@ router.param('_url', function (req, res, next, url) {
                         });
                         break;
                     case 10:
-                        urlName = '出库预约-作废-出库单据-出库单号';
+                        urlName = '出库预约-查询-出库单据-出库单号';
                         req = autoUrl(req, '/mfunck/greatCkrwNo', "POST", function (json) {
                             res.send(json);
                         });
                         break;
                     case 11:
-                        urlName = '出库预约-作废-出库单据-出库单号';
+                        urlName = '出库预约-作废-出库单据';
                         req = autoUrl(req, '/mfunck/cancelMfunckDocByCkdjId', "POST", function (json) {
                             res.send(json);
                         });

@@ -388,7 +388,7 @@ var inputOperation = new Vue({
                 for (var i = 0; i < obj.multipleSelection.length; i++) {
                     step.push(obj.multipleSelection[i].rkRkdjId);
                 }
-                p[7].post({ids: step}, function (json) {
+                p[7].post({ids: step,userId:app.rmsUser.ruUserId}, function (json) {
                     this.callbackAfter({status: json.status, model: "上架"}, function () {
                         p[0].post(obj.option);
                     })
