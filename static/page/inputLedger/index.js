@@ -15,7 +15,7 @@ var inputLedger = new Vue({
             currentTotal: 0,
             rule_end: autoValidate(validate_end()), //欠货完结验证规则
             dbdh: '',                              //主页面 调拨单号 搜索
-            date: [null, null],                   //主页面 始发日期 搜索
+            dh:'',                                  //主页面 单号 搜索
             date1: [null, null],                  //主页面 到货日期 搜索
             rkArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,//主页面 仓库搜索
             formLabelWidth: '120px',            //表单 配置
@@ -40,6 +40,7 @@ var inputLedger = new Vue({
                 "pageNum": this.currentPage,
                 "pageSize": this.pageSize,
                 "dbdh": this.dbdh.trim(),
+                "dh": this.dh.trim(),
                 "sfrqStart": tsf_date(this.date[0]),
                 "sfrqEnd": tsf_date(this.date[1]),
                 "dhrqStart": tsf_date(this.date1[0]),
@@ -378,6 +379,10 @@ var inputLedger = new Vue({
         dbdh: function () {
             p[0].post((_option ? this.form_pop : this.option));
         },
+        dh: function () {
+            p[0].post((_option ? this.form_pop : this.option));
+        },
+
         rkArehouseId: function () {
             p[0].post((_option ? this.form_pop : this.option));
         }
