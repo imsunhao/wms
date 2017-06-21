@@ -9,14 +9,6 @@
                         v-model="rkRkdjNo"
                         icon="search"
                         placeholder="入库单号"></el-input>
-                <el-date-picker
-                        v-model="date"
-                        type="daterange"
-                        align="right"
-                        placeholder="下单时间"
-                        class="datePicker"
-                        :picker-options="pickerOptions">
-                </el-date-picker>
                 <el-select v-model="rkStatus" placeholder="请选择">
                     <el-option :value="-1" label="全部"></el-option>
                     <el-option :value="1" label="原始状态"></el-option>
