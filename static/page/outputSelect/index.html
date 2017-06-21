@@ -96,10 +96,10 @@
                                         <span>{{props.row.allSortingTj  }}</span>
                                     </el-form-item>
                                     <el-form-item label="欠货数量">
-                                        <span>{{props.row.allQhCount }}</span>
+                                        <span>{{props.row.allQhCount||'未全部下架，无法计算' }}</span>
                                     </el-form-item>
                                     <el-form-item label="欠货体积">
-                                        <span>{{props.row.allQhTj }}</span>
+                                        <span>{{props.row.allQhTj||'未全部下架，无法计算'  }}</span>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10" :offset="2">
