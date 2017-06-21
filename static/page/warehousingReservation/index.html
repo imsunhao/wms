@@ -448,7 +448,7 @@
                                     prop="rksCount"
                                     :label-width="formLabelWidth">
                                 <el-input
-                                        :disabled="form.selectGood.value==''"
+                                        :disabled="form.selectGood.rksGoodsId==0"
                                         ref="ref_rksCount"
                                         @keyup.enter.native="GoodEnter"
                                         v-model.number="form.selectGood.rksCount"
