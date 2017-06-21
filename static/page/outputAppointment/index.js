@@ -821,6 +821,28 @@ function postGoods(obj, option, cb) {
         },
         success: function (json) {
             json = json.data;
+
+
+            if (json[0].bgGoodsNo === obj.form.selectGood.baseGoods.bgGoodsNo) {
+                obj.form.selectGood = {
+                    baseGoods: {
+                        bgGoodsNo: json[0].bgGoodsNo,
+                        bgGoodsName: json[0].bgGoodsName
+                    },
+                    baseDw: {
+                        bdDwid: 1
+                    },
+                    cksGoodsCount: 0,
+                    cksDwid: json[0].bgZxdw,
+                    cksGoodsId: json[0].bgGoodsId,
+                    data: json[0]
+                };
+                obj.form.saveAmfunckDocs = false;
+            } else {
+                obj.form.selectGood.cksGoodsId = 0;
+                obj.form.saveAmfunckDocs = true;
+            }
+
             var step = [];
             var length = json.length > 20 ? 20 : json.length;
             for (var i = 0; i < length; i++) {
