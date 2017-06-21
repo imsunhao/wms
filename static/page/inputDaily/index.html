@@ -47,7 +47,7 @@
             <el-table
                     :data="inputDaily"
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
-                    :max-height="570"
+                    :max-height="config_table_height()"
                     show-summary
                     ref="table"
                     class="inputDailyTable"

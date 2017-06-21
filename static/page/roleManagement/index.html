@@ -219,7 +219,7 @@
         <!--主页面的字段-->
         <el-table
                 :data="roleManagement"
-                :max-height="450"
+                :max-height="config_table_height()"
                 ref="table"
                 class="roleManagementTable"
                 @selection-change="multiSelectionChange"

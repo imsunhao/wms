@@ -193,7 +193,7 @@
         </div>
         <el-table
                 :data="RFManage"
-                :max-height="450"
+                :max-height="config_table_height()"
                 ref="table"
                 class="RFManageTable"
                 @selection-change="multiSelectionChange"

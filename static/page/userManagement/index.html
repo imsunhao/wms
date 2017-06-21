@@ -220,7 +220,7 @@
         </div>
         <el-table
                 :data="userManagement"
-                :max-height="450"
+                :max-height="config_table_height()"
                 ref="table"
                 class="userManagementTable"
                 @selection-change="multiSelectionChange"

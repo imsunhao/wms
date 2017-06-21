@@ -192,7 +192,7 @@
         </div>
         <el-table
                 :data="operationAreaManage"
-                :max-height="450"
+                :max-height="config_table_height()"
                 ref="table"
                 class="operationAreaManageTable"
                 @selection-change="multiSelectionChange"

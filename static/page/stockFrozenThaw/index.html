@@ -41,7 +41,7 @@
             </div>
             <el-table
                     :data="stockFrozenThaw"
-                    :max-height="570"
+                    :max-height="config_table_height()"
                     ref="table"
                     @expand="expandChange"
                     class="stockFrozenThawTable"

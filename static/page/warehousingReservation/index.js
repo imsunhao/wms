@@ -865,11 +865,28 @@ function postGoods(obj, option, cb) {
     $.ajax(url, {
         type: "GET",
         data: option,
-        error: function (error) {
-
-        },
         success: function (json) {
             json = json.data;
+            if (json[0].bgGoodsNo === obj.form.selectGood.baseGoods.bgGoodsNo) {
+                obj.form.selectGood = {
+                    baseGoods: {
+                        bgGoodsNo: json[0].bgGoodsNo,
+                        bgGoodsName: json[0].bgGoodsName
+                    },
+                    baseDw: {
+                        bdDwid: json[0].bgZxdw,
+                        bdName: json[0].bgZxdw
+                    },
+                    rksCount: 0,
+                    rksDwid: json[0].bgZxdw,
+                    rksGoodsId: json[0].bgGoodsId,
+                    data: json[0]
+                };
+                obj.form.saveARkDocsList = false;
+            } else {
+                obj.form.selectGood.rksGoodsId = 0;
+                obj.form.saveARkDocsList = true;
+            }
             var step = [];
             var length = json.length > 20 ? 20 : json.length;
             for (var i = 0; i < length; i++) {

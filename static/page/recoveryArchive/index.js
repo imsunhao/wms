@@ -56,13 +56,15 @@ var recoveryArchive = new Vue({
             dialogRetentionVisible: false,        //滞留补发信息 弹出层 是否可见
 
 
+            dialogList2Visible: false,        //滞留补发信息 弹出层 是否可见
+            list2: _list2(),
+
             dialogSelectVisible: false,
             selectLoading: false,
             watchView: false,               //观察状态量-是否为查看
         }
     },
     computed: {
-        // TODO 表格提交
         option: function () {
             return {
                 "draw": 1,
@@ -73,7 +75,7 @@ var recoveryArchive = new Vue({
                 "ckEndXdsj": tsf_date(this.date[1]),
                 "mhStartCreateTime": tsf_date(this.date2[0]),
                 "mhEndCreateTime": tsf_date(this.date2[1]),
-                "ckArehouseId":this.ckArehouseId,
+                "ckArehouseId": this.ckArehouseId,
             }
         },
         search: function () {
@@ -100,50 +102,32 @@ var recoveryArchive = new Vue({
         },                                      //分配 表单
     },
     methods: {
-        inlineExportOutstanding: function (index, row) {
-            obj.$confirm('导出欠货 单据单号：' + row.ckCkdjNo, '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
-            }).then(function () {
-                p[4].post({
-                    ids: [row.ckCkdjId]
-                }, function (json) {
+        list2Submit: function () {
+            p[obj.list2.number].post({
+                    "startCkXdsj": tsf_date(obj.list2.CkXdsj[0]),
+                    "endCkXdsj": tsf_date(obj.list2.CkXdsj[1])
+                }
+                , function (json) {
                     this.callbackAfter({status: json.status, model: "导出欠货单"}, function () {
                         var url = "/static/Excel/" + json.model;
                         window.open(url);
+                        obj.dialogList2Visible = false;
+                        obj.list2 = _list2();
                     })
                 });
-            }).catch(function () {
-                obj.$message({
-                    type: 'info',
-                    message: '已取消导出'
-                });
-            });
+        },
+        inlineExportOutstanding: function () {
+            this.list2.number = 4;
+            this.list2.title = '导出欠货';
+            this.dialogList2Visible = true;
 
-        },                     //TODO 行内按钮-导出欠货
-        inlineExportRetention: function (index, row) {
-            obj.$confirm('导出滞留 单据单号：' + row.ckCkdjNo, '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
-            }).then(function () {
-                p[5].post({
-                    ids: [row.ckCkdjId]
-                }, function (json) {
-                    this.callbackAfter({status: json.status, model: "导出滞留单"}, function () {
-                        var url = "/static/Excel/" + json.model;
-                        window.open(url);
-                    })
-                });
-            }).catch(function () {
-                obj.$message({
-                    type: 'info',
-                    message: '已取消导出'
-                });
-            });
 
-        },                       //TODO 行内按钮-导出滞留
+        },                     //导出欠货
+        inlineExportRetention: function () {
+            this.list2.number = 5;
+            this.list2.title = '导出滞留';
+            this.dialogList2Visible = true;
+        },                       //导出滞留
 
         multiSelectClick: function () {
             this.multiSelect = !this.multiSelect;
@@ -154,12 +138,6 @@ var recoveryArchive = new Vue({
             /*</debug>*/
             this.multipleSelection = val;
         },                               //多选 选中控制
-        multiOperationExportOutstanding: function () {
-
-        },                       //TODO 多选 导出欠货
-        multiOperationExportRetention: function () {
-
-        },                         //TODO 多选 导出滞留
         handleSizeChange: function (val) {
             /*<debug>*/
             console.log('每页' + val + '条');
@@ -296,7 +274,7 @@ var recoveryArchive = new Vue({
                 temp = {
                     1: '整单欠货',
                     2: '部分欠货',
-                    3:'未欠货',
+                    3: '未欠货',
                 }
             } else {
                 temp = {
@@ -313,13 +291,13 @@ var recoveryArchive = new Vue({
                 temp = {
                     1: '未到车滞留',
                     2: '到车滞留',
-                    3:'未滞留',
+                    3: '未滞留',
                 }
             } else {
                 temp = {
                     '未到车滞留': 1,
                     '到车滞留': 2,
-                    '未滞留':3,
+                    '未滞留': 3,
                 }
             }
             return temp[value];
@@ -350,11 +328,17 @@ var recoveryArchive = new Vue({
             console.log(this.option);
             /*</debug>*/
             p[0].post(this.option);
-        },
-
-
+        }
     }
 });
+
+function _list2() {
+    return {
+        title: '',
+        CkXdsj: "",
+        number: 0
+    }
+}
 // 高级 监视器的 使用方法
 recoveryArchive.$watch('date', function () {
     /*<debug>*/
@@ -452,9 +436,9 @@ function formRetention() {
     }
 }
 
-function validate_form(){
-    return{
-        ckrwNo:'vNull',
+function validate_form() {
+    return {
+        ckrwNo: 'vNull',
     }
 }
 

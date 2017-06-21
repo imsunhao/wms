@@ -41,8 +41,6 @@ var inputLedger = new Vue({
                 "pageSize": this.pageSize,
                 "dbdh": this.dbdh.trim(),
                 "dh": this.dh.trim(),
-                "sfrqStart": tsf_date(this.date[0]),
-                "sfrqEnd": tsf_date(this.date[1]),
                 "dhrqStart": tsf_date(this.date1[0]),
                 "dhrqEnd": tsf_date(this.date1[1]),
                 "rkArehouseId": this.rkArehouseId,
@@ -388,10 +386,6 @@ var inputLedger = new Vue({
         }
     }
 });
-// 高级 监视器的 使用方法
-inputLedger.$watch('date', function () {
-    p[0].post((_option ? this.form_pop : this.option));
-}, {deep: true});
 inputLedger.$watch('date1', function () {
     p[0].post((_option ? this.form_pop : this.option));
 }, {deep: true});

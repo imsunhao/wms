@@ -189,7 +189,7 @@
             <el-table
                     :data="stockTransferConfirm"
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
-                    :max-height="570"
+                    :max-height="config_table_height()"
                     ref="table"
                     class="stockTransferConfirmTable"
                     @selection-change='multiSelectionChange'

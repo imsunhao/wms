@@ -205,7 +205,7 @@
             <el-table
                     :data="loopInventory"
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
-                    :max-height="570"
+                    :max-height="config_table_height()"
                     ref="table"
                     class="loopInventoryTable"
                     @selection-change='multiSelectionChange'

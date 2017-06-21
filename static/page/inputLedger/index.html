@@ -34,17 +34,22 @@
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
-                <button @click="multiSelectClick" class="btn btn-multiSelect"><i class="icon sel"></i><span>多选</span>
+                <button @click="multiSelectClick" class="btn btn-multiSelect">
+                    <i class="icon sel"></i>
+                    <span>多选</span>
                 </button>
                 <button
+                        style="position: absolute;top: -2.59px;"
                         class="btn btn-distribution"
-                        @click="moreOperationModify" v-show="multiSelect">导出
+                        @click="moreOperationModify"
+                        v-show="multiSelect">
+                    <span>导出</span>
                 </button>
             </div>
             <el-table
                     :data="inputLedger"
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
-                    :max-height="570"
+                    :max-height="config_table_height()"
                     @toggleRowSelection="rowSelection"
                     @row-click="hello"
                     @expand="expandChange"
@@ -236,6 +241,7 @@
                 </el-table-column>
                 <el-table-column
                         label="收货人"
+                        show-overflow-tooltip
                         align="center"
                         prop="shr">
                 </el-table-column>
