@@ -40,7 +40,7 @@ var inputLedger = new Vue({
                 "pageNum": this.currentPage,
                 "pageSize": this.pageSize,
                 "dbdh": this.dbdh.trim(),
-                "dh": this.dbdh.trim(),
+                "dh": this.dh.trim(),
                 "sfrqStart": tsf_date(this.date[0]),
                 "sfrqEnd": tsf_date(this.date[1]),
                 "dhrqStart": tsf_date(this.date1[0]),
