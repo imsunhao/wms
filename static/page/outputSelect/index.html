@@ -96,10 +96,10 @@
                                         <span>{{props.row.allSortingTj  }}</span>
                                     </el-form-item>
                                     <el-form-item label="欠货数量">
-                                        <span>{{props.row.allQhCount }}</span>
+                                        <span>{{props.row.allQhCount||'未全部下架，无法计算' }}</span>
                                     </el-form-item>
                                     <el-form-item label="欠货体积">
-                                        <span>{{props.row.allQhTj }}</span>
+                                        <span>{{props.row.allQhTj||'未全部下架，无法计算'  }}</span>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10" :offset="2">
@@ -138,25 +138,62 @@
                                     </el-form-item>
                                     <el-form-item
                                             label="可用操作">
-                                        <el-button
-                                                size="small"
-                                                type="success"
-                                                @click="inlineExportOutputList(props.$index, props.row)">导出出库单据
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                type="success"
-                                                @click="inlineExportOutputDetailed(props.$index, props.row)">导出出库单据明细
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                type="success"
-                                                @click="inlineExportSortingDetailed(props.$index, props.row)">导出分拣明细
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                @click="inlineSelectOutputDetailed(props.$index, props.row)">查看出库明细信息
-                                        </el-button>
+                                        <div v-if="window.body.kjQyW>1366">
+                                            <el-row>
+                                                <el-button
+                                                        size="small"
+                                                        type="success"
+                                                        @click="inlineExportOutputList(props.$index, props.row)">导出出库
+                                                </el-button>
+                                                <el-button
+                                                        size="small"
+                                                        type="success"
+                                                        @click="inlineExportOutputDetailed(props.$index, props.row)">
+                                                    导出明细
+                                                </el-button>
+                                                <el-button
+                                                        size="small"
+                                                        type="success"
+                                                        @click="inlineExportSortingDetailed(props.$index, props.row)">
+                                                    导出分拣
+                                                </el-button>
+                                            </el-row>
+                                            <el-row>
+                                                <el-button
+                                                        size="small"
+                                                        @click="inlineSelectOutputDetailed(props.$index, props.row)">
+                                                    查看出库明细信息
+                                                </el-button>
+                                            </el-row>
+                                        </div>
+                                        <div v-if="window.body.kjQyW<=1366">
+                                            <el-row>
+                                                <el-button
+                                                        size="small"
+                                                        type="success"
+                                                        @click="inlineExportOutputList(props.$index, props.row)">导出出库
+                                                </el-button>
+                                                <el-button
+                                                        size="small"
+                                                        type="success"
+                                                        @click="inlineExportOutputDetailed(props.$index, props.row)">
+                                                    导出明细
+                                                </el-button>
+                                            </el-row>
+                                            <el-row>
+                                                <el-button
+                                                        size="small"
+                                                        type="success"
+                                                        @click="inlineExportSortingDetailed(props.$index, props.row)">
+                                                    导出分拣
+                                                </el-button>
+                                                <el-button
+                                                        size="small"
+                                                        @click="inlineSelectOutputDetailed(props.$index, props.row)">
+                                                    查看明细
+                                                </el-button>
+                                            </el-row>
+                                        </div>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -394,7 +431,7 @@
                                   :label-width="formLabelWidth">
                         <el-select v-model="form.ckStartwith" placeholder="请选择">
                             <el-option :value="-1" label="全部"></el-option>
-                            <el-option :value="0" label="初始">初始</el-option>
+                            <el-option :value="0" label="电脑端">初始</el-option>
                             <el-option :value="1" label="电脑端">电脑端</el-option>
                             <el-option :value="2" label="PDA">PDA</el-option>
                         </el-select>
@@ -624,9 +661,7 @@
     </el-dialog>
 </div>
 <link rel="stylesheet" href="index.scss">
-<script src="index.js">
-
-</script>
+<script src="index.js"></script>
 
 
 

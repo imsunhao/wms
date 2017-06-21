@@ -160,9 +160,12 @@ var outputAppointment = new Vue({
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(function () {
-                obj.outputAppointment[index].ckCkdjType = 1;
-                postRetentionInput(obj, {
-                    id: [row.ckCkdjId]
+                p[12].post({
+                    ids: [row.ckCkdjId]
+                }, function (json) {
+                    this.callbackAfter({status: json.status, model: '滞留入库'}, function () {
+                        remove(row, obj.outputAppointment);
+                    })
                 });
             }).catch(function () {
                 obj.$message({
@@ -659,6 +662,12 @@ p[10] = autoPost({
 p[11] = autoPost({
     urlHock: "../../hock/form/inputOption.json",
     urlProd: "/route/outputAppointment/11"
+});
+// 12 出库预约-滞留入库
+p[12] = autoPost({
+    urlHock: "../../hock/form/inputOption.json",
+    method: 'GET',
+    urlProd: "/route/outputAppointment/12"
 });
 function CombinationDetails() {
     return {

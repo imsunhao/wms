@@ -24,14 +24,6 @@
                         v-model="ckrwCph"
                         icon="search"
                         placeholder="车牌号"></el-input>
-
-                <el-select
-                        @visible-change="selectReturn"
-                        v-model="ckrwArehouseId"
-                        placeholder="请选择所属仓库">
-                    <el-option :label="obj.baName" :value="obj.baArehouseId"
-                               v-for="obj of baseArehouses"></el-option>
-                </el-select>
                 <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
@@ -123,26 +115,30 @@
                                                         v-show="props.row.ckrwStatus==10"
                                                         @click="inlineIssued(props.$index, props.row)">下发
                                                 </el-button>
-                                                <el-button
-                                                        size="small"
-                                                        v-show="props.row.ckrwStatus<51&&props.row.ckrwStatus>10"
-                                                        v-if="props.row.ckrwSjdcsj==null"
-                                                        @click="inlineArriveCar(props.$index, props.row)">到车
-                                                </el-button>
-                                                <el-button
-                                                        size="small"
-                                                        type="info"
-                                                        icon="edit"
-                                                        v-show="props.row.ckrwStatus==10"
-                                                        @click="inlineModifyTask(props.$index, props.row)">
-                                                </el-button>
-                                                <el-button
-                                                        size="small"
-                                                        type="danger"
-                                                        icon="delete"
-                                                        v-show="props.row.ckrwStatus<31"
-                                                        @click="inlineCancelTask(props.$index, props.row)">
-                                                </el-button>
+                                                <el-row>
+                                                    <el-button
+                                                            size="small"
+                                                            type="info"
+                                                            icon="edit"
+                                                            v-show="props.row.ckrwStatus==10"
+                                                            @click="inlineModifyTask(props.$index, props.row)">
+                                                    </el-button>
+                                                    <el-button
+                                                            size="small"
+                                                            type="danger"
+                                                            icon="delete"
+                                                            v-show="props.row.ckrwStatus<31"
+                                                            @click="inlineCancelTask(props.$index, props.row)">
+                                                    </el-button>
+                                                </el-row>
+                                                <el-row>
+                                                    <el-button
+                                                            size="small"
+                                                            v-show="props.row.ckrwStatus<51&&props.row.ckrwStatus>10"
+                                                            v-if="props.row.ckrwSjdcsj==null"
+                                                            @click="inlineArriveCar(props.$index, props.row)">到车
+                                                    </el-button>
+                                                </el-row>
                                             </el-form-item>
 
                                         </el-col>
@@ -163,6 +159,7 @@
                                         :max-height="240">
                                     <el-table-column
                                             width="80"
+                                            align="center"
                                             show-overflow-tooltip
                                             label="仓库">
                                         <template scope="scope">
@@ -171,7 +168,6 @@
                                     </el-table-column>
                                     <el-table-column
                                             label="出库单号"
-                                            width="170"
                                             show-overflow-tooltip
                                             align="center"
                                             prop="ckCkdjNo">
@@ -194,18 +190,21 @@
                                     </el-table-column>
                                     <el-table-column
                                             label="联系人"
+                                            width="100"
                                             align="center"
                                             show-overflow-tooltip
                                             prop="ckContacts">
                                     </el-table-column>
                                     <el-table-column
                                             label="电话"
+                                            width="80"
                                             align="center"
                                             show-overflow-tooltip
                                             prop="ckTel">
                                     </el-table-column>
                                     <el-table-column
                                             label="地址"
+                                            width="80"
                                             align="center"
                                             show-overflow-tooltip
                                             prop="ckAdress">
@@ -220,7 +219,7 @@
                                         </template>
                                     </el-table-column>
                                     <el-table-column
-                                            width="100"
+                                            width="80"
                                             align="center"
                                             v-if="props.row.ckrwStatus>10&&props.row.ckrwStatus<42"
                                             label="挂起">
