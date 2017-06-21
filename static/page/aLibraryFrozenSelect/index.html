@@ -43,7 +43,7 @@
             </div>
             <el-table
                     :data="aLibraryFrozenSelect"
-                    :max-height="570"
+                    :max-height="config_table_height()"
                     ref="table"
                     @selection-change="multiSelectionChange"
                     @expand="expandChange"

@@ -38,7 +38,7 @@
             <el-table
                     :data="inputOperation"
                     :default-sort="{prop: 'rkSjsj', order: 'descending'}"
-                    :max-height="570"
+                    :max-height="config_table_height()"
                     @toggleRowSelection="rowSelection"
                     @expand="expandChange"
                     @selection-change="handleSelectionChange"

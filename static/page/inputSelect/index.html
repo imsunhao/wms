@@ -54,7 +54,7 @@
             <el-table
                     :data="inputSelect"
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
-                    :max-height="570"
+                    :max-height="config_table_height()"
                     ref="table"
                     class="inputSelectTable"
                     @selection-change='multiSelectionChange'

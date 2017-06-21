@@ -214,7 +214,7 @@
         </div>
         <el-table
                 :data="clientConfiguration"
-                :max-height="450"
+                :max-height="config_table_height()"
                 ref="table"
                 class="clientConfigurationTable"
                 @selection-change="multiSelectionChange"

@@ -32,7 +32,7 @@
             <el-table
                     :data="chooseBill"
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
-                    :max-height="570"
+                    :max-height="config_table_height()"
                     ref="table"
                     @expand="expandChange"
                     @selection-change="multiSelectionChange"

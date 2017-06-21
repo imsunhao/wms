@@ -42,7 +42,7 @@
             <el-table
                     :data="stockSelect"
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
-                    :max-height="570"
+                    :max-height="config_table_height()"
                     ref="table"
                     show-summary
                     class="stockSelectTable"

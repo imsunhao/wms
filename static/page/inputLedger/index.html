@@ -46,7 +46,7 @@
             <el-table
                     :data="inputLedger"
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
-                    :max-height="570"
+                    :max-height="config_table_height()"
                     @toggleRowSelection="rowSelection"
                     @row-click="hello"
                     @expand="expandChange"

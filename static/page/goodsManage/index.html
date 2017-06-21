@@ -197,7 +197,7 @@
         </div>
         <el-table
                 :data="goodsManage"
-                :max-height="450"
+                :max-height="config_table_height()"
                 ref="table"
                 class="goodsManageTable"
                 @selection-change="multiSelectionChange"
