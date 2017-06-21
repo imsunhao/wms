@@ -985,5 +985,8 @@ function auto_el_tag(id, value) {
     }
 }     //自动适配 el-tag 标签
 
+function config_table_height() {
+    return document.body.clientHeight - 300;
+}
 
 
