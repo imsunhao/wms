@@ -570,6 +570,7 @@
                     align="center">
                 <template scope="scope">
                     <el-slider
+                            :disabled="scope.row.max==0"
                             :max="scope.row.max"
                             v-model="scope.row.msxMxCount">
                     </el-slider>
@@ -1090,21 +1091,15 @@
                             obj.dialogListsVisible = true;
                         }
                     }).catch(function () {
-                        if (typeof row.fjsl === 'undefined' || row.fjsl === null || row.fjsl.length < 1) {
-                            p[7].post({id: row.ckCkdjId}, function (json) {
-                                for (var i = 0; i < json.model.length; i++) {
-                                    json.model[i].max = json.model[i].msxMxCount;
-                                }
-                                row.fjsl = json.model;
-                                obj.lists2.data = row.fjsl;
-                                obj.lists2.ckCkdjNo = row.ckCkdjNo;
-                                obj.dialogLists2Visible = true;
-                            })
-                        } else {
+                        p[7].post({id: row.ckCkdjId}, function (json) {
+                            for (var i = 0; i < json.model.length; i++) {
+                                json.model[i].max = json.model[i].msxMxCount;
+                            }
+                            row.fjsl = json.model;
                             obj.lists2.data = row.fjsl;
                             obj.lists2.ckCkdjNo = row.ckCkdjNo;
                             obj.dialogLists2Visible = true;
-                        }
+                        })
                     });
                 } else {
                     if (typeof row.mfunckDocs === 'undefined' || row.mfunckDocs === null || row.mfunckDocs.length < 1) {
