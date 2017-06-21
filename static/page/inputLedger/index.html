@@ -10,14 +10,12 @@
                         v-model="dbdh"
                         icon="search"
                         placeholder="调拨单号"></el-input>
-                <el-date-picker
-                        v-model="date"
-                        type="daterange"
-                        align="right"
-                        placeholder="始发日期"
-                        class="datePicker"
-                        :picker-options="pickerOptions">
-                </el-date-picker>
+                <el-input
+                        @change="selectReturn"
+                        class="input"
+                        v-model="dh"
+                        icon="search"
+                        placeholder="单号"></el-input>
                 <el-date-picker
                         v-model="date1"
                         type="daterange"
