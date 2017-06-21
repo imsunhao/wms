@@ -158,8 +158,7 @@
                                             show-overflow-tooltip
                                             label="仓库">
                                         <template scope="scope">
-                                            <!--{{auto_ckArehouseId(scope.row.ckArehouseId)}}-->
-                                            <!--{{auto_jc(scope.row.jc)}}-->
+                                            {{auto_jc(scope.row.baseArehouse.jc)}}
                                         </template>
                                     </el-table-column>
                                     <el-table-column
