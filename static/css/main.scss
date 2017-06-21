@@ -465,6 +465,12 @@ html, body {
     }
     .p1_inner {
       margin: 0 20px;
+      h2 {
+        margin: 0;
+      }
+      p {
+        margin: 3px 0;
+      }
     }
     .p1_2 {
       float: left;
