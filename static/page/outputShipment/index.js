@@ -231,7 +231,7 @@ var outputShipment = new Vue({
             })
         },
         submitListsCancel: function () {
-            dialogListsVisible = false
+            this.dialogLists2Visible = false
         },
 
 
