@@ -35,13 +35,10 @@
                     <el-option :label="obj.baName" :value="obj.baArehouseId"
                                v-for="obj of baseArehouses"></el-option>
                 </el-select>
-                <button @click="multiSelectClick" class="btn btn-multiSelect"><i
-                        class="icon sel"></i><span>多选</span>
-                </button>
-                <button @click="multiOperationExportOutstanding" class="btn btn-Issued" v-show="multiSelect"><i
+                <button @click="inlineExportOutstanding" class="btn btn-Issued"><i
                         class="icon issued1"></i><span>导出欠货</span>
                 </button>
-                <button @click="multiOperationExportRetention" class="btn btn-Issued" v-show="multiSelect"><i
+                <button @click="inlineExportRetention" class="btn btn-Issued"><i
                         class="icon issued1"></i><span>导出滞留</span>
                 </button>
 
@@ -139,20 +136,7 @@
                                                             @click="retentionInformation(props.$index, props.row)">
                                                         滞留补发信息
                                                     </el-button>
-                                                    <el-button
-                                                            size="small"
-                                                            type="success"
-                                                            v-if="props.row.ckZlStatus==2"
-                                                            @click="inlineExportOutstanding(props.$index, props.row)">
-                                                        导出欠货
-                                                    </el-button>
                                                 </el-row>
-                                                <el-button
-                                                        size="small"
-                                                        type="success"
-                                                        v-if="props.row.ckZlStatus==2"
-                                                        @click="inlineExportRetention(props.$index, props.row)">导出滞留
-                                                </el-button>
                                             </el-form-item>
                                         </el-col>
                                     </el-row>
@@ -341,6 +325,33 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="retentionSubmit" :loading="submitLoading">保存
+            </el-button>
+        </div>
+    </el-dialog>
+    <el-dialog
+            size="tiny"
+            :title="list2.title"
+            v-model="dialogList2Visible">
+        <el-form
+                :model="retention">
+            <el-form-item
+                    label="出库明细时间"
+                    prop="ckrwNo"
+                    :label-width="formLabelWidth">
+                <el-date-picker
+                        v-model="list2.CkXdsj"
+                        type="daterange"
+                        align="right"
+                        placeholder="创建日期"
+                        :picker-options="pickerOptions">
+                </el-date-picker>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary"
+                       :disabled="list2.CkXdsj==''"
+                       @click="list2Submit"
+                       :loading="submitLoading">保存
             </el-button>
         </div>
     </el-dialog>

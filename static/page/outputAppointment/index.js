@@ -803,7 +803,6 @@ outputAppointment.$watch('form.title', function () {
 }, {deep: true});
 p[7].post(outputAppointment.option);
 function postGoods(obj, option, cb) {
-    //TODO 此处应为AJAX请求,待完善 querySearchAsync
 
     /*<debug>*/
     url = "/hock/form/rkGoods.json";
@@ -816,12 +815,8 @@ function postGoods(obj, option, cb) {
     $.ajax(url, {
         type: "GET",
         data: option,
-        error: function (error) {
-
-        },
         success: function (json) {
             json = json.data;
-
 
             if (json[0].bgGoodsNo === obj.form.selectGood.baseGoods.bgGoodsNo) {
                 obj.form.selectGood = {
