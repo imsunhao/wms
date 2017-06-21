@@ -198,8 +198,7 @@
                                             <el-button
                                                     size="mini"
                                                     type="info"
-                                                    v-if="scope.row.ckStatus==21"
-                                                    @click="inlineSupplementaryDistribution(scope.$index, scope.row)">
+                                                    v-if="scope.row.ckStatus==21||(scope.row.ckStatus==22&&scope.row.ckStartwith==2)"                                                    @click="inlineSupplementaryDistribution(scope.$index, scope.row)">
                                                 追加分拣
                                             </el-button>
                                             <el-button
