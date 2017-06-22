@@ -158,6 +158,68 @@
                                         @row-dblclick="dblClick"
                                         :max-height="240">
                                     <el-table-column
+                                            type="expand">
+                                        <template scope="props">
+                                            <el-carousel
+                                                    ref="carousel"
+                                                    :autoplay="false"
+                                                    arrow="never"
+                                                    indicator-position="none"
+                                                    height="55vh">
+                                                <el-carousel-item>
+                                                    <el-row>
+                                                        <h3 style="margin-top: 0; ">出库任务单据详细</h3>
+                                                    </el-row>
+                                                    <el-form label-position="left" inline class="demo-table-expand">
+                                                        <el-row>
+                                                            <el-col :span="10">
+                                                                <el-form-item label="ERP单号">
+                                                                    <span>{{ props.row.ckErpNo  }}</span>
+                                                                </el-form-item>
+                                                                <el-form-item label="单据类型">
+                                                                    <el-tag-s
+                                                                            :val="auto_el_tag('ckCkdjType',props.row.ckCkdjType)"></el-tag-s>
+                                                                </el-form-item>
+                                                                <el-form-item label="单据状态">
+                                                                    <el-tag-s
+                                                                            :val="auto_el_tag('ckStatus',props.row.ckStatus)"></el-tag-s>
+                                                                </el-form-item>
+                                                                <el-form-item label="制单方式">
+                                                                    <el-tag-s
+                                                                            :val="auto_el_tag('ckIsauto',props.row.ckIsauto)"></el-tag-s>
+                                                                </el-form-item>
+                                                                <el-form-item label="欠货状态">
+                                                                    <el-tag-s
+                                                                            :val="auto_el_tag('cksQhStatuss',props.row.ckQhStatus)"></el-tag-s>
+                                                                </el-form-item>
+                                                            </el-col>
+                                                            <el-col :span="10" :offset="2">
+                                                                <el-form-item label="下架开始">
+                                                                    <template scope="scope">
+                                                                        <!--<span>{{ auto_time_new(scope.row.ckCksj) }}</span>-->
+                                                                    </template>
+                                                                </el-form-item>
+                                                                <el-form-item label="下架结束">
+                                                                    <template scope="scope">
+                                                                        <!--<span>{{ auto_time_new(scope.row.ckEndtime) }}</span>-->
+                                                                    </template>
+                                                                </el-form-item>
+                                                                <el-form-item label="滞留状态">
+                                                                    <el-tag-s
+                                                                            :val="auto_el_tag('cksZlStatus',props.row.ckZlStatus)"></el-tag-s>
+                                                                </el-form-item>
+                                                                <el-form-item label="挂起状态">
+                                                                    <el-tag-s
+                                                                            :val="auto_el_tag('ckGqStatus',props.row.ckGqStatus)"></el-tag-s>
+                                                                </el-form-item>
+                                                            </el-col>
+                                                        </el-row>
+                                                    </el-form>
+                                                </el-carousel-item>
+                                            </el-carousel>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
                                             width="80"
                                             align="center"
                                             show-overflow-tooltip

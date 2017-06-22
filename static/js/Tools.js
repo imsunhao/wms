@@ -888,6 +888,15 @@ var ___datas = (function () {
                 {value: 2, name: '作废', type: 'success', color: ''}
             ]
         },
+           {
+            id: 'ckGqStatus',
+            name: '挂起状态',
+            data: [
+                {value: 1, name: '未挂起', type: 'danger', color: ''},
+                {value: 2, name: '已挂起', type: 'success', color: ''}
+            ]
+        },
+
         {
             id: 'djStatus',
             name: '冻结状态',
