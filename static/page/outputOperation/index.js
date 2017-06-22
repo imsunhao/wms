@@ -81,6 +81,7 @@ var outputOperation = new Vue({
                 "ckEndXdsj": tsf_date(this.date[1]),
                 "mhStartCreateTime": tsf_date(this.date2[0]),
                 "mhEndCreateTime": tsf_date(this.date2[1]),
+                ckArehouseId:window.dbmessage.baseArehouses[0].baArehouseId,
             }
         },
         distributionForm: function () {
