@@ -22,9 +22,7 @@ var outputShipment = new Vue({
             dialogFormVisible: false,               //新建 弹出层 是否可见
             submitLoading: false,                   //新建 弹出层 提交等待
 
-
             select: _form(),                         //搜索 弹出层 信息集合
-
 
             dialogListsVisible: false,              //单据详细 查询
             dialogLists2Visible: false,              //单据详细 查询
@@ -32,7 +30,6 @@ var outputShipment = new Vue({
             lists2: lists2Form(),
 
             printDatas: _printDatas_p1(),              //打印 承运协议 信息集合
-
 
             changeoutputShipment: [],
 
@@ -461,13 +458,11 @@ p[3] = autoPost({
     urlHock: "../../hock/outputShipment/page.json",
     urlProd: "/route/outputShipment/3"
 });
-
 // 101 查询-出库单号-出库明细
 p[101] = autoPost({
     urlHock: "/hock/warehousingTask/mfunckDoc.json",
     urlProd: "/route/outboundTask/2"
 });
-
 // 102 查询-入库任务详情
 p[102] = autoPost({
     urlHock: "/hock/warehousingTask/rwmfunckDoc.json",
@@ -536,7 +531,6 @@ function lists2Form() {
         },
     }
 }
-
 function postLists2() {
     return {
         "cksCkmxId": '出库明细ID',

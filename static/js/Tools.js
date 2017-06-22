@@ -250,7 +250,10 @@ function autoVue(data, methods, other) {
                 current: _current(),
                 multiSelect: false,
                 showLoading: false,
-                pickerOptions: _pickerOptions()
+                pickerOption0: _pickerOptions(0),
+                pickerOption10: _pickerOptions(10),
+                pickerOption100: _pickerOptions(100),
+                pickerOption110: _pickerOptions(110)
             },           // 默认值
             init: function () {
                 var step = Object.create(null);
@@ -498,39 +501,130 @@ var _option = false;                      //查询切换 补丁
 function selectReturn() {
     _option = false;
 }             //查询切换 select 补丁
-function _pickerOptions() {
-    return {
-        shortcuts: [{
-            text: '最近一周',
-            onClick: function (picker) {
-                var end = new Date();
-                var start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                selectReturn();
-                picker.$emit('pick', [start, end]);
-            }
-        }, {
-            text: '最近一个月',
-            onClick: function (picker) {
-                var end = new Date();
-                var start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                selectReturn();
-                picker.$emit('pick', [start, end]);
-            }
-        }, {
-            text: '最近三个月',
-            onClick: function (picker) {
-                var end = new Date();
-                var start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                selectReturn();
-                picker.$emit('pick', [start, end]);
-            }
-        }],
-        onPick: function (maxDate, minDate) {
-            selectReturn();
-        }
+function _pickerOptions(number) {
+    switch (number || 0) {
+        case 0:      //pickerOption0     模糊查询 范围 周 月
+            return {
+                shortcuts: [{
+                    text: '最近一周',
+                    onClick: function (picker) {
+                        var end = new Date();
+                        var start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                        selectReturn();
+                        picker.$emit('pick', [start, end]);
+                    }
+                }, {
+                    text: '最近一个月',
+                    onClick: function (picker) {
+                        var end = new Date();
+                        var start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                        selectReturn();
+                        picker.$emit('pick', [start, end]);
+                    }
+                }, {
+                    text: '最近三个月',
+                    onClick: function (picker) {
+                        var end = new Date();
+                        var start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                        selectReturn();
+                        picker.$emit('pick', [start, end]);
+                    }
+                }],
+                onPick: function (maxDate, minDate) {
+                    selectReturn();
+                }
+            };
+        case 10:     //pickerOption11    模糊查询 精确 天
+            return {
+                shortcuts: [
+                    {
+                        text: '明天',
+                        onClick: function (picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() + 3600 * 1000 * 24);
+                            picker.$emit('pick', date);
+                        }
+                    },
+                    {
+                        text: '今天',
+                        onClick: function (picker) {
+                            picker.$emit('pick', new Date());
+                        }
+                    },
+                    {
+                        text: '昨天',
+                        onClick: function (picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() - 3600 * 1000 * 24);
+                            picker.$emit('pick', date);
+                        }
+                    }
+                ],
+                onPick: function (maxDate, minDate) {
+                    selectReturn();
+                }
+            };
+        case 100:     //pickerOption100  范围 周 月
+            return {
+                shortcuts: [{
+                    text: '最近一周',
+                    onClick: function (picker) {
+                        var end = new Date();
+                        var start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                        selectReturn();
+                        picker.$emit('pick', [start, end]);
+                    }
+                }, {
+                    text: '最近一个月',
+                    onClick: function (picker) {
+                        var end = new Date();
+                        var start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                        selectReturn();
+                        picker.$emit('pick', [start, end]);
+                    }
+                }, {
+                    text: '最近三个月',
+                    onClick: function (picker) {
+                        var end = new Date();
+                        var start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                        selectReturn();
+                        picker.$emit('pick', [start, end]);
+                    }
+                }]
+            };
+        case 110:     //pickerOption111  精确 天
+            return {
+                shortcuts: [
+                    {
+                        text: '明天',
+                        onClick: function (picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() + 3600 * 1000 * 24);
+                            picker.$emit('pick', date);
+                        }
+                    },
+                    {
+                        text: '今天',
+                        onClick: function (picker) {
+                            picker.$emit('pick', new Date());
+                        }
+                    },
+                    {
+                        text: '昨天',
+                        onClick: function (picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() - 3600 * 1000 * 24);
+                            picker.$emit('pick', date);
+                        }
+                    }
+                ]
+            };
     }
 }           //查询切换 picker 补丁
 

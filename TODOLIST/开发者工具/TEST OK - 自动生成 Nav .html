@@ -1,0 +1,71 @@
+
+<el-input @change="selectReturn" class="input" v-model="form_2.dh" icon="search" :placeholder="form.dh"></el-input>
+<el-date-picker v-model="form_2.sfrq" type="date" align="right" :placeholder="form.sfrq" class="datePicker"
+                :picker-options="pickerOption10"></el-date-picker>
+<el-date-picker v-model="form_2.dhsj" type="daterange" align="right" :placeholder="form.dhsj" class="datePicker"
+                :picker-options="pickerOption0"></el-date-picker>
+<el-select @visible-change="selectReturn" v-model="form_2.shck" :placeholder="form.shck">
+</el-select>
+
+
+<script>
+
+    /**
+     * @param __form  V-model前缀
+     *
+     * @param label
+     *          1. "" 正常解析 其余不解析
+     *
+     * @returns {string}
+     */
+    function autoNav(__form, label) {
+        var string = '';
+        for (var index in label) {
+            if (label.hasOwnProperty(index)) {
+                var temp = label[index];
+                if (temp.constructor === String) {
+                    string += '<el-input\
+    @change="selectReturn"\
+    class="input"\
+    v-model="' + __form + '.' + index + '"\
+    icon="search"\
+    :placeholder="form.' + index + '"></el-input>'
+                }
+                else if (temp.constructor === Array) {
+                    string += '<el-date-picker\
+    v-model="' + __form + '.' + index + '"\
+                    type="daterange"\
+                    align="right"\
+                :placeholder="form.' + index + '"\
+                class="datePicker"\
+                :picker-options="pickerOption0">\
+                        </el-date-picker>'
+
+                } else if (temp.constructor === Object) {
+                    string += '<el-date-picker\
+    v-model="' + __form + '.' + index + '"\
+                    type="date"\
+                    align="right"\
+                :placeholder="form.' + index + '"\
+                class="datePicker"\
+                :picker-options="pickerOption10">\
+                        </el-date-picker>'
+
+                } else if (temp.constructor === Number) {
+                    string += ' <el-select\
+                    @visible-change="selectReturn"\
+    v-model="' + __form + '.' + index + '"\
+                :placeholder="form.' + index + '">\
+                        <el-option :label="obj.baName" :value="obj.baArehouseId"\
+                    v-for="obj of baseArehouses"></el-option>\
+                        </el-select>'
+                }
+            }
+        }
+        return string;
+    }
+    var __form = 'form_2';
+    var label = {"dh": "", "sfrq": {}, "dhsj": [], "shck": 1};
+
+    console.log(autoNav(__form, label));
+</script>
