@@ -145,7 +145,7 @@ function autoPost(option) {
             } else {
                 obj.$notify({
                     title: '失败',
-                    message: json.model + '失败!',
+                    message: json.model + '失败,已有盘点或者所选数据条件不符和!',
                     type: 'error'
                 });
             }
