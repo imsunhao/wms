@@ -145,7 +145,7 @@ function autoPost(option) {
             } else {
                 obj.$notify({
                     title: '失败',
-                    message: json.model + '失败!',
+                    message: json.model + '失败,已有盘点或者所选数据条件不符和!',
                     type: 'error'
                 });
             }
@@ -982,6 +982,15 @@ var ___datas = (function () {
                 {value: 2, name: '作废', type: 'success', color: ''}
             ]
         },
+           {
+            id: 'ckGqStatus',
+            name: '挂起状态',
+            data: [
+                {value: 1, name: '未挂起', type: 'danger', color: ''},
+                {value: 2, name: '已挂起', type: 'success', color: ''}
+            ]
+        },
+
         {
             id: 'djStatus',
             name: '冻结状态',
