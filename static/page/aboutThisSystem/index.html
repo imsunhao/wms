@@ -7,28 +7,13 @@
                 element-loading-text="拼命加载中">
             <el-col :span="24">
                 <div class="inner btn-nav">
-                    <el-input
-                            @change="selectReturn"
-                            class="input"
-                            v-model="form_2.dh"
-                            icon="search"
-                            :placeholder="form.dh"></el-input>
-                    <el-date-picker
-                            v-model="form_2.dhsj"
-                            type="daterange"
-                            align="right"
-                            :placeholder="form.dhsj"
-                            class="datePicker"
-                            :picker-options="pickerOptions">
-                    </el-date-picker>
-                    <el-date-picker
-                            v-model="form_2.sfrq"
-                            type="daterange"
-                            align="right"
-                            :placeholder="form.sfrq"
-                            class="datePicker"
-                            :picker-options="pickerOptions">
-                    </el-date-picker>
+                    <el-input @change="selectReturn" class="input" v-model="form_2.dh" icon="search" :placeholder="form.dh"></el-input>
+                    <el-date-picker v-model="form_2.sfrq" type="date" align="right" :placeholder="form.sfrq" class="datePicker"
+                                    :picker-options="pickerOption10"></el-date-picker>
+                    <el-date-picker v-model="form_2.dhsj" type="daterange" align="right" :placeholder="form.dhsj" class="datePicker"
+                                    :picker-options="pickerOption0"></el-date-picker>
+                    <el-select @visible-change="selectReturn" v-model="form_2.shck" :placeholder="form.shck">
+                    </el-select>
                     <button @click="form_3.dv=!form_3.dv" class="btn btn-search"><i
                             class="icon search"></i><span>详细查询</span>
                     </button>
@@ -128,7 +113,7 @@
         form_6: _form.get(1),
         form_2: _form.get(2),
         form_4: _form.get(4),
-        form_5: _form.get(5)
+        form_5: _form.get(1,5)
     }, {}, {
         template: "#tool-print-template",
         watch: {}

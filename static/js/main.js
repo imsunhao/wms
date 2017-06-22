@@ -553,7 +553,7 @@ $(function () {
         // w.body.kjW = window.screen.height; //屏幕分辨率的高
         // w.body.kjW = window.screen.availWidth; //屏幕可用工作区宽度
         // w.body.kjW = window.screen.availHeight; //屏幕可用工作区高度
-        // w.body.kjW = window.screen.colorDepth; //你的屏幕设置是    位彩色
+        // w.body.kjW = window.screen.colorDepth; //你的屏幕设置是  位彩色
         // w.body.kjW = window.screen.deviceXDPI;  //你的屏幕设置  像素/英寸
         autoPost({
             urlProd: "/route/home/1",
