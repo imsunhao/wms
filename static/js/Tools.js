@@ -145,7 +145,7 @@ function autoPost(option) {
             } else {
                 obj.$notify({
                     title: '失败',
-                    message: json.model + '失败,已有盘点或者所选数据条件不符和!',
+                    message: json.model + '失败!',
                     type: 'error'
                 });
             }
@@ -973,6 +973,17 @@ var ___datas = (function () {
                 {value: 3, name: '未滞留', type: 'success', color: ''}
             ]
         },
+          {
+            id: 'cksBfStatus',
+            name: '补发状态',
+            data: [
+                {value: 0, name: '初始', type: 'gray', color: ''},
+                {value: 1, name: '已赔付', type: 'warning', color: ''},
+                {value: 2, name: '已补发', type: 'danger', color: ''},
+                {value: 3, name: '需更进', type: 'success', color: ''}
+            ]
+        },
+
         {
             id: 'zyStatus',
             name: '转移状态',
@@ -1060,6 +1071,7 @@ var ___datas = (function () {
                 {value: 2, name: '高位叉车', type: 'success', color: ''}
             ]
         },
+
 
 
         // {

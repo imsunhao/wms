@@ -193,16 +193,12 @@
                                                                             :val="auto_el_tag('cksQhStatuss',props.row.ckQhStatus)"></el-tag-s>
                                                                 </el-form-item>
                                                             </el-col>
-                                                            <el-col :span="10" :offset="2">
+                                                            <el-col :span="10" :offset="1">
                                                                 <el-form-item label="下架开始">
-                                                                    <template scope="scope">
-                                                                        <!--<span>{{ auto_time_new(scope.row.ckCksj) }}</span>-->
-                                                                    </template>
+                                                                    <span>{{auto_time_new(props.row.ckXdsj,4) }}</span>
                                                                 </el-form-item>
                                                                 <el-form-item label="下架结束">
-                                                                    <template scope="scope">
-                                                                        <!--<span>{{ auto_time_new(scope.row.ckEndtime) }}</span>-->
-                                                                    </template>
+                                                                        <span>{{auto_time_new(props.row.ckEndtime,4) }}</span>
                                                                 </el-form-item>
                                                                 <el-form-item label="滞留状态">
                                                                     <el-tag-s
@@ -744,6 +740,63 @@
             <el-table-column
                     type="index"
                     width="55">
+            </el-table-column>
+            <el-table-column
+                    type="expand">
+                <template scope="props">
+                    <el-carousel
+                            ref="carousel"
+                            :autoplay="false"
+                            arrow="never"
+                            indicator-position="none"
+                            height="55vh">
+                        <el-carousel-item>
+                            <el-row>
+                                <h3 style="margin-top: 0; ">出库明细详细</h3>
+                            </el-row>
+                            <el-form label-position="left" inline class="demo-table-expand">
+                                <el-row>
+                                    <el-col :span="10">
+                                        <el-form-item label="单据状态">
+                                            <el-tag-s
+                                                    :val="auto_el_tag('ckStatus',props.row.cksStatus)"></el-tag-s>
+                                        </el-form-item>
+                                        <el-form-item label="欠货状态">
+                                            <el-tag-s
+                                                    :val="auto_el_tag('cksQhStatus',props.row.cksQhStatus)"></el-tag-s>
+                                        </el-form-item>
+                                        <el-form-item label="欠货数量">
+                                                <span>{{props.row.cksQhCount }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="滞留状态">
+                                            <el-tag-s
+                                                    :val="auto_el_tag('cksZlStatus',props.row.cksZlStatus)"></el-tag-s>
+                                        </el-form-item>
+                                        <el-form-item label="滞留数量">
+                                            <span>{{props.row.cksZlCount }}</span>
+                                        </el-form-item>
+                                    </el-col>
+
+                                    <el-col :span="10" :offset="2">
+                                        <el-form-item label="发货数量">
+                                            <span>{{props.row.cksFyCount }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="滞留信息">
+                                            <span>{{props.row.cksZlbfInfo }}</span>
+                                        </el-form-item>
+                                        <el-form-item label="补发状态">
+                                            <el-tag-s
+                                                    :val="auto_el_tag('cksBfStatus',props.row.cksBfStatus)"></el-tag-s>
+                                        </el-form-item>
+                                        <el-form-item label="欠货备注">
+                                            <span>{{props.row.cksQhRemarks }}</span>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+                            </el-form>
+                        </el-carousel-item>
+                    </el-carousel>
+                </template>
             </el-table-column>
             <el-table-column
                     label="货品编号"
