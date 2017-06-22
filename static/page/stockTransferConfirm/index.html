@@ -185,6 +185,13 @@
                     <el-option label="未确认" :value.number="0"></el-option>
                     <el-option label="已确认" :value.number="1"></el-option>
                 </el-select>
+                <el-select
+                        @visible-change="selectReturn"
+                        v-model="zyArehouseId"
+                        placeholder="请选择所属仓库">
+                    <el-option :label="obj.baName" :value="obj.baArehouseId"
+                               v-for="obj of baseArehouses"></el-option>
+                </el-select>
             </div>
             <el-table
                     :data="stockTransferConfirm"
@@ -333,6 +340,8 @@
         prop: {},
         data: function () {
             return {
+                watchView: false,
+                baseArehouses: window.dbmessage.baseArehouses,
                 stockTransferConfirm: [],
                 multipleSelection: [],
                 multiSelect: false,
@@ -371,6 +380,7 @@
                 zyMentionUserName: '',             //主页面 提起人 搜索
                 zyCreateUserName: '',                 //主页面 创建人 搜索
                 zyStatus: '',                        //主页面 转移状态
+                zyArehouseId:window.dbmessage.baseArehouses[0].baArehouseId,
                 formLabelWidth: '120px',            //表单 配置
                 form: form(),                           //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
@@ -396,6 +406,7 @@
                     "zyStatus": this.zyStatus,
                     "startCreateTimeParam": tsf_date(this.date[0]),
                     "endCreateTimeParam": tsf_date(this.date[1]),
+                    "zyArehouseId":this.zyArehouseId
                 }
             },
             search: function () {
@@ -575,6 +586,12 @@
                 p[0].post(this.option);
             },
             zyStatus: function () {
+                /*<debug>*/
+                console.log(this.option);
+                /*</debug>*/
+                p[0].post(this.option);
+            },
+            zyArehouseId: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
