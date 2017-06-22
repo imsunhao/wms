@@ -192,13 +192,10 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        label="始发日期"
-                        width="120"
+                        label="单号"
                         show-overflow-tooltip
-                        align="center">
-                    <template scope="scope">
-                        {{auto_time_new(scope.row.sfrq)}}
-                    </template>
+                        align="center"
+                        prop="dh">
                 </el-table-column>
                 <el-table-column
                         label="到货日期"
