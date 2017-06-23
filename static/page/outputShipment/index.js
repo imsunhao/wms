@@ -520,14 +520,15 @@ function formListChange() {
         cksLocationId: '',
         cksStatus: '',
         cksCkdjId: '',
-        cksFyCount: ''
+        cksFyCount: '',
+        userId:'',
     }
 }
 function lists2Form() {
     return {
         title: '',
         row: {
-            cksFyCount: 0,
+            // cksFyCount: 0,
             baseGoods: {bgGoodsNo: ''}
         },
     }
