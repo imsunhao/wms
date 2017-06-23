@@ -127,8 +127,10 @@
                                     <el-table-column
                                             width="80"
                                             show-overflow-tooltip
-                                            prop="jc"
                                             label="仓库">
+                                        <template scope="scope">
+                                            {{auto_jc(scope.row.jc)}}
+                                        </template>
                                     </el-table-column>
                                     <el-table-column
                                             label="入库单号"
