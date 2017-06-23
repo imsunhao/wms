@@ -1103,3 +1103,10 @@ function auto_el_tag(id, value) {
 function config_table_height() {
     return document.body.clientHeight - 300;
 }
+
+function detailsClose() {
+    clearInterval(homeTimer);
+    homeTimer = 0;
+}
+
+var imClear = false;
