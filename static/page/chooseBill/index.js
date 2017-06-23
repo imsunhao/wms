@@ -87,6 +87,7 @@ var chooseBill = new Vue({
                 "ckrwCph": this.ckrwCph.trim(),
                 "ckrwStartGreatTime": tsf_date(this.date[0]),
                 "ckrwEndGreatTime": tsf_date(this.date[1]),
+                ckArehouseId:window.dbmessage.baseArehouses[0].baArehouseId,
             }
         },
         search: function () {
