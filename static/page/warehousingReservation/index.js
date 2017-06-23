@@ -345,6 +345,7 @@ var warehousingReservation = new Vue({
             if (this.form.title === '新建入库单') {
                 p[2].post(form);
             } else {
+                form.rkUserId=app.rmsUser.ruUserId;
                 p[3].post(form);
             }
             /*</prod>*/
