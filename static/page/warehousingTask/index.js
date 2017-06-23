@@ -262,6 +262,7 @@ var warehousingTask = new Vue({
                 var step = [];
                 for (var i = 0; i < obj.multipleSelection.length; i++) {
                     step.push(obj.multipleSelection[i].rkrwId);
+                    step.rkUserId=app.rmsUser.ruUserId;
                 }
                 p[5].post({rwIds: step});
             }).catch(function () {
