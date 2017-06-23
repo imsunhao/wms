@@ -44,7 +44,7 @@ var inputDaily = new Vue({
                 "rkStatus": this.rk_status,
                 "startCreateTimeParam": tsf_date(this.date[0]),
                 "endCreateTimeParam": tsf_date(this.date[1]),
-                "rk_arehouse_id":this.rk_arehouse_id,
+                "rk_arehouse_id": this.rk_arehouse_id,
             }
         },
         form_pop: function () {
@@ -66,7 +66,7 @@ var inputDaily = new Vue({
                 "rkStatus": this.form.rk_status,
                 "rkZdfs": this.form.rk_zdfs,
                 "rkStartwith": this.form.rk_startwith,
-                "rk_arehouse_id":this.form.rk_arehouse_id,
+                "rk_arehouse_id": this.form.rk_arehouse_id,
             }
         },
         search: function () {
@@ -374,6 +374,7 @@ function _form() {
         rk_status: '',               //模糊查询--单据状态
         rk_zdfs: '',                  //模糊查询--制单方式
         rk_startwith: '',             //模糊查询--操作方式
+        rk_arehouse_id: window.dbmessage.baseArehouses[0].baArehouseId
     }
 }
 var obj = inputDaily;
