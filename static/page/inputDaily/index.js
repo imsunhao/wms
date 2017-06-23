@@ -3,6 +3,7 @@ var inputDaily = new Vue({
     prop: {},
     data: function () {
         return {
+            watchView: false,
             baseArehouses: window.dbmessage.baseArehouses,
             inputDaily: [],
             multipleSelection: [],
@@ -65,7 +66,7 @@ var inputDaily = new Vue({
                 "rkStatus": this.form.rk_status,
                 "rkZdfs": this.form.rk_zdfs,
                 "rkStartwith": this.form.rk_startwith,
-
+                "rk_arehouse_id":this.form.rk_arehouse_id,
             }
         },
         search: function () {
