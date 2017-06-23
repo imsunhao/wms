@@ -238,8 +238,9 @@ var recoveryArchive = new Vue({
         retentionSubmit: function () {
             this.$refs['ref_retention'].validate(function (valid) {
                 if (valid) {
-                    p[3].post(this.retention, function (json) {
+                    p[3].post(obj.retention, function (json) {
                         this.callbackAfter({status: json.status, model: '滞留补发信息'}, function () {
+                            obj.dialogRetentionVisible=false;
                             p[0].post(obj.option);
                         })
                     })
