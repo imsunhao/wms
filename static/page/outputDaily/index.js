@@ -346,7 +346,8 @@ function _form() {
         ckCkdjClientname: '',        //模糊查询--客户名称
         userName: '',                  //模糊查询--作业人员
         blLname: '',                //模糊查询--下架库位
-        ckAdress: ''                  //模糊查询--客户地址
+        ckAdress: '',                  //模糊查询--客户地址
+        ckArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,   //模糊查询 仓库
     }
 }
 var obj = outputDaily;

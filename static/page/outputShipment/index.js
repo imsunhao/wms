@@ -47,7 +47,7 @@ var outputShipment = new Vue({
                 "ckrwCph": this.ckrwCph.trim(),
                 "ckrwStartGreatTime": tsf_date(this.date[0]),
                 "ckrwEndGreatTime": tsf_date(this.date[1]),
-                ckArehouseId:window.dbmessage.baseArehouses[0].baArehouseId,
+                ckArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,
             }
         },
         form_pop: function () {
@@ -220,6 +220,8 @@ var outputShipment = new Vue({
             allPrposCb(step, function (obj2, index) {
                 if (typeof obj.lists2.row[index] !== 'undefined') step[index] = obj.lists2.row[index];
             });
+            step.cksFyCount = obj.lists2.cksFyCount;
+            step.userId = app.rmsUser.ruUserId;
 
             p[2].post(step, function (json) {
                 this.callbackAfter({status: json.status, model: '修改发运数量'}, function () {
@@ -520,15 +522,14 @@ function formListChange() {
         cksLocationId: '',
         cksStatus: '',
         cksCkdjId: '',
-        cksFyCount: '',
-        userId:'',
+        cksFyCount: ''
     }
 }
 function lists2Form() {
     return {
         title: '',
         row: {
-            // cksFyCount: 0,
+            cksFyCount: 0,
             baseGoods: {bgGoodsNo: ''}
         },
     }
