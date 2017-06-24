@@ -221,13 +221,13 @@ var recoveryArchive = new Vue({
         reissueSubmit: function () {
             if (this.reissue.cksCkmxId) {
                 p[2].post(this.reissue, function (json) {
-                    this.callbackAfter({status: json.status, model: '明细欠货补发'}, function () {
+                    this.callbackAfter(json, function () {
                         p[0].post(obj.option);
                     })
                 })
             } else {
                 p[1].post(this.reissue, function (json) {
-                    this.callbackAfter({status: json.status, model: '整单欠货补发'}, function () {
+                    this.callbackAfter(json, function () {
                         p[0].post(obj.option);
                     })
                 })
