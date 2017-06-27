@@ -1490,7 +1490,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 7:
                         urlName = '库存转移 库存转移过程 通过库存转移单据id获取一条库存转移单据';
-                        req = autoUrl(req, '/stockZyDoc/' + req.query.zyId, "GET", function (json) {
+                        req = autoUrl(req, '/stockZyDoc/' + req.query.id, "GET", function (json) {
                             res.send(json);
                         });
                         break;
@@ -1543,7 +1543,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 6:
                         urlName = '库存转移确认 通过库存转移单据id获取一条库存转移单据';
-                        req = autoUrl(req, '/stockZyDoc/' + req.query.zyId, "GET", function (json) {
+                        req = autoUrl(req, '/stockZyDoc/' + req.query.id, "GET", function (json) {
                             res.send(json);
                         });
                         break;

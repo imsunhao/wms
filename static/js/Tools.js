@@ -1108,3 +1108,10 @@ function config_table_height(num) {
             return document.body.clientHeight - 300;
     }
 }
+
+function detailsClose() {
+    clearInterval(homeTimer);
+    homeTimer = 0;
+}
+
+var imClear = false;

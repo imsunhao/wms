@@ -198,68 +198,138 @@
                     :default-sort="{prop: 'sjsj', order: 'descending'}"
                     :max-height="config_table_height()"
                     ref="table"
+                    @expand="expandChange"
                     class="stockTransferConfirmTable"
                     @selection-change='multiSelectionChange'
                     style="width: 100%">
                 <el-table-column
                         type="expand">
                     <template scope="props">
-                        <el-row>
-                            <h3 style="margin-top: 0; margin-left: -15px;">库存转移详细</h3>
-                        </el-row>
-                        <el-form label-position="left" inline class="demo-table-expand">
-                            <el-row>
-                                <el-col :span="10">
-                                    <el-form-item label="创建时间">
+                        <el-carousel
+                                arrow="hover"
+                                height="280px"
+                                indicator-position="none"
+                                :autoplay="false">
+                            <el-carousel-item>
+                                <el-row>
+                                    <h3>库存转移详细</h3>
+                                </el-row>
+                                <el-form label-position="left" inline class="demo-table-expand">
+                                    <el-row>
+                                        <el-col :span="10">
+                                            <el-form-item label="创建时间">
                                         <span>
                                             <el-icon name="time"></el-icon>
                                             {{ auto_time_new(props.row.zyCreateTime,6) }}
                                         </span>
-                                    </el-form-item>
-                                    <el-form-item label="提起人">
-                                        <span>{{ props.row.zyMentionUserName }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="创建人">
-                                        <span>{{props.row.zyCreateUserName}}</span>
-                                    </el-form-item>
-                                    <el-form-item label="确认人">
-                                        <span>{{props.row.zyConfirmUserName}}</span>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :span="10" :offset="2">
-                                    <el-form-item label="转移原因">
-                                        <span>{{ props.row.zyReason	 }}</span>
-                                    </el-form-item>
-                                    <el-form-item
-                                            v-if="props.row.zyStatus==0"
-                                            label="确认时间">
+                                            </el-form-item>
+                                            <el-form-item label="提起人">
+                                                <span>{{ props.row.zyMentionUserName }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="创建人">
+                                                <span>{{props.row.zyCreateUserName}}</span>
+                                            </el-form-item>
+                                            <el-form-item label="确认人">
+                                                <span>{{props.row.zyConfirmUserName}}</span>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :span="10" :offset="2">
+                                            <el-form-item label="转移原因">
+                                                <span>{{ props.row.zyReason	 }}</span>
+                                            </el-form-item>
+                                            <el-form-item
+                                                    v-if="props.row.zyStatus==0"
+                                                    label="确认时间">
                                         <span>
                                             <el-icon name="time"></el-icon>
                                             {{ auto_time_new(props.row.zyConfirmTime,6) }}
                                         </span>
-                                    </el-form-item>
-                                    <el-form-item label="转移状态">
-                                        <el-tag-s :val="auto_el_tag('zyStatus',props.row.zyStatus)"></el-tag-s>
-                                    </el-form-item>
-                                    <el-form-item
-                                            v-if="props.row.zyStatus==0"
-                                            label="可用操作">
-                                        <el-button
-                                                size="small"
-                                                type="warning"
-                                                @click="inlineConfirm(props.$index, props.row)">确认
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                icon="delete"
-                                                type="danger"
-                                                @click="deleteOlder(props.$index, props.row)">删除
-                                        </el-button>
+                                            </el-form-item>
+                                            <el-form-item label="转移状态">
+                                                <el-tag-s :val="auto_el_tag('zyStatus',props.row.zyStatus)"></el-tag-s>
+                                            </el-form-item>
+                                            <el-form-item
+                                                    v-if="props.row.zyStatus==0"
+                                                    label="可用操作">
+                                                <el-button
+                                                        size="small"
+                                                        type="warning"
+                                                        @click="inlineConfirm(props.$index, props.row)">确认
+                                                </el-button>
+                                                <el-button
+                                                        size="small"
+                                                        icon="delete"
+                                                        type="danger"
+                                                        @click="deleteOlder(props.$index, props.row)">删除
+                                                </el-button>
 
-                                    </el-form-item>
-                                </el-col>
-                            </el-row>
-                        </el-form>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                </el-form>
+                            </el-carousel-item>
+                            <el-carousel-item>
+                                <el-table
+                                        :data="props.row.zyDocsList">
+                                    <el-table-column
+                                            type="index"
+                                            width="55">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="货品编号"
+                                            width="150"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="mfunRepertory.baseGoods.bgGoodsNo">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="货品名称"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="mfunRepertory.baseGoods.bgGoodsName">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="转移前储位"
+                                            width="120"
+                                            align="center"
+                                            prop="beforeLocationName">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="可转移数量"
+                                            width="150"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="zysZyBeforeKyCount">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="转移后储位"
+                                            width="120"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="afterLocationName">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="转移数量"
+                                            width="120"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="zysZyCount">
+                                    </el-table-column>
+                                    <!--<el-table-column-->
+                                    <!--label="操作"-->
+                                    <!--width="80">-->
+                                    <!--<template scope="scope">-->
+                                    <!--<el-button-->
+                                    <!--@click="form_click_delete(scope.$index,scope.row)"-->
+                                    <!--size="small"-->
+                                    <!--type="danger"-->
+                                    <!--icon="delete">-->
+                                    <!--</el-button>-->
+                                    <!--</template>-->
+                                    <!--</el-table-column>-->
+                                </el-table>
+                            </el-carousel-item>
+                        </el-carousel>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -571,6 +641,18 @@
             },                                       //转移状态
 
 
+            expandChange:function (row, expanded) {
+                if (expanded && (typeof (row.mfunckDoc) === 'undefined' || row.mfunckDoc === null || row.mfunckDoc.length === 0)) {
+                    p[6].post({
+                        id: row.zyId
+                    }, function (json) {
+                        /*<debug>*/
+                        console.log(json);
+                        /*</debug>*/
+                        row.zyDocsList = json.zyDocsList;
+                    });
+                }
+            }
         },
         watch: {
             zyMentionUserName: function () {
@@ -669,15 +751,13 @@
         urlProd: "/route/stockTransferConfirm/5",
         method: 'GET'
     });
-    // 6 库存转移确认 通过库存转移单据id获取一条库存转移单据
+
+    // 6 库存转移 通过库存转移单据id获取一条库存转移单据
     p[6] = autoPost({
         urlHock: "",
         urlProd: "/route/stockTransferConfirm/6",
-        success: function (json) {
-        }
+        method: 'GET'
     });
-
-
     p[0].post(stockTransferConfirm.option);
 
 </script>
