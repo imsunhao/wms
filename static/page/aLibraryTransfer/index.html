@@ -198,12 +198,12 @@
                     <el-option label="已确认" :value.number="1"></el-option>
                 </el-select>
                 <el-select
-                        @visible-change="selectReturn"
-                        v-model="mrArehouseId"
-                        placeholder="请选择所属仓库">
-                    <el-option :label="obj.baName" :value="obj.baArehouseId"
-                               v-for="obj of baseArehouses"></el-option>
-                </el-select>
+                    @visible-change="selectReturn"
+                    v-model="zyArehouseId"
+                    placeholder="请选择所属仓库">
+                <el-option :label="obj.baName" :value="obj.baArehouseId"
+                           v-for="obj of baseArehouses"></el-option>
+            </el-select>
                 <button @click="newInput" class="btn btn-add"><i
                         class="icon add"></i><span>新增</span>
                 </button>
@@ -691,7 +691,7 @@
                 zyMentionUserName: '',              //主页面 提起人 搜索
                 zyCreateUserName: '',                //主页面 创建人 搜索
                 zyStatus: '',                        //主页面 转移状态
-                mrArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,             //主页面 仓库 搜索
+                zyArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,             //主页面 仓库 搜索
                 formLabelWidth: '120px',            //表单 配置
                 form: _form(),                      //表单 弹出层 信息集合
                 rule_form: autoValidate(validate_form()), //编辑验证规则
@@ -717,7 +717,7 @@
                     "pageSize": this.pageSize,
                     "zyMentionUserName": this.zyMentionUserName.trim(),
                     "zyCreateUserName": this.zyCreateUserName.trim(),
-                    "mrArehouseId": this.mrArehouseId,
+                    "zyArehouseId": this.zyArehouseId,
                     "zyStatus": this.zyStatus,
                     "startCreateTimeParam": tsf_date(this.date[0]),
                     "endCreateTimeParam": tsf_date(this.date[1]),
@@ -1012,7 +1012,7 @@
                 /*</debug>*/
                 p[0].post(this.option);
             },
-            mrArehouseId: function () {
+            zyArehouseId: function () {
                 /*<debug>*/
                 console.log(this.option);
                 /*</debug>*/
