@@ -752,6 +752,7 @@
     p[6] = autoPost({
         urlHock: "",
         urlProd: "/route/goodsManage/6",
+        method:'GET',
         success: function (json) {
             this.callbackAfter({status: json.status, model: '货品删除'});
         }

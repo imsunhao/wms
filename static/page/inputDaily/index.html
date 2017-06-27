@@ -147,7 +147,8 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        label="作业人员"
+                        label="人员"
+                        width="100"
                         show-overflow-tooltip
                         prop="ru_user_name"
                         align="center">
@@ -162,6 +163,7 @@
                 </el-table-column>
                 <el-table-column
                         label="体积"
+                        width="150"
                         show-overflow-tooltip
                         align="center"
                         prop="tj">
@@ -197,8 +199,10 @@
                 <el-table-column
                         label="入库单号"
                         show-overflow-tooltip
-                        align="center"
-                        prop="rk_rkdj_no">
+                        align="center">
+                    <template scope="scope">
+                        {{scope.row.rk_rkdj_no}}
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="单据状态"
