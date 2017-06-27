@@ -163,8 +163,10 @@
                 <el-table-column
                         label="体积"
                         show-overflow-tooltip
-                        align="center"
-                        prop="tj">
+                        align="center">
+                    <template scope="scope">
+                        {{scope.row.tj}}
+                    </template>
                 </el-table-column>
                  <el-table-column
                         label="货品编号"
