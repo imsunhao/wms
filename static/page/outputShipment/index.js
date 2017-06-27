@@ -217,7 +217,13 @@ var outputShipment = new Vue({
         submitLists: function () {
             var step = postLists2();
 
-            allPrposCb(step, function (obj2, index) {
+            allPrposCb(step, function (obj2, index) {decodeStrings
+
+
+
+
+
+
                 if (typeof obj.lists2.row[index] !== 'undefined') step[index] = obj.lists2.row[index];
             });
             step.cksFyCount = obj.lists2.cksFyCount;

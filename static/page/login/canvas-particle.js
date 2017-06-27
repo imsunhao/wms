@@ -394,6 +394,8 @@ console.log('线上版本');
         }
 
 
+        var submit = document.getElementById('submit');
+
         //--------
         var ooo = new Mvalidate('myForm');
         ooo
@@ -442,6 +444,7 @@ console.log('线上版本');
             /*</debug>*/
 
             if (ooo.valid()) {
+                submit.disabled = true;
                 /*<debug>*/
                 window.location.href = '/main.html';
                 /*</debug>*/
@@ -454,6 +457,7 @@ console.log('线上版本');
                     if (json.status == 1)
                         window.location.href = json.url;
                     else {
+                        submit.disabled = false;
                         alertMessage.call(this, {name: "对不起"}, json.message);
                     }
                 });

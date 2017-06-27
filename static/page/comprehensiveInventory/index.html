@@ -425,6 +425,7 @@
     <el-dialog
             size="large"
             title="盘点详情"
+            @close="detailsClose"
             v-model="dialogDetailsVisible">
         <el-table
                 :data="details"
