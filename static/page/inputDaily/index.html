@@ -147,7 +147,8 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        label="作业人员"
+                        label="人员"
+                        width="100"
                         show-overflow-tooltip
                         prop="ru_user_name"
                         align="center">
@@ -162,11 +163,10 @@
                 </el-table-column>
                 <el-table-column
                         label="体积"
+                        width="150"
                         show-overflow-tooltip
-                        align="center">
-                    <template scope="scope">
-                        {{scope.row.tj}}
-                    </template>
+                        align="center"
+                        prop="tj">
                 </el-table-column>
                  <el-table-column
                         label="货品编号"
