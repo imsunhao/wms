@@ -1100,6 +1100,11 @@ function auto_el_tag(id, value) {
     }
 }     //自动适配 el-tag 标签
 
-function config_table_height() {
-    return document.body.clientHeight - 300;
+function config_table_height(num) {
+    switch (num){
+        case 1:
+            return document.body.clientHeight - 350;
+        default:
+            return document.body.clientHeight - 300;
+    }
 }

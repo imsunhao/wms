@@ -59,7 +59,7 @@
                             <el-table
                                     :data="warehousingReservation"
                                     :default-sort="{prop: 'sjsj', order: 'descending'}"
-                                    :max-height="350"
+                                    :max-height="config_table_height(1)"
                                     @toggleRowSelection="rowSelection"
                                     @expand="expandChange"
                                     @select="handleSelectionChange"
@@ -173,7 +173,7 @@
                             <el-table
                                     :data="warehousingReservationCombination"
                                     :default-sort="{prop: 'sjsj', order: 'descending'}"
-                                    :max-height="350"
+                                    :max-height="config_table_height(1)"
                                     @toggleRowSelection="rowSelection"
                                     @expand="expandChange"
                                     @selection-change="handleSelectionChangeCombination"
