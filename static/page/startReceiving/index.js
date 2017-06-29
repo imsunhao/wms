@@ -124,6 +124,17 @@ var startReceiving = new Vue({
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(function () {
+                p[6].post({
+                    "id":row.rkRkdjId,
+
+                },function (json) {
+                    if (json.status !== 20002) {
+                        json.model = '添加开始收货时间';
+                    }
+                    this.callbackAfter(json, function () {
+                        p[0].post(obj.option);
+                    })
+                });
             }).catch(function () {
                 _this.$message({
                     type: 'info',
