@@ -429,6 +429,12 @@ p[102] = autoPost({
     urlProd: "/route/warehousingTask/9"
 
 });
+// 6 开始收货 开始收货-根据入库单ID添加开始收货时间
+p[6] = autoPost({
+    urlHock: "",
+    urlProd: "/route/startReceiving/6",
+});
+
 // 高级 监视器的 使用方法
 //    startReceiving.$watch('date', function () {
 //        if (!(_option ? this.form_pop : this.option).dateStart)return;
