@@ -701,6 +701,13 @@ router.param('_url', function (req, res, next, url) {
                             res.send(json);
                         });
                         break;
+                      case 6:
+                        urlName = '开始收货-根据入库单ID添加开始收货时间';
+                        req = autoUrl(req, '/mfunrkDoc/editRkKsshsjByRkdjId', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+
 
 
                 }
