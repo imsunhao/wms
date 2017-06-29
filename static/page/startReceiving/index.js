@@ -117,6 +117,32 @@ var startReceiving = new Vue({
             printfCompile(this);
             this.dialogPrintfVisible = !this.dialogPrintfVisible;
         },                                //行内按钮 打印标签页
+        inlineStartReceiving:function(index,row){
+            var _this = this;
+            _this.$confirm('此操作将开始收货入库单据, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(function () {
+                p[6].post({
+                    "id":row.rkRkdjId,
+
+                },function (json) {
+                    if (json.status !== 20002) {
+                        json.model = '添加开始收货时间';
+                    }
+                    this.callbackAfter(json, function () {
+                        p[0].post(obj.option);
+                    })
+                });
+            }).catch(function () {
+                _this.$message({
+                    type: 'info',
+                    message: '已取消'
+                });
+            });
+
+        },                            //TODO 行内按钮 开始收货
         dblClick: function (row, event) {
             if (row.rkDocsList === null || typeof row.rkDocsList === 'undefined' || row.rkDocsList.length < 1) {
                 p[101].post({rkRkdjId: row.rkRkdjId}, function (json) {
@@ -414,6 +440,12 @@ p[102] = autoPost({
     urlProd: "/route/warehousingTask/9"
 
 });
+// 6 开始收货 开始收货-根据入库单ID添加开始收货时间
+p[6] = autoPost({
+    urlHock: "",
+    urlProd: "/route/startReceiving/6",
+});
+
 // 高级 监视器的 使用方法
 //    startReceiving.$watch('date', function () {
 //        if (!(_option ? this.form_pop : this.option).dateStart)return;

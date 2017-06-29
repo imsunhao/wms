@@ -18,6 +18,10 @@
                                         v-model="rkRkdjNo"
                                         icon="search"
                                         placeholder="入库单号"></el-input>
+                                <el-input
+                                        v-model="bgGoodsNo"
+                                        icon="search"
+                                        placeholder="货品编号"></el-input>
                                 <el-date-picker
                                         v-model="date"
                                         type="daterange"
@@ -37,9 +41,9 @@
 
                                 <button @click="newInput" class="btn btn-add"><i class="icon add"></i><span>添加</span>
                                 </button>
-                                <button @click="importExcel" class="btn btn-import"><i class="icon add"></i><span>导入Excel</span>
+                                <button @click="importExcel" class="btn btn-import"  v-if="false"><i class="icon add"></i><span>导入Excel</span>
                                 </button>
-                                <button @click="setInterface" class="btn btn-import"><i
+                                <button @click="setInterface" class="btn btn-import" v-if="false"><i
                                         class="icon add"></i><span>接口设置</span>
                                 </button>
 

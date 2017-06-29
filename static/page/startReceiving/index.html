@@ -126,10 +126,6 @@
                                         @row-dblclick="dblClick"
                                         :max-height="240">
                                     <el-table-column
-                                            type="index"
-                                            width="55">
-                                    </el-table-column>
-                                    <el-table-column
                                             label="入库单号"
                                             width="170"
                                             show-overflow-tooltip
@@ -181,6 +177,17 @@
                                             label="总件数"
                                             show-overflow-tooltip
                                             prop="jianAndtaiAllCount">
+                                    </el-table-column>
+                                    <el-table-column
+                                            width="150"
+                                            label="可用操作">
+                                        <template scope="scope">
+                                            <el-button
+                                                    size="mini"
+                                                    type="success"
+                                                    @click="inlineStartReceiving(scope.$index, scope.row)">开始收货
+                                            </el-button>
+                                        </template>
                                     </el-table-column>
                                 </el-table>
                             </el-carousel-item>

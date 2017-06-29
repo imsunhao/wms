@@ -15,8 +15,9 @@ var warehousingReservation = new Vue({
             multiSelect: false,
             date: [null, null],           //主页面 选择日期 搜索
             rkRkdjNo: '',                 //主页面 入库单号 搜索
+            bgGoodsNo: '',                //主页面 货品编号 搜索
             rkArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,             //主页面 仓库 搜索
-            rkRwStatus: 0,                //主页面 入库单任务状态 搜索
+            rkRwStatus: 1,                //主页面 入库单任务状态 搜索
             pickerOptions: {
                 shortcuts: [{
                     text: '最近一周',
@@ -82,6 +83,7 @@ var warehousingReservation = new Vue({
                 "startTimeParam": tsf_date(this.date[0]),
                 "endTimeParam": tsf_date(this.date[1]),
                 rkRkdjNo: this.rkRkdjNo,
+                "goodsNo":this.bgGoodsNo.trim(),
                 rkRwStatus: this.rkRwStatus,
                 rkStatus: 1,
                 rkArehouseId: this.rkArehouseId
@@ -527,6 +529,13 @@ var warehousingReservation = new Vue({
             /*</debug>*/
             p[7].post(this.option);
         },
+        bgGoodsNo: function () {
+            /*<debug>*/
+            console.log(this.option);
+            /*</debug>*/
+            p[7].post(this.option);
+        },
+
         rkRwStatus: function () {
             /*<debug>*/
             console.log(this.option);
