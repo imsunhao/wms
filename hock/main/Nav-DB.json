@@ -27,7 +27,14 @@
           "label": "作业区管理",
           "url": "page/operationAreaManage",
           "bmMenuIcon": "e5"
+        },
+        {
+          "id": 17,
+          "label": "承运商车辆管理",
+          "url": "page/carrierVehicleManagement",
+          "bmMenuIcon": "e5"
         }
+
       ]
     },
     {
