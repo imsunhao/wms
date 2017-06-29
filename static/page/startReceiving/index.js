@@ -125,8 +125,8 @@ var startReceiving = new Vue({
                 type: 'warning'
             }).then(function () {
                 p[6].post({
-                    "id":row.rkRkdjId,
-
+                "rkKsshsj": new Date().toJSON(),
+                "id": row.rkRkdjId
                 },function (json) {
                     if (json.status !== 20002) {
                         json.model = '添加开始收货时间';
@@ -428,6 +428,12 @@ p[3] = autoPost({
     urlProd: "/route/startReceiving/3",
     method: 'GET'
 });
+// 6 开始收货 开始收货-根据入库单ID添加开始收货时间
+p[6] = autoPost({
+  urlHock: "",
+  urlProd: "/route/startReceiving/6",
+});
+
 // 101 查询-入库单号-入库明细
 p[101] = autoPost({
     urlHock: "/hock/warehousingTask/docList.json",
@@ -440,12 +446,6 @@ p[102] = autoPost({
     urlProd: "/route/warehousingTask/9"
 
 });
-// 6 开始收货 开始收货-根据入库单ID添加开始收货时间
-p[6] = autoPost({
-    urlHock: "",
-    urlProd: "/route/startReceiving/6",
-});
-
 // 高级 监视器的 使用方法
 //    startReceiving.$watch('date', function () {
 //        if (!(_option ? this.form_pop : this.option).dateStart)return;
