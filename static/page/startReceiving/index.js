@@ -117,6 +117,21 @@ var startReceiving = new Vue({
             printfCompile(this);
             this.dialogPrintfVisible = !this.dialogPrintfVisible;
         },                                //行内按钮 打印标签页
+        inlineStartReceiving:function(index,row){
+            var _this = this;
+            _this.$confirm('此操作将开始收货入库单据, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(function () {
+            }).catch(function () {
+                _this.$message({
+                    type: 'info',
+                    message: '已取消'
+                });
+            });
+
+        },                            //TODO 行内按钮 开始收货
         dblClick: function (row, event) {
             if (row.rkDocsList === null || typeof row.rkDocsList === 'undefined' || row.rkDocsList.length < 1) {
                 p[101].post({rkRkdjId: row.rkRkdjId}, function (json) {
