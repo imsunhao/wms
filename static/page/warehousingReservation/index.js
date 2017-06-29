@@ -83,7 +83,7 @@ var warehousingReservation = new Vue({
                 "startTimeParam": tsf_date(this.date[0]),
                 "endTimeParam": tsf_date(this.date[1]),
                 rkRkdjNo: this.rkRkdjNo,
-                bgGoodsNo:this.bgGoodsNo,
+                "goodsNo":this.bgGoodsNo.trim(),
                 rkRwStatus: this.rkRwStatus,
                 rkStatus: 1,
                 rkArehouseId: this.rkArehouseId
