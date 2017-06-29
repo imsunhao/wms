@@ -45,6 +45,44 @@
                                 indicator-position="none"
                                 :autoplay="false">
                             <el-carousel-item>
+                                <h3>入库明细</h3>
+                                <el-table
+                                        :data="props.row.rkDocsList"
+                                        highlight-current-row
+                                        style="width: 100%">
+                                    <el-table-column
+                                            type="index"
+                                            width="55">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="货品编号"
+                                            width="140"
+                                            show-overflow-tooltip
+                                            align="center"
+                                            prop="baseGoods.bgGoodsNo">
+                                    </el-table-column>
+                                    <el-table-column
+                                            align="center"
+                                            prop="baseGoods.bgGoodsName"
+                                            show-overflow-tooltip
+                                            label="货品名称">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="件数"
+                                            width="120"
+                                            prop="jianAndtaiCount"
+                                            align="center">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="台数"
+                                            width="100"
+                                            show-overflow-tooltip
+                                            prop="rksCount"
+                                            align="center">
+                                    </el-table-column>
+                                </el-table>
+                            </el-carousel-item>
+                            <el-carousel-item>
                                 <el-row>
                                     <el-col :span="10">
                                         <el-row
@@ -74,7 +112,6 @@
                                             font-weight: normal;
                                             margin-left: 5px;">(翻页查看入库明细）</span>
                                         </h3>
-
                                         <el-form label-position="left" inline class="demo-table-expand">
                                             <el-form-item label="入库单号">
                                                 <el-tag type="success">{{props.row.rkRkdjNo }}</el-tag>
@@ -140,44 +177,6 @@
                                         </el-form>
                                     </el-col>
                                 </el-row>
-                            </el-carousel-item>
-                            <el-carousel-item>
-                                <h3>入库明细</h3>
-                                <el-table
-                                        :data="props.row.rkDocsList"
-                                        highlight-current-row
-                                        style="width: 100%">
-                                    <el-table-column
-                                            type="index"
-                                            width="55">
-                                    </el-table-column>
-                                    <el-table-column
-                                            label="货品编号"
-                                            width="140"
-                                            show-overflow-tooltip
-                                            align="center"
-                                            prop="baseGoods.bgGoodsNo">
-                                    </el-table-column>
-                                    <el-table-column
-                                            align="center"
-                                            prop="baseGoods.bgGoodsName"
-                                            show-overflow-tooltip
-                                            label="货品名称">
-                                    </el-table-column>
-                                    <el-table-column
-                                            label="件数"
-                                            width="120"
-                                            prop="jianAndtaiCount"
-                                            align="center">
-                                    </el-table-column>
-                                    <el-table-column
-                                            label="台数"
-                                            width="100"
-                                            show-overflow-tooltip
-                                            prop="rksCount"
-                                            align="center">
-                                    </el-table-column>
-                                </el-table>
                             </el-carousel-item>
                         </el-carousel>
                     </template>
