@@ -466,16 +466,12 @@
                 this.dialogFormActive++;
                 this.submitLoading = true;
                 //TODO 此处应是ajax请求
-
-
                 /*<prod>*/
                 if (this.form.title === '新建承运商车辆') {
                     p[2].post(this.form)
                 } else {
                     p[1].post(this.form)
                 }
-                /*</prod>*/
-                /*<debug>*/
                 setTimeout(function () {
                     obj.submitLoading = false;
                     obj.$notify({
