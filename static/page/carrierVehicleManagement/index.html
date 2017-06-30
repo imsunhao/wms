@@ -169,13 +169,13 @@
         width: 100%;
     }
 </style>
-
 <div id="carrierVehicleManagement">
     <!--页面调整-->
     <el-row
             v-loading="showLoading"
             element-loading-text="拼命加载中">
         <div class="inner btn-nav">
+
             <el-input
                     v-model="bcCph"
                     icon="search"
@@ -184,10 +184,11 @@
                     v-model="bcSjxm"
                     icon="search"
                     placeholder="司机姓名"></el-input>
-            <el-input
+             <el-input
                     v-model="bcSjdh"
                     icon="search"
                     placeholder="司机电话"></el-input>
+
             <button @click="newInput" class="btn btn-add"><i
                     class="icon add"></i><span>新增</span>
             </button>
@@ -234,7 +235,7 @@
                                             size="small"
                                             icon="delete"
                                             type="danger"
-                                            @click="deleteOlder(props.$index, props.row)">删除
+                                            @click="inlineDelete(props.$index, props.row)">删除
                                     </el-button>
                                 </el-form-item>
                             </el-form>
@@ -266,6 +267,11 @@
                     <span>{{ scope.row.bcSjdh}}</span>
                 </template>
             </el-table-column>
+            <el-table-column
+                    v-if="multiSelect"
+                    type="selection"
+                    width="60">
+            </el-table-column>
         </el-table>
         <div class="block">
             <el-pagination
@@ -291,96 +297,36 @@
                     finish-status="success">
             </el-steps>
         </div>
-        <!--<el-form :model="form" ref="newForm">-->
-            <!--<el-row>-->
-                <!--<el-col :span="10">-->
-                    <!--<el-form-item-->
-                            <!--label="货品编号"-->
-                            <!--:label-width="formLabelWidth">-->
-                        <!--<el-input-->
-                                <!--v-model.number="form.bgGoodsNo        "-->
-                                <!--auto-complete="off"></el-input>-->
-                    <!--</el-form-item>-->
-                    <!--<el-form-item-->
-                            <!--label="货品名称"-->
-                            <!--:label-width="formLabelWidth">-->
-                        <!--<el-input-->
-                                <!--v-model.number="form.bgGoodsName           "-->
-                                <!--auto-complete="off"></el-input>-->
-                    <!--</el-form-item>-->
-
-                    <!--<el-form-item-->
-                            <!--label="货品简称"-->
-                            <!--:label-width="formLabelWidth">-->
-                        <!--<el-input-->
-                                <!--v-model.number="form.bgNamejc"-->
-                                <!--auto-complete="off"></el-input>-->
-                    <!--</el-form-item>-->
-                    <!--<el-form-item-->
-                            <!--label="整箱单位"-->
-                            <!--:label-width="formLabelWidth">-->
-                        <!--<el-select-->
-                                <!--v-model.number="form.bgZxdw"-->
-                                <!--placeholder="请选择单据类型">-->
-                            <!--<el-option :label="item.bdName" :value.number="item.bdDwId" v-for="item in dw1"></el-option>-->
-                        <!--</el-select>-->
-                    <!--</el-form-item>-->
-                    <!--<el-form-item-->
-                            <!--label="散支单位"-->
-                            <!--:label-width="formLabelWidth">-->
-                        <!--<el-select-->
-                                <!--v-model.number="form.bgSzdw"-->
-                                <!--placeholder="请选择单据类型">-->
-                            <!--<el-option :label="item.bdName" :value.number="item.bdDwId" v-for="item in dw2"></el-option>-->
-                        <!--</el-select>-->
-                    <!--</el-form-item>-->
-                    <!--<el-form-item-->
-                            <!--label="备注"-->
-                            <!--:label-width="formLabelWidth">-->
-                        <!--<el-input-->
-                                <!--v-model.number="form.bgRemarks                 "-->
-                                <!--auto-complete="off"></el-input>-->
-                    <!--</el-form-item>-->
-                <!--</el-col>-->
-                <!--<el-col :span="10" :offset="2">-->
-                    <!--<el-form-item-->
-                            <!--label="货品体积"-->
-                            <!--:label-width="formLabelWidth">-->
-                        <!--<el-input-->
-                                <!--v-model.number="form.bgGoodsTj                 "-->
-                                <!--auto-complete="off"></el-input>-->
-                    <!--</el-form-item>-->
-                    <!--<el-form-item-->
-                            <!--label="货品重量"-->
-                            <!--:label-width="formLabelWidth">-->
-                        <!--<el-input-->
-                                <!--v-model.number="form.bgGoodsZl                 "-->
-                                <!--auto-complete="off"></el-input>-->
-                    <!--</el-form-item>-->
-                    <!--<el-form-item-->
-                            <!--label="单价"-->
-                            <!--:label-width="formLabelWidth">-->
-                        <!--<el-input-->
-                                <!--v-model.number="form.bgGoodsPrice"-->
-                                <!--auto-complete="off"></el-input>-->
-                    <!--</el-form-item>-->
-                    <!--<el-form-item-->
-                            <!--label="换算量"-->
-                            <!--:label-width="formLabelWidth">-->
-                        <!--<el-input-->
-                                <!--v-model.number="form.bgHsl"-->
-                                <!--auto-complete="off"></el-input>-->
-                    <!--</el-form-item>-->
-                    <!--<el-form-item-->
-                            <!--label="规格"-->
-                            <!--:label-width="formLabelWidth">-->
-                        <!--<el-input-->
-                                <!--v-model.number="form.bgGoodsGg"-->
-                                <!--auto-complete="off"></el-input>-->
-                    <!--</el-form-item>-->
-                <!--</el-col>-->
-            <!--</el-row>-->
-        <!--</el-form>-->
+        <el-form :model="form" ref="newForm">
+            <el-row>
+                <el-col :span="10">
+                    <el-form-item
+                            label="车牌号"
+                            :label-width="formLabelWidth">
+                        <el-input
+                                v-model.number="form.bcCph"
+                                auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item
+                            label="司机姓名"
+                            :label-width="formLabelWidth">
+                        <el-input
+                                v-model.number="form.bcSjxm"
+                                auto-complete="off"></el-input>
+                    </el-form-item>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="10" :offset="2">
+                    <el-form-item
+                            label="司机电话"
+                            :label-width="formLabelWidth">
+                        <el-input
+                                v-model.number="form.bcSjdh"
+                                auto-complete="off"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+        </el-form>
 
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="submit" :loading="submitLoading">保存
@@ -388,34 +334,34 @@
         </div>
     </el-dialog>
 </div>
-
 <script>
     var carrierVehicleManagement = new Vue({
         el: '#carrierVehicleManagement',
         prop: {},
         data: function () {
             return {
-                carrierVehicleManagement: [],   //主页面 信息集合
+                carrierVehicleManagement: [],                 //主页面 信息集合
                 multipleSelection: [],           //主页面 多选集合
                 multiSelect: false,              //主页面 多选状态 维护
                 bcCph: '',                        //主页面 车牌号
                 bcSjxm: '',                       //主页面 司机姓名
-                bcSjdh:'',                        //主页面 司机电话
+                bcSjdh:'',                         //主页面 司机电话
                 showLoading: false,              //主页面 加载 维护
                 currentPage: 1,                  //分页 当前页
                 currentTotal: 1,                 //分页 总页数
                 pageSize: 10,                    //分页 分页大小
-                formLabelWidth: '120px',        //表单 配置
+                formLabelWidth: '120px',         //表单 配置
                 form: _form(),                    //新建 弹出层 信息集合
                 dialogFormActive: 0,             //新建 弹出层 steps 当前进度
-                dialogFormVisible: false,       //新建 弹出层 是否可见
+                dialogFormVisible: false,        //新建 弹出层 是否可见
                 submitLoading: false,            //新建 弹出层 提交等待
+
                 pickerOption: {
                     disabledDate: function (time) {
                         return time.getTime() > Date.now();
                     }
                 },             //新建 弹出层 相对湿度选项
-                dw: [],                          //单位 集合
+
             }
         },
         computed: {
@@ -426,27 +372,9 @@
                     "pageSize": this.pageSize,
                     "bcCph": this.bcCph.trim(),
                     "bcSjxm": this.bcSjxm.trim(),
-                    "bcSjdh": this.bcSjdh.trim(),
+                    "bcSjdh": this.bcSjdh.trim()
                 }
             },           //主页面 post 0
-            dw1: function () {
-                var temp = [];
-                for (var i = 0; i < this.dw.length; i++) {
-                    if (this.dw[i].bdStatus == 1) {
-                        temp.push(this.dw[i]);
-                    }
-                }
-                return temp;
-            },
-            dw2: function () {
-                var temp = [];
-                for (var i = 0; i < this.dw.length; i++) {
-                    if (this.dw[i].bdStatus == 2) {
-                        temp.push(this.dw[i]);
-                    }
-                }
-                return temp;
-            }
         },
         methods: {
             inlineEdit: function (index, row) {
@@ -454,36 +382,31 @@
                 allPrposCb(step, function (obj, index) {
                     if (typeof row[index] !== 'undefined') step[index] = row[index];
                 });
-
-
                 step.title = '编辑';
                 this.form = step;
-
-
                 this.dialogFormVisible = true;
                 this.dialogFormActive = 0;
                 Vue.nextTick(function () {
                     if (obj.$refs.carousel) obj.$refs.carousel.setActiveItem(0);
                 });
-            },                                  //TODO 行内按钮-编辑
-            deleteOlder: function (index, row) {
-                obj.$confirm('此操作将永久删除该货品单, 是否继续?', '提示', {
+            },                               //TODO 行内按钮-编辑
+            inlineDelete: function (index, row) {
+                var obj = this;
+                obj.$confirm('此操作将此承运商车辆取消, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    console.log(1111);
-                    remove(row, obj.carrierVehicleManagement);
-                    p[6].post({
-                        ids: [row.bgGoodsId]
+                    p[3].post({
+                        id: row.bcId,
                     });
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
-                        message: '已取消删除'
+                        message: '已取消操作'
                     });
                 });
-            },                                 //TODO 行内按钮-删除
+            },                            //TODO 行内按钮-删除
             multiSelectClick: function () {
                 this.multiSelect = !this.multiSelect;
             },                                      //多选 状态维护
@@ -491,26 +414,24 @@
                 this.multipleSelection = val;
             },                          //多选 选中控制
             multiSelectDelete: function () {
-                obj.$confirm('此操作将永久删除这些货品, 是否继续?', '提示', {
+                obj.$confirm('此操作将永久删除这些承运商车辆, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    var ids = [];
+                    var step = [];
                     for (var i = 0; i < obj.multipleSelection.length; i++) {
-                        ids.push(obj.multipleSelection[i].bgGoodsId);
-                        remove(obj.multipleSelection[i], obj.carrierVehicleManagement);
+                        step.push(obj.multipleSelection[i].rkrwId);
                     }
-                    p[6].post({
-                        ids: ids
-                    });
+                    p[3].post({bcId: step});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
-                        message: '已取消删除'
+                        message: '已取消'
                     });
                 });
-            },                                     //多选 删除
+
+            },                                  //TODO 多选 删除
             handleSizeChange: function (val) {
                 /*<debug>*/
                 console.log('每页' + val + '条');
@@ -548,7 +469,7 @@
 
 
                 /*<prod>*/
-                if (this.form.title === '新建货品') {
+                if (this.form.title === '新建承运商车辆') {
                     p[2].post(this.form)
                 } else {
                     p[1].post(this.form)
@@ -588,14 +509,6 @@
                 }, 1500);
                 /*</debug>*/
             },                                            //新建 表单提交
-            auto_dw: function (data) {
-                for (var i = 0; i < this.dw.length; i++) {
-                    if (this.dw[i].bdDwId == data) {
-                        return this.dw[i].bdName;
-                    }
-                }
-                return '未知单位';
-            }
         },
         watch: {
             bcCph: function () {
@@ -615,9 +528,11 @@
                 console.log(this.option);
                 /*</debug>*/
                 p[0].post(this.option);
-            },
+            }
+
         }
     });
+
     function _dw() {
         return {
             "bdDwId": 0,
@@ -629,47 +544,31 @@
     }
     function _form() {
         return {
-            title: '新建货品',
-            "bgGoodsId": 0,
-            "bgGoodsNo": "",
-            "bgGoodsName": "",
-            "bgNamejc": "",
-            "bgT": 0,
-            "bgI": 0,
-            "bgHsl": 0,
-            "bgZxdw": 2,
-            "bgSzdw": 1,
-            "bgStatus": 1,
-            "bgArehouseId": 0,
-            "bgClientId": 0,
-            "bgGoodsType": "",
-            "bgGoodsTj": 0,
-            "bgGoodsZl": 0,
-            "bgGoodsPrice": 0,
-            "bgCreatetime": (new Date()).toJSON(),
-            "bgRemarks": "",
-            "bgGoodsGg": "",
-            "baseDws": []
+            title: '新建承运商车辆',
+            "bcId": 0,
+            "bcCph": "",
+            "bcSjxm": "",
+            "bcSjdh": "",
         }
     }               //弹出层 form 模板
     var obj = carrierVehicleManagement;
     var p = [];
-    // 0 货品管理 分页查询
+    // 0 承运商车辆管理 分页查询
     p[0] = autoPost({
-        urlHock: "../../hock/carrierVehicleManagement/page.json",
+        urlHock: "",
         urlProd: "/route/carrierVehicleManagement/0",
         success: function (json) {
             obj.$data.carrierVehicleManagement = json.data;
             obj.$data.currentTotal = json.recordsFiltered;
         }
     });
-    // 1 货品管理 编辑
+    // 1 承运商车辆管理 编辑
     p[1] = autoPost({
-        urlHock: "../../hock/carrierVehicleManagement/page.json",
+        urlHock: "",
         urlProd: "/route/carrierVehicleManagement/1",
         success: function (json) {
             obj.submitLoading = false;
-            this.callbackAfter({status: json.status, model: '货品编辑'}, function () {
+            this.callbackAfter({status: json.status, model: '承运商车辆编辑'}, function () {
                 obj.dialogFormActive = 0;
                 p[0].post(obj.option);
                 if (obj.$refs.carousel) obj.$refs.carousel.setActiveItem(0);
@@ -677,13 +576,13 @@
             })
         }
     });
-    // 2 货品管理 新增
+    // 2 承运商车辆管理 新增
     p[2] = autoPost({
         urlHock: "",
         urlProd: "/route/carrierVehicleManagement/2",
         success: function (json) {
             obj.submitLoading = false;
-            this.callbackAfter({status: json.status, model: '货品新增'}, function () {
+            this.callbackAfter({status: json.status, model: '承运商车辆新增'}, function () {
                 obj.dialogFormActive = 0;
                 p[0].post(obj.option);
                 if (obj.$refs.carousel) obj.$refs.carousel.setActiveItem(0);
@@ -691,13 +590,14 @@
             })
         }
     });
-    // 6 货品管理 删除
-    p[6] = autoPost({
+    // 3 承运商车辆管理 删除
+    p[3] = autoPost({
         urlHock: "",
-        urlProd: "/route/carrierVehicleManagement/6",
-        method:'GET',
+        urlProd: "/route/carrierVehicleManagement/3",
+        metho:'GET',
         success: function (json) {
-            this.callbackAfter({status: json.status, model: '货品删除'});
+            this.callbackAfter({status: json.status, model: '删除承运商车辆管理'});
+            p[0].post(carrierVehicleManagement.option);
         }
     });
     // 8 货品管理
@@ -715,6 +615,7 @@
             obj.dw = json.data;
         }
     });
+
     p[10].post({
         "bdIsdel": 1,
         "pageNum": 1,
