@@ -179,6 +179,36 @@ router.param('_url', function (req, res, next, url) {
                         break;
                 }
                 break;
+              case 'carrierVehicleManagement':
+                switch (parseInt(req.params._status)) {
+                    case 0:
+                        urlName = '承运商车辆管理-POST请求查询承运车辆信息';
+                        req = autoUrl(req, '/car/page', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 1:
+                        urlName = '承运商车辆管理-修改承运车辆信息';
+                        req = autoUrl(req, '/car', "PUT", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                    case 2:
+                        urlName = '承运商车辆管理-新增承运车辆';
+                        req = autoUrl(req, '/car', "POST", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                      case 3:
+                        urlName = '承运商车辆管理-通过id删除一条承运车辆数据';
+                          req = autoUrl(req, '/car/'+req.query.bcId, "DELETE", function (json) {
+                            res.send(json);
+                        });
+                        break;
+                }
+                break;
+
+
             case 'warehousingReservation':
                 switch (parseInt(req.params._status)) {
                     case 0:
