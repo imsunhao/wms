@@ -140,12 +140,12 @@
                                             prop="rkRkdjNo">
                                     </el-table-column>
                                     <el-table-column
-                                            width="150"
+                                            width="200"
                                             align="center"
                                             label="收货时间">
                                         <template scope="scope">
                                             <el-icon name="time"></el-icon>
-                                            <span style="margin-left: 10px">{{ auto_time_new(scope.row.rkKsshsj) }}</span>
+                                            <span style="margin-left: 10px">{{ auto_time_new(scope.row.rkKsshsj,4) }}</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column
