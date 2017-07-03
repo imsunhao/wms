@@ -1,433 +1,437 @@
 <link rel="stylesheet" href="index.scss">
 <script src="index.js"></script>
 <div id="startReceiving">
-    <!--页面调整-->
-    <el-row v-loading="showLoading"
-            element-loading-text="拼命加载中">
-        <el-col :span="24">
-            <div class="inner btn-nav">
-                <el-input
-                        @change="selectReturn"
-                        v-model="rkrwNo"
-                        icon="search"
-                        placeholder="任务单号"></el-input>
-                <el-input
-                        @change="selectReturn"
-                        class="input"
-                        v-model="rkrwSjxm"
-                        icon="search"
-                        placeholder="司机姓名"></el-input>
-                <el-input
-                        @change="selectReturn"
-                        v-model="rkrwCph"
-                        icon="search"
-                        placeholder="车牌号"></el-input>
-                <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
-                        class="icon search"></i><span>详细查询</span>
-                </button>
-                <button @click="multiSelectClick" class="btn btn-multiSelect"><i
-                        class="icon sel"></i><span>多选</span>
-                </button>
-                <button @click="moreOperationModify" class="btn btn-modify" v-show="multiSelect"><i
-                        class="icon modify"></i><span>打印标签页</span>
-                </button>
-            </div>
-            <el-table
-                    :data="startReceiving"
-                    :default-sort="{prop: 'sjsj', order: 'descending'}"
-                    :max-height="config_table_height()"
-                    ref="table"
-                    class="startReceivingTable"
-                    @expand="expandChange"
-                    @selection-change='multiSelectionChange'
-                    style="width: 100%">
-                <el-table-column
-                        type="expand">
-                    <template scope="props">
-                        <el-carousel
-                                arrow="hover"
-                                height="280px"
-                                indicator-position="none"
-                                :autoplay="false">
-                            <el-carousel-item>
-                                <el-row>
-                                    <h3>开始收货详细<span
-                                            style="font-size: 14px;
+  <!--页面调整-->
+  <el-row v-loading="showLoading"
+          element-loading-text="拼命加载中">
+    <el-col :span="24">
+      <div class="inner btn-nav">
+        <el-input
+            @change="selectReturn"
+            v-model="rkrwNo"
+            icon="search"
+            placeholder="任务单号"></el-input>
+        <el-input
+            @change="selectReturn"
+            class="input"
+            v-model="rkrwSjxm"
+            icon="search"
+            placeholder="司机姓名"></el-input>
+        <el-input
+            @change="selectReturn"
+            v-model="rkrwCph"
+            icon="search"
+            placeholder="车牌号"></el-input>
+        <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
+            class="icon search"></i><span>详细查询</span>
+        </button>
+        <button @click="multiSelectClick" class="btn btn-multiSelect"><i
+            class="icon sel"></i><span>多选</span>
+        </button>
+        <button @click="moreOperationModify" class="btn btn-modify" v-show="multiSelect"><i
+            class="icon modify"></i><span>打印标签页</span>
+        </button>
+      </div>
+      <el-table
+          :data="startReceiving"
+          :default-sort="{prop: 'sjsj', order: 'descending'}"
+          :max-height="config_table_height()"
+          ref="table"
+          class="startReceivingTable"
+          @expand="expandChange"
+          @selection-change='multiSelectionChange'
+          style="width: 100%">
+        <el-table-column
+            type="expand">
+          <template scope="props">
+            <el-carousel
+                arrow="hover"
+                height="280px"
+                indicator-position="none"
+                :autoplay="false">
+              <el-carousel-item>
+                <el-row>
+                  <h3>入库任务单据<span
+                      style="font-size: 14px;
                                             font-weight: normal;
-                                            margin-left: 5px;">(翻页查看单据数据）</span>
-                                    </h3>
-                                </el-row>
-                                <el-form label-position="left" inline class="demo-table-expand">
-                                    <el-row>
-                                        <el-col :span="10">
-                                            <el-form-item label="任务号">
-                                                <el-tag type="success">
-                                                    {{ props.row.rkrwNo }}
-                                                </el-tag>
-                                            </el-form-item>
-                                            <el-form-item label="车牌号">
-                                                <span>{{ props.row.rkrwCph }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="订单数">
-                                                <span>{{props.row.orders}}</span>
-                                            </el-form-item>
-                                            <el-form-item label="品项数">
-                                                <span>{{props.row.goodsType}}</span>
-                                            </el-form-item>
-                                            <el-form-item label="司机姓名">
-                                                <span>{{ props.row.rkrwSjxm }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="调拨地">
-                                                <span>{{ props.row.rkrwDbd }}</span>
-                                            </el-form-item>
-                                        </el-col>
-                                        <el-col :span="10" :offset="2">
-                                            <el-form-item label="预计到货">
-                                                <span>{{auto_time_new(props.row.rkrwDhrq,6) }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="承运商">
-                                                <span>{{ props.row.rkrwCys }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="司机电话">
-                                                <span>{{ props.row.rkrwDh }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="任务状态">
-                                                <el-tag-s :val="auto_el_tag('rkRwStatus',props.row.rkrwStatus)"></el-tag-s>
-                                            </el-form-item>
-                                            <el-form-item
-                                                    v-if="props.row.rkrwStatus<52&&props.row.rkrwStatus>1"
-                                                    label="可用操作">
-                                                <el-button
-                                                        size="small"
-                                                        type="info"
-                                                        @click="inlineModify(props.$index, props.row)">打印标签页
-                                                </el-button>
-                                            </el-form-item>
-                                            <el-form-item label="入库备注">
-                                                <el-tooltip class="item" effect="dark" :content="props.row.remarks"
-                                                            placement="top">
-                                                    <span class="remark">{{ props.row.remarks }}</span>
-                                                </el-tooltip>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
-                                </el-form>
-                            </el-carousel-item>
-                            <el-carousel-item>
-                                <el-row>
-                                    <h3>入库任务单据<span
-                                            style="font-size: 14px;
+                                            margin-left: 5px;">（双击查看单据明细，翻页查看单据详细）</span>
+                  </h3>
+                </el-row>
+                <el-table
+                    :data="props.row.docList"
+                    @row-dblclick="dblClick"
+                    :max-height="240">
+                  <el-table-column
+                      label="入库单号"
+                      width="170"
+                      show-overflow-tooltip
+                      align="center"
+                      prop="rkRkdjNo">
+                  </el-table-column>
+                  <el-table-column
+                      width="150"
+                      align="center"
+                      prop="rkCreatetime"
+                      label="下单时间">
+                    <template scope="scope">
+                      <el-icon name="time"></el-icon>
+                      <span style="margin-left: 10px">{{ auto_rkCreatetime(scope.row.rkCreatetime) }}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                      label="类型"
+                      align="center"
+                      width="100">
+                    <template scope="scope">
+                      <!--{{auto_rkType(scope.row.rkType)}}-->
+                      <el-tag type="primary">
+                        {{ auto_rkType(scope.row.rkType) }}
+                      </el-tag>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                      label="状态"
+                      align="center">
+                    <template scope="scope">
+                      <el-tag-s :val="auto_el_tag('rkStatus',scope.row.rkStatus)"></el-tag-s>
+                      <!--{{auto_rkStatus(scope.row.rkStatus)}}-->
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                      label="总数量"
+                      align="center"
+                      show-overflow-tooltip
+                      prop="allCount">
+                  </el-table-column>
+                  <el-table-column
+                      label="总体积"
+                      align="center"
+                      show-overflow-tooltip
+                      prop="allTj">
+                  </el-table-column>
+                  <el-table-column
+                      label="总件数"
+                      show-overflow-tooltip
+                      prop="jianAndtaiAllCount">
+                  </el-table-column>
+                  <el-table-column
+                      width="150"
+                      label="可用操作">
+                    <template scope="scope">
+                      <el-button
+                          size="mini"
+                          type="success"
+                          v-show="scope.row.rkKsshsj==null"
+                          @click="inlineStartReceiving(scope.$index, scope.row)">开始收货
+                      </el-button>
+                      <el-tag type="primary"
+                              v-show="scope.row.rkKsshsj!=null">已开始</el-tag>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </el-carousel-item>
+              <el-carousel-item>
+                <el-row>
+                  <h3>开始收货详细<span
+                      style="font-size: 14px;
                                             font-weight: normal;
-                                            margin-left: 5px;">（双击查看单据明细）</span>
-                                    </h3>
-                                </el-row>
-                                <el-table
-                                        :data="props.row.docList"
-                                        @row-dblclick="dblClick"
-                                        :max-height="240">
-                                    <el-table-column
-                                            label="入库单号"
-                                            width="170"
-                                            show-overflow-tooltip
-                                            align="center"
-                                            prop="rkRkdjNo">
-                                    </el-table-column>
-                                    <el-table-column
-                                            width="150"
-                                            align="center"
-                                            prop="rkCreatetime"
-                                            label="下单时间">
-                                        <template scope="scope">
-                                            <el-icon name="time"></el-icon>
-                                            <span style="margin-left: 10px">{{ auto_rkCreatetime(scope.row.rkCreatetime) }}</span>
-                                        </template>
-                                    </el-table-column>
-                                    <el-table-column
-                                            label="类型"
-                                            align="center"
-                                            width="100">
-                                        <template scope="scope">
-                                            <!--{{auto_rkType(scope.row.rkType)}}-->
-                                            <el-tag type="primary">
-                                                {{ auto_rkType(scope.row.rkType) }}
-                                            </el-tag>
-                                        </template>
-                                    </el-table-column>
-                                    <el-table-column
-                                            label="状态"
-                                            align="center">
-                                        <template scope="scope">
-                                            <el-tag-s :val="auto_el_tag('rkStatus',scope.row.rkStatus)"></el-tag-s>
-                                            <!--{{auto_rkStatus(scope.row.rkStatus)}}-->
-                                        </template>
-                                    </el-table-column>
-                                    <el-table-column
-                                            label="总数量"
-                                            align="center"
-                                            show-overflow-tooltip
-                                            prop="allCount">
-                                    </el-table-column>
-                                    <el-table-column
-                                            label="总体积"
-                                            align="center"
-                                            show-overflow-tooltip
-                                            prop="allTj">
-                                    </el-table-column>
-                                    <el-table-column
-                                            label="总件数"
-                                            show-overflow-tooltip
-                                            prop="jianAndtaiAllCount">
-                                    </el-table-column>
-                                    <el-table-column
-                                            width="150"
-                                            label="可用操作">
-                                        <template scope="scope">
-                                            <el-button
-                                                    size="mini"
-                                                    type="success"
-                                                    @click="inlineStartReceiving(scope.$index, scope.row)">开始收货
-                                            </el-button>
-                                        </template>
-                                    </el-table-column>
-                                </el-table>
-                            </el-carousel-item>
-                        </el-carousel>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        label="任务号"
-                        show-overflow-tooltip
-                        prop="rkrwNo"
-                        align="center">
-                </el-table-column>
-                <el-table-column
-                        label="车牌号"
-                        show-overflow-tooltip
-                        prop="rkrwCph"
-                        align="center">
-                </el-table-column>
-                <el-table-column
-                        label="订单数"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="orders">
-                </el-table-column>
-                <el-table-column
-                        label="品项数"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="goodsType">
-                </el-table-column>
-                <el-table-column
-                        label="司机姓名"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="rkrwSjxm">
-                </el-table-column>
-                <el-table-column
-                        label="预计到货"
-                        show-overflow-tooltip
-                        align="center">
-                    <template scope="scope">
-                        {{auto_time_new(scope.row.rkrwDhrq,4)}}
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        label="调拨地"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="rkrwDbd">
-                </el-table-column>
-                <el-table-column
-                        label="承运商"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="rkrwCys">
-                </el-table-column>
-                <el-table-column
-                        label="任务状态"
-                        prop="status"
-                        width="150px"
-                        align="center">
-                    <template scope="scope">
-                        <el-tag-s :val="auto_el_tag('rkRwStatus',scope.row.rkrwStatus)"></el-tag-s>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        v-if="multiSelect"
-                        type="selection"
-                        width="60">
-                </el-table-column>
-            </el-table>
-            <div class="block">
-                <el-pagination
-                        @size-change="handleSizeChange"
-                        @current-change="handleCurrentChange"
-                        :current-page="1"
-                        :page-sizes="[5, 10, 15, 20]"
-                        :page-size="pageSize"
-                        layout="total, sizes, prev, pager, next, jumper"
-                        :total="currentTotal">
-                </el-pagination>
-            </div>
-        </el-col>
-    </el-row>
-    <el-dialog
-            size="tiny"
-            class="select"
-            v-model="dialogSelectVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">详细查询</span>
-        </div>
-        <el-form :model="form">
-            <el-form-item label="车牌号"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.rkrwCph"
-                        icon="search"
-                        placeholder="车牌号"></el-input>
-            </el-form-item>
-            <el-form-item label="司机姓名"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.rkrwSjxm"
-                        icon="search"
-                        placeholder="司机姓名"></el-input>
-            </el-form-item>
-            <el-form-item label="预计到货日期"
-                          :label-width="formLabelWidth">
-                <el-date-picker
-                        v-model="form.rkrwDhrq"
-                        type="datetime"
-                        align="right"
-                        placeholder="到货日期"
-                        class="input">
-                </el-date-picker>
-            </el-form-item>
-            <el-form-item label="调拨地"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.rkrwDbd"
-                        icon="search"
-                        placeholder="调拨地"></el-input>
-            </el-form-item>
-            <el-form-item label="承运商"
-                          :label-width="formLabelWidth">
-                <el-input
-                        class="input"
-                        v-model="form.rkrwCys"
-                        icon="search"
-                        placeholder="承运商"></el-input>
-            </el-form-item>
-            <el-form-item label="任务号"
-                          :label-width="formLabelWidth">
-                <el-input
-                        v-model="form.rkrwNo"
-                        class="input"
-                        icon="search"
-                        placeholder="任务号"></el-input>
-            </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="form = _form()">重置</el-button>
-            <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
-        </div>
-    </el-dialog>
-    <el-dialog
-            size="large"
-            class="printf"
-            v-model="dialogPrintfVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">打印标签页</span>
-        </div>
-        <el-tree
-                :data="printf"
-                :props="{label: 'name',children: 'children'}"
-                :load="printfLoadNode"
-                lazy
-                show-checkbox
-                ref="printf"
-                @check-change="printfCheckChange">
-        </el-tree>
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="printfSubmit" :loading="printfLoading">打印</el-button>
-        </div>
-    </el-dialog>
-    <el-dialog
-            size="large"
-            v-model="dialogListsVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">入库明细 单号：{{lists.rkRkdjNo}}</span>
-        </div>
-        <el-table
-                :data="lists.data"
-                highlight-current-row
-                style="width: 100%">
-            <el-table-column
-                    type="index"
-                    width="55">
-            </el-table-column>
-            <el-table-column
-                    label="货品编号"
-                    width="140"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="baseGoods.bgGoodsNo">
-            </el-table-column>
-            <el-table-column
-                    align="center"
-                    prop="baseGoods.bgGoodsName"
-                    show-overflow-tooltip
-                    label="货品名称">
-            </el-table-column>
-            <el-table-column
-                    align="center"
-                    prop="rksStatus"
-                    show-overflow-tooltip
-                    label="单据状态">
-                <template scope="scope">
-                    <el-tag-s :val="auto_el_tag('rksStatus',scope.row.rksStatus)"></el-tag-s>
-                </template></el-table-column>
-            <el-table-column
-                    label="件数"
-                    width="120"
-                    prop="jianAndtaiCount"
-                    align="center">
-            </el-table-column>
-            <el-table-column
-                    label="台数"
-                    width="100"
-                    show-overflow-tooltip
-                    prop="rksCount"
-                    align="center">
-            </el-table-column>
-            <el-table-column
-                    align="center"
-                    prop="rksQhsl"
-                    show-overflow-tooltip
-                    label="欠货数量">
-            </el-table-column>
-            <el-table-column
-                    align="center"
-                    prop="rksBfdh"
-                    show-overflow-tooltip
-                    label="补发单号">
-            </el-table-column>
-            <el-table-column
-                    align="center"
-                    prop="rksWjReason"
-                    show-overflow-tooltip
-                    label="完结原因">
-            </el-table-column>
-
-        </el-table>
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="dialogListsVisible=false">关闭</el-button>
-        </div>
-    </el-dialog>
+                                            margin-left: 5px;">(翻页查看单据明细）</span>
+                  </h3>
+                </el-row>
+                <el-form label-position="left" inline class="demo-table-expand">
+                  <el-row>
+                    <el-col :span="10">
+                      <el-form-item label="任务号">
+                        <el-tag type="success">
+                          {{ props.row.rkrwNo }}
+                        </el-tag>
+                      </el-form-item>
+                      <el-form-item label="车牌号">
+                        <span>{{ props.row.rkrwCph }}</span>
+                      </el-form-item>
+                      <el-form-item label="订单数">
+                        <span>{{props.row.orders}}</span>
+                      </el-form-item>
+                      <el-form-item label="品项数">
+                        <span>{{props.row.goodsType}}</span>
+                      </el-form-item>
+                      <el-form-item label="司机姓名">
+                        <span>{{ props.row.rkrwSjxm }}</span>
+                      </el-form-item>
+                      <el-form-item label="调拨地">
+                        <span>{{ props.row.rkrwDbd }}</span>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="10" :offset="2">
+                      <el-form-item label="预计到货">
+                        <span>{{auto_time_new(props.row.rkrwDhrq,6) }}</span>
+                      </el-form-item>
+                      <el-form-item label="承运商">
+                        <span>{{ props.row.rkrwCys }}</span>
+                      </el-form-item>
+                      <el-form-item label="司机电话">
+                        <span>{{ props.row.rkrwDh }}</span>
+                      </el-form-item>
+                      <el-form-item label="任务状态">
+                        <el-tag-s :val="auto_el_tag('rkRwStatus',props.row.rkrwStatus)"></el-tag-s>
+                      </el-form-item>
+                      <el-form-item
+                          v-if="props.row.rkrwStatus<52&&props.row.rkrwStatus>1"
+                          label="可用操作">
+                        <el-button
+                            size="small"
+                            type="info"
+                            @click="inlineModify(props.$index, props.row)">打印标签页
+                        </el-button>
+                      </el-form-item>
+                      <el-form-item label="入库备注">
+                        <el-tooltip class="item" effect="dark" :content="props.row.remarks"
+                                    placement="top">
+                          <span class="remark">{{ props.row.remarks }}</span>
+                        </el-tooltip>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                </el-form>
+              </el-carousel-item>
+            </el-carousel>
+          </template>
+        </el-table-column>
+        <el-table-column
+            label="任务号"
+            show-overflow-tooltip
+            prop="rkrwNo"
+            align="center">
+        </el-table-column>
+        <el-table-column
+            label="车牌号"
+            show-overflow-tooltip
+            prop="rkrwCph"
+            align="center">
+        </el-table-column>
+        <el-table-column
+            label="订单数"
+            show-overflow-tooltip
+            align="center"
+            prop="orders">
+        </el-table-column>
+        <el-table-column
+            label="品项数"
+            show-overflow-tooltip
+            align="center"
+            prop="goodsType">
+        </el-table-column>
+        <el-table-column
+            label="司机姓名"
+            show-overflow-tooltip
+            align="center"
+            prop="rkrwSjxm">
+        </el-table-column>
+        <el-table-column
+            label="预计到货"
+            show-overflow-tooltip
+            align="center">
+          <template scope="scope">
+            {{auto_time_new(scope.row.rkrwDhrq,4)}}
+          </template>
+        </el-table-column>
+        <el-table-column
+            label="调拨地"
+            show-overflow-tooltip
+            align="center"
+            prop="rkrwDbd">
+        </el-table-column>
+        <el-table-column
+            label="承运商"
+            show-overflow-tooltip
+            align="center"
+            prop="rkrwCys">
+        </el-table-column>
+        <el-table-column
+            label="任务状态"
+            prop="status"
+            width="150px"
+            align="center">
+          <template scope="scope">
+            <el-tag-s :val="auto_el_tag('rkRwStatus',scope.row.rkrwStatus)"></el-tag-s>
+          </template>
+        </el-table-column>
+        <el-table-column
+            v-if="multiSelect"
+            type="selection"
+            width="60">
+        </el-table-column>
+      </el-table>
+      <div class="block">
+        <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="1"
+            :page-sizes="[5, 10, 15, 20]"
+            :page-size="pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="currentTotal">
+        </el-pagination>
+      </div>
+    </el-col>
+  </el-row>
+  <el-dialog
+      size="tiny"
+      class="select"
+      v-model="dialogSelectVisible">
+    <div class="dialog-title clearfix" slot="title">
+      <span class="el-dialog__title">详细查询</span>
+    </div>
+    <el-form :model="form">
+      <el-form-item label="车牌号"
+                    :label-width="formLabelWidth">
+        <el-input
+            class="input"
+            v-model="form.rkrwCph"
+            icon="search"
+            placeholder="车牌号"></el-input>
+      </el-form-item>
+      <el-form-item label="司机姓名"
+                    :label-width="formLabelWidth">
+        <el-input
+            class="input"
+            v-model="form.rkrwSjxm"
+            icon="search"
+            placeholder="司机姓名"></el-input>
+      </el-form-item>
+      <el-form-item label="预计到货日期"
+                    :label-width="formLabelWidth">
+        <el-date-picker
+            v-model="form.rkrwDhrq"
+            type="datetime"
+            align="right"
+            placeholder="到货日期"
+            class="input">
+        </el-date-picker>
+      </el-form-item>
+      <el-form-item label="调拨地"
+                    :label-width="formLabelWidth">
+        <el-input
+            class="input"
+            v-model="form.rkrwDbd"
+            icon="search"
+            placeholder="调拨地"></el-input>
+      </el-form-item>
+      <el-form-item label="承运商"
+                    :label-width="formLabelWidth">
+        <el-input
+            class="input"
+            v-model="form.rkrwCys"
+            icon="search"
+            placeholder="承运商"></el-input>
+      </el-form-item>
+      <el-form-item label="任务号"
+                    :label-width="formLabelWidth">
+        <el-input
+            v-model="form.rkrwNo"
+            class="input"
+            icon="search"
+            placeholder="任务号"></el-input>
+      </el-form-item>
+    </el-form>
+    <div slot="footer" class="dialog-footer">
+      <el-button type="primary" @click="form = _form()">重置</el-button>
+      <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
+    </div>
+  </el-dialog>
+  <el-dialog
+      size="large"
+      class="printf"
+      v-model="dialogPrintfVisible">
+    <div class="dialog-title clearfix" slot="title">
+      <span class="el-dialog__title">打印标签页</span>
+    </div>
+    <el-tree
+        :data="printf"
+        :props="{label: 'name',children: 'children'}"
+        :load="printfLoadNode"
+        lazy
+        show-checkbox
+        ref="printf"
+        @check-change="printfCheckChange">
+    </el-tree>
+    <div slot="footer" class="dialog-footer">
+      <el-button type="primary" @click="printfSubmit" :loading="printfLoading">打印</el-button>
+    </div>
+  </el-dialog>
+  <el-dialog
+      size="large"
+      v-model="dialogListsVisible">
+    <div class="dialog-title clearfix" slot="title">
+      <span class="el-dialog__title">入库明细 单号：{{lists.rkRkdjNo}}</span>
+    </div>
+    <el-table
+        :data="lists.data"
+        highlight-current-row
+        style="width: 100%">
+      <el-table-column
+          type="index"
+          width="55">
+      </el-table-column>
+      <el-table-column
+          label="货品编号"
+          width="140"
+          show-overflow-tooltip
+          align="center"
+          prop="baseGoods.bgGoodsNo">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          prop="baseGoods.bgGoodsName"
+          show-overflow-tooltip
+          label="货品名称">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          prop="rksStatus"
+          show-overflow-tooltip
+          label="单据状态">
+        <template scope="scope">
+          <el-tag-s :val="auto_el_tag('rksStatus',scope.row.rksStatus)"></el-tag-s>
+        </template>
+      </el-table-column>
+      <el-table-column
+          label="件数"
+          width="120"
+          prop="jianAndtaiCount"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          label="台数"
+          width="100"
+          show-overflow-tooltip
+          prop="rksCount"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          prop="rksQhsl"
+          show-overflow-tooltip
+          label="欠货数量">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          prop="rksBfdh"
+          show-overflow-tooltip
+          label="补发单号">
+      </el-table-column>
+      <el-table-column
+          align="center"
+          prop="rksWjReason"
+          show-overflow-tooltip
+          label="完结原因">
+      </el-table-column>
+    
+    </el-table>
+    <div slot="footer" class="dialog-footer">
+      <el-button type="primary" @click="dialogListsVisible=false">关闭</el-button>
+    </div>
+  </el-dialog>
 </div>
 
 
