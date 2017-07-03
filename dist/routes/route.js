@@ -453,7 +453,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 6:
                         urlName = '货品管理 软删除多个或单个数据';
-                        req = autoUrl(req, '/goods/deleteOfSoft', " POST", function (json) {
+                        req = autoUrl(req, '/goods/deleteOfSoft', "POST", function (json) {
                             res.send(json);
                         });
                         break;
