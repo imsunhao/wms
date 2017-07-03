@@ -65,14 +65,50 @@
                                     <el-form-item label="作业人员">
                                         <span>{{ props.row.ru_user_name }}</span>
                                     </el-form-item>
+                                    <el-form-item label="入库单号">
+                                        <el-tag type="success">{{props.row.rk_rkdj_no }}</el-tag>
+                                    </el-form-item>
+                                    <el-form-item label="单据状态">
+                                        <el-tag-s :val="auto_el_tag('rk_status',props.row.rk_status)"></el-tag-s>
+                                    </el-form-item>
+                                    <el-form-item label="实收体积">
+                                        <span>{{ props.row.tj }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="货品编号">
+                                        <span>{{ props.row.bg_goods_no }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="货品批次">
+                                        <span>{{ props.row.mdt_batch }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="上架库位">
+                                        <span>{{ props.row.bl_lname }}</span>
+                                    </el-form-item>
+                                    <el-form-item label="制作方式">
+                                        <el-tag-s :val="auto_el_tag('rkZdfs',props.row.rk_zdfs)"></el-tag-s>
+
+                                    </el-form-item>
+                                    <el-form-item label="操作方式">
+                                        <el-tag-s :val="auto_el_tag('rkStartwith',props.row.rk_startwith)"></el-tag-s>
+
+                                    </el-form-item>
+                                    <el-form-item label="货品名称">
+                                        <span>{{ props.row.bg_goods_name }}</span>
+                                    </el-form-item>
+
+
+                                </el-col>
+                                <el-col :span="10" :offset="2">
                                     <el-form-item label="作业时间">
                                         <span>
                                             <el-icon name="time"></el-icon>
                                             {{ auto_time_new(props.row.mdt_sjsj,6) }}
                                         </span>
                                     </el-form-item>
-                                    <el-form-item label="实收体积">
-                                        <span>{{ props.row.tj }}</span>
+                                    <el-form-item label="下单时间">
+                                        <span>
+                                            <el-icon name="time"></el-icon>
+                                            {{auto_time_new(props.row.rk_createtime,6)}}
+                                        </span>
                                     </el-form-item>
                                     <el-form-item label="上架开始">
                                         <span>
@@ -86,34 +122,10 @@
                                             {{ auto_time_new(props.row.rk_end_time,6) }}
                                         </span>
                                     </el-form-item>
-                                    <el-form-item label="下单时间">
-                                        <span>
-                                            <el-icon name="time"></el-icon>
-                                            {{auto_time_new(props.row.rk_createtime,6)}}
-                                        </span>
-                                    </el-form-item>
-                                    <el-form-item label="入库单号">
-                                        <el-tag type="success">{{props.row.rk_rkdj_no }}</el-tag>
-                                    </el-form-item>
-
-                                    <el-form-item label="单据状态">
-                                        <el-tag-s :val="auto_el_tag('rk_status',props.row.rk_status)"></el-tag-s>
-                                    </el-form-item>
-                                    <el-form-item label="货品编号">
-                                        <span>{{ props.row.bg_goods_no }}</span>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :span="10" :offset="2">
-                                    <el-form-item label="货品名称">
-                                        <span>{{ props.row.bg_goods_name }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="货品批次">
-                                        <span>{{ props.row.mdt_batch }}</span>
-                                    </el-form-item>
-                                     <el-form-item label="应收件数">
+                                    <el-form-item label="应收件数">
                                         <span>{{ props.row.jianAndtaiAllCount }}</span>
                                     </el-form-item>
-                                     <el-form-item label="实收件数">
+                                    <el-form-item label="实收件数">
                                         <span>{{ props.row.mdtJianAndTaiCount }}</span>
                                     </el-form-item>
                                     <el-form-item label="应收台数">
@@ -122,17 +134,8 @@
                                     <el-form-item label="实收台数">
                                         <span>{{ props.row.mdt_count }}</span>
                                     </el-form-item>
-                                    <el-form-item label="上架库位">
-                                        <span>{{ props.row.bl_lname }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="制作方式">
-                                        <el-tag-s :val="auto_el_tag('rkZdfs',props.row.rk_zdfs)"></el-tag-s>
 
-                                    </el-form-item>
-                                    <el-form-item label="操作方式">
-                                        <el-tag-s :val="auto_el_tag('rkStartwith',props.row.rk_startwith)"></el-tag-s>
 
-                                    </el-form-item>
                                     <el-form-item
                                             label="可用操作">
                                         <el-button
