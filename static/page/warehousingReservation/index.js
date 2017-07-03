@@ -429,14 +429,18 @@ var warehousingReservation = new Vue({
       this.form.saveARkDocsList = true;
       this.form.deleteARkDocsList = false;
       this.form.selectGood = item;
-      obj.$refs.ref_rksCount.$el.querySelector('input').focus();
+      obj.$nextTick(function () {
+        obj.$refs.ref_rksCount.$el.querySelector('input').focus();
+      });
     },                                         //货品明细控制 选中form中的货品
     GoodEnter: function () {
       if (this.form.deleteARkDocsList === false) {
         this.form.selectGood = selectGood();
         this.form.saveARkDocsList = true;
         this.form.deleteARkDocsList = true;
-        obj.$refs.ref_bgGoodsNo.$el.querySelector('input').focus();
+        obj.$nextTick(function () {
+          obj.$refs.ref_bgGoodsNo.$el.querySelector('input').focus();
+        });
       } else if (this.form.saveARkDocsList === false && this.form.selectGood.rksCount !== 0) {
         this.saveDocsList();
       }
@@ -447,7 +451,9 @@ var warehousingReservation = new Vue({
           obj.form.rkDocsList.push(obj.form.selectGood);
           obj.form.selectGood = selectGood();
           obj.form.saveARkDocsList = true;
-          obj.$refs.ref_bgGoodsNo.$el.querySelector('input').focus();
+          obj.$nextTick(function () {
+            obj.$refs.ref_bgGoodsNo.$el.querySelector('input').focus();
+          });
         } else {
           return false;
         }
