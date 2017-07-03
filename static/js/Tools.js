@@ -845,7 +845,7 @@ var ___datas = (function () {
             id: 'rkStatus',
             name: '入库单据状态',
             data: [
-                {value: 1, name: '原始状态', type: '', color: ''},
+                {value: 1, name: '原始', type: '', color: ''},
                 {value: 21, name: '部分分配', type: 'gray', color: ''},
                 {value: 22, name: '全部分配', type: 'primary', color: ''},
                 {value: 31, name: '部分收货', type: 'success', color: ''},
@@ -857,7 +857,7 @@ var ___datas = (function () {
             id: 'rk_status',
             name: '入库单据状态',
             data: [
-                {value: 1, name: '原始状态', type: '', color: ''},
+                {value: 1, name: '原始', type: '', color: ''},
                 {value: 21, name: '部分分配', type: 'gray', color: ''},
                 {value: 22, name: '全部分配', type: 'primary', color: ''},
                 {value: 31, name: '部分收货', type: 'success', color: ''},
@@ -869,7 +869,7 @@ var ___datas = (function () {
             id: 'rksStatus',
             name: '入库明细据状态',
             data: [
-                {value: 1, name: '初始状态', type: '', color: ''},
+                {value: 1, name: '初始', type: '', color: ''},
                 {value: 21, name: '部分分配', type: 'gray', color: ''},
                 {value: 22, name: '全部分配', type: 'primary', color: ''},
                 {value: 31, name: '部分收货', type: 'success', color: ''},

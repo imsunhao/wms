@@ -80,13 +80,11 @@
                   </el-table-column>
                   <el-table-column
                       label="类型"
+                      show-overflow-tooltip
                       align="center"
-                      width="100">
+                      width="80">
                     <template scope="scope">
-                      <!--{{auto_rkType(scope.row.rkType)}}-->
-                      <el-tag type="primary">
                         {{ auto_rkType(scope.row.rkType) }}
-                      </el-tag>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -115,17 +113,22 @@
                       prop="jianAndtaiAllCount">
                   </el-table-column>
                   <el-table-column
-                      width="150"
+                      width="120"
+                      align="center"
                       label="可用操作">
                     <template scope="scope">
-                      <el-button
-                          size="mini"
-                          type="success"
-                          v-show="scope.row.rkKsshsj==null"
-                          @click="inlineStartReceiving(scope.$index, scope.row)">开始收货
-                      </el-button>
-                      <el-tag type="primary"
-                              v-show="scope.row.rkKsshsj!=null">已开始</el-tag>
+                      <el-row
+                          v-if="scope.row.rkKsshsj==null">
+                        <el-button
+                            size="mini"
+                            type="success"
+                            @click="inlineStartReceiving(scope.$index, scope.row)">开始收货
+                        </el-button>
+                      </el-row>
+                      <el-row v-else>
+                        <el-tag type="primary"
+                                v-if="scope.row.rkKsshsj!=null">已开始</el-tag>
+                      </el-row>
                     </template>
                   </el-table-column>
                 </el-table>
