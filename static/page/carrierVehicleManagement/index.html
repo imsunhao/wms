@@ -200,6 +200,7 @@
             </button>
         </div>
         <el-table
+            @select="handleSelectionChange"
                 :data="carrierVehicleManagement"
                 :max-height="config_table_height()"
                 ref="table"
@@ -304,14 +305,21 @@
                             label="车牌号"
                             :label-width="formLabelWidth">
                         <el-input
-                                v-model.number="form.bcCph"
+                                v-show="form.title!='编辑'"
+                                v-model="form.bcCph"
                                 auto-complete="off"></el-input>
+                      <el-tag
+                          :close-transition="true"
+                          type="success"
+                          v-show="form.title=='编辑'">
+                        {{form.bcCph}}
+                      </el-tag>
                     </el-form-item>
                     <el-form-item
                             label="司机姓名"
                             :label-width="formLabelWidth">
                         <el-input
-                                v-model.number="form.bcSjxm"
+                                v-model="form.bcSjxm"
                                 auto-complete="off"></el-input>
                     </el-form-item>
                     </el-form-item>
@@ -321,7 +329,7 @@
                             label="司机电话"
                             :label-width="formLabelWidth">
                         <el-input
-                                v-model.number="form.bcSjdh"
+                                v-model="form.bcSjdh"
                                 auto-complete="off"></el-input>
                     </el-form-item>
                 </el-col>
@@ -377,6 +385,9 @@
             },           //主页面 post 0
         },
         methods: {
+          handleSelectionChange: function (val, row) {
+            this.multipleSelection = val;
+          },                         //多选 选中控制
             inlineEdit: function (index, row) {
                 var step = _form();
                 allPrposCb(step, function (obj, index) {
@@ -421,7 +432,7 @@
                 }).then(function () {
                     var step = [];
                     for (var i = 0; i < obj.multipleSelection.length; i++) {
-                        step.push(obj.multipleSelection[i].rkrwId);
+                        step.push(obj.multipleSelection[i].bcId);
                     }
                     p[3].post({bcId: step});
                 }).catch(function () {
@@ -589,7 +600,7 @@
     p[3] = autoPost({
         urlHock: "",
         urlProd: "/route/carrierVehicleManagement/3",
-        metho:'GET',
+        method:'GET',
         success: function (json) {
             this.callbackAfter({status: json.status, model: '删除承运商车辆管理'});
             p[0].post(carrierVehicleManagement.option);
