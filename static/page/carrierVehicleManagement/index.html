@@ -528,16 +528,6 @@
 
         }
     });
-
-    function _dw() {
-        return {
-            "bdDwId": 0,
-            "bdName": "string",
-            "bdStatus": 0,
-            "bdIsdel": true,
-            "bdCreatetime": new Date()
-        }
-    }
     function _form() {
         return {
             title: '新建承运商车辆',
@@ -611,14 +601,5 @@
             obj.dw = json.data;
         }
     });
-
-    p[10].post({
-        "bdIsdel": 1,
-        "pageNum": 1,
-        "pageSize": 999,
-        "draw": 0
-    }, function (json) {
-        obj.dw = json.data;
-        p[0].post(carrierVehicleManagement.option);
-    });
+    p[0].post(carrierVehicleManagement.option);
 </script>
