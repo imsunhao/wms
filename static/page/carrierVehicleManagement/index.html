@@ -409,7 +409,7 @@
                     type: 'warning'
                 }).then(function () {
                     p[3].post({
-                        id: row.bcId,
+                        ids: [row.bcId],
                     });
                 }).catch(function () {
                     obj.$message({
@@ -434,7 +434,7 @@
                     for (var i = 0; i < obj.multipleSelection.length; i++) {
                         step.push(obj.multipleSelection[i].bcId);
                     }
-                    p[3].post({bcId: step});
+                    p[3].post({ids: step});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
