@@ -201,7 +201,7 @@ router.param('_url', function (req, res, next, url) {
                         break;
                       case 3:
                         urlName = '承运商车辆管理-通过id删除一条承运车辆数据';
-                          req = autoUrl(req, '/car/'+req.query.id, "DELETE", function (json) {
+                          req = autoUrl(req, '/car/deleteOfCars', "POST", function (json) {
                             res.send(json);
                         });
                         break;
