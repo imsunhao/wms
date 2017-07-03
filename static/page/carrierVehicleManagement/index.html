@@ -485,11 +485,6 @@
                 }
                 setTimeout(function () {
                     obj.submitLoading = false;
-                    obj.$notify({
-                        title: '成功',
-                        message: '保存成功！',
-                        type: 'success'
-                    });
                     obj.dialogFormVisible = false;
                     obj.dialogFormActive = 0;
                     if (obj.$refs.carousel) obj.$refs.carousel.setActiveItem(0);
@@ -507,11 +502,6 @@
                 setTimeout(function () {
                     obj.loadingWarehouse = false;
                     obj.dialogRoleVisible = false;
-                    obj.$notify({
-                        title: '成功',
-                        message: '更换仓库管理成功！',
-                        type: 'success'
-                    });
                 }, 1500);
                 /*</debug>*/
             },                                            //新建 表单提交
@@ -538,16 +528,6 @@
 
         }
     });
-
-    function _dw() {
-        return {
-            "bdDwId": 0,
-            "bdName": "string",
-            "bdStatus": 0,
-            "bdIsdel": true,
-            "bdCreatetime": new Date()
-        }
-    }
     function _form() {
         return {
             title: '新建承运商车辆',
@@ -621,14 +601,5 @@
             obj.dw = json.data;
         }
     });
-
-    p[10].post({
-        "bdIsdel": 1,
-        "pageNum": 1,
-        "pageSize": 999,
-        "draw": 0
-    }, function (json) {
-        obj.dw = json.data;
-        p[0].post(carrierVehicleManagement.option);
-    });
+    p[0].post(carrierVehicleManagement.option);
 </script>
