@@ -117,11 +117,7 @@
                                                 <el-tag type="success">{{props.row.rkRkdjNo }}</el-tag>
                                             </el-form-item>
                                             <el-form-item label="所属仓库">
-                                                <el-tag
-                                                        type="success"
-                                                        close-transition>
                                                     {{auto_rkArehouseId(props.row.rkArehouseId)}}
-                                                </el-tag>
                                             </el-form-item>
                                             <el-form-item label="订单类型">
                                                 <el-tag type="primary">{{ auto_rkType(props.row.rkType) }}</el-tag>
@@ -187,10 +183,7 @@
                         align="center"
                         prop="rkRkdjNo">
                     <template scope="scope">
-                        <el-tag
-                                type="success">
                             {{auto_rkArehouseId(scope.row.rkArehouseId)}}
-                        </el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -199,16 +192,6 @@
                         show-overflow-tooltip
                         align="center"
                         prop="rkRkdjNo">
-                </el-table-column>
-                <el-table-column
-                        width="150"
-                        align="center"
-                        prop="rkCreatetime"
-                        sortable
-                        label="下单时间">
-                    <template scope="scope">
-                        <span style="margin-left: 10px">{{ auto_time_new(scope.row.rkCreatetime) }}</span>
-                    </template>
                 </el-table-column>
                 <el-table-column
                         label="类型"
