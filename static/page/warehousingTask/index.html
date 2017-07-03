@@ -126,6 +126,7 @@
                                         :max-height="240">
                                     <el-table-column
                                             width="80"
+                                            align="center"
                                             show-overflow-tooltip
                                             label="仓库">
                                         <template scope="scope">
@@ -140,23 +141,20 @@
                                             prop="rkRkdjNo">
                                     </el-table-column>
                                     <el-table-column
-                                            width="200"
+                                            width="160"
                                             align="center"
                                             label="收货时间">
                                         <template scope="scope">
-                                            <el-icon name="time"></el-icon>
-                                            <span style="margin-left: 10px">{{ auto_time_new(scope.row.rkKsshsj,4) }}</span>
+                                            <span>{{ auto_time_new(scope.row.rkKsshsj,4) }}</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column
                                             label="类型"
+                                            show-overflow-tooltip
                                             align="center"
-                                            width="100">
+                                            width="80">
                                         <template scope="scope">
-                                            <!--{{auto_rkType(scope.row.rkType)}}-->
-                                            <el-tag type="primary">
-                                                {{ auto_rkType(scope.row.rkType) }}
-                                            </el-tag>
+                                            {{ auto_rkType(scope.row.rkType) }}
                                         </template>
                                     </el-table-column>
                                     <el-table-column
