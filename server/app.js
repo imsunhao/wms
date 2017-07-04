@@ -132,7 +132,7 @@ var mongoose = require('mongoose');
 
 
 var mongoDBConfig = require('./serverConfig/server/mongoBDConfig.json');       //网络数据库 配置
-var MongoStore = require('connect-mongo')(session);                      //提供 session  数据库依赖
+var MongoStore = require('connect-mongo')(session);                            //提供 session  数据库依赖
 
 mongoose.Promise = global.Promise;
 
@@ -147,7 +147,7 @@ mongoose.Promise = global.Promise;
  /*
  */
 app.set('views', path.join(__dirname, 'views'));        //模板根路径
-app.set('view engine', 'ejs');                                     //模板为ejs模板
+app.set('view engine', 'ejs');                          //模板为ejs模板
 /*
  /*****************************************************************************/
 

@@ -347,14 +347,14 @@
                             label="货品编号"
                             :label-width="formLabelWidth">
                         <el-input
-                                v-model.number="form.bgGoodsNo        "
+                                v-model="form.bgGoodsNo        "
                                 auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item
                             label="货品名称"
                             :label-width="formLabelWidth">
                         <el-input
-                                v-model.number="form.bgGoodsName           "
+                                v-model="form.bgGoodsName           "
                                 auto-complete="off"></el-input>
                     </el-form-item>
 
@@ -362,14 +362,14 @@
                             label="货品简称"
                             :label-width="formLabelWidth">
                         <el-input
-                                v-model.number="form.bgNamejc"
+                                v-model="form.bgNamejc"
                                 auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item
                             label="整箱单位"
                             :label-width="formLabelWidth">
                         <el-select
-                                v-model.number="form.bgZxdw"
+                                v-model="form.bgZxdw"
                                 placeholder="请选择单据类型">
                             <el-option :label="item.bdName" :value.number="item.bdDwId" v-for="item in dw1"></el-option>
                         </el-select>
@@ -378,7 +378,7 @@
                             label="散支单位"
                             :label-width="formLabelWidth">
                         <el-select
-                                v-model.number="form.bgSzdw"
+                                v-model="form.bgSzdw"
                                 placeholder="请选择单据类型">
                             <el-option :label="item.bdName" :value.number="item.bdDwId" v-for="item in dw2"></el-option>
                         </el-select>
@@ -387,7 +387,7 @@
                             label="备注"
                             :label-width="formLabelWidth">
                         <el-input
-                                v-model.number="form.bgRemarks                 "
+                                v-model="form.bgRemarks                 "
                                 auto-complete="off"></el-input>
                     </el-form-item>
                 </el-col>

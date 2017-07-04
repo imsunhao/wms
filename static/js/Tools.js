@@ -626,7 +626,7 @@ function _pickerOptions(number) {
                 ]
             };
     }
-}           //查询切换 picker 补丁
+}     //查询切换 picker 补丁
 
 function tsf_date(date, number) {
     if (typeof date !== 'undefined' && date !== null && date !== '') {
@@ -1103,7 +1103,7 @@ function auto_el_tag(id, value) {
 function config_table_height(num) {
     switch (num){
         case 1:
-            return document.body.clientHeight - 350;
+            return document.body.clientHeight - 400;
         default:
             return document.body.clientHeight - 300;
     }
