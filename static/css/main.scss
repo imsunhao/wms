@@ -5,19 +5,35 @@ html, body {
   padding: 0 !important;
 }
 
+
+/*滚动条宽度*/
 ::-webkit-scrollbar {
-  width: 10px;
+ width: 0.2rem;
 }
 
+/* 轨道样式 */
+::-webkit-scrollbar-track {
+
+}
+
+/* Handle样式 */
 ::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  background: #eef1f6;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+ border-radius: 10px;
+ background: rgba(0,0,0,0.2);
 }
 
+/*当前窗口未激活的情况下*/
 ::-webkit-scrollbar-thumb:window-inactive {
-  background: #edf7ff;
+ background: rgba(0,0,0,0.1);
+}
+
+/*hover到滚动条上*/
+::-webkit-scrollbar-thumb:vertical:hover{
+ background-color: rgba(0,0,0,0.3);
+}
+/*滚动条按下*/
+::-webkit-scrollbar-thumb:vertical:active{
+ background-color: rgba(0,0,0,0.7);
 }
 
 .slide {

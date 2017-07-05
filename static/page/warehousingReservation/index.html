@@ -47,8 +47,6 @@
                 <button @click="setInterface" class="btn btn-import" v-if="false"><i
                     class="icon add"></i><span>接口设置</span>
                 </button>
-                
-                
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
                     class="icon sel"></i><span>多选</span>
                 </button>
@@ -262,6 +260,7 @@
                     prop="rkrwCph"
                     :label-width="formLabelWidth">
                   <el-autocomplete
+                      style="width:100%"
                       v-model="warehousingReservationCombinationDetails.rkrwCph"
                       :fetch-suggestions="querySearchAsync_car"
                       placeholder="请输入内容"
@@ -409,20 +408,19 @@
         </el-form>
       </el-carousel-item>
       <el-carousel-item>
-        <el-form :model="form.selectGood" ref="refForm2" :rules="form_rule2">
+        <el-form :model="form.selectGood" ref="refForm2" :rules="form_rule2" label-width="100px">
           <el-row>
             <el-col :span="24"><h3>入库明细</h3></el-col>
           </el-row>
           <el-row>
-            <el-col :span="8">
-              <el-form-item label="货品编号" :label-width="formLabelWidth">
+            <el-col :span="10">
+              <el-form-item label="货品编号">
                 <strong>{{form.selectGood.baseGoods.bgGoodsNo}}</strong>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="14">
               <el-form-item
-                  label="货品名称"
-                  :label-width="formLabelWidth">
+                  label="货品名称">
                 <el-tooltip class="item" effect="dark"
                             :content="form.selectGood.baseGoods.bgGoodsName"
                             placement="top">
@@ -430,17 +428,16 @@
                 </el-tooltip>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
-              <el-form-item
-                  label="货品数量"
-                  :label-width="formLabelWidth">
-                <strong>{{form.selectGood.rksCount}}</strong>
-              </el-form-item>
-            </el-col>
+            <!--<el-col :span="8">-->
+              <!--<el-form-item-->
+                  <!--label="货品数量">-->
+                <!--<strong>{{form.selectGood.rksCount}}</strong>-->
+              <!--</el-form-item>-->
+            <!--</el-col>-->
           </el-row>
           <el-row v-show="!watchView">
-            <el-col :span="12">
-              <el-form-item label="货品编号" :label-width="formLabelWidth">
+            <el-col :span="14">
+              <el-form-item label="货品编号">
                 <el-autocomplete
                     :fetch-suggestions="querySearchAsync"
                     ref="ref_bgGoodsNo"
@@ -450,11 +447,10 @@
                     auto-complete="off"></el-autocomplete>
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <el-col :span="8">
               <el-form-item
                   label="货品数量"
-                  prop="rksCount"
-                  :label-width="formLabelWidth">
+                  prop="rksCount">
                 <el-input
                     :disabled="form.selectGood.rksGoodsId==0"
                     ref="ref_rksCount"

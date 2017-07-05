@@ -180,9 +180,9 @@
                     v-model="blsName"
                     icon="search"
                     placeholder="作业区名称"></el-input>
-            <button @click="newInput" class="btn btn-add"><i
-                    class="icon add"></i><span>新增</span>
-            </button>
+            <!--<button @click="newInput" class="btn btn-add"><i-->
+                    <!--class="icon add"></i><span>新增</span>-->
+            <!--</button>-->
             <button
                     class="btn"
                     v-show="multiSelect&&multipleSelection.length==1"
@@ -197,42 +197,47 @@
                 class="operationAreaManageTable"
                 @selection-change="multiSelectionChange"
                 style="width: 100%">
-            <el-table-column
-                    type="expand">
-                <template scope="props">
-                    <el-row>
-                        <el-col :span="10">
-                            <el-form label-position="left" inline class="demo-table-expand">
-                                <el-form-item label="作业区名称">
-                                    <span>{{ props.row.blsName        }}</span>
-                                </el-form-item>
-                            </el-form>
-                        </el-col>
-                        <el-col :span="14">
-                            <el-form label-position="left" inline class="demo-table-expand">
-                                <el-form-item label="库位数">
-                                    <span>{{ props.row.locationCount  }}</span>
-                                </el-form-item>
-                                <el-form-item label="可用操作">
-                                    <el-button
-                                            size="small"
-                                            icon="edit"
-                                            @click="inlineEdit(props.$index, props.row)">
-                                    </el-button>
+  
+          <el-table-column
+              width="80"
+              type="index">
+          </el-table-column>
+            <!--<el-table-column-->
+                    <!--type="expand">-->
+                <!--<template scope="props">-->
+                    <!--<el-row>-->
+                        <!--<el-col :span="10">-->
+                            <!--<el-form label-position="left" inline class="demo-table-expand">-->
+                                <!--<el-form-item label="作业区名称">-->
+                                    <!--<span>{{ props.row.blsName        }}</span>-->
+                                <!--</el-form-item>-->
+                            <!--</el-form>-->
+                        <!--</el-col>-->
+                        <!--<el-col :span="14">-->
+                            <!--<el-form label-position="left" inline class="demo-table-expand">-->
+                                <!--<el-form-item label="库位数">-->
+                                    <!--<span>{{ props.row.locationCount  }}</span>-->
+                                <!--</el-form-item>-->
+                                <!--<el-form-item label="可用操作">-->
+                                    <!--<el-button-->
+                                            <!--size="small"-->
+                                            <!--icon="edit"-->
+                                            <!--@click="inlineEdit(props.$index, props.row)">-->
+                                    <!--</el-button>-->
 
-                                    <el-button
-                                            size="small"
-                                            icon="delete"
-                                            type="danger"
-                                            @click="deleteOlder(props.$index, props.row)">删除
-                                    </el-button>
+                                    <!--<el-button-->
+                                            <!--size="small"-->
+                                            <!--icon="delete"-->
+                                            <!--type="danger"-->
+                                            <!--@click="deleteOlder(props.$index, props.row)">删除-->
+                                    <!--</el-button>-->
 
-                                </el-form-item>
-                            </el-form>
-                        </el-col>
-                    </el-row>
-                </template>
-            </el-table-column>
+                                <!--</el-form-item>-->
+                            <!--</el-form>-->
+                        <!--</el-col>-->
+                    <!--</el-row>-->
+                <!--</template>-->
+            <!--</el-table-column>-->
             <el-table-column
                     label="作业区名称"
                     show-overflow-tooltip

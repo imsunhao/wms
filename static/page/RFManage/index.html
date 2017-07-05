@@ -198,47 +198,51 @@
                 class="RFManageTable"
                 @selection-change="multiSelectionChange"
                 style="width: 100%">
-            <el-table-column
-                    type="expand">
-                <template scope="props">
-                    <el-row>
-                        <el-col :span="10">
-                            <el-form label-position="left" inline class="demo-table-expand">
-                                <el-form-item label="账户">
-                                    <span>{{ props.row.ruLoginName        }}</span>
-                                </el-form-item>
-                                <el-form-item label="类型">
-                                    <el-tag-s :val="auto_el_tag('ruUserType',props.row.ruUserType)"></el-tag-s>
-                                </el-form-item>
-                            </el-form>
-                        </el-col>
-                        <el-col :span="14">
-                            <el-form label-position="left" inline class="demo-table-expand">
-                                <el-form-item label="主要作业区">
-                                    <span>{{ props.row.firstZyq   }}</span>
-                                </el-form-item>
-                                <el-form-item label="次要作业区">
-                                    <span>{{ props.row.secondZyq }}</span>
-                                </el-form-item>
+          <el-table-column
+              width="80"
+              type="index">
+          </el-table-column>
+            <!--<el-table-column-->
+                    <!--type="expand">-->
+                <!--<template scope="props">-->
+                    <!--<el-row>-->
+                        <!--<el-col :span="10">-->
+                            <!--<el-form label-position="left" inline class="demo-table-expand">-->
+                                <!--<el-form-item label="账户">-->
+                                    <!--<span>{{ props.row.ruLoginName        }}</span>-->
+                                <!--</el-form-item>-->
+                                <!--<el-form-item label="类型">-->
+                                    <!--<el-tag-s :val="auto_el_tag('ruUserType',props.row.ruUserType)"></el-tag-s>-->
+                                <!--</el-form-item>-->
+                            <!--</el-form>-->
+                        <!--</el-col>-->
+                        <!--<el-col :span="14">-->
+                            <!--<el-form label-position="left" inline class="demo-table-expand">-->
+                                <!--<el-form-item label="主要作业区">-->
+                                    <!--<span>{{ props.row.firstZyq   }}</span>-->
+                                <!--</el-form-item>-->
+                                <!--<el-form-item label="次要作业区">-->
+                                    <!--<span>{{ props.row.secondZyq }}</span>-->
+                                <!--</el-form-item>-->
 
 
-                                <el-form-item label="可用操作">
-                                    <el-button
-                                            size="small"
-                                            icon="edit"
-                                            @click="inlineEdit(props.$index, props.row)">
-                                    </el-button>
-                                    <el-button
-                                            size="small"
-                                            icon="relation"
-                                            @click="inlineRelation(props.$index, props.row)">关联作业区
-                                    </el-button>
-                                </el-form-item>
-                            </el-form>
-                        </el-col>
-                    </el-row>
-                </template>
-            </el-table-column>
+                                <!--<el-form-item label="可用操作">-->
+                                    <!--<el-button-->
+                                            <!--size="small"-->
+                                            <!--icon="edit"-->
+                                            <!--@click="inlineEdit(props.$index, props.row)">-->
+                                    <!--</el-button>-->
+                                    <!--<el-button-->
+                                            <!--size="small"-->
+                                            <!--icon="relation"-->
+                                            <!--@click="inlineRelation(props.$index, props.row)">关联作业区-->
+                                    <!--</el-button>-->
+                                <!--</el-form-item>-->
+                            <!--</el-form>-->
+                        <!--</el-col>-->
+                    <!--</el-row>-->
+                <!--</template>-->
+            <!--</el-table-column>-->
             <el-table-column
                     label="账户"
                     show-overflow-tooltip
