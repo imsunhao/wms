@@ -337,7 +337,7 @@ var inputLedger = new Vue({
                     p[1].post(obj.end, function (json) {
                         this.callbackAfter({status: json.status, model: '欠货补发信息'}, function () {
                             p[0].post(obj.option);
-                            obj.dialogLedgerVisible = false;
+                            obj.dialogEndVisible = false;
                         })
                     })
                 } else {
