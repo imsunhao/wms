@@ -395,7 +395,7 @@
                 <el-step title="用户详细"></el-step>
             </el-steps>
         </div>
-        <el-form :model="form" ref="newForm" ref="ref_form" :rules="rule_form">
+        <el-form :model="form" ref="ref_form" :rules="rule_form">
             <el-carousel
                     ref="carousel"
                     :autoplay="false"
@@ -806,8 +806,8 @@
             next: function () {
                 this.$refs['ref_form'].validate(function (valid) {
                     if (valid) {
-                        this.dialogFormActive++;
-                        this.$refs.carousel.next();
+                        obj.dialogFormActive++;
+                        obj.$refs.carousel.next();
                     } else {
                         return false;
                     }
