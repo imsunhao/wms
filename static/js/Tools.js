@@ -444,6 +444,15 @@ function autoValidate(option, cbs) {
             }
 
         },                     //必须小于16位
+        v$User1: function (rule, value, callback) {
+            if ((value + '').length < 6 &&(value + '').length!=0) {
+                return callback(new Error('必须大于6位!或者不填写'));
+            }
+            else {
+                return callback();
+            }
+
+        },                     //必须小于16位
     };
 
     // function autoValidateRule(string, model) {
