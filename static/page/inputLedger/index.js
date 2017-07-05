@@ -437,8 +437,7 @@ function formEnd() {
         rksWjReason: '',             //完结原因
         rksBfdh: '',                 //补发单号
         rks_rkmx_id: 0,
-        ruUserId:2
-
+        userId:app.rmsUser.ruUserId
     }
 }
 function formLedger() {
@@ -492,7 +491,7 @@ function _postLedger() {
         "cljg": "string",
         "psts": 8,
         "jssj": "2017-06-08T09:15:32.918Z",
-        "ruUserId":2,
+        "userId":app.rmsUser.ruUserId
     }
 }
 p[0].post(inputLedger.option);
