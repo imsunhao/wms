@@ -337,7 +337,7 @@ var inputLedger = new Vue({
                     p[1].post(obj.end, function (json) {
                         this.callbackAfter({status: json.status, model: '欠货补发信息'}, function () {
                             p[0].post(obj.option);
-                            obj.dialogLedgerVisible = false;
+                            obj.dialogEndVisible = false;
                         })
                     })
                 } else {
@@ -436,7 +436,9 @@ function formEnd() {
     return {
         rksWjReason: '',             //完结原因
         rksBfdh: '',                 //补发单号
-        rks_rkmx_id: 0
+        rks_rkmx_id: 0,
+        ruUserId:2
+
     }
 }
 function formLedger() {
@@ -489,7 +491,8 @@ function _postLedger() {
         "qhsl": "string",
         "cljg": "string",
         "psts": 8,
-        "jssj": "2017-06-08T09:15:32.918Z"
+        "jssj": "2017-06-08T09:15:32.918Z",
+        "ruUserId":2,
     }
 }
 p[0].post(inputLedger.option);
