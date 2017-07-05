@@ -568,7 +568,7 @@
         urlProd: "/route/carrierVehicleManagement/2",
         success: function (json) {
             obj.submitLoading = false;
-            this.callbackAfter({status: json.status, model: '承运商车辆新增'}, function () {
+            this.callbackAfter(json, function () {
                 obj.dialogFormActive = 0;
                 p[0].post(obj.option);
                 if (obj.$refs.carousel) obj.$refs.carousel.setActiveItem(0);
