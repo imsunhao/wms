@@ -395,7 +395,7 @@
                 <el-step title="用户详细"></el-step>
             </el-steps>
         </div>
-        <el-form :model="form" ref="newForm">
+        <el-form :model="form" ref="newForm" ref="ref_form" :rules="rule_form">
             <el-carousel
                     ref="carousel"
                     :autoplay="false"
@@ -406,6 +406,7 @@
                     <el-row>
                         <el-col :span="10">
                             <el-form-item
+                                    prop="ruUserName"
                                     label="用户名"
                                     :label-width="formLabelWidth">
                                 <el-input
@@ -413,6 +414,7 @@
                                         auto-complete="off"></el-input>
                             </el-form-item>
                             <el-form-item
+                                    prop="ruLoginName"
                                     label="登录名"
                                     :label-width="formLabelWidth">
                                 <el-input
@@ -420,6 +422,7 @@
                                         auto-complete="off"></el-input>
                             </el-form-item>
                             <el-form-item
+                                    prop="ruLoginPassword"
                                     label="密码"
                                     :label-width="formLabelWidth">
                                 <el-input
@@ -563,7 +566,7 @@
                 ruUserName: '',                  //主页面 用户名 搜索
                 ruLoginName: '',                 //主页面 账户   搜索
                 showLoading: false,              //主页面 加载 维护
-
+                rule_form: autoValidate(validate_form()), //用户管理验证规则
                 currentPage: 1,                  //分页 当前页
                 currentTotal: 1,                 //分页 总页数
                 pageSize: 10,                    //分页 分页大小
@@ -801,8 +804,15 @@
                 this.$refs.carousel.prev();
             },                                                  //新建 弹出层banner控制 前一个
             next: function () {
-                this.dialogFormActive++;
-                this.$refs.carousel.next();
+                this.$refs['ref_form'].validate(function (valid) {
+                    if (valid) {
+                        this.dialogFormActive++;
+                        this.$refs.carousel.next();
+                    } else {
+                        return false;
+                    }
+                });
+
             },                                                  //新建 弹出层banner控制 后一个
             submit: function () {
                 var obj = this;
@@ -921,6 +931,13 @@
             ruStatus: 1,
         }
     }               //弹出层 form 模板
+    function validate_form() {
+        return {
+            ruUserName: 'vNull',
+            ruLoginName: ['vNull','vNHZ' ],
+            ruLoginPassword: 'v$User1'
+        }
+    }
     var obj = userManagement;
     var p = [];
     // 0 用户 分页查询
