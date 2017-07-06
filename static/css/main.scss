@@ -9,6 +9,7 @@ html, body {
 /*滚动条宽度*/
 ::-webkit-scrollbar {
  width: 0.2rem;
+ height: 0.2rem;
 }
 
 /* 轨道样式 */
@@ -18,7 +19,7 @@ html, body {
 
 /* Handle样式 */
 ::-webkit-scrollbar-thumb {
- border-radius: 10px;
+ border-radius: 0.2rem;
  background: rgba(0,0,0,0.2);
 }
 
