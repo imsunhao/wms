@@ -67,13 +67,13 @@ router.param('_url', function (req, res, next, url) {
                         break;
                     case 7:
                         urlName = '用户管理-判断用户名是否重复';
-                        req = autoUrl(req, '/user/isRepeatByUsername/' + req.query.userName, "GET", function (json) {
+                        req = autoUrl(req, '/user/isRepeatByUsername/' + req.query.id, "GET", function (json) {
                             res.send(json);
                         });
                         break;
                     case 8:
                         urlName = '用户管理-判断登录账号是否重复';
-                        req = autoUrl(req, '/user/isRepeatByLoginname/' + req.query.loginName, "GET", function (json) {
+                        req = autoUrl(req, '/user/isRepeatByLoginname/' + req.query.id, "GET", function (json) {
                             res.send(json);
                         });
                         break;

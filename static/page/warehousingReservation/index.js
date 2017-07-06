@@ -536,8 +536,6 @@ var warehousingReservation = new Vue({
       }
       return temp[value];
     },                                      //制单方式
-
-
   },
   watch: {
     warehousingReservation: function () {
@@ -952,12 +950,11 @@ function postCars(obj, option, cb) {
     data: option,
     success: function (json) {
       json = json.data;
+      if(json.length===0)return cb([]);
       if (json[0].bcCph === obj.warehousingReservationCombinationDetails.rkrwCph) {
         obj.warehousingReservationCombinationDetails.selectCar = json[0];
         obj.warehousingReservationCombinationDetails.rkrwSjxm=json[0].bcSjxm;
         obj.warehousingReservationCombinationDetails.rkrwDh=json[0].bcSjdh;
-      } else {
-
       }
       var step = [];
       var length = json.length > 20 ? 20 : json.length;

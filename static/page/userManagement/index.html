@@ -1,1216 +1,1226 @@
 <style>
-    #userManagement {
-        width: 100%;
-        min-width: 890px;
-        position: relative;
-    }
-
-    #userManagement .demo-table-expand {
-        font-size: 0;
-    }
-
-    #userManagement .demo-table-expand label {
-        width: 90px;
-        color: #99a9bf;
-    }
-
-    #userManagement .demo-table-expand .el-form-item {
-        margin-right: 0;
-        margin-bottom: 0;
-        width: 80%;
-    }
-
-    #userManagement .el-table__expand-column .el-table__expand-icon {
-        height: 39px;
-    }
-
-    #userManagement .table {
-        transition: 1s all;
-    }
-
-    #userManagement .el-carousel__container {
-        height: 440px;
-    }
-
-    .el-tooltip__popper {
-        max-width: 400px;
-    }
-
-    .el-step__main {
-        max-width: calc(100% - 60px);
-    }
-
-    #userManagement .userManagementTable {
-        width: 95% !important;
-        margin: 10px 20px 0;
-    }
-
-    #userManagement .datePicker {
-        width: 140px !important;
-        height: 24px !important;
-        margin-top: 29px;
-        margin-right: 18px;
-        float: left;
-    }
-
-    #userManagement .datePicker .el-input__inner {
-        border-radius: 2px !important;
-        height: 24px !important;
-    }
-
-    #userManagement .add {
-        background: url("/static/images/add.png") no-repeat center;
-    }
-
-    #userManagement .del {
-        background: url("/static/images/del.png") no-repeat center;
-    }
-
-    #userManagement .search {
-        background: url("/static/images/search.png") no-repeat center;
-    }
-
-    #userManagement .sel {
-        background: url("/static/images/sel.png") no-repeat center;
-    }
-
-    #userManagement .icon {
-        float: left;
-    }
-
-    #userManagement .btn span {
-        float: left;
-        margin-top: 4px;
-        margin-left: 2px;
-    }
-
-    #userManagement .btn {
-        height: 24px;
-        line-height: 1;
-        border: none;
-        background: #f8fafb;
-        outline: none;
-        cursor: pointer;
-        padding: 0;
-        margin: 0;
-        float: left;
-        font-size: 14px;
-        color: #1f2d3d;
-        margin-top: 29px;
-        margin-right: 16px;
-    }
-
-    #userManagement .btn-print {
-        margin-right: 0;
-    }
-
-    #userManagement .btn:hover {
-        color: #5468ee;
-    }
-
-    #userManagement .inner {
-        margin: 0 20px;
-    }
-
-    #userManagement .btn-nav {
-        height: 60px;
-        overflow: hidden;
-    }
-
-    #userManagement .btn-nav .el-input .el-input__inner {
-        height: 24px;
-    }
-
-    #userManagement .btn-nav .el-input {
-        float: left;
-        margin-top: 29px;
-        margin-right: 18px;
-        width: 140px;
-        height: 24px;
-    }
-
-    #userManagement h4 {
-        padding-left: 20px;
-        margin-bottom: 0px;
-    }
-
-    #userManagement .formBottom {
-        margin-top: 10px;
-    }
-
-    #userManagement .userManagementCombinationDetails .el-date-editor.el-input {
-        width: 100%;
-    }
-
-    #userManagement .userManagementCombinationDetails {
-        margin-top: 30px;
-    }
+  #userManagement {
+    width: 100%;
+    min-width: 890px;
+    position: relative;
+  }
+  
+  #userManagement .demo-table-expand {
+    font-size: 0;
+  }
+  
+  #userManagement .demo-table-expand label {
+    width: 90px;
+    color: #99a9bf;
+  }
+  
+  #userManagement .demo-table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 80%;
+  }
+  
+  #userManagement .el-table__expand-column .el-table__expand-icon {
+    height: 39px;
+  }
+  
+  #userManagement .table {
+    transition: 1s all;
+  }
+  
+  #userManagement .el-carousel__container {
+    height: 440px;
+  }
+  
+  .el-tooltip__popper {
+    max-width: 400px;
+  }
+  
+  .el-step__main {
+    max-width: calc(100% - 60px);
+  }
+  
+  #userManagement .userManagementTable {
+    width: 95% !important;
+    margin: 10px 20px 0;
+  }
+  
+  #userManagement .datePicker {
+    width: 140px !important;
+    height: 24px !important;
+    margin-top: 29px;
+    margin-right: 18px;
+    float: left;
+  }
+  
+  #userManagement .datePicker .el-input__inner {
+    border-radius: 2px !important;
+    height: 24px !important;
+  }
+  
+  #userManagement .add {
+    background: url("/static/images/add.png") no-repeat center;
+  }
+  
+  #userManagement .del {
+    background: url("/static/images/del.png") no-repeat center;
+  }
+  
+  #userManagement .search {
+    background: url("/static/images/search.png") no-repeat center;
+  }
+  
+  #userManagement .sel {
+    background: url("/static/images/sel.png") no-repeat center;
+  }
+  
+  #userManagement .icon {
+    float: left;
+  }
+  
+  #userManagement .btn span {
+    float: left;
+    margin-top: 4px;
+    margin-left: 2px;
+  }
+  
+  #userManagement .btn {
+    height: 24px;
+    line-height: 1;
+    border: none;
+    background: #f8fafb;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    float: left;
+    font-size: 14px;
+    color: #1f2d3d;
+    margin-top: 29px;
+    margin-right: 16px;
+  }
+  
+  #userManagement .btn-print {
+    margin-right: 0;
+  }
+  
+  #userManagement .btn:hover {
+    color: #5468ee;
+  }
+  
+  #userManagement .inner {
+    margin: 0 20px;
+  }
+  
+  #userManagement .btn-nav {
+    height: 60px;
+    overflow: hidden;
+  }
+  
+  #userManagement .btn-nav .el-input .el-input__inner {
+    height: 24px;
+  }
+  
+  #userManagement .btn-nav .el-input {
+    float: left;
+    margin-top: 29px;
+    margin-right: 18px;
+    width: 140px;
+    height: 24px;
+  }
+  
+  #userManagement h4 {
+    padding-left: 20px;
+    margin-bottom: 0px;
+  }
+  
+  #userManagement .formBottom {
+    margin-top: 10px;
+  }
+  
+  #userManagement .userManagementCombinationDetails .el-date-editor.el-input {
+    width: 100%;
+  }
+  
+  #userManagement .userManagementCombinationDetails {
+    margin-top: 30px;
+  }
 </style>
 <style>
-    .steps {
-        position: absolute;
-        bottom: 10px;
-        left: 30px;
-        margin: auto;
-    }
-
-    .el-dialog__headerbtn {
-        position: absolute;
-        right: 25px;
-        top: 15px;
-    }
-
-    .el-step__main {
-        margin-left: -8px !important;
-    }
+  .steps {
+    position: absolute;
+    bottom: 10px;
+    left: 30px;
+    margin: auto;
+  }
+  
+  .el-dialog__headerbtn {
+    position: absolute;
+    right: 25px;
+    top: 15px;
+  }
+  
+  .el-step__main {
+    margin-left: -8px !important;
+  }
 </style>
 <style>
-    .el-date-editor.el-input {
-        width: 100%;
-    }
+  .el-date-editor.el-input {
+    width: 100%;
+  }
 </style>
 <div id="userManagement">
-    <!--页面调整-->
-    <el-row
-            v-loading="showLoading"
-            element-loading-text="拼命加载中">
-        <div class="inner btn-nav">
-
-            <el-input
-                    v-model="ruUserName"
-                    icon="search"
-                    placeholder="用户名"></el-input>
-            <el-input
-                    v-model="ruLoginName"
-                    icon="search"
-                    placeholder="账户"></el-input>
-            <button @click="newInput" class="btn btn-add"><i
-                    class="icon add"></i><span>新增</span>
-            </button>
-
-            <button @click="multiSelectClick" class="btn btn-multiSelect"><i
-                    class="icon sel"></i><span>多选</span>
-            </button>
-
-            <button
-                    class="btn"
-                    v-show="multiSelect"
-                    @click="multiOperationPassword">重置密码
-            </button>
-            <button
-                    class="btn"
-                    v-show="multiSelect"
-                    @click="multiOperationAble    ">启用
-            </button>
-            <button
-                    class="btn"
-                    v-show="multiSelect"
-                    @click="multiOperationDisAble ">禁用
-            </button>
-            <button
-                    class="btn"
-                    v-show="multiSelect&&multipleSelection.length==1"
-                    @click="multiOperationRole">配置角色
-            </button>
-            <button
-                    class="btn"
-                    v-show="multiSelect&&multipleSelection.length==1"
-                    @click="multiOperationEdit">编辑
-            </button>
-        </div>
-        <el-table
-                :data="userManagement"
-                :max-height="config_table_height()"
-                ref="table"
-                class="userManagementTable"
-                @selection-change="multiSelectionChange"
-                style="width: 100%">
-            <el-table-column
-                    type="expand">
-                <template scope="props">
-                    <el-row>
-                        <el-col :span="10">
-                            <el-form label-position="left" inline class="demo-table-expand">
-                                <el-form-item label="用户名">
-                                    <span>{{ props.row.ruUserName        }}</span>
-                                </el-form-item>
-                                <el-form-item label="登录账户">
-                                    <span>{{ props.row.ruLoginName        }}</span>
-                                </el-form-item>
-                                <el-form-item label="手机">
-                                    <span>{{ props.row.ruPhone           }}</span>
-                                </el-form-item>
-                                <el-form-item label="区号">
-                                    <span>{{ props.row.ruZoneNo          }}</span>
-                                </el-form-item>
-                                <el-form-item label="电话">
-                                    <span>{{ props.row.ruTelephone      }}</span>
-                                </el-form-item>
-                                <el-form-item label="邮箱地址">
-                                    <span>{{ props.row.ruEmail          }}</span>
-                                </el-form-item>
-                                <el-form-item label="性别">
-                                    <span>{{ props.row.ruSex == 0 ? '女' : '男'   }}</span>
-                                </el-form-item>
-                                <el-form-item label="入库备注">
-                                    <el-tooltip class="item" effect="dark"
-                                                :content="props.row.ruRemarks"
-                                                placement="top">
-                                        <span class="remark">{{ props.row.ruRemarks }}</span>
-                                    </el-tooltip>
-                                </el-form-item>
-                            </el-form>
-                        </el-col>
-                        <el-col :span="14">
-                            <el-form label-position="left" inline class="demo-table-expand">
-                                <el-form-item label="生日">
-                                    <span>{{ auto_time_new(props.row.ruBirthday,6)   }}</span>
-                                </el-form-item>
-                                <el-form-item label="家庭住址">
-                                    <span>{{ props.row.ruHomeaddress }}</span>
-                                </el-form-item>
-                                <el-form-item label="qq">
-                                    <span>{{ props.row.ruQicq       }}</span>
-                                </el-form-item>
-                                <el-form-item label="用户类型">
-                                    <el-tag-s :val="auto_el_tag('ruUserType',props.row.ruUserType)"></el-tag-s>
-                                </el-form-item>
-                                <el-form-item label="作业区域">
-                                    <span>{{ props.row.ruUserZyq    }}</span>
-                                </el-form-item>
-                                <el-form-item label="登陆pda">
-                                    <span>{{ props.row.ruIspda == false ? '否':'是'      }}</span>
-                                </el-form-item>
-                                <el-form-item label="可用操作">
-                                    <el-button
-                                            size="small"
-                                            icon="edit"
-                                            @click="inlineEdit(props.$index, props.row)">
-                                    </el-button>
-                                    </el-button>
-                                    <el-button
-                                            size="small"
-                                            type="primary"
-                                            @click="inlineRole(props.$index, props.row)">角色
-                                    </el-button>
-                                    <el-button
-                                            size="small"
-                                            type="warning"
-                                            @click="inlinePassword(props.$index, props.row)">重置密码
-                                    </el-button>
-                                    <el-button
-                                            size="small"
-                                            v-show="props.row.ruStatus==0"
-                                            type="success"
-                                            @click="inlineAble(props.$index, props.row)">启用
-                                    </el-button>
-                                    <el-button
-                                            size="small"
-                                            type="danger"
-                                            v-show="props.row.ruStatus!=0"
-                                            @click="inlineDisAble(props.$index, props.row)">禁用
-                                    </el-button>
-                                </el-form-item>
-                            </el-form>
-                        </el-col>
-                    </el-row>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="用户名"
-                    show-overflow-tooltip
-                    align="center">
-                <template scope="scope">
-                    <img :src="auto_portrait(scope.row.ruPortrait)"
-                         style="width: 24px;height: 24px;border-radius: 50%;float:left;"><span>{{ scope.row.ruUserName}}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="登录账户"
-                    show-overflow-tooltip
-                    prop="ruLoginName"
-                    align="center">
-            </el-table-column>
-            <el-table-column
-                    label="用户类型"
-                    align="center">
-                <template scope="scope">
-                    <el-tag-s :val="auto_el_tag('ruUserType',scope.row.ruUserType)"></el-tag-s>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="手机"
-                    show-overflow-tooltip
-                    align="center">
-                <template scope="scope">
-                    <span>{{ scope.row.ruPhone}}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="登陆pda"
-                    align="center">
-                <template scope="scope">
-                    <span>{{ scope.row.ruIspda?'是':'否'}}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="状态"
-                    align="center">
-                <template scope="scope">
-                    <el-tag
-                            :type="scope.row.ruStatus==0?'danger':'success'"
-                            close-transition>{{scope.row.ruStatus==0?'禁用':'启用'}}
-                    </el-tag>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    v-if="multiSelect"
-                    type="selection"
-                    width="60">
-            </el-table-column>
-        </el-table>
-        <div class="block">
-            <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page="currentPage"
-                    :page-sizes="[5, 10, 15, 20]"
-                    :page-size="pageSize"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="currentTotal">
-            </el-pagination>
-        </div>
-    </el-row>
-    <el-dialog
-            size="small"
-            v-model="dialogFormVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">{{form.title}}</span>
-            <el-steps
-                    class="steps"
-                    :space="120"
-                    :active="dialogFormActive"
-                    finish-status="success">
-                <el-step title="基础信息"></el-step>
-                <el-step title="用户详细"></el-step>
-            </el-steps>
-        </div>
-        <el-form :model="form" ref="ref_form" :rules="rule_form">
-            <el-carousel
-                    ref="carousel"
-                    :autoplay="false"
-                    arrow="never"
-                    indicator-position="none"
-                    height="55vh">
-                <el-carousel-item>
-                    <el-row>
-                        <el-col :span="10">
-                            <el-form-item
-                                    prop="ruUserName"
-                                    label="用户名"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model="form.ruUserName        "
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    prop="ruLoginName"
-                                    label="登录名"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model="form.ruLoginName       "
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    prop="ruLoginPassword"
-                                    label="密码"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.ruLoginPassword   "
-                                        type="password"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="手机号"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.ruPhone           "
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="生日"
-                                    :label-width="formLabelWidth">
-                                <el-date-picker
-                                        v-model="form.ruBirthday"
-                                        type="date"
-                                        placeholder="选择日期"
-                                        :picker-options="pickerOption">
-                                </el-date-picker>
-                            </el-form-item>
-                            <el-form-item
-                                    label="家庭住址"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.ruHomeaddress          "
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="qq"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.ruQicq                 "
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="10" :offset="2">
-                            <el-form-item
-                                    label="用户类型"
-                                    :label-width="formLabelWidth">
-                                <el-select v-model="_ruUserType" placeholder="请选择">
-                                    <el-option :value="0">普通</el-option>
-                                    <el-option :value="1">堆高车</el-option>
-                                    <el-option :value="2">高位叉车</el-option>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item
-                                    label="登陆pda"
-                                    :label-width="formLabelWidth">
-
-                                <el-radio class="radio" v-model="form.ruIspda" :label="true">是</el-radio>
-                                <el-radio class="radio" v-model="form.ruIspda" :label="false">否</el-radio>
-                            </el-form-item>
-                            <el-form-item
-                                    label="备注"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.ruRemarks              "
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="电话号"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.ruTelephone       "
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="邮箱"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.ruEmail           "
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                            <el-form-item
-                                    label="性别"
-                                    :label-width="formLabelWidth">
-                                <el-radio class="radio" v-model="form.ruSex" :label="true">男</el-radio>
-                                <el-radio class="radio" v-model="form.ruSex" :label="false">女</el-radio>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                </el-carousel-item>
-                <el-carousel-item>
-                    <el-row>
-                        <h3>配置角色</h3>
-                        <div style="margin: 15px 0;"></div>
-                        <el-radio v-for="city in role" v-model="form.roleId" :label="city.rrRoleId">{{city.rrName}}
-                        </el-radio>
-                    </el-row>
-                    <el-row>
-                        <h3>是否启用</h3>
-                        <el-radio class="radio" v-model="form.ruStatus" :label="1">是</el-radio>
-                        <el-radio class="radio" v-model="form.ruStatus" :label="0">否</el-radio>
-                    </el-row>
-                </el-carousel-item>
-            </el-carousel>
-        </el-form>
-
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="prev" v-show="dialogFormActive">上一步</el-button>
-            <el-button type="primary" @click="next" v-show="dialogFormActive < 1">下一步</el-button>
-            <el-button type="primary" @click="submit" :loading="submitLoading"
-                       v-show="dialogFormActive >= 1">保存
-            </el-button>
-        </div>
-    </el-dialog>
-    <el-dialog
-            size="small"
-            v-model="dialogRoleVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">配置角色</span>
-        </div>
-
-        <el-form :model="roleForm" ref="newRoleForm">
-            <el-row>
-                <el-radio v-for="city in role" v-model="roleForm.roleId" :label="city.rrRoleId">{{city.rrName}}
-                </el-radio>
-            </el-row>
-        </el-form>
-
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="submitRole" :loading="loadingRole">保存
-            </el-button>
-        </div>
-    </el-dialog>
+  <!--页面调整-->
+  <el-row
+      v-loading="showLoading"
+      element-loading-text="拼命加载中">
+    <div class="inner btn-nav">
+      
+      <el-input
+          v-model="ruUserName"
+          icon="search"
+          placeholder="用户名"></el-input>
+      <el-input
+          v-model="ruLoginName"
+          icon="search"
+          placeholder="账户"></el-input>
+      <button @click="newInput" class="btn btn-add"><i
+          class="icon add"></i><span>新增</span>
+      </button>
+      
+      <button @click="multiSelectClick" class="btn btn-multiSelect"><i
+          class="icon sel"></i><span>多选</span>
+      </button>
+      
+      <button
+          class="btn"
+          v-show="multiSelect"
+          @click="multiOperationPassword">重置密码
+      </button>
+      <button
+          class="btn"
+          v-show="multiSelect"
+          @click="multiOperationAble    ">启用
+      </button>
+      <button
+          class="btn"
+          v-show="multiSelect"
+          @click="multiOperationDisAble ">禁用
+      </button>
+      <button
+          class="btn"
+          v-show="multiSelect&&multipleSelection.length==1"
+          @click="multiOperationRole">配置角色
+      </button>
+      <button
+          class="btn"
+          v-show="multiSelect&&multipleSelection.length==1"
+          @click="multiOperationEdit">编辑
+      </button>
+    </div>
+    <el-table
+        :data="userManagement"
+        :max-height="config_table_height()"
+        ref="table"
+        class="userManagementTable"
+        @selection-change="multiSelectionChange"
+        style="width: 100%">
+      <el-table-column
+          type="expand">
+        <template scope="props">
+          <el-row>
+            <el-col :span="10">
+              <el-form label-position="left" inline class="demo-table-expand">
+                <el-form-item label="用户名">
+                  <span>{{ props.row.ruUserName        }}</span>
+                </el-form-item>
+                <el-form-item label="登录账户">
+                  <span>{{ props.row.ruLoginName        }}</span>
+                </el-form-item>
+                <el-form-item label="手机">
+                  <span>{{ props.row.ruPhone           }}</span>
+                </el-form-item>
+                <el-form-item label="区号">
+                  <span>{{ props.row.ruZoneNo          }}</span>
+                </el-form-item>
+                <el-form-item label="电话">
+                  <span>{{ props.row.ruTelephone      }}</span>
+                </el-form-item>
+                <el-form-item label="邮箱地址">
+                  <span>{{ props.row.ruEmail          }}</span>
+                </el-form-item>
+                <el-form-item label="性别">
+                  <span>{{ props.row.ruSex == 0 ? '女' : '男'   }}</span>
+                </el-form-item>
+                <el-form-item label="入库备注">
+                  <el-tooltip class="item" effect="dark"
+                              :content="props.row.ruRemarks"
+                              placement="top">
+                    <span class="remark">{{ props.row.ruRemarks }}</span>
+                  </el-tooltip>
+                </el-form-item>
+              </el-form>
+            </el-col>
+            <el-col :span="14">
+              <el-form label-position="left" inline class="demo-table-expand">
+                <el-form-item label="生日">
+                  <span>{{ auto_time_new(props.row.ruBirthday,6)   }}</span>
+                </el-form-item>
+                <el-form-item label="家庭住址">
+                  <span>{{ props.row.ruHomeaddress }}</span>
+                </el-form-item>
+                <el-form-item label="qq">
+                  <span>{{ props.row.ruQicq       }}</span>
+                </el-form-item>
+                <el-form-item label="用户类型">
+                  <el-tag-s :val="auto_el_tag('ruUserType',props.row.ruUserType)"></el-tag-s>
+                </el-form-item>
+                <el-form-item label="作业区域">
+                  <span>{{ props.row.ruUserZyq    }}</span>
+                </el-form-item>
+                <el-form-item label="登陆pda">
+                  <span>{{ props.row.ruIspda == false ? '否':'是'      }}</span>
+                </el-form-item>
+                <el-form-item label="可用操作">
+                  <el-button
+                      size="small"
+                      icon="edit"
+                      @click="inlineEdit(props.$index, props.row)">
+                  </el-button>
+                  </el-button>
+                  <el-button
+                      size="small"
+                      type="primary"
+                      @click="inlineRole(props.$index, props.row)">角色
+                  </el-button>
+                  <el-button
+                      size="small"
+                      type="warning"
+                      @click="inlinePassword(props.$index, props.row)">重置密码
+                  </el-button>
+                  <el-button
+                      size="small"
+                      v-show="props.row.ruStatus==0"
+                      type="success"
+                      @click="inlineAble(props.$index, props.row)">启用
+                  </el-button>
+                  <el-button
+                      size="small"
+                      type="danger"
+                      v-show="props.row.ruStatus!=0"
+                      @click="inlineDisAble(props.$index, props.row)">禁用
+                  </el-button>
+                </el-form-item>
+              </el-form>
+            </el-col>
+          </el-row>
+        </template>
+      </el-table-column>
+      <el-table-column
+          label="用户名"
+          show-overflow-tooltip
+          align="center">
+        <template scope="scope">
+          <img :src="auto_portrait(scope.row.ruPortrait)"
+               style="width: 24px;height: 24px;border-radius: 50%;float:left;"><span>{{ scope.row.ruUserName}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+          label="登录账户"
+          show-overflow-tooltip
+          prop="ruLoginName"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          label="用户类型"
+          align="center">
+        <template scope="scope">
+          <el-tag-s :val="auto_el_tag('ruUserType',scope.row.ruUserType)"></el-tag-s>
+        </template>
+      </el-table-column>
+      <el-table-column
+          label="手机"
+          show-overflow-tooltip
+          align="center">
+        <template scope="scope">
+          <span>{{ scope.row.ruPhone}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+          label="登陆pda"
+          align="center">
+        <template scope="scope">
+          <span>{{ scope.row.ruIspda?'是':'否'}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+          label="状态"
+          align="center">
+        <template scope="scope">
+          <el-tag
+              :type="scope.row.ruStatus==0?'danger':'success'"
+              close-transition>{{scope.row.ruStatus==0?'禁用':'启用'}}
+          </el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column
+          v-if="multiSelect"
+          type="selection"
+          width="60">
+      </el-table-column>
+    </el-table>
+    <div class="block">
+      <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-sizes="[5, 10, 15, 20]"
+          :page-size="pageSize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="currentTotal">
+      </el-pagination>
+    </div>
+  </el-row>
+  <el-dialog
+      size="small"
+      v-model="dialogFormVisible">
+    <div class="dialog-title clearfix" slot="title">
+      <span class="el-dialog__title">{{form.title}}</span>
+      <el-steps
+          class="steps"
+          :space="120"
+          :active="dialogFormActive"
+          finish-status="success">
+        <el-step title="基础信息"></el-step>
+        <el-step title="用户详细"></el-step>
+      </el-steps>
+    </div>
+    <el-form :model="form" ref="ref_form" :rules="rule_form">
+      <el-carousel
+          ref="carousel"
+          :autoplay="false"
+          arrow="never"
+          indicator-position="none"
+          height="55vh">
+        <el-carousel-item>
+          <el-row>
+            <el-col :span="10">
+              <el-form-item
+                  prop="ruUserName"
+                  label="用户名"
+                  :label-width="formLabelWidth">
+                <el-input
+                    v-model="form.ruUserName        "
+                    auto-complete="off"></el-input>
+              </el-form-item>
+              <el-form-item
+                  prop="ruLoginName"
+                  label="登录名"
+                  :label-width="formLabelWidth">
+                <el-input
+                    v-model="form.ruLoginName       "
+                    auto-complete="off"></el-input>
+              </el-form-item>
+              <el-form-item
+                  prop="ruLoginPassword"
+                  label="密码"
+                  :label-width="formLabelWidth">
+                <el-input
+                    v-model.number="form.ruLoginPassword   "
+                    type="password"
+                    auto-complete="off"></el-input>
+              </el-form-item>
+              <el-form-item
+                  label="手机号"
+                  :label-width="formLabelWidth">
+                <el-input
+                    v-model.number="form.ruPhone           "
+                    auto-complete="off"></el-input>
+              </el-form-item>
+              <el-form-item
+                  label="生日"
+                  :label-width="formLabelWidth">
+                <el-date-picker
+                    v-model="form.ruBirthday"
+                    type="date"
+                    placeholder="选择日期"
+                    :picker-options="pickerOption">
+                </el-date-picker>
+              </el-form-item>
+              <el-form-item
+                  label="家庭住址"
+                  :label-width="formLabelWidth">
+                <el-input
+                    v-model.number="form.ruHomeaddress          "
+                    auto-complete="off"></el-input>
+              </el-form-item>
+              <el-form-item
+                  label="qq"
+                  :label-width="formLabelWidth">
+                <el-input
+                    v-model.number="form.ruQicq                 "
+                    auto-complete="off"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="10" :offset="2">
+              <el-form-item
+                  label="用户类型"
+                  :label-width="formLabelWidth">
+                <el-select v-model="_ruUserType" placeholder="请选择">
+                  <el-option :value="0">普通</el-option>
+                  <el-option :value="1">堆高车</el-option>
+                  <el-option :value="2">高位叉车</el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item
+                  label="登陆pda"
+                  :label-width="formLabelWidth">
+                
+                <el-radio class="radio" v-model="form.ruIspda" :label="true">是</el-radio>
+                <el-radio class="radio" v-model="form.ruIspda" :label="false">否</el-radio>
+              </el-form-item>
+              <el-form-item
+                  label="备注"
+                  :label-width="formLabelWidth">
+                <el-input
+                    v-model.number="form.ruRemarks              "
+                    auto-complete="off"></el-input>
+              </el-form-item>
+              <el-form-item
+                  label="电话号"
+                  :label-width="formLabelWidth">
+                <el-input
+                    v-model.number="form.ruTelephone       "
+                    auto-complete="off"></el-input>
+              </el-form-item>
+              <el-form-item
+                  label="邮箱"
+                  :label-width="formLabelWidth">
+                <el-input
+                    v-model.number="form.ruEmail           "
+                    auto-complete="off"></el-input>
+              </el-form-item>
+              <el-form-item
+                  label="性别"
+                  :label-width="formLabelWidth">
+                <el-radio class="radio" v-model="form.ruSex" :label="true">男</el-radio>
+                <el-radio class="radio" v-model="form.ruSex" :label="false">女</el-radio>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-carousel-item>
+        <el-carousel-item>
+          <el-row>
+            <h3>配置角色</h3>
+            <div style="margin: 15px 0;"></div>
+            <el-radio v-for="city in role" v-model="form.roleId" :label="city.rrRoleId">{{city.rrName}}
+            </el-radio>
+          </el-row>
+          <el-row>
+            <h3>是否启用</h3>
+            <el-radio class="radio" v-model="form.ruStatus" :label="1">是</el-radio>
+            <el-radio class="radio" v-model="form.ruStatus" :label="0">否</el-radio>
+          </el-row>
+        </el-carousel-item>
+      </el-carousel>
+    </el-form>
+    
+    <div slot="footer" class="dialog-footer">
+      <el-button type="primary" @click="prev" v-show="dialogFormActive">上一步</el-button>
+      <el-button type="primary" @click="next" :loading="nextLoading" v-show="dialogFormActive < 1">下一步</el-button>
+      <el-button type="primary" @click="submit" :loading="submitLoading"
+                 v-show="dialogFormActive >= 1">保存
+      </el-button>
+    </div>
+  </el-dialog>
+  <el-dialog
+      size="small"
+      v-model="dialogRoleVisible">
+    <div class="dialog-title clearfix" slot="title">
+      <span class="el-dialog__title">配置角色</span>
+    </div>
+    
+    <el-form :model="roleForm" ref="newRoleForm">
+      <el-row>
+        <el-radio v-for="city in role" v-model="roleForm.roleId" :label="city.rrRoleId">{{city.rrName}}
+        </el-radio>
+      </el-row>
+    </el-form>
+    
+    <div slot="footer" class="dialog-footer">
+      <el-button type="primary" @click="submitRole" :loading="loadingRole">保存
+      </el-button>
+    </div>
+  </el-dialog>
 </div>
 <script>
-    var userManagement = new Vue({
-        el: '#userManagement',
-        prop: {},
-        data: function () {
-            return {
-                userManagement: [],              //主页面 信息集合
-                multipleSelection: [],           //主页面 多选集合
-                multiSelect: false,              //主页面 多选状态 维护
+  var userManagement = new Vue({
+    el: '#userManagement',
+    prop: {},
+    data: function () {
+      return {
+        userManagement: [],              //主页面 信息集合
+        multipleSelection: [],           //主页面 多选集合
+        multiSelect: false,              //主页面 多选状态 维护
 
-                ruUserName: '',                  //主页面 用户名 搜索
-                ruLoginName: '',                 //主页面 账户   搜索
-                showLoading: false,              //主页面 加载 维护
-                rule_form: autoValidate(validate_form()), //用户管理验证规则
-                currentPage: 1,                  //分页 当前页
-                currentTotal: 1,                 //分页 总页数
-                pageSize: 10,                    //分页 分页大小
+        ruUserName: '',                  //主页面 用户名 搜索
+        ruLoginName: '',                 //主页面 账户   搜索
+        showLoading: false,              //主页面 加载 维护
+        rule_form: autoValidate(validate_form()), //用户管理验证规则
+        currentPage: 1,                  //分页 当前页
+        currentTotal: 1,                 //分页 总页数
+        pageSize: 10,                    //分页 分页大小
 
-                formLabelWidth: '120px',         //表单 配置
+        formLabelWidth: '120px',         //表单 配置
 
-                form: _form(),                    //新建 弹出层 信息集合
-                dialogFormActive: 0,             //新建 弹出层 steps 当前进度
-                dialogFormVisible: false,        //新建 弹出层 是否可见
-                submitLoading: false,            //新建 弹出层 提交等待
+        form: _form(),                    //新建 弹出层 信息集合
+        dialogFormActive: 0,             //新建 弹出层 steps 当前进度
+        dialogFormVisible: false,        //新建 弹出层 是否可见
+        submitLoading: false,            //新建 弹出层 提交等待
 
-                pickerOption: {
-                    disabledDate: function (time) {
-                        return time.getTime() > Date.now();
-                    }
-                },             //新建 弹出层 生日选项
+        nextLoading: false,
 
-                dialogRoleVisible: false,        //角色 弹出层 是否可见
-                loadingRole: false,              //角色 弹出层 提交等待
-                role: [],                        //角色 集合
-                roleForm: {
-                    userId: 1,
-                    roleId: 0,                   //角色 弹出层 角色ID
-                },                 //角色 弹出层 信息集合
+        pickerOption: {
+          disabledDate: function (time) {
+            return time.getTime() > Date.now();
+          }
+        },             //新建 弹出层 生日选项
 
-            }
-        },
-        computed: {
-            option: function () {
-                return {
-                    "draw": 1,
-                    "pageNum": this.currentPage,
-                    "pageSize": this.pageSize,
-                    "ruUserName": this.ruUserName.trim(),
-                    "ruLoginName": this.ruLoginName.trim()
-                }
-            },           //主页面 post 0
-            _ruUserType: {
-                get: function () {
-                    switch (this.form.ruUserType) {
-                        case 0:
-                            return '普通';
-                        case 1:
-                            return '堆高车';
-                        case 2:
-                            return '高位叉车';
-                    }
-                    return '';
-                },
-                set: function (newValue) {
-                    this.form.ruUserType = newValue;
-                }
-            },                  //转换 用户类型
-        },
-        methods: {
-            inlineEdit: function (index, row) {
-                this.form.title = '编辑';
-                this.form.ruUserId = row.ruUserId;
-                this.form.ruUserName = row.ruUserName;
-                this.form.ruLoginName = row.ruLoginName;
-                this.form.ruPhone = row.ruPhone;
-                this.form.ruTelephone = row.ruTelephone;
-                this.form.ruEmail = row.ruEmail;
-                this.form.ruSex = row.ruSex;
-                this.form.ruBirthday = row.ruBirthday;
-                this.form.ruHomeaddress = row.ruHomeaddress;
-                this.form.ruQicq = row.ruQicq;
-                this.form.ruUserType = row.ruUserType;
-                this.form.ruUserZyq = row.ruUserZyq;
-                this.form.ruIspda = row.ruIspda;
-                this.form.ruRemarks = row.ruRemarks;
-                this.form.ruStatus = parseInt(row.ruStatus);
-                this.dialogFormVisible = true;
-                this.dialogFormActive = 0;
-                Vue.nextTick(function () {
-                    userManagement.$refs.carousel.setActiveItem(0);
-                });
-            },                                  //行内按钮-编辑
-            inlinePassword: function (index, row) {
-                var obj = this;
-                obj.$confirm('此操作将此用户密码重置, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(function () {
-                    p[5].post({ids: row.ruUserId});
-                }).catch(function () {
-                    obj.$message({
-                        type: 'info',
-                        message: '已取消'
-                    });
-                });
-            },                              //行内按钮-密码
-            inlineAble: function (index, row) {
-                var obj = this;
-                obj.$confirm('此操作将启用此用户, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(function () {
-                    p[2].post({ids: [row.ruUserId]});
-                }).catch(function () {
-                    obj.$message({
-                        type: 'info',
-                        message: '已取消'
-                    });
-                });
-            },                                  //行内按钮-启用
-            inlineDisAble: function (index, row) {
-                var obj = this;
-                obj.$confirm('此操作将此用户禁用, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(function () {
-                    p[6].post({ids: [row.ruUserId]});
-                }).catch(function () {
-                    obj.$message({
-                        type: 'info',
-                        message: '已取消'
-                    });
-                });
-            },                               //行内按钮-禁用
-            inlineRole: function (index, row) {
-                /*<debug>*/
-                this.roleForm = {
-                    userId: row.userId,
-                    roleId: row.ruUserId,                        //角色 弹出层 角色ID
-                };
-                /*</debug>*/
-                p[11].post({id: row.ruUserId}, function (json) {
-                    obj.roleForm.roleId = json[0].rrRoleId;
-                    obj.roleForm.userId = row.ruUserId;
-                    obj.dialogRoleVisible = !this.dialogRoleVisible;
-                });
-            },                                  //行内按钮-角色
+        dialogRoleVisible: false,        //角色 弹出层 是否可见
+        loadingRole: false,              //角色 弹出层 提交等待
+        role: [],                        //角色 集合
+        roleForm: {
+          userId: 1,
+          roleId: 0,                   //角色 弹出层 角色ID
+        },                 //角色 弹出层 信息集合
 
-            multiSelectClick: function () {
-                this.multiSelect = !this.multiSelect;
-            },                                      //多选 状态维护
-            multiSelectionChange: function (val, row) {
-                this.multipleSelection = val;
-            },                          //多选 选中控制
-            multiOperationEdit: function () {
-                this.inlineEdit(1, this.multipleSelection[0]);
-            },                                    //多选 编辑
-            multiOperationRole: function () {
-                this.inlineRole(1, this.multipleSelection[0]);
-            },                                    //多选 角色
-            multiOperationPassword: function () {
-                var obj = this;
-                obj.$confirm('此操作将这些用户密码重置, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(function () {
-                    // TODO
-                    var step = [];
-                    for (var i = 0; i < obj.multipleSelection.length; i++) {
-                        step.push(obj.multipleSelection[i].ruUserId);
-                    }
-                    p[5].post({ids: step});
-                }).catch(function () {
-                    obj.$message({
-                        type: 'info',
-                        message: '已取消'
-                    });
-                });
-            },                                //多选 密码
-            multiOperationAble: function () {
-                var obj = this;
-                obj.$confirm('此操作将这些用户设置为启用, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(function () {
-                    var step = [];
-                    for (var i = 0; i < obj.multipleSelection.length; i++) {
-                        step.push(obj.multipleSelection[i].ruUserId);
-                    }
-                    p[2].post({"ids": step});
-                }).catch(function () {
-                    obj.$message({
-                        type: 'info',
-                        message: '已取消'
-                    });
-                });
-            },                                    //多选 启用
-            multiOperationDisAble: function () {
-                var obj = this;
-                obj.$confirm('此操作将这些用户设置为禁用, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(function () {
-                    var step = [];
-                    for (var i = 0; i < obj.multipleSelection.length; i++) {
-                        step.push(obj.multipleSelection[i].ruUserId);
-                    }
-                    p[6].post({"ids": step});
-                }).catch(function () {
-                    obj.$message({
-                        type: 'info',
-                        message: '已取消'
-                    });
-                });
-            },                                 //多选 禁用
-
-            handleSizeChange: function (val) {
-                /*<debug>*/
-                console.log('每页' + val + '条');
-                /*</debug>*/
-                this.pageSize = val;
-                p[0].post(this.option);
-            },                                   //分页 Size
-            handleCurrentChange: function (val) {
-                /*<debug>*/
-                console.log('当前第' + val + '页');
-                /*</debug>*/
-                this.currentPage = val;
-                p[0].post(this.option);
-            },                                //分页 当前页
-
-            newInput: function () {
-                this.form = _form();
-                this.dialogFormVisible = true;
-                this.dialogFormActive = 0;
-                Vue.nextTick(function () {
-                    userManagement.$refs.carousel.setActiveItem(0);
-                });
-            },                                              //按钮 新建入库单
-
-            prev: function () {
-                this.dialogFormActive--;
-                this.$refs.carousel.prev();
-            },                                                  //新建 弹出层banner控制 前一个
-            next: function () {
-                this.$refs['ref_form'].validate(function (valid) {
-                    if (valid) {
-                        obj.dialogFormActive++;
-                        obj.$refs.carousel.next();
-                    } else {
-                        return false;
-                    }
-                });
-
-            },                                                  //新建 弹出层banner控制 后一个
-            submit: function () {
-                var obj = this;
-                this.dialogFormActive++;
-                this.submitLoading = true;
-                //TODO 此处应是ajax请求
-
-
-                /*<prod>*/
-                this.form.ruBirthday = (new Date(this.form.ruBirthday)).toJSON();
-                if (this.form.ruPortrait === '') {
-                    if (this.form.ruSex) {
-                        this.form.ruPortrait = 'base1.png'
-                    } else {
-                        this.form.ruPortrait = 'base2.png'
-                    }
-                }
-                if (this.form.title === '新建用户') {
-                    this.form.roleIds.push(this.form.roleId);
-                    p[1].post(this.form);
-                } else {
-                    p[4].post(this.form);
-                }
-                /*</prod>*/
-                /*<debug>*/
-                setTimeout(function () {
-                    obj.submitLoading = false;
-                    obj.$notify({
-                        title: '成功',
-                        message: '保存成功！',
-                        type: 'success'
-                    });
-                    obj.dialogFormVisible = false;
-                    obj.dialogFormActive = 0;
-                    obj.$refs.carousel.setActiveItem(0);
-                    p[0].post();
-                }, 1500);
-                /*</debug>*/
-            },                                                //新建 表单提交
-
-            submitRole: function () {
-                var obj = this;
-                this.loadingRole = true;
-                /*<prod>*/
-                //TODO
-                p[9].post({id: this.roleForm.userId, ids: [this.roleForm.roleId]});
-                /*</prod>*/
-                /*<debug>*/
-                setTimeout(function () {
-                    obj.loadingRole = false;
-                    obj.dialogRoleVisible = false;
-                    obj.$notify({
-                        title: '成功',
-                        message: '更换角色成功！',
-                        type: 'success'
-                    });
-                }, 1500);
-                /*</debug>*/
-            },                                            //角色 表单提交
-
-            auto_ruUserType: function (value) {
-                switch (value) {
-                    case 0:
-                        return '普通';
-                    case 1:
-                        return '堆高车';
-                    case 2:
-                        return '高位叉车';
-                }
-                return '';
-            }
-
-        },
-        watch: {
-            ruUserName: function () {
-                /*<debug>*/
-                console.log(this.option);
-                /*</debug>*/
-                p[0].post(this.option);
-            },
-            ruLoginName: function () {
-                /*<debug>*/
-                console.log(this.option);
-                /*</debug>*/
-                p[0].post(this.option);
-            }
-        }
-    });
-    function _form() {
+      }
+    },
+    computed: {
+      option: function () {
         return {
-            ruUserId: '',
-            title: "新建用户",
-            ruUserName: '',
-            ruLoginName: '',
-            ruLoginPassword: '',
-            ruPhone: '',
-            ruZoneNo: '',
-            ruTelephone: '',
-            ruEmail: '',
-            ruSex: true,
-            ruBirthday: '',
-            ruHomeaddress: '',
-            ruQicq: '',
-            ruUserType: 0,
-            ruUserZyq: '',
-            ruIspda: false,
-            ruRemarks: '',
+          "draw": 1,
+          "pageNum": this.currentPage,
+          "pageSize": this.pageSize,
+          "ruUserName": this.ruUserName.trim(),
+          "ruLoginName": this.ruLoginName.trim()
+        }
+      },           //主页面 post 0
+      _ruUserType: {
+        get: function () {
+          switch (this.form.ruUserType) {
+            case 0:
+              return '普通';
+            case 1:
+              return '堆高车';
+            case 2:
+              return '高位叉车';
+          }
+          return '';
+        },
+        set: function (newValue) {
+          this.form.ruUserType = newValue;
+        }
+      },                  //转换 用户类型
+    },
+    methods: {
+      inlineEdit: function (index, row) {
 
-            ruLastModifiedTime: (new Date()).toJSON(),
-            "ruPortrait": "",
-            "roleIds": [],
-
-
-            roleId: 1,
-
-            ruStatus: 1,
-        }
-    }               //弹出层 form 模板
-    function validate_form() {
-        return {
-            ruUserName: 'vNull',
-            ruLoginName: ['vNull','vNHZ' ],
-            ruLoginPassword: 'v$User1'
-        }
-    }
-    var obj = userManagement;
-    var p = [];
-    // 0 用户 分页查询
-    p[0] = autoPost({
-        urlHock: "../../hock/userControl/page.json",
-        urlProd: "/route/userManagement/0",
-        success: function (json) {
-            obj.$data.userManagement = json.data;
-            obj.$data.currentTotal = json.recordsFiltered;
-        }
-    });
-    // 1 用户 新增-启用-配置角色
-    p[1] = autoPost({
-        urlHock: "/hock/form/inputOptoionDelete.json",
-        urlProd: "/route/userManagement/1",
-        method: 'GET',
-        success: function (json) {
-            this.callbackAfter({status: json.status, model: '用户新增'}, function () {
-                obj.submitLoading = false;
-                obj.dialogFormVisible = false;
-                obj.dialogFormActive = 0;
-                obj.$refs.carousel.setActiveItem(0);
-                p[0].post(obj.option);
-            })
-        }
-    });
-    // 2 用户 启用
-    p[2] = autoPost({
-        urlHock: "/hock/form/inputOptoionDelete.json",
-        urlProd: "/route/userManagement/2",
-        success: function (json) {
-            if (json.status === 20000) {
-                post(userManagement, userManagement.option);
-                obj.$notify({
-                    title: '提示',
-                    type: 'success',
-                    message: obj.$createElement(
-                        'p',
-                        '启用完成'
-                    )
-                });
-            }
-        }
-    });
-    // 3 用户
-    p[3] = autoPost({
-        urlHock: "",
-        urlProd: "/route/userManagement/3",
-        success: function (json) {
-
-        }
-    });
-    // 4 用户 编辑
-    p[4] = autoPost({
-        urlHock: "../../hock/roleControl/page.json",
-        urlProd: "/route/userManagement/4",
-        success: function (json) {
-            this.callbackAfter({status: json.status, model: '用户修改'}, function () {
-                obj.submitLoading = false;
-                obj.dialogFormVisible = false;
-                obj.dialogFormActive = 0;
-                obj.$refs.carousel.setActiveItem(0);
-                p[0].post(obj.option);
-            })
-        }
-    });
-    // 5 用户 密码
-    p[5] = autoPost({
-        urlHock: "../../hock/roleControl/page.json",
-        urlProd: "/route/userManagement/5",
-        success: function (json) {
-            if (json.status === 20000) {
-                obj.$notify({
-                    title: '提示',
-                    type: 'success',
-                    message: obj.$createElement(
-                        'p',
-                        '密码修改完成'
-                    )
-                });
-            }
-        }
-    });
-    // 6 用户 禁用
-    p[6] = autoPost({
-        urlHock: "/hock/form/inputOptoionDelete.json",
-        urlProd: "/route/userManagement/6",
-        success: function (json) {
-            if (json.status === 20000) {
-                post(userManagement, userManagement.option);
-                obj.$notify({
-                    title: '提示',
-                    type: 'success',
-                    message: obj.$createElement(
-                        'p',
-                        '禁用完成'
-                    )
-                });
-            }
-        }
-    });
-    //  7 用户名 查重
-    p[7] = autoPost({
-        urlHock: "../../hock/roleControl/page.json",
-        urlProd: "/route/userManagement/7",
-        success: function (json) {
-            if (json.status !== 20000) {
-                errorTip(obj, json.model);
-            }
-        }
-    });
-    //  8 用户名 查重
-    p[8] = autoPost({
-        urlHock: "../../hock/roleControl/page.json",
-        urlProd: "/route/userManagement/8",
-        success: function (json) {
-            if (json.status !== 20000) {
-                errorTip(obj, json.model);
-            }
-        }
-    });
-    //  9 设置 用户 角色
-    p[9] = autoPost({
-        urlHock: "../../hock/roleControl/page.json",
-        urlProd: "/route/userManagement/9",
-        method: 'GET',
-        success: function (json) {
-            if (json.status !== 50003) {
-                obj.loadingRole = false;
-                obj.dialogRoleVisible = false;
-                obj.$notify({
-                    title: '成功',
-                    message: '更换角色成功！',
-                    type: 'success'
-                });
-            } else {
-                obj.loadingRole = false;
-                obj.dialogRoleVisible = false;
-                obj.$notify({
-                    title: '错误',
-                    duration: 0,
-                    message: '更换角色失败！',
-                    type: 'error'
-                });
-                console.log(json);
-            }
-        }
-    });
-    //  10 设置 用户
-    p[10] = autoPost({
-        urlHock: "",
-        urlProd: "/route/userManagement/10",
-        success: function (json) {
-        }
-    });
-    //  11 设置 用户 角色
-    p[11] = autoPost({
-        urlHock: "",
-        urlProd: "/route/userManagement/11",
-        method: 'GET'
-    });
-    //  12 请求 所有角色 执行一次
-    p[12] = autoPost({
-        urlHock: "",
-        urlProd: "/route/userManagement/12",
-        success: function (json) {
-            userManagement.$data.role = json.data;
-        }
-    });
-
-    // 高级 监视器的 使用方法
-    //    userManagement.$watch('form.ruUserName', function () {
-    //        if (this.form.title !== '新建用户') return;
-    //        p[7].post({userName: this.form.ruUserName.trim()});
-    //    }, {deep: true});
-    //    userManagement.$watch('form.ruLoginName', function () {
-    //        if (this.form.title !== '新建用户') return;
-    //        p[8].post({loginName: this.form.ruLoginName.trim()});
-    //    }, {deep: true});
-
-    p[0].post(userManagement.option);
-    p[12].post({
-        "draw": 1,
-        "pageNum": 1,
-        "pageSize": 999
-    });
-    function postSubmit(obj, option) {
-        obj.showLoading = true;
-
+        var step = _form();
+        allPrposCb(step, function (obj2, index) {
+          if (typeof row[index] !== 'undefined') step[index] = row[index];
+        });
+        step.title = '编辑';
+        step.ruLoginPassword = '';
+        p[11].post({id: row.ruUserId}, function (json) {
+          step.roleId = json[0].rrRoleId;
+          obj.form=step;
+          obj.dialogFormVisible = true;
+          obj.dialogFormActive = 0;
+          if (userManagement.$refs.carousel) Vue.nextTick(function () {
+            userManagement.$refs.carousel.setActiveItem(0);
+          });
+        });
+        
+      },                                  //行内按钮-编辑
+      inlinePassword: function (index, row) {
+        obj.$confirm('此操作将此用户密码重置, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          p[5].post({ids: row.ruUserId});
+        }).catch(function () {
+          obj.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+      },                              //行内按钮-密码
+      inlineAble: function (index, row) {
+        var obj = this;
+        obj.$confirm('此操作将启用此用户, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          p[2].post({ids: [row.ruUserId]});
+        }).catch(function () {
+          obj.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+      },                                  //行内按钮-启用
+      inlineDisAble: function (index, row) {
+        var obj = this;
+        obj.$confirm('此操作将此用户禁用, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          p[6].post({ids: [row.ruUserId]});
+        }).catch(function () {
+          obj.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+      },                               //行内按钮-禁用
+      inlineRole: function (index, row) {
         /*<debug>*/
-        url = "../../hock/roleControl/page.json";
+        this.roleForm = {
+          userId: row.userId,
+          roleId: row.ruUserId,                        //角色 弹出层 角色ID
+        };
         /*</debug>*/
+        p[11].post({id: row.ruUserId}, function (json) {
+          obj.roleForm.roleId = json[0].rrRoleId;
+          obj.roleForm.userId = row.ruUserId;
+          obj.dialogRoleVisible = !this.dialogRoleVisible;
+        });
+      },                                  //行内按钮-角色
 
+      multiSelectClick: function () {
+        this.multiSelect = !this.multiSelect;
+      },                                      //多选 状态维护
+      multiSelectionChange: function (val, row) {
+        this.multipleSelection = val;
+      },                          //多选 选中控制
+      multiOperationEdit: function () {
+        this.inlineEdit(1, this.multipleSelection[0]);
+      },                                    //多选 编辑
+      multiOperationRole: function () {
+        this.inlineRole(1, this.multipleSelection[0]);
+      },                                    //多选 角色
+      multiOperationPassword: function () {
+        var obj = this;
+        obj.$confirm('此操作将这些用户密码重置, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          // TODO
+          var step = [];
+          for (var i = 0; i < obj.multipleSelection.length; i++) {
+            step.push(obj.multipleSelection[i].ruUserId);
+          }
+          p[5].post({ids: step});
+        }).catch(function () {
+          obj.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+      },                                //多选 密码
+      multiOperationAble: function () {
+        var obj = this;
+        obj.$confirm('此操作将这些用户设置为启用, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          var step = [];
+          for (var i = 0; i < obj.multipleSelection.length; i++) {
+            step.push(obj.multipleSelection[i].ruUserId);
+          }
+          p[2].post({"ids": step});
+        }).catch(function () {
+          obj.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+      },                                    //多选 启用
+      multiOperationDisAble: function () {
+        var obj = this;
+        obj.$confirm('此操作将这些用户设置为禁用, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          var step = [];
+          for (var i = 0; i < obj.multipleSelection.length; i++) {
+            step.push(obj.multipleSelection[i].ruUserId);
+          }
+          p[6].post({"ids": step});
+        }).catch(function () {
+          obj.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+      },                                 //多选 禁用
+
+      handleSizeChange: function (val) {
+        /*<debug>*/
+        console.log('每页' + val + '条');
+        /*</debug>*/
+        this.pageSize = val;
+        p[0].post(this.option);
+      },                                   //分页 Size
+      handleCurrentChange: function (val) {
+        /*<debug>*/
+        console.log('当前第' + val + '页');
+        /*</debug>*/
+        this.currentPage = val;
+        p[0].post(this.option);
+      },                                //分页 当前页
+
+      newInput: function () {
+        this.form = _form();
+        this.dialogFormVisible = true;
+        this.dialogFormActive = 0;
+        Vue.nextTick(function () {
+          userManagement.$refs.carousel.setActiveItem(0);
+        });
+      },                                              //按钮 新建入库单
+
+      prev: function () {
+        this.dialogFormActive--;
+        this.$refs.carousel.prev();
+      },                                                  //新建 弹出层banner控制 前一个
+      next: function () {
+        this.$refs['ref_form'].validate(function (valid) {
+          if (valid) {
+            if (obj.form.title === '编辑') {
+              obj.dialogFormActive++;
+              obj.$refs.carousel.next();
+            } else {
+              obj.nextLoading = true;
+              p[7].post({id: obj.form.ruUserName}, function (json) {
+                this.callbackAfter({status: json.status, model: '用户名查重'}, function () {
+                  p[8].post({id: obj.form.ruLoginName}, function (json) {
+                    obj.nextLoading = false;
+                    this.callbackAfter({status: json.status, model: '登录账户查重'}, function () {
+                      obj.dialogFormActive++;
+                      obj.$refs.carousel.next();
+                    })
+                  })
+                },function () {
+                  obj.nextLoading = false;
+                })
+              })
+            }
+          } else {
+            return false;
+          }
+        });
+
+      },                                                  //新建 弹出层banner控制 后一个
+      submit: function () {
+        var obj = this;
+        this.dialogFormActive++;
+        this.submitLoading = true;
+        //TODO 此处应是ajax请求
+        
+        
         /*<prod>*/
-        url = "/route/userManagement/1";  //new
-        url1 = "/route/userManagement/0";  //请求id
-        url2 = "/route/userManagement/3";  //配置角色
-        option.ruStatus === 0 ? url3 = "/route/userManagement/2" : url3 = "/route/userManagement/6";
+        this.form.ruBirthday = (new Date(this.form.ruBirthday)).toJSON();
+        if (this.form.ruPortrait === '') {
+          if (this.form.ruSex) {
+            this.form.ruPortrait = 'base1.png'
+          } else {
+            this.form.ruPortrait = 'base2.png'
+          }
+        }
+        if (this.form.title === '新建用户') {
+          this.form.roleIds.push(this.form.roleId);
+          p[1].post(this.form);
+        } else {
+          p[4].post(this.form);
+        }
         /*</prod>*/
+        /*<debug>*/
+        setTimeout(function () {
+          obj.submitLoading = false;
+          obj.$notify({
+            title: '成功',
+            message: '保存成功！',
+            type: 'success'
+          });
+          obj.dialogFormVisible = false;
+          obj.dialogFormActive = 0;
+          obj.$refs.carousel.setActiveItem(0);
+          p[0].post();
+        }, 1500);
+        /*</debug>*/
+      },                                                //新建 表单提交
 
-        $.ajax(url, {
+      submitRole: function () {
+        var obj = this;
+        this.loadingRole = true;
+        /*<prod>*/
+        //TODO
+        p[9].post({id: this.roleForm.userId, ids: [this.roleForm.roleId]});
+        /*</prod>*/
+        /*<debug>*/
+        setTimeout(function () {
+          obj.loadingRole = false;
+          obj.dialogRoleVisible = false;
+          obj.$notify({
+            title: '成功',
+            message: '更换角色成功！',
+            type: 'success'
+          });
+        }, 1500);
+        /*</debug>*/
+      },                                            //角色 表单提交
+
+      auto_ruUserType: function (value) {
+        switch (value) {
+          case 0:
+            return '普通';
+          case 1:
+            return '堆高车';
+          case 2:
+            return '高位叉车';
+        }
+        return '';
+      }
+
+    },
+    watch: {
+      ruUserName: function () {
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        p[0].post(this.option);
+      },
+      ruLoginName: function () {
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        p[0].post(this.option);
+      }
+    }
+  });
+  function _form() {
+    return {
+      title: "新建用户",
+      
+      ruUserId: '',
+      ruUserName: '',
+      ruLoginName: '',
+      ruLoginPassword: '',
+      ruPhone: '',
+      ruZoneNo: '',
+      ruTelephone: '',
+      ruEmail: '',
+      ruSex: true,
+      ruBirthday: '',
+      ruHomeaddress: '',
+      ruQicq: '',
+      ruUserType: 0,
+      ruUserZyq: '',
+      ruIspda: false,
+      ruRemarks: '',
+
+      ruLastModifiedTime: (new Date()).toJSON(),
+      "ruPortrait": "",
+      "roleIds": [],
+
+
+      roleId: 1,
+
+      ruStatus: 1,
+    }
+  }               //弹出层 form 模板
+  function validate_form() {
+    return {
+      ruUserName: 'vNull',
+      ruLoginName: ['vNull', 'vNHZ'],
+      ruLoginPassword: 'v$User1'
+    }
+  }
+  var obj = userManagement;
+  var p = [];
+  // 0 用户 分页查询
+  p[0] = autoPost({
+    urlHock: "../../hock/userControl/page.json",
+    urlProd: "/route/userManagement/0",
+    success: function (json) {
+      obj.$data.userManagement = json.data;
+      obj.$data.currentTotal = json.recordsFiltered;
+    }
+  });
+  // 1 用户 新增-启用-配置角色
+  p[1] = autoPost({
+    urlHock: "/hock/form/inputOptoionDelete.json",
+    urlProd: "/route/userManagement/1",
+    method: 'GET',
+    success: function (json) {
+      this.callbackAfter({status: json.status, model: '用户新增'}, function () {
+        obj.submitLoading = false;
+        obj.dialogFormVisible = false;
+        obj.dialogFormActive = 0;
+        obj.$refs.carousel.setActiveItem(0);
+        p[0].post(obj.option);
+      })
+    }
+  });
+  // 2 用户 启用
+  p[2] = autoPost({
+    urlHock: "/hock/form/inputOptoionDelete.json",
+    urlProd: "/route/userManagement/2",
+    method: 'GET',
+    success: function (json) {
+      if (json.status === 20000) {
+        post(userManagement, userManagement.option);
+        obj.$notify({
+          title: '提示',
+          type: 'success',
+          message: obj.$createElement(
+            'p',
+            '启用完成'
+          )
+        });
+      }
+    }
+  });
+  // 3 用户
+  p[3] = autoPost({
+    urlHock: "",
+    urlProd: "/route/userManagement/3",
+    success: function (json) {
+
+    }
+  });
+  // 4 用户 编辑
+  p[4] = autoPost({
+    urlHock: "../../hock/roleControl/page.json",
+    urlProd: "/route/userManagement/4",
+    success: function (json) {
+      this.callbackAfter({status: json.status, model: '用户修改'}, function () {
+        obj.submitLoading = false;
+        obj.dialogFormVisible = false;
+        obj.dialogFormActive = 0;
+        obj.$refs.carousel.setActiveItem(0);
+        p[0].post(obj.option);
+      })
+    }
+  });
+  // 5 用户 密码
+  p[5] = autoPost({
+    urlHock: "../../hock/roleControl/page.json",
+    urlProd: "/route/userManagement/5",
+    method: 'GET',
+    success: function (json) {
+      if (json.status === 20000) {
+        obj.$notify({
+          title: '提示',
+          type: 'success',
+          message: obj.$createElement(
+            'p',
+            '密码修改完成'
+          )
+        });
+      }
+    }
+  });
+  // 6 用户 禁用
+  p[6] = autoPost({
+    urlHock: "/hock/form/inputOptoionDelete.json",
+    urlProd: "/route/userManagement/6",
+    method: 'GET',
+    success: function (json) {
+      if (json.status === 20000) {
+        post(userManagement, userManagement.option);
+        obj.$notify({
+          title: '提示',
+          type: 'success',
+          message: obj.$createElement(
+            'p',
+            '禁用完成'
+          )
+        });
+      }
+    }
+  });
+  //  7 用户名 查重
+  p[7] = autoPost({
+    urlHock: "../../hock/roleControl/page.json",
+    urlProd: "/route/userManagement/7",
+    method: 'GET'
+  });
+  //  8 登录账号 查重
+  p[8] = autoPost({
+    urlHock: "../../hock/roleControl/page.json",
+    urlProd: "/route/userManagement/8",
+    method: 'GET'
+  });
+  //  9 设置 用户 角色
+  p[9] = autoPost({
+    urlHock: "../../hock/roleControl/page.json",
+    urlProd: "/route/userManagement/9",
+    method: 'GET',
+    success: function (json) {
+      if (json.status !== 50003) {
+        obj.loadingRole = false;
+        obj.dialogRoleVisible = false;
+        obj.$notify({
+          title: '成功',
+          message: '更换角色成功！',
+          type: 'success'
+        });
+      } else {
+        obj.loadingRole = false;
+        obj.dialogRoleVisible = false;
+        obj.$notify({
+          title: '错误',
+          duration: 0,
+          message: '更换角色失败！',
+          type: 'error'
+        });
+        console.log(json);
+      }
+    }
+  });
+  //  10 设置 用户
+  p[10] = autoPost({
+    urlHock: "",
+    urlProd: "/route/userManagement/10",
+    success: function (json) {
+    }
+  });
+  //  11 设置 用户 角色
+  p[11] = autoPost({
+    urlHock: "",
+    urlProd: "/route/userManagement/11",
+    method: 'GET'
+  });
+  //  12 请求 所有角色 执行一次
+  p[12] = autoPost({
+    urlHock: "",
+    urlProd: "/route/userManagement/12",
+    success: function (json) {
+      userManagement.$data.role = json.data;
+    }
+  });
+
+  // 高级 监视器的 使用方法
+  //    userManagement.$watch('form.ruUserName', function () {
+  //        if (this.form.title !== '新建用户') return;
+  //        p[7].post({userName: this.form.ruUserName.trim()});
+  //    }, {deep: true});
+  //    userManagement.$watch('form.ruLoginName', function () {
+  //        if (this.form.title !== '新建用户') return;
+  //        p[8].post({loginName: this.form.ruLoginName.trim()});
+  //    }, {deep: true});
+
+  p[0].post(userManagement.option);
+  p[12].post({
+    "draw": 1,
+    "pageNum": 1,
+    "pageSize": 999
+  });
+  function postSubmit(obj, option) {
+    obj.showLoading = true;
+    
+    /*<debug>*/
+    url = "../../hock/roleControl/page.json";
+    /*</debug>*/
+    
+    /*<prod>*/
+    url = "/route/userManagement/1";  //new
+    url1 = "/route/userManagement/0";  //请求id
+    url2 = "/route/userManagement/3";  //配置角色
+    option.ruStatus === 0 ? url3 = "/route/userManagement/2" : url3 = "/route/userManagement/6";
+    /*</prod>*/
+
+    $.ajax(url, {
+      type: "GET",
+      data: obj.form,
+      error: function (error) {
+        errorTip(obj, error);
+      },
+      success: function (json) {
+        /*<prod>*/
+        if (json.status === 20002) {
+          $ajax(url1, {
             type: "GET",
-            data: obj.form,
+            data: {
+              "ruLoginName": option.ruLoginName,
+              "draw": 1,
+              "pageNum": 1,
+              "pageSize": 1
+            },
             error: function (error) {
-                errorTip(obj, error);
+              errorTip(obj, error);
             },
             success: function (json) {
-                /*<prod>*/
-                if (json.status === 20002) {
-                    $ajax(url1, {
+              if (json.recordsFiltered !== 0) {
+                $ajax(url2, {
+                  type: "GET",
+                  data: {id: json.data[0].ruUserId, ids: [option.roleId]},
+                  error: function (error) {
+                    errorTip(obj, error);
+                  },
+                  success: function (json) {
+                    if (json.status === 20000) {
+                      $ajax(url3, {
                         type: "GET",
-                        data: {
-                            "ruLoginName": option.ruLoginName,
-                            "draw": 1,
-                            "pageNum": 1,
-                            "pageSize": 1
-                        },
+                        data: {"ids": option.ruStatus},
                         error: function (error) {
-                            errorTip(obj, error);
+                          errorTip(obj, error);
                         },
                         success: function (json) {
-                            if (json.recordsFiltered !== 0) {
-                                $ajax(url2, {
-                                    type: "GET",
-                                    data: {id: json.data[0].ruUserId, ids: [option.roleId]},
-                                    error: function (error) {
-                                        errorTip(obj, error);
-                                    },
-                                    success: function (json) {
-                                        if (json.status === 20000) {
-                                            $ajax(url3, {
-                                                type: "GET",
-                                                data: {"ids": option.ruStatus},
-                                                error: function (error) {
-                                                    errorTip(obj, error);
-                                                },
-                                                success: function (json) {
-                                                    if (json.status === 20000) {
-                                                        obj.submitLoading = false;
-                                                        obj.$notify({
-                                                            title: '成功',
-                                                            message: '保存成功！',
-                                                            type: 'success'
-                                                        });
-                                                        obj.dialogFormVisible = false;
-                                                        obj.dialogFormActive = 0;
-                                                        obj.$refs.carousel.setActiveItem(0);
-                                                        post(userManagement, obj.option);
-                                                    }
-                                                },
-                                                complete: function () {
-                                                    obj.showLoading = false;
-                                                }
-                                            });
-
-                                        }
-                                    },
-                                    complete: function () {
-
-                                    }
-                                });
-                            }
+                          if (json.status === 20000) {
+                            obj.submitLoading = false;
+                            obj.$notify({
+                              title: '成功',
+                              message: '保存成功！',
+                              type: 'success'
+                            });
+                            obj.dialogFormVisible = false;
+                            obj.dialogFormActive = 0;
+                            obj.$refs.carousel.setActiveItem(0);
+                            post(userManagement, obj.option);
+                          }
                         },
                         complete: function () {
-
+                          obj.showLoading = false;
                         }
-                    });
-                }
-                /*</prod>*/
+                      });
+
+                    }
+                  },
+                  complete: function () {
+
+                  }
+                });
+              }
             },
             complete: function () {
 
             }
-        });
-    }                 // 1 用户 新增
+          });
+        }
+        /*</prod>*/
+      },
+      complete: function () {
+
+      }
+    });
+  }                 // 1 用户 新增
 </script>
