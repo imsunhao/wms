@@ -444,6 +444,18 @@ function autoValidate(option, cbs) {
             }
 
         },                     //必须小于16位
+
+        v_Car: function (rule, value, callback) {
+          var reg = new RegExp("^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$","g");
+            if (reg.test(value)) {
+                return callback(new Error('必须为中国车牌号!'));
+            }
+            else {
+                return callback();
+            }
+
+        },                     //必须为车牌号
+
         v$User1: function (rule, value, callback) {
             if ((value + '').length < 6 &&(value + '').length!=0) {
                 return callback(new Error('必须大于6位!或者不填写'));
@@ -452,7 +464,7 @@ function autoValidate(option, cbs) {
                 return callback();
             }
 
-        },                     //必须小于16位
+        },                   //必须大于6位!或者不填写
     };
 
     // function autoValidateRule(string, model) {
