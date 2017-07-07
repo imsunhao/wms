@@ -419,7 +419,7 @@ var warehousingReservation = new Vue({
           bdName: item.data.bgZxdw
         },
         rksCount: 0,
-        rksDwid: item.data.bgZxdw,
+        rksDwid: 1,
         rksGoodsId: item.data.bgGoodsId,
         data: item.data
       };

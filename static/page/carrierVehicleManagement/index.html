@@ -401,7 +401,6 @@
                 this.form = step;
                 this.dialogFormVisible = true;
                 this.dialogFormActive = 0;
-                obj.$refs.ref_form.resetFields();
                 Vue.nextTick(function () {
                     if (obj.$refs.carousel) obj.$refs.carousel.setActiveItem(0);
                 });
@@ -466,7 +465,6 @@
                 this.form = _form();
                 this.dialogFormVisible = true;
                 this.dialogFormActive = 0;
-                obj.$refs.ref_form.resetFields();
                 Vue.nextTick(function () {
                     if (obj.$refs.carousel) obj.$refs.carousel.setActiveItem(0);
                 });
