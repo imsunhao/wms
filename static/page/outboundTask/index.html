@@ -156,7 +156,7 @@
                                 <el-table
                                         :data="props.row.mfunckDoc"
                                         @row-dblclick="dblClick"
-                                        :max-height="240">
+                                        :max-height="200">
                                     <el-table-column
                                             type="expand">
                                         <template scope="props">
@@ -165,7 +165,7 @@
                                                     :autoplay="false"
                                                     arrow="never"
                                                     indicator-position="none"
-                                                    height="35vh">
+                                                    height="180px">
                                                 <el-carousel-item>
                                                     <el-row>
                                                         <h3 style="margin-top: 0; ">出库任务单据详细</h3>
@@ -749,7 +749,7 @@
                             :autoplay="false"
                             arrow="never"
                             indicator-position="none"
-                            height="35vh">
+                            height="180px">
                         <el-carousel-item>
                             <el-row>
                                 <h3 style="margin-top: 0; ">出库明细详细</h3>
