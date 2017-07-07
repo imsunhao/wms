@@ -1,624 +1,624 @@
 <style>
-    #carrierVehicleManagement {
-        width: 100%;
-        min-width: 890px;
-        position: relative;
-    }
-
-    #carrierVehicleManagement .demo-table-expand {
-        font-size: 0;
-    }
-
-    #carrierVehicleManagement .demo-table-expand label {
-        width: 90px;
-        color: #99a9bf;
-    }
-
-    #carrierVehicleManagement .demo-table-expand .el-form-item {
-        margin-right: 0;
-        margin-bottom: 0;
-        width: 80%;
-    }
-
-    #carrierVehicleManagement .el-table__expand-column .el-table__expand-icon {
-        height: 39px;
-    }
-
-    #carrierVehicleManagement .table {
-        transition: 1s all;
-    }
-
-    #carrierVehicleManagement .el-carousel__container {
-        height: 440px;
-    }
-
-    .el-tooltip__popper {
-        max-width: 400px;
-    }
-
-    .el-step__main {
-        max-width: calc(100% - 60px);
-    }
-
-    #carrierVehicleManagement .carrierVehicleManagementTable {
-        width: 95% !important;
-        margin: 10px 20px 0;
-    }
-
-    #carrierVehicleManagement .datePicker {
-        width: 140px !important;
-        height: 24px !important;
-        margin-top: 29px;
-        margin-right: 18px;
-        float: left;
-    }
-
-    #carrierVehicleManagement .datePicker .el-input__inner {
-        border-radius: 2px !important;
-        height: 24px !important;
-    }
-
-    #carrierVehicleManagement .add {
-        background: url("/static/images/add.png") no-repeat center;
-    }
-
-    #carrierVehicleManagement .del {
-        background: url("/static/images/del.png") no-repeat center;
-    }
-
-    #carrierVehicleManagement .search {
-        background: url("/static/images/search.png") no-repeat center;
-    }
-
-    #carrierVehicleManagement .sel {
-        background: url("/static/images/sel.png") no-repeat center;
-    }
-
-    #carrierVehicleManagement .icon {
-        float: left;
-    }
-
-    #carrierVehicleManagement .btn span {
-        float: left;
-        margin-top: 4px;
-        margin-left: 2px;
-    }
-
-    #carrierVehicleManagement .btn {
-        height: 24px;
-        line-height: 1;
-        border: none;
-        background: #f8fafb;
-        outline: none;
-        cursor: pointer;
-        padding: 0;
-        margin: 0;
-        float: left;
-        font-size: 14px;
-        color: #1f2d3d;
-        margin-top: 29px;
-        margin-right: 16px;
-    }
-
-    #carrierVehicleManagement .btn-print {
-        margin-right: 0;
-    }
-
-    #carrierVehicleManagement .btn:hover {
-        color: #5468ee;
-    }
-
-    #carrierVehicleManagement .inner {
-        margin: 0 20px;
-    }
-
-    #carrierVehicleManagement .btn-nav {
-        height: 60px;
-        overflow: hidden;
-    }
-
-    #carrierVehicleManagement .btn-nav .el-input .el-input__inner {
-        height: 24px;
-    }
-
-    #carrierVehicleManagement .btn-nav .el-input {
-        float: left;
-        margin-top: 29px;
-        margin-right: 18px;
-        width: 140px;
-        height: 24px;
-    }
-
-    #carrierVehicleManagement h4 {
-        padding-left: 20px;
-        margin-bottom: 0px;
-    }
-
-    #carrierVehicleManagement .formBottom {
-        margin-top: 10px;
-    }
-
-    #carrierVehicleManagement .carrierVehicleManagementCombinationDetails .el-date-editor.el-input {
-        width: 100%;
-    }
-
-    #carrierVehicleManagement .carrierVehicleManagementCombinationDetails {
-        margin-top: 30px;
-    }
+  #carrierVehicleManagement {
+    width: 100%;
+    min-width: 890px;
+    position: relative;
+  }
+  
+  #carrierVehicleManagement .demo-table-expand {
+    font-size: 0;
+  }
+  
+  #carrierVehicleManagement .demo-table-expand label {
+    width: 90px;
+    color: #99a9bf;
+  }
+  
+  #carrierVehicleManagement .demo-table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 80%;
+  }
+  
+  #carrierVehicleManagement .el-table__expand-column .el-table__expand-icon {
+    height: 39px;
+  }
+  
+  #carrierVehicleManagement .table {
+    transition: 1s all;
+  }
+  
+  #carrierVehicleManagement .el-carousel__container {
+    height: 440px;
+  }
+  
+  .el-tooltip__popper {
+    max-width: 400px;
+  }
+  
+  .el-step__main {
+    max-width: calc(100% - 60px);
+  }
+  
+  #carrierVehicleManagement .carrierVehicleManagementTable {
+    width: 95% !important;
+    margin: 10px 20px 0;
+  }
+  
+  #carrierVehicleManagement .datePicker {
+    width: 140px !important;
+    height: 24px !important;
+    margin-top: 29px;
+    margin-right: 18px;
+    float: left;
+  }
+  
+  #carrierVehicleManagement .datePicker .el-input__inner {
+    border-radius: 2px !important;
+    height: 24px !important;
+  }
+  
+  #carrierVehicleManagement .add {
+    background: url("/static/images/add.png") no-repeat center;
+  }
+  
+  #carrierVehicleManagement .del {
+    background: url("/static/images/del.png") no-repeat center;
+  }
+  
+  #carrierVehicleManagement .search {
+    background: url("/static/images/search.png") no-repeat center;
+  }
+  
+  #carrierVehicleManagement .sel {
+    background: url("/static/images/sel.png") no-repeat center;
+  }
+  
+  #carrierVehicleManagement .icon {
+    float: left;
+  }
+  
+  #carrierVehicleManagement .btn span {
+    float: left;
+    margin-top: 4px;
+    margin-left: 2px;
+  }
+  
+  #carrierVehicleManagement .btn {
+    height: 24px;
+    line-height: 1;
+    border: none;
+    background: #f8fafb;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    float: left;
+    font-size: 14px;
+    color: #1f2d3d;
+    margin-top: 29px;
+    margin-right: 16px;
+  }
+  
+  #carrierVehicleManagement .btn-print {
+    margin-right: 0;
+  }
+  
+  #carrierVehicleManagement .btn:hover {
+    color: #5468ee;
+  }
+  
+  #carrierVehicleManagement .inner {
+    margin: 0 20px;
+  }
+  
+  #carrierVehicleManagement .btn-nav {
+    height: 60px;
+    overflow: hidden;
+  }
+  
+  #carrierVehicleManagement .btn-nav .el-input .el-input__inner {
+    height: 24px;
+  }
+  
+  #carrierVehicleManagement .btn-nav .el-input {
+    float: left;
+    margin-top: 29px;
+    margin-right: 18px;
+    width: 140px;
+    height: 24px;
+  }
+  
+  #carrierVehicleManagement h4 {
+    padding-left: 20px;
+    margin-bottom: 0px;
+  }
+  
+  #carrierVehicleManagement .formBottom {
+    margin-top: 10px;
+  }
+  
+  #carrierVehicleManagement .carrierVehicleManagementCombinationDetails .el-date-editor.el-input {
+    width: 100%;
+  }
+  
+  #carrierVehicleManagement .carrierVehicleManagementCombinationDetails {
+    margin-top: 30px;
+  }
 </style>
 <style>
-    .steps {
-        position: absolute;
-        bottom: 10px;
-        left: 30px;
-        margin: auto;
-    }
-
-    .el-dialog__headerbtn {
-        position: absolute;
-        right: 25px;
-        top: 15px;
-    }
-
-    .el-step__main {
-        margin-left: -8px !important;
-    }
+  .steps {
+    position: absolute;
+    bottom: 10px;
+    left: 30px;
+    margin: auto;
+  }
+  
+  .el-dialog__headerbtn {
+    position: absolute;
+    right: 25px;
+    top: 15px;
+  }
+  
+  .el-step__main {
+    margin-left: -8px !important;
+  }
 </style>
 <style>
-    .el-date-editor.el-input {
-        width: 100%;
-    }
+  .el-date-editor.el-input {
+    width: 100%;
+  }
 </style>
 <div id="carrierVehicleManagement">
-    <!--页面调整-->
-    <el-row
-            v-loading="showLoading"
-            element-loading-text="拼命加载中">
-        <div class="inner btn-nav">
-
+  <!--页面调整-->
+  <el-row
+      v-loading="showLoading"
+      element-loading-text="拼命加载中">
+    <div class="inner btn-nav">
+      
+      <el-input
+          v-model="bcCph"
+          icon="search"
+          placeholder="车牌号"></el-input>
+      <el-input
+          v-model="bcSjxm"
+          icon="search"
+          placeholder="司机姓名"></el-input>
+      <el-input
+          v-model="bcSjdh"
+          icon="search"
+          placeholder="司机电话"></el-input>
+      
+      <button @click="newInput" class="btn btn-add"><i
+          class="icon add"></i><span>新增</span>
+      </button>
+      <button @click="multiSelectClick" class="btn btn-multiSelect"><i class="icon sel"></i><span>多选</span>
+      </button>
+      <button
+          class="btn"
+          @click="multiSelectDelete" v-show="multiSelect">批量删除
+      </button>
+    </div>
+    <el-table
+        @select="handleSelectionChange"
+        :data="carrierVehicleManagement"
+        :max-height="config_table_height()"
+        ref="table"
+        class="carrierVehicleManagementTable"
+        @selection-change="multiSelectionChange"
+        style="width: 100%">
+      <el-table-column
+          type="expand">
+        <template scope="props">
+          <el-row>
+            <el-col :span="10">
+              <el-form label-position="left" inline class="demo-table-expand">
+                <el-form-item label="车牌号">
+                  <el-tag type="success">{{props.row.bcCph}}</el-tag>
+                </el-form-item>
+                <el-form-item label="司机姓名">
+                  <span>{{ props.row.bcSjxm        }}</span>
+                </el-form-item>
+              </el-form>
+            </el-col>
+            <el-col :span="14">
+              <el-form label-position="left" inline class="demo-table-expand">
+                <el-form-item label="司机电话">
+                  <span>{{ props.row.bcSjdh   }}</span>
+                </el-form-item>
+                <el-form-item label="可用操作">
+                  <el-button
+                      size="small"
+                      icon="edit"
+                      @click="inlineEdit(props.$index, props.row)">
+                  </el-button>
+                  <el-button
+                      size="small"
+                      icon="delete"
+                      type="danger"
+                      @click="inlineDelete(props.$index, props.row)">删除
+                  </el-button>
+                </el-form-item>
+              </el-form>
+            </el-col>
+          </el-row>
+        </template>
+      </el-table-column>
+      <el-table-column
+          label="车牌号"
+          show-overflow-tooltip
+          align="center">
+        <template scope="scope">
+          <span>{{ scope.row.bcCph}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+          label="司机姓名"
+          show-overflow-tooltip
+          align="center">
+        <template scope="scope">
+          <span>{{ scope.row.bcSjxm}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+          label="司机电话"
+          show-overflow-tooltip
+          align="center">
+        <template scope="scope">
+          <span>{{ scope.row.bcSjdh}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+          v-if="multiSelect"
+          type="selection"
+          width="60">
+      </el-table-column>
+    </el-table>
+    <div class="block">
+      <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-sizes="[5, 10, 15, 20]"
+          :page-size="pageSize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="currentTotal">
+      </el-pagination>
+    </div>
+  </el-row>
+  <el-dialog
+      size="large"
+      v-model="dialogFormVisible">
+    <div class="dialog-title clearfix" slot="title">
+      <span class="el-dialog__title">{{form.title}}</span>
+      <el-steps
+          class="steps"
+          :space="120"
+          :active="dialogFormActive"
+          finish-status="success">
+      </el-steps>
+    </div>
+    <el-form :model="form" ref="ref_form" :rules="rule_form">
+      <el-row>
+        <el-col :span="10">
+          <el-form-item
+              prop="bcCph"
+              label="车牌号"
+              :label-width="formLabelWidth">
             <el-input
-                    v-model="bcCph"
-                    icon="search"
-                    placeholder="车牌号"></el-input>
+                v-show="form.title!='编辑'"
+                v-model="form.bcCph"
+                auto-complete="off"></el-input>
+            <el-tag
+                :close-transition="true"
+                type="success"
+                v-show="form.title=='编辑'">
+              {{form.bcCph}}
+            </el-tag>
+          </el-form-item>
+          <el-form-item
+              prop="bcSjxm"
+              label="司机姓名"
+              :label-width="formLabelWidth">
             <el-input
-                    v-model="bcSjxm"
-                    icon="search"
-                    placeholder="司机姓名"></el-input>
-             <el-input
-                    v-model="bcSjdh"
-                    icon="search"
-                    placeholder="司机电话"></el-input>
-
-            <button @click="newInput" class="btn btn-add"><i
-                    class="icon add"></i><span>新增</span>
-            </button>
-            <button @click="multiSelectClick" class="btn btn-multiSelect"><i class="icon sel"></i><span>多选</span>
-            </button>
-            <button
-                    class="btn"
-                    @click="multiSelectDelete" v-show="multiSelect">批量删除
-            </button>
-        </div>
-        <el-table
-            @select="handleSelectionChange"
-                :data="carrierVehicleManagement"
-                :max-height="config_table_height()"
-                ref="table"
-                class="carrierVehicleManagementTable"
-                @selection-change="multiSelectionChange"
-                style="width: 100%">
-            <el-table-column
-                    type="expand">
-                <template scope="props">
-                    <el-row>
-                        <el-col :span="10">
-                            <el-form label-position="left" inline class="demo-table-expand">
-                                <el-form-item label="车牌号">
-                                    <el-tag type="success">{{props.row.bcCph}}</el-tag>
-                                </el-form-item>
-                                <el-form-item label="司机姓名">
-                                    <span>{{ props.row.bcSjxm        }}</span>
-                                </el-form-item>
-                            </el-form>
-                        </el-col>
-                        <el-col :span="14">
-                            <el-form label-position="left" inline class="demo-table-expand">
-                                <el-form-item label="司机电话">
-                                    <span>{{ props.row.bcSjdh   }}</span>
-                                </el-form-item>
-                                <el-form-item label="可用操作">
-                                    <el-button
-                                            size="small"
-                                            icon="edit"
-                                            @click="inlineEdit(props.$index, props.row)">
-                                    </el-button>
-                                    <el-button
-                                            size="small"
-                                            icon="delete"
-                                            type="danger"
-                                            @click="inlineDelete(props.$index, props.row)">删除
-                                    </el-button>
-                                </el-form-item>
-                            </el-form>
-                        </el-col>
-                    </el-row>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="车牌号"
-                    show-overflow-tooltip
-                    align="center">
-                <template scope="scope">
-                    <span>{{ scope.row.bcCph}}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="司机姓名"
-                    show-overflow-tooltip
-                    align="center">
-                <template scope="scope">
-                    <span>{{ scope.row.bcSjxm}}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="司机电话"
-                    show-overflow-tooltip
-                    align="center">
-                <template scope="scope">
-                    <span>{{ scope.row.bcSjdh}}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    v-if="multiSelect"
-                    type="selection"
-                    width="60">
-            </el-table-column>
-        </el-table>
-        <div class="block">
-            <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page="currentPage"
-                    :page-sizes="[5, 10, 15, 20]"
-                    :page-size="pageSize"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="currentTotal">
-            </el-pagination>
-        </div>
-    </el-row>
-    <el-dialog
-            size="large"
-            v-model="dialogFormVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">{{form.title}}</span>
-            <el-steps
-                    class="steps"
-                    :space="120"
-                    :active="dialogFormActive"
-                    finish-status="success">
-            </el-steps>
-        </div>
-        <el-form :model="form" ref="ref_form" :rules="rule_form" >
-            <el-row>
-                <el-col :span="10">
-                    <el-form-item
-                            prop="bcCph"
-                            label="车牌号"
-                            :label-width="formLabelWidth">
-                        <el-input
-                                v-show="form.title!='编辑'"
-                                v-model="form.bcCph"
-                                auto-complete="off"></el-input>
-                      <el-tag
-                          :close-transition="true"
-                          type="success"
-                          v-show="form.title=='编辑'">
-                        {{form.bcCph}}
-                      </el-tag>
-                    </el-form-item>
-                    <el-form-item
-                            prop="bcSjxm"
-                            label="司机姓名"
-                            :label-width="formLabelWidth">
-                        <el-input
-                                v-model="form.bcSjxm"
-                                auto-complete="off"></el-input>
-                    </el-form-item>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="10" :offset="2">
-                    <el-form-item
-                            prop="bcSjdh"
-                            label="司机电话"
-                            :label-width="formLabelWidth">
-                        <el-input
-                                v-model="form.bcSjdh"
-                                auto-complete="off"></el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row>
-        </el-form>
-
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="submit" :loading="submitLoading">保存
-            </el-button>
-        </div>
-    </el-dialog>
+                v-model="form.bcSjxm"
+                auto-complete="off"></el-input>
+          </el-form-item>
+          </el-form-item>
+        </el-col>
+        <el-col :span="10" :offset="2">
+          <el-form-item
+              prop="bcSjdh"
+              label="司机电话"
+              :label-width="formLabelWidth">
+            <el-input
+                v-model="form.bcSjdh"
+                auto-complete="off"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+    </el-form>
+    
+    <div slot="footer" class="dialog-footer">
+      <el-button type="primary" @click="submit" :loading="submitLoading">保存
+      </el-button>
+    </div>
+  </el-dialog>
 </div>
 <script>
-    var carrierVehicleManagement = new Vue({
-        el: '#carrierVehicleManagement',
-        prop: {},
-        data: function () {
-            return {
-                carrierVehicleManagement: [],                 //主页面 信息集合
-                multipleSelection: [],           //主页面 多选集合
-                multiSelect: false,              //主页面 多选状态 维护
-                bcCph: '',                        //主页面 车牌号
-                bcSjxm: '',                       //主页面 司机姓名
-                bcSjdh:'',                         //主页面 司机电话
-                showLoading: false,              //主页面 加载 维护
-                rule_form:autoValidate(validate_form()),//新增的验证
-                currentPage: 1,                  //分页 当前页
-                currentTotal: 1,                 //分页 总页数
-                pageSize: 10,                    //分页 分页大小
-                formLabelWidth: '120px',         //表单 配置
-                form: _form(),                    //新建 弹出层 信息集合
-                dialogFormActive: 0,             //新建 弹出层 steps 当前进度
-                dialogFormVisible: false,        //新建 弹出层 是否可见
-                submitLoading: false,            //新建 弹出层 提交等待
+  var carrierVehicleManagement = new Vue({
+    el: '#carrierVehicleManagement',
+    prop: {},
+    data: function () {
+      return {
+        carrierVehicleManagement: [],    //主页面 信息集合
+        multipleSelection: [],           //主页面 多选集合
+        multiSelect: false,              //主页面 多选状态 维护
+        bcCph: '',                       //主页面 车牌号
+        bcSjxm: '',                      //主页面 司机姓名
+        bcSjdh: '',                       //主页面 司机电话
+        showLoading: false,              //主页面 加载 维护
+        rule_form: autoValidate(validate_form()),//新增的验证
+        currentPage: 1,                  //分页 当前页
+        currentTotal: 1,                 //分页 总页数
+        pageSize: 10,                    //分页 分页大小
+        formLabelWidth: '120px',         //表单 配置
+        form: _form(),                   //新建 弹出层 信息集合
+        dialogFormActive: 0,             //新建 弹出层 steps 当前进度
+        dialogFormVisible: false,        //新建 弹出层 是否可见
+        submitLoading: false,            //新建 弹出层 提交等待
 
-                pickerOption: {
-                    disabledDate: function (time) {
-                        return time.getTime() > Date.now();
-                    }
-                },             //新建 弹出层 相对湿度选项
+        pickerOption: {
+          disabledDate: function (time) {
+            return time.getTime() > Date.now();
+          }
+        },             //新建 弹出层 相对湿度选项
 
-            }
-        },
-        computed: {
-            option: function () {
-                return {
-                    "draw": 1,
-                    "pageNum": this.currentPage,
-                    "pageSize": this.pageSize,
-                    "bcCph": this.bcCph.trim(),
-                    "bcSjxm": this.bcSjxm.trim(),
-                    "bcSjdh": this.bcSjdh.trim()
-                }
-            },           //主页面 post 0
-        },
-        methods: {
-          handleSelectionChange: function (val, row) {
-            this.multipleSelection = val;
-          },                         //多选 选中控制
-            inlineEdit: function (index, row) {
-                var step = _form();
-                allPrposCb(step, function (obj, index) {
-                    if (typeof row[index] !== 'undefined') step[index] = row[index];
-                });
-                step.title = '编辑';
-                this.form = step;
-                this.dialogFormVisible = true;
-                this.dialogFormActive = 0;
-                Vue.nextTick(function () {
-                    if (obj.$refs.carousel) obj.$refs.carousel.setActiveItem(0);
-                });
-            },                               //TODO 行内按钮-编辑
-            inlineDelete: function (index, row) {
-                var obj = this;
-                obj.$confirm('此操作将此承运商车辆删除, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(function () {
-                    p[3].post({
-                        ids: [row.bcId],
-                    });
-                }).catch(function () {
-                    obj.$message({
-                        type: 'info',
-                        message: '已取消操作'
-                    });
-                });
-            },                            //TODO 行内按钮-删除
-            multiSelectClick: function () {
-                this.multiSelect = !this.multiSelect;
-            },                                      //多选 状态维护
-            multiSelectionChange: function (val, row) {
-                this.multipleSelection = val;
-            },                          //多选 选中控制
-            multiSelectDelete: function () {
-                obj.$confirm('此操作将永久删除这些承运商车辆, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(function () {
-                    var step = [];
-                    for (var i = 0; i < obj.multipleSelection.length; i++) {
-                        step.push(obj.multipleSelection[i].bcId);
-                    }
-                    p[3].post({ids: step});
-                }).catch(function () {
-                    obj.$message({
-                        type: 'info',
-                        message: '已取消'
-                    });
-                });
-
-            },                                  //TODO 多选 删除
-            handleSizeChange: function (val) {
-                /*<debug>*/
-                console.log('每页' + val + '条');
-                /*</debug>*/
-                this.pageSize = val;
-                p[0].post(this.option);
-            },                                   //分页 Size
-            handleCurrentChange: function (val) {
-                /*<debug>*/
-                console.log('当前第' + val + '页');
-                /*</debug>*/
-                this.currentPage = val;
-                p[0].post(this.option);
-            },                                //分页 当前页
-            newInput: function () {
-                this.form = _form();
-                this.dialogFormVisible = true;
-                this.dialogFormActive = 0;
-                Vue.nextTick(function () {
-                    if (obj.$refs.carousel) obj.$refs.carousel.setActiveItem(0);
-                });
-            },                                              //按钮 新建入库单
-            prev: function () {
-                this.dialogFormActive--;
-                this.$refs.carousel.prev();
-            },                                                  //新建 弹出层banner控制 前一个
-            next: function () {
-                this.dialogFormActive++;
-                this.$refs.carousel.next();
-            },                                                  //新建 弹出层banner控制 后一个
-            submit: function () {
-                this.$refs['ref_form'].validate(function (valid) {
-                    if (valid) {
-                        obj.dialogFormActive++;
-                        obj.submitLoading = true;
-                    } else {
-                        return false;
-                    }
-                });
-
-
-                //TODO 此处应是ajax请求
-                /*<prod>*/
-                if (this.form.title === '新建承运商车辆') {
-                    p[2].post(this.form)
-                } else {
-                    p[1].post(this.form)
-                }
-                setTimeout(function () {
-                    obj.submitLoading = false;
-                    obj.dialogFormVisible = false;
-                    obj.dialogFormActive = 0;
-                    if (obj.$refs.carousel) obj.$refs.carousel.setActiveItem(0);
-                    p[0].post();
-                }, 1500);
-            },                                                //新建 表单提交
-            submitRole: function () {
-                this.loadingWarehouse = true;
-
-                /*<prod>*/
-                //TODO
-                postModify(this, this.form);
-                /*</prod>*/
-                /*<debug>*/
-                setTimeout(function () {
-                    obj.loadingWarehouse = false;
-                    obj.dialogRoleVisible = false;
-                }, 1500);
-                /*</debug>*/
-            },                                            //新建 表单提交
-        },
-        watch: {
-            bcCph: function () {
-                /*<debug>*/
-                console.log(this.option);
-                /*</debug>*/
-                p[0].post(this.option);
-            },
-            bcSjxm: function () {
-                /*<debug>*/
-                console.log(this.option);
-                /*</debug>*/
-                p[0].post(this.option);
-            },
-            bcSjdh: function () {
-                /*<debug>*/
-                console.log(this.option);
-                /*</debug>*/
-                p[0].post(this.option);
-            }
-
-        }
-    });
-    function _form() {
+      }
+    },
+    computed: {
+      option: function () {
         return {
-            title: '新建承运商车辆',
-            "bcId": 0,
-            "bcCph": "",
-            "bcSjxm": "",
-            "bcSjdh": "",
+          "draw": 1,
+          "pageNum": this.currentPage,
+          "pageSize": this.pageSize,
+          "bcCph": this.bcCph.trim(),
+          "bcSjxm": this.bcSjxm.trim(),
+          "bcSjdh": this.bcSjdh.trim()
         }
-    }               //弹出层 form 模板
-    function validate_form(){
-        return{
-            bcCph:['vNull','v_Car'],
-            bcSjxm:'vNull',
-            bcSjdh:'vNull'
+      },           //主页面 post 0
+    },
+    methods: {
+      handleSelectionChange: function (val, row) {
+        this.multipleSelection = val;
+      },                     //多选 选中控制
+      inlineEdit: function (index, row) {
+        var step = _form();
+        allPrposCb(step, function (obj, index) {
+          if (typeof row[index] !== 'undefined') step[index] = row[index];
+        });
+        step.title = '编辑';
+        this.form = step;
+        this.dialogFormVisible = true;
+        this.dialogFormActive = 0;
+        Vue.nextTick(function () {
+          if (obj.$refs.carousel) obj.$refs.carousel.setActiveItem(0);
+        });
+      },                              //TODO 行内按钮-编辑
+      inlineDelete: function (index, row) {
+        var obj = this;
+        obj.$confirm('此操作将此承运商车辆删除, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          p[3].post({
+            ids: [row.bcId],
+          });
+        }).catch(function () {
+          obj.$message({
+            type: 'info',
+            message: '已取消操作'
+          });
+        });
+      },                            //TODO 行内按钮-删除
+      multiSelectClick: function () {
+        this.multiSelect = !this.multiSelect;
+      },                                  //多选 状态维护
+      multiSelectionChange: function (val, row) {
+        this.multipleSelection = val;
+      },                      //多选 选中控制
+      multiSelectDelete: function () {
+        obj.$confirm('此操作将永久删除这些承运商车辆, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          var step = [];
+          for (var i = 0; i < obj.multipleSelection.length; i++) {
+            step.push(obj.multipleSelection[i].bcId);
+          }
+          p[3].post({ids: step});
+        }).catch(function () {
+          obj.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+
+      },                                 //TODO 多选 删除
+      handleSizeChange: function (val) {
+        /*<debug>*/
+        console.log('每页' + val + '条');
+        /*</debug>*/
+        this.pageSize = val;
+        p[0].post(this.option);
+      },                               //分页 Size
+      handleCurrentChange: function (val) {
+        /*<debug>*/
+        console.log('当前第' + val + '页');
+        /*</debug>*/
+        this.currentPage = val;
+        p[0].post(this.option);
+      },                            //分页 当前页
+      newInput: function () {
+        this.form = _form();
+        this.dialogFormVisible = true;
+        this.dialogFormActive = 0;
+        Vue.nextTick(function () {
+          if (obj.$refs.carousel) obj.$refs.carousel.setActiveItem(0);
+        });
+      },                                          //按钮 新建入库单
+      prev: function () {
+        this.dialogFormActive--;
+        this.$refs.carousel.prev();
+      },                                              //新建 弹出层banner控制 前一个
+      next: function () {
+        this.dialogFormActive++;
+        this.$refs.carousel.next();
+      },                                              //新建 弹出层banner控制 后一个
+      submit: function () {
+        this.$refs['ref_form'].validate(function (valid) {
+          if (valid) {
+            obj.dialogFormActive++;
+            obj.submitLoading = true;
+          } else {
+            return false;
+          }
+        });
+
+
+        //TODO 此处应是ajax请求
+        /*<prod>*/
+        if (this.form.title === '新建承运商车辆') {
+          p[2].post(this.form)
+        } else {
+          p[1].post(this.form)
         }
+        setTimeout(function () {
+          obj.submitLoading = false;
+          obj.dialogFormVisible = false;
+          obj.dialogFormActive = 0;
+          if (obj.$refs.carousel) obj.$refs.carousel.setActiveItem(0);
+          p[0].post();
+        }, 1500);
+      },                                            //新建 表单提交
+      submitRole: function () {
+        this.loadingWarehouse = true;
+        
+        /*<prod>*/
+        //TODO
+        postModify(this, this.form);
+        /*</prod>*/
+        /*<debug>*/
+        setTimeout(function () {
+          obj.loadingWarehouse = false;
+          obj.dialogRoleVisible = false;
+        }, 1500);
+        /*</debug>*/
+      },                                        //新建 表单提交
+    },
+    watch: {
+      bcCph: function () {
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        p[0].post(this.option);
+      },
+      bcSjxm: function () {
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        p[0].post(this.option);
+      },
+      bcSjdh: function () {
+        /*<debug>*/
+        console.log(this.option);
+        /*</debug>*/
+        p[0].post(this.option);
+      }
+
     }
-    var obj = carrierVehicleManagement;
-    var p = [];
-    // 0 承运商车辆管理 分页查询
-    p[0] = autoPost({
-        urlHock: "",
-        urlProd: "/route/carrierVehicleManagement/0",
-        success: function (json) {
-            obj.$data.carrierVehicleManagement = json.data;
-            obj.$data.currentTotal = json.recordsFiltered;
-        }
-    });
-    // 1 承运商车辆管理 编辑
-    p[1] = autoPost({
-        urlHock: "",
-        urlProd: "/route/carrierVehicleManagement/1",
-        success: function (json) {
-            obj.submitLoading = false;
-            this.callbackAfter({status: json.status, model: '承运商车辆编辑'}, function () {
-                obj.dialogFormActive = 0;
-                p[0].post(obj.option);
-                if (obj.$refs.carousel) obj.$refs.carousel.setActiveItem(0);
-                obj.dialogFormVisible = false;
-            })
-        }
-    });
-    // 2 承运商车辆管理 新增
-    p[2] = autoPost({
-        urlHock: "",
-        urlProd: "/route/carrierVehicleManagement/2",
-        success: function (json) {
-            obj.submitLoading = false;
-            this.callbackAfter(json, function () {
-                obj.dialogFormActive = 0;
-                p[0].post(obj.option);
-                if (obj.$refs.carousel) obj.$refs.carousel.setActiveItem(0);
-                obj.dialogFormVisible = false;
-            })
-        }
-    });
-    // 3 承运商车辆管理 删除
-    p[3] = autoPost({
-        urlHock: "",
-        urlProd: "/route/carrierVehicleManagement/3",
-        method:'GET',
-        success: function (json) {
-            this.callbackAfter({status: json.status, model: '删除承运商车辆管理'});
-            p[0].post(carrierVehicleManagement.option);
-        }
-    });
-    // 8 货品管理
-    p[8] = autoPost({
-        urlHock: "",
-        urlProd: "/route/carrierVehicleManagement/8",
-        success: function (json) {
-        }
-    });
-    // 10 货品管理 查询所有单位
-    p[10] = autoPost({
-        urlHock: "/hock/carrierVehicleManagement/all.json",
-        urlProd: "/route/carrierVehicleManagement/10",
-        success: function (json) {
-            obj.dw = json.data;
-        }
-    });
-    p[0].post(carrierVehicleManagement.option);
+  });
+  function _form() {
+    return {
+      title: '新建承运商车辆',
+      "bcId": 0,
+      "bcCph": "",
+      "bcSjxm": "",
+      "bcSjdh": "",
+    }
+  }               //弹出层 form 模板
+  function validate_form() {
+    return {
+      bcCph: ['vNull', 'v_Car'],
+      bcSjxm: 'vNull',
+      bcSjdh: 'vNull'
+    }
+  }
+  var obj = carrierVehicleManagement;
+  var p = [];
+  // 0 承运商车辆管理 分页查询
+  p[0] = autoPost({
+    urlHock: "",
+    urlProd: "/route/carrierVehicleManagement/0",
+    success: function (json) {
+      obj.$data.carrierVehicleManagement = json.data;
+      obj.$data.currentTotal = json.recordsFiltered;
+    }
+  });
+  // 1 承运商车辆管理 编辑
+  p[1] = autoPost({
+    urlHock: "",
+    urlProd: "/route/carrierVehicleManagement/1",
+    success: function (json) {
+      obj.submitLoading = false;
+      this.callbackAfter({status: json.status, model: '承运商车辆编辑'}, function () {
+        obj.dialogFormActive = 0;
+        p[0].post(obj.option);
+        if (obj.$refs.carousel) obj.$refs.carousel.setActiveItem(0);
+        obj.dialogFormVisible = false;
+      })
+    }
+  });
+  // 2 承运商车辆管理 新增
+  p[2] = autoPost({
+    urlHock: "",
+    urlProd: "/route/carrierVehicleManagement/2",
+    success: function (json) {
+      obj.submitLoading = false;
+      this.callbackAfter(json, function () {
+        obj.dialogFormActive = 0;
+        p[0].post(obj.option);
+        if (obj.$refs.carousel) obj.$refs.carousel.setActiveItem(0);
+        obj.dialogFormVisible = false;
+      })
+    }
+  });
+  // 3 承运商车辆管理 删除
+  p[3] = autoPost({
+    urlHock: "",
+    urlProd: "/route/carrierVehicleManagement/3",
+    method: 'GET',
+    success: function (json) {
+      this.callbackAfter({status: json.status, model: '删除承运商车辆管理'});
+      p[0].post(carrierVehicleManagement.option);
+    }
+  });
+  // 8 货品管理
+  p[8] = autoPost({
+    urlHock: "",
+    urlProd: "/route/carrierVehicleManagement/8",
+    success: function (json) {
+    }
+  });
+  // 10 货品管理 查询所有单位
+  p[10] = autoPost({
+    urlHock: "/hock/carrierVehicleManagement/all.json",
+    urlProd: "/route/carrierVehicleManagement/10",
+    success: function (json) {
+      obj.dw = json.data;
+    }
+  });
+  p[0].post(carrierVehicleManagement.option);
 </script>

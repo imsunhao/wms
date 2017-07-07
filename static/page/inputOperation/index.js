@@ -129,7 +129,7 @@ var inputOperation = new Vue({
                 type: 'warning'
             }).then(function () {
                 p[9].post({
-                    "id": row.rkRkdjId,
+                    "ids": [row.rkRkdjId],
                     "useId": app.rmsUser.ruUserId
                 }, function (json) {
                     this.callbackAfter({status: json.status, model: "取消分配"}, function () {
