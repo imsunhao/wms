@@ -1108,7 +1108,6 @@ var ___datas = (function () {
     // },
   ]
 })();     //全局 el_tag 配置 参数
-
 function auto_el_tag(id, value) {
   for (var i in ___datas) {
     if (___datas[i].id === id) {
@@ -1120,7 +1119,6 @@ function auto_el_tag(id, value) {
     }
   }
 }     //自动适配 el-tag 标签
-
 function config_table_height(num) {
   switch (num) {
     case 1:
