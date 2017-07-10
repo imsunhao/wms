@@ -19,6 +19,7 @@ var outputAppointment = new Vue({
             multiSelect: false,
             date: [null, null],           //主页面 选择日期 搜索
             ckCkdjNo: '',                 //主页面 出库单号 搜索
+            ckCkdjClientname: '',        //主页面 客户名称 搜索
             // ckCkdjType: '',               //主页面 出库单 类型
             ckRwStatus: 0,                //主页面 出库单任务状态 搜索
             ckArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,//主页面 仓库 搜索
@@ -84,6 +85,7 @@ var outputAppointment = new Vue({
                 "pageSize": 19,
                 // "ckCkdjType": this.ckCkdjType,
                 "ckCkdjNo": this.ckCkdjNo,
+                "ckCkdjClientname":this.ckCkdjClientname,
                 // "startTimeParam": tsf_date(this.date[0]),
                 // "endTimeParam": tsf_date(this.date[1]),
                 "ckArehouseId": this.ckArehouseId,
@@ -559,6 +561,13 @@ var outputAppointment = new Vue({
             /*</debug>*/
             p[7].post((_option ? this.form_pop : this.option));
         },
+        ckCkdjClientname: function () {
+            /*<debug>*/
+            console.log((_option ? this.form_pop : this.option));
+            /*</debug>*/
+            p[7].post((_option ? this.form_pop : this.option));
+        },
+
         ckCkdjType: function () {
             /*<debug>*/
             console.log((_option ? this.form_pop : this.option));
