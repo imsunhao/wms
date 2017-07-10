@@ -211,7 +211,7 @@ var outputShipment = new Vue({
     dblClick2: function (row, event) {
       if (this.lists.ckRwStatus < 51) {
         this.lists2.row = row;
-        this.lists2.cksFyCount = row.cksFyCount;
+        this.lists2.cksFyCount = 0;
         this.lists2.cksFyCountMax = row.cksFyCount;
         this.dialogLists2Visible = true;
       }
@@ -535,6 +535,7 @@ function lists2Form() {
       cksFyCount: 0,
       baseGoods: {bgGoodsNo: ''}
     },
+    cksFyCount: 0,
     cksFyCountMax: 0,
   }
 }
