@@ -223,6 +223,7 @@ var recoveryArchive = new Vue({
                 p[2].post(this.reissue, function (json) {
                     this.callbackAfter(json, function () {
                         p[0].post(obj.option);
+                        obj.dialogReissueVisible=false;
                     })
                 })
             } else {

@@ -879,7 +879,7 @@
                             "mrGoodsIds": ids
                         }, function (json) {
                             obj.submitLoading = false;
-                            this.callbackAfter({status: json.status, model: '新建动碰盘点'}, function () {
+                            this.callbackAfter({status: json.status, model: '如果失败请检查仓库是否已有盘点计划或者库存含有待转移...新增动碰盘点'}, function () {
                                 obj.dialogFormVisible = false;
                                 obj.form = _form();
                                 obj.dialogFormActive = 0;
