@@ -363,8 +363,8 @@ var inputOperation = new Vue({
                     step.push(obj.multipleSelection[i].rkRkdjId);
                 }
                 p[9].post({
-                    "id": 68,
-                    "useId": 2
+                    "ids": step,
+                    "useId": app.rmsUser.ruUserId
                 }, function (json) {
                     this.callbackAfter({status: json.status, model: "取消分配"}, function () {
                         p[0].post(obj.option);
