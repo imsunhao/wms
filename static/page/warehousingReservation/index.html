@@ -30,15 +30,6 @@
                     class="datePicker"
                     :picker-options="pickerOptions">
                 </el-date-picker>
-                
-                <el-select
-                    @visible-change="selectReturn"
-                    v-model="rkArehouseId"
-                    placeholder="请选择所属仓库">
-                  <el-option :label="obj.baName" :value="obj.baArehouseId"
-                             v-for="obj of baseArehouses"></el-option>
-                </el-select>
-                
                 <button @click="newInput" class="btn btn-add"><i class="icon add"></i><span>添加</span>
                 </button>
                 <button @click="importExcel" class="btn btn-import" v-if="false"><i
