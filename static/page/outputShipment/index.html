@@ -523,15 +523,20 @@
         </div>
     </el-dialog>
     <el-dialog
-            size="mini"
+            size="small"
             v-model="dialogLists2Visible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">修改发运数量</span><span
                 style="margin-left:10px;font-size: 14px; ">货品编号: {{lists2.row.baseGoods.bgGoodsNo}}</span>
         </div>
-        <el-form label-position="left" inline>
-            <el-form-item label="发运数量">
-                <el-input v-model="lists2.cksFyCount"></el-input>
+        <el-form label-position="left">
+            <el-form-item label="发运数量" label-width="400px">
+              <el-slider
+                  :max="lists2.cksFyCountMax"
+                  v-model="lists2.cksFyCount"
+                  :disabled="lists2.cksFyCount==0"
+                  show-input>
+              </el-slider>
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
