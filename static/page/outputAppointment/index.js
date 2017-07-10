@@ -19,7 +19,7 @@ var outputAppointment = new Vue({
             multiSelect: false,
             date: [null, null],           //主页面 选择日期 搜索
             ckCkdjNo: '',                 //主页面 出库单号 搜索
-            ckCkdjType: '',               //主页面 出库单 类型
+            // ckCkdjType: '',               //主页面 出库单 类型
             ckRwStatus: 0,                //主页面 出库单任务状态 搜索
             ckArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,//主页面 仓库 搜索
             pickerOptions: {
@@ -82,10 +82,10 @@ var outputAppointment = new Vue({
                 "draw": 1,
                 "pageNum": 1,
                 "pageSize": 19,
-                "ckCkdjType": this.ckCkdjType,
+                // "ckCkdjType": this.ckCkdjType,
                 "ckCkdjNo": this.ckCkdjNo,
-                "startTimeParam": tsf_date(this.date[0]),
-                "endTimeParam": tsf_date(this.date[1]),
+                // "startTimeParam": tsf_date(this.date[0]),
+                // "endTimeParam": tsf_date(this.date[1]),
                 "ckArehouseId": this.ckArehouseId,
 
 //                    ckCkdjNo: this.ckCkdjNo,
@@ -94,6 +94,19 @@ var outputAppointment = new Vue({
 //                    "ckCkdjClientname": "",
 //                    "ckCkdjType": -1,
 //                    "ckArehouseId": -1
+            }
+        },
+        form_pop: function () {
+            return {
+                "draw": 1,
+                "pageNum": this.currentPage,
+                "pageSize": this.pageSize,
+                "startTimeParam": tsf_date(this.form.ckXdsj[0]),
+                "endTimeParam": tsf_date(this.form.ckXdsj[1]),
+                "ckCkdjNo": this.form.ckCkdjNo,
+                "ckCkdjClientname": this.form.ckCkdjClientname,
+                "ckArehouseId": this.form.ckArehouseId,
+                "ckCkdjType": this.form.ckCkdjType,
             }
         },
     },
@@ -221,14 +234,14 @@ var outputAppointment = new Vue({
             console.log('每页' + val + '条');
             /*</debug>*/
             this.pageSize = val;
-            p[7].post(this.option);
+            p[7].post((_option ? this.form_pop : this.option));
         },                                   //分页 Size
         handleCurrentChange: function (val) {
             /*<debug>*/
             console.log('当前第' + val + '页');
             /*</debug>*/
             this.currentPage = val;
-            p[7].post(this.option);
+            p[7].post((_option ? this.form_pop : this.option));
         },                                //分页 当前页
         newInput: function () {
             var No = this.form.ckCkdjNo;
@@ -440,6 +453,8 @@ var outputAppointment = new Vue({
         },                                     //货品明细控制 删除
 
         selectSubmit: function () {
+            _option=true;
+            p[7].post(obj.form_pop);
             this.dialogSelectVisible = false;
         },                                          //详细查询 查询提交
 
@@ -540,21 +555,21 @@ var outputAppointment = new Vue({
         },
         ckCkdjNo: function () {
             /*<debug>*/
-            console.log(this.option);
+            console.log((_option ? this.form_pop : this.option));
             /*</debug>*/
-            p[7].post(this.option);
+            p[7].post((_option ? this.form_pop : this.option));
         },
         ckCkdjType: function () {
             /*<debug>*/
-            console.log(this.option);
+            console.log((_option ? this.form_pop : this.option));
             /*</debug>*/
-            p[7].post(this.option);
+            p[7].post((_option ? this.form_pop : this.option));
         },
         ckArehouseId: function () {
             /*<debug>*/
-            console.log(this.option);
+            console.log((_option ? this.form_pop : this.option));
             /*</debug>*/
-            p[7].post(this.option);
+            p[7].post((_option ? this.form_pop : this.option));
         },
 
     }
@@ -562,9 +577,9 @@ var outputAppointment = new Vue({
 // 高级 监视器的 使用方法
 outputAppointment.$watch('date', function () {
     /*<debug>*/
-    console.log(this.option);
+    console.log((_option ? this.form_pop : this.option));
     /*</debug>*/
-    p[7].post(this.option);
+    p[7].post((_option ? this.form_pop : this.option));
 }, {deep: true});
 var obj = outputAppointment;
 var p = [];
@@ -716,12 +731,13 @@ function _form() {
         "ckClientId": 1,
         "userId": app.rmsUser.userId,
         "mfunckDocs": [],
+        "ckXdsj":"",
 
         title: '新建出库单',
 
         "ckYfhsj": (new Date()).toJSON(),
         "ckEndtime": "",
-        "ckCkdjType": 1,
+        "ckCkdjType": "",
 
         allCount: 0,
         allTj: 0,
