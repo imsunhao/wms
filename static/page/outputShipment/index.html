@@ -530,11 +530,11 @@
                 style="margin-left:10px;font-size: 14px; ">货品编号: {{lists2.row.baseGoods.bgGoodsNo}}</span>
         </div>
         <el-form label-position="left">
-            <el-form-item label="发运数量" label-width="400px">
+            <el-form-item label="发运数量" label-width="120px">
               <el-slider
                   :max="lists2.cksFyCountMax"
-                  v-model="lists2.cksFyCount"
-                  :disabled="lists2.cksFyCount==0"
+                  :disabled="lists2.row.cksFyCount==0"
+                  v-model.number="lists2.cksFyCount"
                   show-input>
               </el-slider>
             </el-form-item>
