@@ -6,89 +6,89 @@ var id = 0;
 })();
 /*</debug>*/
 var outputAppointment = new Vue({
-    el: '#outputAppointment',
-    prop: {},
-    data: function () {
-        return {
-            baseArehouses: window.dbmessage.baseArehouses,
-            outputAppointment: [],
-            outputAppointmentCombination: [],
-            outputAppointmentCombinationDetails: CombinationDetails(),
-            multipleSelection: [],
-            multipleSelectionCombination: [],
-            multiSelect: false,
-            date: [null, null],           //主页面 选择日期 搜索
-            ckCkdjNo: '',                 //主页面 出库单号 搜索
-            ckCkdjClientname: '',        //主页面 客户名称 搜索
-            // ckCkdjType: '',               //主页面 出库单 类型
-            ckRwStatus: 0,                //主页面 出库单任务状态 搜索
-            ckArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,//主页面 仓库 搜索
-            pickerOptions: {
-                shortcuts: [{
-                    text: '最近一周',
-                    onClick: function (picker) {
-                        var end = new Date();
-                        var start = new Date();
-                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                        picker.$emit('pick', [start, end]);
-                    }
-                }, {
-                    text: '最近一个月',
-                    onClick: function (picker) {
-                        var end = new Date();
-                        var start = new Date();
-                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                        picker.$emit('pick', [start, end]);
-                    }
-                }, {
-                    text: '最近三个月',
-                    onClick: function (picker) {
-                        var end = new Date();
-                        var start = new Date();
-                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                        picker.$emit('pick', [start, end]);
-                    }
-                }]
-            },
-            showLoading: false,
-            currentPage: 1,
-            pageSize: 10,
-            currentTotal: 0,
+  el: '#outputAppointment',
+  prop: {},
+  data: function () {
+    return {
+      baseArehouses: window.dbmessage.baseArehouses,
+      outputAppointment: [],
+      outputAppointmentCombination: [],
+      outputAppointmentCombinationDetails: CombinationDetails(),
+      multipleSelection: [],
+      multipleSelectionCombination: [],
+      multiSelect: false,
+      date: [null, null],           //主页面 选择日期 搜索
+      ckCkdjNo: '',                 //主页面 出库单号 搜索
+      ckCkdjClientname: '',        //主页面 客户名称 搜索
+      // ckCkdjType: '',               //主页面 出库单 类型
+      ckRwStatus: 0,                //主页面 出库单任务状态 搜索
+      ckArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,//主页面 仓库 搜索
+      pickerOptions: {
+        shortcuts: [{
+          text: '最近一周',
+          onClick: function (picker) {
+            var end = new Date();
+            var start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+            picker.$emit('pick', [start, end]);
+          }
+        }, {
+          text: '最近一个月',
+          onClick: function (picker) {
+            var end = new Date();
+            var start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+            picker.$emit('pick', [start, end]);
+          }
+        }, {
+          text: '最近三个月',
+          onClick: function (picker) {
+            var end = new Date();
+            var start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+            picker.$emit('pick', [start, end]);
+          }
+        }]
+      },
+      showLoading: false,
+      currentPage: 1,
+      pageSize: 10,
+      currentTotal: 0,
 
-            formLabelWidth: '120px',       //表单 配置
-            form: _form(),                 //表单 弹出层 信息集合
-            rule_form: autoValidate(validate_form()), //出库基础信息验证规则
-            rule_form2: autoValidate(validate_form2()),//出库明细验证规则
-            rule_outputAppointmentCombinationDetails: autoValidate(validate_details()),
-            dialogFormActive: 0,           //新建 弹出层 steps 当前进度
-            dialogFormVisible: false,      //新建 弹出层 是否可见
-            submitLoading: false,          //新建 弹出层 提交等待
+      formLabelWidth: '120px',       //表单 配置
+      form: _form(),                 //表单 弹出层 信息集合
+      rule_form: autoValidate(validate_form()), //出库基础信息验证规则
+      rule_form2: autoValidate(validate_form2()),//出库明细验证规则
+      rule_outputAppointmentCombinationDetails: autoValidate(validate_details()),
+      dialogFormActive: 0,           //新建 弹出层 steps 当前进度
+      dialogFormVisible: false,      //新建 弹出层 是否可见
+      submitLoading: false,          //新建 弹出层 提交等待
 
-            dialogExcelVisible: false,     //Excel 弹出层 是否可见
-            excelLoading: false,           //Excel 弹出层 提交等待
+      dialogExcelVisible: false,     //Excel 弹出层 是否可见
+      excelLoading: false,           //Excel 弹出层 提交等待
 
-            formActive: 0,                 //form steps 当前进度
+      formActive: 0,                 //form steps 当前进度
 
-            select: {},                    //搜索 弹出层 信息集合
-            dialogSelectVisible: false,
-            selectLoading: false,
-            fileList: [],
+      select: {},                    //搜索 弹出层 信息集合
+      dialogSelectVisible: false,
+      selectLoading: false,
+      fileList: [],
 
-            watchView: false,               //观察状态量-是否为查看
-        }
-    },
-    computed: {
-        option: function () {
-            return {
-                "draw": 1,
-                "pageNum": 1,
-                "pageSize": 19,
-                // "ckCkdjType": this.ckCkdjType,
-                "ckCkdjNo": this.ckCkdjNo,
-                "ckCkdjClientname":this.ckCkdjClientname,
-                // "startTimeParam": tsf_date(this.date[0]),
-                // "endTimeParam": tsf_date(this.date[1]),
-                "ckArehouseId": this.ckArehouseId,
+      watchView: false,               //观察状态量-是否为查看
+    }
+  },
+  computed: {
+    option: function () {
+      return {
+        "draw": 1,
+        "pageNum": 1,
+        "pageSize": 19,
+        // "ckCkdjType": this.ckCkdjType,
+        "ckCkdjNo": this.ckCkdjNo,
+        "ckCkdjClientname": this.ckCkdjClientname,
+        // "startTimeParam": tsf_date(this.date[0]),
+        // "endTimeParam": tsf_date(this.date[1]),
+        "ckArehouseId": this.ckArehouseId,
 
 
 //                    ckCkdjNo: this.ckCkdjNo,
@@ -97,169 +97,170 @@ var outputAppointment = new Vue({
 //                    "ckCkdjClientname": "",
 //                    "ckCkdjType": -1,
 //                    "ckArehouseId": -1
-            }
-        },
-        form_pop: function () {
-            return {
-                "draw": 1,
-                "pageNum": this.currentPage,
-                "pageSize": this.pageSize,
-                "startTimeParam": tsf_date(this.form.ckXdsj[0]),
-                "endTimeParam": tsf_date(this.form.ckXdsj[1]),
-                "ckCkdjNo": this.form.ckCkdjNo,
-                "ckCkdjClientname": this.form.ckCkdjClientname,
-                "ckArehouseId": this.form.ckArehouseId,
-                "ckCkdjType": this.form.ckCkdjType,
-            }
-        },
+      }
     },
-    methods: {
-        View: function (index, row) {
-            p[8].post({id: row.ckCkdjId}, function (json) {
-                var step = _form();
-                allPrposCb(step, function (obj, index) {
-                    if (typeof row[index] !== 'undefined') step[index] = row[index];
-                });
-                /*<debug>*/
-                console.log(row);
-                console.log(step);
-                /*</debug>*/
-                step.title = '查看';
-                obj.watchView = true;
-                step.mfunckDocs = json.model;
-                if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
-                obj.form = step;
-                obj.dialogFormActive = 0;
-                obj.dialogFormVisible = true;
-            });
-        },                                        //行内按钮-观察
-        inlineEdit: function (index, row) {
-            p[8].post({id: row.ckCkdjId}, function (json) {
-                var step = _form();
-                allPrposCb(step, function (obj, index) {
-                    if (typeof row[index] !== 'undefined') step[index] = row[index];
-                });
-                /*<debug>*/
-                console.log(row);
-                console.log(step);
-                /*</debug>*/
-                step.title = '编辑';
-                step.userId = app.rmsUser.ruUserId;
-                obj.watchView = false;
-                step.mfunckDocs = json.model;
-                if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
-                obj.form = step;
-                obj.dialogFormActive = 0;
-                obj.dialogFormVisible = true;
-            });
-        },                                  //行内按钮-编辑
-        inlineDeleteOlder: function (index, row) {
-            obj.$confirm('确定作废? 单号：' + row.ckCkdjNo, '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
-            }).then(function () {
-                remove(row, obj.outputAppointment);
-                p[11].post({
-                    id: row.ckCkdjId
-                });
-            }).catch(function () {
-                obj.$message({
-                    type: 'info',
-                    message: '已取消作废'
-                });
-            });
-        },                           //行内按钮-作废
-        inlineRetentionInput: function (index, row) {
-            obj.$confirm('确定滞留出库？ 单号：' + row.ckCkdjNo, '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
-            }).then(function () {
-                p[12].post({
-                    ids: [row.ckCkdjId]
-                }, function (json) {
-                    this.callbackAfter({status: json.status, model: '滞留入库'}, function () {
-                        remove(row, obj.outputAppointment);
-                    })
-                });
-            }).catch(function () {
-                obj.$message({
-                    type: 'info',
-                    message: '已取消操作'
-                });
-            });
-        },                        //行内按钮-滞留出库
-        multiSelectClick: function () {
-            this.multiSelect = !this.multiSelect;
-        },                                      //多选 状态维护
-        handleSelectionChange: function (val, row) {
-            /*<debug>*/
-            console.log(addOrDelete(row, val));
-            /*</debug>*/
-            if (addOrDelete(row, val)) {
-                this.outputAppointmentCombination.push(row);
-            } else {
-                remove(row, this.outputAppointmentCombination);
-            }
-            this.multipleSelection = val;
-        },                         //多选 选中控制
-        handleSelectionChangeAll: function (val) {
-            if (val.length > 0) {
-                for (var i = 0; i < val.length; i++) {
-                    if (!addOrDelete(val[i], this.outputAppointmentCombination)) {
-                        this.outputAppointmentCombination.push(val[i]);
-                    }
-                }
-            } else {
-                for (var i = 0; i < this.outputAppointment.length; i++) {
-                    remove(this.outputAppointment[i], this.outputAppointmentCombination);
-                }
-            }
-            this.multipleSelection = val;
-        },                           //多选 选中控制
-        handleSelectionChangeCombination: function (val) {
-            /*<debug>*/
-            console.log(this.multipleSelectionCombination);
-            /*</debug>*/
-            this.multipleSelectionCombination = val;
-        },                   //Combination 选中控制
-        moreOperationDelete: function () {
-            /*<debug>*/
-            console.log('选中的删除');
-            /*</debug>*/
-            for (i = 0; i < this.multipleSelectionCombination.length; i++) {
-                remove(this.multipleSelectionCombination[i], this.outputAppointmentCombination);
-            }
-        },                                   //多选 删除
-        handleSizeChange: function (val) {
-            /*<debug>*/
-            console.log('每页' + val + '条');
-            /*</debug>*/
-            this.pageSize = val;
-            p[7].post((_option ? this.form_pop : this.option));
-        },                                   //分页 Size
-        handleCurrentChange: function (val) {
-            /*<debug>*/
-            console.log('当前第' + val + '页');
-            /*</debug>*/
-            this.currentPage = val;
-            p[7].post((_option ? this.form_pop : this.option));
-        },                                //分页 当前页
-        newInput: function () {
-            var No = this.form.ckCkdjNo;
-            var Id = this.form.ckCkdjId;
-            obj.form = _form();
-            if (No === '' || Id !== '') {
-                p[9].post();
-            } else if (Id === '') {
-                this.form.ckCkdjNo = No;
-            }
-            if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
-            obj.dialogFormActive = 0;
-            obj.dialogFormVisible = true;
-        },                                              //按钮 新建出库单
-        expandChange: function (row, expanded) {
+    form_pop: function () {
+      return {
+        "draw": 1,
+        "pageNum": this.currentPage,
+        "pageSize": this.pageSize,
+        "startTimeParam": tsf_date(this.form.ckXdsj[0]),
+        "endTimeParam": tsf_date(this.form.ckXdsj[1]),
+        "ckCkdjNo": this.form.ckCkdjNo,
+        "ckCkdjClientname": this.form.ckCkdjClientname,
+        "ckArehouseId": this.form.ckArehouseId,
+        "ckCkdjType": this.form.ckCkdjType,
+      }
+    },
+  },
+  methods: {
+    View: function (index, row) {
+      p[8].post({id: row.ckCkdjId}, function (json) {
+        var step = _form();
+        allPrposCb(step, function (obj, index) {
+          if (typeof row[index] !== 'undefined') step[index] = row[index];
+        });
+        /*<debug>*/
+        console.log(row);
+        console.log(step);
+        /*</debug>*/
+        step.title = '查看';
+        obj.watchView = true;
+        step.mfunckDocs = json.model;
+        if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
+        obj.form = step;
+        obj.dialogFormActive = 0;
+        obj.dialogFormVisible = true;
+      });
+    },                                        //行内按钮-观察
+    inlineEdit: function (index, row) {
+      p[8].post({id: row.ckCkdjId}, function (json) {
+        var step = _form();
+        allPrposCb(step, function (obj, index) {
+          if (typeof row[index] !== 'undefined') step[index] = row[index];
+        });
+        /*<debug>*/
+        console.log(row);
+        console.log(step);
+        /*</debug>*/
+        step.title = '编辑';
+        step.userId = app.rmsUser.ruUserId;
+        obj.watchView = false;
+        step.mfunckDocs = json.model;
+        if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
+        obj.form = step;
+        obj.dialogFormActive = 0;
+        obj.dialogFormVisible = true;
+      });
+    },                                  //行内按钮-编辑
+    inlineDeleteOlder: function (index, row) {
+      obj.$confirm('确定作废? 单号：' + row.ckCkdjNo, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(function () {
+        remove(row, obj.outputAppointment);
+        p[11].post({
+          id: row.ckCkdjId
+        });
+      }).catch(function () {
+        obj.$message({
+          type: 'info',
+          message: '已取消作废'
+        });
+      });
+    },                           //行内按钮-作废
+    inlineRetentionInput: function (index, row) {
+      obj.$confirm('确定滞留出库？ 单号：' + row.ckCkdjNo, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(function () {
+        p[12].post({
+          useId: app.rmsUser.ruUserId,
+          ids: [row.ckCkdjId]
+        }, function (json) {
+          this.callbackAfter({status: json.status, model: '滞留入库'}, function () {
+            remove(row, obj.outputAppointment);
+          })
+        });
+      }).catch(function () {
+        obj.$message({
+          type: 'info',
+          message: '已取消操作'
+        });
+      });
+    },                        //行内按钮-滞留出库
+    multiSelectClick: function () {
+      this.multiSelect = !this.multiSelect;
+    },                                      //多选 状态维护
+    handleSelectionChange: function (val, row) {
+      /*<debug>*/
+      console.log(addOrDelete(row, val));
+      /*</debug>*/
+      if (addOrDelete(row, val)) {
+        this.outputAppointmentCombination.push(row);
+      } else {
+        remove(row, this.outputAppointmentCombination);
+      }
+      this.multipleSelection = val;
+    },                         //多选 选中控制
+    handleSelectionChangeAll: function (val) {
+      if (val.length > 0) {
+        for (var i = 0; i < val.length; i++) {
+          if (!addOrDelete(val[i], this.outputAppointmentCombination)) {
+            this.outputAppointmentCombination.push(val[i]);
+          }
+        }
+      } else {
+        for (var i = 0; i < this.outputAppointment.length; i++) {
+          remove(this.outputAppointment[i], this.outputAppointmentCombination);
+        }
+      }
+      this.multipleSelection = val;
+    },                           //多选 选中控制
+    handleSelectionChangeCombination: function (val) {
+      /*<debug>*/
+      console.log(this.multipleSelectionCombination);
+      /*</debug>*/
+      this.multipleSelectionCombination = val;
+    },                   //Combination 选中控制
+    moreOperationDelete: function () {
+      /*<debug>*/
+      console.log('选中的删除');
+      /*</debug>*/
+      for (i = 0; i < this.multipleSelectionCombination.length; i++) {
+        remove(this.multipleSelectionCombination[i], this.outputAppointmentCombination);
+      }
+    },                                   //多选 删除
+    handleSizeChange: function (val) {
+      /*<debug>*/
+      console.log('每页' + val + '条');
+      /*</debug>*/
+      this.pageSize = val;
+      p[7].post((_option ? this.form_pop : this.option));
+    },                                   //分页 Size
+    handleCurrentChange: function (val) {
+      /*<debug>*/
+      console.log('当前第' + val + '页');
+      /*</debug>*/
+      this.currentPage = val;
+      p[7].post((_option ? this.form_pop : this.option));
+    },                                //分页 当前页
+    newInput: function () {
+      var No = this.form.ckCkdjNo;
+      var Id = this.form.ckCkdjId;
+      obj.form = _form();
+      if (No === '' || Id !== '') {
+        p[9].post();
+      } else if (Id === '') {
+        this.form.ckCkdjNo = No;
+      }
+      if (typeof obj.$refs.carousel !== 'undefined') obj.$refs.carousel.setActiveItem(0);
+      obj.dialogFormActive = 0;
+      obj.dialogFormVisible = true;
+    },                                              //按钮 新建出库单
+    expandChange: function (row, expanded) {
 
 //                if (typeof (row.history) == 'undefined') {
 //                    postHistory(row);
@@ -411,263 +412,287 @@ var outputAppointment = new Vue({
           bgGoodsName: item.data.bgGoodsName
         },
         deleteAmfunckDocs: function () {
-            remove(this.form.selectGood, this.form.mfunckDocs);
-            this.form.selectGood = selectGood();
-            this.form.deleteAmfunckDocs = true;
+          remove(this.form.selectGood, this.form.mfunckDocs);
+          this.form.selectGood = selectGood();
+          this.form.deleteAmfunckDocs = true;
         },                                     //货品明细控制 删除
 
         selectSubmit: function () {
-            _option=true;
-            p[7].post(obj.form_pop);
-            this.dialogSelectVisible = false;
+          _option = true;
+          p[7].post(obj.form_pop);
+          this.dialogSelectVisible = false;
         },                                          //详细查询 查询提交
 
         auto_ckArehouseId: function (data, set) {
-            /*<debug>*/
+          /*<debug>*/
 //                console.log(data);
-            /*</debug>*/
-            var baArehouse = window.dbmessage.baseArehouses;
-            var i;
-            if (typeof set !== 'undefined') {
-                for (i = 0; i < baArehouse.length; i++) {
-                    if (baArehouse[i].baName === data) {
-                        return baArehouse[i].baArehouseId
-                    }
-                }
-                return errorTip(this, '不应出现未知的情况仓库');
-            } else {
-                for (i = 0; i < baArehouse.length; i++) {
-                    if (baArehouse[i].baArehouseId == data) {
-                        return baArehouse[i].baName
-                    }
-                }
-                return '未知的仓库'
+          /*</debug>*/
+          var baArehouse = window.dbmessage.baseArehouses;
+          var i;
+          if (typeof set !== 'undefined') {
+            for (i = 0; i < baArehouse.length; i++) {
+              if (baArehouse[i].baName === data) {
+                return baArehouse[i].baArehouseId
+              }
             }
+            return errorTip(this, '不应出现未知的情况仓库');
+          } else {
+            for (i = 0; i < baArehouse.length; i++) {
+              if (baArehouse[i].baArehouseId == data) {
+                return baArehouse[i].baName
+              }
+            }
+            return '未知的仓库'
+          }
         },                            //出库仓库id 自动匹配
         auto_ckXdsj: function (value, bool) {
-            if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-            else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+          if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+          else return dateFormat(new Date(parseInt(value)), 'MM-dd');
         },                                //下单时间
         auto_ckCkdjType: function (value) {
-            var temp = {};
-            if (!isNaN(value)) {
-                temp = {
-                    0: '正常单据',
-                    1: '挂起单据',
-                    2: '滞留单据'
-                }
-            } else {
-                temp = {
-                    '正常单据': 0,
-                    '挂起单据': 1,
-                    '滞留单据': 2
-                }
+          var temp = {};
+          if (!isNaN(value)) {
+            temp = {
+              0: '正常单据',
+              1: '挂起单据',
+              2: '滞留单据'
             }
-            return temp[value];
+          } else {
+            temp = {
+              '正常单据': 0,
+              '挂起单据': 1,
+              '滞留单据': 2
+            }
+          }
+          return temp[value];
         },                                  //单据类型
         auto_ckIsauto: function (value) {
-            var temp = {};
-            if (!isNaN(value)) {
-                temp = {
-                    1: '手动',
-                    2: '导入',
-                    3: '接口'
-                }
-            } else {
-                temp = {
-                    '手动': 1,
-                    '导入': 2,
-                    '接口': 3
-                }
+          var temp = {};
+          if (!isNaN(value)) {
+            temp = {
+              1: '手动',
+              2: '导入',
+              3: '接口'
             }
-            return temp[value];
+          } else {
+            temp = {
+              '手动': 1,
+              '导入': 2,
+              '接口': 3
+            }
+          }
+          return temp[value];
         },                                    //制单方式
         auto_ckStatus: function (value) {
-            var temp = {};
-            if (!isNaN(value)) {
-                temp = {
-                    1: '原始状态',
-                    21: '部分分拣',
-                    22: '部分下架',
-                    31: '全部分拣',
-                    32: '全部下架',
-                    50: '作废'
-                }
-            } else {
-                temp = {
-                    '原始状态': 1,
-                    '部分分拣': 21,
-                    '部分下架': 22,
-                    '全部分拣': 31,
-                    '全部下架': 32,
-                    '作废': 50
-
-                }
+          var temp = {};
+          if (!isNaN(value)) {
+            temp = {
+              1: '原始状态',
+              21: '部分分拣',
+              22: '部分下架',
+              31: '全部分拣',
+              32: '全部下架',
+              50: '作废'
             }
-            return temp[value];
+          } else {
+            temp = {
+              '原始状态': 1,
+              '部分分拣': 21,
+              '部分下架': 22,
+              '全部分拣': 31,
+              '全部下架': 32,
+              '作废': 50
+
+            }
+          }
+          return temp[value];
         }                                     //单据状态
 
 
-    },
-    deleteAmfunckDocs: function () {
-      remove(this.form.selectGood, this.form.mfunckDocs);
-      this.form.selectGood = selectGood();
-      this.form.deleteAmfunckDocs = true;
-    },                                     //货品明细控制 删除
+      },
+        deleteAmfunckDocs
+      :
+      function () {
+        remove(this.form.selectGood, this.form.mfunckDocs);
+        this.form.selectGood = selectGood();
+        this.form.deleteAmfunckDocs = true;
+      }
 
-    selectSubmit: function () {
-      this.dialogSelectVisible = false;
-    },                                          //详细查询 查询提交
+      ,                                     //货品明细控制 删除
 
-    auto_ckArehouseId: function (data, set) {
-      /*<debug>*/
+      selectSubmit: function () {
+        this.dialogSelectVisible = false;
+      }
+      ,                                          //详细查询 查询提交
+
+      auto_ckArehouseId: function (data, set) {
+        /*<debug>*/
 //                console.log(data);
-      /*</debug>*/
-      var baArehouse = window.dbmessage.baseArehouses;
-      var i;
-      if (typeof set !== 'undefined') {
-        for (i = 0; i < baArehouse.length; i++) {
-          if (baArehouse[i].baName === data) {
-            return baArehouse[i].baArehouseId
-          }
-        }
-        return errorTip(this, '不应出现未知的情况仓库');
-      } else {
-        for (i = 0; i < baArehouse.length; i++) {
-          if (baArehouse[i].baArehouseId == data) {
-            return baArehouse[i].baName
-          }
-        }
-        return '未知的仓库'
-      }
-    },                            //出库仓库id 自动匹配
-    auto_ckXdsj: function (value, bool) {
-      if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
-      else return dateFormat(new Date(parseInt(value)), 'MM-dd');
-    },                                //下单时间
-    auto_ckCkdjType: function (value) {
-      var temp = {};
-      if (!isNaN(value)) {
-        temp = {
-          0: '正常单据',
-          1: '挂起单据',
-          2: '滞留单据'
-        }
-      } else {
-        temp = {
-          '正常单据': 0,
-          '挂起单据': 1,
-          '滞留单据': 2
-        }
-      }
-      return temp[value];
-    },                                  //单据类型
-    auto_ckIsauto: function (value) {
-      var temp = {};
-      if (!isNaN(value)) {
-        temp = {
-          1: '手动',
-          2: '导入',
-          3: '接口'
-        }
-      } else {
-        temp = {
-          '手动': 1,
-          '导入': 2,
-          '接口': 3
-        }
-      }
-      return temp[value];
-    },                                    //制单方式
-    auto_ckStatus: function (value) {
-      var temp = {};
-      if (!isNaN(value)) {
-        temp = {
-          1: '原始状态',
-          21: '部分分拣',
-          22: '部分下架',
-          31: '全部分拣',
-          32: '全部下架',
-          50: '作废'
-        }
-      } else {
-        temp = {
-          '原始状态': 1,
-          '部分分拣': 21,
-          '部分下架': 22,
-          '全部分拣': 31,
-          '全部下架': 32,
-          '作废': 50
-        },
-        form: function () {
-            if (isNaN(this.form.selectGood.count)) {
-                this.saveAmfunckDocs = false;
+        /*</debug>*/
+        var baArehouse = window.dbmessage.baseArehouses;
+        var i;
+        if (typeof set !== 'undefined') {
+          for (i = 0; i < baArehouse.length; i++) {
+            if (baArehouse[i].baName === data) {
+              return baArehouse[i].baArehouseId
             }
-        },
-        ckCkdjNo: function () {
-            /*<debug>*/
-            console.log((_option ? this.form_pop : this.option));
-            /*</debug>*/
-            p[7].post((_option ? this.form_pop : this.option));
-        },
-        ckCkdjClientname: function () {
-            /*<debug>*/
-            console.log((_option ? this.form_pop : this.option));
-            /*</debug>*/
-            p[7].post((_option ? this.form_pop : this.option));
-        },
-
-        ckCkdjType: function () {
-            /*<debug>*/
-            console.log((_option ? this.form_pop : this.option));
-            /*</debug>*/
-            p[7].post((_option ? this.form_pop : this.option));
-        },
-        ckArehouseId: function () {
-            /*<debug>*/
-            console.log((_option ? this.form_pop : this.option));
-            /*</debug>*/
-            p[7].post((_option ? this.form_pop : this.option));
-        },
-
-
-  },
-  watch: {
-    outputAppointment: function () {
-
-    },
-    form: function () {
-      if (isNaN(this.form.selectGood.count)) {
-        this.saveAmfunckDocs = false;
+          }
+          return errorTip(this, '不应出现未知的情况仓库');
+        } else {
+          for (i = 0; i < baArehouse.length; i++) {
+            if (baArehouse[i].baArehouseId == data) {
+              return baArehouse[i].baName
+            }
+          }
+          return '未知的仓库'
+        }
       }
-    },
-    ckCkdjNo: function () {
-      /*<debug>*/
-      console.log(this.option);
-      /*</debug>*/
-      p[7].post(this.option);
-    },
-    ckCkdjType: function () {
-      /*<debug>*/
-      console.log(this.option);
-      /*</debug>*/
-      p[7].post(this.option);
-    },
-    ckArehouseId: function () {
-      /*<debug>*/
-      console.log(this.option);
-      /*</debug>*/
-      p[7].post(this.option);
-    },
+      ,                            //出库仓库id 自动匹配
+      auto_ckXdsj: function (value, bool) {
+        if (!bool) return dateFormat(new Date(parseInt(value)), 'yyyy年 MM月 dd日');
+        else return dateFormat(new Date(parseInt(value)), 'MM-dd');
+      }
+      ,                                //下单时间
+      auto_ckCkdjType: function (value) {
+        var temp = {};
+        if (!isNaN(value)) {
+          temp = {
+            0: '正常单据',
+            1: '挂起单据',
+            2: '滞留单据'
+          }
+        } else {
+          temp = {
+            '正常单据': 0,
+            '挂起单据': 1,
+            '滞留单据': 2
+          }
+        }
+        return temp[value];
+      }
+      ,                                  //单据类型
+      auto_ckIsauto: function (value) {
+        var temp = {};
+        if (!isNaN(value)) {
+          temp = {
+            1: '手动',
+            2: '导入',
+            3: '接口'
+          }
+        } else {
+          temp = {
+            '手动': 1,
+            '导入': 2,
+            '接口': 3
+          }
+        }
+        return temp[value];
+      }
+      ,                                    //制单方式
+      auto_ckStatus: function (value) {
+        var temp = {};
+        if (!isNaN(value)) {
+          temp = {
+            1: '原始状态',
+            21: '部分分拣',
+            22: '部分下架',
+            31: '全部分拣',
+            32: '全部下架',
+            50: '作废'
+          }
+        } else {
+          temp = {
+            '原始状态': 1,
+            '部分分拣': 21,
+            '部分下架': 22,
+            '全部分拣': 31,
+            '全部下架': 32,
+            '作废': 50
+          },
+            form
+        :
+          function () {
+            if (isNaN(this.form.selectGood.count)) {
+              this.saveAmfunckDocs = false;
+            }
+          }
 
-  }
-});
+        ,
+          ckCkdjNo: function () {
+            /*<debug>*/
+            console.log((_option ? this.form_pop : this.option));
+            /*</debug>*/
+            p[7].post((_option ? this.form_pop : this.option));
+          }
+        ,
+          ckCkdjClientname: function () {
+            /*<debug>*/
+            console.log((_option ? this.form_pop : this.option));
+            /*</debug>*/
+            p[7].post((_option ? this.form_pop : this.option));
+          }
+        ,
+
+          ckCkdjType: function () {
+            /*<debug>*/
+            console.log((_option ? this.form_pop : this.option));
+            /*</debug>*/
+            p[7].post((_option ? this.form_pop : this.option));
+          }
+        ,
+          ckArehouseId: function () {
+            /*<debug>*/
+            console.log((_option ? this.form_pop : this.option));
+            /*</debug>*/
+            p[7].post((_option ? this.form_pop : this.option));
+          }
+        ,
+
+
+        }
+      ,
+        watch: {
+          outputAppointment: function () {
+
+          }
+        ,
+          form: function () {
+            if (isNaN(this.form.selectGood.count)) {
+              this.saveAmfunckDocs = false;
+            }
+          }
+        ,
+          ckCkdjNo: function () {
+            /*<debug>*/
+            console.log(this.option);
+            /*</debug>*/
+            p[7].post(this.option);
+          }
+        ,
+          ckCkdjType: function () {
+            /*<debug>*/
+            console.log(this.option);
+            /*</debug>*/
+            p[7].post(this.option);
+          }
+        ,
+          ckArehouseId: function () {
+            /*<debug>*/
+            console.log(this.option);
+            /*</debug>*/
+            p[7].post(this.option);
+          }
+        ,
+
+        }
+      }
+      );
 // 高级 监视器的 使用方法
 outputAppointment.$watch('date', function () {
-    /*<debug>*/
-    console.log((_option ? this.form_pop : this.option));
-    /*</debug>*/
-    p[7].post((_option ? this.form_pop : this.option));
+  /*<debug>*/
+  console.log((_option ? this.form_pop : this.option));
+  /*</debug>*/
+  p[7].post((_option ? this.form_pop : this.option));
 
 }, {deep: true});
 var obj = outputAppointment;
@@ -804,38 +829,38 @@ function selectGood() {
   }
 }
 function _form() {
-    return {
-        "ckCkdjId": "",
-        "ckCkdjNo": "",
-        "ckErpNo": "",
-        "ckCkdjClientno": "",
-        "ckCkdjClientname": "",
-        "ckContacts": "",
-        "ckTel": "",
-        "ckAdress": "",
-        "ckRemarks": "",
-        "ckIsyadan": 0,
-        "ckIsqianhuo": 0,
-        "ckArehouseId": 1,
-        "ckClientId": 1,
-        "userId": app.rmsUser.userId,
-        "mfunckDocs": [],
-        "ckXdsj":"",
+  return {
+    "ckCkdjId": "",
+    "ckCkdjNo": "",
+    "ckErpNo": "",
+    "ckCkdjClientno": "",
+    "ckCkdjClientname": "",
+    "ckContacts": "",
+    "ckTel": "",
+    "ckAdress": "",
+    "ckRemarks": "",
+    "ckIsyadan": 0,
+    "ckIsqianhuo": 0,
+    "ckArehouseId": 1,
+    "ckClientId": 1,
+    "userId": app.rmsUser.userId,
+    "mfunckDocs": [],
+    "ckXdsj": "",
 
-        title: '新建出库单',
+    title: '新建出库单',
 
-        "ckYfhsj": (new Date()).toJSON(),
-        "ckEndtime": "",
-        "ckCkdjType": "",
+    "ckYfhsj": (new Date()).toJSON(),
+    "ckEndtime": "",
+    "ckCkdjType": "",
 
-        allCount: 0,
-        allTj: 0,
+    allCount: 0,
+    allTj: 0,
 
-        bgGoodsNo: '',
-        selectGood: selectGood(),
-        saveAmfunckDocs: true,
-        deleteAmfunckDocs: true
-    }
+    bgGoodsNo: '',
+    selectGood: selectGood(),
+    saveAmfunckDocs: true,
+    deleteAmfunckDocs: true
+  }
 
 }
 function validate_form() {
