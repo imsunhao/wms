@@ -16,7 +16,6 @@ var warehousingReservation = new Vue({
       date: [null, null],           //主页面 选择日期 搜索
       rkRkdjNo: '',                 //主页面 入库单号 搜索
       bgGoodsNo: '',                //主页面 货品编号 搜索
-      rkArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,             //主页面 仓库 搜索
       rkRwStatus: 0,                //主页面 入库单任务状态 搜索
       pickerOptions: {
         shortcuts: [{

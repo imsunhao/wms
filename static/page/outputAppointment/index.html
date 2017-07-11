@@ -15,23 +15,30 @@
                         <el-col :span="24">
                             <div class="inner btn-nav">
                                 <el-input
+                                        @change="selectReturn"
                                         v-model="ckCkdjNo"
                                         icon="search"
                                         placeholder="出库单号"></el-input>
-                                <el-date-picker
-                                        v-model="date"
-                                        type="daterange"
-                                        align="right"
-                                        placeholder="下单时间"
-                                        class="datePicker"
-                                        :picker-options="pickerOptions">
-                                </el-date-picker>
-                                <el-select v-model.number="ckCkdjType" placeholder="请选择">
-                                    <el-option :value.number="-1" label="全部"></el-option>
-                                    <el-option :value.number="0" label="正常单据"></el-option>
-                                    <el-option :value.number="1" label="挂起单据"></el-option>
-                                    <el-option :value.number="2" label="滞留单据"></el-option>
-                                </el-select>
+                                <el-input
+                                        @change="selectReturn"
+                                        v-model="ckCkdjClientname"
+                                        icon="search"
+                                        placeholder="客户名称"></el-input>
+
+                                <!--<el-date-picker-->
+                                        <!--v-model="date"-->
+                                        <!--type="daterange"-->
+                                        <!--align="right"-->
+                                        <!--placeholder="下单时间"-->
+                                        <!--class="datePicker"-->
+                                        <!--:picker-options="pickerOptions">-->
+                                <!--</el-date-picker>-->
+                                <!--<el-select v-model.number="ckCkdjType" placeholder="请选择">-->
+                                    <!--<el-option :value.number="-1" label="全部"></el-option>-->
+                                    <!--<el-option :value.number="0" label="正常单据"></el-option>-->
+                                    <!--<el-option :value.number="1" label="挂起单据"></el-option>-->
+                                    <!--<el-option :value.number="2" label="滞留单据"></el-option>-->
+                                <!--</el-select>-->
                                 <el-select
                                         @visible-change="selectReturn"
                                         v-model="ckArehouseId"
@@ -39,6 +46,9 @@
                                     <el-option :label="obj.baName" :value="obj.baArehouseId"
                                                v-for="obj of baseArehouses"></el-option>
                                 </el-select>
+                                <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
+                                        class="icon search"></i><span>详细查询</span>
+                                </button>
                                 <button @click="newInput" class="btn btn-add"><i class="icon add"></i><span>添加</span>
                                 </button>
                                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
@@ -300,6 +310,64 @@
             </el-row>
         </el-col>
     </el-row>
+    <el-dialog
+            size="tiny"
+            class="select"
+            v-model="dialogSelectVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">详细查询</span>
+        </div>
+        <el-form :model="form">
+            <el-form-item label="出库单号"
+                          :label-width="formLabelWidth">
+                <el-input
+                        class="input"
+                        v-model="form.ckCkdjNo"
+                        icon="search"
+                        placeholder="出库单号"></el-input>
+            </el-form-item>
+            <el-form-item label="客户名称"
+                          :label-width="formLabelWidth">
+                <el-input
+                        class="input"
+                        v-model="form.ckCkdjClientname"
+                        icon="search"
+                        placeholder="客户名称"></el-input>
+            </el-form-item>
+            <el-form-item label="下单时间"
+                          :label-width="formLabelWidth">
+                <el-date-picker
+                        v-model="form.ckXdsj"
+                        type="daterange"
+                        align="right"
+                        placeholder="下单时间"
+                        class="input"
+                        :picker-options="pickerOptions">
+                </el-date-picker>
+            </el-form-item>
+            <el-form-item label="所属仓库" :label-width="formLabelWidth">
+                <el-select
+                        @visible-change="selectReturn"
+                        v-model="form.ckArehouseId"
+                        placeholder="请选择所属仓库">
+                    <el-option :label="obj.baName" :value="obj.baArehouseId"
+                               v-for="obj of baseArehouses"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="单据类型" :label-width="formLabelWidth">
+                <el-select v-model.number="form.ckCkdjType" placeholder="请选择">
+                <el-option :value.number="-1" label="全部"></el-option>
+                <el-option :value.number="0" label="正常单据"></el-option>
+                <el-option :value.number="1" label="挂起单据"></el-option>
+                <el-option :value.number="2" label="滞留单据"></el-option>
+                </el-select>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="form = _form()">重置</el-button>
+            <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
+        </div>
+    </el-dialog>
     <el-dialog
             size="small"
             v-model="dialogFormVisible">
