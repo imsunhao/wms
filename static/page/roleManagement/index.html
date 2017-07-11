@@ -643,7 +643,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    p[6].post(obj, {ids: [row.rrRoleId]});
+                    p[6].post({ids: [row.rrRoleId]});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -979,6 +979,7 @@
     p[6] = autoPost({
         urlHock: "../../hock/roleControl/edit.json",
         urlProd: "/route/roleManagement/6",
+        method: 'GET',
         success: function (json) {
             if (json.status === 20000) {
                 post(roleManagement, roleManagement.option);
