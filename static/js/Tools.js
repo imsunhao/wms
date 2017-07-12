@@ -395,8 +395,15 @@ function autoValidate(option, cbs) {
         callback();
       }
     },                   //是   数字
+    vNumberZ: function (rule, value, callback) {
+      if (value < 0) {
+        callback(new Error('必须为正数!'));
+      } else {
+        callback();
+      }
+    },                  //是   正数
     vNumberZZ: function (rule, value, callback) {
-      if (value < 0 || ((value + '').indexOf('.') !== -1)) {
+      if ((value + '').indexOf('.') !== -1) {
         callback(new Error('必须为正整数!'));
       } else {
         callback();
@@ -426,6 +433,13 @@ function autoValidate(option, cbs) {
         return callback();
       }
     },                      //不含有 特殊符号
+    vN0Number: function (rule, value, callback) {
+      if (value === 0) {
+        callback(new Error('不能为0!'));
+      } else {
+        callback();
+      }
+    },                 //不是 数字0
 
     vWS4: function (rule, value, callback) {
       if ((value + '').length > 4) {
