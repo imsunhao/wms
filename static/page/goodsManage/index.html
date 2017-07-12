@@ -362,6 +362,7 @@
           
           <el-form-item
               label="货品简称"
+              prop="bgNamejc"
               :label-width="formLabelWidth">
             <el-input
                 v-model="form.bgNamejc"
@@ -705,10 +706,11 @@
   }               //弹出层 form 模板
   function validate_form() {
     return {
+        bgNamejc:'vNull',
       bgGoodsNo: 'vNull',
       bgGoodsName: 'vNull',
       bgHsl: ['vNull','vNumber','vN0Number','vNumberZ','vNumberZZ'],
-      bgGoodsTj: ['vNull','vNumber','vNumberZ'],
+      bgGoodsTj: ['vNull','vN0Number','vNumber','vNumberZ'],
     }
   }
   var obj = goodsManage;
