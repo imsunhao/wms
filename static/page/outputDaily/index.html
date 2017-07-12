@@ -177,13 +177,12 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        label="作业时间"
+                        label="下架库位"
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_time_new(scope.row.msxQrsj)}}
+                        {{scope.row.mfunRepertory.baseLocation.blLname}}
                     </template>
-
                 </el-table-column>
                 <el-table-column
                         label="作业体积"
@@ -192,11 +191,11 @@
                         align="center">
                 </el-table-column>
                 <el-table-column
-                        label="下单时间"
+                        label="货品编号"
                         show-overflow-tooltip
                         align="center">
                     <template scope="scope">
-                        {{auto_time_new(scope.row.mfunckDoc.ckXdsj)}}
+                        {{scope.row.mfunRepertory.baseGoods.bgGoodsNo}}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -220,11 +219,10 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        label="滞留状态"
+                        label="下架数量"
+                        show-overflow-tooltip
+                        prop="msxMxCount"
                         align="center">
-                    <template scope="scope">
-                        <el-tag-s :val="auto_el_tag('cksZlStatus',scope.row.mfunckDocs.cksZlStatus)"></el-tag-s>
-                    </template>
                 </el-table-column>
                 <el-table-column
                         v-if="multiSelect"
