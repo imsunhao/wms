@@ -707,7 +707,7 @@
                     for (var i = 0; i < obj.multipleSelection.length; i++) {
                         step.push(obj.multipleSelection[i].rrRoleId);
                     }
-                    p[2].post(obj, {"ids": step});
+                    p[2].post( {"ids": step});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -923,6 +923,7 @@
     p[2] = autoPost({
         urlHock: "../../hock/roleControl/page.json",
         urlProd: "/route/roleManagement/2",
+        method: 'GET',
         success: function (json) {
             if (json.status === 20000) {
                 post(roleManagement, roleManagement.option);

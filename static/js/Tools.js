@@ -1094,7 +1094,7 @@ var ___datas = (function () {
       id: 'rrStatus',
       name: '角色管理-状态',
       data: [
-        {value: 0, name: '', type: 'danger', color: ''},
+        {value: 0, name: '禁用', type: 'danger', color: ''},
         {value: 1, name: '可用', type: 'success', color: ''}
       ]
     },
