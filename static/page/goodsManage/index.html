@@ -362,6 +362,7 @@
           
           <el-form-item
               label="货品简称"
+              prop="bgNamejc"
               :label-width="formLabelWidth">
             <el-input
                 v-model="form.bgNamejc"
@@ -399,7 +400,7 @@
               prop="bgGoodsTj"
               :label-width="formLabelWidth">
             <el-input
-                v-model="form.bgGoodsTj"
+                v-model.number="form.bgGoodsTj"
                 auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item
@@ -421,7 +422,7 @@
               prop="bgHsl"
               :label-width="formLabelWidth">
             <el-input
-                v-model="form.bgHsl"
+                v-model.number="form.bgHsl"
                 auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item
@@ -705,10 +706,11 @@
   }               //弹出层 form 模板
   function validate_form() {
     return {
+        bgNamejc:'vNull',
       bgGoodsNo: 'vNull',
       bgGoodsName: 'vNull',
       bgHsl: ['vNull','vNumber','vN0Number','vNumberZ','vNumberZZ'],
-      bgGoodsTj: ['vNull','vNumber','vNumberZ'],
+      bgGoodsTj: ['vNull','vN0Number','vNumber','vNumberZ'],
     }
   }
   var obj = goodsManage;

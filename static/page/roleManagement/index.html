@@ -628,7 +628,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    p[2].post(_this, {ids: [row.rrRoleId]})
+                    p[2].post({ids: [row.rrRoleId]})
                 }).catch(function () {
                     _this.$message({
                         type: 'info',
@@ -707,7 +707,7 @@
                     for (var i = 0; i < obj.multipleSelection.length; i++) {
                         step.push(obj.multipleSelection[i].rrRoleId);
                     }
-                    p[2].post(obj, {"ids": step});
+                    p[2].post( {"ids": step});
                 }).catch(function () {
                     obj.$message({
                         type: 'info',
@@ -923,24 +923,25 @@
     p[2] = autoPost({
         urlHock: "../../hock/roleControl/page.json",
         urlProd: "/route/roleManagement/2",
+        method: 'GET',
         success: function (json) {
             if (json.status === 20000) {
                 post(roleManagement, roleManagement.option);
-                obj.$notify({
-                    title: '提示',
-                    type: 'success',
-                    message: obj.$createElement(
-                        'p',
-                        '启用完成'
-                    )
-                });
-            } else {
                 obj.$notify({
                     title: '提示',
                     type: 'error',
                     message: obj.$createElement(
                         'p',
                         '启用失败'
+                    )
+                });
+            } else {
+                obj.$notify({
+                    title: '提示',
+                    type: 'success',
+                    message: obj.$createElement(
+                        'p',
+                        '启用成功'
                     )
                 });
             }
@@ -985,19 +986,19 @@
                 post(roleManagement, roleManagement.option);
                 obj.$notify({
                     title: '提示',
-                    type: 'success',
+                    type: 'error',
                     message: obj.$createElement(
                         'p',
-                        '禁用完成'
+                        '禁用失败'
                     )
                 });
             } else {
                 obj.$notify({
                     title: '提示',
-                    type: 'error',
+                    type: 'success',
                     message: obj.$createElement(
                         'p',
-                        '禁用失败'
+                        '禁用成功'
                     )
                 });
             }
