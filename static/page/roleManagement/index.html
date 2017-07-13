@@ -628,7 +628,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    p[2].post(_this, {ids: [row.rrRoleId]})
+                    p[2].post({ids: [row.rrRoleId]})
                 }).catch(function () {
                     _this.$message({
                         type: 'info',
@@ -929,19 +929,19 @@
                 post(roleManagement, roleManagement.option);
                 obj.$notify({
                     title: '提示',
-                    type: 'success',
+                    type: 'error',
                     message: obj.$createElement(
                         'p',
-                        '启用完成'
+                        '启用失败'
                     )
                 });
             } else {
                 obj.$notify({
                     title: '提示',
-                    type: 'error',
+                    type: 'success',
                     message: obj.$createElement(
                         'p',
-                        '启用失败'
+                        '启用成功'
                     )
                 });
             }
@@ -986,19 +986,19 @@
                 post(roleManagement, roleManagement.option);
                 obj.$notify({
                     title: '提示',
-                    type: 'success',
+                    type: 'error',
                     message: obj.$createElement(
                         'p',
-                        '禁用完成'
+                        '禁用失败'
                     )
                 });
             } else {
                 obj.$notify({
                     title: '提示',
-                    type: 'error',
+                    type: 'success',
                     message: obj.$createElement(
                         'p',
-                        '禁用失败'
+                        '禁用成功'
                     )
                 });
             }
