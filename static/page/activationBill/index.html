@@ -189,6 +189,7 @@
                                             label="可用操作">
                                         <template scope="scope">
                                             <!--v-if="props.row.ckrwStatus>10&&props.row.ckrwStatus<42"-->
+                                          <el-row v-if="scope.row.ckGqStatus==1">
                                             <el-button
                                                     size="mini"
                                                     type="success"
@@ -202,17 +203,20 @@
                                                     @click="inlineSupplementaryDistribution(scope.$index, scope.row)">
                                                 追加分拣
                                             </el-button>
+                                          </el-row>
+                                          <el-row>
                                             <el-button
-                                                    size="mini"
-                                                    type="warning"
-                                                    v-if="scope.row.ckGqStatus==2"
-                                                    @click="inlinePendingConfirmation(scope.$index, scope.row)">挂起确认
+                                                size="mini"
+                                                type="warning"
+                                                v-if="scope.row.ckGqStatus==2"
+                                                @click="inlinePendingConfirmation(scope.$index, scope.row)">挂起确认
                                             </el-button>
                                             <el-tag
-                                                    type="success"
-                                                    v-if="scope.row.ckGqStatus==3">
-                                                已确认
+                                                type="success"
+                                                v-if="scope.row.ckGqStatus==3">
+                                              已确认
                                             </el-tag>
+                                          </el-row>
                                         </template>
                                     </el-table-column>
                                 </el-table>
