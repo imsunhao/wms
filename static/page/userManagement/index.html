@@ -801,32 +801,8 @@
         this.$refs.carousel.prev();
       },                                                  //新建 弹出层banner控制 前一个
       next: function () {
-        this.$refs['ref_form'].validate(function (valid) {
-          if (valid) {
-            if (obj.form.title === '编辑') {
-              obj.dialogFormActive++;
-              obj.$refs.carousel.next();
-            } else {
-              obj.nextLoading = true;
-              p[7].post({id: obj.form.ruUserName}, function (json) {
-                this.callbackAfter({status: json.status, model: '用户名查重'}, function () {
-                  p[8].post({id: obj.form.ruLoginName}, function (json) {
-                    obj.nextLoading = false;
-                    this.callbackAfter({status: json.status, model: '登录账户查重'}, function () {
-                      obj.dialogFormActive++;
-                      obj.$refs.carousel.next();
-                    })
-                  })
-                },function () {
-                  obj.nextLoading = false;
-                })
-              })
-            }
-          } else {
-            return false;
-          }
-        });
-
+          obj.dialogFormActive++;
+          obj.$refs.carousel.next();
       },                                                  //新建 弹出层banner控制 后一个
       submit: function () {
         var obj = this;
