@@ -29,7 +29,7 @@
                                v-for="obj of baseArehouses"></el-option>
                 </el-select>
 
-                <button @click="dialogSelectVisible=!dialogSelectVisible" class="btn btn-search"><i
+                <button @click="openSelect" class="btn btn-search"><i
                         class="icon search"></i><span>详细查询</span>
                 </button>
                 <button @click="multiSelectClick" class="btn btn-multiSelect"><i
@@ -87,7 +87,7 @@
                                     <el-form-item label="可用台数">
                                         <span>{{ props.row.kyCount }}</span>
                                     </el-form-item>
-                                     <el-form-item label="可用件数">
+                                    <el-form-item label="可用件数">
                                         <span>{{ props.row.kyJianAndTaiCount }}</span>
                                     </el-form-item>
                                     <el-form-item label="待下架数量">
@@ -188,96 +188,114 @@
     <el-dialog
             size="tiny"
             class="select"
+            @close="closeSelect"
             v-model="dialogSelectVisible">
         <div class="dialog-title clearfix" slot="title">
             <span class="el-dialog__title">详细查询</span>
         </div>
-        <el-form :model="form">
-            <el-row>
-                <el-form-item label="异动时间"
-                              :label-width="formLabelWidth">
-                    <el-date-picker
-                            v-model="form.mrKcydsj"
-                            type="daterange"
-                            align="right"
-                            placeholder="异动时间"
-                            class="input"
-                            :picker-options="pickerOptions">
-                    </el-date-picker>
-                </el-form-item>
-                <el-form-item label="货品编号"
-                              :label-width="formLabelWidth">
-                    <el-input
-                            class="input"
-                            v-model="form.bgGoodsNo"
-                            icon="search"
-                            placeholder="货品编号"></el-input>
-                </el-form-item>
-                <el-form-item label="货品名称"
-                              :label-width="formLabelWidth">
-                    <el-input
-                            class="input"
-                            v-model="form.bgGoodsName"
-                            icon="search"
-                            placeholder="货品名称"></el-input>
-                </el-form-item>
-                <el-form-item label="库位名称"
-                              :label-width="formLabelWidth">
-                    <el-input
-                            class="input"
-                            v-model="form.blLname"
-                            icon="search"
-                            placeholder="库位名称"></el-input>
-                </el-form-item>
-                <el-form-item label="货品批次"
-                              :label-width="formLabelWidth">
-                    <el-input
-                            class="input"
-                            v-model="form.mrGoodsBatch"
-                            icon="search"
-                            placeholder="货品批次"></el-input>
-                </el-form-item>
-                <el-form-item label="所属仓库" :label-width="formLabelWidth">
-                    <el-select
-                            v-model="form.mrArehouseId"
-                            placeholder="请选择所属仓库">
-                        <el-option :label="obj.baName" :value="obj.baArehouseId"
-                                   v-for="obj of baseArehouses"></el-option>
-                    </el-select>
-                </el-form-item>
-            </el-row>
+        <el-form :model="total">
+            <el-carousel
+                    ref="carousel"
+                    :autoplay="false"
+                    arrow="never"
+                    indicator-position="none"
+                    height="350px">
+                <el-carousel-item>
+                    <el-row>
+                        <el-form-item label="异动时间"
+                                      :label-width="formLabelWidth">
+                            <el-date-picker
+                                    v-model="form.mrKcydsj"
+                                    type="daterange"
+                                    align="right"
+                                    placeholder="异动时间"
+                                    class="input"
+                                    :picker-options="pickerOptions">
+                            </el-date-picker>
+                        </el-form-item>
+                        <el-form-item label="货品编号"
+                                      :label-width="formLabelWidth">
+                            <el-input
+                                    class="input"
+                                    v-model="form.bgGoodsNo"
+                                    icon="search"
+                                    placeholder="货品编号"></el-input>
+                        </el-form-item>
+                        <el-form-item label="货品名称"
+                                      :label-width="formLabelWidth">
+                            <el-input
+                                    class="input"
+                                    v-model="form.bgGoodsName"
+                                    icon="search"
+                                    placeholder="货品名称"></el-input>
+                        </el-form-item>
+                        <el-form-item label="库位名称"
+                                      :label-width="formLabelWidth">
+                            <el-input
+                                    class="input"
+                                    v-model="form.blLname"
+                                    icon="search"
+                                    placeholder="库位名称"></el-input>
+                        </el-form-item>
+                        <el-form-item label="货品批次"
+                                      :label-width="formLabelWidth">
+                            <el-input
+                                    class="input"
+                                    v-model="form.mrGoodsBatch"
+                                    icon="search"
+                                    placeholder="货品批次"></el-input>
+                        </el-form-item>
+                        <el-form-item label="所属仓库" :label-width="formLabelWidth">
+                            <el-select
+                                    v-model="form.mrArehouseId"
+                                    placeholder="请选择所属仓库">
+                                <el-option :label="obj.baName" :value="obj.baArehouseId"
+                                           v-for="obj of baseArehouses"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-row>
+                </el-carousel-item>
+                <el-carousel-item>
+                    <el-row>
+                        <el-form-item label="全部数量"
+                                      :label-width="formLabelWidth">
+                            {{total.mrCountSum }}
+                        </el-form-item>
+                        <el-form-item label="可用体积"
+                                      :label-width="formLabelWidth">
+                            {{total.kyCountTjSum }}
+                        </el-form-item>
+                        <el-form-item label="可用数量"
+                                      :label-width="formLabelWidth">
+                            {{total.kyCountSum }}
+                        </el-form-item>
+                        <el-form-item label="待下架数"
+                                      :label-width="formLabelWidth">
+                            {{total.mrDxjCountSum }}
+                        </el-form-item>
+                        <el-form-item label="总体积数"
+                                      :label-width="formLabelWidth">
+                            {{total.mrCountTjSum }}
+                        </el-form-item>
+                        <el-form-item label="待转移数"
+                                      :label-width="formLabelWidth">
+                            {{total.mrDzyCountSum }}
+                        </el-form-item>
+                    </el-row>
+                </el-carousel-item>
+            </el-carousel>
         </el-form>
         <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="form = _form()">重置</el-button>
-            <el-button type="primary" @click="selectSubmit" :loading="selectLoading">查询</el-button>
-        </div>
-    </el-dialog>
-    <el-dialog
-            size="large"
-            class="printf"
-            class="printf"
-            v-model="dialogPrintfVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">打印标签页</span>
-        </div>
-        <el-tree
-                :data="printf"
-                :props="{label: 'name',children: 'children'}"
-                :load="printfLoadNode"
-                lazy
-                show-checkbox
-                ref="printf"
-                @check-change="printfCheckChange">
-        </el-tree>
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="printfSubmit" :loading="printfLoading">打印</el-button>
+            <el-button type="primary" @click="form = _form()" v-show="dialogFormActive<1">重置</el-button>
+            <el-button type="primary" @click="selectSubmit" :loading="submitLoading" v-show="dialogFormActive < 1">查询
+            </el-button>
+            <el-button type="primary" @click="closeSelect" v-show="dialogFormActive >= 1">关闭
+            </el-button>
         </div>
     </el-dialog>
 </div>
 <link rel="stylesheet" href="index.scss">
-<script src="index.js">
-
-</script>
+<script src="index.js"></script>
 
 
 

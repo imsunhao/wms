@@ -4,6 +4,7 @@ var stockSelect = new Vue({
     data: function () {
         return {
             baseArehouses: window.dbmessage.baseArehouses,
+            selectLoading: false,
             watchView: false,                           //观察状态量-是否为查看
             stockSelect: [],
             multipleSelection: [],
@@ -49,13 +50,14 @@ var stockSelect = new Vue({
             dialogFormActive: 0,                //新建 弹出层 steps 当前进度
             dialogFormVisible: false,           //新建 弹出层 是否可见
             submitLoading: false,               //新建 弹出层 提交等待
+            total: formTotal(),                 //TODO 总计 弹出层 信息集合
             select: _form(),                         //搜索 弹出层 信息集合,
             printf: [],                         //搜索 弹出层 信息集合,
             dialogSelectVisible: false,
             dialogPrintfVisible: false,
-            selectLoading: false,
             printfLoading: false,
             printDatas: [],          // 打印数据
+
         }
     },
     computed: {
@@ -65,6 +67,7 @@ var stockSelect = new Vue({
                 "draw": 1,
                 "pageNum": this.currentPage,
                 "pageSize": this.pageSize,
+                "summation":2,
                 "blLname": this.blLname.trim(),
                 "bgGoodsNo": this.bgGoodsNo.trim(),
                 "bgGoodsName": this.bgGoodsName.trim(),
@@ -101,6 +104,7 @@ var stockSelect = new Vue({
                 "blLname": this.form.blLname,
                 "mrArehouseId": this.form.mrArehouseId,
                 "mrDjStatus": this.form.mrDjStatus,
+                "summation":1,
             }
 
         },
@@ -182,89 +186,22 @@ var stockSelect = new Vue({
             this.currentPage = val;
             p[0].post((_option ? this.form_pop : (_option ? this.form_pop : this.option)));
         },                                //分页 当前页
-        prev: function () {
-            this.dialogFormActive--;
-            this.$refs.carousel.prev();
-        },                                                  //新建 弹出层banner控制 前一个
-        next: function () {
-            this.dialogFormActive++;
-            this.$refs.carousel.next();
-        },                                                  //新建 弹出层banner控制 后一个
-        submit: function () {
-            var _this = this;
-            this.dialogFormActive++;
-            this.submitLoading = true;
-            //TODO 此处应是ajax请求
-            setTimeout(function () {
-                _this.submitLoading = false;
-                _this.$notify({
-                    title: '成功',
-                    message: '保存成功！',
-                    type: 'success'
-                });
-                _this.dialogFormVisible = false;
-                _this.form = {
-                    rkRkdjNo: '',
-                    rkType: '',
-                    rkRemarks: '',
-                    rkDocsList: [],
-                    bgGoodsNo: '',
-                    selectGood: {
-                        value: '',
-                        bgGoodsName: '',
-                        count: 0,
-                        bgGoodsId: ''
-                    },
-                    saveARkDocsList: true,
-                    deleteARkDocsList: true
-                };
-                _this.dialogFormActive = 0;
-                _this.$refs.carousel.setActiveItem(0);
-                p[0].post();
-            }, 1500);
-        },                                                //新建 表单提交
-        selectSubmit: function () {
-            _option = true;
-            p[0].post(obj.form_pop);
+        closeSelect: function () {
+            SELECT=false;
             this.dialogSelectVisible = false;
+            this.$refs.carousel.setActiveItem(0);
+        },                                                //关闭 表单提交
+        selectSubmit: function () {
+            obj.submitLoading = true;
+            p[0].post(obj.form_pop);
         },                                          //详细查询 提交
-        printfSubmit: function () {
-            var datas = [];
-            var checkData = stockSelect.$refs.printf.getCheckedNodes();
-            for (var i in checkData) {
-                if (typeof checkData[i].val2 !== 'undefined') {
-                    datas.push(checkData[i]);
-                }
-            }
-            this.printDatas = datas;
-            this.dialogPelectVisible = !this.dialogPrintfVisible;
-            wap.print(this);
-        },                                          //打印 提交
-        printfCheckChange: function () {
-
-        },                                     //打印 选中维护
-        printfLoadNode: function (node, resolve) {
-            console.log(node.data);
-            switch (node.level) {
-                case 0:
-                    return resolve(this.printf);
-                case 1:
-                    postRkrwNo(this, {
-                        rkrwNo: node.data.rkrwNo,
-                        rkrwDhrq: node.data.rkrwDhrq
-                    }, resolve);
-                    break;
-                case 2:
-                    console.log(node.data.name);
-                    postRkdjId(this, {
-                        rkrwNo: node.data.rkrwNo,
-                        rkrwDhrq: node.data.rkrwDhrq
-                    }, resolve);
-                    break;
-                case 3:
-                    return resolve([]);
-            }
-        }
+        openSelect: function () {
+            SELECT=true;
+            obj.$data.total=formTotal();
+            this.dialogSelectVisible=true;
+            this.dialogFormActive=0;
+            if(this.$refs.carousel&&this.$refs.carousel.activeIndex!==0)this.$refs.carousel.setActiveItem(0);
+        },                                            //让页面还原回去
     },
     watch: {
         blLname: function () {
@@ -291,7 +228,6 @@ var stockSelect = new Vue({
             /*</debug>*/
             p[0].post((_option ? this.form_pop : (_option ? this.form_pop : this.option)));
         },
-
     }
 });
 function _form() {
@@ -304,8 +240,19 @@ function _form() {
         mrArehouseId: window.dbmessage.baseArehouses[0].baArehouseId,//模糊查询--仓库
     }
 }
+function formTotal(){
+    return{
+        mrCountSum:'', //数量总数
+        kyCountTjSum:'', //可用数量体积总数
+        kyCountSum:'', //可用数量总数
+        mrDxjCountSum:'', // 带下架数量总数
+        mrCountTjSum:'', //数量体积总数
+        mrDzyCountSum:'', // 待转移数量总数
+    }
+}
 var obj = stockSelect;
 var p = [];
+var SELECT=false;
 // 0 库存查询 分页查询
 p[0] = autoPost({
     urlHock: "/hock/stockSelect/page.json",
@@ -313,6 +260,16 @@ p[0] = autoPost({
     success: function (json) {
         obj.$data.stockSelect = json.data;
         obj.$data.currentTotal = json.recordsFiltered;
+        console.log(SELECT);
+        if( SELECT ){
+            obj.submitLoading=false;
+            obj.$data.total = json.map;
+            obj.dialogFormActive++;
+            obj.$refs.carousel.setActiveItem(1);
+            SELECT=false;
+        }else{
+            _option = true;
+        }
     }
 });
 // 1 库存查询 导出
