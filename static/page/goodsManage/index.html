@@ -611,12 +611,17 @@
         this.$refs['ref_form'].validate(function (valid) {
           if (valid) {
             if (obj.form.title === '新建货品') {
-              p[2].post(obj.form)
+                p[9].post({ bgGoodsNo: obj.form. bgGoodsNo}, function (json) {
+                    this.callbackAfter({status: json.status, model: '货品编号查重'}, function () {
+                        p[2].post(obj.form);
+                        obj.nextLoading = false;
+                    })
+                })
             } else {
               p[1].post(obj.form)
             }
             obj.dialogFormActive++;
-            obj.submitLoading = true;
+              obj.submitLoading = true;
           } else {
             return false;
           }
@@ -767,6 +772,12 @@
     urlProd: "/route/goodsManage/8",
     success: function (json) {
     }
+  });
+  // 9 货品管理 货品编号 查重
+  p[9] = autoPost({
+      urlHock: "",
+      urlProd: "/route/goodsManage/9",
+      method: 'GET'
   });
   // 10 货品管理 查询所有单位
   p[10] = autoPost({
