@@ -533,6 +533,17 @@ function selectVC(ref, prop) {
   });
 }        //validate select 验证补丁
 
+function autoIndexof(e, o, o2) {
+  var i = 0;
+  for (i = 0; i < o2.length; i++) {
+    if (e === o2[i]) return true;
+  }
+  for (i = 0; i < o.length; i++) {
+    if (e === o[i]) return false;
+  }
+  return true;
+}
+
 var _option = false;                      //查询切换 补丁
 function selectReturn() {
   _option = false;
