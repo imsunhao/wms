@@ -640,7 +640,7 @@
             </el-button>
             <el-button type="primary" @click="selectALibrary" v-show="dialogFormActive==1">选择一条库存
             </el-button>
-            <el-button type="primary" @click="selectReturn" v-show="dialogFormActive==2">返回
+            <el-button type="primary" @click="selectReturn1" v-show="dialogFormActive==2">返回
             </el-button>
         </div>
     </el-dialog>
@@ -910,7 +910,7 @@
                 obj.$refs.carousel.next();
                 obj.dialogFormActive++;
             },                                        //选择一条库存
-            selectReturn: function () {
+            selectReturn1: function () {
                 obj.$refs.carousel.prev();
                 obj.dialogFormActive--;
             },                                          //取消选择一条库存
@@ -964,7 +964,7 @@
                         obj.form.data.push(step);
 
                         obj.form.select = _form_select();
-                        obj.selectReturn();
+                        obj.selectReturn1();
                     }
                 });
             },
