@@ -540,6 +540,15 @@
                 </template>
             </el-table-column>
         </el-table>
+        <el-pagination
+                @size-change="handleSizeChange1"
+                @current-change="handleCurrentChange1"
+                :current-page="currentPage1"
+                :page-sizes="[10, 20, 30, 50]"
+                :page-size="pageSize1"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="currentTotal1">
+        </el-pagination>
     </el-dialog>
 </div>
 <script>
@@ -614,6 +623,9 @@
                 },
                 formLabelWidth: '120px',            //表单 配置
                 people: [],                          //所在仓库下所有人员
+                currentPage1: 1,
+                pageSize1: 10,
+                currentTotal1: 0,
                 rule_form:autoValidate(validate_form()),//新增 验证规则
                 form: _form(),                        //表单 弹出层 信息集合
                 dialogFormActive: 0,                //新建 弹出层 steps 当前进度
@@ -678,6 +690,14 @@
                     "pdCreateUserId": app.rmsUser.ruUserId,
                     "pdChargePerson": this.form.pdChargePerson,
                     "pdArehouseId": window.dbmessage.baseArehouses[0].baArehouseId
+                }
+            },
+            pdOption: function () {
+                return {
+                    pdId: this.pdId,
+                    "draw": 1,
+                    "pageNum": this.currentPage1,
+                    "pageSize": this.pageSize1
                 }
             }
         },
@@ -810,11 +830,8 @@
                 });
             },                           //行内按钮 分配任务
             inlineInventoryDetails:function(index,row){
-                p[6].post({pdId: row.pdId}, function (json) {
-                    obj.details = json.model;
-                    homeTimer = _timer({pdId: row.pdId});
-                    obj.dialogDetailsVisible = true;
-                });
+                this.pdId=row.pdId;
+                p[6].post(obj.pdOption);
 //                this.dialogDetailsVisible = true;
             },                         //行内按钮 盘点详情
             inlineInventoryConfirm: function (index, row) {
@@ -886,6 +903,14 @@
                 /*</debug>*/
                 this.currentPage = val;
                 p[0].post( this.option);
+            },                                //分页 当前页
+            handleSizeChange1: function (val) {
+                this.pageSize1 = val;
+                p[6].post(this.pdOption);
+            },                                   //分页 Size
+            handleCurrentChange1: function (val) {
+                this.currentPage1 = val;
+                p[6].post(this.pdOption);
             },                                //分页 当前页
             prev: function () {
                 this.dialogFormActive--;
@@ -1078,17 +1103,17 @@
             obj.dialogAssignmentVisible = true;
         }
     });
-     // 6 动碰盘点 盘点详情页面根据盘点计划ID查询详情
+    // 6 动碰盘点 盘点详情页面根据盘点计划ID查询详情
     p[6] = autoPost({
         urlHock: "",
         urlProd: "/route/dynamicTouchInventory/6",
         success: function (json) {
-            obj.details = json.model;
+            obj.details = json.data;
             obj.dialogDetailsVisible = true;
+            if(homeTimer===0)homeTimer = _timer(obj.pdId);
+            obj.currentTotal1 = json.recordsFiltered;
         }
     });
-
-
     // 101 循环盘点 根据仓库id查找 所有人员
     p[101] = autoPost({
         urlHock: "",
@@ -1120,17 +1145,16 @@
             pdsPdCount:'',              // 盘点数量
         }
     }//盘点详情
-    function _timer(option) {
+    function _timer(pdId) {
+        obj.pdId = pdId;
         return setInterval(function () {
             if (obj.dialogDetailsVisible) {
-                p[6].post(option, function (json) {
-                    obj.details = json.model;
-                })
+                p[6].post(obj.pdOption)
             } else {
                 clearInterval(homeTimer);
                 homeTimer = 0;
             }
-        }, timer_span.dynamicTouchInventory)
+        }, timer_span.loopInventory)
     }
 
     // 高级 监视器的 使用方法
