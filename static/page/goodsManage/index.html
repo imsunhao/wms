@@ -614,14 +614,14 @@
                 p[9].post({ bgGoodsNo: obj.form. bgGoodsNo}, function (json) {
                     this.callbackAfter({status: json.status, model: '货品编号查重'}, function () {
                         p[2].post(obj.form);
-                        obj.nextLoading = false;
+                        obj.submitLoading = true;
                     })
                 })
             } else {
               p[1].post(obj.form)
             }
             obj.dialogFormActive++;
-              obj.submitLoading = true;
+              obj.submitLoading = false;
           } else {
             return false;
           }
@@ -630,7 +630,7 @@
 
       submitRole: function () {
         this.loadingWarehouse = true;
-        
+
         /*<prod>*/
         //TODO
         postModify(this, this.form);
