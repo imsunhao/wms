@@ -198,7 +198,7 @@ app.use(express.static(path.join(__dirname, 'public')));              //加载pu
 app.use(session({
     key: 'session',
     secret: 'keboard cat',
-    cookie: {maxAge: 1000 * 60 * 15},//1小时 //1k (s) * 60(min) *60 (hover) *24(day)
+    cookie: {maxAge: 1000 * 60 * 15 * 24},//1小时 //1k (s) * 60(min) *60 (hover) *24(day)
     store: new MongoStore({
         db: 'wms',
         mongooseConnection: mongoose.connection

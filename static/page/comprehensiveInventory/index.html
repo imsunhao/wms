@@ -1,1121 +1,1099 @@
 <style>
-    #comprehensiveInventory .el-transfer {
-
-    }
-
-    #comprehensiveInventory .__inner {
-        padding: 0 30px;
-    }
-
-    #comprehensiveInventory .el-transfer .el-transfer-panel {
-        width: 43.6%;
-    }
-
-    #comprehensiveInventory .box-card {
-        height: 421px;
-
-    }
-
-    #comprehensiveInventory .box {
-        position: relative;
-    }
-
-    #comprehensiveInventory .box-image {
-        position: absolute;
-        right: -10px;
-        bottom: -70px;
-        width: 60px;
-        height: 60px;
-        z-index: 1;
-        border: 1px solid #eee;
-        border-radius: 50%;
-    }
-
-    #comprehensiveInventory .el-tree {
-        margin-top: 10px;
-        height: 333px;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-
-    #comprehensiveInventory .el-tree-node__content {
-        line-height: 60px !important;
-        height: 60px !important;
-    }
+  #comprehensiveInventory .el-transfer {
+  
+  }
+  
+  #comprehensiveInventory .__inner {
+    padding: 0 30px;
+  }
+  
+  #comprehensiveInventory .el-transfer .el-transfer-panel {
+    width: 43.6%;
+  }
+  
+  #comprehensiveInventory .box-card {
+    height: 421px;
+    
+  }
+  
+  #comprehensiveInventory .box {
+    position: relative;
+  }
+  
+  #comprehensiveInventory .box-image {
+    position: absolute;
+    right: -10px;
+    bottom: -70px;
+    width: 60px;
+    height: 60px;
+    z-index: 1;
+    border: 1px solid #eee;
+    border-radius: 50%;
+  }
+  
+  #comprehensiveInventory .el-tree {
+    margin-top: 10px;
+    height: 333px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  #comprehensiveInventory .el-tree-node__content {
+    line-height: 60px !important;
+    height: 60px !important;
+  }
 </style>
 <style>
-    #comprehensiveInventory {
-        width: 100%;
-        min-width: 890px;
-        position: relative;
-    }
-
-    #comprehensiveInventory .demo-table-expand {
-        font-size: 0;
-    }
-
-    #comprehensiveInventory .demo-table-expand label {
-        width: 90px;
-        color: #99a9bf;
-    }
-
-    #comprehensiveInventory .demo-table-expand .el-form-item {
-        margin-right: 0;
-        margin-bottom: 0;
-        width: 80%;
-    }
-
-    #comprehensiveInventory .el-table__expand-column .el-table__expand-icon {
-        height: 39px;
-    }
-
-    #comprehensiveInventory .table {
-        transition: 1s all;
-    }
-
-    #comprehensiveInventory .el-carousel__container {
-        height: 440px;
-    }
-
-    .el-tooltip__popper {
-        max-width: 400px;
-    }
-
-    .el-step__main {
-        max-width: calc(100% - 60px);
-    }
-
-    #comprehensiveInventory .comprehensiveInventoryTable {
-        width: 95% !important;
-        margin: 20px auto;
-    }
-
-    #comprehensiveInventory .datePicker {
-        width: 140px !important;
-        height: 24px !important;
-        margin-top: 29px;
-        margin-right: 18px;
-        float: left;
-    }
-
-    #comprehensiveInventory .datePicker .el-input__inner {
-        border-radius: 2px !important;
-        height: 24px !important;
-    }
-
-    #comprehensiveInventory .add {
-        background: url("/static/images/add.png") no-repeat center;
-    }
-
-    #comprehensiveInventory .del {
-        background: url("/static/images/del.png") no-repeat center;
-    }
-
-    #comprehensiveInventory .search {
-        background: url("/static/images/search.png") no-repeat center;
-    }
-
-    #comprehensiveInventory .sel {
-        background: url("/static/images/sel.png") no-repeat center;
-    }
-
-    #comprehensiveInventory .icon {
-        float: left;
-    }
-
-    #comprehensiveInventory .btn span {
-        float: left;
-        margin-top: 4px;
-        margin-left: 2px;
-    }
-
-    #comprehensiveInventory .btn {
-        height: 24px;
-        line-height: 1;
-        border: none;
-        background: #f8fafb;
-        outline: none;
-        cursor: pointer;
-        padding: 0;
-        margin: 0;
-        float: left;
-        font-size: 14px;
-        color: #1f2d3d;
-        margin-top: 29px;
-        margin-right: 16px;
-    }
-
-    #comprehensiveInventory .btn-print {
-        margin-right: 0;
-    }
-
-    #comprehensiveInventory .btn:hover {
-        color: #5468ee;
-    }
-
-    #comprehensiveInventory .inner {
-        margin: 0 20px;
-    }
-
-    #comprehensiveInventory .btn-nav {
-        height: 60px;
-        overflow: hidden;
-    }
-
-    #comprehensiveInventory .btn-nav .el-input .el-input__inner {
-        height: 24px;
-    }
-
-    #comprehensiveInventory .btn-nav .el-input {
-        float: left;
-        margin-top: 29px;
-        margin-right: 18px;
-        width: 140px;
-        height: 24px;
-    }
+  #comprehensiveInventory {
+    width: 100%;
+    min-width: 890px;
+    position: relative;
+  }
+  
+  #comprehensiveInventory .demo-table-expand {
+    font-size: 0;
+  }
+  
+  #comprehensiveInventory .demo-table-expand label {
+    width: 90px;
+    color: #99a9bf;
+  }
+  
+  #comprehensiveInventory .demo-table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 80%;
+  }
+  
+  #comprehensiveInventory .el-table__expand-column .el-table__expand-icon {
+    height: 39px;
+  }
+  
+  #comprehensiveInventory .table {
+    transition: 1s all;
+  }
+  
+  #comprehensiveInventory .el-carousel__container {
+    height: 440px;
+  }
+  
+  .el-tooltip__popper {
+    max-width: 400px;
+  }
+  
+  .el-step__main {
+    max-width: calc(100% - 60px);
+  }
+  
+  #comprehensiveInventory .comprehensiveInventoryTable {
+    width: 95% !important;
+    margin: 20px auto;
+  }
+  
+  #comprehensiveInventory .datePicker {
+    width: 140px !important;
+    height: 24px !important;
+    margin-top: 29px;
+    margin-right: 18px;
+    float: left;
+  }
+  
+  #comprehensiveInventory .datePicker .el-input__inner {
+    border-radius: 2px !important;
+    height: 24px !important;
+  }
+  
+  #comprehensiveInventory .add {
+    background: url("/static/images/add.png") no-repeat center;
+  }
+  
+  #comprehensiveInventory .del {
+    background: url("/static/images/del.png") no-repeat center;
+  }
+  
+  #comprehensiveInventory .search {
+    background: url("/static/images/search.png") no-repeat center;
+  }
+  
+  #comprehensiveInventory .sel {
+    background: url("/static/images/sel.png") no-repeat center;
+  }
+  
+  #comprehensiveInventory .icon {
+    float: left;
+  }
+  
+  #comprehensiveInventory .btn span {
+    float: left;
+    margin-top: 4px;
+    margin-left: 2px;
+  }
+  
+  #comprehensiveInventory .btn {
+    height: 24px;
+    line-height: 1;
+    border: none;
+    background: #f8fafb;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    float: left;
+    font-size: 14px;
+    color: #1f2d3d;
+    margin-top: 29px;
+    margin-right: 16px;
+  }
+  
+  #comprehensiveInventory .btn-print {
+    margin-right: 0;
+  }
+  
+  #comprehensiveInventory .btn:hover {
+    color: #5468ee;
+  }
+  
+  #comprehensiveInventory .inner {
+    margin: 0 20px;
+  }
+  
+  #comprehensiveInventory .btn-nav {
+    height: 60px;
+    overflow: hidden;
+  }
+  
+  #comprehensiveInventory .btn-nav .el-input .el-input__inner {
+    height: 24px;
+  }
+  
+  #comprehensiveInventory .btn-nav .el-input {
+    float: left;
+    margin-top: 29px;
+    margin-right: 18px;
+    width: 140px;
+    height: 24px;
+  }
 </style>
 <style>
-    .steps {
-        position: absolute;
-        bottom: 10px;
-        left: 30px;
-        margin: auto;
-    }
-
-    .el-dialog__headerbtn {
-        position: absolute;
-        right: 25px;
-        top: 15px;
-    }
-
-    .el-step__main {
-        margin-left: -8px !important;
-    }
+  .steps {
+    position: absolute;
+    bottom: 10px;
+    left: 30px;
+    margin: auto;
+  }
+  
+  .el-dialog__headerbtn {
+    position: absolute;
+    right: 25px;
+    top: 15px;
+  }
+  
+  .el-step__main {
+    margin-left: -8px !important;
+  }
 </style>
 <style>
-    .select {
-
-    }
-
-    .select .input {
-        width: 70%;
-    }
+  .select {
+  
+  }
+  
+  .select .input {
+    width: 70%;
+  }
+  
+  .el-badge__content {
+    top: 30px !important;
+    right: -10px !important;
+  }
 </style>
 <div id="comprehensiveInventory">
-    <!--页面调整-->
-    <el-row v-loading="showLoading"
-            element-loading-text="拼命加载中">
-        <el-col :span="24">
-            <div class="inner btn-nav">
-                <button @click="newInput" class="btn btn-add"><i
-                        class="icon add"></i><span>新增盘点计划</span>
-                </button>
-            </div>
-            <el-table
-                    :data="comprehensiveInventory"
-                    :default-sort="{prop: 'sjsj', order: 'descending'}"
-                    :max-height="config_table_height()"
-                    ref="table"
-                    class="comprehensiveInventoryTable"
-                    @selection-change='multiSelectionChange'
-                    style="width: 100%">
-                <el-table-column
-                        type="expand">
-                    <template scope="props">
-                        <el-row>
-                            <h3 style="margin-top: 0; margin-left: -15px;">全面盘点详细</h3>
-                        </el-row>
-                        <el-form label-position="left" inline class="demo-table-expand">
-                            <el-row>
-                                <el-col :span="10">
-                                    <el-form-item label="创建时间">
+  <!--页面调整-->
+  <el-row v-loading="showLoading"
+          element-loading-text="拼命加载中">
+    <el-col :span="24">
+      <div class="inner btn-nav">
+        <button @click="newInput" class="btn btn-add"><i
+            class="icon add"></i><span>新增盘点计划</span>
+        </button>
+      </div>
+      <el-table
+          :data="comprehensiveInventory"
+          :default-sort="{prop: 'sjsj', order: 'descending'}"
+          :max-height="config_table_height()"
+          ref="table"
+          class="comprehensiveInventoryTable"
+          @selection-change='multiSelectionChange'
+          style="width: 100%">
+        <el-table-column
+            type="expand">
+          <template scope="props">
+            <el-row>
+              <h3 style="margin-top: 0; margin-left: -15px;">全面盘点详细</h3>
+            </el-row>
+            <el-form label-position="left" inline class="demo-table-expand">
+              <el-row>
+                <el-col :span="10">
+                  <el-form-item label="创建时间">
                                         <span>
                                               <el-icon name="time"></el-icon>
                                             {{ auto_time_new(props.row.pdCreateTime,6) }}
                                         </span>
-                                    </el-form-item>
-                                    <el-form-item label="盘点类型">
-                                        <el-tag-s :val="auto_el_tag('pdType',props.row.pdType)"></el-tag-s>
-                                    </el-form-item>
-                                    <el-form-item label="盘点状态">
-                                        <el-tag-s :val="auto_el_tag('pdStatus',props.row.pdStatus)"></el-tag-s>
-                                    </el-form-item>
-                                    <el-form-item label="负责人">
-                                        <span>{{ props.row.pdChargePerson }}</span>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :span="10" :offset="2">
-                                    <el-form-item label="经办人">
-                                        <span>{{ props.row.pdOperator }}</span>
-                                    </el-form-item>
-                                    <el-form-item label="差异状态">
-                                        <el-tag-s :val="auto_el_tag('pdDiffStatus',props.row.pdDiffStatus)"></el-tag-s>
-                                    </el-form-item>
-                                    <el-form-item label="可用操作">
-                                        <el-button
-                                                size="small"
-                                                type="info"
-                                                @click="inlineAssignment(props.$index, props.row)">分配
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                @click="inlineInventoryDetails(props.$index, props.row)">详情
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                type="success"
-                                                @click="inlineInventoryConfirm(props.$index, props.row)">确认
-                                        </el-button>
-
-                                    </el-form-item>
-                                </el-col>
-                            </el-row>
-                        </el-form>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        label="创建时间"
-                        show-overflow-tooltip
-                        align="center">
-                    <template scope="scope">
-                        <span >{{ auto_time_new(scope.row.pdCreateTime) }}</span>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        label="负责人"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="pdChargePerson">
-                </el-table-column>
-                <el-table-column
-                        label="经办人"
-                        show-overflow-tooltip
-                        align="center"
-                        prop="pdOperator">
-                </el-table-column>
-                <el-table-column
-                        label="盘点状态"
-                        prop="pdStatus"
-                        align="center"
-                        width="100">
-                    <template scope="scope">
-                        <el-tag-s :val="auto_el_tag('pdStatus',scope.row.pdStatus)"></el-tag-s>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        label="差异状态"
-                        prop="pdStatus"
-                        align="center"
-                        width="100">
-                    <template scope="scope">
-                        <el-tag-s :val="auto_el_tag('pdDiffStatus',scope.row.pdDiffStatus)"></el-tag-s>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        v-if="multiSelect"
-                        type="selection"
-                        width="60">
-                </el-table-column>
-            </el-table>
-            <div class="block">
-                <el-pagination
-                        @size-change="handleSizeChange"
-                        @current-change="handleCurrentChange"
-                        :current-page="1"
-                        :page-sizes="[5, 10, 15, 20]"
-                        :page-size="pageSize"
-                        layout="total, sizes, prev, pager, next, jumper"
-                        :total="currentTotal">
-                </el-pagination>
-            </div>
-        </el-col>
+                  </el-form-item>
+                  <el-form-item label="盘点类型">
+                    <el-tag-s :val="auto_el_tag('pdType',props.row.pdType)"></el-tag-s>
+                  </el-form-item>
+                  <el-form-item label="盘点状态">
+                    <el-tag-s :val="auto_el_tag('pdStatus',props.row.pdStatus)"></el-tag-s>
+                  </el-form-item>
+                  <el-form-item label="负责人">
+                    <span>{{ props.row.pdChargePerson }}</span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="10" :offset="2">
+                  <el-form-item label="经办人">
+                    <span>{{ props.row.pdOperator }}</span>
+                  </el-form-item>
+                  <el-form-item label="差异状态">
+                    <el-tag-s :val="auto_el_tag('pdDiffStatus',props.row.pdDiffStatus)"></el-tag-s>
+                  </el-form-item>
+                  <el-form-item label="可用操作">
+                    <el-button
+                        size="small"
+                        type="info"
+                        @click="inlineAssignment(props.$index, props.row)">分配
+                    </el-button>
+                    <el-button
+                        size="small"
+                        @click="inlineInventoryDetails(props.$index, props.row)">详情
+                    </el-button>
+                    <el-button
+                        size="small"
+                        type="success"
+                        @click="inlineInventoryConfirm(props.$index, props.row)">确认
+                    </el-button>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-form>
+          </template>
+        </el-table-column>
+        <el-table-column
+            label="创建时间"
+            show-overflow-tooltip
+            align="center">
+          <template scope="scope">
+            <span>{{ auto_time_new(scope.row.pdCreateTime) }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+            label="负责人"
+            show-overflow-tooltip
+            align="center"
+            prop="pdChargePerson">
+        </el-table-column>
+        <el-table-column
+            label="经办人"
+            show-overflow-tooltip
+            align="center"
+            prop="pdOperator">
+        </el-table-column>
+        <el-table-column
+            label="盘点状态"
+            prop="pdStatus"
+            align="center"
+            width="100">
+          <template scope="scope">
+            <el-tag-s :val="auto_el_tag('pdStatus',scope.row.pdStatus)"></el-tag-s>
+          </template>
+        </el-table-column>
+        <el-table-column
+            label="差异状态"
+            prop="pdStatus"
+            align="center"
+            width="100">
+          <template scope="scope">
+            <el-tag-s :val="auto_el_tag('pdDiffStatus',scope.row.pdDiffStatus)"></el-tag-s>
+          </template>
+        </el-table-column>
+        <el-table-column
+            v-if="multiSelect"
+            type="selection"
+            width="60">
+        </el-table-column>
+      </el-table>
+      <div class="block">
+        <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="1"
+            :page-sizes="[5, 10, 15, 20]"
+            :page-size="pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="currentTotal">
+        </el-pagination>
+      </div>
+    </el-col>
+  </el-row>
+  <el-dialog
+      size="tiny"
+      v-model="dialogFormVisible">
+    <div class="dialog-title clearfix" slot="title">
+      <span class="el-dialog__title">{{form.title}}</span>
+      <el-steps
+          class="steps"
+          :space="120"
+          :active="dialogFormActive"
+          finish-status="success">
+      </el-steps>
+    </div>
+    <el-form :model="form" ref="ref_form" :rules="rule_form">
+      <el-carousel
+          ref="carousel"
+          :autoplay="false"
+          arrow="never"
+          indicator-position="none"
+          height="55vh">
+        <el-carousel-item>
+          <el-row>
+            <el-col>
+              <el-form-item
+                  label="负责人"
+                  prop="pdChargePerson"
+                  :label-width="formLabelWidth">
+                <el-input
+                    v-model.number="form.pdChargePerson"
+                    auto-complete="off"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-carousel-item>
+      </el-carousel>
+    </el-form>
+    
+    <div slot="footer" class="dialog-footer">
+      <el-button type="primary" @click="submit" :loading="submitLoading">保存
+      </el-button>
+    </div>
+  </el-dialog>
+  <el-dialog
+      size="large"
+      title="分配任务"
+      v-model="dialogAssignmentVisible">
+    <el-row>
+      <el-col :span="6">
+        <el-card class="box-card">
+          <el-input
+              placeholder="用户(拼音)搜索"
+              v-model="filterText">
+          </el-input>
+          <el-tree
+              :data="people"
+              @node-click="nodeClick"
+              :props="defaultProps"
+              highlight-current
+              :render-content="treeRenderContent"
+              ref="tree5"
+              :filter-node-method="filterNode">
+          </el-tree>
+        </el-card>
+      </el-col>
+      <el-col :span="18">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix box">
+            <span style="line-height: 24px; font-size: 16px">{{assignmentForm.ruUserName||'请选择一名用户指派任务'}}</span>
+            <img class="box-image" :src="'/static/images/users/'+assignmentForm.ruPortrait"
+                 v-if="assignmentForm.ruUserName"/>
+          </div>
+          <el-row v-loading="assignmentLoading"
+                  element-loading-text="等待选择人员">
+            <el-transfer
+                v-model="assignmentForm.val"
+                filterable
+                filter-placeholder="请输入库位名称"
+                :left-default-checked="[]"
+                :right-default-checked="assignmentForm.val"
+                :titles="['所有任务','我的任务']"
+                :button-texts="['取消任务','分配任务']"
+                @change="handleChange"
+                :data="assignment">
+              <template slot="left-footer">
+                <el-button size="small" @click="comeData" v-if="$data._assignment.length>$data._pageNow+1">
+                  再来{{$data._pageSize}}条
+                </el-button>
+              </template>
+            </el-transfer>
+          </el-row>
+        </el-card>
+      </el-col>
     </el-row>
-    <el-dialog
-            size="tiny"
-            v-model="dialogFormVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">{{form.title}}</span>
-            <el-steps
-                    class="steps"
-                    :space="120"
-                    :active="dialogFormActive"
-                    finish-status="success">
-            </el-steps>
-        </div>
-        <el-form :model="form" ref="ref_form" :rules="rule_form">
-            <el-carousel
-                    ref="carousel"
-                    :autoplay="false"
-                    arrow="never"
-                    indicator-position="none"
-                    height="55vh">
-                <el-carousel-item>
-                    <el-row>
-                        <el-col >
-                            <el-form-item
-                                    label="负责人"
-                                    prop="pdChargePerson"
-                                    :label-width="formLabelWidth">
-                                <el-input
-                                        v-model.number="form.pdChargePerson"
-                                        auto-complete="off"></el-input>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                </el-carousel-item>
-            </el-carousel>
-        </el-form>
-
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="submit" :loading="submitLoading">保存
-            </el-button>
-        </div>
-    </el-dialog>
-    <el-dialog
-            size="large"
-            title="分配任务"
-            v-model="dialogAssignmentVisible">
-        <el-row>
-            <el-col :span="6">
-                <el-card class="box-card">
-                    <el-input
-                            placeholder="用户(拼音)搜索"
-                            v-model="filterText">
-                    </el-input>
-                    <el-tree
-                            :data="people"
-                            @node-click="nodeClick"
-                            :props="defaultProps"
-                            highlight-current
-                            :render-content="treeRenderContent"
-                            ref="tree5"
-                            :filter-node-method="filterNode">
-                    </el-tree>
-                </el-card>
-            </el-col>
-            <el-col :span="18">
-                <el-card class="box-card">
-                    <div slot="header" class="clearfix box">
-                        <span style="line-height: 24px; font-size: 16px">{{assignmentForm.ruUserName||'请选择一名用户指派任务'}}</span>
-                        <img class="box-image" :src="'/static/images/users/'+assignmentForm.ruPortrait"
-                             v-if="assignmentForm.ruUserName"/>
-                    </div>
-                    <el-row v-loading="assignmentLoading"
-                            element-loading-text="等待选择人员">
-                        <el-transfer
-                                v-model="assignmentForm.val"
-                                filterable
-                                filter-placeholder="请输入库位名称"
-                                :left-default-checked="[]"
-                                :right-default-checked="assignmentForm.val"
-                                :titles="['所有任务','我的任务']"
-                                :button-texts="['取消任务','分配任务']"
-                                @change="handleChange"
-                                :data="assignment">
-                        </el-transfer>
-                    </el-row>
-                </el-card>
-            </el-col>
-        </el-row>
-
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="assignment_submit" :loading="submitLoading">保存</el-button>
-        </div>
-    </el-dialog>
-    <el-dialog
-            size="large"
-            title="盘点详情"
-            @close="detailsClose"
-            v-model="dialogDetailsVisible">
-        <el-table
-                :data="details"
-                highlight-current-row
-                :row-class-name="tableRowClassName"
-                style="width: 100%">
-            <el-table-column
-                    width="55"
-                    type="index">
-            </el-table-column>
-            <el-table-column
-                    label="库位名称"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="baseLocation.blLname">
-            </el-table-column>
-            <el-table-column
-                    label="货品编号"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="baseGoods.bgGoodsNo">
-            </el-table-column>
-            <el-table-column
-                    label="货品名称"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="baseGoods.bgGoodsName">
-            </el-table-column>
-            <el-table-column
-                    label="库存数量"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="pdsRepertoryCount">
-            </el-table-column>
-            <el-table-column
-                    label="盘点数量"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="pdsPdCount">
-            </el-table-column>
-            <el-table-column
-                    label="盘点人员"
-                    show-overflow-tooltip
-                    align="center"
-                    prop="userName">
-            </el-table-column>
-            <el-table-column
-                    label="操作"
-                    prop="rksCount"
-                    align="center">
-                <template scope="scope">
-                    <el-button
-                            size="small"
-                            v-show="scope.row.pdsStatus==1&&(scope.row.pdsRepertoryCount - scope.row.pdsPdCount)!=0"
-                            type="danger"
-                            @click="inlineHeavyPlateInlineOperation(scope.$index, scope.row)">重盘
-                    </el-button>
-                    <el-button
-                            size="small"
-                            icon="circle-check"
-                            v-show="scope.row.pdsStatus==1&&(scope.row.pdsRepertoryCount - scope.row.pdsPdCount)==0"
-                            type="success">
-                    </el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-    </el-dialog>
+    
+    <div slot="footer" class="dialog-footer">
+      <el-button type="primary" @click="assignment_submit" :loading="submitLoading">保存</el-button>
+    </div>
+  </el-dialog>
+  <el-dialog
+      size="large"
+      title="盘点详情"
+      @close="detailsClose"
+      v-model="dialogDetailsVisible">
+    <el-table
+        :data="details"
+        highlight-current-row
+        :row-class-name="tableRowClassName"
+        style="width: 100%">
+      <el-table-column
+          width="55"
+          type="index">
+      </el-table-column>
+      <el-table-column
+          label="库位名称"
+          show-overflow-tooltip
+          align="center"
+          prop="baseLocation.blLname">
+      </el-table-column>
+      <el-table-column
+          label="货品编号"
+          show-overflow-tooltip
+          align="center"
+          prop="baseGoods.bgGoodsNo">
+      </el-table-column>
+      <el-table-column
+          label="货品名称"
+          show-overflow-tooltip
+          align="center"
+          prop="baseGoods.bgGoodsName">
+      </el-table-column>
+      <el-table-column
+          label="库存数量"
+          show-overflow-tooltip
+          align="center"
+          prop="pdsRepertoryCount">
+      </el-table-column>
+      <el-table-column
+          label="盘点数量"
+          show-overflow-tooltip
+          align="center"
+          prop="pdsPdCount">
+      </el-table-column>
+      <el-table-column
+          label="盘点人员"
+          show-overflow-tooltip
+          align="center"
+          prop="userName">
+      </el-table-column>
+      <el-table-column
+          label="操作"
+          prop="rksCount"
+          align="center">
+        <template scope="scope">
+          <el-button
+              size="small"
+              v-show="scope.row.pdsStatus==1&&(scope.row.pdsRepertoryCount - scope.row.pdsPdCount)!=0"
+              type="danger"
+              @click="inlineHeavyPlateInlineOperation(scope.$index, scope.row)">重盘
+          </el-button>
+          <el-button
+              size="small"
+              icon="circle-check"
+              v-show="scope.row.pdsStatus==1&&(scope.row.pdsRepertoryCount - scope.row.pdsPdCount)==0"
+              type="success">
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-pagination
+        @size-change="handleSizeChange1"
+        @current-change="handleCurrentChange1"
+        :current-page="currentPage1"
+        :page-sizes="[10, 20, 30, 50]"
+        :page-size="pageSize1"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="currentTotal1">
+    </el-pagination>
+  </el-dialog>
 </div>
 <script>
-    function _assignmentForm() {
-        return {
-            ruUserName: '',
-            ruPortrait: '',
-            ruUserId: '',
+  function _assignmentForm() {
+    return {
+      ruUserName: '',
+      ruPortrait: '',
+      ruUserId: '',
 
-            val: []
-        }
+      val: [],
+      sum: 0,
+      pageNow: 1,
     }
-    var comprehensiveInventory = new Vue({
-        el: '#comprehensiveInventory',
-        prop: {},
-        data: function () {
-            return {
-                _assignment: [],                         //分配任务 弹出层 信息集合(表单格式)
-                assignment: [],                          //分配任务 弹出层 信息集合(表单格式)
-                assignmentVal: [],
+  }
 
-                assignmentForm: _assignmentForm(),
-                pdId: '',
-                dialogAssignmentVisible: false,          //分配任务 弹出层 是否可见
-                assignmentLoading: true,
-                filterText: '',
-                defaultProps: {
-                    children: 'children',
-                    label: 'ruUserName',
-                    key: 'ruUserId'
-                },
-                people: [],                          //所在仓库下所有人员
+  var comprehensiveInventory = new Vue({
+    el: '#comprehensiveInventory',
+    prop: {},
+    data: function () {
+      return {
+        _pageSize: 500,
+        _pageNow: 0,
+        _assignment: [],                         //分配任务 弹出层 信息集合(表单格式)
+        assignment: [],                          //分配任务 弹出层 信息集合(表单格式)
+        assignmentVal: [],
+
+        assignmentForm: _assignmentForm(),
+        dialogAssignmentVisible: false,          //分配任务 弹出层 是否可见
+        assignmentLoading: true,
+        filterText: '',
+        defaultProps: {
+          children: 'children',
+          label: 'ruUserName',
+          key: 'ruUserId'
+        },
+        people: [],                          //所在仓库下所有人员
 
 
-                comprehensiveInventory: [],
-                multipleSelection: [],
-                multiSelect: false,
-                pickerOptions: {
-                    shortcuts: [{
-                        text: '最近一周',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近一个月',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近三个月',
-                        onClick: function (picker) {
-                            var end = new Date();
-                            var start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }]
-                },
-                showLoading: false,
-                currentPage: 1,
-                pageSize: 10,
-                currentTotal:0,
-                rule_form: autoValidate(validate_form()), //新增验证规则
-                date: [null, null],                 //主页面 选择日期 搜索
-                rkRkdjNo: '',                       //主页面 入库单号 搜索
-
-                formLabelWidth: '120px',            //表单 配置
-                form: _form(),                           //表单 弹出层 信息集合
-                dialogFormActive: 0,                //新建 弹出层 steps 当前进度
-                dialogFormVisible: false,           //新建 弹出层 是否可见
-                submitLoading: false,               //新建 弹出层 提交等待
-                assignment:[],                       //查看 分配任务 弹出层 信息集合(表单格式)
-                dialogAssignmentVisible: false,    //查看 分配任务 弹出层 是否可见
-                details:[],                           //查看 盘点详情 弹出层 信息集合(表单格式)
-                dialogDetailsVisible: false,        //查看 盘点详情 弹出层 是否可见
-                select: _form(),                         //搜索 弹出层 信息集合,
-                printf: [],                         //搜索 弹出层 信息集合,
-                dialogSelectVisible: false,
-                dialogPrintfVisible: false,
-                selectLoading: false,
-                printfLoading: false,
-                details: [],                        //查看 盘点详情 弹出层 信息集合(表单格式)
-                dialogDetailsVisible: false,        //查看 盘点详情 弹出层 是否可见
-
-                printDatas: [],          // 打印数据
+        comprehensiveInventory: [],
+        multipleSelection: [],
+        multiSelect: false,
+        pickerOptions: {
+          shortcuts: [{
+            text: '最近一周',
+            onClick: function (picker) {
+              var end = new Date();
+              var start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', [start, end]);
             }
-        },
-        computed: {
-            assignmentData: function () {
-                var data = [];
-                for (var i = 0; i < obj._assignment.length; i++) {
-                    data.push({
-                        key: obj._assignment[i].pdsId,
-                        label: obj._assignment[i].baseLocation.blLname + ' ' + obj._assignment[i].baseGoods.bgGoodsName + ' ' + obj._assignment[i].baseGoods.bgGoodsNo
-                    });
-                }
-                return data;
-            },
-            option: function () {
-                return {
-                    "draw": 1,
-                    "pageNum": this.currentPage,
-                    "pageSize": this.pageSize
-                }
-            },
-            search: function () {
-                return {
-                    "draw": 1,
-                    "pageNum": this.currentPage,
-                    "pageSize": this.pageSize,
-                    "rkrwN": this.form.rkrwN,
-                    "rkrwCph": this.form.rkrwCph,
-                    "dds": this.form.dds,
-                    "pxs": this.form.pxs,
-                    "rkrwSjxm": this.form.rkrwSjxm,
-                    "rkrwDhrq": this.form.rkrwDhrq,
-                    "rkrwDbd": this.form.rkrwDbd,
-                    "rkrwCys": this.form.rkrwCys,
-                    "rkrwDh": this.form.rkrwDh,
-                    "rkrwStatus": this.form.rkrwStatus
-                }
-            },
-            dpPd_pop:function () {
-                return {
-                    "pdCreateUserId": app.rmsUser.ruUserId,
-                    "pdChargePerson": this.form.pdChargePerson,
-                    "pdArehouseId": window.dbmessage.baseArehouses[0].baArehouseId
-                }
-            },
-            distributionForm: function () {
-                return {
-                    distribution: this.distribution
-                }
-            },                                      //分配 表单
-        },
-        methods: {
-            tableRowClassName: function (row, index) {
-                if (row.pdsStatus === 1 && (row.pdsRepertoryCount - row.pdsPdCount) !== 0) {
-                    return 'warning-row';
-                } else if (row.pdsStatus === 1 && (row.pdsRepertoryCount - row.pdsPdCount) === 0) {
-                    return 'success-row';
-                }
-                return '';
-            },                          //盘点详情 行内颜色变化
-            nodeClick: function (value, data, node) {
-
-//                var step2 = _assignmentForm();
-//                 allPrposCb(step2, function (obj, index) {
-//                 if (typeof value[index] !== 'undefined') step2[index] = value[index];
-//                 });
-                var i = 0;
-                var step = [];
-
-                if (obj.assignmentVal.length !== 0) {
-                    for (i = 0; i < obj.assignmentData.length; i++) {
-                        if (autoIndexof(obj.assignmentData[i].key, obj.assignmentVal, value.val)) {
-                            step.push({
-                                key: obj.assignmentData[i].key,
-                                label: obj.assignmentData[i].label
-                            });
-                        }
-                    }
-                } else {
-                    step = obj.assignmentData;
-                }
-
-                obj.assignment = step;
-
-
-                obj.assignmentForm = value;
-                obj.assignmentLoading = false;
-
-            },                           //分配任务 点击用户头像
-            handleChange: function handleChange(value, direction, movedKeys) {
-                console.log(value, direction, movedKeys);
-                var i = 0;
-                var step = 0;
-                switch (direction) {
-                    case 'right':
-                        for (i = 0; i < movedKeys.length; i++) {
-                            if (this.assignmentVal.indexOf(movedKeys[i]) === -1) {
-                                this.assignmentVal.push(movedKeys[i]);
-                            }
-                        }
-                        break;
-                    case 'left':
-                        for (i = 0; i < movedKeys.length; i++) {
-                            step = this.assignmentVal.indexOf(movedKeys[i]);
-                            if (step !== -1) {
-                                remove(step, this.assignmentVal);
-                            }
-                        }
-                        break;
-
-                }
-            },  //分配任务 分配任务与取消任务
-            filterNode: function (value, data) {
-                if (!value) return true;
-                return data.ruLoginName.indexOf(value) !== -1;
-            },                                //分配任务 模糊查询用户
-            treeRenderContent: function (h, node) {
-                return h(
-                    'div', {
-                        style: {
-                            width: '100%',
-                            lineHeight: '60px',
-                            position: 'relative',
-                            paddingLeft: '60px'
-                        }
-                    },
-                    [
-                        h('i', {
-                            style: {
-                                width: '36px',
-                                height: '36px',
-                                display: 'inline-block',
-                                position: 'absolute',
-                                left: '12px',
-                                top: '12px',
-                                backgroundImage: 'url("/static/images/users/' + node.data.ruPortrait + '")',
-                                'background-size': 'cover',
-                                'border-radius': '50%',
-                                border: '1px solid #eee'
-                            }
-                        }),
-                        h('span', {
-                            style: {
-                                fontSize: '14px'
-                            }
-                        }, node.data.ruUserName)
-                    ]
-                )
-            },                             //分配任务 界面控制
-            assignment_submit: function () {
-
-                if (obj.assignment.length - obj.assignmentForm.val.length !== 0) {
-                    obj.$alert('还有任务没有被分配！');
-                } else {
-                    var step = [];
-                    for (var i = 0; i < obj.people.length; i++) {
-                        if (obj.people[i].val.length !== 0) {
-                            step.push({
-                                pdId: obj.pdId,
-                                userId: obj.people[i].ruUserId,
-                                userName: obj.people[i].ruUserName,
-                                ids: obj.people[i].val
-                            });
-                        }
-                    }
-                    p[3].post({data: step}, function (json) {
-                        this.callbackAfter({status: json.status, model: '分配任务'}, function () {
-                            obj.dialogAssignmentVisible = false;
-                        })
-                    })
-                }
-            },                                    //分配任务 保存按钮
-            inlineAssignment: function (index,row) {
-//                p[5].post({pdId: row.pdId});
-                p[5].post({pdId: row.pdId}, function (json) {
-                    obj._assignment = json.model;
-                    obj.pdId = row.pdId;
-                    obj.dialogAssignmentVisible = true;
-                });
-            },                            //行内按钮 分配任务
-            inlineInventoryDetails:function(index,row){
-                p[6].post({pdId: row.pdId}, function (json) {
-                    obj.details = json.model;
-                    homeTimer = _timer({pdId: row.pdId});
-                    obj.dialogDetailsVisible = true;
-                });
-            },                         //行内按钮 盘点详情
-            inlineInventoryConfirm: function (index, row) {
-                var obj = this;
-                obj.$confirm('确认此盘点计划, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(function () {
-                    p[4].post({pdId: row.pdId});
-                }).catch(function () {
-                    obj.$message({
-                        type: 'info',
-                        message: '已取消'
-                    });
-                });
-            },                     //行内按钮 盘点确认
-            inlineHeavyPlateInlineOperation: function (index, row) {
-                obj.$confirm('确认重盘此货品:' + row.baseGoods.bgGoodsNo + '\r\n所在库位为' + row.baseLocation.blLname, '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(function () {
-                    p[2].post({
-                        "pdsId": row.pdsId
-                    })
-                }).catch(function () {
-                    obj.$message({
-                        type: 'info',
-                        message: '已取消'
-                    });
-                });
-            },            //行内按钮 重盘
-            multiSelectClick: function () {
-                this.multiSelect = !this.multiSelect;
-            },                                      //多选 状态维护
-            multiSelectionChange: function (val) {
-                /*<debug>*/
-                console.log(this.multipleSelection);
-                /*</debug>*/
-                this.multipleSelection = val;
-            },                               //多选 选中控制
-            moreOperationDelete: function () {
-                /*<debug>*/
-                console.log('选中的删除');
-                /*</debug>*/
-                for (i = 0; i < this.multipleSelectionCombination.length; i++) {
-                    remove(this.multipleSelectionCombination[i], this.warehousingReservationCombination);
-                }
-            },                                   //多选 删除
-            newInput: function () {
-                this.form = _form();
-                this.dialogFormVisible = true;
-                this.dialogFormActive = 0;
-                Vue.nextTick(function () {
-                    comprehensiveInventory.$refs.carousel.setActiveItem(0);
-                });
-            },                                              //新增
-            handleSizeChange: function (val) {
-                /*<debug>*/
-                console.log('每页' + val + '条');
-                /*</debug>*/
-                this.pageSize = val;
-                p[0].post( this.option);
-            },                                   //分页 Size
-            handleCurrentChange: function (val) {
-                /*<debug>*/
-                console.log('当前第' + val + '页');
-                /*</debug>*/
-                this.currentPage = val;
-                p[0].post(this.option);
-            },                                //分页 当前页
-            prev: function () {
-                this.dialogFormActive--;
-                this.$refs.carousel.prev();
-            },                                                  //新建 弹出层banner控制 前一个
-            next: function () {
-                this.dialogFormActive++;
-                this.$refs.carousel.next();
-            },                                                  //新建 弹出层banner控制 后一个
-            submit: function () {
-                this.$refs['ref_form'].validate(function (valid) {
-                    if (valid) {
-                        var _this = this;
-                        obj.dialogFormActive++;
-                        obj.submitLoading = true;
-                        //TODO 此处应是ajax请求
-                        setTimeout(function () {
-                            _this.submitLoading = false;
-                            _this.$notify({
-                                title: '成功',
-                                message: '保存成功！',
-                                type: 'success'
-                            });
-                            _this.dialogFormVisible = false;
-                            _this.form = {
-                                rkRkdjNo: '',
-                                rkType: '',
-                                rkRemarks: '',
-                                rkDocsList: [],
-                                bgGoodsNo: '',
-                                selectGood: {
-                                    value: '',
-                                    bgGoodsName: '',
-                                    count: 0,
-                                    bgGoodsId: ''
-                                },
-                                saveARkDocsList: true,
-                                deleteARkDocsList: true
-                            };
-                            _this.dialogFormActive = 0;
-                            _this.$refs.carousel.setActiveItem(0);
-                            p[0].post();
-                        }, 1500);
-                    } else {
-                        return false;
-                    }
-                });
-
-                p[1].post(obj.dpPd_pop,function (json) {
-                    obj.submitLoading = false;
-                    obj.dialogFormVisible = false;
-                    this.callbackAfter({status:json.status,model:'如果失败请检查仓库是否已有盘点计划或者库存含有待转移...新增动碰盘点'},function () {
-                        obj.form=_form();
-                        obj.dialogFormActive = 0;
-                        obj.$refs.carousel.setActiveItem(0);
-                        p[0].post();
-                    })
-                });
-            },                                                //新建 表单提交
-            selectSubmit: function () {
-                this.dialogSelectVisible = !this.dialogSelectVisible;
-                p[0].post( {});
-            },                                          //详细查询 提交
-            printfSubmit: function () {
-                var datas=[];
-                var checkData=comprehensiveInventory.$refs.printf.getCheckedNodes();
-                for(var i in checkData){
-                    if(typeof checkData[i].val2!=='undefined'){
-                        datas.push(checkData[i]);
-                    }
-                }
-                this.printDatas=datas;
-                this.dialogPelectVisible = !this.dialogPrintfVisible;
-                wap.print(this);
-            },                                          //打印 提交
-            printfCheckChange: function () {
-
-            },                                     //打印 选中维护
-            printfLoadNode: function (node, resolve) {
-                console.log(node.data);
-                switch (node.level) {
-                    case 0:
-                        return resolve(this.printf);
-                    case 1:
-                        postRkrwNo(this, {
-                            rkrwNo:node.data.rkrwNo,
-                            rkrwDhrq:node.data.rkrwDhrq
-                        }, resolve);
-                        break;
-                    case 2:
-                        console.log(node.data.name);
-                        postRkdjId(this, {
-                            rkrwNo:node.data.rkrwNo,
-                            rkrwDhrq:node.data.rkrwDhrq
-                        }, resolve);
-                        break;
-                    case 3:
-                        return resolve([]);
-                }
-            },
-            auto_pdType:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        0:'异动盘点',
-                        1:'货品盘点',
-                        2:'全仓盘点',
-                    }
-                }else{
-                    temp={
-                        '异动盘点':0,
-                        '货品盘点':1,
-                        '全仓盘点':2
-                    }
-                }
-                return temp[value];
-            },                                         //盘点类型
-            auto_pdStatus:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        0:'初始',
-                        1:'盘点确认',
-                        2:'作废',
-                    }
-                }else{
-                    temp={
-                        '初始':0,
-                        '盘点确认':1,
-                        '全仓盘点':2
-                    }
-                }
-                return temp[value];
-            },                                       //盘点状态
-            auto_pdDiffStatus:function(value){
-                var temp={}
-                if(!isNaN(value)){
-                    temp={
-                        0:'无差异',
-                        1:'有差异',
-                    }
-                }else{
-                    temp={
-                        '无差异':0,
-                        '有差异':1,
-
-                    }
-                }
-                return temp[value];
-            },                                   //差异状态
-        },
-        watch: {
-            filterText: function (val) {
-                this.$refs.tree5.filter(val);
-            },
-        }
-
-    });
-    function _form() {
-        return {
-            pdChargePerson:''
-        }
-    }
-    function validate_form(){
-        return{
-            pdChargePerson:'vNull'
-        }
-    }
-    function _timer(option) {
-        return setInterval(function () {
-            if (obj.dialogDetailsVisible) {
-                p[6].post(option, function (json) {
-                    obj.details = json.model;
-                })
-            } else {
-                clearInterval(homeTimer);
-                homeTimer = 0;
+          }, {
+            text: '最近一个月',
+            onClick: function (picker) {
+              var end = new Date();
+              var start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit('pick', [start, end]);
             }
-        }, timer_span.loopInventory)
-    }
+          }, {
+            text: '最近三个月',
+            onClick: function (picker) {
+              var end = new Date();
+              var start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit('pick', [start, end]);
+            }
+          }]
+        },
+        showLoading: false,
+        currentPage: 1,
+        pageSize: 10,
+        currentTotal: 0,
 
-    var obj=comprehensiveInventory;
-    var p=[];
-    // 0 全面盘点 全面盘点分页查询
-    p[0] = autoPost({
-        urlHock: "/hock/comprehensiveInventory/page.json",
-        urlProd: "/route/comprehensiveInventory/0",
-        success: function (json) {
-            obj.$data.comprehensiveInventory = json.data;
-            obj.$data.currentTotal = json.recordsFiltered;
+        pdId: '',
+        currentPage1: 1,
+        pageSize1: 10,
+        currentTotal1: 0,
+
+        rule_form: autoValidate(validate_form()), //新增验证规则
+        date: [null, null],                 //主页面 选择日期 搜索
+        rkRkdjNo: '',                       //主页面 入库单号 搜索
+
+        formLabelWidth: '120px',            //表单 配置
+        form: _form(),                           //表单 弹出层 信息集合
+        dialogFormActive: 0,                //新建 弹出层 steps 当前进度
+        dialogFormVisible: false,           //新建 弹出层 是否可见
+        submitLoading: false,               //新建 弹出层 提交等待
+        select: _form(),                         //搜索 弹出层 信息集合,
+        dialogSelectVisible: false,
+        dialogPrintfVisible: false,
+        selectLoading: false,
+        printfLoading: false,
+        details: [],                        //查看 盘点详情 弹出层 信息集合(表单格式)
+        dialogDetailsVisible: false,        //查看 盘点详情 弹出层 是否可见
+      }
+    },
+    computed: {
+      option: function () {
+        return {
+          "draw": 1,
+          "pageNum": this.currentPage,
+          "pageSize": this.pageSize
         }
-    });
-    // 1 全面盘点 新增全面盘点计划及明细
-    p[1] = autoPost({
-        urlHock: "",
-        urlProd: "/route/comprehensiveInventory/1",
-        success: function (json) {
+      },
+      search: function () {
+        return {
+          "draw": 1,
+          "pageNum": this.currentPage,
+          "pageSize": this.pageSize,
+          "rkrwN": this.form.rkrwN,
+          "rkrwCph": this.form.rkrwCph,
+          "dds": this.form.dds,
+          "pxs": this.form.pxs,
+          "rkrwSjxm": this.form.rkrwSjxm,
+          "rkrwDhrq": this.form.rkrwDhrq,
+          "rkrwDbd": this.form.rkrwDbd,
+          "rkrwCys": this.form.rkrwCys,
+          "rkrwDh": this.form.rkrwDh,
+          "rkrwStatus": this.form.rkrwStatus
+        }
+      },
+      dpPd_pop: function () {
+        return {
+          "pdCreateUserId": app.rmsUser.ruUserId,
+          "pdChargePerson": this.form.pdChargePerson,
+          "pdArehouseId": window.dbmessage.baseArehouses[0].baArehouseId
+        }
+      },
+      distributionForm: function () {
+        return {
+          distribution: this.distribution
+        }
+      },                                      //分配 表单
+
+      pdOption: function () {
+        return {
+          pdId: this.pdId,
+          "draw": 1,
+          "pageNum": this.currentPage1,
+          "pageSize": this.pageSize1
+        }
+      }
+
+    },
+    methods: {
+      tableRowClassName: function (row, index) {
+        if (row.pdsStatus === 1 && (row.pdsRepertoryCount - row.pdsPdCount) !== 0) {
+          return 'warning-row';
+        } else if (row.pdsStatus === 1 && (row.pdsRepertoryCount - row.pdsPdCount) === 0) {
+          return 'success-row';
+        }
+        return '';
+      },                          //盘点详情 行内颜色变化
+      nodeClick: function (value, data, node) {
+        var i = 0;
+        var step = [];
+        var assignmentData = [];
+        for (i = 0; i <= obj.$data._pageNow; i++) {
+          for (var b = 0; b < obj.$data._assignment[i].length; b++) {
+            assignmentData.push(obj.$data._assignment[i][b]);
+          }
+        }
+
+        if (obj.assignmentVal.length !== 0) {
+          for (i = 0; i < assignmentData.length; i++) {
+            if (autoIndexof(assignmentData[i].key, obj.assignmentVal, value.val)) {
+              step.push({
+                key: assignmentData[i].key,
+                label: assignmentData[i].label
+              });
+            }
+          }
+        } else {
+          step = assignmentData;
+        }
+
+        obj.assignment = step;
+
+
+        obj.assignmentForm = value;
+        obj.assignmentLoading = false;
+
+      },                           //分配任务 点击用户头像
+      handleChange: function handleChange(value, direction, movedKeys) {
+        console.log(value, direction, movedKeys);
+        var i = 0;
+        var step = 0;
+        switch (direction) {
+          case 'right':
+            for (i = 0; i < movedKeys.length; i++) {
+              if (this.assignmentVal.indexOf(movedKeys[i]) === -1) {
+                this.assignmentVal.push(movedKeys[i]);
+              }
+            }
+            obj.assignmentForm.sum += movedKeys.length;
+            break;
+          case 'left':
+            for (i = 0; i < movedKeys.length; i++) {
+              step = this.assignmentVal.indexOf(movedKeys[i]);
+              if (step !== -1) {
+                remove(step, this.assignmentVal);
+              }
+            }
+            obj.assignmentForm.sum -= movedKeys.length;
+            break;
 
         }
-    });
-    // 2 全面盘点 根据盘点明细id重盘（修改状态)
-    p[2] = autoPost({
-        urlHock: "",
-        urlProd: "/route/comprehensiveInventory/2",
-        success: function (json) {
+      },  //分配任务 分配任务与取消任务
+      filterNode: function (value, data) {
+        if (!value) return true;
+        return data.ruLoginName.indexOf(value) !== -1;
+      },                                //分配任务 模糊查询用户
+      treeRenderContent: function (h, node) {
+        return h(
+          'div', {
+            style: {
+              width: '100%',
+              lineHeight: '60px',
+              position: 'relative',
+              paddingLeft: '60px'
+            }
+          },
+          [
+            h('i', {
+              style: {
+                width: '36px',
+                height: '36px',
+                display: 'inline-block',
+                position: 'absolute',
+                left: '12px',
+                top: '12px',
+                backgroundImage: 'url("/static/images/users/' + node.data.ruPortrait + '")',
+                'background-size': 'cover',
+                'border-radius': '50%',
+                border: '1px solid #eee'
+              }
+            }),
+            h('el-badge', {
+              props: {
+                value: node.data.sum
+              }
+            }, [
+              h('span', {
+                style: {
+                  fontSize: '14px'
+                }
+              }, node.data.ruUserName)
+            ])
+          ]
+        )
+      },                             //分配任务 界面控制
+      assignment_submit: function () {
 
-        }
-    });
-    // 3 全面盘点 根据盘点明细id分配任务
-    p[3] = autoPost({
-        urlHock: "",
-        urlProd: "/route/comprehensiveInventory/3",
-        method: 'GET',
-        success: function (json) {
-
-
-        }
-    });
-    // 4 全面盘点 根据盘点计划id确认盘点信息（修改库存）
-    p[4] = autoPost({
-        urlHock: "",
-        urlProd: "/route/comprehensiveInventory/4",
-        success: function (json) {
-            this.callbackAfter(json, function () {
-                p[0].post(obj.option);
+        if (obj.assignment.length - obj.assignmentForm.val.length !== 0) {
+          obj.$alert('还有任务没有被分配！');
+        } else {
+          var step = [];
+          for (var i = 0; i < obj.people.length; i++) {
+            if (obj.people[i].val.length !== 0) {
+              step.push({
+                pdId: obj.pdId,
+                userId: obj.people[i].ruUserId,
+                userName: obj.people[i].ruUserName,
+                ids: obj.people[i].val
+              });
+            }
+          }
+          p[3].post({data: step}, function (json) {
+            this.callbackAfter({status: json.status, model: '分配任务'}, function () {
+              obj.dialogAssignmentVisible = false;
             })
+          })
         }
-    });
-     // 5 全面盘点 分配任务页面根据盘点计划ID查询详情
-    p[5] = autoPost({
-        urlHock: "",
-        urlProd: "/route/comprehensiveInventory/5",
-        success: function (json) {
-            obj.assignment = json.model;
-            obj.dialogAssignmentVisible = true;
-        }
-    });
-     // 6 全面盘点 盘点详情页面根据盘点计划ID查询详情
-    p[6] = autoPost({urlHock: "",
-        urlProd: "/route/comprehensiveInventory/6",
-        success: function (json) {
-            obj.details = json.model;
-            obj.dialogDetailsVisible = true;
+      },                                    //分配任务 保存按钮
 
+
+      comeData: function () {
+        this.$data._pageNow++;
+        var assignmentData = obj.$data._assignment[this.$data._pageNow];
+        for (var b = 0; b < assignmentData.length; b++) {
+          obj.assignment.push({
+            key: assignmentData[b].key,
+            label: assignmentData[b].label
+          });
         }
-    });
-    // 10 循环盘点 根据仓库id查找 所有人员
-    p[10] = autoPost({
-        urlHock: "",
-        urlProd: "/route/loopInventory/7",
-        success: function (json) {
-            for (var i = 0; i < json.length; i++) {
-                json[i].val = [];
+      },
+      inlineAssignment: function (index, row) {
+        p[5].post({pdId: row.pdId}, function (json) {
+          var data = [[]];
+          var _assignment = json.model;
+          for (var b = 0; b <= parseInt(_assignment.length / obj.$data._pageSize); b++) {
+            for (var i = 0; i < obj.$data._pageSize; i++) {
+              if (typeof _assignment[i + (b * obj.$data._pageSize)] !== 'undefined') {
+                if (typeof data[b] === 'undefined') data[b] = [];
+                data[b].push({
+                  key: _assignment[i + (b * obj.$data._pageSize)].pdsId,
+                  label: _assignment[i].baseLocation.blLname + ' ' + _assignment[i].baseGoods.bgGoodsName + ' ' + _assignment[i].baseGoods.bgGoodsNo
+                });
+              }
             }
-            obj.people = json;
-        }
-    });
+          }
 
-    function formAssignment() {
-        return {
-            pdsLocationId: '',          // 库位名称
-            pdsGoodsId: '',             // 货品编号
-            pdsGoodsId: '',             // 货品名称
-            pdsGoodsId: '',             // 货品批次
-            pdsRepertoryCount:'',       //库存数量
+          obj.$data._assignment = data;
+
+          obj.pdId = row.pdId;
+          obj.dialogAssignmentVisible = true;
+        });
+      },                           //行内按钮 分配任务
+      inlineInventoryDetails: function (index, row) {
+        this.pdId=row.pdId;
+        p[6].post(obj.pdOption);
+      },                     //行内按钮 盘点详情
+      inlineInventoryConfirm: function (index, row) {
+        var obj = this;
+        obj.$confirm('确认此盘点计划, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          p[4].post({pdId: row.pdId});
+        }).catch(function () {
+          obj.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+      },                     //行内按钮 盘点确认
+      inlineHeavyPlateInlineOperation: function (index, row) {
+        obj.$confirm('确认重盘此货品:' + row.baseGoods.bgGoodsNo + '\r\n所在库位为' + row.baseLocation.blLname, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          p[2].post({
+            "pdsId": row.pdsId
+          })
+        }).catch(function () {
+          obj.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+      },            //行内按钮 重盘
+      multiSelectClick: function () {
+        this.multiSelect = !this.multiSelect;
+      },                                      //多选 状态维护
+      multiSelectionChange: function (val) {
+        /*<debug>*/
+        console.log(this.multipleSelection);
+        /*</debug>*/
+        this.multipleSelection = val;
+      },                               //多选 选中控制
+      moreOperationDelete: function () {
+        /*<debug>*/
+        console.log('选中的删除');
+        /*</debug>*/
+        for (i = 0; i < this.multipleSelectionCombination.length; i++) {
+          remove(this.multipleSelectionCombination[i], this.warehousingReservationCombination);
         }
-    }//分配任务
-    function formDetails() {
-        return {
-            pdsLocationId: '',          // 库位名称
-            pdsGoodsId: '',             // 货品编号
-            pdsGoodsId: '',             // 货品名称
-            pdsRepertoryCount:'',      // 库存数量
-            pdsPdCount:'',              // 盘点数量
+      },                                   //多选 删除
+      newInput: function () {
+        this.form = _form();
+        this.dialogFormVisible = true;
+        this.dialogFormActive = 0;
+        Vue.nextTick(function () {
+          comprehensiveInventory.$refs.carousel.setActiveItem(0);
+        });
+      },                                              //新增
+      handleSizeChange: function (val) {
+        /*<debug>*/
+        console.log('每页' + val + '条');
+        /*</debug>*/
+        this.pageSize = val;
+        p[0].post(this.option);
+      },                                   //分页 Size
+      handleCurrentChange: function (val) {
+        /*<debug>*/
+        console.log('当前第' + val + '页');
+        /*</debug>*/
+        this.currentPage = val;
+        p[0].post(this.option);
+      },                                //分页 当前页
+
+      handleSizeChange1: function (val) {
+        this.pageSize1 = val;
+        p[6].post(this.pdOption);
+      },                                   //分页 Size
+      handleCurrentChange1: function (val) {
+        this.currentPage1 = val;
+        p[6].post(this.pdOption);
+      },                                //分页 当前页
+
+      submit: function () {
+        this.$refs['ref_form'].validate(function (valid) {
+          if (valid) {
+            obj.dialogFormActive++;
+            obj.submitLoading = true;
+            p[1].post(obj.dpPd_pop, function (json) {
+              obj.submitLoading = false;
+              obj.dialogFormVisible = false;
+              this.callbackAfter({status: json.status, model: '如果失败请检查仓库是否已有盘点计划或者库存含有待转移...新增动碰盘点'}, function () {
+                obj.form = _form();
+                obj.dialogFormActive = 0;
+                obj.$refs.carousel.setActiveItem(0);
+                p[0].post();
+              })
+            });
+          } else {
+            return false;
+          }
+        });
+
+
+      },                                                //新建 表单提交
+      selectSubmit: function () {
+        this.dialogSelectVisible = !this.dialogSelectVisible;
+        p[0].post({});
+      },
+      auto_pdType: function (value) {
+        var temp = {}
+        if (!isNaN(value)) {
+          temp = {
+            0: '异动盘点',
+            1: '货品盘点',
+            2: '全仓盘点',
+          }
+        } else {
+          temp = {
+            '异动盘点': 0,
+            '货品盘点': 1,
+            '全仓盘点': 2
+          }
         }
-    }//盘点详情
-    p[0].post(comprehensiveInventory.option);
-    p[10].post({id: window.dbmessage.baseArehouses[0].baArehouseId});
+        return temp[value];
+      },                                         //盘点类型
+      auto_pdStatus: function (value) {
+        var temp = {}
+        if (!isNaN(value)) {
+          temp = {
+            0: '初始',
+            1: '盘点确认',
+            2: '作废',
+          }
+        } else {
+          temp = {
+            '初始': 0,
+            '盘点确认': 1,
+            '全仓盘点': 2
+          }
+        }
+        return temp[value];
+      },                                       //盘点状态
+      auto_pdDiffStatus: function (value) {
+        var temp = {}
+        if (!isNaN(value)) {
+          temp = {
+            0: '无差异',
+            1: '有差异',
+          }
+        } else {
+          temp = {
+            '无差异': 0,
+            '有差异': 1,
+
+          }
+        }
+        return temp[value];
+      },                                   //差异状态
+    },
+    watch: {
+      filterText: function (val) {
+        this.$refs.tree5.filter(val);
+      },
+    }
+
+  });
+
+  function _form() {
+    return {
+      pdChargePerson: ''
+    }
+  }
+
+  function validate_form() {
+    return {
+      pdChargePerson: 'vNull'
+    }
+  }
+
+  function _timer(pdId) {
+    obj.pdId = pdId;
+    return setInterval(function () {
+      if (obj.dialogDetailsVisible) {
+        p[6].post(obj.pdOption)
+      } else {
+        clearInterval(homeTimer);
+        homeTimer = 0;
+      }
+    }, timer_span.loopInventory)
+  }
+
+  var obj = comprehensiveInventory;
+  var p = [];
+  // 0 全面盘点 全面盘点分页查询
+  p[0] = autoPost({
+    urlHock: "/hock/comprehensiveInventory/page.json",
+    urlProd: "/route/comprehensiveInventory/0",
+    success: function (json) {
+      obj.$data.comprehensiveInventory = json.data;
+      obj.$data.currentTotal = json.recordsFiltered;
+    }
+  });
+  // 1 全面盘点 新增全面盘点计划及明细
+  p[1] = autoPost({
+    urlHock: "",
+    urlProd: "/route/comprehensiveInventory/1",
+    success: function (json) {
+
+    }
+  });
+  // 2 全面盘点 根据盘点明细id重盘（修改状态)
+  p[2] = autoPost({
+    urlHock: "",
+    urlProd: "/route/comprehensiveInventory/2",
+    success: function (json) {
+
+    }
+  });
+  // 3 全面盘点 根据盘点明细id分配任务
+  p[3] = autoPost({
+    urlHock: "",
+    urlProd: "/route/comprehensiveInventory/3",
+    method: 'GET',
+    success: function (json) {
+
+
+    }
+  });
+  // 4 全面盘点 根据盘点计划id确认盘点信息（修改库存）
+  p[4] = autoPost({
+    urlHock: "",
+    urlProd: "/route/comprehensiveInventory/4",
+    success: function (json) {
+      this.callbackAfter(json, function () {
+        p[0].post(obj.option);
+      })
+    }
+  });
+  // 5 全面盘点 分配任务页面根据盘点计划ID查询详情
+  p[5] = autoPost({
+    urlHock: "",
+    urlProd: "/route/comprehensiveInventory/5",
+    success: function (json) {
+      obj.assignment = json.model;
+      obj.dialogAssignmentVisible = true;
+    }
+  });
+  // 6 全面盘点 盘点详情页面根据盘点计划ID查询详情
+  p[6] = autoPost({
+    urlHock: "",
+    urlProd: "/route/comprehensiveInventory/6",
+    success: function (json) {
+      obj.details = json.data;
+      obj.dialogDetailsVisible = true;
+      if(homeTimer===0)homeTimer = _timer(obj.pdId);
+      obj.currentTotal1 = json.recordsFiltered;
+    }
+  });
+  // 10 循环盘点 根据仓库id查找 所有人员
+  p[10] = autoPost({
+    urlHock: "",
+    urlProd: "/route/loopInventory/7",
+    success: function (json) {
+      for (var i = 0; i < json.length; i++) {
+        json[i].val = [];
+        json[i].sum = 0;
+        json[i].pageNow = 1;
+      }
+      obj.people = json;
+    }
+  });
+
+  p[0].post(comprehensiveInventory.option);
+  p[10].post({id: window.dbmessage.baseArehouses[0].baArehouseId});
 
 </script>
 
