@@ -417,7 +417,9 @@
                 @change="handleChange"
                 :data="assignment">
               <template slot="left-footer">
-                <el-button size="small" @click="comeData" v-if="$data._assignment.length>$data._pageNow+1">再来{{$data._pageSize}}条</el-button>
+                <el-button size="small" @click="comeData" v-if="$data._assignment.length>$data._pageNow+1">
+                  再来{{$data._pageSize}}条
+                </el-button>
               </template>
             </el-transfer>
           </el-row>
@@ -500,8 +502,8 @@
       </el-table-column>
     </el-table>
     <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange1"
+        @current-change="handleCurrentChange1"
         :current-page="currentPage1"
         :page-sizes="[10, 20, 30, 50]"
         :page-size="pageSize1"
@@ -815,14 +817,11 @@
           obj.pdId = row.pdId;
           obj.dialogAssignmentVisible = true;
         });
-      },                            //行内按钮 分配任务
+      },                           //行内按钮 分配任务
       inlineInventoryDetails: function (index, row) {
-        p[6].post({pdId: row.pdId}, function (json) {
-          obj.details = json.model;
-          homeTimer = _timer(row.pdId);
-          obj.dialogDetailsVisible = true;
-        });
-      },                         //行内按钮 盘点详情
+        this.pdId=row.pdId;
+        p[6].post(obj.pdOption);
+      },                     //行内按钮 盘点详情
       inlineInventoryConfirm: function (index, row) {
         var obj = this;
         obj.$confirm('确认此盘点计划, 是否继续?', '提示', {
@@ -1004,9 +1003,7 @@
     obj.pdId = pdId;
     return setInterval(function () {
       if (obj.dialogDetailsVisible) {
-        p[6].post(obj.pdOption, function (json) {
-          obj.details = json.model;
-        })
+        p[6].post(obj.pdOption)
       } else {
         clearInterval(homeTimer);
         homeTimer = 0;
@@ -1075,9 +1072,10 @@
     urlHock: "",
     urlProd: "/route/comprehensiveInventory/6",
     success: function (json) {
-      obj.details = json.model;
+      obj.details = json.data;
       obj.dialogDetailsVisible = true;
-
+      if(homeTimer===0)homeTimer = _timer(obj.pdId);
+      obj.currentTotal1 = json.recordsFiltered;
     }
   });
   // 10 循环盘点 根据仓库id查找 所有人员
