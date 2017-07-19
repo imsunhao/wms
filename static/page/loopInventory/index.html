@@ -257,28 +257,32 @@
                                         <el-tag-s :val="auto_el_tag('pdDiffStatus',props.row.pdDiffStatus)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="可用操作">
-                                        <el-button
+                                        <el-row>
+                                            <el-button
                                                 size="small"
                                                 type="info"
                                                 :loading="assignmentLoading"
                                                 @click="inlineAssignment(props.$index, props.row)">分配
                                         </el-button>
-                                        <el-button
+                                            <el-button
                                                 size="small"
                                                 @click="inlineInventoryDetails(props.$index, props.row)">详情
                                         </el-button>
-                                        <el-button
+                                            <el-button
                                                 size="small"
                                                 type="success"
                                                 @click="inlineInventoryConfirm(props.$index, props.row)">确认
                                         </el-button>
-                                        <el-button
-                                                size="small"
-                                                type="danger"
-                                                icon="delete"
-                                                :loading="assignmentLoading"
-                                                @click="inlineAssignmentDelete(props.$index, props.row)">
-                                        </el-button>
+                                        </el-row>
+                                        <el-row>
+                                            <el-button
+                                                    size="small"
+                                                    type="danger"
+                                                    icon="delete"
+                                                    :loading="assignmentLoading"
+                                                    @click="inlineAssignmentDelete(props.$index, props.row)">
+                                            </el-button>
+                                        </el-row>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
