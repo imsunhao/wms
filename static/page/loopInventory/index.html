@@ -260,6 +260,7 @@
                                         <el-button
                                                 size="small"
                                                 type="info"
+                                                :loading="assignmentLoading"
                                                 @click="inlineAssignment(props.$index, props.row)">分配
                                         </el-button>
                                         <el-button
@@ -271,8 +272,13 @@
                                                 type="success"
                                                 @click="inlineInventoryConfirm(props.$index, props.row)">确认
                                         </el-button>
-
-
+                                        <el-button
+                                                size="small"
+                                                type="danger"
+                                                icon="delete"
+                                                :loading="assignmentLoading"
+                                                @click="inlineAssignmentDelete(props.$index, props.row)">
+                                        </el-button>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -411,6 +417,7 @@
     <el-dialog
             size="large"
             title="分配任务"
+            @close="assignmentClose"
             v-model="dialogAssignmentVisible">
         <el-row>
             <el-col :span="6">
@@ -570,7 +577,7 @@
 
                 pdId: '',
                 dialogAssignmentVisible: false,          //分配任务 弹出层 是否可见
-                assignmentLoading: true,
+                assignmentLoading: false,
 
 
                 filterText: '',
@@ -771,14 +778,22 @@
                     var step = [];
                     for (var i = 0; i < obj.people.length; i++) {
                         if (obj.people[i].val.length !== 0) {
+                            var ids = [];
+                            for (var b = 0; b < obj.people[i].val.length; b++) {
+                                ids.push(obj.people[i].val[b] + '');
+                            }
                             step.push({
                                 pdId: obj.pdId,
                                 userId: obj.people[i].ruUserId,
                                 userName: obj.people[i].ruUserName,
-                                ids: obj.people[i].val
+                                ids: ids
                             });
                         }
                     }
+                    var option = {data: step};
+                    console.log(option);
+                    console.log({json: JSON.stringify(option)});
+
                     p[3].post({data: step}, function (json) {
                         this.callbackAfter({status: json.status, model: '分配任务'}, function () {
                             obj.dialogAssignmentVisible = false;
@@ -786,6 +801,9 @@
                     })
                 }
             },                                    //分配任务 保存按钮
+            assignmentClose: function () {
+                this.assignmentLoading = false;
+            },
             comeData: function () {
                 this.$data._pageNow++;
                 var assignmentData = obj.$data._assignment[this.$data._pageNow];
@@ -799,6 +817,7 @@
 
 
             inlineAssignment: function (index, row) {
+                obj.assignmentLoading = true;
                 p[5].post({pdId: row.pdId}, function (json) {
                     var data = [[]];
                     var _assignment = json.model;
@@ -1069,7 +1088,8 @@
     p[3] = autoPost({
         urlHock: "",
         urlProd: "/route/loopInventory/3",
-        method: 'GET'
+        success: function (json) {
+        }
     });
 
     // 4 循环盘点 根据盘点计划id确认盘点信息（修改库存）
