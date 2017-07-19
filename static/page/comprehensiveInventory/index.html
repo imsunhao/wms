@@ -260,6 +260,7 @@
                     <el-button
                         size="small"
                         type="info"
+                        :loading="assignmentLoading"
                         @click="inlineAssignment(props.$index, props.row)">分配
                     </el-button>
                     <el-button
@@ -378,6 +379,7 @@
   <el-dialog
       size="large"
       title="分配任务"
+      @close="assignmentClose"
       v-model="dialogAssignmentVisible">
     <el-row>
       <el-col :span="6">
@@ -536,9 +538,10 @@
         assignment: [],                          //分配任务 弹出层 信息集合(表单格式)
         assignmentVal: [],
 
+
         assignmentForm: _assignmentForm(),
         dialogAssignmentVisible: false,          //分配任务 弹出层 是否可见
-        assignmentLoading: true,
+        assignmentLoading: false,
         filterText: '',
         defaultProps: {
           children: 'children',
@@ -769,15 +772,23 @@
           var step = [];
           for (var i = 0; i < obj.people.length; i++) {
             if (obj.people[i].val.length !== 0) {
+              var ids = [];
+              for (var b = 0; b < obj.people[i].val.length; b++) {
+                ids.push(obj.people[i].val[b] + '');
+              }
               step.push({
                 pdId: obj.pdId,
                 userId: obj.people[i].ruUserId,
                 userName: obj.people[i].ruUserName,
-                ids: obj.people[i].val
+                ids: ids
               });
             }
           }
-          p[3].post({data: step}, function (json) {
+          var option = {data: step};
+//          autoArrayToObject(option);
+          console.log(option);
+          console.log({json: JSON.stringify(option)});
+          p[3].post({json: JSON.stringify(option)}, function (json) {
             this.callbackAfter({status: json.status, model: '分配任务'}, function () {
               obj.dialogAssignmentVisible = false;
             })
@@ -785,6 +796,9 @@
         }
       },                                    //分配任务 保存按钮
 
+      assignmentClose: function () {
+        this.assignmentLoading = false;
+      },
 
       comeData: function () {
         this.$data._pageNow++;
@@ -797,6 +811,7 @@
         }
       },
       inlineAssignment: function (index, row) {
+        obj.assignmentLoading = true;
         p[5].post({pdId: row.pdId}, function (json) {
           var data = [[]];
           var _assignment = json.model;
@@ -819,7 +834,7 @@
         });
       },                           //行内按钮 分配任务
       inlineInventoryDetails: function (index, row) {
-        this.pdId=row.pdId;
+        this.pdId = row.pdId;
         p[6].post(obj.pdOption);
       },                     //行内按钮 盘点详情
       inlineInventoryConfirm: function (index, row) {
@@ -1042,7 +1057,6 @@
   p[3] = autoPost({
     urlHock: "",
     urlProd: "/route/comprehensiveInventory/3",
-    method: 'GET',
     success: function (json) {
 
 
@@ -1074,7 +1088,7 @@
     success: function (json) {
       obj.details = json.data;
       obj.dialogDetailsVisible = true;
-      if(homeTimer===0)homeTimer = _timer(obj.pdId);
+      if (homeTimer === 0) homeTimer = _timer(obj.pdId);
       obj.currentTotal1 = json.recordsFiltered;
     }
   });
