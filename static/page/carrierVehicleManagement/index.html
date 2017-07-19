@@ -287,21 +287,10 @@
         </div>
     </el-row>
     <el-dialog
-            size="large"
+            size="tiny"
             v-model="dialogFormVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">{{form.title}}</span>
-            <el-steps
-                    class="steps"
-                    :space="120"
-                    :active="dialogFormActive"
-                    finish-status="success">
-            </el-steps>
-        </div>
         <el-form :model="form" ref="ref_form" :rules="rule_form" >
-            <el-row>
-                <el-col :span="10">
-                    <el-form-item
+            <el-form-item
                             prop="bcCph"
                             label="车牌号"
                             :label-width="formLabelWidth">
@@ -316,7 +305,7 @@
                         {{form.bcCph}}
                       </el-tag>
                     </el-form-item>
-                    <el-form-item
+            <el-form-item
                             prop="bcSjxm"
                             label="司机姓名"
                             :label-width="formLabelWidth">
@@ -324,10 +313,7 @@
                                 v-model="form.bcSjxm"
                                 auto-complete="off"></el-input>
                     </el-form-item>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="10" :offset="2">
-                    <el-form-item
+            <el-form-item
                             prop="bcSjdh"
                             label="司机电话"
                             :label-width="formLabelWidth">
@@ -335,10 +321,7 @@
                                 v-model="form.bcSjdh"
                                 auto-complete="off"></el-input>
                     </el-form-item>
-                </el-col>
-            </el-row>
         </el-form>
-
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="submit" :loading="submitLoading">保存
             </el-button>
