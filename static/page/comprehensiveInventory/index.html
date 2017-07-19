@@ -257,21 +257,32 @@
                     <el-tag-s :val="auto_el_tag('pdDiffStatus',props.row.pdDiffStatus)"></el-tag-s>
                   </el-form-item>
                   <el-form-item label="可用操作">
-                    <el-button
-                        size="small"
-                        type="info"
-                        :loading="assignmentLoading"
-                        @click="inlineAssignment(props.$index, props.row)">分配
-                    </el-button>
-                    <el-button
-                        size="small"
-                        @click="inlineInventoryDetails(props.$index, props.row)">详情
-                    </el-button>
-                    <el-button
-                        size="small"
-                        type="success"
-                        @click="inlineInventoryConfirm(props.$index, props.row)">确认
-                    </el-button>
+                    <el-row>
+                      <el-button
+                          size="small"
+                          type="info"
+                          :loading="assignmentLoading"
+                          @click="inlineAssignment(props.$index, props.row)">分配
+                      </el-button>
+                      <el-button
+                          size="small"
+                          @click="inlineInventoryDetails(props.$index, props.row)">详情
+                      </el-button>
+                      <el-button
+                          size="small"
+                          type="success"
+                          @click="inlineInventoryConfirm(props.$index, props.row)">确认
+                      </el-button>
+                    </el-row>
+                    <el-row>
+                      <el-button
+                          size="small"
+                          type="danger"
+                          icon="delete"
+                          :loading="assignmentLoading"
+                          @click="inlineAssignmentDelete(props.$index, props.row)">
+                      </el-button>
+                    </el-row>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -638,6 +649,21 @@
 
     },
     methods: {
+      inlineAssignmentDelete:function (index,row) {
+        obj.$confirm('删除此盘点计划, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          p[101].post({pdId: row.pdId});
+        }).catch(function () {
+          obj.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+      },
+      
       tableRowClassName: function (row, index) {
         if (row.pdsStatus === 1 && (row.pdsRepertoryCount - row.pdsPdCount) !== 0) {
           return 'warning-row';
@@ -818,7 +844,6 @@
         p[6].post(obj.pdOption);
       },                     //行内按钮 盘点详情
       inlineInventoryConfirm: function (index, row) {
-        var obj = this;
         obj.$confirm('确认此盘点计划, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -869,9 +894,6 @@
         this.form = _form();
         this.dialogFormVisible = true;
         this.dialogFormActive = 0;
-        Vue.nextTick(function () {
-          comprehensiveInventory.$refs.carousel.setActiveItem(0);
-        });
       },                                              //新增
       handleSizeChange: function (val) {
         /*<debug>*/
@@ -908,7 +930,6 @@
               this.callbackAfter({status: json.status, model: '如果失败请检查仓库是否已有盘点计划或者库存含有待转移...新增动碰盘点'}, function () {
                 obj.form = _form();
                 obj.dialogFormActive = 0;
-                obj.$refs.carousel.setActiveItem(0);
                 p[0].post();
               })
             });
@@ -1070,6 +1091,16 @@
       obj.dialogDetailsVisible = true;
       if (homeTimer === 0) homeTimer = _timer(obj.pdId);
       obj.currentTotal1 = json.recordsFiltered;
+    }
+  });
+  // 101 盘点 取消盘点计划
+  p[101] = autoPost({
+    urlHock: "",
+    urlProd: "/route/reservoirInventory/9",
+    success: function (json) {
+      this.callbackAfter(json,function () {
+        p[0].post();
+      })
     }
   });
   // 10 循环盘点 根据仓库id查找 所有人员

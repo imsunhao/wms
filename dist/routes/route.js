@@ -207,8 +207,6 @@ router.param('_url', function (req, res, next, url) {
             break;
         }
         break;
-
-
       case 'warehousingReservation':
         switch (parseInt(req.params._status)) {
           case 0:
@@ -805,7 +803,6 @@ router.param('_url', function (req, res, next, url) {
             break;
         }
         break;
-
       case 'outputAppointment':
         switch (parseInt(req.params._status)) {
           case 0:
@@ -1067,7 +1064,6 @@ router.param('_url', function (req, res, next, url) {
             break;
         }
         break;
-
       case 'recoveryArchive':
         switch (parseInt(req.params._status)) {
           case 0:
@@ -1108,8 +1104,6 @@ router.param('_url', function (req, res, next, url) {
             break;
         }
         break;
-
-
       case 'inputDaily':
         switch (parseInt(req.params._status)) {
           case 0:
@@ -1142,7 +1136,6 @@ router.param('_url', function (req, res, next, url) {
             break;
         }
         break;
-
       case 'stockSelect':
         switch (parseInt(req.params._status)) {
           case 0:
@@ -1650,8 +1643,70 @@ router.param('_url', function (req, res, next, url) {
             break;
         }
         break;
-
-
+      case 'reservoirInventory':
+        switch (parseInt(req.params._status)) {
+          case 0:
+            urlName = '库区盘点  库区盘点分页查询';
+            req = autoUrl(req, '/mfunpd/selectFQPDByPage', "POST", function (json) {
+              res.send(json);
+            });
+            break;
+          case 1:
+            urlName = '库区盘点 新增库区盘点计划及明细';
+            req = autoUrl(req, '/mfunpd/insertFQMfunpdDocAndDocs', "POST", function (json) {
+              res.send(json);
+            });
+            break;
+          case 2:
+            urlName = '库区盘点 根据盘点明细id重盘（修改状态)';
+            req = autoUrl(req, '/mfunpd/againPdByPdsId', "POST", function (json) {
+              res.send(json);
+            });
+            break;
+          case 3:
+            urlName = '库区盘点 根据盘点明细id分配任务';
+            req = autoUrl(req, '/mfunpd/allocatingTaskByPdsId', "POST", function (json) {
+              res.send(json);
+            });
+            break;
+          case 4:
+            urlName = '库区盘点 根据盘点计划id确认盘点信息（修改库存）';
+            req = autoUrl(req, '/mfunpd/confirmPdDocByPdId', "POST", function (json) {
+              res.send(json);
+            });
+            break;
+          case 5:
+            urlName = '库区盘点 分配任务页面根据盘点计划ID查询详情';
+            req = autoUrl(req, '/mfunpd/selectPdInfoByPdId', "POST", function (json) {
+              res.send(json);
+            });
+            break;
+          case 6:
+            urlName = '库区盘点 盘点详情页面根据盘点计划ID查询详情';
+            req = autoUrl(req, '/mfunpd/selectPdInfoByPdsPdId', "POST", function (json) {
+              res.send(json);
+            });
+            break;
+          case 7:
+            urlName = '库区盘点 新增盘点计划-查找所有区域';
+            req = autoUrl(req, '/region/page', "POST", function (json) {
+              res.send(json);
+            });
+            break;
+          case 8:
+            urlName = '库区盘点 新增盘点计划-查找指定区域下的储位';
+            req = autoUrl(req, '/region/'+req.query.id, "GET", function (json) {
+              res.send(json);
+            });
+            break;
+          case 9:
+            urlName = '盘点 取消盘点计划';
+            req = autoUrl(req, '/mfunpd/cancelPdJHByPdId', "POST", function (json) {
+              res.send(json);
+            });
+            break;
+        }
+        break;
     }
     console.log(req.session.user.rmsUser.ruUserName + ' ' + dateFormat(new Date(), 'yyyy-MM-dd hh:mm:ss') + ' 请求：\t' + urlName + '\t' + req.info.url + '\t' + req.info.method);
     next();
