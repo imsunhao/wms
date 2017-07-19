@@ -533,6 +533,17 @@ function selectVC(ref, prop) {
   });
 }        //validate select 验证补丁
 
+function autoIndexof(e, o, o2) {
+  var i = 0;
+  for (i = 0; i < o2.length; i++) {
+    if (e === o2[i]) return true;
+  }
+  for (i = 0; i < o.length; i++) {
+    if (e === o[i]) return false;
+  }
+  return true;
+}
+
 var _option = false;                      //查询切换 补丁
 function selectReturn() {
   _option = false;
@@ -1053,7 +1064,8 @@ var ___datas = (function () {
       data: [
         {value: 0, name: '异动盘点', type: 'warning', color: ''},
         {value: 1, name: '货品盘点', type: 'danger', color: ''},
-        {value: 2, name: '全仓盘点', type: 'success', color: ''}
+        {value: 2, name: '全仓盘点', type: 'success', color: ''},
+        {value: 3, name: '库区盘点', type: 'primary', color: ''},
       ]
     },
     {

@@ -1,26 +1,26 @@
 <style>
-  #comprehensiveInventory .el-transfer {
-  
+  #reservoirInventory .el-transfer {
+    
   }
   
-  #comprehensiveInventory .__inner {
+  #reservoirInventory .__inner {
     padding: 0 30px;
   }
   
-  #comprehensiveInventory .el-transfer .el-transfer-panel {
+  #reservoirInventory .el-transfer .el-transfer-panel {
     width: 43.6%;
   }
   
-  #comprehensiveInventory .box-card {
+  #reservoirInventory .box-card {
     height: 421px;
     
   }
   
-  #comprehensiveInventory .box {
+  #reservoirInventory .box {
     position: relative;
   }
   
-  #comprehensiveInventory .box-image {
+  #reservoirInventory .box-image {
     position: absolute;
     right: -10px;
     bottom: -70px;
@@ -31,49 +31,49 @@
     border-radius: 50%;
   }
   
-  #comprehensiveInventory .el-tree {
+  #reservoirInventory .el-tree {
     margin-top: 10px;
     height: 333px;
     overflow-y: auto;
     overflow-x: hidden;
   }
   
-  #comprehensiveInventory .el-tree-node__content {
+  #reservoirInventory .el-tree-node__content {
     line-height: 60px !important;
     height: 60px !important;
   }
 </style>
 <style>
-  #comprehensiveInventory {
+  #reservoirInventory {
     width: 100%;
     min-width: 890px;
     position: relative;
   }
   
-  #comprehensiveInventory .demo-table-expand {
+  #reservoirInventory .demo-table-expand {
     font-size: 0;
   }
   
-  #comprehensiveInventory .demo-table-expand label {
+  #reservoirInventory .demo-table-expand label {
     width: 90px;
     color: #99a9bf;
   }
   
-  #comprehensiveInventory .demo-table-expand .el-form-item {
+  #reservoirInventory .demo-table-expand .el-form-item {
     margin-right: 0;
     margin-bottom: 0;
     width: 80%;
   }
   
-  #comprehensiveInventory .el-table__expand-column .el-table__expand-icon {
+  #reservoirInventory .el-table__expand-column .el-table__expand-icon {
     height: 39px;
   }
   
-  #comprehensiveInventory .table {
+  #reservoirInventory .table {
     transition: 1s all;
   }
   
-  #comprehensiveInventory .el-carousel__container {
+  #reservoirInventory .el-carousel__container {
     height: 440px;
   }
   
@@ -85,12 +85,12 @@
     max-width: calc(100% - 60px);
   }
   
-  #comprehensiveInventory .comprehensiveInventoryTable {
+  #reservoirInventory .reservoirInventoryTable {
     width: 95% !important;
     margin: 20px auto;
   }
   
-  #comprehensiveInventory .datePicker {
+  #reservoirInventory .datePicker {
     width: 140px !important;
     height: 24px !important;
     margin-top: 29px;
@@ -98,38 +98,38 @@
     float: left;
   }
   
-  #comprehensiveInventory .datePicker .el-input__inner {
+  #reservoirInventory .datePicker .el-input__inner {
     border-radius: 2px !important;
     height: 24px !important;
   }
   
-  #comprehensiveInventory .add {
+  #reservoirInventory .add {
     background: url("/static/images/add.png") no-repeat center;
   }
   
-  #comprehensiveInventory .del {
+  #reservoirInventory .del {
     background: url("/static/images/del.png") no-repeat center;
   }
   
-  #comprehensiveInventory .search {
+  #reservoirInventory .search {
     background: url("/static/images/search.png") no-repeat center;
   }
   
-  #comprehensiveInventory .sel {
+  #reservoirInventory .sel {
     background: url("/static/images/sel.png") no-repeat center;
   }
   
-  #comprehensiveInventory .icon {
+  #reservoirInventory .icon {
     float: left;
   }
   
-  #comprehensiveInventory .btn span {
+  #reservoirInventory .btn span {
     float: left;
     margin-top: 4px;
     margin-left: 2px;
   }
   
-  #comprehensiveInventory .btn {
+  #reservoirInventory .btn {
     height: 24px;
     line-height: 1;
     border: none;
@@ -145,28 +145,28 @@
     margin-right: 16px;
   }
   
-  #comprehensiveInventory .btn-print {
+  #reservoirInventory .btn-print {
     margin-right: 0;
   }
   
-  #comprehensiveInventory .btn:hover {
+  #reservoirInventory .btn:hover {
     color: #5468ee;
   }
   
-  #comprehensiveInventory .inner {
+  #reservoirInventory .inner {
     margin: 0 20px;
   }
   
-  #comprehensiveInventory .btn-nav {
+  #reservoirInventory .btn-nav {
     height: 60px;
     overflow: hidden;
   }
   
-  #comprehensiveInventory .btn-nav .el-input .el-input__inner {
+  #reservoirInventory .btn-nav .el-input .el-input__inner {
     height: 24px;
   }
   
-  #comprehensiveInventory .btn-nav .el-input {
+  #reservoirInventory .btn-nav .el-input {
     float: left;
     margin-top: 29px;
     margin-right: 18px;
@@ -194,7 +194,7 @@
 </style>
 <style>
   .select {
-  
+    
   }
   
   .select .input {
@@ -206,7 +206,7 @@
     right: -10px !important;
   }
 </style>
-<div id="comprehensiveInventory">
+<div id="reservoirInventory">
   <!--页面调整-->
   <el-row v-loading="showLoading"
           element-loading-text="拼命加载中">
@@ -217,11 +217,11 @@
         </button>
       </div>
       <el-table
-          :data="comprehensiveInventory"
+          :data="reservoirInventory"
           :default-sort="{prop: 'sjsj', order: 'descending'}"
           :max-height="config_table_height()"
           ref="table"
-          class="comprehensiveInventoryTable"
+          class="reservoirInventoryTable"
           @selection-change='multiSelectionChange'
           style="width: 100%">
         <el-table-column
@@ -234,10 +234,10 @@
               <el-row>
                 <el-col :span="10">
                   <el-form-item label="创建时间">
-                                        <span>
-                                              <el-icon name="time"></el-icon>
-                                            {{ auto_time_new(props.row.pdCreateTime,6) }}
-                                        </span>
+                    <span>
+                      <el-icon name="time"></el-icon>
+                      {{ auto_time_new(props.row.pdCreateTime,6) }}
+                    </span>
                   </el-form-item>
                   <el-form-item label="盘点类型">
                     <el-tag-s :val="auto_el_tag('pdType',props.row.pdType)"></el-tag-s>
@@ -257,32 +257,21 @@
                     <el-tag-s :val="auto_el_tag('pdDiffStatus',props.row.pdDiffStatus)"></el-tag-s>
                   </el-form-item>
                   <el-form-item label="可用操作">
-                    <el-row>
-                      <el-button
-                          size="small"
-                          type="info"
-                          :loading="assignmentLoading"
-                          @click="inlineAssignment(props.$index, props.row)">分配
-                      </el-button>
-                      <el-button
-                          size="small"
-                          @click="inlineInventoryDetails(props.$index, props.row)">详情
-                      </el-button>
-                      <el-button
-                          size="small"
-                          type="success"
-                          @click="inlineInventoryConfirm(props.$index, props.row)">确认
-                      </el-button>
-                    </el-row>
-                    <el-row>
-                      <el-button
-                          size="small"
-                          type="danger"
-                          icon="delete"
-                          :loading="assignmentLoading"
-                          @click="inlineAssignmentDelete(props.$index, props.row)">
-                      </el-button>
-                    </el-row>
+                    <el-button
+                        size="small"
+                        type="info"
+                        :loading="assignmentLoading"
+                        @click="inlineAssignment(props.$index, props.row)">分配
+                    </el-button>
+                    <el-button
+                        size="small"
+                        @click="inlineInventoryDetails(props.$index, props.row)">详情
+                    </el-button>
+                    <el-button
+                        size="small"
+                        type="success"
+                        @click="inlineInventoryConfirm(props.$index, props.row)">确认
+                    </el-button>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -361,6 +350,13 @@
             v-model="form.pdChargePerson"
             auto-complete="off"></el-input>
       </el-form-item>
+      <el-tree
+          :data="regions"
+          :load="loadNode"
+          lazy
+          show-checkbox
+          @check-change="handleCheckChange">
+      </el-tree>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button type="primary" @click="submit" :loading="submitLoading">保存
@@ -518,11 +514,27 @@
     }
   }
 
-  var comprehensiveInventory = new Vue({
-    el: '#comprehensiveInventory',
+  var reservoirInventory = new Vue({
+    el: '#reservoirInventory',
     prop: {},
     data: function () {
       return {
+        regions: [{
+          'label': 'region1'
+        }, {
+          'label': 'region2'
+        }],
+        count: 1,
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         _pageSize: 500,
         _pageNow: 0,
         _assignment: [],                         //分配任务 弹出层 信息集合(表单格式)
@@ -542,7 +554,7 @@
         people: [],                          //所在仓库下所有人员
 
 
-        comprehensiveInventory: [],
+        reservoirInventory: [],
         multipleSelection: [],
         multiSelect: false,
         pickerOptions: {
@@ -649,20 +661,36 @@
 
     },
     methods: {
-      inlineAssignmentDelete:function (index,row) {
-        obj.$confirm('删除此盘点计划, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(function () {
-          p[101].post({pdId: row.pdId});
-        }).catch(function () {
-          obj.$message({
-            type: 'info',
-            message: '已取消'
-          });
-        });
+
+      handleCheckChange:function(data, checked, indeterminate) {
+        console.log(data, checked, indeterminate);
       },
+      handleNodeClick:function(data) {
+        console.log(data);
+      },
+      loadNode:function(node, resolve) {
+        if (node.level === 0) {
+          return resolve(this.regions);
+        }
+        if (node.level > 3) return resolve([]);
+
+        var hasChild;
+        if (node.data.name === 'region1') {
+          hasChild = true;
+        } else if (node.data.name === 'region2') {
+          hasChild = false;
+        } else {
+          hasChild = Math.random() > 0.5;
+        }
+      },
+      
+      
+      
+      
+      
+      
+      
+      
       
       tableRowClassName: function (row, index) {
         if (row.pdsStatus === 1 && (row.pdsRepertoryCount - row.pdsPdCount) !== 0) {
@@ -844,6 +872,7 @@
         p[6].post(obj.pdOption);
       },                     //行内按钮 盘点详情
       inlineInventoryConfirm: function (index, row) {
+        var obj = this;
         obj.$confirm('确认此盘点计划, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -922,14 +951,12 @@
       submit: function () {
         this.$refs['ref_form'].validate(function (valid) {
           if (valid) {
-            obj.dialogFormActive++;
             obj.submitLoading = true;
             p[1].post(obj.dpPd_pop, function (json) {
               obj.submitLoading = false;
               obj.dialogFormVisible = false;
-              this.callbackAfter({status: json.status, model: '如果失败请检查仓库是否已有盘点计划或者库存含有待转移...新增动碰盘点'}, function () {
+              this.callbackAfter({status: json.status, model: '如果失败请检查仓库是否已有盘点计划或者库存含有待转移...新增库区盘点'}, function () {
                 obj.form = _form();
-                obj.dialogFormActive = 0;
                 p[0].post();
               })
             });
@@ -1027,65 +1054,65 @@
     }, timer_span.loopInventory)
   }
 
-  var obj = comprehensiveInventory;
+  var obj = reservoirInventory;
   var p = [];
   // 0 全面盘点 全面盘点分页查询
   p[0] = autoPost({
-    urlHock: "/hock/comprehensiveInventory/page.json",
-    urlProd: "/route/comprehensiveInventory/0",
+    urlHock: "/hock/reservoirInventory/page.json",
+    urlProd: "/route/reservoirInventory/0",
     success: function (json) {
-      obj.$data.comprehensiveInventory = json.data;
+      obj.$data.reservoirInventory = json.data;
       obj.$data.currentTotal = json.recordsFiltered;
     }
   });
-  // 1 全面盘点 新增全面盘点计划及明细
+  // 1 库区盘点 新增库区盘点计划及明细
   p[1] = autoPost({
     urlHock: "",
-    urlProd: "/route/comprehensiveInventory/1",
+    urlProd: "/route/reservoirInventory/1",
     success: function (json) {
 
     }
   });
-  // 2 全面盘点 根据盘点明细id重盘（修改状态)
+  // 2 库区盘点 根据盘点明细id重盘（修改状态)
   p[2] = autoPost({
     urlHock: "",
-    urlProd: "/route/comprehensiveInventory/2",
+    urlProd: "/route/reservoirInventory/2",
     success: function (json) {
 
     }
   });
-  // 3 全面盘点 根据盘点明细id分配任务
+  // 3 库区盘点 根据盘点明细id分配任务
   p[3] = autoPost({
     urlHock: "",
-    urlProd: "/route/comprehensiveInventory/3",
+    urlProd: "/route/reservoirInventory/3",
     success: function (json) {
 
 
     }
   });
-  // 4 全面盘点 根据盘点计划id确认盘点信息（修改库存）
+  // 4 库区盘点 根据盘点计划id确认盘点信息（修改库存）
   p[4] = autoPost({
     urlHock: "",
-    urlProd: "/route/comprehensiveInventory/4",
+    urlProd: "/route/reservoirInventory/4",
     success: function (json) {
       this.callbackAfter(json, function () {
         p[0].post(obj.option);
       })
     }
   });
-  // 5 全面盘点 分配任务页面根据盘点计划ID查询详情
+  // 5 库区盘点 分配任务页面根据盘点计划ID查询详情
   p[5] = autoPost({
     urlHock: "",
-    urlProd: "/route/comprehensiveInventory/5",
+    urlProd: "/route/reservoirInventory/5",
     success: function (json) {
       obj.assignment = json.model;
       obj.dialogAssignmentVisible = true;
     }
   });
-  // 6 全面盘点 盘点详情页面根据盘点计划ID查询详情
+  // 6 库区盘点 盘点详情页面根据盘点计划ID查询详情
   p[6] = autoPost({
     urlHock: "",
-    urlProd: "/route/comprehensiveInventory/6",
+    urlProd: "/route/reservoirInventory/6",
     success: function (json) {
       obj.details = json.data;
       obj.dialogDetailsVisible = true;
@@ -1093,8 +1120,36 @@
       obj.currentTotal1 = json.recordsFiltered;
     }
   });
-  // 101 盘点 取消盘点计划
-  p[101] = autoPost({
+  // 7 库区盘点 新增盘点计划-查找所有区域
+  p[7] = autoPost({
+    urlHock: "",
+    urlProd: "/route/reservoirInventory/7",
+    success: function (json) {
+      var step=[];
+      for(var i=0;i<json.data.length;i++){
+        step.push({
+          label:json.data[i].brgRegionNo,
+          key:json.data[i].brgRegionId+'#',
+          children:json.data[i].baseLocationList
+        })
+      }
+      obj.regions = json.data;
+    }
+  });
+  // 8 库区盘点 新增盘点计划-查找指定区域下的储位
+  p[8] = autoPost({
+    urlHock: "",
+    urlProd: "/route/reservoirInventory/8",
+    method:'GET',
+    success: function (json) {
+      obj.details = json.data;
+      obj.dialogDetailsVisible = true;
+      if (homeTimer === 0) homeTimer = _timer(obj.pdId);
+      obj.currentTotal1 = json.recordsFiltered;
+    }
+  });
+  // 9 盘点 取消盘点计划
+  p[9] = autoPost({
     urlHock: "",
     urlProd: "/route/reservoirInventory/9",
     success: function (json) {
@@ -1117,8 +1172,13 @@
     }
   });
 
-  p[0].post(comprehensiveInventory.option);
+  p[0].post(reservoirInventory.option);
   p[10].post({id: window.dbmessage.baseArehouses[0].baArehouseId});
+  p[7].post({
+    "pageNum": 1,
+    "pageSize": 999,
+    "draw": 0
+  });
 
 </script>
 
