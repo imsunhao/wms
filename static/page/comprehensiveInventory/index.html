@@ -340,37 +340,17 @@
       v-model="dialogFormVisible">
     <div class="dialog-title clearfix" slot="title">
       <span class="el-dialog__title">{{form.title}}</span>
-      <el-steps
-          class="steps"
-          :space="120"
-          :active="dialogFormActive"
-          finish-status="success">
-      </el-steps>
     </div>
     <el-form :model="form" ref="ref_form" :rules="rule_form">
-      <el-carousel
-          ref="carousel"
-          :autoplay="false"
-          arrow="never"
-          indicator-position="none"
-          height="55vh">
-        <el-carousel-item>
-          <el-row>
-            <el-col>
-              <el-form-item
-                  label="负责人"
-                  prop="pdChargePerson"
-                  :label-width="formLabelWidth">
-                <el-input
-                    v-model.number="form.pdChargePerson"
-                    auto-complete="off"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-carousel-item>
-      </el-carousel>
+      <el-form-item
+          label="负责人"
+          prop="pdChargePerson"
+          :label-width="formLabelWidth">
+        <el-input
+            v-model="form.pdChargePerson"
+            auto-complete="off"></el-input>
+      </el-form-item>
     </el-form>
-    
     <div slot="footer" class="dialog-footer">
       <el-button type="primary" @click="submit" :loading="submitLoading">保存
       </el-button>
