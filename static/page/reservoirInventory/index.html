@@ -256,24 +256,25 @@
                   <el-form-item label="差异状态">
                     <el-tag-s :val="auto_el_tag('pdDiffStatus',props.row.pdDiffStatus)"></el-tag-s>
                   </el-form-item>
-                  <el-form-item label="可用操作"><el-row>
-                    <el-button
-                        size="small"
-                        type="info"
-                        :loading="assignmentLoading"
-                        v-if="props.row.pdOperator==null"
-                        @click="inlineAssignment(props.$index, props.row)">分配
-                    </el-button>
-                    <el-button
-                        size="small"
-                        @click="inlineInventoryDetails(props.$index, props.row)">详情
-                    </el-button>
-                    <el-button
-                        size="small"
-                        type="success"
-                        @click="inlineInventoryConfirm(props.$index, props.row)">确认
-                    </el-button>
-                  </el-row>
+                  <el-form-item label="可用操作">
+                    <el-row>
+                      <el-button
+                          size="small"
+                          type="info"
+                          :loading="assignmentLoading"
+                          v-if="props.row.pdOperator==null"
+                          @click="inlineAssignment(props.$index, props.row)">分配
+                      </el-button>
+                      <el-button
+                          size="small"
+                          @click="inlineInventoryDetails(props.$index, props.row)">详情
+                      </el-button>
+                      <el-button
+                          size="small"
+                          type="success"
+                          @click="inlineInventoryConfirm(props.$index, props.row)">确认
+                      </el-button>
+                    </el-row>
                     <el-row>
                       <el-button
                           size="small"
@@ -412,6 +413,7 @@
             <el-transfer
                 v-model="assignmentForm.val"
                 filterable
+                :filter-method="filterMethod"
                 filter-placeholder="请输入库位名称"
                 :left-default-checked="[]"
                 :right-default-checked="assignmentForm.val"
@@ -534,7 +536,7 @@
     data: function () {
       return {
         regions: [],
-        
+
         _pageSize: 500,
         _pageNow: 0,
         _assignment: [],                         //分配任务 弹出层 信息集合(表单格式)
@@ -637,13 +639,13 @@
           "rkrwStatus": this.form.rkrwStatus
         }
       },
-      
+
       dpPd_pop: function () {
         return {
 //          pdOperator:app.rmsUser.ruUserName+'',
-          "pdCreateUserId": app.rmsUser.ruUserId+'',
-          "pdChargePerson": this.form.pdChargePerson+'',
-          "pdArehouseId": window.dbmessage.baseArehouses[0].baArehouseId+''
+          "pdCreateUserId": app.rmsUser.ruUserId + '',
+          "pdChargePerson": this.form.pdChargePerson + '',
+          "pdArehouseId": window.dbmessage.baseArehouses[0].baArehouseId + ''
         }
       },
       distributionForm: function () {
@@ -664,27 +666,37 @@
     },
     methods: {
 
+      filterMethod: function (query, item) {
+        var a = query.split('-');
+        if (a.constructor === Array && a.length > 1 && a[1] !== '') {
+          var l = item.label.split(' ')[0];
+          var s = l.split('-');
+          return (s[0] === a[0] && a[1] === s[2][0]);
+        }
 
-      treeClick:function (data,node,tree) {
-        node.checked=!node.checked;
+        return true;
       },
-      
-      handleNodeClick:function(data) {
+
+      treeClick: function (data, node, tree) {
+        node.checked = !node.checked;
+      },
+
+      handleNodeClick: function (data) {
         console.log(data);
       },
-      loadNode:function(node, resolve) {
+      loadNode: function (node, resolve) {
         if (node.level === 0) {
           return resolve(this.regions);
         }
         if (node.level > 0) return resolve([]);
-        else{
-          p[8].post({id:(node.data.key).split('#')[0]},function (json) {
-            var step=[];
-            for(var i=0;i<json.model.baseLocationList.length;i++){
+        else {
+          p[8].post({id: (node.data.key).split('#')[0]}, function (json) {
+            var step = [];
+            for (var i = 0; i < json.model.baseLocationList.length; i++) {
               step.push({
-                label:json.model.baseLocationList[i].blLname,
-                key:json.model.baseLocationList[i].blLocationId,
-                children:[]
+                label: json.model.baseLocationList[i].blLname,
+                key: json.model.baseLocationList[i].blLocationId,
+                children: []
               })
             }
             resolve(step)
@@ -693,8 +705,7 @@
       },
 
 
-
-      inlineAssignmentDelete:function (index,row) {
+      inlineAssignmentDelete: function (index, row) {
         obj.$confirm('删除此盘点计划, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -708,11 +719,8 @@
           });
         });
       },
-      
-      
-      
-      
-      
+
+
       tableRowClassName: function (row, index) {
         if (row.pdsStatus === 1 && (row.pdsRepertoryCount - row.pdsPdCount) !== 0) {
           return 'warning-row';
@@ -832,9 +840,9 @@
                 ids.push(obj.people[i].val[b] + '');
               }
               step.push({
-                pdId: obj.pdId+'',
-                userId: obj.people[i].ruUserId+'',
-                userName: obj.people[i].ruUserName+'',
+                pdId: obj.pdId + '',
+                userId: obj.people[i].ruUserId + '',
+                userName: obj.people[i].ruUserName + '',
                 ids: ids
               });
             }
@@ -877,7 +885,7 @@
                 if (typeof data[b] === 'undefined') data[b] = [];
                 data[b].push({
                   key: _assignment[i + (b * obj.$data._pageSize)].pdsId,
-                  label: _assignment[i].baseLocation.blLname + ' ' + _assignment[i].baseGoods.bgGoodsName + ' ' + _assignment[i].baseGoods.bgGoodsNo
+                  label: _assignment[i].baseLocation.blLname + ' ' + _assignment[i].baseGoods.bgGoodsNo
                 });
               }
             }
@@ -971,20 +979,20 @@
       },                                //分页 当前页
 
       submit: function () {
-        var ids=obj.$refs.tree.getCheckedKeys();
-        if(ids.length<1){
+        var ids = obj.$refs.tree.getCheckedKeys();
+        if (ids.length < 1) {
           this.$alert('没有选择库区！');
           return false;
         }
         this.$refs['ref_form'].validate(function (valid) {
           if (valid) {
             obj.submitLoading = true;
-            var option=obj.dpPd_pop;
-            for(var i=0;i<ids.length;i++){
-              ids[i]+='';
+            var option = obj.dpPd_pop;
+            for (var i = 0; i < ids.length; i++) {
+              ids[i] += '';
             }
-            option.kqIds=ids;
-            p[1].post({json:JSON.stringify(option)}, function (json) {
+            option.kqIds = ids;
+            p[1].post({json: JSON.stringify(option)}, function (json) {
               obj.submitLoading = false;
               obj.dialogFormVisible = false;
               this.callbackAfter({status: json.status, model: '如果失败请检查仓库是否已有盘点计划或者库存含有待转移...新增库区盘点'}, function () {
@@ -1157,29 +1165,29 @@
     urlHock: "",
     urlProd: "/route/reservoirInventory/7",
     success: function (json) {
-      var step=[];
-      for(var i=0;i<json.data.length;i++){
+      var step = [];
+      for (var i = 0; i < json.data.length; i++) {
         step.push({
-          label:json.data[i].baqKqName,
-          key:json.data[i].baqKqId,
-          children:json.data[i].baseRegions
+          label: json.data[i].baqKqName,
+          key: json.data[i].baqKqId,
+          children: json.data[i].baseRegions
         })
       }
       obj.regions = step;
     }
   });
-//  // 8 库区盘点 新增盘点计划-查找指定区域下的储位
-//  p[8] = autoPost({
-//    urlHock: "",
-//    urlProd: "/route/reservoirInventory/8",
-//    method:'GET'
-//  });
+  //  // 8 库区盘点 新增盘点计划-查找指定区域下的储位
+  //  p[8] = autoPost({
+  //    urlHock: "",
+  //    urlProd: "/route/reservoirInventory/8",
+  //    method:'GET'
+  //  });
   // 9 盘点 取消盘点计划
   p[9] = autoPost({
     urlHock: "",
     urlProd: "/route/reservoirInventory/9",
     success: function (json) {
-      this.callbackAfter(json,function () {
+      this.callbackAfter(json, function () {
         p[0].post();
       })
     }
@@ -1204,7 +1212,7 @@
     "pageNum": 1,
     "pageSize": 999,
     "draw": 0,
-    
+
   });
 
 </script>
