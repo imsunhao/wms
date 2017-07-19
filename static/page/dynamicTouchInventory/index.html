@@ -696,6 +696,20 @@
             }
         },
         methods: {
+            inlineAssignmentDelete:function (index,row) {
+                obj.$confirm('删除此盘点计划, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    p[9].post({pdId: row.pdId});
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },
             tableRowClassName: function (row, index) {
                 if (row.pdsStatus === 1 && (row.pdsRepertoryCount - row.pdsPdCount) !== 0) {
                     return 'warning-row';
@@ -880,7 +894,6 @@
 //                this.dialogDetailsVisible = true;
             },                         //行内按钮 盘点详情
             inlineInventoryConfirm: function (index, row) {
-                var obj = this;
                 obj.$confirm('确认此盘点计划, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -931,9 +944,6 @@
                 this.form = _form();
                 this.dialogFormVisible = true;
                 this.dialogFormActive = 0;
-                Vue.nextTick(function () {
-                    dynamicTouchInventory.$refs.carousel.setActiveItem(0);
-                });
             },                                               //新增页面
             handleSizeChange: function (val) {
                 /*<debug>*/
@@ -981,7 +991,6 @@
                     this.callbackAfter({status:json.status,model:'如果失败请检查仓库是否已有盘点计划或者库存含有待转移...新增动碰盘点'},function () {
                         obj.form=_form();
                         obj.dialogFormActive = 0;
-                        obj.$refs.carousel.setActiveItem(0);
                         p[0].post();
                     })
                 });
@@ -1169,6 +1178,16 @@
                 json[i].pageNow = 1;
             }
             obj.people = json;
+        }
+    });
+    // 9 盘点 取消盘点计划
+    p[9] = autoPost({
+        urlHock: "",
+        urlProd: "/route/reservoirInventory/9",
+        success: function (json) {
+            this.callbackAfter(json,function () {
+                p[0].post();
+            })
         }
     });
 
