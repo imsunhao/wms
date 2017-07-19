@@ -338,15 +338,6 @@
     </el-row>
     <el-dialog
             v-model="dialogFormVisible">
-        <div class="dialog-title clearfix" slot="title">
-            <span class="el-dialog__title">{{form.title}}</span>
-            <el-steps
-                    class="steps"
-                    :space="120"
-                    :active="dialogFormActive"
-                    finish-status="success">
-            </el-steps>
-        </div>
         <div class="__inner">
             <el-form
                     :model="form"
