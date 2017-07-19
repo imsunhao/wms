@@ -459,6 +459,11 @@
                                 :button-texts="['取消任务','分配任务']"
                                 @change="handleChange"
                                 :data="assignment">
+                            <template slot="left-footer">
+                                <el-button size="small" @click="comeData" v-if="$data._assignment.length>$data._pageNow+1">
+                                    再来{{$data._pageSize}}条
+                                </el-button>
+                            </template>
                         </el-transfer>
                     </el-row>
                 </el-card>
@@ -558,7 +563,9 @@
             ruPortrait: '',
             ruUserId: '',
 
-            val: []
+            val: [],
+            sum: 0,
+            pageNow: 1,
         }
     }
     function validate_form(){
@@ -573,6 +580,8 @@
         prop: {},
         data: function () {
             return {
+                _pageSize: 500,
+                _pageNow: 0,
                 _assignment: [],                         //分配任务 弹出层 信息集合(表单格式)
                 assignment: [],                          //分配任务 弹出层 信息集合(表单格式)
                 assignmentVal: [],
@@ -718,6 +727,12 @@
 //                 });
                 var i = 0;
                 var step = [];
+                var assignmentData = [];
+                for (i = 0; i <= obj.$data._pageNow; i++) {
+                    for (var b = 0; b < obj.$data._assignment[i].length; b++) {
+                        assignmentData.push(obj.$data._assignment[i][b]);
+                    }
+                }
 
                 if (obj.assignmentVal.length !== 0) {
                     for (i = 0; i < obj.assignmentData.length; i++) {
@@ -750,6 +765,7 @@
                                 this.assignmentVal.push(movedKeys[i]);
                             }
                         }
+                        obj.assignmentForm.sum += movedKeys.length;
                         break;
                     case 'left':
                         for (i = 0; i < movedKeys.length; i++) {
@@ -758,6 +774,7 @@
                                 remove(step, this.assignmentVal);
                             }
                         }
+                        obj.assignmentForm.sum -= movedKeys.length;
                         break;
 
                 }
@@ -791,11 +808,17 @@
                                 border: '1px solid #eee'
                             }
                         }),
-                        h('span', {
-                            style: {
-                                fontSize: '14px'
+                        h('el-badge', {
+                            props: {
+                                value: node.data.sum
                             }
-                        }, node.data.ruUserName)
+                        }, [
+                            h('span', {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }, node.data.ruUserName)
+                        ])
                     ]
                 )
             },                             //分配任务 界面控制
@@ -822,9 +845,33 @@
                     })
                 }
             },                                    //分配任务 保存按钮
+            comeData: function () {
+                this.$data._pageNow++;
+                var assignmentData = obj.$data._assignment[this.$data._pageNow];
+                for (var b = 0; b < assignmentData.length; b++) {
+                    obj.assignment.push({
+                        key: assignmentData[b].key,
+                        label: assignmentData[b].label
+                    });
+                }
+            },
             inlineAssignment: function (index, row) {
                 p[5].post({pdId: row.pdId}, function (json) {
-                    obj._assignment = json.model;
+                    var data = [[]];
+                    var _assignment = json.model;
+                    for (var b = 0; b <= parseInt(_assignment.length / obj.$data._pageSize); b++) {
+                        for (var i = 0; i < obj.$data._pageSize; i++) {
+                            if (typeof _assignment[i + (b * obj.$data._pageSize)] !== 'undefined') {
+                                if (typeof data[b] === 'undefined') data[b] = [];
+                                data[b].push({
+                                    key: _assignment[i + (b * obj.$data._pageSize)].pdsId,
+                                    label: _assignment[i].baseLocation.blLname + ' ' + _assignment[i].baseGoods.bgGoodsName + ' ' + _assignment[i].baseGoods.bgGoodsNo
+                                });
+                            }
+                        }
+                    }
+                    obj.$data._assignment = data;
+
                     obj.pdId = row.pdId;
                     obj.dialogAssignmentVisible = true;
                 });
@@ -1121,6 +1168,8 @@
         success: function (json) {
             for (var i = 0; i < json.length; i++) {
                 json[i].val = [];
+                json[i].sum = 0;
+                json[i].pageNow = 1;
             }
             obj.people = json;
         }
