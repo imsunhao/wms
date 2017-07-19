@@ -624,16 +624,6 @@
             }
         },
         computed: {
-            assignmentData: function () {
-                var data = [];
-                for (var i = 0; i < obj._assignment.length; i++) {
-                    data.push({
-                        key: obj._assignment[i].pdsId,
-                        label: obj._assignment[i].baseLocation.blLname + ' ' + obj._assignment[i].baseGoods.bgGoodsName + ' ' + obj._assignment[i].baseGoods.bgGoodsNo
-                    });
-                }
-                return data;
-            },
             // TODO 表格提交
             option: function () {
                 return {
@@ -691,7 +681,6 @@
                 }
                 return '';
             },                          //盘点详情 行内颜色变化
-
             nodeClick: function (value, data, node) {
                 var i = 0;
                 var step = [];
@@ -701,17 +690,18 @@
                         assignmentData.push(obj.$data._assignment[i][b]);
                     }
                 }
+
                 if (obj.assignmentVal.length !== 0) {
-                    for (i = 0; i < obj.assignmentData.length; i++) {
-                        if (autoIndexof(obj.assignmentData[i].key, obj.assignmentVal, value.val)) {
+                    for (i = 0; i < assignmentData.length; i++) {
+                        if (autoIndexof(assignmentData[i].key, obj.assignmentVal, value.val)) {
                             step.push({
-                                key: obj.assignmentData[i].key,
-                                label: obj.assignmentData[i].label
+                                key: assignmentData[i].key,
+                                label: assignmentData[i].label
                             });
                         }
                     }
                 } else {
-                    step = obj.assignmentData;
+                    step = assignmentData;
                 }
 
                 obj.assignment = step;
@@ -794,6 +784,7 @@
                 if (obj.assignment.length - obj.assignmentForm.val.length !== 0) {
                     obj.$alert('还有任务没有被分配！');
                 } else {
+                    obj.submitLoading=true;
                     var step = [];
                     for (var i = 0; i < obj.people.length; i++) {
                         if (obj.people[i].val.length !== 0) {
@@ -802,18 +793,19 @@
                                 ids.push(obj.people[i].val[b] + '');
                             }
                             step.push({
-                                pdId: obj.pdId,
-                                userId: obj.people[i].ruUserId,
-                                userName: obj.people[i].ruUserName,
+                                pdId: obj.pdId+ '',
+                                userId: obj.people[i].ruUserId+ '',
+                                userName: obj.people[i].ruUserName+ '',
                                 ids: ids
                             });
                         }
                     }
                     var option = {data: step};
+//          autoArrayToObject(option);
                     console.log(option);
                     console.log({json: JSON.stringify(option)});
-
-                    p[3].post({data: step}, function (json) {
+                    p[3].post({json: JSON.stringify(option)}, function (json) {
+                        obj.submitLoading=false;
                         this.callbackAfter({status: json.status, model: '分配任务'}, function () {
                             obj.dialogAssignmentVisible = false;
                         })
