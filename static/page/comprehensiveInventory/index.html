@@ -775,6 +775,7 @@
         if (obj.assignment.length - obj.assignmentForm.val.length !== 0) {
           obj.$alert('还有任务没有被分配！');
         } else {
+          obj.submitLoading=true;
           var step = [];
           for (var i = 0; i < obj.people.length; i++) {
             if (obj.people[i].val.length !== 0) {
@@ -783,9 +784,9 @@
                 ids.push(obj.people[i].val[b] + '');
               }
               step.push({
-                pdId: obj.pdId,
-                userId: obj.people[i].ruUserId,
-                userName: obj.people[i].ruUserName,
+                pdId: obj.pdId+ '',
+                userId: obj.people[i].ruUserId+ '',
+                userName: obj.people[i].ruUserName+ '',
                 ids: ids
               });
             }
@@ -795,6 +796,7 @@
           console.log(option);
           console.log({json: JSON.stringify(option)});
           p[3].post({json: JSON.stringify(option)}, function (json) {
+            obj.submitLoading=false;
             this.callbackAfter({status: json.status, model: '分配任务'}, function () {
               obj.dialogAssignmentVisible = false;
             })

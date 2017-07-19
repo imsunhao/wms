@@ -1733,8 +1733,8 @@ function java(req, res, next) {
   var method = req.info.method;
   if (req.method !== 'GET') {
     if (typeof req.body.json !== 'undefined') {
+      query = JSON.parse(req.body.json);
       console.log(req.body.json);
-      req.query = req.body.json;
     } else {
       console.log(JSON.stringify(req.body));
       query = req.body;
