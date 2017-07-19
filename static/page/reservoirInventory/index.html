@@ -261,6 +261,7 @@
                         size="small"
                         type="info"
                         :loading="assignmentLoading"
+                        v-if="props.row.pdOperator==null"
                         @click="inlineAssignment(props.$index, props.row)">分配
                     </el-button>
                     <el-button
@@ -639,7 +640,7 @@
       
       dpPd_pop: function () {
         return {
-          pdOperator:app.rmsUser.ruUserName+'',
+//          pdOperator:app.rmsUser.ruUserName+'',
           "pdCreateUserId": app.rmsUser.ruUserId+'',
           "pdChargePerson": this.form.pdChargePerson+'',
           "pdArehouseId": window.dbmessage.baseArehouses[0].baArehouseId+''
@@ -831,9 +832,9 @@
                 ids.push(obj.people[i].val[b] + '');
               }
               step.push({
-                pdId: obj.pdId,
-                userId: obj.people[i].ruUserId,
-                userName: obj.people[i].ruUserName,
+                pdId: obj.pdId+'',
+                userId: obj.people[i].ruUserId+'',
+                userName: obj.people[i].ruUserName+'',
                 ids: ids
               });
             }
@@ -845,6 +846,7 @@
           p[3].post({json: JSON.stringify(option)}, function (json) {
             this.callbackAfter({status: json.status, model: '分配任务'}, function () {
               obj.dialogAssignmentVisible = false;
+              p[0].post();
             })
           })
         }
