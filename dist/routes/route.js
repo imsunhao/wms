@@ -1688,8 +1688,8 @@ router.param('_url', function (req, res, next, url) {
             });
             break;
           case 7:
-            urlName = '库区盘点 新增盘点计划-查找所有区域';
-            req = autoUrl(req, '/region/page', "POST", function (json) {
+            urlName = '库区盘点 新增盘点计划-查找所有库区';
+            req = autoUrl(req, '/arehouseKq/page', "POST", function (json) {
               res.send(json);
             });
             break;

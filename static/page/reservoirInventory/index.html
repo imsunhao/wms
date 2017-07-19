@@ -256,7 +256,7 @@
                   <el-form-item label="差异状态">
                     <el-tag-s :val="auto_el_tag('pdDiffStatus',props.row.pdDiffStatus)"></el-tag-s>
                   </el-form-item>
-                  <el-form-item label="可用操作">
+                  <el-form-item label="可用操作"><el-row>
                     <el-button
                         size="small"
                         type="info"
@@ -272,6 +272,16 @@
                         type="success"
                         @click="inlineInventoryConfirm(props.$index, props.row)">确认
                     </el-button>
+                  </el-row>
+                    <el-row>
+                      <el-button
+                          size="small"
+                          type="danger"
+                          icon="delete"
+                          :loading="assignmentLoading"
+                          @click="inlineAssignmentDelete(props.$index, props.row)">
+                      </el-button>
+                    </el-row>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -353,9 +363,12 @@
       <el-tree
           :data="regions"
           :load="loadNode"
+          node-key="key"
+          :default-expand-all="true"
           lazy
+          ref="tree"
           show-checkbox
-          @check-change="handleCheckChange">
+          @node-click="treeClick">
       </el-tree>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -519,21 +532,7 @@
     prop: {},
     data: function () {
       return {
-        regions: [{
-          'label': 'region1'
-        }, {
-          'label': 'region2'
-        }],
-        count: 1,
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        regions: [],
         
         _pageSize: 500,
         _pageNow: 0,
@@ -637,11 +636,13 @@
           "rkrwStatus": this.form.rkrwStatus
         }
       },
+      
       dpPd_pop: function () {
         return {
-          "pdCreateUserId": app.rmsUser.ruUserId,
-          "pdChargePerson": this.form.pdChargePerson,
-          "pdArehouseId": window.dbmessage.baseArehouses[0].baArehouseId
+          pdOperator:app.rmsUser.ruUserName+'',
+          "pdCreateUserId": app.rmsUser.ruUserId+'',
+          "pdChargePerson": this.form.pdChargePerson+'',
+          "pdArehouseId": window.dbmessage.baseArehouses[0].baArehouseId+''
         }
       },
       distributionForm: function () {
@@ -662,9 +663,11 @@
     },
     methods: {
 
-      handleCheckChange:function(data, checked, indeterminate) {
-        console.log(data, checked, indeterminate);
+
+      treeClick:function (data,node,tree) {
+        node.checked=!node.checked;
       },
+      
       handleNodeClick:function(data) {
         console.log(data);
       },
@@ -672,21 +675,38 @@
         if (node.level === 0) {
           return resolve(this.regions);
         }
-        if (node.level > 3) return resolve([]);
-
-        var hasChild;
-        if (node.data.name === 'region1') {
-          hasChild = true;
-        } else if (node.data.name === 'region2') {
-          hasChild = false;
-        } else {
-          hasChild = Math.random() > 0.5;
+        if (node.level > 0) return resolve([]);
+        else{
+          p[8].post({id:(node.data.key).split('#')[0]},function (json) {
+            var step=[];
+            for(var i=0;i<json.model.baseLocationList.length;i++){
+              step.push({
+                label:json.model.baseLocationList[i].blLname,
+                key:json.model.baseLocationList[i].blLocationId,
+                children:[]
+              })
+            }
+            resolve(step)
+          })
         }
       },
-      
-      
-      
-      
+
+
+
+      inlineAssignmentDelete:function (index,row) {
+        obj.$confirm('删除此盘点计划, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          p[9].post({pdId: row.pdId});
+        }).catch(function () {
+          obj.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+      },
       
       
       
@@ -949,10 +969,20 @@
       },                                //分页 当前页
 
       submit: function () {
+        var ids=obj.$refs.tree.getCheckedKeys();
+        if(ids.length<1){
+          this.$alert('没有选择库区！');
+          return false;
+        }
         this.$refs['ref_form'].validate(function (valid) {
           if (valid) {
             obj.submitLoading = true;
-            p[1].post(obj.dpPd_pop, function (json) {
+            var option=obj.dpPd_pop;
+            for(var i=0;i<ids.length;i++){
+              ids[i]+='';
+            }
+            option.kqIds=ids;
+            p[1].post({json:JSON.stringify(option)}, function (json) {
               obj.submitLoading = false;
               obj.dialogFormVisible = false;
               this.callbackAfter({status: json.status, model: '如果失败请检查仓库是否已有盘点计划或者库存含有待转移...新增库区盘点'}, function () {
@@ -1120,7 +1150,7 @@
       obj.currentTotal1 = json.recordsFiltered;
     }
   });
-  // 7 库区盘点 新增盘点计划-查找所有区域
+  // 7 库区盘点 新增盘点计划-查找所有库区
   p[7] = autoPost({
     urlHock: "",
     urlProd: "/route/reservoirInventory/7",
@@ -1128,26 +1158,20 @@
       var step=[];
       for(var i=0;i<json.data.length;i++){
         step.push({
-          label:json.data[i].brgRegionNo,
-          key:json.data[i].brgRegionId+'#',
-          children:json.data[i].baseLocationList
+          label:json.data[i].baqKqName,
+          key:json.data[i].baqKqId,
+          children:json.data[i].baseRegions
         })
       }
-      obj.regions = json.data;
+      obj.regions = step;
     }
   });
-  // 8 库区盘点 新增盘点计划-查找指定区域下的储位
-  p[8] = autoPost({
-    urlHock: "",
-    urlProd: "/route/reservoirInventory/8",
-    method:'GET',
-    success: function (json) {
-      obj.details = json.data;
-      obj.dialogDetailsVisible = true;
-      if (homeTimer === 0) homeTimer = _timer(obj.pdId);
-      obj.currentTotal1 = json.recordsFiltered;
-    }
-  });
+//  // 8 库区盘点 新增盘点计划-查找指定区域下的储位
+//  p[8] = autoPost({
+//    urlHock: "",
+//    urlProd: "/route/reservoirInventory/8",
+//    method:'GET'
+//  });
   // 9 盘点 取消盘点计划
   p[9] = autoPost({
     urlHock: "",
@@ -1177,7 +1201,8 @@
   p[7].post({
     "pageNum": 1,
     "pageSize": 999,
-    "draw": 0
+    "draw": 0,
+    
   });
 
 </script>
