@@ -266,20 +266,32 @@
                                         <el-tag-s :val="auto_el_tag('pdDiffStatus',props.row.pdDiffStatus)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="可用操作">
-                                        <el-button
-                                                size="small"
-                                                type="info"
-                                                @click="inlineAssignment(props.$index, props.row)">分配
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                @click="inlineInventoryDetails(props.$index, props.row)">详情
-                                        </el-button>
-                                        <el-button
-                                                size="small"
-                                                type="success"
-                                                @click="inlineInventoryConfirm(props.$index, props.row)">确认
-                                        </el-button>
+                                        <el-row>
+                                            <el-button
+                                                    size="small"
+                                                    type="info"
+                                                    :loading="assignmentLoading"
+                                                    @click="inlineAssignment(props.$index, props.row)">分配
+                                            </el-button>
+                                            <el-button
+                                                    size="small"
+                                                    @click="inlineInventoryDetails(props.$index, props.row)">详情
+                                            </el-button>
+                                            <el-button
+                                                    size="small"
+                                                    type="success"
+                                                    @click="inlineInventoryConfirm(props.$index, props.row)">确认
+                                            </el-button>
+                                        </el-row>
+                                        <el-row>
+                                            <el-button
+                                                    size="small"
+                                                    type="danger"
+                                                    icon="delete"
+                                                    :loading="assignmentLoading"
+                                                    @click="inlineAssignmentDelete(props.$index, props.row)">
+                                            </el-button>
+                                        </el-row>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -397,6 +409,7 @@
     <el-dialog
             size="large"
             title="分配任务"
+            @close="assignmentClose"
             v-model="dialogAssignmentVisible">
         <el-row>
             <el-col :span="6">
@@ -561,9 +574,7 @@
                 assignmentVal: [],
                 assignmentForm: _assignmentForm(),
                 dialogAssignmentVisible: false,          //分配任务 弹出层 是否可见
-                assignmentLoading: true,
-
-                assignmentLoading: true,
+                assignmentLoading: false,
                 dynamicTouchInventory: [],
                 multipleSelection: [],
                 multiSelect: false,
@@ -685,6 +696,20 @@
             }
         },
         methods: {
+            inlineAssignmentDelete:function (index,row) {
+                obj.$confirm('删除此盘点计划, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    p[9].post({pdId: row.pdId});
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },
             tableRowClassName: function (row, index) {
                 if (row.pdsStatus === 1 && (row.pdsRepertoryCount - row.pdsPdCount) !== 0) {
                     return 'warning-row';
@@ -804,14 +829,23 @@
                     var step = [];
                     for (var i = 0; i < obj.people.length; i++) {
                         if (obj.people[i].val.length !== 0) {
+                            var ids = [];
+                            for (var b = 0; b < obj.people[i].val.length; b++) {
+                                ids.push(obj.people[i].val[b] + '');
+                            }
                             step.push({
                                 pdId: obj.pdId,
                                 userId: obj.people[i].ruUserId,
                                 userName: obj.people[i].ruUserName,
-                                ids: obj.people[i].val
+                                ids: ids
                             });
                         }
                     }
+                    var option = {data: step};
+                    console.log(option);
+                    console.log({json: JSON.stringify(option)});
+
+
                     p[2].post({data: step}, function (json) {
                         this.callbackAfter({status: json.status, model: '分配任务'}, function () {
                             obj.dialogAssignmentVisible = false;
@@ -819,6 +853,9 @@
                     })
                 }
             },                                    //分配任务 保存按钮
+            assignmentClose: function () {
+                this.assignmentLoading = false;
+            },
             comeData: function () {
                 this.$data._pageNow++;
                 var assignmentData = obj.$data._assignment[this.$data._pageNow];
@@ -830,6 +867,7 @@
                 }
             },
             inlineAssignment: function (index, row) {
+                obj.assignmentLoading = true;
                 p[5].post({pdId: row.pdId}, function (json) {
                     var data = [[]];
                     var _assignment = json.model;
@@ -856,7 +894,6 @@
 //                this.dialogDetailsVisible = true;
             },                         //行内按钮 盘点详情
             inlineInventoryConfirm: function (index, row) {
-                var obj = this;
                 obj.$confirm('确认此盘点计划, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -907,9 +944,6 @@
                 this.form = _form();
                 this.dialogFormVisible = true;
                 this.dialogFormActive = 0;
-                Vue.nextTick(function () {
-                    dynamicTouchInventory.$refs.carousel.setActiveItem(0);
-                });
             },                                               //新增页面
             handleSizeChange: function (val) {
                 /*<debug>*/
@@ -957,7 +991,6 @@
                     this.callbackAfter({status:json.status,model:'如果失败请检查仓库是否已有盘点计划或者库存含有待转移...新增动碰盘点'},function () {
                         obj.form=_form();
                         obj.dialogFormActive = 0;
-                        obj.$refs.carousel.setActiveItem(0);
                         p[0].post();
                     })
                 });
@@ -1092,7 +1125,6 @@
     p[2] = autoPost({
         urlHock: "",
         urlProd: "/route/dynamicTouchInventory/2",
-        method: 'GET',
         success: function (json) {
         }
     });
@@ -1146,6 +1178,16 @@
                 json[i].pageNow = 1;
             }
             obj.people = json;
+        }
+    });
+    // 9 盘点 取消盘点计划
+    p[9] = autoPost({
+        urlHock: "",
+        urlProd: "/route/reservoirInventory/9",
+        success: function (json) {
+            this.callbackAfter(json,function () {
+                p[0].post();
+            })
         }
     });
 

@@ -257,22 +257,32 @@
                                         <el-tag-s :val="auto_el_tag('pdDiffStatus',props.row.pdDiffStatus)"></el-tag-s>
                                     </el-form-item>
                                     <el-form-item label="可用操作">
-                                        <el-button
+                                        <el-row>
+                                            <el-button
                                                 size="small"
                                                 type="info"
+                                                :loading="assignmentLoading"
                                                 @click="inlineAssignment(props.$index, props.row)">分配
                                         </el-button>
-                                        <el-button
+                                            <el-button
                                                 size="small"
                                                 @click="inlineInventoryDetails(props.$index, props.row)">详情
                                         </el-button>
-                                        <el-button
+                                            <el-button
                                                 size="small"
                                                 type="success"
                                                 @click="inlineInventoryConfirm(props.$index, props.row)">确认
                                         </el-button>
-
-
+                                        </el-row>
+                                        <el-row>
+                                            <el-button
+                                                    size="small"
+                                                    type="danger"
+                                                    icon="delete"
+                                                    :loading="assignmentLoading"
+                                                    @click="inlineAssignmentDelete(props.$index, props.row)">
+                                            </el-button>
+                                        </el-row>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -411,6 +421,7 @@
     <el-dialog
             size="large"
             title="分配任务"
+            @close="assignmentClose"
             v-model="dialogAssignmentVisible">
         <el-row>
             <el-col :span="6">
@@ -570,7 +581,7 @@
 
                 pdId: '',
                 dialogAssignmentVisible: false,          //分配任务 弹出层 是否可见
-                assignmentLoading: true,
+                assignmentLoading: false,
 
 
                 filterText: '',
@@ -658,6 +669,20 @@
             }
         },
         methods: {
+            inlineAssignmentDelete:function (index,row) {
+                obj.$confirm('删除此盘点计划, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    p[9].post({pdId: row.pdId});
+                }).catch(function () {
+                    obj.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+            },                      // 行内按钮 删除盘点计划
             tableRowClassName: function (row, index) {
                 if (row.pdsStatus === 1 && (row.pdsRepertoryCount - row.pdsPdCount) !== 0) {
                     return 'warning-row';
@@ -771,14 +796,22 @@
                     var step = [];
                     for (var i = 0; i < obj.people.length; i++) {
                         if (obj.people[i].val.length !== 0) {
+                            var ids = [];
+                            for (var b = 0; b < obj.people[i].val.length; b++) {
+                                ids.push(obj.people[i].val[b] + '');
+                            }
                             step.push({
                                 pdId: obj.pdId,
                                 userId: obj.people[i].ruUserId,
                                 userName: obj.people[i].ruUserName,
-                                ids: obj.people[i].val
+                                ids: ids
                             });
                         }
                     }
+                    var option = {data: step};
+                    console.log(option);
+                    console.log({json: JSON.stringify(option)});
+
                     p[3].post({data: step}, function (json) {
                         this.callbackAfter({status: json.status, model: '分配任务'}, function () {
                             obj.dialogAssignmentVisible = false;
@@ -786,6 +819,9 @@
                     })
                 }
             },                                    //分配任务 保存按钮
+            assignmentClose: function () {
+                this.assignmentLoading = false;
+            },
             comeData: function () {
                 this.$data._pageNow++;
                 var assignmentData = obj.$data._assignment[this.$data._pageNow];
@@ -799,6 +835,7 @@
 
 
             inlineAssignment: function (index, row) {
+                obj.assignmentLoading = true;
                 p[5].post({pdId: row.pdId}, function (json) {
                     var data = [[]];
                     var _assignment = json.model;
@@ -824,7 +861,6 @@
                 p[6].post(obj.pdOption);
             },                      //行内按钮-盘点详情
             inlineInventoryConfirm: function (index, row) {
-                var obj = this;
                 obj.$confirm('确认此盘点计划, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -1069,7 +1105,8 @@
     p[3] = autoPost({
         urlHock: "",
         urlProd: "/route/loopInventory/3",
-        method: 'GET'
+        success: function (json) {
+        }
     });
 
     // 4 循环盘点 根据盘点计划id确认盘点信息（修改库存）
@@ -1111,6 +1148,16 @@
                 json[i].pageNow = 1;
             }
             obj.people = json;
+        }
+    });
+    // 9 盘点 取消盘点计划
+    p[9] = autoPost({
+        urlHock: "",
+        urlProd: "/route/reservoirInventory/9",
+        success: function (json) {
+            this.callbackAfter(json,function () {
+                p[0].post();
+            })
         }
     });
 
