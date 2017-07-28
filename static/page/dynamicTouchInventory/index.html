@@ -441,6 +441,7 @@
                         <el-transfer
                                 v-model="assignmentForm.val"
                                 filterable
+                                :filter-method="filterMethod"
                                 filter-placeholder="请输入库位名称"
                                 :left-default-checked="[]"
                                 :right-default-checked="assignmentForm.val"
@@ -697,6 +698,16 @@
                         message: '已取消'
                     });
                 });
+            },
+            filterMethod: function (query, item) {
+                var a = query.split('-');
+                if (a.constructor === Array && a.length > 1 && a[1] !== '') {
+                    var l = item.label.split(' ')[0];
+                    var s = l.split('-');
+                    return (s[0] === a[0] && a[1] === s[2][0]);
+                }
+
+                return true;
             },
             tableRowClassName: function (row, index) {
                 if (row.pdsStatus === 1 && (row.pdsRepertoryCount - row.pdsPdCount) !== 0) {
