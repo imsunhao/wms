@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 var server = require('../serverConfig/server/wmsServerHost.json');
-
+var baseUrl = 'http://' + server.host + ':' + server.port + server.path;
 function dateFormat(date, fmt) {
   var o = {
     "M+": date.getMonth() + 1,                 //月份
@@ -1720,7 +1720,7 @@ router.param('_url', function (req, res, next, url) {
 
 function autoUrl(req, url, method, cal) {
   req.info = {};
-  req.info.url = url;
+  req.info.url = baseUrl + url;
   req.info.method = method;
   req.info.cal = cal;
   return req;
@@ -1744,7 +1744,7 @@ function java(req, res, next) {
     query = req.query;
   }
   request({
-    url: 'http://' + server.host + ':' + server.port + server.path + url,
+    url:  url,
     method: method,
     json: true,
     headers: {
