@@ -458,7 +458,6 @@
             <el-table-column
                     label="操作"
                     prop="rksCount"
-                    v-if="lists.ckCkdjType==0&&lists.ckRwStatus<=21&&lists.ckStatus==1"
                     align="center">
                 <template scope="scope">
                     <el-button
@@ -886,14 +885,24 @@
                 });
             },            //行内按钮-追加分拣
             inlineModifySorting: function (index, row) {
-                var step = formListSort();
-                allPrposCb(step, function (obj2, index) {
-                    if (typeof row[index] !== 'undefined') step[index] = row[index];
-                });
-                step.index = index;
+              var step = formListSort();
+              allPrposCb(step, function (obj2, index) {
+                if (typeof row[index] !== 'undefined') step[index] = row[index];
+              });
+              step.index = index;
+              if (step.baseLocation === null) {
+                step.baseLocation = {
+                  blLocationId: 0,
+                  blLname: ''
+                }
+              }
 
-                this.lists.sort = step;
-                this.lists.dialogLocationVisible = true;
+              if (step.cksZdpc == null || step.cksZdpc === '' || step.cksZdpc === '无') {
+                step.cksZdpc = auto_time_new(new Date(), 3);
+              }
+
+              this.lists.sort = step;
+              this.lists.dialogLocationVisible = true;
             },                        //行内按钮-修改分拣方式
             inlinePendingConfirmation: function (index, row) {
                 var _this = this;
@@ -1330,13 +1339,17 @@
 
     function formList() {
         return {
-            data: [],
+          data: [],
 
-            ckCkdjNo: '',
-            dialogLocationVisible: false,
-            locationLoading: false,
+          ckRwStatus: 0,
+          ckCkdjType: 0,
+          ckStatus: 0,
 
-            sort: formListSort()
+          ckCkdjNo: '',
+          dialogLocationVisible: false,
+          locationLoading: false,
+
+          sort: formListSort()
         }
     }
     function formList2() {
@@ -1347,8 +1360,8 @@
     }
     function formListSort() {
         return {
-            "cksCkmxId": 1,
-            "cksCkfs": "X",  // X K P
+            cksCkmxId: 1,
+            cksCkfs: "X",  // X K P
 
             cksLocationId: 1,
 
@@ -1374,7 +1387,6 @@
             ckrwId: '',
             title: "新建出库任务",
             ckrwN: '',
-            ckrwCph: '',
             dds: '',
             pxs: '',
             ckrwSjxm: '',

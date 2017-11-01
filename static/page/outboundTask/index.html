@@ -131,7 +131,7 @@
                                                             @click="inlineCancelTask(props.$index, props.row)">
                                                     </el-button>
                                                 </el-row>
-                                                <el-row>
+                                                <el-row v-if="false">
                                                     <el-button
                                                             size="small"
                                                             v-show="props.row.ckrwStatus<51&&props.row.ckrwStatus>10"
@@ -836,9 +836,10 @@
                     prop="baseLocation.blLname">
             </el-table-column>
 
+            <!--v-if="lists.ckCkdjType==0&&lists.ckRwStatus<=21&&lists.ckStatus==1"-->
             <el-table-column
+                    v-if="false"
                     label="操作"
-                    v-if="lists.ckCkdjType==0&&lists.ckRwStatus<=21&&lists.ckStatus==1"
                     prop="rksCount"
                     align="center">
                 <template scope="scope">

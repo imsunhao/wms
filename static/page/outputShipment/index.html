@@ -79,7 +79,8 @@
                                                 <span>{{props.row.goodsTypeNum}}</span>
                                             </el-form-item>
                                             <el-form-item label="任务状态">
-                                                <el-tag-s :val="auto_el_tag('ckRwStatus',props.row.ckrwStatus)"></el-tag-s>
+                                                <el-tag-s
+                                                        :val="auto_el_tag('ckRwStatus',props.row.ckrwStatus)"></el-tag-s>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :span="10" :offset="2">
@@ -97,25 +98,39 @@
                                             </el-form-item>
 
                                             <el-form-item label="欠货状态">
-                                                <el-tag-s :val="auto_el_tag('ckQhStatus',props.row.ckrwQhStatus)"></el-tag-s>
+                                                <el-tag-s
+                                                        :val="auto_el_tag('ckQhStatus',props.row.ckrwQhStatus)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item label="滞留状态">
-                                                <el-tag-s :val="auto_el_tag('ckZlStatus',props.row.ckrwZlStatus)"></el-tag-s>
+                                                <el-tag-s
+                                                        :val="auto_el_tag('ckZlStatus',props.row.ckrwZlStatus)"></el-tag-s>
                                             </el-form-item>
                                             <el-form-item
                                                     label="可用操作">
-                                                <el-button
-                                                        size="small"
-                                                        type="success"
-                                                        v-if="props.row.ckrwStatus<51&&props.row.ckrwSjdcsj!=null"
-                                                        @click="inlineShipment(props.$index, props.row)">发运
-                                                </el-button>
-                                                <el-button
-                                                        size="small"
-                                                        v-if="props.row.ckrwStatus>=51"
-                                                        @click="inlinePrintCarrierAgreement(props.$index, props.row)">
-                                                    打印承运协议
-                                                </el-button>
+                                                <el-row>
+                                                    <el-button
+                                                            size="small"
+                                                            type="success"
+                                                            v-if="props.row.ckrwStatus<51&&props.row.ckrwSjdcsj!=null"
+                                                            @click="inlineShipment(props.$index, props.row)">发运
+                                                    </el-button>
+                                                </el-row>
+                                                <el-row>
+                                                    <el-button
+                                                            size="small"
+                                                            v-if="props.row.ckrwStatus>=51"
+                                                            @click="inlinePrintCarrierAgreement(props.$index, props.row)">
+                                                        打印承运协议
+                                                    </el-button>
+                                                </el-row>
+                                                <el-row>
+                                                    <el-button
+                                                            size="small"
+                                                            v-show="props.row.ckrwStatus<51&&props.row.ckrwStatus>10"
+                                                            v-if="props.row.ckrwSjdcsj==null"
+                                                            @click="inlineArriveCar(props.$index, props.row)">到车
+                                                    </el-button>
+                                                </el-row>
                                             </el-form-item>
 
                                         </el-col>
@@ -287,6 +302,30 @@
             </div>
         </el-col>
     </el-row>
+    <el-dialog
+            size="tiny"
+            title=""
+            v-model="dialogCarVisible">
+        <div class="dialog-title clearfix" slot="title">
+            <span class="el-dialog__title">实际到车 单号：{{car.ckrwNo}}</span>
+        </div>
+        <el-form
+                :model="car">
+            <el-form-item
+                    label="实际到车时间"
+                    :label-width="formLabelWidth">
+                <el-date-picker
+                        v-model="car.ckrwSjdcsj"
+                        type="datetime"
+                        placeholder="选择到车时间">
+                </el-date-picker>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="carSubmit" :loading="submitLoading">保存
+            </el-button>
+        </div>
+    </el-dialog>
     <el-dialog
             size="tiny"
             class="select"
@@ -531,12 +570,12 @@
         </div>
         <el-form label-position="left">
             <el-form-item label="发运数量" label-width="120px">
-              <el-slider
-                  :max="lists2.cksFyCountMax"
-                  :disabled="lists2.row.cksFyCount==0"
-                  v-model.number="lists2.cksFyCount"
-                  show-input>
-              </el-slider>
+                <el-slider
+                        :max="lists2.cksFyCountMax"
+                        :disabled="lists2.row.cksFyCount==0"
+                        v-model.number="lists2.cksFyCount"
+                        show-input>
+                </el-slider>
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">

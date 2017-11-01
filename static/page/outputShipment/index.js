@@ -29,6 +29,8 @@ var outputShipment = new Vue({
       lists: formList(),                      //出库详细 弹出层 信息集合
       lists2: lists2Form(),
 
+      car: formCar(),                       //到车信息  弹出层 信息集合
+      dialogCarVisible: false,              //到车信息  弹出层 是否可见
       printDatas: _printDatas_p1(),              //打印 承运协议 信息集合
 
       changeoutputShipment: [],
@@ -90,6 +92,34 @@ var outputShipment = new Vue({
     },                                      //分配 表单
   },
   methods: {
+    inlineArriveCar: function (index, row) {
+      var step = formCar();
+      allPrposCb(step, function (obj2, index) {
+        if (typeof row[index] !== 'undefined') step[index] = row[index];
+      });
+      this.car = step;
+
+      this.dialogCarVisible = true;
+    },                             //行内按钮-到车
+    carSubmit: function () {
+      obj.$confirm('实际到车时间一旦录入系统不能修改, 是否继续? ', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(function () {
+        obj.submitLoading = true;
+        p[104].post({
+          "id": obj.car.ckrwId,
+          "ckrwSjdcsj": (new Date(obj.car.ckrwSjdcsj)).toJSON(),
+          "userName": app.rmsUser.ruUserName
+        });
+      }).catch(function () {
+        obj.$message({
+          type: 'info',
+          message: '已取消'
+        });
+      });
+    },                                             //到车-保存
     multiSelectClick: function () {
       this.multiSelect = !this.multiSelect;
     },                                      //多选 状态维护
@@ -473,6 +503,18 @@ p[101] = autoPost({
 p[102] = autoPost({
   urlHock: "/hock/warehousingTask/rwmfunckDoc.json",
   urlProd: "/route/outboundTask/1"
+});
+// 104 出库任务-实际到车
+p[104] = autoPost({
+  urlHock: "/hock/warehousingTask/mfunckDoc.json",
+  urlProd: "/route/outboundTask/4",
+  success: function (json) {
+    obj.submitLoading = false;
+    this.callbackAfter({status: json.status, model: '实际到车'}, function () {
+      obj.dialogCarVisible = false;
+      p[0].post(outboundTask.option);
+    })
+  }
 });
 
 function selectGood() {
