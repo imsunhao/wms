@@ -469,7 +469,7 @@ router.param('_url', function (req, res, next, url) {
             break;
           case 9:
             urlName = '货品编号  判断货品编号是否重复';
-            req = autoUrl(req, '/goods/isRepeatByBgGoodsNo' + req.query.bgGoodsNo, "GET", function (json) {
+            req = autoUrl(req, '/goods/isRepeatByBgGoodsNo', "POST", function (json) {
               res.send(json);
             });
             break;
